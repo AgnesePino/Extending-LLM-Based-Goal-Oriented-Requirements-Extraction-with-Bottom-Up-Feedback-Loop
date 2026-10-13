@@ -1,333 +1,429 @@
-# LLM Multi-Agent Chain for Goal-Oriented API Alignment
+# Catena multi-agente LLM per l'allineamento delle API orientato agli obiettivi
 
-## Overview
+## Panoramica
 
-This repository extracts goal hierarchies from software documentation using
-Goal-Oriented Requirements Engineering (GORE) and Large Language Models. It
-preserves the original top-down pipeline proposed in *Evaluating LLM-Based Goal
-Extraction in Requirements Engineering: Prompting Strategies and Their
-Limitations* and adds a separate bottom-up validation stage for the experimental
-comparison developed in this project.
+Questo repository estrae gerarchie di obiettivi dalla documentazione software
+utilizzando la Goal-Oriented Requirements Engineering (GORE) e i Large Language
+Model. Conserva la pipeline top-down originale proposta in *Evaluating LLM-Based
+Goal Extraction in Requirements Engineering: Prompting Strategies and Their
+Limitations* e aggiunge una fase separata di validazione bottom-up per il
+confronto sperimentale sviluppato in questo progetto.
 
-## Architecture: LLM Multi-Agent Chain
+## Architettura: catena multi-agente LLM
 
-![System Architecture](Architecture.png)
+![Architettura del sistema](Architecture.png)
 
-The original pipeline uses a fixed top-down LLM chain. Each stage consumes the
-structured output of the preceding one:
+La pipeline originale utilizza una catena LLM top-down fissa. Ogni fase riceve
+l'output strutturato di quella precedente:
 
-1. **Documentation preprocessing (optional):** converts an unstructured README
-   or requirements document into a natural-language project description.
-2. **Actor identification:** extracts the end-user roles that interact with the
-   system.
-3. **High-Level Goal extraction:** identifies the strategic functional goals of
-   the extracted actors.
-4. **Low-Level Goal extraction:** decomposes the complete set of HLGs into
-   concrete functional actions. All HLGs are supplied together in one generation
-   call, as in the original implementation.
-5. **API mapping:** aligns the resulting LLGs with API endpoints when API
-   documentation is available.
+1. **Pre-elaborazione della documentazione (opzionale):** converte un README non
+   strutturato o un documento dei requisiti in una descrizione del progetto in
+   linguaggio naturale.
+2. **Identificazione degli attori:** estrae i ruoli degli utenti finali che
+   interagiscono con il sistema.
+3. **Estrazione degli High-Level Goal:** identifica gli obiettivi funzionali
+   strategici degli attori estratti.
+4. **Estrazione dei Low-Level Goal:** scompone l'insieme completo degli HLG in
+   azioni funzionali concrete. Tutti gli HLG vengono forniti insieme in una
+   singola chiamata di generazione, come nell'implementazione originale.
+5. **Mapping delle API:** associa gli LLG risultanti agli endpoint API quando è
+   disponibile la relativa documentazione.
 
-Actor, HLG, and LLG generation can use the original generator-critic mechanism.
-When enabled, the critic assigns a score and a critique to the generated output.
-If the score is below the configured quality threshold, the critique is returned
-to the generator for another attempt, up to the maximum number of iterations.
+La generazione di attori, HLG e LLG può utilizzare il meccanismo
+generator-critic originale. Quando è abilitato, il critic assegna un punteggio e
+una critica all'output generato. Se il punteggio è inferiore alla soglia di
+qualità configurata, la critica viene restituita al generatore per un nuovo
+tentativo, fino al numero massimo di iterazioni.
 
-The bottom-up cycle implemented in this repository is an extension and is not
-part of the original top-down baseline. It starts from a persisted top-down
-result, reconstructs HLGs from their LLGs, and can confirm, repair, remove, or
-regenerate inconsistent branches. The original top-down output remains separate
-so that the two configurations can be evaluated independently.
+Il ciclo bottom-up implementato in questo repository è un'estensione e non fa
+parte della baseline top-down originale. Parte da un risultato top-down
+persistito, ricostruisce gli HLG a partire dai relativi LLG e può confermare,
+correggere, rimuovere o rigenerare branch incoerenti. L'output top-down originale
+rimane separato, così da poter valutare indipendentemente le due configurazioni.
 
-## Current Bottom-Up Discovery and Validation Cycle
+Il percorso originale di generazione e reflection degli HLG top-down non applica
+una deduplicazione deterministica basata sul nome normalizzato dell'HLG. Rimane
+invariato: le decisioni sulla ridondanza semantica introdotte da questa
+estensione appartengono al critic HLG bottom-up.
 
-### Purpose and input boundary
+## Ciclo bottom-up corrente di validazione e correzione
 
-The bottom-up stage currently combines two objectives:
+La baseline usa la logica originale di `src.extraction.extractor`, `src.utils`
+e `src.self_critique.refine_response`: prompt dell'allegato, parsing originale,
+soglia 8,5 e 3 tentativi. Gemini/Qwen, Zero-shot e critic attivo restano la
+configurazione sperimentale corrente.
+La reflection originale e quella focalizzata per le riparazioni bottom-up sono
+nello stesso `src.self_critique.refine_response`, ma usano simboli distinti: la
+baseline conserva i nomi e i prompt originali, mentre l'estensione usa il
+prefisso `BottomUp`/`bottom_up_`, con soglia 8,0 e 5 tentativi. Analogamente,
+`src.extraction.extractor` conserva i generatori originali e aggiunge
+`generate_bottom_up_low_level_goals` per il solo contesto di riparazione. Il
+generatore HLG e i client restano condivisi.
 
-1. **validation and repair**, which removes redundancy and repairs inconsistent
-   HLG-to-LLG decompositions;
-2. **discovery**, which searches the project description for an actor-level
-   intention not represented by the current HLG collection.
+Il comportamento operativo, la matrice dei critic, i dettagli del voting e i
+limiti riscontrati nel codice sono descritti nel
+[README bottom-up](src/bottom_up/README_bottom_up.md). Una iterazione analizza
+tutti i branch attivi prima di applicare le correzioni; nell'iterazione iniziale
+sono attivi tutti i branch. La convergenza è un accordo interno dei critic,
+non una garanzia di corrispondenza alla ground truth.
 
-It does not repeat the initial actor, HLG, or LLG extraction. Its input is the
-persisted top-down project description and the structured top-down HLG and LLG
-objects. Consequently, the discovery boundary is the information contained in
-that description: README sections, OpenAPI evidence, issues, interviews, or
-other artifacts that were not included in it cannot currently produce new
-requirements.
+### Obiettivi e perimetro dell'input
 
-Each LLG already contains the structured `high_level_associated` parent emitted
-by the original top-down pipeline. The bottom-up phase groups LLGs by that
-embedded object without matching names, applying actor fallbacks, or rewriting
-the relationship. Before the cycle starts, it rejects a baseline if an embedded
-parent is not an exact member of `structuredHighLevelGoals`. The top-down
-baseline is never overwritten; the combined result and the complete iteration
-trace are stored separately under
-`output/top_down_bottom_up/` and `output/bottom_up_iterations/`.
+La fase bottom-up ha un unico obiettivo principale: **validare e correggere** la
+gerarchia prodotta dalla baseline, rimuovendo ridondanze effettive e riparando le
+decomposizioni HLG-LLG incoerenti.
 
-### Execution algorithm
+La discovery degli HLG mancanti è un modulo separato e opzionale, disattivato per
+impostazione predefinita. Può essere abilitato nel notebook impostando
+`ENABLE_HLG_DISCOVERY = True`; soltanto in questa modalità il ciclo cerca nella
+descrizione del progetto intenzioni a livello di attore non rappresentate
+nell'insieme corrente di HLG.
 
-During each iteration, the orchestrator performs the following operations:
+Non ripete l'estrazione iniziale di attori, HLG o LLG. Riceve in input la
+descrizione del progetto persistita dalla fase top-down e gli oggetti strutturati
+HLG e LLG prodotti dalla stessa fase. Il perimetro della discovery coincide
+quindi con le informazioni contenute in tale descrizione: sezioni del README,
+evidenze OpenAPI, issue, interviste o altri artefatti non inclusi non possono
+attualmente produrre nuovi requisiti.
 
-1. builds the branch view directly from each LLG's embedded top-down parent;
-2. reconstructs one diagnostic HLG from the LLGs of every active branch, without
-   showing the original parent HLG to the reconstructor;
-3. evaluates the original HLG with a dedicated prompt using the reconstruction,
-   sibling HLGs, and project description;
-4. when the HLG is retained, evaluates its LLG decomposition with a second
-   dedicated prompt;
-5. runs a third, project-wide coverage prompt over the description and current
-   HLG set, considering explicit and workflow-implied intentions for existing
-   actors;
-6. applies a bounded set of corrections to the current goal hierarchy and
-   starts a new iteration;
-7. stops when all branches are confirmed and no missing HLG is reported, when no
-   executable action remains, or when the iteration limit is reached.
+Ogni LLG contiene già il parent strutturato `high_level_associated` emesso dalla
+pipeline top-down originale. La fase bottom-up raggruppa gli LLG tramite questo
+oggetto incorporato, senza confrontare i nomi, applicare fallback sugli attori o
+riscrivere la relazione. Prima dell'avvio del ciclo, la baseline viene rifiutata
+se un parent incorporato non è un membro esatto di
+`structuredHighLevelGoals`. La baseline top-down non viene mai sovrascritta; il
+risultato combinato e il trace completo delle iterazioni vengono salvati
+separatamente in `output/top_down_bottom_up/` e
+`output/bottom_up_iterations/`.
 
-The three bottom-up evaluator prompts share one bounded critic conversation per
-project. After each iteration, the orchestrator records the HLG additions,
-removals or replacements and the LLG additions or removals that were actually
-applied for each parent.
-From iteration two onward, that previous-iteration hierarchy summary is included
-explicitly in every critic request. The first iteration receives only a summary
-of the initial hierarchy.
-Generators, reconstruction, top-down evaluation, and different projects do not
-share this memory. The retained context is compact: it contains at most four
-recent evaluator exchanges, two hierarchy-update summaries, and 2,500
-characters of critic history rather than replaying complete earlier prompts.
+### Algoritmo di esecuzione
 
-Each of the three critic prompts includes task-specific few-shot examples. The
-HLG prompt calibrates `KEEP`, `REWRITE`, and `REMOVE`; the LLG prompt contrasts
-valid API-mappable decompositions with material coverage defects; the global
-prompt distinguishes genuinely missing actor intentions from narrower variants
-of goals that are already covered.
+Durante ogni iterazione, l'orchestratore esegue le seguenti operazioni:
 
-Every bottom-up evaluator decision uses three independent parallel calls and a
-2-of-3 majority. Each voter also assigns the current artifact a quality score
-from 0 to 5 using task-specific examples: scores 3, 4, and 5 pass, while scores
-0, 1, and 2 require a corrective decision. A vote whose score conflicts with
-its decision is discarded before aggregation. Five voters with a 3-of-5 quorum
-can be selected through `BOTTOM_UP_EVALUATOR_VOTERS=5`. All voters see the same
-immutable conversation snapshot, and only the aggregated verdict is written to
-memory and to the iteration trace. An invalid individual response is retried
-once by default; `BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS` accepts values from 1 to 3.
+1. costruisce la vista dei branch direttamente dal parent top-down incorporato
+   in ciascun LLG;
+2. ricostruisce un HLG diagnostico a partire dagli LLG di ogni branch attivo,
+   senza mostrare al reconstructor l'HLG parent originale;
+3. confronta semanticamente l'HLG originale con la ricostruzione, poi con la
+   descrizione completa e con i sibling. Il risultato espone
+   `reconstruction_relationship` (`EQUIVALENT`, `PARTIAL_OVERLAP`,
+   `MATCHES_SIBLING`, `DIFFERENT` o `NOT_RECONSTRUCTABLE`) e il flag
+   `requires_llg_evaluation`;
+4. invoca il secondo critic soltanto per un `KEEP` con
+   `requires_llg_evaluation=true`. Un `KEEP` equivalente e documentato conferma
+   direttamente il branch, ma richiede uno score HLG di 5/5; `REWRITE` e
+   `REMOVE` non valutano la vecchia
+   decomposizione;
+5. soltanto quando la discovery è abilitata e tutti i branch correnti sono stati
+   confermati, esegue un prompt separato di copertura sull'intero progetto,
+   considerando la descrizione, l'insieme corrente di HLG e le intenzioni
+   esplicite o implicate dal workflow per gli attori esistenti;
+6. applica un insieme limitato di correzioni alla gerarchia corrente e avvia una
+   nuova iterazione;
+7. termina quando tutti i branch sono confermati, quando non rimangono azioni
+   eseguibili oppure quando viene raggiunto il limite di iterazioni. Se la
+   discovery è abilitata, richiede inoltre che non risultino HLG mancanti.
 
-Bottom-up HLG rewrites and discoveries, and bottom-up LLG regenerations, use
-Zero-shot generation followed by the enabled Few-shot top-down critic. Actor
-extraction is not repeated during this phase; the actors persisted by the
-baseline are reused. The bottom-up generation setting is explicit and does not
-inherit an older baseline's extraction profile.
+I due critic di validazione, HLG e LLG, condividono una conversazione limitata
+per ciascun progetto. Quando la discovery è abilitata, anche il critic opzionale
+di copertura usa la stessa conversazione. Dopo ogni iterazione, l'orchestratore registra le
+aggiunte, rimozioni o sostituzioni di HLG e le aggiunte o rimozioni di LLG
+effettivamente applicate a ciascun parent.
 
-The orchestrator default is 5 iterations, while the current bottom-up notebook
-sets an explicit experimental limit of 25. A confirmed branch is skipped while
-the HLG structure remains unchanged. An HLG addition, removal, or rewrite clears
-those confirmations and triggers a complete branch audit in the next iteration.
-Branches are identified by stable actor/HLG identity rather than positional
-`branch_NNN` identifiers.
+Dalla seconda iterazione in poi, il riepilogo della gerarchia risultante
+dall'iterazione precedente viene incluso esplicitamente in ogni richiesta al
+critic. La prima iterazione riceve soltanto un riepilogo della gerarchia
+iniziale. Generatori, ricostruzione, valutazione top-down e progetti differenti
+non condividono questa memoria. Il contesto conservato è compatto: contiene al
+massimo quattro scambi recenti del valutatore e conserva due riepiloghi degli
+aggiornamenti, ma invia solo l'ultimo. Il budget di 2.500 caratteri limita gli
+scambi, non il riepilogo o il prompt corrente, anziché riprodurre
+integralmente i prompt precedenti.
 
-| Evaluator decision | Current hierarchy update | Creates a new branch? |
+Ciascun prompt del critic include esempi few-shot specifici per il proprio
+compito. Il prompt HLG calibra `KEEP`, `REWRITE` e `REMOVE`; quello LLG confronta
+decomposizioni valide e associabili alle API con difetti sostanziali di
+copertura. Il prompt globale opzionale distingue le intenzioni degli attori
+realmente mancanti dalle varianti più ristrette di obiettivi già coperti.
+
+Ogni decisione del valutatore bottom-up utilizza tre chiamate parallele
+indipendenti e una maggioranza di 2 su 3. Per il primo critic il quorum riguarda
+anche le rimozioni HLG, senza requisito di unanimità, mantenendo i controlli
+sulla base della rimozione e sul sibling coprente. Il voto aggregato considera
+la terna completa relazione/decisione/routing, evitando di aggregare campi
+provenienti da diagnosi incompatibili. Ogni voter assegna inoltre
+all'artefatto corrente un punteggio di qualità da 0 a 5 usando esempi specifici:
+i punteggi 3, 4 e 5 sono sufficienti, mentre 0, 1 e 2 richiedono una correzione.
+Un voto il cui punteggio contraddice la decisione viene scartato prima
+dell'aggregazione. È possibile usare cinque voter con quorum 3 su 5 impostando
+`BOTTOM_UP_EVALUATOR_VOTERS=5`. Tutti i voter ricevono lo stesso snapshot
+immutabile della conversazione e soltanto il verdetto aggregato viene scritto
+nella memoria e nel trace dell'iterazione. Per impostazione predefinita, una
+risposta individuale non valida dispone di tre tentativi complessivi (due retry);
+`BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS` accetta valori da 1 a 3.
+
+Il routing HLG–LLG segue questo albero decisionale:
+
+| Relazione diagnosticata | Stato del parent | Decisione | Critic LLG |
+|---|---|---|---|
+| `EQUIVALENT` | documentato e valido | `KEEP` | no |
+| `PARTIAL_OVERLAP` | valido | `KEEP` | sì |
+| `PARTIAL_OVERLAP` | formulato male | `REWRITE` | no |
+| `MATCHES_SIBLING` | interamente ridondante | `REMOVE` | no |
+| `MATCHES_SIBLING` | distinto e valido | `KEEP` | sì |
+| `DIFFERENT` | valido | `KEEP` | sì |
+| qualsiasi, anche `EQUIVALENT` | materialmente errato o incompleto, ma recuperabile | `REWRITE` | no |
+| qualsiasi | intenzione completamente non documentata | `REMOVE` | no |
+| `NOT_RECONSTRUCTABLE` | valido ma senza LLG | `KEEP` | sì, per generare gli LLG |
+
+Le riscritture degli HLG e le rigenerazioni degli LLG bottom-up utilizzano una
+generazione zero-shot seguita dal critic
+top-down few-shot abilitato. In questa fase l'estrazione degli attori non viene
+ripetuta: vengono riutilizzati gli attori persistiti dalla baseline. La
+configurazione di generazione bottom-up è esplicita e non eredita il profilo di
+estrazione di una baseline precedente. Le generazioni dovute alla discovery
+seguono lo stesso percorso, ma avvengono soltanto quando il modulo è abilitato.
+
+Il valore predefinito dell'orchestratore è di 5 iterazioni, mentre il notebook
+bottom-up corrente imposta esplicitamente un limite sperimentale di 25. Un branch
+confermato viene ignorato finché la struttura degli HLG rimane invariata.
+L'aggiunta, la rimozione o la riscrittura di un HLG annulla tali conferme e
+attiva un nuovo audit completo dei branch nell'iterazione successiva. I branch
+usano ID tecnici derivati dall'intero HLG strutturato e da un indice di
+occorrenza. Questi ID servono esclusivamente a coordinare le decisioni: non
+implicano che nomi uguali siano equivalenti o che nomi diversi rappresentino
+obiettivi distinti.
+
+| Decisione del valutatore | Aggiornamento della gerarchia corrente | Crea un nuovo branch? |
 |---|---|---|
-| `CONFIRM_BRANCH` | Preserves the branch until the HLG structure changes | No |
-| `REWRITE_ORIGINAL_HIGH_LEVEL_GOAL` | Calls the top-down HLG generator, replaces one HLG, and regenerates its LLGs | Replacement, not net discovery |
-| `REMOVE_ORIGINAL_HIGH_LEVEL_GOAL` | Removes the HLG and all its LLGs | No; deletes one branch |
-| `REGENERATE_LOW_LEVEL_GOALS` | Calls the top-down LLG generator for the same parent HLG | No |
-| `MISSING_HIGH_LEVEL_GOALS_FOUND` | Calls the top-down HLG generator and then the top-down LLG generator | Yes |
-| `EVALUATION_INCONCLUSIVE` | Leaves the current goal hierarchy unchanged and records a warning | No |
+| `CONFIRM_BRANCH` | Mantiene il branch finché la struttura degli HLG non cambia | No |
+| `REWRITE_ORIGINAL_HIGH_LEVEL_GOAL` | Chiama il generatore HLG top-down, sostituisce un HLG e ne rigenera gli LLG | Sostituzione, non discovery netta |
+| `REMOVE_ORIGINAL_HIGH_LEVEL_GOAL` | Elimina il branch; se ridondante, richiede consolidamento degli LLG nel target coprente | No; può rigenerare un branch mantenuto |
+| `REGENERATE_LOW_LEVEL_GOALS` | Chiama il generatore LLG top-down per lo stesso HLG parent | No |
+| `MISSING_HIGH_LEVEL_GOALS_FOUND` | In modalità discovery, chiama il generatore HLG top-down e poi quello LLG top-down | Sì |
+| `EVALUATION_INCONCLUSIVE` | Lascia invariata la gerarchia corrente e registra un warning | No |
 
-Corrections to the goal hierarchy are deliberately ordered: at most one HLG
-rewrite and five HLG removals are applied in an iteration, and one branch
-receives LLG regeneration at a time. Missing-HLG discovery has no numerical
-cap: every distinct documented gap returned by the coverage critic is generated
-once the hierarchy is stable. An
-existing branch may be regenerated or rewritten at most twice. These bounds are
-engineering safeguards against repeated repair loops, rather than empirically
-optimized thresholds. LLG decompositions, whether generated for a new HLG or
-regenerated for an existing branch, have no fixed numerical cap: the generator
-is asked for a complete, non-redundant decomposition of distinct documented
-functional interactions, which is then checked for empty, duplicate, or
-incorrectly associated goals. Rewrite and removal actions
-take precedence over missing-HLG additions because they change the goal space
-against which global coverage is judged.
+Le correzioni alla gerarchia degli obiettivi vengono ordinate deliberatamente:
+in una singola iterazione vengono applicate al massimo una riscrittura HLG e due
+rimozioni HLG, mentre viene rigenerato un solo branch LLG alla volta. La
+discovery opzionale degli HLG mancanti non ha un limite numerico quando è
+abilitata: ogni gap distinto e documentato restituito dal critic di copertura
+viene generato una volta che la gerarchia è stabile. Un branch esistente può essere rigenerato o riscritto al
+massimo due volte. Questi limiti sono protezioni ingegneristiche contro cicli di
+correzione ripetuti, non soglie ottimizzate empiricamente.
 
-### Does it currently perform discovery?
+Le decomposizioni LLG, sia quelle generate per un nuovo HLG sia quelle rigenerate
+per un branch esistente, non hanno un limite numerico fisso: al generatore viene
+richiesta una decomposizione completa e non ridondante delle interazioni
+funzionali distinte e documentate, successivamente controllata per individuare
+obiettivi vuoti, duplicati o associati in modo errato. Le azioni di riscrittura e
+rimozione hanno la precedenza sulle aggiunte di HLG mancanti, perché modificano
+lo spazio degli obiettivi rispetto al quale viene valutata la copertura globale.
 
-**Yes.** Every iteration contains a global coverage query that can return all
-distinct, documented actor-level gaps. A gap may
-be explicit or inferred from at least two coherent workflow passages or actor
-responsibilities. When accepted, the normal top-down HLG and LLG generators
-create a new branch. The bottom-up process is therefore not restricted to
-deleting or rewriting the baseline.
+### Discovery opzionale
 
-The present implementation nevertheless has important discovery limitations:
+**Non nella configurazione predefinita.** Con `ENABLE_HLG_DISCOVERY = False` il
+ciclo esegue esclusivamente validazione e correzione e non chiama il critic di
+copertura globale. Impostando il flag a `True`, la copertura viene valutata solo
+dopo la conferma di tutti i branch correnti e può restituire tutti i gap distinti
+e documentati a livello di attore. Un gap può
+essere esplicito oppure dedotto da almeno due passaggi coerenti del workflow o da
+responsabilità dell'attore. Quando viene accettato, i normali generatori HLG e
+LLG top-down creano un nuovo branch. Il processo bottom-up non è quindi limitato
+alla rimozione o alla riscrittura della baseline.
 
-- discovery is based on one consolidated project description rather than an
-  indexed collection of source passages;
-- discovery is restricted to actors already represented by the current HLG set;
-- exact normalized duplicates (`actor::HLG name`) are blocked deterministically
-  by the bottom-up cycle, while semantic overlaps with different names still
-  depend on the HLG critic;
-- regenerated LLGs are accepted when non-empty; there is no deterministic
-  before/after semantic coverage gate;
-- removed and replaced HLGs are re-audited from a retained checklist, but the
-  final coverage judgment remains model-based;
-- the three specialized evaluator calls increase cost as the number of active
-  branches grows.
+Quando viene abilitata, la discovery presenta tuttavia importanti limitazioni:
 
-The currently saved evaluation demonstrates stronger precision with a smaller
-recall reduction. Macro HLG F1 rises from `0.5504` to `0.6299` and macro LLG F1
-from `0.3768` to `0.4300`. HLG recall changes from `0.7507` to `0.7070`, while
-LLG recall changes from `0.4888` to `0.4579`. HLG count decreases from 105 to 70
-and LLG count from 457 to 328. These files predate the uncapped discovery audit
-and the complete, atomic LLG regeneration prompt, so they must be regenerated
-before being treated as final results for the current code.
+- la discovery si basa su un'unica descrizione consolidata del progetto, anziché
+  su una raccolta indicizzata di passaggi sorgente;
+- la discovery è limitata agli attori già rappresentati nell'insieme corrente di
+  HLG;
+- la ridondanza degli HLG viene decisa esclusivamente dal critic HLG sulla base
+  del contesto semantico completo e degli LLG associati; l'orchestratore non
+  blocca né fonde HLG perché i rispettivi valori normalizzati `actor::name`
+  coincidono;
+- gli LLG rigenerati vengono accettati quando non sono vuoti; non è presente un
+  controllo semantico deterministico della copertura prima e dopo la modifica;
+- gli HLG rimossi e sostituiti vengono nuovamente sottoposti ad audit tramite una
+  checklist conservata, ma il giudizio finale sulla copertura rimane basato sul
+  modello;
+- le tre chiamate specializzate al valutatore aumentano il costo al crescere del
+  numero di branch attivi.
 
-None of the currently saved traces contains a final
-`MISSING_HIGH_LEVEL_GOALS_FOUND` decision. The discovery path is implemented and
-tested by the cycle, but this experimental snapshot therefore does not yet
-demonstrate recovery of a genuinely absent functional intention. Detailed
-measurements are available in
+La valutazione attualmente salvata mostra una precisione maggiore con una
+riduzione più contenuta della recall. La macro F1 degli HLG aumenta da `0.5504`
+a `0.6299` e quella degli LLG da `0.3768` a `0.4300`. La recall degli HLG
+passa da `0.7507` a `0.7070`, mentre quella degli LLG passa da `0.4888` a
+`0.4579`. Il numero di HLG diminuisce da 105 a 70 e quello degli LLG da 457 a
+328. Questi file precedono l'audit di discovery senza limite numerico e il prompt
+di rigenerazione LLG completo e atomico; devono quindi essere rigenerati prima
+di poter essere considerati risultati definitivi per il codice corrente.
+
+Nessuno dei trace attualmente salvati contiene una decisione finale
+`MISSING_HIGH_LEVEL_GOALS_FOUND`. Il percorso di discovery è implementato e
+testato dal ciclo, ma questo snapshot sperimentale non dimostra ancora il
+recupero di un'intenzione funzionale realmente assente. Le misurazioni
+dettagliate sono disponibili in
 `output/evaluation/top_down_vs_bottom_up/top_down_vs_bottom_up_macro_summary.csv`
-and `output/evaluation/top_down_vs_bottom_up/top_down_vs_bottom_up_deltas.csv`.
+e
+`output/evaluation/top_down_vs_bottom_up/top_down_vs_bottom_up_deltas.csv`.
 
-### Discovery-oriented development roadmap
+### Roadmap di sviluppo orientata alla discovery
 
-The following items are proposed improvements and are **not implemented in the
-current pipeline**. They are ordered for a recall-oriented objective while still
-protecting precision.
+Gli elementi seguenti sono miglioramenti proposti e **non sono implementati
+nella pipeline corrente**. Sono ordinati in funzione di un obiettivo orientato
+alla recall, continuando comunque a proteggere la precisione.
 
-1. **Build an evidence-to-goal coverage ledger.** Split every available source
-   artifact into addressable passages and require each actor, HLG, and LLG to
-   retain source IDs. Extract candidate capabilities from every passage and keep
-   an explicit `covered`, `partially covered`, `uncovered`, or `conflicting`
-   status. Discovery then targets uncovered evidence instead of asking the model
-   once whether something appears missing. Retrieval-grounded generation can
-   also provide source attribution and reduce unsupported generations, as shown
-   by [In-Context Retrieval-Augmented Language Models](https://aclanthology.org/2023.tacl-1.75/).
+1. **Costruire un registro di copertura evidence-to-goal.** Suddividere ogni
+   artefatto sorgente disponibile in passaggi indirizzabili e richiedere che ogni
+   attore, HLG e LLG conservi gli ID delle fonti. Estrarre capacità candidate da
+   ogni passaggio e mantenere uno stato esplicito `covered`,
+   `partially covered`, `uncovered` o `conflicting`. La discovery può quindi
+   concentrarsi sulle evidenze non coperte, anziché chiedere una sola volta al
+   modello se manca qualcosa. La generazione basata sul retrieval può inoltre
+   fornire l'attribuzione delle fonti e ridurre le generazioni non supportate,
+   come mostrato in
+   [In-Context Retrieval-Augmented Language Models](https://aclanthology.org/2023.tacl-1.75/).
 
-2. **Add a real actor-discovery pass.** Run actor extraction over uncovered
-   evidence and allow an evidence-backed actor to enter `known_actors` before
-   generating its HLG. Require at least one source span and a distinct functional
-   intention. This extends discovery beyond the current existing-actor boundary.
+2. **Aggiungere una vera fase di discovery degli attori.** Eseguire l'estrazione
+   degli attori sulle evidenze non coperte e consentire a un attore supportato da
+   evidenze di entrare in `known_actors` prima della generazione del relativo
+   HLG. Richiedere almeno un passaggio sorgente e un'intenzione funzionale
+   distinta. In questo modo la discovery supera l'attuale limite degli attori
+   già esistenti.
 
-3. **Separate discovery from destructive validation.** First produce and validate
-   an additive candidate pool on an immutable baseline; only afterwards perform
-   optional merge, rewrite, and removal. A new candidate should not be suppressed
-   merely because another branch is being repaired in the same iteration.
+3. **Separare la discovery dalla validazione distruttiva.** Produrre e validare
+   prima un insieme additivo di candidati su una baseline immutabile; eseguire
+   solo successivamente eventuali fusioni, riscritture e rimozioni. Un nuovo
+   candidato non dovrebbe essere soppresso soltanto perché un altro branch viene
+   corretto nella stessa iterazione.
 
-4. **Use targeted, iterative retrieval.** Query evidence separately by actor,
-   domain entity, workflow, lifecycle phase, and currently uncovered capability.
-   Feed each discovered gap back into the next retrieval step. This follows the
-   retrieve-generate-retrieve pattern investigated by
-   [Iter-RetGen](https://aclanthology.org/2023.findings-emnlp.620/) and avoids
-   relying on a single global prompt.
+4. **Utilizzare un retrieval mirato e iterativo.** Interrogare separatamente le
+   evidenze per attore, entità di dominio, workflow, fase del ciclo di vita e
+   capacità attualmente non coperta. Reinserire ogni gap individuato nella fase
+   di retrieval successiva. Questo approccio segue il pattern
+   retrieve-generate-retrieve studiato da
+   [Iter-RetGen](https://aclanthology.org/2023.findings-emnlp.620/) ed evita di
+   dipendere da un unico prompt globale.
 
-5. **Use hierarchical/global evidence aggregation.** Requirements discovery is a
-   corpus-wide sensemaking problem, not only a nearest-passage lookup. A graph or
-   hierarchical index can connect actors, resources, events, constraints, and
-   operations before proposing missing intentions. The
-   [GraphRAG global summarization study](https://arxiv.org/abs/2404.16130)
-   reports improved comprehensiveness and diversity for global questions over
-   large corpora.
+5. **Utilizzare un'aggregazione gerarchica e globale delle evidenze.** La
+   discovery dei requisiti è un problema di comprensione dell'intero corpus, non
+   soltanto di ricerca del passaggio più vicino. Un grafo o un indice gerarchico
+   può collegare attori, risorse, eventi, vincoli e operazioni prima di proporre
+   intenzioni mancanti. Lo
+   [studio sulla summarization globale di GraphRAG](https://arxiv.org/abs/2404.16130)
+   riporta una maggiore completezza e varietà nelle domande globali su corpus di
+   grandi dimensioni.
 
-6. **Patch branches additively.** For an LLG gap, preserve supported existing LLGs
-   and generate only the explicitly missing capabilities. For an HLG rename or
-   scope correction, re-parent supported LLGs before generating additions. Run a
-   shadow before/after coverage comparison and reject a change that loses a
-   source-backed capability. This directly addresses the Genome Nexus regression.
+6. **Correggere i branch in modo additivo.** In presenza di un gap LLG,
+   conservare gli LLG esistenti supportati e generare soltanto le capacità
+   esplicitamente mancanti. Per la rinomina o la correzione dell'ambito di un
+   HLG, riassegnare prima il parent degli LLG supportati e poi generare le
+   aggiunte. Eseguire un confronto di copertura shadow prima e dopo la modifica e
+   rifiutare una variazione che perda una capacità supportata dalle fonti. Questo
+   affronta direttamente la regressione di Genome Nexus.
 
-7. **Generate a diverse candidate set, then validate it.** Produce several
-   discovery candidates from independent actor-, workflow-, and data-resource
-   perspectives; cluster semantic duplicates; retain candidates supported by
-   distinct evidence. This is safer than increasing the unrestricted number of
-   generated goals. Long prompts alone are insufficient because relevant facts
-   can be underused depending on their position, as documented in
+7. **Generare un insieme eterogeneo di candidati e poi validarlo.** Produrre più
+   candidati di discovery da prospettive indipendenti basate su attori, workflow
+   e risorse dati; raggruppare i duplicati semantici e mantenere i candidati
+   supportati da evidenze distinte. È più sicuro che aumentare senza vincoli il
+   numero di obiettivi generati. I prompt lunghi, da soli, non sono sufficienti:
+   i fatti rilevanti possono essere sottoutilizzati in base alla loro posizione,
+   come documentato in
    [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/).
 
-8. **Strengthen destructive decisions.** Require two independent judgments or a
-   deterministic evidence check before `REMOVE` or lossy `REWRITE`. Randomize
-   candidate order in pairwise comparisons and report disagreement. LLM judges
-   can exhibit position, verbosity, and self-enhancement biases, documented by
+8. **Rafforzare le decisioni distruttive.** Richiedere due giudizi indipendenti o
+   un controllo deterministico delle evidenze prima di `REMOVE` o di un
+   `REWRITE` con perdita di informazioni. Randomizzare l'ordine dei candidati
+   nei confronti a coppie e riportare i disaccordi. I giudici LLM possono
+   manifestare bias di posizione, verbosità e auto-preferenza, come documentato
+   da
    [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://papers.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html).
 
-9. **Stop on measured coverage saturation.** Terminate discovery only after all
-   evidence units have been checked and multiple independent passes add no new
-   validated capability. Keep separate counters for discovered, merged,
-   rewritten, and removed branches; `NO_MISSING_HIGH_LEVEL_GOALS` from one model
-   call should not be the only completeness criterion.
+9. **Terminare in base alla saturazione misurata della copertura.** Interrompere
+   la discovery soltanto dopo aver controllato tutte le unità di evidenza e
+   quando più passaggi indipendenti non aggiungono nuove capacità validate.
+   Mantenere contatori separati per branch scoperti, fusi, riscritti e rimossi;
+   `NO_MISSING_HIGH_LEVEL_GOALS` restituito da una singola chiamata al modello
+   non dovrebbe essere l'unico criterio di completezza.
 
-10. **Evaluate discovery directly.** In addition to precision, recall, and F1,
-    report evidence coverage, number of genuinely novel supported HLG/LLG items,
-    unsupported-addition rate, destructive coverage loss, actor recall, and
-    results over repeated runs with confidence intervals. Iterative feedback is a
-    useful test-time strategy—see
-    [Self-Refine](https://openreview.net/pdf?id=S37hOerQLB)—but the feedback loop
-    must optimize the intended objective explicitly. For ambiguous gaps, retain a
-    human-validation queue instead of silently adding or removing a requirement.
+10. **Valutare direttamente la discovery.** Oltre a precisione, recall e F1,
+    riportare la copertura delle evidenze, il numero di HLG/LLG realmente nuovi e
+    supportati, il tasso di aggiunte non supportate, la perdita distruttiva di
+    copertura, la recall degli attori e i risultati di esecuzioni ripetute con
+    intervalli di confidenza. Il feedback iterativo è una strategia utile in fase
+    di inferenza, come mostrato in
+    [Self-Refine](https://openreview.net/pdf?id=S37hOerQLB), ma il ciclo di
+    feedback deve ottimizzare esplicitamente l'obiettivo desiderato. Per i gap
+    ambigui, è preferibile mantenere una coda di validazione umana anziché
+    aggiungere o rimuovere silenziosamente un requisito.
 
-For this repository, the recommended first implementation increment is items
-1, 2, 3, and 6: evidence-level coverage, new-actor discovery, an additive
-discovery phase, and a non-regression gate. Together they directly target recall
-without changing the original top-down baseline.
+Per questo repository, il primo incremento di implementazione consigliato
+comprende gli elementi 1, 2, 3 e 6: copertura a livello di evidenza, discovery di
+nuovi attori, fase di discovery additiva e controllo di non regressione. Nel
+complesso, questi interventi agiscono direttamente sulla recall senza modificare
+la baseline top-down originale.
 
-## Installation
+## Installazione
 
-### Prerequisites
+### Prerequisiti
 
-Ensure you have Python installed along with the necessary dependencies.
+Assicurarsi che Python e le dipendenze necessarie siano installati.
 
-### Steps
+### Passaggi
 
-1. Clone this repository:
+1. Clonare il repository:
 
    ```bash
    git clone https://github.com/dadoluca/LLM_MultiAgentChain_GoalOrientedAPIAlignement.git
    cd LLM_MultiAgentChain_GoalOrientedAPIAlignement
    ```
 
-2. Install the required dependencies:
+2. Installare le dipendenze richieste:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Run `notebook/01_pipeline_execution_top_down_only.ipynb`.
-4. Run `notebook/01_pipeline_execution_bottom_up_only.ipynb`.
-5. Optionally run
+3. Eseguire `notebook/01_pipeline_execution_top_down_only.ipynb`.
+4. Eseguire `notebook/01_pipeline_execution_bottom_up_only.ipynb`.
+5. Facoltativamente, eseguire
    `notebook/02_experimental_evaluation_top_down_vs_bottom_up.ipynb`.
 
-## License
+## Licenza
 
-This project has been forked from
+Questo progetto è un fork di
 https://github.com/dadoluca/LLM_MultiAgentChain_GoalOrientedAPIAlignement.
-It is licensed under the **GNU GPL Version 3 License**. See [LICENSE](LICENSE)
-for details.
+È distribuito con licenza **GNU GPL versione 3**. Consultare
+[LICENSE](LICENSE) per i dettagli.
 
-## Adopted Pipeline Configuration
+## Configurazione adottata per la pipeline
 
-The experiments in this repository use the best-performing complete-architecture
-configuration reported in the reference study: the original top-down execution
-flow with the following stage-specific settings:
+Gli esperimenti di questo repository utilizzano la configurazione
+dell'architettura completa con le migliori prestazioni riportate nello studio di
+riferimento: il flusso di esecuzione top-down originale con le seguenti
+impostazioni specifiche per fase:
 
-| Stage | Generator prompting | Critic | Execution |
+| Fase | Prompting del generatore | Critic | Esecuzione |
 |---|---|---|---|
-| Actors | Zero-shot | Few-shot, enabled | Generator-critic loop |
-| High-Level Goals | Zero-shot | Few-shot, enabled | Generator-critic loop |
-| Low-Level Goals | Zero-shot | Few-shot, enabled | Generator-critic loop over all HLGs |
+| Attori | Zero-shot | Few-shot, abilitato | Ciclo generator-critic |
+| High-Level Goal | Zero-shot | Few-shot, abilitato | Ciclo generator-critic |
+| Low-Level Goal | Zero-shot | Few-shot, abilitato | Ciclo generator-critic su tutti gli HLG |
 
-The top-down critic uses four few-shot evaluation examples, a quality threshold
-of `8.5/10`, and at most three generator-critic iterations. These parameters are
-scoped to the top-down notebook and do not change the bottom-up defaults.
+Il critic top-down utilizza quattro esempi di valutazione few-shot, una soglia di
+qualità pari a `8.5/10` e un massimo di tre iterazioni generator-critic. Questi
+parametri sono limitati al notebook top-down e non modificano i valori
+predefiniti del bottom-up.
 
-The original models have been replaced because they are deprecated or no longer
-appropriate for the current execution environment. The pipeline now uses:
+I modelli originali sono stati sostituiti perché deprecati o non più adeguati
+all'ambiente di esecuzione corrente. La pipeline utilizza ora:
 
-- **Gemini 2.5 Flash** as the structured-output generator;
-- **Qwen 3.8 27B through Groq** as the critic.
+- **Gemini 2.5 Flash** come generatore di output strutturato;
+- **Qwen 3.8 27B tramite Groq** come critic.
 
-Actor, HLG, and LLG extraction starts from zero-shot generation, then uses the
-Few-shot critic to score the result and provide feedback for another attempt
-when the quality threshold is not reached. Generating and evaluating all LLGs
-from the complete HLG collection preserves the original pipeline semantics and
-prevents each individual branch from being incorrectly evaluated as if it had
-to represent the whole software system.
+L'estrazione di attori, HLG e LLG parte da una generazione zero-shot e utilizza
+poi il critic few-shot per assegnare un punteggio al risultato e fornire feedback
+per un nuovo tentativo quando la soglia di qualità non viene raggiunta. Generare
+e valutare tutti gli LLG a partire dall'insieme completo degli HLG preserva la
+semantica della pipeline originale ed evita che ciascun singolo branch venga
+valutato erroneamente come se dovesse rappresentare l'intero sistema software.

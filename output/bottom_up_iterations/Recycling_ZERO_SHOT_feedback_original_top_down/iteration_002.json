@@ -1,50 +1,114 @@
 {
   "iteration": 2,
   "reconstructions": {
-    "branch_001": {
-      "reconstructed_high_level_goal": "Enable users to locate and obtain detailed information about recycling facilities.",
-      "rationale": "The low-level goals collectively aim to empower users to first discover recycling facilities using various location-based search criteria (zip code, geographical area) and then to access comprehensive details about these facilities, including their operational specifics and precise coordinates for navigation or visualization. This integrated functionality ensures users can effectively find and utilize recycling services.",
-      "branch_id": "branch_001",
+    "hlg_44618a88574511ee_001": {
+      "reconstructed_high_level_goal": "End User requests to retrieve a list of recycling facilities, which can be filtered by a specified radius from their current GPS location, by a specific material type, or by a specific address or postal code, and subsequently sort the displayed list by distance from their current location.",
+      "rationale": "The reconstructed high-level goal encompasses the End User's ability to locate and organize recycling facilities. llg_001 contributes the capability to retrieve facilities based on proximity to the user's current GPS location within a specified radius. llg_002 adds the functionality to filter these facilities by the type of material they accept. llg_003 provides an alternative method for retrieving facilities by allowing the user to specify a location via address or postal code. Finally, llg_004 introduces the distinct capability for the End User to sort the results of any retrieval by distance from their current location.",
+      "branch_id": "hlg_44618a88574511ee_001",
       "source_low_level_goal_ids": [
-        "Search for recycling facilities by geographical location",
-        "Search for recycling facilities by zip code",
-        "Retrieve detailed information for a specific recycling facility",
-        "Retrieve map coordinates for a recycling facility"
+        "Retrieve nearby recycling facilities by location",
+        "Filter recycling facilities by material type",
+        "Search recycling facilities by address or postal code",
+        "Sort recycling facilities by distance"
       ]
     },
-    "branch_003": {
-      "reconstructed_high_level_goal": "Manage Recycling Facility Information",
-      "rationale": "The low-level goals collectively describe the full set of administrative operations necessary to maintain accurate and current information about recycling facilities within the system. They cover adding new facilities, modifying existing ones, approving updates, and deactivating facilities, all of which fall under the umbrella of managing facility data.",
-      "branch_id": "branch_003",
+    "hlg_0819f94ce616a084_001": {
+      "reconstructed_high_level_goal": "End User to retrieve the detailed profile of a specific recycling facility by its ID, view operational hours and accepted materials for a selected facility, display its precise geographical location on an interactive map, and initiate navigation to it using a third-party map application.",
+      "rationale": "llg_001 contributes the capability for the End User to retrieve the detailed profile of a specific recycling facility by its ID. llg_002 adds the capability for the End User to view the operational hours for a selected facility. llg_003 adds the capability for the End User to view the list of accepted materials for a selected facility. llg_004 adds the capability for the End User to display the precise geographical location of a selected facility on an interactive map. llg_005 adds the capability for the End User to initiate navigation to a selected facility using a third-party map application.",
+      "branch_id": "hlg_0819f94ce616a084_001",
       "source_low_level_goal_ids": [
-        "Create a new recycling facility record in the system",
-        "Update existing details of a recycling facility",
-        "Approve a pending facility information update",
-        "Deactivate a recycling facility record"
+        "Retrieve detailed facility profile",
+        "View facility operational hours",
+        "View accepted materials for a facility",
+        "Display facility location on map",
+        "Initiate navigation to a facility"
       ]
     },
-    "branch_005": {
-      "reconstructed_high_level_goal": "Administer User Access and Monitor System Activity",
-      "rationale": "The low-level goals collectively describe the Administrator's capabilities to control user permissions (modifying and terminating access) and to oversee user behavior within the system (fetching audit records). These operations are essential for maintaining system security, ensuring compliance, and managing the overall integrity of the application by providing the Administrator with the necessary tools to govern user interactions and review historical activities.",
-      "branch_id": "branch_005",
+    "hlg_ed9d4b05cf9dd6c1_001": {
+      "reconstructed_high_level_goal": "Enable End Users to subscribe to and unsubscribe from notifications for recycling events in their preferred geographical area, and to retrieve a list of upcoming recycling events and view the details of a specific recycling event.",
+      "rationale": "llg_001 contributes the capability for End Users to subscribe to notifications for recycling events, specifically in their preferred geographical area. llg_002 adds the capability for End Users to retrieve a list of upcoming recycling events. llg_003 provides the capability for End Users to view the details of a specific recycling event. llg_004 completes the notification management by adding the capability for End Users to unsubscribe from event notifications.",
+      "branch_id": "hlg_ed9d4b05cf9dd6c1_001",
       "source_low_level_goal_ids": [
-        "Assign or update user roles and permissions",
-        "Retrieve system access logs for auditing",
-        "Revoke a user's access to the system"
+        "Subscribe to recycling event notifications",
+        "Retrieve list of upcoming recycling events",
+        "View details of a specific recycling event",
+        "Unsubscribe from event notifications"
+      ]
+    },
+    "hlg_a79ce048610bac42_001": {
+      "reconstructed_high_level_goal": "Administrator creates new recycling facility records including name, address, hours, and materials; updates specific attributes such as operational hours, accepted materials, and geographical coordinates for existing facilities; deletes existing recycling facility records; and retrieves a list of all recycling facilities for review.",
+      "rationale": "The reconstructed high-level goal encompasses all distinct functional capabilities present in the low-level goals. llg_001 contributes the capability for an Administrator to create new recycling facility records with initial details (name, address, hours, materials). llg_002 adds the capability to update the operational hours for a specific facility. llg_003 adds the capability to update the list of accepted materials for a specific facility. llg_004 adds the capability to update the geographical coordinates for a specific facility. llg_005 contributes the capability to delete an existing recycling facility record. Finally, llg_006 adds the capability to retrieve a list of all recycling facilities for review. All these actions collectively describe the comprehensive management of recycling facility records by an Administrator.",
+      "branch_id": "hlg_a79ce048610bac42_001",
+      "source_low_level_goal_ids": [
+        "Create new recycling facility record",
+        "Update facility operational hours",
+        "Update facility accepted materials",
+        "Update facility geographical coordinates",
+        "Delete recycling facility record",
+        "Retrieve all recycling facilities for review"
+      ]
+    },
+    "hlg_6248c16760cb5e2a_001": {
+      "reconstructed_high_level_goal": "Administrator reviews and modifies user feedback, encompassing the retrieval of all submitted feedback, filtering feedback by status, updating the status of specific feedback items, adding private comments, and marking items as resolved.",
+      "rationale": "The reconstructed high-level goal integrates all distinct capabilities from the low-level goals. llg_001 contributes the ability to retrieve a complete list of all submitted user feedback. llg_002 adds the functionality to filter user feedback based on its status. llg_003 provides the general capability to update the status of any specific user feedback item. llg_004 introduces the ability to add private comments to a user feedback item. llg_005 specifies the capability to mark a user feedback item as resolved, which is a particular type of status update, explicitly included for lossless reconstruction.",
+      "branch_id": "hlg_6248c16760cb5e2a_001",
+      "source_low_level_goal_ids": [
+        "Retrieve all user feedback",
+        "Filter user feedback by status",
+        "Update status of user feedback",
+        "Add private comment to user feedback",
+        "Mark user feedback as resolved"
+      ]
+    },
+    "hlg_2c90bb515713f3a2_001": {
+      "reconstructed_high_level_goal": "Administrator to send individual messages to specific facility representatives, send broadcast messages to all facility representatives, retrieve communication history with specific facility representatives, and retrieve contact information for specific facility representatives.",
+      "rationale": "The reconstructed high-level goal encompasses all distinct capabilities from the low-level goals. llg_001 contributes the capability for an Administrator to send individual messages to specific facility representatives. llg_002 adds the capability for an Administrator to retrieve communication history with specific facility representatives. llg_003 introduces the capability for an Administrator to send broadcast messages to all facility representatives. llg_004 provides the capability for an Administrator to retrieve contact information for specific facility representatives. All these distinct actions (send individual message, send broadcast message, retrieve communication history, retrieve contact information) are performed by the 'Administrator' and target 'facility representatives', ensuring a lossless reconstruction.",
+      "branch_id": "hlg_2c90bb515713f3a2_001",
+      "source_low_level_goal_ids": [
+        "Send message to facility representative",
+        "Retrieve communication history with facility representative",
+        "Send broadcast message to facility representatives",
+        "Retrieve facility representative contact information"
+      ]
+    },
+    "hlg_feb9edf80cda87b4_001": {
+      "reconstructed_high_level_goal": "The Facility Representative can retrieve, modify, and save the operational hours and contact information, and add, remove, or modify the accepted materials for their registered recycling facility, and additionally submit proposals for new recycling events.",
+      "rationale": "This High-Level Goal is a lossless reconstruction of the provided Low-Level Goals. llg_001 contributes the capability for the Facility Representative to retrieve all current details of their registered recycling facility, including operational hours, accepted materials, and contact information. llg_002 adds the capability to modify and save the operational hours for their recycling facility. llg_003 introduces the capability to add, remove, or modify the list of materials accepted by their recycling facility. llg_004 provides the capability to modify and save the contact information for the designated person at their recycling facility. llg_005 introduces a distinct capability for the Facility Representative to submit a proposal for a new recycling event, including its specific details, which is explicitly included as an additional function.",
+      "branch_id": "hlg_feb9edf80cda87b4_001",
+      "source_low_level_goal_ids": [
+        "Retrieve own facility's profile information",
+        "Update own facility's operational hours",
+        "Update own facility's accepted materials",
+        "Update own facility's contact person details",
+        "Submit new recycling event proposal"
+      ]
+    },
+    "hlg_0675fcfd5d28e45e_001": {
+      "reconstructed_high_level_goal": "Enable Facility Representatives to send messages to administrators for operational improvement suggestions, respond to messages from administrators, retrieve lists of communication threads with administrators, and view the status of previously submitted event proposals.",
+      "rationale": "llg_001 contributes the capability for a Facility Representative to initiate communication by sending messages to an administrator, specifically for operational improvement suggestions. llg_003 adds the capability for a Facility Representative to engage in two-way communication by responding to messages from an administrator. llg_004 provides the capability for a Facility Representative to review and track their communication history by retrieving lists of communication threads with administrators. llg_002 introduces a distinct capability for a Facility Representative to view the status of previously submitted event proposals, which is separate from the direct messaging and communication thread management.",
+      "branch_id": "hlg_0675fcfd5d28e45e_001",
+      "source_low_level_goal_ids": [
+        "Send message to administrator for operational improvement",
+        "View status of submitted event proposal",
+        "Respond to administrator message",
+        "Retrieve communication threads with administrators"
       ]
     }
   },
   "evaluations": {
-    "branch_001": {
-      "branch_id": "branch_001",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Discover suitable recycling facilities efficiently' is fully supported by the project description, which explicitly lists searching for nearby centers, viewing operational hours, and accessing maps as key features for users. The bottom-up reconstruction 'Enable users to locate and obtain detailed information about recycling facilities' aligns semantically with the original goal, confirming that the intention is to find and get details about facilities. This goal is distinct from the sibling goal 'Stay informed about recycling-related events and updates', which covers notifications rather than the active search and discovery process. The granularity is appropriate for a stakeholder outcome, and there is no redundancy or fragmentation requiring a rewrite or removal. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) accurately decompose the High-Level Goal (HLG) 'Discover suitable recycling facilities efficiently'. llg_001 and llg_002 cover the explicit requirement to search by geographical location and zip code. llg_003 covers the requirement to view operational hours and detailed information. llg_004 supports the requirement to access maps by providing the necessary coordinates. All LLGs are explicitly supported by the project description. There are no unsupported LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is complete and consistent with the documentation.",
-      "final_decision": "CONFIRM_BRANCH",
+    "hlg_44618a88574511ee_001": {
+      "branch_id": "hlg_44618a88574511ee_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Enable efficient discovery of recycling facilities' is supported by the documentation, which explicitly lists 'searching for nearby centers by zip code' and 'accessing maps' as key features for the End User. The material outcome set of the original HLG is {discover, find, search, locate} facilities based on location or criteria. The reconstructed HLG' aggregates the LLGs into {retrieve by GPS, filter by material, search by address/postal code, sort by distance}. While the reconstruction captures the specific mechanisms of discovery (search/retrieve/filter/sort), it omits the broader semantic intent of 'discovery' which may imply browsing or general exploration not strictly limited to the specific query parameters listed in the LLGs. However, the LLGs provided are specific search operations. The original HLG is a valid, high-level abstraction of these search capabilities. The reconstruction is a lossless aggregate of the provided LLGs but is more granular and operational than the high-level goal. The relationship is PARTIAL_OVERLAP because the reconstruction details the *how* (specific search filters) while the HLG states the *what* (discovery). The HLG is valid and supported. The LLGs need evaluation to ensure they fully cover the 'discovery' intent or if 'discovery' implies additional capabilities (like browsing without specific filters) not captured in the current LLGs. Thus, KEEP the HLG and require LLG evaluation. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is incomplete and contains unsupported capabilities. The parent HLG explicitly includes 'based on their location or other criteria', and the project description lists 'viewing operational hours' and 'accessing maps' as key features for discovery. However, the current LLGs omit the capability to filter or search by operational hours, which is a distinct discovery criterion documented in the project description. Additionally, llg_002 (filter by material type) and llg_004 (sort by distance) are not explicitly supported by the project description, which only mentions searching by zip code, viewing hours, and accessing maps. While 'other criteria' is broad, specific undocumented filters like material type and sorting mechanisms are not entailed by the provided text and risk duplicating or misaligning with the sibling HLG 'Provide comprehensive access to facility details' (which covers accepted materials). The omission of operational hours as a discovery filter is a material defect.",
+      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Discover suitable recycling facilities efficiently' is fully supported by the project description, which explicitly lists searching for nearby centers, viewing operational hours, and accessing maps as key features for users. The bottom-up reconstruction 'Enable users to locate and obtain detailed information about recycling facilities' aligns semantically with the original goal, confirming that the intention is to find and get details about facilities. This goal is distinct from the sibling goal 'Stay informed about recycling-related events and updates', which covers notifications rather than the active search and discovery process. The granularity is appropriate for a stakeholder outcome, and there is no redundancy or fragmentation requiring a rewrite or removal.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Enable efficient discovery of recycling facilities' is supported by the documentation, which explicitly lists 'searching for nearby centers by zip code' and 'accessing maps' as key features for the End User. The material outcome set of the original HLG is {discover, find, search, locate} facilities based on location or criteria. The reconstructed HLG' aggregates the LLGs into {retrieve by GPS, filter by material, search by address/postal code, sort by distance}. While the reconstruction captures the specific mechanisms of discovery (search/retrieve/filter/sort), it omits the broader semantic intent of 'discovery' which may imply browsing or general exploration not strictly limited to the specific query parameters listed in the LLGs. However, the LLGs provided are specific search operations. The original HLG is a valid, high-level abstraction of these search capabilities. The reconstruction is a lossless aggregate of the provided LLGs but is more granular and operational than the high-level goal. The relationship is PARTIAL_OVERLAP because the reconstruction details the *how* (specific search filters) while the HLG states the *what* (discovery). The HLG is valid and supported. The LLGs need evaluation to ensure they fully cover the 'discovery' intent or if 'discovery' implies additional capabilities (like browsing without specific filters) not captured in the current LLGs. Thus, KEEP the HLG and require LLG evaluation.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -55,30 +119,38 @@
       },
       "replacement_request": null,
       "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) accurately decompose the High-Level Goal (HLG) 'Discover suitable recycling facilities efficiently'. llg_001 and llg_002 cover the explicit requirement to search by geographical location and zip code. llg_003 covers the requirement to view operational hours and detailed information. llg_004 supports the requirement to access maps by providing the necessary coordinates. All LLGs are explicitly supported by the project description. There are no unsupported LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is complete and consistent with the documentation.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
+        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is incomplete and contains unsupported capabilities. The parent HLG explicitly includes 'based on their location or other criteria', and the project description lists 'viewing operational hours' and 'accessing maps' as key features for discovery. However, the current LLGs omit the capability to filter or search by operational hours, which is a distinct discovery criterion documented in the project description. Additionally, llg_002 (filter by material type) and llg_004 (sort by distance) are not explicitly supported by the project description, which only mentions searching by zip code, viewing hours, and accessing maps. While 'other criteria' is broad, specific undocumented filters like material type and sorting mechanisms are not entailed by the provided text and risk duplicating or misaligning with the sibling HLG 'Provide comprehensive access to facility details' (which covers accepted materials). The omission of operational hours as a discovery filter is a material defect.",
+        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+        "quality_score": 2,
+        "regeneration_feedback": "Remove llg_002 and llg_004 as they are not explicitly documented as discovery criteria in the project description. Add a new LLG for filtering or searching facilities by operational hours, which is explicitly mentioned in the project description as a key feature for users to discover facilities.",
+        "unsupported_or_misleading_llg_ids": [
+          "llg_002",
+          "llg_004"
+        ],
+        "missing_essential_capabilities": [
+          "Filter or search recycling facilities by operational hours"
+        ],
         "voter_count": 3,
         "valid_vote_count": 3,
         "winning_vote_count": 3,
         "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
+          "REGENERATE_LOW_LEVEL_GOALS": 3
         }
       }
     },
-    "branch_003": {
-      "branch_id": "branch_003",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Maintain accurate and up-to-date recycling facility information' is fully supported by the project description, which explicitly states that administrators will 'manage facility information'. The bottom-up reconstruction 'Manage Recycling Facility Information' aligns semantically with the original goal, confirming the core intention. This goal is distinct from the sibling goal 'Address user feedback effectively to improve the service', which focuses on user interactions rather than the core facility data management. It is also distinct from 'Ensure the security and integrity of system data', which focuses on protection rather than content accuracy. The granularity is appropriate for a stakeholder outcome, representing the end-to-end administrative responsibility for facility data. There is no redundancy or fragmentation requiring a rewrite or removal. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) contain unsupported capabilities that are not explicitly stated or necessarily entailed by the project description. Specifically, 'llg_003' (Approve a pending facility information update) implies a workflow where facility representatives submit updates that require administrator approval. While the description mentions 'communication between facility representatives and site admins', it does not explicitly state that administrators must 'approve' pending updates as a distinct system function; this is an inferred workflow detail. Similarly, 'llg_004' (Deactivate a recycling facility record) introduces a specific lifecycle state ('inactive') and action ('deactivate') that are not mentioned in the description. The description only states that administrators 'manage facility information'. While creating and updating (llg_001, llg_002) are reasonable interpretations of 'manage', the specific approval and deactivation workflows are not documented. Therefore, these LLGs are unsupported additions.",
+    "hlg_0819f94ce616a084_001": {
+      "branch_id": "hlg_0819f94ce616a084_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {view operational hours, view accepted materials, view precise locations via maps}. The reconstruction HLG' outcomes are {retrieve detailed profile, view operational hours, view accepted materials, display location on map, initiate navigation}. HLG' adds 'retrieve detailed profile' and 'initiate navigation', which are not explicitly stated in the original HLG description, though they are supported by the documentation ('accessing maps', 'viewing operational hours'). The original HLG is a valid, supported intention but is narrower than the full scope of the LLGs provided. The LLGs implement capabilities (navigation, profile retrieval) that extend beyond the strict textual boundary of the original HLG description. Therefore, the relationship is PARTIAL_OVERLAP. The parent is valid and supported by the documentation, so it should be kept, and the LLGs require evaluation to ensure they align with the broader documented scope or to refine the parent if necessary. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The parent HLG explicitly requires viewing operational hours, accepted materials, and precise locations via maps. llg_002, llg_003, and llg_004 directly support these documented capabilities. However, llg_001 (retrieving profile by ID) is a technical implementation detail or UI fragment not explicitly stated as a distinct stakeholder goal in the documentation, which focuses on viewing specific data points. More critically, llg_005 (initiating navigation via third-party app) is unsupported; the documentation mentions 'accessing maps' and 'precise locations' but does not entail launching external navigation applications. This is an invented capability outside the documented scope of viewing facility details.",
       "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Maintain accurate and up-to-date recycling facility information' is fully supported by the project description, which explicitly states that administrators will 'manage facility information'. The bottom-up reconstruction 'Manage Recycling Facility Information' aligns semantically with the original goal, confirming the core intention. This goal is distinct from the sibling goal 'Address user feedback effectively to improve the service', which focuses on user interactions rather than the core facility data management. It is also distinct from 'Ensure the security and integrity of system data', which focuses on protection rather than content accuracy. The granularity is appropriate for a stakeholder outcome, representing the end-to-end administrative responsibility for facility data. There is no redundancy or fragmentation requiring a rewrite or removal.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {view operational hours, view accepted materials, view precise locations via maps}. The reconstruction HLG' outcomes are {retrieve detailed profile, view operational hours, view accepted materials, display location on map, initiate navigation}. HLG' adds 'retrieve detailed profile' and 'initiate navigation', which are not explicitly stated in the original HLG description, though they are supported by the documentation ('accessing maps', 'viewing operational hours'). The original HLG is a valid, supported intention but is narrower than the full scope of the LLGs provided. The LLGs implement capabilities (navigation, profile retrieval) that extend beyond the strict textual boundary of the original HLG description. Therefore, the relationship is PARTIAL_OVERLAP. The parent is valid and supported by the documentation, so it should be kept, and the LLGs require evaluation to ensure they align with the broader documented scope or to refine the parent if necessary.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -89,13 +161,12 @@
       },
       "replacement_request": null,
       "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) contain unsupported capabilities that are not explicitly stated or necessarily entailed by the project description. Specifically, 'llg_003' (Approve a pending facility information update) implies a workflow where facility representatives submit updates that require administrator approval. While the description mentions 'communication between facility representatives and site admins', it does not explicitly state that administrators must 'approve' pending updates as a distinct system function; this is an inferred workflow detail. Similarly, 'llg_004' (Deactivate a recycling facility record) introduces a specific lifecycle state ('inactive') and action ('deactivate') that are not mentioned in the description. The description only states that administrators 'manage facility information'. While creating and updating (llg_001, llg_002) are reasonable interpretations of 'manage', the specific approval and deactivation workflows are not documented. Therefore, these LLGs are unsupported additions.",
+        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The parent HLG explicitly requires viewing operational hours, accepted materials, and precise locations via maps. llg_002, llg_003, and llg_004 directly support these documented capabilities. However, llg_001 (retrieving profile by ID) is a technical implementation detail or UI fragment not explicitly stated as a distinct stakeholder goal in the documentation, which focuses on viewing specific data points. More critically, llg_005 (initiating navigation via third-party app) is unsupported; the documentation mentions 'accessing maps' and 'precise locations' but does not entail launching external navigation applications. This is an invented capability outside the documented scope of viewing facility details.",
         "decision": "REGENERATE_LOW_LEVEL_GOALS",
         "quality_score": 2,
-        "regeneration_feedback": "Remove the unsupported LLGs 'llg_003' (Approve a pending facility information update) and 'llg_004' (Deactivate a recycling facility record) as they are not explicitly documented. Retain 'llg_001' (Create) and 'llg_002' (Update) as they are directly supported by the 'manage facility information' requirement. Ensure the remaining LLGs strictly reflect the documented capabilities of adding and modifying facility data.",
+        "regeneration_feedback": "Remove llg_005 as navigation initiation is not documented. Consolidate llg_001 into the specific viewing goals or remove it if it is merely a technical retrieval step, ensuring the LLGs strictly reflect the documented capabilities of viewing hours, materials, and map locations.",
         "unsupported_or_misleading_llg_ids": [
-          "llg_003",
-          "llg_004"
+          "llg_005"
         ],
         "missing_essential_capabilities": [],
         "voter_count": 3,
@@ -106,16 +177,51 @@
         }
       }
     },
-    "branch_005": {
-      "branch_id": "branch_005",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Ensure the security and integrity of system data' is explicitly supported by the project description, which states that administrators ensure 'data security'. The bottom-up reconstruction 'Administer User Access and Monitor System Activity' is a valid operationalization of this goal, as managing user permissions and auditing activity are the primary mechanisms for ensuring data security and integrity in a web application. The goal is distinct from the other Administrator goals (managing facility info, addressing feedback) and represents a core, independently satisfiable stakeholder outcome (system security). Therefore, the original goal should be kept. Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The project description explicitly states that administrators ensure 'data security'. The current LLGs (assigning/updating roles, retrieving audit logs, revoking access) are standard, necessary operational mechanisms to achieve data security and integrity in a web application. While the description does not list these specific API calls, they are the direct and necessary entailments of the responsibility to 'ensure data security' and 'safeguard... from unauthorized access'. There are no unsupported or misleading LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is valid and complete for the scope of the parent goal.",
+    "hlg_ed9d4b05cf9dd6c1_001": {
+      "branch_id": "hlg_ed9d4b05cf9dd6c1_001",
+      "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcome set is {notify about events, collection drives, service changes}. The reconstructed HLG' outcome set is {subscribe, unsubscribe, retrieve list, view details}. HLG' omits the core 'notify' outcome and adds 'retrieve/view' capabilities which are not explicitly in the original description. However, the original HLG is materially incomplete: the documentation supports 'receiving notifications', which implies a subscription mechanism (subscribe/unsubscribe) and access to the event data (retrieve/view) to be informed. The original HLG describes the *result* (being informed) but lacks the *functional capabilities* (subscription management, data retrieval) required to achieve it, making it a workflow fragment or incomplete intention. The sibling branches cover discovery and facility details, not events. Therefore, the parent must be rewritten to encompass the full documented capability of managing event notifications and accessing event information.",
+      "final_decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "high_level_evaluation": {
+        "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcome set is {notify about events, collection drives, service changes}. The reconstructed HLG' outcome set is {subscribe, unsubscribe, retrieve list, view details}. HLG' omits the core 'notify' outcome and adds 'retrieve/view' capabilities which are not explicitly in the original description. However, the original HLG is materially incomplete: the documentation supports 'receiving notifications', which implies a subscription mechanism (subscribe/unsubscribe) and access to the event data (retrieve/view) to be informed. The original HLG describes the *result* (being informed) but lacks the *functional capabilities* (subscription management, data retrieval) required to achieve it, making it a workflow fragment or incomplete intention. The sibling branches cover discovery and facility details, not events. Therefore, the parent must be rewritten to encompass the full documented capability of managing event notifications and accessing event information.",
+        "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 2,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": "Expand the goal to include managing notification subscriptions (subscribe/unsubscribe) and accessing event information (retrieve list/view details) to fully support the 'keep users informed' outcome.",
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 1,
+          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 2
+        }
+      },
+      "replacement_request": {
+        "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcome set is {notify about events, collection drives, service changes}. The reconstructed HLG' outcome set is {subscribe, unsubscribe, retrieve list, view details}. HLG' omits the core 'notify' outcome and adds 'retrieve/view' capabilities which are not explicitly in the original description. However, the original HLG is materially incomplete: the documentation supports 'receiving notifications', which implies a subscription mechanism (subscribe/unsubscribe) and access to the event data (retrieve/view) to be informed. The original HLG describes the *result* (being informed) but lacks the *functional capabilities* (subscription management, data retrieval) required to achieve it, making it a workflow fragment or incomplete intention. The sibling branches cover discovery and facility details, not events. Therefore, the parent must be rewritten to encompass the full documented capability of managing event notifications and accessing event information.",
+        "generation_project_description": "The software project will develop a user-friendly web application that allows users to discover and manage recycling facilities. Key features include searching for nearby centers by zip code, viewing operational hours, accessing maps of recycling locations, and receiving notifications about events. Administrators will manage facility information and user feedback, ensuring data security while enabling communication between facility representatives and site admins to improve community recycling efforts.\n\nRewrite the functional intention for actor 'End User' using this focus: Expand the goal to include managing notification subscriptions (subscribe/unsubscribe) and accessing event information (retrieve list/view details) to fully support the 'keep users informed' outcome.",
+        "actor": {
+          "name": "End User",
+          "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
+        }
+      },
+      "low_level_evaluation": null
+    },
+    "hlg_a79ce048610bac42_001": {
+      "branch_id": "hlg_a79ce048610bac42_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcome set {add, update, remove, ensure reliability} for recycling facility data. The reconstruction HLG' expresses {create, update hours, update materials, update coordinates, delete, retrieve}. HLG' entails the specific CRUD operations of the HLG but adds 'retrieve' which is not explicitly in the HLG description, and the HLG's 'ensure reliability' is a quality constraint rather than a distinct functional outcome like retrieval. However, 'retrieve' is a standard part of managing data (CRUD) and is supported by the documentation ('manage facility information'). The HLG is valid and supported. The relationship is PARTIAL_OVERLAP because HLG' includes 'retrieve' which is not explicitly stated in the HLG description, though it is implied in 'manage'. The HLG is a valid parent, so it should be kept, and the LLGs need evaluation to ensure they align with the parent's intent. Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG requires administrators to add, update, and remove facility information to ensure data accuracy. llg_001 covers creation (add). llg_002, llg_003, and llg_004 cover specific updates to hours, materials, and coordinates, which are core facility attributes mentioned in the project description and sibling HLGs. llg_005 covers deletion (remove). llg_006 covers retrieval for review, which is a necessary prerequisite for an administrator to identify which records require updating or deletion to ensure currency. All LLGs are supported by the documentation's scope of 'manage facility information' and do not duplicate sibling HLGs (which focus on end-user discovery, feedback, or facility representative actions). No essential capabilities are missing, and no LLGs are unsupported or redundant.",
       "final_decision": "CONFIRM_BRANCH",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Ensure the security and integrity of system data' is explicitly supported by the project description, which states that administrators ensure 'data security'. The bottom-up reconstruction 'Administer User Access and Monitor System Activity' is a valid operationalization of this goal, as managing user permissions and auditing activity are the primary mechanisms for ensuring data security and integrity in a web application. The goal is distinct from the other Administrator goals (managing facility info, addressing feedback) and represents a core, independently satisfiable stakeholder outcome (system security). Therefore, the original goal should be kept.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcome set {add, update, remove, ensure reliability} for recycling facility data. The reconstruction HLG' expresses {create, update hours, update materials, update coordinates, delete, retrieve}. HLG' entails the specific CRUD operations of the HLG but adds 'retrieve' which is not explicitly in the HLG description, and the HLG's 'ensure reliability' is a quality constraint rather than a distinct functional outcome like retrieval. However, 'retrieve' is a standard part of managing data (CRUD) and is supported by the documentation ('manage facility information'). The HLG is valid and supported. The relationship is PARTIAL_OVERLAP because HLG' includes 'retrieve' which is not explicitly stated in the HLG description, though it is implied in 'manage'. The HLG is a valid parent, so it should be kept, and the LLGs need evaluation to ensure they align with the parent's intent.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -126,7 +232,7 @@
       },
       "replacement_request": null,
       "low_level_evaluation": {
-        "rationale": "Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The project description explicitly states that administrators ensure 'data security'. The current LLGs (assigning/updating roles, retrieving audit logs, revoking access) are standard, necessary operational mechanisms to achieve data security and integrity in a web application. While the description does not list these specific API calls, they are the direct and necessary entailments of the responsibility to 'ensure data security' and 'safeguard... from unauthorized access'. There are no unsupported or misleading LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is valid and complete for the scope of the parent goal.",
+        "rationale": "Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG requires administrators to add, update, and remove facility information to ensure data accuracy. llg_001 covers creation (add). llg_002, llg_003, and llg_004 cover specific updates to hours, materials, and coordinates, which are core facility attributes mentioned in the project description and sibling HLGs. llg_005 covers deletion (remove). llg_006 covers retrieval for review, which is a necessary prerequisite for an administrator to identify which records require updating or deletion to ensure currency. All LLGs are supported by the documentation's scope of 'manage facility information' and do not duplicate sibling HLGs (which focus on end-user discovery, feedback, or facility representative actions). No essential capabilities are missing, and no LLGs are unsupported or redundant.",
         "decision": "KEEP_LOW_LEVEL_GOALS",
         "quality_score": 5,
         "regeneration_feedback": null,
@@ -140,64 +246,196 @@
           "KEEP_LOW_LEVEL_GOALS": 2
         }
       }
+    },
+    "hlg_6248c16760cb5e2a_001": {
+      "branch_id": "hlg_6248c16760cb5e2a_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {review, categorize, act upon} user feedback. The reconstruction HLG' outcomes are {retrieve, filter, update status, add comment, mark resolved}. HLG' entails HLG: 'retrieve/filter' supports 'review', 'filter' supports 'categorize', and 'update/comment/resolve' supports 'act upon'. HLG entails HLG': 'review' entails 'retrieve/filter', 'categorize' entails 'filter', and 'act upon' entails 'update/comment/resolve'. The actor (Administrator) and scope (user feedback management) match the documentation. No sibling covers this specific responsibility. The reconstruction is a lossless aggregate of the LLGs and semantically equivalent to the parent.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {review, categorize, act upon} user feedback. The reconstruction HLG' outcomes are {retrieve, filter, update status, add comment, mark resolved}. HLG' entails HLG: 'retrieve/filter' supports 'review', 'filter' supports 'categorize', and 'update/comment/resolve' supports 'act upon'. HLG entails HLG': 'review' entails 'retrieve/filter', 'categorize' entails 'filter', and 'act upon' entails 'update/comment/resolve'. The actor (Administrator) and scope (user feedback management) match the documentation. No sibling covers this specific responsibility. The reconstruction is a lossless aggregate of the LLGs and semantically equivalent to the parent.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_2c90bb515713f3a2_001": {
+      "branch_id": "hlg_2c90bb515713f3a2_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation supports the Administrator's role in facilitating communication between facility representatives and site admins. The original HLG expresses the functional intention to 'communicate effectively... to coordinate efforts and resolve issues.' The reconstructed HLG' enumerates specific operational capabilities: sending individual/broadcast messages, retrieving history, and retrieving contact info. While HLG' is a lossless aggregate of the LLGs, it describes the *mechanisms* of communication rather than the *outcome* of coordination and issue resolution. However, in this context, the LLGs provided are the concrete implementation of the communication goal. The original HLG is supported by the documentation ('facilitates communication'). The reconstruction captures the specific actions available to the Administrator. The relationship is PARTIAL_OVERLAP because the original HLG implies a broader outcome (resolution/coordination) that is not explicitly stated in the HLG' text, which is purely operational. However, the original HLG is valid and supported. The LLGs need evaluation to ensure they correctly implement the communication intent without scope creep or omission of essential communication features (like receiving messages, which might be implied but not listed). Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is incomplete and contains unsupported capabilities. The project description explicitly states that administrators facilitate communication between 'facility representatives and site admins'. The current LLGs only address communication with facility representatives, omitting the essential capability to communicate with site admins. Furthermore, 'llg_003' (broadcast messages) and 'llg_004' (retrieve contact info) are not explicitly documented in the provided text; 'communication' does not necessarily entail broadcasting or contact directory retrieval, which are conventional but unsupported inferences. 'llg_002' (history) is also not explicitly stated, though arguably entailed by 'communication', it is less certain than the direct messaging capability. The omission of site admin communication is a critical gap given the explicit mention in the description.",
+      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation supports the Administrator's role in facilitating communication between facility representatives and site admins. The original HLG expresses the functional intention to 'communicate effectively... to coordinate efforts and resolve issues.' The reconstructed HLG' enumerates specific operational capabilities: sending individual/broadcast messages, retrieving history, and retrieving contact info. While HLG' is a lossless aggregate of the LLGs, it describes the *mechanisms* of communication rather than the *outcome* of coordination and issue resolution. However, in this context, the LLGs provided are the concrete implementation of the communication goal. The original HLG is supported by the documentation ('facilitates communication'). The reconstruction captures the specific actions available to the Administrator. The relationship is PARTIAL_OVERLAP because the original HLG implies a broader outcome (resolution/coordination) that is not explicitly stated in the HLG' text, which is purely operational. However, the original HLG is valid and supported. The LLGs need evaluation to ensure they correctly implement the communication intent without scope creep or omission of essential communication features (like receiving messages, which might be implied but not listed).",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": {
+        "rationale": "Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is incomplete and contains unsupported capabilities. The project description explicitly states that administrators facilitate communication between 'facility representatives and site admins'. The current LLGs only address communication with facility representatives, omitting the essential capability to communicate with site admins. Furthermore, 'llg_003' (broadcast messages) and 'llg_004' (retrieve contact info) are not explicitly documented in the provided text; 'communication' does not necessarily entail broadcasting or contact directory retrieval, which are conventional but unsupported inferences. 'llg_002' (history) is also not explicitly stated, though arguably entailed by 'communication', it is less certain than the direct messaging capability. The omission of site admin communication is a critical gap given the explicit mention in the description.",
+        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+        "quality_score": 2,
+        "regeneration_feedback": "Add LLGs for communicating with site admins (send/receive messages). Remove or justify 'llg_003' (broadcast) and 'llg_004' (contact info) as they are not explicitly documented. Ensure 'llg_002' (history) is supported or removed if not strictly entailed.",
+        "unsupported_or_misleading_llg_ids": [
+          "llg_003",
+          "llg_004"
+        ],
+        "missing_essential_capabilities": [
+          "Send message to site admin",
+          "Retrieve communication history with site admin"
+        ],
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "REGENERATE_LOW_LEVEL_GOALS": 2,
+          "KEEP_LOW_LEVEL_GOALS": 1
+        }
+      }
+    },
+    "hlg_feb9edf80cda87b4_001": {
+      "branch_id": "hlg_feb9edf80cda87b4_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {retrieve profile, update hours, update materials, update contact, propose events}. The reconstruction HLG' outcomes are {retrieve profile, update hours, update materials, update contact, propose events}. Both sets are identical. The documentation supports Facility Representatives managing facility information (hours, materials, contact) and communicating with administrators to improve efforts, which entails proposing events. The sibling branch covers communication threads and proposal status, not the creation/update of the profile itself, so no redundancy exists. The parent is valid and precisely scoped.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG outcomes are {retrieve profile, update hours, update materials, update contact, propose events}. The reconstruction HLG' outcomes are {retrieve profile, update hours, update materials, update contact, propose events}. Both sets are identical. The documentation supports Facility Representatives managing facility information (hours, materials, contact) and communicating with administrators to improve efforts, which entails proposing events. The sibling branch covers communication threads and proposal status, not the creation/update of the profile itself, so no redundancy exists. The parent is valid and precisely scoped.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_0675fcfd5d28e45e_001": {
+      "branch_id": "hlg_0675fcfd5d28e45e_001",
+      "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG describes a broad strategic collaboration ('enhance recycling initiatives') covering operational improvements, event coordination, and community engagement strategies. The reconstruction HLG' is a lossless aggregate of the LLGs, which are strictly transactional communication actions: sending messages, responding, retrieving threads, and viewing event proposal status. HLG' does not entail the strategic outcomes of 'event coordination' or 'community engagement strategies' implied by the parent, nor does the parent explicitly limit itself to mere message exchange. Thus, the relationship is PARTIAL_OVERLAP. The parent is valid and supported by the documentation ('enabling communication... to improve community recycling efforts'), but its formulation is too abstract and broad compared to the specific communication capabilities defined in the LLGs. It should be rewritten to precisely reflect the communication and status-tracking responsibilities without implying direct control over the initiatives themselves.",
+      "final_decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "high_level_evaluation": {
+        "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG describes a broad strategic collaboration ('enhance recycling initiatives') covering operational improvements, event coordination, and community engagement strategies. The reconstruction HLG' is a lossless aggregate of the LLGs, which are strictly transactional communication actions: sending messages, responding, retrieving threads, and viewing event proposal status. HLG' does not entail the strategic outcomes of 'event coordination' or 'community engagement strategies' implied by the parent, nor does the parent explicitly limit itself to mere message exchange. Thus, the relationship is PARTIAL_OVERLAP. The parent is valid and supported by the documentation ('enabling communication... to improve community recycling efforts'), but its formulation is too abstract and broad compared to the specific communication capabilities defined in the LLGs. It should be rewritten to precisely reflect the communication and status-tracking responsibilities without implying direct control over the initiatives themselves.",
+        "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 2,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": "Refine the goal to focus on 'Communicate with administrators' and 'Track event proposal status'. Explicitly include sending operational improvement messages, responding to administrator messages, retrieving communication threads, and viewing the status of submitted event proposals. Remove vague strategic language like 'enhance recycling initiatives' or 'community engagement strategies' which are not directly actionable by this actor in this context.",
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 1,
+          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 2
+        }
+      },
+      "replacement_request": {
+        "rationale": "Voting result 2/3 for REWRITE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG describes a broad strategic collaboration ('enhance recycling initiatives') covering operational improvements, event coordination, and community engagement strategies. The reconstruction HLG' is a lossless aggregate of the LLGs, which are strictly transactional communication actions: sending messages, responding, retrieving threads, and viewing event proposal status. HLG' does not entail the strategic outcomes of 'event coordination' or 'community engagement strategies' implied by the parent, nor does the parent explicitly limit itself to mere message exchange. Thus, the relationship is PARTIAL_OVERLAP. The parent is valid and supported by the documentation ('enabling communication... to improve community recycling efforts'), but its formulation is too abstract and broad compared to the specific communication capabilities defined in the LLGs. It should be rewritten to precisely reflect the communication and status-tracking responsibilities without implying direct control over the initiatives themselves.",
+        "generation_project_description": "The software project will develop a user-friendly web application that allows users to discover and manage recycling facilities. Key features include searching for nearby centers by zip code, viewing operational hours, accessing maps of recycling locations, and receiving notifications about events. Administrators will manage facility information and user feedback, ensuring data security while enabling communication between facility representatives and site admins to improve community recycling efforts.\n\nRewrite the functional intention for actor 'Facility Representative' using this focus: Refine the goal to focus on 'Communicate with administrators' and 'Track event proposal status'. Explicitly include sending operational improvement messages, responding to administrator messages, retrieving communication threads, and viewing the status of submitted event proposals. Remove vague strategic language like 'enhance recycling initiatives' or 'community engagement strategies' which are not directly actionable by this actor in this context.",
+        "actor": {
+          "name": "Facility Representative",
+          "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
+        }
+      },
+      "low_level_evaluation": null
     }
   },
   "high_level_goals": {
     "goals": [
       {
-        "name": "Discover suitable recycling facilities efficiently",
-        "description": "Users aim to quickly find recycling centers that meet their needs, including location, operational hours, and accessibility.",
+        "name": "Enable efficient discovery of recycling facilities",
+        "description": "To allow end users to quickly and easily find nearby recycling centers based on their location or other criteria.",
         "actor": {
-          "name": "User",
-          "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+          "name": "End User",
+          "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
         }
       },
       {
-        "name": "Stay informed about recycling-related events and updates",
-        "description": "Users want to receive timely notifications regarding recycling events, changes in facility information, or other relevant community updates.",
+        "name": "Provide comprehensive access to facility details",
+        "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
         "actor": {
-          "name": "User",
-          "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+          "name": "End User",
+          "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
         }
       },
       {
-        "name": "Maintain accurate and up-to-date recycling facility information",
-        "description": "Administrators seek to ensure that all facility details, such as operational hours and locations, are current and correct within the system.",
+        "name": "Discover Recycling Facilities",
+        "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
         "actor": {
-          "name": "Administrator",
-          "description": "Manages facility information, user feedback, and ensures data security."
+          "name": "End User",
+          "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
         }
       },
       {
-        "name": "Address user feedback effectively to improve the service",
-        "description": "Administrators aim to process and respond to user feedback to enhance the overall quality and usability of the recycling facility discovery platform.",
-        "actor": {
-          "name": "Administrator",
-          "description": "Manages facility information, user feedback, and ensures data security."
-        }
-      },
-      {
-        "name": "Ensure the security and integrity of system data",
-        "description": "Administrators are responsible for safeguarding all data within the application, including facility details and user information, from unauthorized access or corruption.",
+        "name": "Ensure the accuracy and currency of recycling facility data",
+        "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
         "actor": {
           "name": "Administrator",
-          "description": "Manages facility information, user feedback, and ensures data security."
+          "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
         }
       },
       {
-        "name": "Provide accurate and timely information about their recycling facility",
-        "description": "Facility Representatives aim to submit and update their facility's details to ensure users have access to correct and current information.",
+        "name": "Effectively manage and respond to user feedback",
+        "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+        }
+      },
+      {
+        "name": "Facilitate seamless communication between stakeholders",
+        "description": "To enable administrators to communicate effectively with facility representatives and other relevant parties to coordinate efforts and resolve issues.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+        }
+      },
+      {
+        "name": "Manage Facility Profile and Event Proposals",
+        "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
         "actor": {
           "name": "Facility Representative",
-          "description": "Communicates with site administrators to provide or update facility information."
+          "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
         }
       },
       {
-        "name": "Collaborate with administrators to ensure correct facility representation",
-        "description": "Facility Representatives seek to effectively communicate with site administrators to clarify or verify facility information, ensuring it is accurately displayed to users.",
+        "name": "Facilitate Communication and Event Proposal Tracking with Administrators",
+        "description": "To effectively communicate with site administrators regarding operational improvements and to monitor the progress of submitted event proposals, including sending messages, responding to administrator inquiries, retrieving past communication threads, and viewing the current status of event proposals.",
         "actor": {
           "name": "Facility Representative",
-          "description": "Communicates with site administrators to provide or update facility information."
+          "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
         }
       }
     ]
@@ -205,287 +443,465 @@
   "low_level_goals": {
     "low_level_goals": [
       {
-        "name": "Subscribe to notifications for updates on specific recycling facilities",
-        "description": "The User can invoke an API to subscribe to receive alerts when information (e.g., hours, services) for a particular recycling facility changes.",
+        "name": "Retrieve nearby recycling facilities by location",
+        "description": "End User requests to retrieve a list of recycling facilities within a specified radius of their current GPS location.",
         "high_level_associated": {
-          "name": "Stay informed about recycling-related events and updates",
-          "description": "Users want to receive timely notifications regarding recycling events, changes in facility information, or other relevant community updates.",
+          "name": "Enable efficient discovery of recycling facilities",
+          "description": "To allow end users to quickly and easily find nearby recycling centers based on their location or other criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Subscribe to notifications for recycling-related events",
-        "description": "The User can invoke an API to subscribe to receive alerts about upcoming recycling events or community initiatives.",
+        "name": "Filter recycling facilities by material type",
+        "description": "End User requests to retrieve a list of recycling facilities filtered by a specific material type (e.g., 'plastics', 'glass').",
         "high_level_associated": {
-          "name": "Stay informed about recycling-related events and updates",
-          "description": "Users want to receive timely notifications regarding recycling events, changes in facility information, or other relevant community updates.",
+          "name": "Enable efficient discovery of recycling facilities",
+          "description": "To allow end users to quickly and easily find nearby recycling centers based on their location or other criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Retrieve a list of all unread notifications",
-        "description": "The User can invoke an API to fetch a list of all notifications that have not yet been marked as read.",
+        "name": "Search recycling facilities by address or postal code",
+        "description": "End User requests to retrieve a list of recycling facilities by entering a specific address or postal code.",
         "high_level_associated": {
-          "name": "Stay informed about recycling-related events and updates",
-          "description": "Users want to receive timely notifications regarding recycling events, changes in facility information, or other relevant community updates.",
+          "name": "Enable efficient discovery of recycling facilities",
+          "description": "To allow end users to quickly and easily find nearby recycling centers based on their location or other criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Mark a specific notification as read",
-        "description": "The User can invoke an API to change the status of a particular notification to 'read'.",
+        "name": "Sort recycling facilities by distance",
+        "description": "End User requests to sort the displayed list of facilities by distance from their current location.",
         "high_level_associated": {
-          "name": "Stay informed about recycling-related events and updates",
-          "description": "Users want to receive timely notifications regarding recycling events, changes in facility information, or other relevant community updates.",
+          "name": "Enable efficient discovery of recycling facilities",
+          "description": "To allow end users to quickly and easily find nearby recycling centers based on their location or other criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Submit user feedback",
-        "description": "The User can invoke an API to submit feedback, suggestions, or report issues regarding the application or facility information.",
+        "name": "Retrieve detailed facility profile",
+        "description": "End User requests to retrieve the detailed profile of a specific recycling facility by its ID.",
         "high_level_associated": {
-          "name": "Address user feedback effectively to improve the service",
-          "description": "Administrators aim to process and respond to user feedback to enhance the overall quality and usability of the recycling facility discovery platform.",
+          "name": "Provide comprehensive access to facility details",
+          "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Retrieve all submitted user feedback",
-        "description": "The Administrator can invoke an API to fetch a comprehensive list of all feedback entries submitted by users.",
+        "name": "View facility operational hours",
+        "description": "End User requests to view the operational hours for a selected facility.",
         "high_level_associated": {
-          "name": "Address user feedback effectively to improve the service",
-          "description": "Administrators aim to process and respond to user feedback to enhance the overall quality and usability of the recycling facility discovery platform.",
+          "name": "Provide comprehensive access to facility details",
+          "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Mark user feedback as processed or reviewed",
-        "description": "The Administrator can invoke an API to update the status of a specific user feedback entry to indicate it has been addressed or reviewed.",
+        "name": "View accepted materials for a facility",
+        "description": "End User requests to view the list of accepted materials for a selected facility.",
         "high_level_associated": {
-          "name": "Address user feedback effectively to improve the service",
-          "description": "Administrators aim to process and respond to user feedback to enhance the overall quality and usability of the recycling facility discovery platform.",
+          "name": "Provide comprehensive access to facility details",
+          "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Send a direct response to user feedback",
-        "description": "The Administrator can invoke an API to compose and send a reply to a specific user feedback submission.",
+        "name": "Display facility location on map",
+        "description": "End User requests to display the precise geographical location of a selected facility on an interactive map.",
         "high_level_associated": {
-          "name": "Address user feedback effectively to improve the service",
-          "description": "Administrators aim to process and respond to user feedback to enhance the overall quality and usability of the recycling facility discovery platform.",
+          "name": "Provide comprehensive access to facility details",
+          "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Assign or update user roles and permissions",
-        "description": "The Administrator can invoke an API to modify the access level and capabilities of a specific user within the system.",
+        "name": "Initiate navigation to a facility",
+        "description": "End User requests to initiate navigation to a selected facility using a third-party map application.",
         "high_level_associated": {
-          "name": "Ensure the security and integrity of system data",
-          "description": "Administrators are responsible for safeguarding all data within the application, including facility details and user information, from unauthorized access or corruption.",
+          "name": "Provide comprehensive access to facility details",
+          "description": "To ensure end users can view essential information such as operational hours, accepted materials, and precise locations via maps.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Retrieve system access logs for auditing",
-        "description": "The Administrator can invoke an API to fetch records of user logins, data modifications, and other system interactions for security auditing.",
+        "name": "Create new recycling facility record",
+        "description": "Administrator requests to create a new recycling facility record with provided details (name, address, hours, materials).",
         "high_level_associated": {
-          "name": "Ensure the security and integrity of system data",
-          "description": "Administrators are responsible for safeguarding all data within the application, including facility details and user information, from unauthorized access or corruption.",
-          "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
-          }
-        }
-      },
-      {
-        "name": "Revoke a user's access to the system",
-        "description": "The Administrator can invoke an API to immediately terminate a specific user's ability to log in or interact with the application.",
-        "high_level_associated": {
-          "name": "Ensure the security and integrity of system data",
-          "description": "Administrators are responsible for safeguarding all data within the application, including facility details and user information, from unauthorized access or corruption.",
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
           "actor": {
             "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
           }
         }
       },
       {
-        "name": "Submit new recycling facility information for review",
-        "description": "The Facility Representative can invoke an API to submit comprehensive details for a new recycling facility to be added to the system, pending administrator approval.",
+        "name": "Update facility operational hours",
+        "description": "Administrator requests to update the operational hours for a specific recycling facility.",
         "high_level_associated": {
-          "name": "Provide accurate and timely information about their recycling facility",
-          "description": "Facility Representatives aim to submit and update their facility's details to ensure users have access to correct and current information.",
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Update facility accepted materials",
+        "description": "Administrator requests to update the list of accepted materials for a specific recycling facility.",
+        "high_level_associated": {
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Update facility geographical coordinates",
+        "description": "Administrator requests to update the geographical coordinates for a specific recycling facility.",
+        "high_level_associated": {
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Delete recycling facility record",
+        "description": "Administrator requests to delete an existing recycling facility record by its ID.",
+        "high_level_associated": {
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Retrieve all recycling facilities for review",
+        "description": "Administrator requests to retrieve a list of all recycling facilities for review.",
+        "high_level_associated": {
+          "name": "Ensure the accuracy and currency of recycling facility data",
+          "description": "To allow administrators to efficiently add, update, and remove information about recycling facilities, ensuring users always have reliable data.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Retrieve all user feedback",
+        "description": "Administrator requests to retrieve a list of all submitted user feedback.",
+        "high_level_associated": {
+          "name": "Effectively manage and respond to user feedback",
+          "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Filter user feedback by status",
+        "description": "Administrator requests to filter user feedback by status (e.g., 'new', 'in progress', 'resolved').",
+        "high_level_associated": {
+          "name": "Effectively manage and respond to user feedback",
+          "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Update status of user feedback",
+        "description": "Administrator requests to update the status of a specific user feedback item.",
+        "high_level_associated": {
+          "name": "Effectively manage and respond to user feedback",
+          "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Add private comment to user feedback",
+        "description": "Administrator requests to add a private comment to a user feedback item.",
+        "high_level_associated": {
+          "name": "Effectively manage and respond to user feedback",
+          "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Mark user feedback as resolved",
+        "description": "Administrator requests to mark a user feedback item as resolved.",
+        "high_level_associated": {
+          "name": "Effectively manage and respond to user feedback",
+          "description": "To provide administrators with tools to review, categorize, and act upon feedback submitted by end-users.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Send message to facility representative",
+        "description": "Administrator requests to send a message to a specific facility representative.",
+        "high_level_associated": {
+          "name": "Facilitate seamless communication between stakeholders",
+          "description": "To enable administrators to communicate effectively with facility representatives and other relevant parties to coordinate efforts and resolve issues.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Retrieve communication history with facility representative",
+        "description": "Administrator requests to retrieve the communication history with a specific facility representative.",
+        "high_level_associated": {
+          "name": "Facilitate seamless communication between stakeholders",
+          "description": "To enable administrators to communicate effectively with facility representatives and other relevant parties to coordinate efforts and resolve issues.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Send broadcast message to facility representatives",
+        "description": "Administrator requests to send a broadcast message to all facility representatives.",
+        "high_level_associated": {
+          "name": "Facilitate seamless communication between stakeholders",
+          "description": "To enable administrators to communicate effectively with facility representatives and other relevant parties to coordinate efforts and resolve issues.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Retrieve facility representative contact information",
+        "description": "Administrator requests to retrieve contact information for a specific facility representative.",
+        "high_level_associated": {
+          "name": "Facilitate seamless communication between stakeholders",
+          "description": "To enable administrators to communicate effectively with facility representatives and other relevant parties to coordinate efforts and resolve issues.",
+          "actor": {
+            "name": "Administrator",
+            "description": "Manages facility information, user feedback, ensures data security, and facilitates communication."
+          }
+        }
+      },
+      {
+        "name": "Retrieve own facility's profile information",
+        "description": "The Facility Representative can retrieve all current details of their registered recycling facility, such as operational hours, accepted materials, and contact information.",
+        "high_level_associated": {
+          "name": "Manage Facility Profile and Event Proposals",
+          "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
           "actor": {
             "name": "Facility Representative",
-            "description": "Communicates with site administrators to provide or update facility information."
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       },
       {
-        "name": "Submit updates to an existing recycling facility's information",
-        "description": "The Facility Representative can invoke an API to propose changes to the details (e.g., hours, materials) of a facility they represent, for administrator review.",
+        "name": "Update own facility's operational hours",
+        "description": "The Facility Representative can modify and save the operational hours for their recycling facility.",
         "high_level_associated": {
-          "name": "Provide accurate and timely information about their recycling facility",
-          "description": "Facility Representatives aim to submit and update their facility's details to ensure users have access to correct and current information.",
+          "name": "Manage Facility Profile and Event Proposals",
+          "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
           "actor": {
             "name": "Facility Representative",
-            "description": "Communicates with site administrators to provide or update facility information."
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       },
       {
-        "name": "Retrieve the status of their submitted facility updates",
-        "description": "The Facility Representative can invoke an API to check whether their previously submitted facility information or updates have been approved, rejected, or are still pending.",
+        "name": "Update own facility's accepted materials",
+        "description": "The Facility Representative can add, remove, or modify the list of materials accepted by their recycling facility.",
         "high_level_associated": {
-          "name": "Provide accurate and timely information about their recycling facility",
-          "description": "Facility Representatives aim to submit and update their facility's details to ensure users have access to correct and current information.",
+          "name": "Manage Facility Profile and Event Proposals",
+          "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
           "actor": {
             "name": "Facility Representative",
-            "description": "Communicates with site administrators to provide or update facility information."
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       },
       {
-        "name": "Send a message to an administrator regarding facility information",
-        "description": "The Facility Representative can invoke an API to send a direct message to an administrator to clarify or discuss details about their facility.",
+        "name": "Update own facility's contact person details",
+        "description": "The Facility Representative can modify and save the contact information for the designated person at their recycling facility.",
         "high_level_associated": {
-          "name": "Collaborate with administrators to ensure correct facility representation",
-          "description": "Facility Representatives seek to effectively communicate with site administrators to clarify or verify facility information, ensuring it is accurately displayed to users.",
+          "name": "Manage Facility Profile and Event Proposals",
+          "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
           "actor": {
             "name": "Facility Representative",
-            "description": "Communicates with site administrators to provide or update facility information."
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       },
       {
-        "name": "Retrieve messages from administrators regarding their facility",
-        "description": "The Facility Representative can invoke an API to view any communications or requests for clarification sent by administrators concerning their facility's information.",
+        "name": "Submit new recycling event proposal",
+        "description": "The Facility Representative can submit a proposal for a new recycling event, including details such as date, time, location, and materials to be collected.",
         "high_level_associated": {
-          "name": "Collaborate with administrators to ensure correct facility representation",
-          "description": "Facility Representatives seek to effectively communicate with site administrators to clarify or verify facility information, ensuring it is accurately displayed to users.",
+          "name": "Manage Facility Profile and Event Proposals",
+          "description": "To effectively manage and update their recycling facility's profile, including operational hours, accepted materials, and contact details, retrieve current facility information, and propose new recycling events to enhance community engagement and recycling efforts.",
           "actor": {
             "name": "Facility Representative",
-            "description": "Communicates with site administrators to provide or update facility information."
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       },
       {
-        "name": "Search for recycling facilities by geographical location",
-        "description": "The system shall allow the user to search for recycling facilities based on a specified geographical location (e.g., current location, city, or radius).",
+        "name": "Submit User's Current Location",
+        "description": "The End User provides their current geographical coordinates to the system to enable location-based discovery of recycling facilities.",
         "high_level_associated": {
-          "name": "Discover suitable recycling facilities efficiently",
-          "description": "Users aim to quickly find recycling centers that meet their needs, including location, operational hours, and accessibility.",
+          "name": "Discover Recycling Facilities",
+          "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Search for recycling facilities by zip code",
-        "description": "The system shall allow the user to search for recycling facilities by providing a specific zip code.",
+        "name": "Submit Search Address",
+        "description": "The End User provides a textual address to the system to find recycling facilities near that specific address.",
         "high_level_associated": {
-          "name": "Discover suitable recycling facilities efficiently",
-          "description": "Users aim to quickly find recycling centers that meet their needs, including location, operational hours, and accessibility.",
+          "name": "Discover Recycling Facilities",
+          "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Retrieve detailed information for a specific recycling facility",
-        "description": "The system shall provide detailed information for a selected recycling facility, including its operational hours, address, and contact details.",
+        "name": "Request Recycling Facilities by Location",
+        "description": "The End User requests a list of recycling facilities located within a specified radius of their current or provided geographical coordinates.",
         "high_level_associated": {
-          "name": "Discover suitable recycling facilities efficiently",
-          "description": "Users aim to quickly find recycling centers that meet their needs, including location, operational hours, and accessibility.",
+          "name": "Discover Recycling Facilities",
+          "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Retrieve map coordinates for a recycling facility",
-        "description": "The system shall provide the precise latitude and longitude coordinates for a specific recycling facility to enable map visualization.",
+        "name": "Request Recycling Facilities by Search Criteria",
+        "description": "The End User requests a list of recycling facilities that match specific search criteria, such as material type, facility name, or services offered.",
         "high_level_associated": {
-          "name": "Discover suitable recycling facilities efficiently",
-          "description": "Users aim to quickly find recycling centers that meet their needs, including location, operational hours, and accessibility.",
+          "name": "Discover Recycling Facilities",
+          "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
           "actor": {
-            "name": "User",
-            "description": "Discovers and manages recycling facilities, searches, views hours, accesses maps, and receives notifications."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Create a new recycling facility record in the system",
-        "description": "The Administrator can add a new recycling facility, including its name, location, operational hours, and contact information, to the system.",
+        "name": "Request Details of a Specific Recycling Facility",
+        "description": "The End User requests comprehensive details, including operating hours, accepted materials, and contact information, for a selected recycling facility.",
         "high_level_associated": {
-          "name": "Maintain accurate and up-to-date recycling facility information",
-          "description": "Administrators seek to ensure that all facility details, such as operational hours and locations, are current and correct within the system.",
+          "name": "Discover Recycling Facilities",
+          "description": "End Users need to be able to efficiently find recycling facilities based on their location or other search criteria.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "End User",
+            "description": "Discovers and manages recycling facilities, searches for centers, views hours, accesses maps, and receives notifications."
           }
         }
       },
       {
-        "name": "Update existing details of a recycling facility",
-        "description": "The Administrator can modify any existing details of a recycling facility, such as its operational hours, address, or contact information, to ensure accuracy.",
+        "name": "Send message to administrator for operational improvement",
+        "description": "The Facility Representative can initiate and send a new message to a site administrator to propose or discuss operational improvements.",
         "high_level_associated": {
-          "name": "Maintain accurate and up-to-date recycling facility information",
-          "description": "Administrators seek to ensure that all facility details, such as operational hours and locations, are current and correct within the system.",
+          "name": "Facilitate Communication and Event Proposal Tracking with Administrators",
+          "description": "To effectively communicate with site administrators regarding operational improvements and to monitor the progress of submitted event proposals, including sending messages, responding to administrator inquiries, retrieving past communication threads, and viewing the current status of event proposals.",
           "actor": {
-            "name": "Administrator",
-            "description": "Manages facility information, user feedback, and ensures data security."
+            "name": "Facility Representative",
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
+          }
+        }
+      },
+      {
+        "name": "View status of submitted event proposal",
+        "description": "The Facility Representative can query and view the current status (e.g., pending, approved, rejected) of an event proposal they have previously submitted to administrators.",
+        "high_level_associated": {
+          "name": "Facilitate Communication and Event Proposal Tracking with Administrators",
+          "description": "To effectively communicate with site administrators regarding operational improvements and to monitor the progress of submitted event proposals, including sending messages, responding to administrator inquiries, retrieving past communication threads, and viewing the current status of event proposals.",
+          "actor": {
+            "name": "Facility Representative",
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
+          }
+        }
+      },
+      {
+        "name": "Respond to administrator message",
+        "description": "The Facility Representative can compose and send a reply to an existing message or inquiry received from a site administrator.",
+        "high_level_associated": {
+          "name": "Facilitate Communication and Event Proposal Tracking with Administrators",
+          "description": "To effectively communicate with site administrators regarding operational improvements and to monitor the progress of submitted event proposals, including sending messages, responding to administrator inquiries, retrieving past communication threads, and viewing the current status of event proposals.",
+          "actor": {
+            "name": "Facility Representative",
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
+          }
+        }
+      },
+      {
+        "name": "Retrieve communication threads with administrators",
+        "description": "The Facility Representative can request and view the history of all past communication threads and messages exchanged with site administrators.",
+        "high_level_associated": {
+          "name": "Facilitate Communication and Event Proposal Tracking with Administrators",
+          "description": "To effectively communicate with site administrators regarding operational improvements and to monitor the progress of submitted event proposals, including sending messages, responding to administrator inquiries, retrieving past communication threads, and viewing the current status of event proposals.",
+          "actor": {
+            "name": "Facility Representative",
+            "description": "Represents a recycling facility and communicates with administrators to improve community recycling efforts."
           }
         }
       }
     ]
   },
-  "missing_hlg_evaluation": {
-    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. The project description explicitly identifies three actors: User, Administrator, and Facility Representative. The current High-Level Goals comprehensively cover all documented responsibilities for these actors. For the User, goals cover discovering facilities (searching, viewing hours, maps) and staying informed (notifications). For the Administrator, goals cover managing facility information, addressing user feedback, and ensuring data security. For the Facility Representative, goals cover providing accurate information and collaborating with administrators. No explicit functional requirements or actor-level responsibilities from the description are left uncovered by the current set of High-Level Goals.",
-    "quality_score": 5,
-    "missing_goal_requests": [],
-    "voter_count": 3,
-    "valid_vote_count": 3,
-    "winning_vote_count": 3,
-    "vote_distribution": {
-      "NO_MISSING_HIGH_LEVEL_GOALS": 3
-    }
-  },
-  "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-  "llg_regeneration_counts": {
-    "user::discover suitable recycling facilities efficiently": 1,
-    "administrator::maintain accurate and up-to-date recycling facility information": 1
-  },
+  "missing_hlg_evaluation": null,
+  "missing_hlg_decision": null,
+  "llg_regeneration_counts": {},
   "warnings": []
 }

@@ -43,7 +43,7 @@ GROQ_FALLBACK_MAX_TOKENS = int(
 # The current evaluator prompt is always sent in full. Only compact memories
 # from previous calls share this additional character budget.
 GROQ_CRITIC_HISTORY_MAX_CHARS = int(
-    os.getenv("GROQ_CRITIC_HISTORY_MAX_CHARS", "2500")
+    os.getenv("GROQ_CRITIC_HISTORY_MAX_CHARS", "1000")
 )
 
 

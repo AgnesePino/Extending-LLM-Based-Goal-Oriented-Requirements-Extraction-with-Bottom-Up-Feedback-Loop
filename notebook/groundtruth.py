@@ -297,101 +297,14 @@ SIA_PROJECT_22_23 = {   'name': 'Ethical Purchasing Group - SIA Project 22 23',
                          'View the order pickup schedule']}
 
 SIA_PROJECT_21_22 = {   'name': 'Event Organization Portal - SIA Project 21 22',
-    'description': 'The system is a web portal designed to support people who want to organize\n'
-                   '    an event by bringing together, in a single platform, information about '
-                   'event\n'
-                   '    guests and the various services required for the event.\n'
-                   '\n'
-                   '    The platform supports three main types of users: event organizers, '
-                   'service\n'
-                   '    providers, and invited guests.\n'
-                   '\n'
-                   '    Service providers register on the platform by providing authentication\n'
-                   '    credentials, personal information, and company details, including VAT\n'
-                   '    number, company address, and accepted payment methods.\n'
-                   '\n'
-                   '    Once registered, providers can publish the services offered by their '
-                   'company.\n'
-                   '    Each service belongs to a category, such as catering, hairdressing, '
-                   'florist\n'
-                   '    services, or transportation. For each service, the provider can configure '
-                   'a\n'
-                   '    virtual showcase containing demonstration photos, prices, and the time '
-                   'slots\n'
-                   '    during which the service is available.\n'
-                   '\n'
-                   '    Event organizers register by providing credentials, personal information,\n'
-                   '    residence information, their fiscal code, and an IBAN that can be used '
-                   'for\n'
-                   '    service payments.\n'
-                   '\n'
-                   '    Through the portal, organizers can create an event by specifying the '
-                   'event\n'
-                   '    type, date, location, and the planned budget. During event creation, they '
-                   'can\n'
-                   '    also select from a predefined list the categories of services for which '
-                   'they\n'
-                   '    want to receive support.\n'
-                   '\n'
-                   '    Organizers can add invited guests to the event by entering their personal\n'
-                   '    information, email address, and guest category, such as relative, friend, '
-                   'or\n'
-                   '    colleague. For each invited guest, the system generates an invitation '
-                   'code\n'
-                   '    that is sent by email and is used by the guest as a password to access '
-                   'the\n'
-                   '    platform.\n'
-                   '\n'
-                   '    Each event has an associated blog where both organizers and invited '
-                   'guests\n'
-                   '    can publish information about the event, upload photos or videos, create '
-                   'new\n'
-                   '    posts, and comment on existing posts.\n'
-                   '\n'
-                   '    After creating an event, the organizer can browse the service showcases\n'
-                   '    provided by suppliers for the selected service categories. The organizer '
-                   'can\n'
-                   '    then request an appointment with a provider by choosing a time compatible\n'
-                   "    with the provider's availability and specifying appointment details and "
-                   'any\n'
-                   '    special requests.\n'
-                   '\n'
-                   '    Providers can view appointment requests through their interface and '
-                   'decide\n'
-                   '    whether to approve them. Approved appointments are automatically '
-                   'displayed\n'
-                   '    in a calendar associated with the event, which the organizer can consult '
-                   'to\n'
-                   '    view all confirmed service appointments.\n'
-                   '\n'
-                   '    After an appointment between the organizer and the provider has taken '
-                   'place,\n'
-                   '    the provider prepares a quotation for the agreed service and uploads the\n'
-                   '    corresponding amount to the portal, associating it with the completed\n'
-                   '    appointment.\n'
-                   '\n'
-                   '    Once a quotation has been uploaded, the organizer can accept or reject '
-                   'it.\n'
-                   '    If the quotation is accepted, its total amount is deducted from the '
-                   'remaining\n'
-                   '    event budget.\n'
-                   '\n'
-                   '    When accepting a quotation, the organizer selects both the payment '
-                   'schedule,\n'
-                   '    which can consist of installments, deposit plus final balance, or full '
-                   'payment,\n'
-                   '    and the payment method, which can be online or on-site.\n'
-                   '\n'
-                   '    If payment is made on-site, the provider confirms the received amount '
-                   'through\n'
-                   '    the portal. If payment is divided into multiple installments, the '
-                   'provider\n'
-                   '    confirms each received installment separately.\n'
-                   '\n'
-                   '    At any time, the organizer can consult the history of contracts '
-                   'associated\n'
-                   '    with the event, including their status and cost, and can also view the\n'
-                   '    remaining event budget.',
+    'description': 'The system supports the management of an Ethical Purchasing Group associated '
+                   'with a km-zero fruit and vegetable store. Farmers periodically enter product '
+                   'availability, customers browse offers and place orders, and store employees '
+                   'may enter orders on behalf of customers. The system manages availability '
+                   'constraints, priority-based allocation, automatic payment through customer '
+                   'wallets, pickup reservations, farmer deliveries, reminders and refunds. It '
+                   'also maintains a fair-play score for customers, which influences priority when '
+                   'available product quantities are insufficient.',
     'actors': ['Organizer', 'Service Provider', 'Guest'],
     'highLevelGoals': [   'Manage event services',
                           'Manage an event',
@@ -407,8 +320,7 @@ SIA_PROJECT_21_22 = {   'name': 'Event Organization Portal - SIA Project 21 22',
                          'View appointment calendar',
                          'View the remaining event budget',
                          'View contract history',
-                         'Create a blog post as an organizer',
-                         'Create a blog post as a guest',
+                         'Create a blog post',
                          'Upload demonstration photos for a service',
                          'Specify the price of a service',
                          'Specify service availability time slots',
@@ -526,22 +438,13 @@ SIA_PROJECT_LONDON_AMBULANCE_SERVICE = {   'name': 'London Ambulance Service',
                    'requiring ambulance staff to follow standard routes and communicate departure '
                    'and destination information so that radio operators and the CAD can accurately '
                    'record the corresponding data.',
-    'actors': [   'Computer Aided Despatch (CAD)',
-                  'Ambulance Staff',
-                  'Radio Operator',
-                  'Resource Allocator (RA)'],
-    'highLevelGoals': [   'Track moving ambulances continuously',
-                          'Allocate an ambulance within 11 minutes of an incident'],
-    'lowLevelGoals': [   'Keep exact location data for parked/stationary ambulances',
-                         'Ensure ambulances stick to expected standard routes',
-                         'Get exact departure and destination data when leaving',
-                         'Update location using the departure/destination data',
-                         'Get location updates via phone',
-                         'Send location/status info via email',
-                         'Keep location accurate after reaching a destination',
-                         'Staff communicates departure and destination upon leaving',
-                         'Operator encodes the departure and destination info',
-                         'System records the encoded data']}
+    'actors': ['Ambulance Staff', 'Radio Operator'],
+    'highLevelGoals': ['Track moving ambulances', 'Dispatch ambulances to emergency calls'],
+    'lowLevelGoals': [   "Record the ambulance's exact departure and destination data in encoded "
+                         'format when leaving.',
+                         'Communicate departure and destination when leaving',
+                         "Record the ambulance's exact departure and destination data when "
+                         'leaving.']}
 
 SIA_PROJECT_CALCULATOR = {   'name': 'Calculator',
     'description': 'This project develops a smartphone app for a simple calculator. In its initial '

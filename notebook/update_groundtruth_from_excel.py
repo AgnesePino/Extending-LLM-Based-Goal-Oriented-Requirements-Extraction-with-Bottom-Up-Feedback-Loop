@@ -10,6 +10,7 @@ import argparse
 import pprint
 import re
 import textwrap
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -105,6 +106,7 @@ def variable_name(sheet_name: str) -> str:
 def build_groundtruths(excel_path: Path, *, only_revision_finished: bool) -> list[tuple[str, dict[str, Any]]]:
     workbook = load_workbook(excel_path, data_only=True)
     projects: list[tuple[str, dict[str, Any]]] = []
+    variable_sources: dict[str, str] = {}
     description_sources: dict[str, str] = {}
 
     for sheet_name in workbook.sheetnames:
@@ -117,13 +119,25 @@ def build_groundtruths(excel_path: Path, *, only_revision_finished: bool) -> lis
             continue
 
         description_key = " ".join(description.casefold().split())
-        previous_sheet = description_sources.get(description_key)
+        previous_description_sheet = description_sources.get(description_key)
+        if previous_description_sheet is not None:
+            warnings.warn(
+                "Duplicate project description in workbook sheets "
+                f"'{previous_description_sheet}' and '{sheet_name}'; both projects will be kept.",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+        else:
+            description_sources[description_key] = sheet_name
+
+        var_name = variable_name(sheet_name)
+        previous_sheet = variable_sources.get(var_name)
         if previous_sheet is not None:
             raise ValueError(
-                "Duplicate project description in workbook sheets "
+                "Workbook sheet names generate the same Python variable: "
                 f"'{previous_sheet}' and '{sheet_name}'."
             )
-        description_sources[description_key] = sheet_name
+        variable_sources[var_name] = sheet_name
 
         name = PROJECT_NAME_BY_SHEET.get(sheet_name, sheet_name)
         project: dict[str, Any] = {
@@ -140,7 +154,7 @@ def build_groundtruths(excel_path: Path, *, only_revision_finished: bool) -> lis
                 only_revision_finished=only_revision_finished,
             )
 
-        projects.append((variable_name(sheet_name), project))
+        projects.append((var_name, project))
 
     return projects
 
@@ -221,17 +235,29 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--excel", type=Path, default=DEFAULT_EXCEL_PATH, help="Path to the .xlsx workbook.")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH, help="Python module to generate.")
-    parser.add_argument(
+    status_group = parser.add_mutually_exclusive_group()
+    status_group.add_argument(
         "--only-revision-finished",
+        dest="only_revision_finished",
         action="store_true",
-        help="Exclude rows whose status is not 'Revision finished'. By default every annotated row is included.",
+        help="Include only rows approved as 'Revision finished' (default).",
     )
+    status_group.add_argument(
+        "--include-unfinished",
+        dest="only_revision_finished",
+        action="store_false",
+        help="Also include populated rows whose status is not 'Revision finished'.",
+    )
+    parser.set_defaults(only_revision_finished=True)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    projects = build_groundtruths(args.excel, only_revision_finished=args.only_revision_finished)
+    projects = build_groundtruths(
+        args.excel,
+        only_revision_finished=args.only_revision_finished,
+    )
     rendered = render_module(projects, source_path=args.excel)
     args.output.write_text(rendered, encoding="utf-8")
     print(f"Generated {args.output} with {len(projects)} projects.")

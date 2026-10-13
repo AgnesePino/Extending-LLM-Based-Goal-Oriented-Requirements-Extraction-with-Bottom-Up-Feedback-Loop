@@ -9,9 +9,14 @@ from src.llm_clients import generate_response
 
 
 SYSTEM_PROMPT = """You are an expert in Goal-Oriented Requirements Engineering.
-Infer one High-Level Goal from the supplied Low-Level Goals. Explain WHY the
-operations belong together. Do not invent functionality and do not mention the
-hidden parent goal. Return only the requested JSON."""
+Infer one High-Level Goal from the supplied Low-Level Goals. The reconstruction
+is a lossless diagnostic summary, not a charitable abstraction: it must expose
+every distinct functional capability present in the children, including an
+outlier that does not belong with the others. Never silently discard, weaken,
+or generalize an inconvenient child merely to make the set look coherent.
+Explain exactly how every supplied LLG contributes to the reconstructed scope.
+Do not invent functionality and do not mention the hidden parent goal. Return
+only the requested JSON."""
 
 
 def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
@@ -36,7 +41,18 @@ def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
         for index, goal in enumerate(branch.low_level_goals, start=1)
     ]
     prompt = """Given these Low-Level Goals, reconstruct the single High-Level
-Goal that explains why they should be pursued together.
+Goal that describes the complete aggregate scope implemented by them.
+
+Mandatory lossless reconstruction rules:
+- account for every llg_NNN; no child may be ignored as noise;
+- preserve materially different actions, objects, actors, lifecycle phases,
+  and outcomes instead of hiding them behind a vague verb such as manage,
+  handle, support, process, or use;
+- if one child introduces an unrelated or broader capability, include that
+  capability explicitly in the reconstructed HLG so the evaluator can detect
+  the mismatch;
+- do not infer missing operations that are not present in the supplied LLGs;
+- in the rationale, reference every llg_NNN and state the capability it adds.
 
 Low-Level Goals:
 {goals}

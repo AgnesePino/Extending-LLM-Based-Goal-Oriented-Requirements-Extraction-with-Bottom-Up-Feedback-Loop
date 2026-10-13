@@ -130,12 +130,7 @@ def generate_high_level_goals(project_description, actors, feedback=None, mode=S
 
 
 #------------------------------------------- Define low level goals from high level goals
-def generate_low_level_goals(
-    highLevelGoals,
-    feedback=None,
-    mode=ShotPromptingMode.ZERO_SHOT,
-    generation_context=None,
-):
+def generate_low_level_goals(highLevelGoals, feedback=None, mode=ShotPromptingMode.ZERO_SHOT):
     sys_prompt = (
         "You are a helpful assistant expert in software engineering tasks. "
         "Elicit low-level goals for a specific stakeholder in a software project. "
@@ -172,6 +167,71 @@ def generate_low_level_goals(
 
     print("This is the provided sys prompt: ", sys_prompt)
 
+    prompt = f""" 
+
+        {(example1_ll if mode == ShotPromptingMode.ONE_SHOT else f"{example1_ll}, {example2_ll}" if mode == ShotPromptingMode.FEW_SHOT else "")}\n
+         \nYour task: based on your understanding of the typical tasks that compose the following sequence of high-level goals,
+        provide if possible a decomposition of goals into sub-goals. 
+        Each low-level goal should theoretically correspond to a single action of the actor with the software.
+        **High-level goals:**\n\n
+        {highLevelGoals}\n
+
+        **Output:**
+    """
+
+    lowLevelGoals = generate_response(prompt, sys_prompt, LowLevelGoals)
+
+    return lowLevelGoals
+
+
+# =============================================================================
+# BOTTOM-UP EXTENSION
+#
+# The original top-down generators above remain unchanged.  Bottom-up repairs
+# call this explicitly named variant only when they need additional context.
+# =============================================================================
+
+def generate_bottom_up_low_level_goals(
+    highLevelGoals,
+    feedback=None,
+    mode=ShotPromptingMode.ZERO_SHOT,
+    generation_context=None,
+):
+    sys_prompt = (
+        "You are a helpful assistant expert in software engineering tasks. "
+        "Elicit low-level goals for a specific stakeholder in a software project. "
+        "The low-level goals that you create MUST be structured to match against a set of API calls. Don't be too generic, for example, avoid goals like 'make the software fast', 'develop a web interface' etc."
+        "Each low-level goal MUST be phrased as an interaction with the system that could be implemented via an API call."
+        "Avoid generic goals. Instead, break them down into atomic actions linked to system capabilities. "
+        "Following the Goal-Oriented Requirements Engineering (GORE) framework, low-level goals are technical objectives "
+        "that describe 'how' the high-level goals will be achieved. \n"
+        "They are more concrete and are eventually refined into specific requirements or software specifications. \n"
+        "Focus: Implementation and constraints. "
+        "Generate ONLY the functional goals."
+    )
+
+    if feedback != None:
+        print("Feedback provided!")
+        sys_prompt += f"""
+
+        The task given to you was already attempted but its output was flawed. You're provided with a critique on the previous attempt.
+        The critique contains comments about low-level goals, please take it into account when generating low-level goals: with respect to the previous attempt,
+        modify only what is mentioned in the critique.
+
+
+        **Previous attempt:**
+        {feedback.previous_output}\n
+
+
+        **Critique:**
+        {feedback.critique}\n
+
+        """
+    else:
+        print("No feedback provided!")
+
+    print("This is the provided sys prompt: ", sys_prompt)
+
     generation_context_section = ""
     if generation_context:
         generation_context_section = f"""
@@ -192,6 +252,8 @@ def generate_low_level_goals(
         **Output:**
     """
 
-    lowLevelGoals = generate_response(prompt, sys_prompt, LowLevelGoals)
+    if not generation_context:
+        # Keep the original prompt byte-for-byte when no repair context exists.
+        prompt = prompt.replace("\n        \n        **Output:**", "\n        **Output:**")
 
-    return lowLevelGoals
+    return generate_response(prompt, sys_prompt, LowLevelGoals)

@@ -1,151 +1,30 @@
 {
   "iteration": 3,
   "reconstructions": {
-    "branch_001": {
-      "reconstructed_high_level_goal": "Submit Task Estimates",
-      "rationale": "The low-level goal explicitly describes the action of a team member submitting an estimate for a task. The high-level goal encapsulates this core activity of providing task estimates to the system.",
-      "branch_id": "branch_001",
+    "hlg_c51105583cc5a16b_001": {
+      "reconstructed_high_level_goal": "The Product Owner posts textual answers to specific questions from team members regarding tasks or backlog items and modifies existing textual descriptions of user stories or backlog items to incorporate clarifications or address feedback from the development team.",
+      "rationale": "llg_001 contributes the capability for the Product Owner to post textual answers to specific questions raised by a team member regarding a task or backlog item within the system. llg_002 contributes the capability for the Product Owner to modify the existing textual description of a user story or backlog item to incorporate clarifications or address feedback received from the development team.",
+      "branch_id": "hlg_c51105583cc5a16b_001",
       "source_low_level_goal_ids": [
-        "Submit Task Estimate"
-      ]
-    },
-    "branch_002": {
-      "reconstructed_high_level_goal": "The Team Member participates in task estimation.",
-      "rationale": "These low-level goals collectively describe the essential activities a team member performs to effectively engage in the task estimation process. They cover understanding the task details, facilitating discussion for clarification, and reviewing the collective estimates, all of which are integral to a collaborative estimation effort.",
-      "branch_id": "branch_002",
-      "source_low_level_goal_ids": [
-        "View Current Task Details",
-        "Post Task-Related Comment",
-        "View All Team Estimates"
-      ]
-    },
-    "branch_003": {
-      "reconstructed_high_level_goal": "Enable Team Member to View Final Aggregated Task Estimate",
-      "rationale": "The low-level goal describes the action of a team member viewing the consolidated estimate for a task after a collaborative estimation process. The high-level goal encapsulates the intention to make this final, agreed-upon estimate transparent and accessible to the team member, ensuring they are aware of the outcome of the estimation discussion.",
-      "branch_id": "branch_003",
-      "source_low_level_goal_ids": [
-        "View Aggregated Task Estimate"
-      ]
-    },
-    "branch_004": {
-      "reconstructed_high_level_goal": "Facilitate unbiased task estimation",
-      "rationale": "The low-level goal describes a mechanism where individual estimates are submitted confidentially and revealed simultaneously by a facilitator. This process is specifically designed to prevent anchoring bias and groupthink, ensuring that each team member's initial estimate is independent and unbiased before collective discussion, which is essential for fair and accurate task estimation.",
-      "branch_id": "branch_004",
-      "source_low_level_goal_ids": [
-        "Submit Anonymous Estimate"
-      ]
-    },
-    "branch_005": {
-      "reconstructed_high_level_goal": "Facilitate Task Estimation Sessions",
-      "rationale": "These operations collectively describe the core responsibilities of a facilitator in managing and guiding an estimation session. They cover initiating estimation for a task, monitoring its progress, and moving to subsequent tasks, ensuring the smooth flow of the estimation process.",
-      "branch_id": "branch_005",
-      "source_low_level_goal_ids": [
-        "Start Estimation Round",
-        "Advance to Next Task",
-        "View Estimation Progress"
-      ]
-    },
-    "branch_006": {
-      "reconstructed_high_level_goal": "Facilitate Team Discussion on Task Estimates",
-      "rationale": "The first low-level goal makes the submitted estimates visible to all team members, which is a necessary precursor for any meaningful discussion. The second low-level goal then formally initiates that discussion, prompting team members to elaborate on their estimates. Together, these operations enable and manage a structured discussion among the team regarding their task estimates.",
-      "branch_id": "branch_006",
-      "source_low_level_goal_ids": [
-        "Reveal All Estimates",
-        "Initiate Discussion Phase"
-      ]
-    },
-    "branch_007": {
-      "reconstructed_high_level_goal": "Finalize Task Estimation",
-      "rationale": "Both low-level goals are essential, sequential steps in concluding the estimation process for a task. The first goal focuses on recording the agreed-upon final estimate, while the second ensures the task's status is updated to reflect that its estimation phase is complete, making the recorded estimate official and signaling readiness for subsequent stages.",
-      "branch_id": "branch_007",
-      "source_low_level_goal_ids": [
-        "Record Final Task Estimate",
-        "Mark Task as Estimated"
+        "Post an answer to a team member's question about a task",
+        "Edit the description of a user story or backlog item based on team feedback"
       ]
     }
   },
   "evaluations": {
-    "branch_001": {
-      "branch_id": "branch_001",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Contribute to Task Estimation' is fully supported by the project description, which explicitly states that team members participate to 'estimate tasks'. It represents a distinct stakeholder intention (providing individual estimates) that is separate from 'Influence Sprint Goals' (the outcome of the collective process) and 'Ensure Fair and Unbiased Input' (the mechanism of anonymity). While 'Submit Task Estimates' is a valid reconstruction, the original phrasing 'Contribute to Task Estimation' is equally precise and captures the active participation aspect well. It is not redundant with siblings, as it focuses on the individual's contribution to the estimation activity itself, which is a core functional requirement. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single Low-Level Goal 'Submit Task Estimate' accurately captures the core functional requirement of the parent HLG 'Contribute to Task Estimation'. The project description explicitly states that team members participate to 'estimate tasks' and use 'anonymous pointing'. Submitting the chosen estimate is the direct mechanical action required to fulfill the goal of providing an estimate. There are no other essential capabilities explicitly required by this specific HLG that are missing; aspects like anonymity are covered by the sibling HLG 'Ensure Fair and Unbiased Input', and discussion/consensus are covered by other HLGs. The decomposition is precise, supported, and complete for this specific goal.",
+    "hlg_c51105583cc5a16b_001": {
+      "branch_id": "hlg_c51105583cc5a16b_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Clarify requirements and answer questions' is supported by the documentation, which states the Product Owner 'clarifies requirements'. The material outcomes of the HLG are {provide clarifications, respond to inquiries}. The reconstruction HLG' aggregates the LLGs: {post textual answers to questions, modify user story descriptions}. While 'post textual answers' entails 'respond to inquiries', the HLG's broader scope of 'provide necessary clarifications' is not fully captured by the specific LLG of 'modifying descriptions' (which is a specific mechanism, not the general outcome of clarification). Furthermore, the HLG description mentions 'remove impediments to understanding', a broader goal than just posting answers or editing text. The reconstruction is a partial overlap because it captures the specific actions but misses the broader functional intent of the parent (general clarification vs specific editing). The parent is valid and supported, so it should be kept, but the LLGs need evaluation to ensure they adequately cover the broader clarification goal or if the parent needs refinement to match the specific system capabilities. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG 'Clarify requirements and answer questions' explicitly requires the Product Owner to provide clarifications and respond to inquiries. llg_001 directly supports the 'answer questions' aspect by posting textual answers to specific team questions. llg_002 supports the 'clarify requirements' aspect by modifying user story descriptions to incorporate clarifications. Both LLGs are distinct, non-redundant, and fully supported by the parent description and actor definition. No essential capabilities are missing, and no unsupported or misleading LLGs are present.",
       "final_decision": "CONFIRM_BRANCH",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Contribute to Task Estimation' is fully supported by the project description, which explicitly states that team members participate to 'estimate tasks'. It represents a distinct stakeholder intention (providing individual estimates) that is separate from 'Influence Sprint Goals' (the outcome of the collective process) and 'Ensure Fair and Unbiased Input' (the mechanism of anonymity). While 'Submit Task Estimates' is a valid reconstruction, the original phrasing 'Contribute to Task Estimation' is equally precise and captures the active participation aspect well. It is not redundant with siblings, as it focuses on the individual's contribution to the estimation activity itself, which is a core functional requirement.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single Low-Level Goal 'Submit Task Estimate' accurately captures the core functional requirement of the parent HLG 'Contribute to Task Estimation'. The project description explicitly states that team members participate to 'estimate tasks' and use 'anonymous pointing'. Submitting the chosen estimate is the direct mechanical action required to fulfill the goal of providing an estimate. There are no other essential capabilities explicitly required by this specific HLG that are missing; aspects like anonymity are covered by the sibling HLG 'Ensure Fair and Unbiased Input', and discussion/consensus are covered by other HLGs. The decomposition is precise, supported, and complete for this specific goal.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_002": {
-      "branch_id": "branch_002",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Achieve Shared Understanding' is fully supported by the project description, which explicitly states that Planning Poker helps to 'create shared ownership, knowledge, and understanding'. It represents a distinct stakeholder intention for the Team Member: gaining a common understanding of task requirements and scope. This is separate from 'Contribute to Task Estimation' (providing the estimate) and 'Influence Sprint Goals' (shaping the final outcome). While 'Promote Productive Discussion' is a Facilitator goal, the Team Member's goal is the *outcome* of that discussion (shared understanding), not the act of facilitating it. The goal is independently scoped, not a mere workflow fragment of another Team Member goal, and is not fully redundant with any sibling. Therefore, it should be kept. Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain a material defect. 'Post Task-Related Comment' (llg_002) is unsupported by the project description, which only mentions 'anonymous pointing' and 'conversations' but does not explicitly document a comment or messaging feature. In Planning Poker, 'discussion' is typically verbal or facilitated by the Facilitator, not necessarily a system-generated comment thread. Additionally, 'View All Team Estimates' (llg_003) is primarily a mechanism for the Facilitator to 'Reveal All Submitted Estimates' and for the team to 'Achieve Team Consensus' (a Facilitator HLG). While viewing estimates helps understanding, the core capability of 'Achieving Shared Understanding' for a Team Member is engaging in the discussion itself. However, the most critical issue is the unsupported 'Post Comment' capability. The essential capability missing is the ability to participate in the discussion/clarification process, which is explicitly stated as 'elicit productive conversations'. Since 'Post Comment' is an invented UI feature not in the text, it must be removed. The remaining LLGs (View Task Details) are supported. The missing essential capability is participating in the discussion/clarification of the task, which is distinct from just viewing details or posting comments (if comments aren't a feature). Given the strict constraint against inferring undocumented features, llg_002 is unsupported. Is there a missing essential capability? The parent is 'Achieve Shared Understanding'. The description says 'through discussion and collaboration'. If 'Post Comment' is removed, is there an LLG for 'Participate in Discussion'? No. But 'Participate in Discussion' is vague. The project description says 'elicit productive conversations'. This implies the system supports the conversation. If it's not comments, what is it? Perhaps it's just the facilitation flow. However, usually, in these evaluations, if a specific UI action like 'Post Comment' is not in the text, it's unsupported. The core of 'Shared Understanding' is the exchange of information. 'View Current Task Details' is supported. 'View All Team Estimates' is supported (revealing cards). The 'discussion' part is the gap. But is 'Participate in Discussion' a distinct LLG? It might be too high-level. Let's look at the 'unsupported' rule. llg_002 is definitely unsupported. Therefore, REGENERATE is required.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Achieve Shared Understanding' is fully supported by the project description, which explicitly states that Planning Poker helps to 'create shared ownership, knowledge, and understanding'. It represents a distinct stakeholder intention for the Team Member: gaining a common understanding of task requirements and scope. This is separate from 'Contribute to Task Estimation' (providing the estimate) and 'Influence Sprint Goals' (shaping the final outcome). While 'Promote Productive Discussion' is a Facilitator goal, the Team Member's goal is the *outcome* of that discussion (shared understanding), not the act of facilitating it. The goal is independently scoped, not a mere workflow fragment of another Team Member goal, and is not fully redundant with any sibling. Therefore, it should be kept.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain a material defect. 'Post Task-Related Comment' (llg_002) is unsupported by the project description, which only mentions 'anonymous pointing' and 'conversations' but does not explicitly document a comment or messaging feature. In Planning Poker, 'discussion' is typically verbal or facilitated by the Facilitator, not necessarily a system-generated comment thread. Additionally, 'View All Team Estimates' (llg_003) is primarily a mechanism for the Facilitator to 'Reveal All Submitted Estimates' and for the team to 'Achieve Team Consensus' (a Facilitator HLG). While viewing estimates helps understanding, the core capability of 'Achieving Shared Understanding' for a Team Member is engaging in the discussion itself. However, the most critical issue is the unsupported 'Post Comment' capability. The essential capability missing is the ability to participate in the discussion/clarification process, which is explicitly stated as 'elicit productive conversations'. Since 'Post Comment' is an invented UI feature not in the text, it must be removed. The remaining LLGs (View Task Details) are supported. The missing essential capability is participating in the discussion/clarification of the task, which is distinct from just viewing details or posting comments (if comments aren't a feature). Given the strict constraint against inferring undocumented features, llg_002 is unsupported. Is there a missing essential capability? The parent is 'Achieve Shared Understanding'. The description says 'through discussion and collaboration'. If 'Post Comment' is removed, is there an LLG for 'Participate in Discussion'? No. But 'Participate in Discussion' is vague. The project description says 'elicit productive conversations'. This implies the system supports the conversation. If it's not comments, what is it? Perhaps it's just the facilitation flow. However, usually, in these evaluations, if a specific UI action like 'Post Comment' is not in the text, it's unsupported. The core of 'Shared Understanding' is the exchange of information. 'View Current Task Details' is supported. 'View All Team Estimates' is supported (revealing cards). The 'discussion' part is the gap. But is 'Participate in Discussion' a distinct LLG? It might be too high-level. Let's look at the 'unsupported' rule. llg_002 is definitely unsupported. Therefore, REGENERATE is required.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 2,
-        "regeneration_feedback": "Remove 'Post Task-Related Comment' as it is not explicitly documented. Ensure the remaining LLGs cover the essential aspects of gaining understanding, such as viewing task details and reviewing revealed estimates, which are supported by the 'anonymous pointing' and 'revealing' mechanics described.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_002"
-        ],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 2,
-          "KEEP_LOW_LEVEL_GOALS": 1
-        }
-      }
-    },
-    "branch_003": {
-      "branch_id": "branch_003",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Influence Sprint Goals' is supported by the project description, which states that Planning Poker helps teams 'collectively set their sprint goals' and that team members participate to 'contribute to sprint goal setting'. The bottom-up reconstruction 'Enable Team Member to View Final Aggregated Task Estimate' is a specific functional capability (viewing data) rather than the stakeholder outcome (influencing/shaping the final goals). While viewing the estimate is a mechanism that allows a team member to see the impact of their input, the original goal captures the broader intention of having their input inform the final outcome. This is distinct from 'Contribute to Task Estimation' (providing the input) and 'Achieve Shared Understanding' (gaining knowledge). It represents the final outcome of the estimation process for the team member. Therefore, the original goal is valid and should be kept, as it expresses a distinct stakeholder outcome not fully covered by the other Team Member goals. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG 'Influence Sprint Goals' describes the high-level outcome where team members' input shapes the final sprint goals. The current LLG 'View Aggregated Task Estimate' is a specific functional capability that allows a team member to see the result of the estimation process. While viewing the estimate is a necessary step for a team member to be aware of the outcome and thus feel their input has influenced the goal, it is a very narrow functional slice. However, in the context of bottom-up reconstruction, this LLG is supported by the project description which mentions 'collectively set their sprint goals' and the process of revealing estimates. The LLG is not unsupported; it is a valid low-level capability that contributes to the broader goal of influencing/seeing the impact on sprint goals. It does not duplicate sibling goals like 'Contribute to Task Estimation' (providing input) or 'Achieve Shared Understanding' (discussion). It is a distinct capability of seeing the final number. Therefore, it is acceptable.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Influence Sprint Goals' is supported by the project description, which states that Planning Poker helps teams 'collectively set their sprint goals' and that team members participate to 'contribute to sprint goal setting'. The bottom-up reconstruction 'Enable Team Member to View Final Aggregated Task Estimate' is a specific functional capability (viewing data) rather than the stakeholder outcome (influencing/shaping the final goals). While viewing the estimate is a mechanism that allows a team member to see the impact of their input, the original goal captures the broader intention of having their input inform the final outcome. This is distinct from 'Contribute to Task Estimation' (providing the input) and 'Achieve Shared Understanding' (gaining knowledge). It represents the final outcome of the estimation process for the team member. Therefore, the original goal is valid and should be kept, as it expresses a distinct stakeholder outcome not fully covered by the other Team Member goals.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Clarify requirements and answer questions' is supported by the documentation, which states the Product Owner 'clarifies requirements'. The material outcomes of the HLG are {provide clarifications, respond to inquiries}. The reconstruction HLG' aggregates the LLGs: {post textual answers to questions, modify user story descriptions}. While 'post textual answers' entails 'respond to inquiries', the HLG's broader scope of 'provide necessary clarifications' is not fully captured by the specific LLG of 'modifying descriptions' (which is a specific mechanism, not the general outcome of clarification). Furthermore, the HLG description mentions 'remove impediments to understanding', a broader goal than just posting answers or editing text. The reconstruction is a partial overlap because it captures the specific actions but misses the broader functional intent of the parent (general clarification vs specific editing). The parent is valid and supported, so it should be kept, but the LLGs need evaluation to ensure they adequately cover the broader clarification goal or if the parent needs refinement to match the specific system capabilities.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
         "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -156,148 +35,7 @@
       },
       "replacement_request": null,
       "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG 'Influence Sprint Goals' describes the high-level outcome where team members' input shapes the final sprint goals. The current LLG 'View Aggregated Task Estimate' is a specific functional capability that allows a team member to see the result of the estimation process. While viewing the estimate is a necessary step for a team member to be aware of the outcome and thus feel their input has influenced the goal, it is a very narrow functional slice. However, in the context of bottom-up reconstruction, this LLG is supported by the project description which mentions 'collectively set their sprint goals' and the process of revealing estimates. The LLG is not unsupported; it is a valid low-level capability that contributes to the broader goal of influencing/seeing the impact on sprint goals. It does not duplicate sibling goals like 'Contribute to Task Estimation' (providing input) or 'Achieve Shared Understanding' (discussion). It is a distinct capability of seeing the final number. Therefore, it is acceptable.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 4,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_004": {
-      "branch_id": "branch_004",
-      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Ensure Fair and Unbiased Input' is supported by the project description which explicitly mentions 'anonymous pointing' to 'elicit productive conversations' and prevent bias. However, it is a narrow mechanism-focused goal rather than a stakeholder outcome. The sibling HLG 'Contribute to Task Estimation' covers the act of providing estimates, but does not explicitly capture the *fairness* or *unbiased nature* of that contribution, which is a distinct stakeholder value (preventing anchoring/groupthink). The reconstructed goal 'Facilitate unbiased task estimation' is also somewhat mechanism-oriented. A better HLG would focus on the outcome of the anonymity: 'Provide Independent Estimates' or 'Ensure Independent Estimation'. This distinguishes it from 'Contribute to Task Estimation' (which is about the act of estimating) by focusing on the *quality* of the input (independence/fairness). Since 'Contribute to Task Estimation' does not fully entail the *fairness* aspect, and 'Ensure Fair and Unbiased Input' is a valid, distinct stakeholder intention (fairness), it should be kept or slightly rewritten to be more outcome-oriented. Given the options, 'Ensure Fair and Unbiased Input' is acceptable as it clearly states the stakeholder desire for fairness. It is not redundant because 'Contribute to Task Estimation' could theoretically be done in a biased way (e.g., open discussion first), whereas this HLG specifically targets the anonymity/fairness aspect. Therefore, it is independently scoped. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single current LLG 'Submit Anonymous Estimate' accurately captures the core mechanism required by the parent HLG 'Ensure Fair and Unbiased Input'. The project description explicitly mentions 'anonymous pointing' to prevent bias and encourage honest contributions. The LLG description correctly specifies that the estimate remains hidden until revealed, which is the essential capability for ensuring the input is unbiased (preventing anchoring). There are no unsupported LLGs. There are no missing essential capabilities for this specific HLG, as the act of submitting anonymously is the primary way a Team Member ensures their input is fair and unbiased. The sibling HLG 'Contribute to Task Estimation' covers the act of estimating itself, while this HLG covers the *manner* (anonymity) of that contribution to ensure fairness. The decomposition is precise and supported.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Ensure Fair and Unbiased Input' is supported by the project description which explicitly mentions 'anonymous pointing' to 'elicit productive conversations' and prevent bias. However, it is a narrow mechanism-focused goal rather than a stakeholder outcome. The sibling HLG 'Contribute to Task Estimation' covers the act of providing estimates, but does not explicitly capture the *fairness* or *unbiased nature* of that contribution, which is a distinct stakeholder value (preventing anchoring/groupthink). The reconstructed goal 'Facilitate unbiased task estimation' is also somewhat mechanism-oriented. A better HLG would focus on the outcome of the anonymity: 'Provide Independent Estimates' or 'Ensure Independent Estimation'. This distinguishes it from 'Contribute to Task Estimation' (which is about the act of estimating) by focusing on the *quality* of the input (independence/fairness). Since 'Contribute to Task Estimation' does not fully entail the *fairness* aspect, and 'Ensure Fair and Unbiased Input' is a valid, distinct stakeholder intention (fairness), it should be kept or slightly rewritten to be more outcome-oriented. Given the options, 'Ensure Fair and Unbiased Input' is acceptable as it clearly states the stakeholder desire for fairness. It is not redundant because 'Contribute to Task Estimation' could theoretically be done in a biased way (e.g., open discussion first), whereas this HLG specifically targets the anonymity/fairness aspect. Therefore, it is independently scoped.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 4,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 1
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single current LLG 'Submit Anonymous Estimate' accurately captures the core mechanism required by the parent HLG 'Ensure Fair and Unbiased Input'. The project description explicitly mentions 'anonymous pointing' to prevent bias and encourage honest contributions. The LLG description correctly specifies that the estimate remains hidden until revealed, which is the essential capability for ensuring the input is unbiased (preventing anchoring). There are no unsupported LLGs. There are no missing essential capabilities for this specific HLG, as the act of submitting anonymously is the primary way a Team Member ensures their input is fair and unbiased. The sibling HLG 'Contribute to Task Estimation' covers the act of estimating itself, while this HLG covers the *manner* (anonymity) of that contribution to ensure fairness. The decomposition is precise and supported.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_005": {
-      "branch_id": "branch_005",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Guide the Estimation Process' is supported by the project description, which states the Facilitator 'Manages the flow of the Planning Poker game'. However, the hierarchy is fragmented. The Facilitator has three HLGs: 'Guide the Estimation Process', 'Promote Productive Discussion', and 'Achieve Team Consensus'. These represent distinct phases or aspects of the same end-to-end stakeholder outcome: facilitating a successful Planning Poker session to reach consensus. 'Guide the Estimation Process' covers the structural flow (initiating, monitoring, moving tasks), 'Promote Productive Discussion' covers the interaction during discrepancies, and 'Achieve Team Consensus' covers the final outcome. According to the consolidation audit, these should ideally be grouped under a broader umbrella or the broadest goal should be rewritten to encompass the full facilitation responsibility. 'Guide the Estimation Process' is the most structural and broad of the three, but 'Achieve Team Consensus' is the ultimate goal. However, 'Guide the Estimation Process' is a valid, independently scoped operational goal for the Facilitator (managing the flow) that is distinct from the social goal of promoting discussion or the outcome goal of achieving consensus. It is not fully redundant because 'Promote Productive Discussion' focuses on the *content* of interaction, while 'Guide' focuses on the *mechanics* of the session flow. 'Achieve Team Consensus' is the result, not the management of the flow. Therefore, it is supported and sufficiently distinct to be kept, although a rewrite to 'Facilitate the Estimation Session' might be slightly more precise, the current name is acceptable and captures the 'managing the flow' aspect well. Given the options, KEEP is appropriate as it is a valid, supported, and distinct operational goal. Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs (Start Estimation Round, Advance to Next Task, View Estimation Progress) cover the structural flow of the session (initiation, progression, and monitoring status). However, the Parent HLG 'Guide the Estimation Process' and the Facilitator's description explicitly state that the Facilitator 'reveals cards'. Revealing estimates is a critical, distinct step in the Planning Poker flow that occurs after submission and before discussion/consensus. It is not covered by 'View Estimation Progress' (which is about monitoring who has submitted) nor by 'Start' or 'Advance'. The sibling HLG 'Promote Productive Discussion' focuses on the *discussion* itself, and 'Achieve Team Consensus' focuses on the *outcome*. The mechanical act of revealing the cards is a core part of 'managing the flow' and is explicitly documented in the actor description. Its absence is a material omission of an essential capability required to guide the process from submission to discussion.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Guide the Estimation Process' is supported by the project description, which states the Facilitator 'Manages the flow of the Planning Poker game'. However, the hierarchy is fragmented. The Facilitator has three HLGs: 'Guide the Estimation Process', 'Promote Productive Discussion', and 'Achieve Team Consensus'. These represent distinct phases or aspects of the same end-to-end stakeholder outcome: facilitating a successful Planning Poker session to reach consensus. 'Guide the Estimation Process' covers the structural flow (initiating, monitoring, moving tasks), 'Promote Productive Discussion' covers the interaction during discrepancies, and 'Achieve Team Consensus' covers the final outcome. According to the consolidation audit, these should ideally be grouped under a broader umbrella or the broadest goal should be rewritten to encompass the full facilitation responsibility. 'Guide the Estimation Process' is the most structural and broad of the three, but 'Achieve Team Consensus' is the ultimate goal. However, 'Guide the Estimation Process' is a valid, independently scoped operational goal for the Facilitator (managing the flow) that is distinct from the social goal of promoting discussion or the outcome goal of achieving consensus. It is not fully redundant because 'Promote Productive Discussion' focuses on the *content* of interaction, while 'Guide' focuses on the *mechanics* of the session flow. 'Achieve Team Consensus' is the result, not the management of the flow. Therefore, it is supported and sufficiently distinct to be kept, although a rewrite to 'Facilitate the Estimation Session' might be slightly more precise, the current name is acceptable and captures the 'managing the flow' aspect well. Given the options, KEEP is appropriate as it is a valid, supported, and distinct operational goal.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 4,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs (Start Estimation Round, Advance to Next Task, View Estimation Progress) cover the structural flow of the session (initiation, progression, and monitoring status). However, the Parent HLG 'Guide the Estimation Process' and the Facilitator's description explicitly state that the Facilitator 'reveals cards'. Revealing estimates is a critical, distinct step in the Planning Poker flow that occurs after submission and before discussion/consensus. It is not covered by 'View Estimation Progress' (which is about monitoring who has submitted) nor by 'Start' or 'Advance'. The sibling HLG 'Promote Productive Discussion' focuses on the *discussion* itself, and 'Achieve Team Consensus' focuses on the *outcome*. The mechanical act of revealing the cards is a core part of 'managing the flow' and is explicitly documented in the actor description. Its absence is a material omission of an essential capability required to guide the process from submission to discussion.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 2,
-        "regeneration_feedback": "Keep the existing LLGs for starting, advancing, and viewing progress. Add a new LLG for 'Reveal Submitted Estimates' to cover the explicit requirement for the Facilitator to reveal cards, which is a key step in the estimation flow.",
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [
-          "Reveal Submitted Estimates"
-        ],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 2,
-          "KEEP_LOW_LEVEL_GOALS": 1
-        }
-      }
-    },
-    "branch_006": {
-      "branch_id": "branch_006",
-      "rationale": "Voting result 2/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Promote Productive Discussion' is supported by the Facilitator's description ('facilitates discussion among team members') and the project description ('elicit productive conversations'). However, it is materially over-fragmented. The Facilitator's role is to manage the flow, reveal cards, and facilitate discussion to achieve consensus. 'Guide the Estimation Process' covers the flow management. 'Achieve Team Consensus' covers the outcome. 'Promote Productive Discussion' covers the intermediate mechanism. In the context of Planning Poker, facilitating discussion is the primary means by which the Facilitator guides the process and achieves consensus. It is not an independently satisfiable stakeholder outcome separate from the overall goal of reaching consensus through structured estimation. The sibling 'Guide the Estimation Process' is the broader umbrella for the Facilitator's active management role, which includes facilitating discussion as a key component of managing the flow. Therefore, 'Promote Productive Discussion' is redundant with the broader intention of guiding the process to reach consensus. It should be removed as fully redundant with 'Guide the Estimation Process', which encompasses the facilitation of discussion as part of managing the game flow. Destructive-action gate: REMOVE was not unanimous; the HLG is retained in this state. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Promote Productive Discussion'. 'Reveal All Estimates' is explicitly supported by the Facilitator's description ('reveals cards') and is a necessary precursor to discussion in Planning Poker. 'Initiate Discussion Phase' is supported by the Facilitator's description ('facilitates discussion') and the parent HLG's intent to 'encourage and guide discussions'. Both LLGs are essential, documented, and do not duplicate the responsibilities of sibling HLGs like 'Guide the Estimation Process' (which focuses on overall flow/structure) or 'Achieve Team Consensus' (which focuses on the final agreement). There are no unsupported or missing essential capabilities.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 2/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Promote Productive Discussion' is supported by the Facilitator's description ('facilitates discussion among team members') and the project description ('elicit productive conversations'). However, it is materially over-fragmented. The Facilitator's role is to manage the flow, reveal cards, and facilitate discussion to achieve consensus. 'Guide the Estimation Process' covers the flow management. 'Achieve Team Consensus' covers the outcome. 'Promote Productive Discussion' covers the intermediate mechanism. In the context of Planning Poker, facilitating discussion is the primary means by which the Facilitator guides the process and achieves consensus. It is not an independently satisfiable stakeholder outcome separate from the overall goal of reaching consensus through structured estimation. The sibling 'Guide the Estimation Process' is the broader umbrella for the Facilitator's active management role, which includes facilitating discussion as a key component of managing the flow. Therefore, 'Promote Productive Discussion' is redundant with the broader intention of guiding the process to reach consensus. It should be removed as fully redundant with 'Guide the Estimation Process', which encompasses the facilitation of discussion as part of managing the game flow. Destructive-action gate: REMOVE was not unanimous; the HLG is retained in this state.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 3,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 2,
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 1
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Promote Productive Discussion'. 'Reveal All Estimates' is explicitly supported by the Facilitator's description ('reveals cards') and is a necessary precursor to discussion in Planning Poker. 'Initiate Discussion Phase' is supported by the Facilitator's description ('facilitates discussion') and the parent HLG's intent to 'encourage and guide discussions'. Both LLGs are essential, documented, and do not duplicate the responsibilities of sibling HLGs like 'Guide the Estimation Process' (which focuses on overall flow/structure) or 'Achieve Team Consensus' (which focuses on the final agreement). There are no unsupported or missing essential capabilities.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_007": {
-      "branch_id": "branch_007",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Achieve Team Consensus' is supported by the project description, which states the tool helps teams 'collectively set their sprint goals' and the Facilitator's role is to 'facilitate discussion... to achieve shared understanding and consensus.' The goal represents a distinct stakeholder outcome (finalized agreement/commitment) that is separate from the process management ('Guide the Estimation Process') and the discussion facilitation ('Promote Productive Discussion'). While 'Finalize Task Estimation' is a valid reconstruction, 'Achieve Team Consensus' is a precise and standard agile term that accurately reflects the intent of reaching a collective agreement. It is not redundant with siblings because 'Guide' covers flow/structure and 'Promote' covers the discussion phase, whereas 'Achieve Consensus' covers the final state of agreement. Therefore, it should be kept. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Achieve Team Consensus'. 'Record Final Task Estimate' is directly supported by the parent's goal of reaching a 'collective agreement on task estimates' and the Facilitator's role in managing the game flow to finalize commitments. 'Mark Task as Estimated' is a necessary administrative step to conclude the estimation phase for a specific task, which is entailed by the Facilitator's responsibility to 'manage the flow' and the parent goal of leading to 'finalized sprint commitments'. These LLGs do not duplicate the responsibilities of sibling HLGs like 'Guide the Estimation Process' (which focuses on the overall session structure) or 'Promote Productive Discussion' (which focuses on the discussion phase). There are no unsupported or missing essential capabilities.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Achieve Team Consensus' is supported by the project description, which states the tool helps teams 'collectively set their sprint goals' and the Facilitator's role is to 'facilitate discussion... to achieve shared understanding and consensus.' The goal represents a distinct stakeholder outcome (finalized agreement/commitment) that is separate from the process management ('Guide the Estimation Process') and the discussion facilitation ('Promote Productive Discussion'). While 'Finalize Task Estimation' is a valid reconstruction, 'Achieve Team Consensus' is a precise and standard agile term that accurately reflects the intent of reaching a collective agreement. It is not redundant with siblings because 'Guide' covers flow/structure and 'Promote' covers the discussion phase, whereas 'Achieve Consensus' covers the final state of agreement. Therefore, it should be kept.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Achieve Team Consensus'. 'Record Final Task Estimate' is directly supported by the parent's goal of reaching a 'collective agreement on task estimates' and the Facilitator's role in managing the game flow to finalize commitments. 'Mark Task as Estimated' is a necessary administrative step to conclude the estimation phase for a specific task, which is entailed by the Facilitator's responsibility to 'manage the flow' and the parent goal of leading to 'finalized sprint commitments'. These LLGs do not duplicate the responsibilities of sibling HLGs like 'Guide the Estimation Process' (which focuses on the overall session structure) or 'Promote Productive Discussion' (which focuses on the discussion phase). There are no unsupported or missing essential capabilities.",
+        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The parent HLG 'Clarify requirements and answer questions' explicitly requires the Product Owner to provide clarifications and respond to inquiries. llg_001 directly supports the 'answer questions' aspect by posting textual answers to specific team questions. llg_002 supports the 'clarify requirements' aspect by modifying user story descriptions to incorporate clarifications. Both LLGs are distinct, non-redundant, and fully supported by the parent description and actor definition. No essential capabilities are missing, and no unsupported or misleading LLGs are present.",
         "decision": "KEEP_LOW_LEVEL_GOALS",
         "quality_score": 5,
         "regeneration_feedback": null,
@@ -315,59 +53,83 @@
   "high_level_goals": {
     "goals": [
       {
-        "name": "Contribute to Task Estimation",
-        "description": "Team Members aim to provide their best estimates for tasks to ensure accurate and realistic sprint planning.",
+        "name": "Accurately estimate task effort",
+        "description": "Agile Team Members aim to provide precise estimates for development tasks to ensure realistic sprint planning and commitment.",
         "actor": {
-          "name": "Team Member",
-          "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+          "name": "Agile Team Member",
+          "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
         }
       },
       {
-        "name": "Achieve Shared Understanding",
-        "description": "Team Members seek to gain a common understanding of task requirements and scope through discussion and collaboration.",
+        "name": "Achieve shared understanding of tasks",
+        "description": "Agile Team Members seek to gain a clear and common understanding of user stories and backlog items to contribute effectively and avoid misunderstandings.",
         "actor": {
-          "name": "Team Member",
-          "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+          "name": "Agile Team Member",
+          "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
         }
       },
       {
-        "name": "Influence Sprint Goals",
-        "description": "Team Members want their collective input and estimates to directly inform and shape the final sprint goals, fostering ownership.",
+        "name": "Contribute to team consensus on estimates",
+        "description": "Agile Team Members strive to participate in discussions and reach a collective agreement on task estimates, fostering shared ownership and commitment.",
         "actor": {
-          "name": "Team Member",
-          "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+          "name": "Agile Team Member",
+          "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
         }
       },
       {
-        "name": "Ensure Fair and Unbiased Input",
-        "description": "Team Members desire to provide their estimates anonymously to prevent bias and encourage honest contributions.",
+        "name": "Provide unbiased estimates",
+        "description": "Agile Team Members aim to provide estimates without influence from others, leveraging anonymous pointing to ensure independent judgment and prevent anchoring bias.",
         "actor": {
-          "name": "Team Member",
-          "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+          "name": "Agile Team Member",
+          "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
         }
       },
       {
-        "name": "Guide the Estimation Process",
-        "description": "The Facilitator aims to manage the flow of the Planning Poker game to ensure an efficient and structured estimation session.",
+        "name": "Facilitate efficient estimation sessions",
+        "description": "The Scrum Master aims to conduct Planning Poker sessions smoothly and effectively, ensuring productive use of team time and accurate estimate generation.",
         "actor": {
-          "name": "Facilitator",
-          "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+          "name": "Scrum Master",
+          "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
         }
       },
       {
-        "name": "Promote Productive Discussion",
-        "description": "The Facilitator seeks to encourage and guide discussions among team members to resolve discrepancies and build shared understanding around task estimates.",
+        "name": "Guide team towards consensus",
+        "description": "The Scrum Master seeks to steer discussions and interactions to help the team achieve a shared understanding and agreement on task estimates.",
         "actor": {
-          "name": "Facilitator",
-          "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+          "name": "Scrum Master",
+          "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
         }
       },
       {
-        "name": "Achieve Team Consensus",
-        "description": "The Facilitator's goal is to help the team reach a collective agreement on task estimates, leading to finalized sprint commitments.",
+        "name": "Promote productive discussions and knowledge sharing",
+        "description": "The Scrum Master's goal is to encourage open dialogue and the exchange of information among team members to enhance understanding and identify potential complexities.",
         "actor": {
-          "name": "Facilitator",
-          "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+          "name": "Scrum Master",
+          "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+        }
+      },
+      {
+        "name": "Obtain reliable effort estimates",
+        "description": "The Product Owner aims to acquire accurate and consistent effort estimates for backlog items to inform release planning, prioritization, and resource allocation.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+        }
+      },
+      {
+        "name": "Ensure team understanding of requirements",
+        "description": "The Product Owner seeks to confirm that the development team has a clear and complete grasp of user stories and requirements to minimize rework and ensure the right product is built.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+        }
+      },
+      {
+        "name": "Clarify requirements and answer questions",
+        "description": "The Product Owner's goal is to provide necessary clarifications and respond to team inquiries during the estimation process to remove impediments to understanding.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
         }
       }
     ]
@@ -375,167 +137,313 @@
   "low_level_goals": {
     "low_level_goals": [
       {
-        "name": "Submit Task Estimate",
-        "description": "The Team Member submits their chosen estimate value for the current task to the system.",
+        "name": "Select an estimation card value for a given task",
+        "description": "The Agile Team Member interacts with the system to choose a specific numerical value (e.g., 1, 2, 3, 5, 8) from the available estimation cards for a particular development task.",
         "high_level_associated": {
-          "name": "Contribute to Task Estimation",
-          "description": "Team Members aim to provide their best estimates for tasks to ensure accurate and realistic sprint planning.",
+          "name": "Accurately estimate task effort",
+          "description": "Agile Team Members aim to provide precise estimates for development tasks to ensure realistic sprint planning and commitment.",
           "actor": {
-            "name": "Team Member",
-            "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "View Aggregated Task Estimate",
-        "description": "The Team Member views the calculated aggregated estimate for a task after all individual estimates have been revealed and discussed.",
+        "name": "Submit the selected estimation card for a given task",
+        "description": "The Agile Team Member sends their chosen estimation card value to the system for processing, typically without immediate revelation to others.",
         "high_level_associated": {
-          "name": "Influence Sprint Goals",
-          "description": "Team Members want their collective input and estimates to directly inform and shape the final sprint goals, fostering ownership.",
+          "name": "Accurately estimate task effort",
+          "description": "Agile Team Members aim to provide precise estimates for development tasks to ensure realistic sprint planning and commitment.",
           "actor": {
-            "name": "Team Member",
-            "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Submit Anonymous Estimate",
-        "description": "The Team Member submits their estimate for a task, ensuring it remains hidden from other team members until explicitly revealed by the Facilitator.",
+        "name": "View the details of a specific user story or backlog item",
+        "description": "The Agile Team Member retrieves and displays the full description, acceptance criteria, and any associated information for a selected task.",
         "high_level_associated": {
-          "name": "Ensure Fair and Unbiased Input",
-          "description": "Team Members desire to provide their estimates anonymously to prevent bias and encourage honest contributions.",
+          "name": "Achieve shared understanding of tasks",
+          "description": "Agile Team Members seek to gain a clear and common understanding of user stories and backlog items to contribute effectively and avoid misunderstandings.",
           "actor": {
-            "name": "Team Member",
-            "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Start Estimation Round",
-        "description": "The Facilitator initiates a new estimation round for a specific task, making it available for team members to submit estimates.",
+        "name": "Post a question about a user story or backlog item in the discussion forum",
+        "description": "The Agile Team Member submits a text-based question or clarification request related to a task to a shared discussion area.",
         "high_level_associated": {
-          "name": "Guide the Estimation Process",
-          "description": "The Facilitator aims to manage the flow of the Planning Poker game to ensure an efficient and structured estimation session.",
+          "name": "Achieve shared understanding of tasks",
+          "description": "Agile Team Members seek to gain a clear and common understanding of user stories and backlog items to contribute effectively and avoid misunderstandings.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Advance to Next Task",
-        "description": "The Facilitator moves the estimation session to the next task in the predefined backlog or list.",
+        "name": "Read comments and questions posted by other team members for a task",
+        "description": "The Agile Team Member accesses and reviews the discussion thread, including questions and comments from peers, pertaining to a specific task.",
         "high_level_associated": {
-          "name": "Guide the Estimation Process",
-          "description": "The Facilitator aims to manage the flow of the Planning Poker game to ensure an efficient and structured estimation session.",
+          "name": "Achieve shared understanding of tasks",
+          "description": "Agile Team Members seek to gain a clear and common understanding of user stories and backlog items to contribute effectively and avoid misunderstandings.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "View Estimation Progress",
-        "description": "The Facilitator views the current status of estimates for the active task, including which team members have submitted their estimates.",
+        "name": "View the revealed estimates of all team members for a task",
+        "description": "The Agile Team Member displays the submitted estimates from all participants for a given task after the Scrum Master reveals them.",
         "high_level_associated": {
-          "name": "Guide the Estimation Process",
-          "description": "The Facilitator aims to manage the flow of the Planning Poker game to ensure an efficient and structured estimation session.",
+          "name": "Contribute to team consensus on estimates",
+          "description": "Agile Team Members strive to participate in discussions and reach a collective agreement on task estimates, fostering shared ownership and commitment.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Reveal All Estimates",
-        "description": "The Facilitator triggers the display of all submitted estimates for the current task to all team members.",
+        "name": "Add a comment to the discussion about a task's estimate",
+        "description": "The Agile Team Member contributes a text-based comment to the ongoing discussion regarding the estimates provided for a specific task.",
         "high_level_associated": {
-          "name": "Promote Productive Discussion",
-          "description": "The Facilitator seeks to encourage and guide discussions among team members to resolve discrepancies and build shared understanding around task estimates.",
+          "name": "Contribute to team consensus on estimates",
+          "description": "Agile Team Members strive to participate in discussions and reach a collective agreement on task estimates, fostering shared ownership and commitment.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Initiate Discussion Phase",
-        "description": "The Facilitator formally starts a discussion period for the current task, prompting team members to elaborate on their estimates.",
+        "name": "Re-estimate a task after discussion",
+        "description": "The Agile Team Member submits a new estimation card value for a task following a discussion, indicating a revised understanding or agreement.",
         "high_level_associated": {
-          "name": "Promote Productive Discussion",
-          "description": "The Facilitator seeks to encourage and guide discussions among team members to resolve discrepancies and build shared understanding around task estimates.",
+          "name": "Contribute to team consensus on estimates",
+          "description": "Agile Team Members strive to participate in discussions and reach a collective agreement on task estimates, fostering shared ownership and commitment.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Record Final Task Estimate",
-        "description": "The Facilitator inputs and saves the agreed-upon final estimate for a task after team consensus has been reached.",
+        "name": "Submit an estimate for a task without revealing it to other team members immediately",
+        "description": "The Agile Team Member interacts with the system to submit their chosen estimate for a specific task, ensuring that this estimate remains hidden from other team members until a collective reveal action is triggered by the system.",
         "high_level_associated": {
-          "name": "Achieve Team Consensus",
-          "description": "The Facilitator's goal is to help the team reach a collective agreement on task estimates, leading to finalized sprint commitments.",
+          "name": "Provide unbiased estimates",
+          "description": "Agile Team Members aim to provide estimates without influence from others, leveraging anonymous pointing to ensure independent judgment and prevent anchoring bias.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Agile Team Member",
+            "description": "An individual participating in the Planning Poker game to estimate tasks and contribute to sprint goals."
           }
         }
       },
       {
-        "name": "Mark Task as Estimated",
-        "description": "The Facilitator marks the current task as having completed its estimation process, indicating a final estimate has been recorded.",
+        "name": "Start a new estimation round for a specific task",
+        "description": "The Scrum Master initiates the voting process for a selected task, making it available for team members to submit their estimates.",
         "high_level_associated": {
-          "name": "Achieve Team Consensus",
-          "description": "The Facilitator's goal is to help the team reach a collective agreement on task estimates, leading to finalized sprint commitments.",
+          "name": "Facilitate efficient estimation sessions",
+          "description": "The Scrum Master aims to conduct Planning Poker sessions smoothly and effectively, ensuring productive use of team time and accurate estimate generation.",
           "actor": {
-            "name": "Facilitator",
-            "description": "Manages the flow of the Planning Poker game, reveals cards, and facilitates discussion among team members to achieve shared understanding and consensus."
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
           }
         }
       },
       {
-        "name": "View Current Task Details",
-        "description": "The Team Member retrieves and displays the detailed information for the task currently being estimated, including its description, acceptance criteria, and any attached resources, to ensure a comprehensive understanding of its scope and requirements.",
+        "name": "Reveal all submitted estimates for the current task",
+        "description": "The Scrum Master triggers the system to display all previously hidden estimates from team members for the task currently being estimated.",
         "high_level_associated": {
-          "name": "Achieve Shared Understanding",
-          "description": "Team Members seek to gain a common understanding of task requirements and scope through discussion and collaboration.",
+          "name": "Facilitate efficient estimation sessions",
+          "description": "The Scrum Master aims to conduct Planning Poker sessions smoothly and effectively, ensuring productive use of team time and accurate estimate generation.",
           "actor": {
-            "name": "Team Member",
-            "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
           }
         }
       },
       {
-        "name": "View All Team Estimates",
-        "description": "The Team Member retrieves and displays the estimates submitted by all other team members for the current task, after they have been revealed, to identify discrepancies and areas requiring further discussion to achieve a shared understanding.",
+        "name": "End the current estimation round for a task",
+        "description": "The Scrum Master formally concludes the voting and discussion period for a task, preventing further estimate submissions for that round.",
         "high_level_associated": {
-          "name": "Achieve Shared Understanding",
-          "description": "Team Members seek to gain a common understanding of task requirements and scope through discussion and collaboration.",
+          "name": "Facilitate efficient estimation sessions",
+          "description": "The Scrum Master aims to conduct Planning Poker sessions smoothly and effectively, ensuring productive use of team time and accurate estimate generation.",
           "actor": {
-            "name": "Team Member",
-            "description": "An individual member of an agile or scrum development team who participates in the Planning Poker game to estimate tasks and contribute to sprint goal setting."
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Mark a task as estimated with a final value",
+        "description": "The Scrum Master records the agreed-upon final estimate for a task in the system, finalizing its estimation status.",
+        "high_level_associated": {
+          "name": "Facilitate efficient estimation sessions",
+          "description": "The Scrum Master aims to conduct Planning Poker sessions smoothly and effectively, ensuring productive use of team time and accurate estimate generation.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Identify team members with outlier estimates for a task",
+        "description": "The Scrum Master uses the system to highlight or list team members whose estimates significantly deviate from the majority for a given task.",
+        "high_level_associated": {
+          "name": "Guide team towards consensus",
+          "description": "The Scrum Master seeks to steer discussions and interactions to help the team achieve a shared understanding and agreement on task estimates.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Prompt team members to discuss their differing estimates",
+        "description": "The Scrum Master sends a system notification or displays a prompt encouraging team members, especially those with outliers, to explain their estimates.",
+        "high_level_associated": {
+          "name": "Guide team towards consensus",
+          "description": "The Scrum Master seeks to steer discussions and interactions to help the team achieve a shared understanding and agreement on task estimates.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Initiate a new voting round for a task if consensus is not reached",
+        "description": "The Scrum Master restarts the estimation process for a task, allowing team members to submit new estimates after a discussion.",
+        "high_level_associated": {
+          "name": "Guide team towards consensus",
+          "description": "The Scrum Master seeks to steer discussions and interactions to help the team achieve a shared understanding and agreement on task estimates.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "View all comments and questions related to a task",
+        "description": "The Scrum Master accesses a comprehensive log or display of all discussion entries, questions, and answers associated with a specific task.",
+        "high_level_associated": {
+          "name": "Promote productive discussions and knowledge sharing",
+          "description": "The Scrum Master's goal is to encourage open dialogue and the exchange of information among team members to enhance understanding and identify potential complexities.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Highlight specific questions or comments for team attention",
+        "description": "The Scrum Master marks or flags particular discussion items to draw the team's focus to them, indicating their importance.",
+        "high_level_associated": {
+          "name": "Promote productive discussions and knowledge sharing",
+          "description": "The Scrum Master's goal is to encourage open dialogue and the exchange of information among team members to enhance understanding and identify potential complexities.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "Archive a completed discussion thread for a task",
+        "description": "The Scrum Master moves a discussion thread for a task to an archived state, indicating that the conversation is concluded and preserving it for future reference.",
+        "high_level_associated": {
+          "name": "Promote productive discussions and knowledge sharing",
+          "description": "The Scrum Master's goal is to encourage open dialogue and the exchange of information among team members to enhance understanding and identify potential complexities.",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates Planning Poker sessions, guides discussions, and ensures adherence to agile principles."
+          }
+        }
+      },
+      {
+        "name": "View the final agreed-upon estimate for a task",
+        "description": "The Product Owner needs to view the specific, final effort estimate for a single backlog item or task after the estimation process is complete.",
+        "high_level_associated": {
+          "name": "Obtain reliable effort estimates",
+          "description": "The Product Owner aims to acquire accurate and consistent effort estimates for backlog items to inform release planning, prioritization, and resource allocation.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+          }
+        }
+      },
+      {
+        "name": "Retrieve a list of all estimated tasks with their final values",
+        "description": "The Product Owner needs to retrieve a comprehensive list of all backlog items or tasks that have been estimated, along with their respective final effort estimates, to support overall planning and resource allocation.",
+        "high_level_associated": {
+          "name": "Obtain reliable effort estimates",
+          "description": "The Product Owner aims to acquire accurate and consistent effort estimates for backlog items to inform release planning, prioritization, and resource allocation.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+          }
+        }
+      },
+      {
+        "name": "Review questions posted by team members about a task",
+        "description": "The Product Owner accesses and examines the list of questions or clarification requests submitted by the development team regarding a specific user story.",
+        "high_level_associated": {
+          "name": "Ensure team understanding of requirements",
+          "description": "The Product Owner seeks to confirm that the development team has a clear and complete grasp of user stories and requirements to minimize rework and ensure the right product is built.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+          }
+        }
+      },
+      {
+        "name": "Check if all team members have viewed the task details",
+        "description": "The Product Owner queries the system to see a status indicating which team members have accessed and viewed the detailed description of a particular task.",
+        "high_level_associated": {
+          "name": "Ensure team understanding of requirements",
+          "description": "The Product Owner seeks to confirm that the development team has a clear and complete grasp of user stories and requirements to minimize rework and ensure the right product is built.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+          }
+        }
+      },
+      {
+        "name": "Post an answer to a team member's question about a task",
+        "description": "The Product Owner posts a textual answer to a specific question raised by a team member regarding a task or backlog item within the system.",
+        "high_level_associated": {
+          "name": "Clarify requirements and answer questions",
+          "description": "The Product Owner's goal is to provide necessary clarifications and respond to team inquiries during the estimation process to remove impediments to understanding.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
+          }
+        }
+      },
+      {
+        "name": "Edit the description of a user story or backlog item based on team feedback",
+        "description": "The Product Owner modifies the existing textual description of a user story or backlog item to incorporate clarifications or address feedback received from the development team.",
+        "high_level_associated": {
+          "name": "Clarify requirements and answer questions",
+          "description": "The Product Owner's goal is to provide necessary clarifications and respond to team inquiries during the estimation process to remove impediments to understanding.",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Presents user stories or backlog items, clarifies requirements, and helps prioritize during Planning Poker."
           }
         }
       }
     ]
   },
-  "missing_hlg_evaluation": {
-    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. The project description explicitly identifies two actors: Team Member and Facilitator. The core functional requirements are: (1) Team Members estimate tasks anonymously to ensure fairness and contribute to sprint goals; (2) Facilitators manage the flow, reveal cards, and facilitate discussion to achieve consensus. The current HLGs fully cover these responsibilities. 'Contribute to Task Estimation', 'Ensure Fair and Unbiased Input', and 'Influence Sprint Goals' cover the Team Member's actions and motivations. 'Guide the Estimation Process', 'Promote Productive Discussion', and 'Achieve Team Consensus' cover the Facilitator's actions and outcomes. The retired HLG 'Maintain Game Integrity' is not a distinct functional requirement but rather a quality constraint or implementation detail of 'Guide the Estimation Process' and 'Achieve Team Consensus' (ensuring rules are followed and outcomes are clear). No explicit functional requirement in the description is left uncovered by the current HLGs.",
-    "quality_score": 5,
-    "missing_goal_requests": [],
-    "voter_count": 3,
-    "valid_vote_count": 3,
-    "winning_vote_count": 3,
-    "vote_distribution": {
-      "NO_MISSING_HIGH_LEVEL_GOALS": 3
-    }
-  },
-  "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+  "missing_hlg_evaluation": null,
+  "missing_hlg_decision": null,
   "llg_regeneration_counts": {
-    "facilitator::maintain game integrity": 1,
-    "team member::achieve shared understanding": 1
+    "hlg_00166b90b21e550f_001": 1,
+    "hlg_355d671dbfc544d0_001": 1,
+    "hlg_c51105583cc5a16b_001": 1
   },
   "warnings": []
 }

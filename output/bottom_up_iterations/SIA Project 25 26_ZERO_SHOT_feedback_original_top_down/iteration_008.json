@@ -1,762 +1,156 @@
 {
   "iteration": 8,
   "reconstructions": {
-    "branch_001": {
-      "reconstructed_high_level_goal": "Enable Citizens to Report Urban Issues",
-      "rationale": "The initial goals (registration, account activation, and profile setup) are foundational steps that establish a citizen's identity and presence within the system. These steps are necessary prerequisites for the subsequent, core functionality of submitting detailed reports about urban issues, which include textual descriptions, multimedia attachments, geographical location, and categorization. All these operations collectively serve the purpose of empowering citizens to effectively communicate and report problems in their urban environment.",
-      "branch_id": "branch_001",
+    "hlg_0a9173cad26c8343_001": {
+      "reconstructed_high_level_goal": "Enable Citizens to exchange messages with municipal operators concerning specific reports, encompassing the sending of initial messages, provision of further information, sending of direct responses to received messages, reception of messages or clarifications, and the retrieval and display of the complete history of exchanged messages.",
+      "rationale": "llg_001 contributes the capability for the Citizen to initiate communication with a municipal operator by sending an initial message or to provide updates by sending further information regarding a report. llg_002 adds the capability for the Citizen to receive communication, specifically messages or clarifications, from a municipal operator regarding their submitted reports. llg_003 introduces the capability for the Citizen to access and review past interactions by retrieving and displaying the complete history of messages exchanged with municipal operators for a specific report. llg_004 specifies the capability for the Citizen to send a message in direct response to a specific message received from a municipal operator, providing clarifications or additional details.",
+      "branch_id": "hlg_0a9173cad26c8343_001",
       "source_low_level_goal_ids": [
-        "RegisterCitizenAccount",
-        "VerifyCitizenEmail",
-        "UploadCitizenProfilePhoto",
-        "CreateReport",
-        "AttachMediaToReport",
-        "SpecifyReportLocation",
-        "SelectReportCategory"
-      ]
-    },
-    "branch_002": {
-      "reconstructed_high_level_goal": "Facilitate Citizen Account Registration and Activation",
-      "rationale": "The low-level goals collectively describe the complete process for a citizen to establish a new account. The first goal covers the initial submission of registration details, while the second goal addresses the subsequent confirmation and activation of that account, making them sequential and integral parts of a single account creation workflow.",
-      "branch_id": "branch_002",
-      "source_low_level_goal_ids": [
-        "Submit Citizen Registration Information",
-        "Verify Citizen Account via Activation Token"
-      ]
-    },
-    "branch_003": {
-      "reconstructed_high_level_goal": "Facilitate Communication Regarding Citizen Reports",
-      "rationale": "The low-level goals collectively describe the functionalities required for a citizen to engage in a two-way communication with a municipal operator concerning a specific report, including sending messages, receiving responses, and reviewing the entire conversation history. This ensures effective and transparent interaction for report resolution.",
-      "branch_id": "branch_003",
-      "source_low_level_goal_ids": [
-        "SendMessageToOperator",
-        "ReceiveMessageFromOperator",
-        "ViewReportMessagesThread"
-      ]
-    },
-    "branch_004": {
-      "reconstructed_high_level_goal": "Enable Citizens to Access and Monitor Public Reports",
-      "rationale": "The low-level goals collectively describe functionalities that allow citizens to discover (view, filter) and track (subscribe, unsubscribe) publicly available reports submitted by other citizens. These operations are all geared towards providing citizens with the means to stay informed about and engage with community-reported information.",
-      "branch_id": "branch_004",
-      "source_low_level_goal_ids": [
-        "BrowsePublicReportsList",
-        "FilterPublicReportsByCategory",
-        "FollowPublicReport",
-        "UnfollowPublicReport"
-      ]
-    },
-    "branch_005": {
-      "reconstructed_high_level_goal": "Enable Non-Registered Users to View and Filter Public Reports",
-      "rationale": "These low-level goals collectively describe various ways a non-registered user can access, display, and refine their view of public reports. They cover different presentation formats (interactive map, summary table) and a filtering mechanism (geographical filter), all contributing to the overarching goal of allowing public access and exploration of these reports.",
-      "branch_id": "branch_005",
-      "source_low_level_goal_ids": [
-        "RetrievePublicReportsMapData",
-        "RetrievePublicReportsTableData",
-        "FilterPublicReportsByLocation"
-      ]
-    },
-    "branch_006": {
-      "reconstructed_high_level_goal": "Enable non-registered users to view various report statistics",
-      "rationale": "Both low-level goals describe functionalities for non-registered users to access and view different types of statistics related to reports: one by category and another showing trends over time. They collectively contribute to the broader goal of providing comprehensive statistical insights to non-registered users.",
-      "branch_id": "branch_006",
-      "source_low_level_goal_ids": [
-        "RetrievePublicReportCategoryStatistics",
-        "RetrievePublicReportTrendStatistics"
-      ]
-    },
-    "branch_007": {
-      "reconstructed_high_level_goal": "Manage Citizen Report Disposition",
-      "rationale": "These operations collectively describe the process by which office staff evaluate citizen reports and make a formal decision regarding their acceptance or rejection, including providing necessary justifications for rejections. They all contribute to the initial handling and disposition of incoming reports.",
-      "branch_id": "branch_007",
-      "source_low_level_goal_ids": [
-        "ApproveReport",
-        "RejectReport",
-        "ProvideRejectionReason"
-      ]
-    },
-    "branch_008": {
-      "reconstructed_high_level_goal": "Manage the Resolution Process of Approved Citizen Reports",
-      "rationale": "The low-level goals collectively describe the actions a Technical Office Staff performs to ensure approved citizen reports are addressed and resolved. This includes assigning reports to appropriate teams (internal or external), tracking their progress, updating their status, documenting actions, and retrieving all necessary information related to their resolution. Therefore, these operations are integral to managing the entire lifecycle of a report's resolution.",
-      "branch_id": "branch_008",
-      "source_low_level_goal_ids": [
-        "AssignApprovedReportToInternalTeam",
-        "AssignApprovedReportToExternalTeam",
-        "UpdateApprovedReportStatus",
-        "AddReportProgressUpdate",
-        "RetrieveApprovedReportDetails",
-        "RetrieveReportProgressHistory",
-        "RetrieveAvailableInternalTeams",
-        "RetrieveAvailableExternalTeams"
-      ]
-    },
-    "branch_009": {
-      "reconstructed_high_level_goal": "Manage Report Resolution Process",
-      "rationale": "The low-level goals collectively describe the actions required by technical office staff to track the progress of a report from the initiation of active work to its successful completion, including documenting the specific details of how it was resolved. These operations are integral to overseeing and completing the resolution of a report.",
-      "branch_id": "branch_009",
-      "source_low_level_goal_ids": [
-        "UpdateReportStatusToWorkInProgress",
-        "UpdateReportStatusToResolved",
-        "AddResolutionDetails"
-      ]
-    },
-    "branch_010": {
-      "reconstructed_high_level_goal": "Manage Communication with External Maintenance Personnel",
-      "rationale": "These operations collectively describe the full lifecycle of communication between technical office staff and external maintenance personnel regarding assigned reports, including sending messages, receiving replies, and reviewing the complete interaction history. Therefore, the overarching goal is to effectively manage this communication.",
-      "branch_id": "branch_010",
-      "source_low_level_goal_ids": [
-        "SendMessageToExternalPersonnel",
-        "ReceiveMessageFromExternalPersonnel",
-        "ViewReportInternalCommunicationThread"
-      ]
-    },
-    "branch_011": {
-      "reconstructed_high_level_goal": "Manage Assigned Reports for External Maintenance Personnel",
-      "rationale": "The low-level goals collectively describe the essential steps an external maintenance personnel takes to identify, understand, and formally accept responsibility for reports assigned to them. These operations are all part of the initial phase of managing an assigned report, from discovery to formal acknowledgment.",
-      "branch_id": "branch_011",
-      "source_low_level_goal_ids": [
-        "RetrieveMyAssignedReports",
-        "ViewAssignedReportDetails",
-        "AcceptAssignedReport"
-      ]
-    },
-    "branch_012": {
-      "reconstructed_high_level_goal": "Manage Assigned Maintenance Reports",
-      "rationale": "The low-level goals collectively describe the complete set of functionalities required by External Maintenance Personnel to effectively handle and process maintenance reports assigned to them. This includes viewing details, updating status, communicating progress, and ultimately resolving the reports.",
-      "branch_id": "branch_012",
-      "source_low_level_goal_ids": [
-        "List Assigned Maintenance Reports",
-        "Retrieve Detailed Maintenance Report Information",
-        "Update Intermediate Status of Maintenance Report",
-        "Add Comment to Maintenance Report",
-        "View Existing Comments on Maintenance Report",
-        "Mark Maintenance Report as Resolved"
-      ]
-    },
-    "branch_013": {
-      "reconstructed_high_level_goal": "Enable External Maintenance Personnel to Communicate with the Municipal Technical Office regarding Reports",
-      "rationale": "These low-level goals collectively describe the essential functionalities for external maintenance personnel to engage in two-way communication (sending and receiving messages) and maintain an auditable record (viewing history) with the municipal technical office concerning specific reports. They all contribute to establishing and managing this communication channel.",
-      "branch_id": "branch_013",
-      "source_low_level_goal_ids": [
-        "SendMessageToTechnicalOffice",
-        "ReceiveMessageFromTechnicalOffice",
-        "ViewReportCommunicationLog"
-      ]
-    },
-    "branch_014": {
-      "reconstructed_high_level_goal": "Administer Participium System",
-      "rationale": "The low-level goals describe various administrative functions performed by the Municipal Administrator. These functions include defining and managing rules for automated report processing and managing user accounts, roles, and permissions within the system. Both sets of operations are essential for the overall configuration, operation, and security of the Participium system, hence they collectively contribute to the broader goal of system administration.",
-      "branch_id": "branch_014",
-      "source_low_level_goal_ids": [
-        "DefineAutomaticReportAssignmentRule",
-        "ModifyAutomaticReportAssignmentRule",
-        "RemoveAutomaticReportAssignmentRule",
-        "ViewAutomaticReportAssignmentRules",
-        "CreateUserAccount",
-        "UpdateUserAccountDetails",
-        "DeactivateUserAccount",
-        "AssignUserRole",
-        "RevokeUserRole",
-        "ViewUserAccountsAndRoles"
-      ]
-    },
-    "branch_015": {
-      "reconstructed_high_level_goal": "Enable Municipal Administrator to Monitor and Analyze System Performance and Usage",
-      "rationale": "The low-level goals collectively describe various methods for the municipal administrator to access, customize, visualize, and export statistical data and reports. These operations are all geared towards providing the administrator with the necessary tools to monitor system performance, understand user interactions, evaluate system health, and conduct in-depth analysis of operational data.",
-      "branch_id": "branch_015",
-      "source_low_level_goal_ids": [
-        "RetrieveAllReportStatistics",
-        "GenerateCustomStatisticalReports",
-        "ExportStatisticsData",
-        "ViewPerformanceDashboards"
+        "Send message to municipal operator",
+        "Receive message from municipal operator",
+        "View conversation history for report",
+        "Reply to municipal operator's message"
       ]
     }
   },
   "evaluations": {
-    "branch_001": {
-      "branch_id": "branch_001",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Submit Urban Issue Reports' is fully supported by the project description, which details the citizen's ability to select a location, fill out a form with mandatory fields (title, description, category), attach photos, and choose anonymity. This represents a distinct, independently satisfiable stakeholder outcome separate from registration, monitoring other issues, or communicating with administration. The bottom-up reconstruction 'Enable Citizens to Report Urban Issues' is semantically equivalent to the original goal, confirming the intent. The goal is not redundant with siblings; 'Register and Activate Account' is a prerequisite, 'Monitor Community Issues' is about viewing others' reports, and 'Communicate with Administration' is about post-submission interaction. Therefore, the original goal should be kept as it accurately captures the core functional intention of the citizen actor regarding report creation. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain material defects. First, 'RegisterCitizenAccount' (llg_001) and 'VerifyCitizenEmail' (llg_002) are explicitly covered by the sibling HLG 'Register and Activate Account', so they should not be duplicated under 'Submit Urban Issue Reports'. Second, 'UploadCitizenProfilePhoto' (llg_003) is not part of the report submission workflow; it is a profile management feature mentioned in the context of user settings, not report creation. Third, the essential capability of selecting the anonymity option for the report, which is explicitly documented as part of the submission process ('the system asks the citizen whether they want the report to be anonymous'), is missing from the LLGs. Therefore, the decomposition must be regenerated to remove the registration/profile LLGs and add the anonymity selection capability.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Submit Urban Issue Reports' is fully supported by the project description, which details the citizen's ability to select a location, fill out a form with mandatory fields (title, description, category), attach photos, and choose anonymity. This represents a distinct, independently satisfiable stakeholder outcome separate from registration, monitoring other issues, or communicating with administration. The bottom-up reconstruction 'Enable Citizens to Report Urban Issues' is semantically equivalent to the original goal, confirming the intent. The goal is not redundant with siblings; 'Register and Activate Account' is a prerequisite, 'Monitor Community Issues' is about viewing others' reports, and 'Communicate with Administration' is about post-submission interaction. Therefore, the original goal should be kept as it accurately captures the core functional intention of the citizen actor regarding report creation.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain material defects. First, 'RegisterCitizenAccount' (llg_001) and 'VerifyCitizenEmail' (llg_002) are explicitly covered by the sibling HLG 'Register and Activate Account', so they should not be duplicated under 'Submit Urban Issue Reports'. Second, 'UploadCitizenProfilePhoto' (llg_003) is not part of the report submission workflow; it is a profile management feature mentioned in the context of user settings, not report creation. Third, the essential capability of selecting the anonymity option for the report, which is explicitly documented as part of the submission process ('the system asks the citizen whether they want the report to be anonymous'), is missing from the LLGs. Therefore, the decomposition must be regenerated to remove the registration/profile LLGs and add the anonymity selection capability.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 1,
-        "regeneration_feedback": "Remove registration and email verification LLGs as they belong to the 'Register and Activate Account' HLG. Remove the profile photo LLG as it is not part of report submission. Add an LLG for selecting the anonymity option for the report.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_001",
-          "llg_002",
-          "llg_003"
-        ],
-        "missing_essential_capabilities": [
-          "Select report anonymity option"
-        ],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_002": {
-      "branch_id": "branch_002",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Register and Activate Account' is fully supported by the project description, which details the registration process (username, name) and the mandatory email confirmation step for activation. This goal represents a distinct, independently satisfiable stakeholder outcome: gaining access to the system. It is not redundant with 'Submit Urban Issue Reports' because registration is a prerequisite but a separate functional domain (account management vs. report creation). The bottom-up reconstruction 'Facilitate Citizen Account Registration and Activation' is semantically equivalent to the original. Therefore, the original goal is kept as it is precise, supported, and correctly scoped. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) accurately decompose the High-Level Goal 'Register and Activate Account'. LLG 'llg_001' covers the submission of registration details (username, name, email) as explicitly stated in Section A of the project description. LLG 'llg_002' covers the verification and activation process via the confirmation link/token sent by email, which is also explicitly required in Section A ('The registration becomes valid... only after confirming through that link'). Both LLGs are supported by the documentation, are essential to the parent goal, and do not duplicate responsibilities of sibling HLGs. There are no unsupported capabilities or missing essential steps for this specific workflow.",
+    "hlg_0a9173cad26c8343_001": {
+      "branch_id": "hlg_0a9173cad26c8343_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation (Section C) supports the Citizen's ability to exchange messages with municipal operators regarding their reports, including sending messages, receiving messages, and replying. The original HLG 'Interact with public administration' describes this communication intent. The reconstructed HLG' explicitly enumerates the outcomes: sending initial messages, providing further information, sending direct responses, receiving messages/clarifications, and retrieving conversation history. The material outcome sets are semantically equivalent: both cover the bidirectional exchange of information and the review of that history. The original HLG is supported by the documentation and correctly scoped to the Citizen actor. The reconstruction accurately aggregates the LLGs without adding unsupported capabilities or omitting essential ones. No sibling HLG covers this specific communication capability (other branches cover reporting, status updates, and viewing public reports).",
       "final_decision": "CONFIRM_BRANCH",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Register and Activate Account' is fully supported by the project description, which details the registration process (username, name) and the mandatory email confirmation step for activation. This goal represents a distinct, independently satisfiable stakeholder outcome: gaining access to the system. It is not redundant with 'Submit Urban Issue Reports' because registration is a prerequisite but a separate functional domain (account management vs. report creation). The bottom-up reconstruction 'Facilitate Citizen Account Registration and Activation' is semantically equivalent to the original. Therefore, the original goal is kept as it is precise, supported, and correctly scoped.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation (Section C) supports the Citizen's ability to exchange messages with municipal operators regarding their reports, including sending messages, receiving messages, and replying. The original HLG 'Interact with public administration' describes this communication intent. The reconstructed HLG' explicitly enumerates the outcomes: sending initial messages, providing further information, sending direct responses, receiving messages/clarifications, and retrieving conversation history. The material outcome sets are semantically equivalent: both cover the bidirectional exchange of information and the review of that history. The original HLG is supported by the documentation and correctly scoped to the Citizen actor. The reconstruction accurately aggregates the LLGs without adding unsupported capabilities or omitting essential ones. No sibling HLG covers this specific communication capability (other branches cover reporting, status updates, and viewing public reports).",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
         "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
         "winning_vote_count": 3,
         "vote_distribution": {
           "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) accurately decompose the High-Level Goal 'Register and Activate Account'. LLG 'llg_001' covers the submission of registration details (username, name, email) as explicitly stated in Section A of the project description. LLG 'llg_002' covers the verification and activation process via the confirmation link/token sent by email, which is also explicitly required in Section A ('The registration becomes valid... only after confirming through that link'). Both LLGs are supported by the documentation, are essential to the parent goal, and do not duplicate responsibilities of sibling HLGs. There are no unsupported capabilities or missing essential steps for this specific workflow.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_003": {
-      "branch_id": "branch_003",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The High-Level Goal 'Communicate with Administration' is supported by Section C of the project description, which explicitly states that 'municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply.' This represents a distinct stakeholder outcome (two-way communication regarding specific reports) that is separate from submitting reports (Section A) or monitoring community issues (Section C, following others). It is not redundant with 'Submit Urban Issue Reports' because communication occurs post-submission and involves a different interaction pattern (dialogue vs. form submission). The bottom-up reconstruction 'Facilitate Communication Regarding Citizen Reports' is semantically equivalent. Therefore, the original goal is kept as it is precise, supported, and correctly scoped. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals accurately decompose the High-Level Goal 'Communicate with Administration'. Section C of the project description explicitly states that 'municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply.' This supports LLG 'llg_001' (SendMessageToOperator) and 'llg_002' (ReceiveMessageFromOperator). LLG 'llg_003' (ViewReportMessagesThread) is a necessary entailment of the ability to exchange messages and reply, as users must be able to view the conversation context to respond effectively. There are no unsupported capabilities, and no essential documented capabilities are missing. The decomposition is precise and aligned with the documentation.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The High-Level Goal 'Communicate with Administration' is supported by Section C of the project description, which explicitly states that 'municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply.' This represents a distinct stakeholder outcome (two-way communication regarding specific reports) that is separate from submitting reports (Section A) or monitoring community issues (Section C, following others). It is not redundant with 'Submit Urban Issue Reports' because communication occurs post-submission and involves a different interaction pattern (dialogue vs. form submission). The bottom-up reconstruction 'Facilitate Communication Regarding Citizen Reports' is semantically equivalent. Therefore, the original goal is kept as it is precise, supported, and correctly scoped.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals accurately decompose the High-Level Goal 'Communicate with Administration'. Section C of the project description explicitly states that 'municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply.' This supports LLG 'llg_001' (SendMessageToOperator) and 'llg_002' (ReceiveMessageFromOperator). LLG 'llg_003' (ViewReportMessagesThread) is a necessary entailment of the ability to exchange messages and reply, as users must be able to view the conversation context to respond effectively. There are no unsupported capabilities, and no essential documented capabilities are missing. The decomposition is precise and aligned with the documentation.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_004": {
-      "branch_id": "branch_004",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The High-Level Goal 'Monitor Community Issues' is supported by Section C of the project description, which states that 'Once logged into Participium, citizens can follow other citizens' open reports and receive notifications'. This represents a distinct stakeholder outcome (active monitoring/following of community reports) separate from 'Submit Urban Issue Reports' (creating new reports) or 'Communicate with Administration' (dialogue with operators). While non-registered users can view public reports (covered by 'Access Public Report Information' for that actor), the ability for a *registered Citizen* to 'follow' specific reports and receive notifications is a unique capability not fully entailed by the sibling goals. The goal is correctly scoped to the Citizen actor and aligns with the documented functionality. The bottom-up reconstruction 'Enable Citizens to Access and Monitor Public Reports' is semantically equivalent. Therefore, the original goal is kept. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals accurately decompose the High-Level Goal 'Monitor Community Issues'. Section C of the project description explicitly states that 'Once logged into Participium, citizens can follow other citizens' open reports and receive notifications'. This supports LLG 'llg_003' (FollowPublicReport) and 'llg_004' (UnfollowPublicReport, as a necessary inverse operation to manage subscriptions). The description also states that accepted reports appear in a 'summary table that allows filtering and sorting reports by category, status, or date'. This supports LLG 'llg_001' (BrowsePublicReportsList) and 'llg_002' (FilterPublicReportsByCategory). While non-registered users can also view these reports (covered by the sibling HLG 'Access Public Report Information'), the specific capability for *registered Citizens* to 'follow' reports is unique to this HLG and is correctly captured. The LLGs are supported by the documentation and do not duplicate the responsibilities of the sibling HLG for non-registered users, as the actor is specifically 'Citizen' and the 'follow' functionality is exclusive to logged-in users. There are no unsupported capabilities or missing essential capabilities.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The High-Level Goal 'Monitor Community Issues' is supported by Section C of the project description, which states that 'Once logged into Participium, citizens can follow other citizens' open reports and receive notifications'. This represents a distinct stakeholder outcome (active monitoring/following of community reports) separate from 'Submit Urban Issue Reports' (creating new reports) or 'Communicate with Administration' (dialogue with operators). While non-registered users can view public reports (covered by 'Access Public Report Information' for that actor), the ability for a *registered Citizen* to 'follow' specific reports and receive notifications is a unique capability not fully entailed by the sibling goals. The goal is correctly scoped to the Citizen actor and aligns with the documented functionality. The bottom-up reconstruction 'Enable Citizens to Access and Monitor Public Reports' is semantically equivalent. Therefore, the original goal is kept.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current Low-Level Goals accurately decompose the High-Level Goal 'Monitor Community Issues'. Section C of the project description explicitly states that 'Once logged into Participium, citizens can follow other citizens' open reports and receive notifications'. This supports LLG 'llg_003' (FollowPublicReport) and 'llg_004' (UnfollowPublicReport, as a necessary inverse operation to manage subscriptions). The description also states that accepted reports appear in a 'summary table that allows filtering and sorting reports by category, status, or date'. This supports LLG 'llg_001' (BrowsePublicReportsList) and 'llg_002' (FilterPublicReportsByCategory). While non-registered users can also view these reports (covered by the sibling HLG 'Access Public Report Information'), the specific capability for *registered Citizens* to 'follow' reports is unique to this HLG and is correctly captured. The LLGs are supported by the documentation and do not duplicate the responsibilities of the sibling HLG for non-registered users, as the actor is specifically 'Citizen' and the 'follow' functionality is exclusive to logged-in users. There are no unsupported capabilities or missing essential capabilities.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_005": {
-      "branch_id": "branch_005",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Access Public Report Information' is supported by the project description, which explicitly states that 'Even non-registered users can view both the maps and the summary table' of public reports. The goal is distinct from the sibling 'View Public System Statistics' because it concerns the specific report artifacts (map locations, titles, descriptions) rather than aggregate statistical data. It is also distinct from the Citizen's 'Monitor Community Issues' because the actor is a Non-Registered User who cannot 'follow' reports or receive notifications, limiting their capability to passive viewing and filtering. The bottom-up reconstruction 'Enable Non-Registered Users to View and Filter Public Reports' is semantically equivalent to the original but slightly more precise regarding the filtering capability mentioned in Section C ('filtering and sorting reports'). However, the original goal is already clear, supported, and correctly scoped at the High-Level granularity. No material defect exists that requires rewriting or removal. Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs cover the core capabilities of the parent HLG 'Access Public Report Information' for a Non-Registered User. Section C of the project description explicitly states that 'Even non-registered users can view both the maps and the summary table.' It further details that the summary table 'allows filtering and sorting reports by category, status, or date' and that clicking a title opens a page with the description. \n\n1. llg_001 (RetrievePublicReportsMapData) is supported by the requirement to view reports on an interactive map.\n2. llg_002 (RetrievePublicReportsTableData) is supported by the requirement to view reports in a summary table.\n3. llg_003 (FilterPublicReportsByLocation) is supported by the general capability to filter reports. While the text explicitly lists 'category, status, or date' as filter criteria, the map view is inherently geolocated, and 'filtering' in a map context typically implies spatial filtering. Even if 'location' is not explicitly listed as a dropdown filter in the table, the ability to view the map (which is a spatial filter) is a core part of the HLG. The LLG is a reasonable decomposition of the 'viewing' capability which includes interacting with the map's spatial nature. \n\nThere are no unsupported LLGs. There are no missing essential capabilities explicitly required by the parent HLG that are absent. The sibling HLG 'View Public System Statistics' covers the aggregate statistics, which is distinct from viewing individual report information. The capability to view the detailed description page (clicking the title) is implicitly part of 'Access Public Report Information' and is sufficiently covered by the retrieval LLGs which provide the data for the list/map that leads to the detail view. No regeneration is required.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Access Public Report Information' is supported by the project description, which explicitly states that 'Even non-registered users can view both the maps and the summary table' of public reports. The goal is distinct from the sibling 'View Public System Statistics' because it concerns the specific report artifacts (map locations, titles, descriptions) rather than aggregate statistical data. It is also distinct from the Citizen's 'Monitor Community Issues' because the actor is a Non-Registered User who cannot 'follow' reports or receive notifications, limiting their capability to passive viewing and filtering. The bottom-up reconstruction 'Enable Non-Registered Users to View and Filter Public Reports' is semantically equivalent to the original but slightly more precise regarding the filtering capability mentioned in Section C ('filtering and sorting reports'). However, the original goal is already clear, supported, and correctly scoped at the High-Level granularity. No material defect exists that requires rewriting or removal.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs cover the core capabilities of the parent HLG 'Access Public Report Information' for a Non-Registered User. Section C of the project description explicitly states that 'Even non-registered users can view both the maps and the summary table.' It further details that the summary table 'allows filtering and sorting reports by category, status, or date' and that clicking a title opens a page with the description. \n\n1. llg_001 (RetrievePublicReportsMapData) is supported by the requirement to view reports on an interactive map.\n2. llg_002 (RetrievePublicReportsTableData) is supported by the requirement to view reports in a summary table.\n3. llg_003 (FilterPublicReportsByLocation) is supported by the general capability to filter reports. While the text explicitly lists 'category, status, or date' as filter criteria, the map view is inherently geolocated, and 'filtering' in a map context typically implies spatial filtering. Even if 'location' is not explicitly listed as a dropdown filter in the table, the ability to view the map (which is a spatial filter) is a core part of the HLG. The LLG is a reasonable decomposition of the 'viewing' capability which includes interacting with the map's spatial nature. \n\nThere are no unsupported LLGs. There are no missing essential capabilities explicitly required by the parent HLG that are absent. The sibling HLG 'View Public System Statistics' covers the aggregate statistics, which is distinct from viewing individual report information. The capability to view the detailed description page (clicking the title) is implicitly part of 'Access Public Report Information' and is sufficiently covered by the retrieval LLGs which provide the data for the list/map that leads to the detail view. No regeneration is required.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 2,
-          "REGENERATE_LOW_LEVEL_GOALS": 1
-        }
-      }
-    },
-    "branch_006": {
-      "branch_id": "branch_006",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'View Public System Statistics' is fully supported by Section D of the project description, which states that public statistics (number of reports per category and trends) are visible to non-registered users. The goal is distinct from the sibling HLG 'Access Public Report Information', which covers viewing individual reports on a map and in a table. While both involve viewing public data, 'Statistics' refers to aggregate data (counts, trends), whereas 'Report Information' refers to individual report details. Therefore, they represent independent stakeholder outcomes and should not be merged or removed as redundant. The original goal is precise, supported, and appropriately scoped for the Non-Registered User actor. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'View Public System Statistics' for the Non-Registered User. Section D of the project description explicitly states that public statistics concern 'the number of reports per category' and 'trends over day, week, or month' and are visible to non-registered users. LLG llg_001 covers the category statistics, and llg_002 covers the trend statistics. Both are fully supported by the documentation and collectively satisfy the parent goal without duplication or omission.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'View Public System Statistics' is fully supported by Section D of the project description, which states that public statistics (number of reports per category and trends) are visible to non-registered users. The goal is distinct from the sibling HLG 'Access Public Report Information', which covers viewing individual reports on a map and in a table. While both involve viewing public data, 'Statistics' refers to aggregate data (counts, trends), whereas 'Report Information' refers to individual report details. Therefore, they represent independent stakeholder outcomes and should not be merged or removed as redundant. The original goal is precise, supported, and appropriately scoped for the Non-Registered User actor.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'View Public System Statistics' for the Non-Registered User. Section D of the project description explicitly states that public statistics concern 'the number of reports per category' and 'trends over day, week, or month' and are visible to non-registered users. LLG llg_001 covers the category statistics, and llg_002 covers the trend statistics. Both are fully supported by the documentation and collectively satisfy the parent goal without duplication or omission.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_007": {
-      "branch_id": "branch_007",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Approve or Reject Reports' is fully supported by Section B of the project description, which states that the Organization Office performs a preliminary review, marking reports as accepted or rejected, and that a written explanation is mandatory for rejections. The bottom-up reconstruction 'Manage Citizen Report Disposition' is semantically equivalent but slightly more generic; however, the original goal is precise, correctly scoped to the specific actor (Organization Office Staff), and represents a distinct, independently satisfiable stakeholder outcome (the initial triage/disposition phase) that is not covered by other HLGs for this actor. There are no other HLGs for the Organization Office Staff in the current hierarchy, so it is not redundant. The goal is not a mere workflow fragment of a broader goal because no broader 'Manage Report Lifecycle' HLG exists for this specific actor (the Technical Office has a 'Manage Approved Report Resolution' HLG, but that applies to post-approval stages and a different actor). Therefore, the original goal should be kept. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Approve or Reject Reports'. Section B of the project description explicitly states that the Organization Office performs a preliminary review, marking reports as accepted or rejected, and that a written explanation is mandatory for rejections. LLG llg_001 covers the acceptance action, llg_002 covers the rejection action, and llg_003 covers the mandatory explanation for rejection. All three are explicitly supported by the documentation and collectively satisfy the parent goal without duplication or omission. There are no unsupported or missing essential capabilities.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Approve or Reject Reports' is fully supported by Section B of the project description, which states that the Organization Office performs a preliminary review, marking reports as accepted or rejected, and that a written explanation is mandatory for rejections. The bottom-up reconstruction 'Manage Citizen Report Disposition' is semantically equivalent but slightly more generic; however, the original goal is precise, correctly scoped to the specific actor (Organization Office Staff), and represents a distinct, independently satisfiable stakeholder outcome (the initial triage/disposition phase) that is not covered by other HLGs for this actor. There are no other HLGs for the Organization Office Staff in the current hierarchy, so it is not redundant. The goal is not a mere workflow fragment of a broader goal because no broader 'Manage Report Lifecycle' HLG exists for this specific actor (the Technical Office has a 'Manage Approved Report Resolution' HLG, but that applies to post-approval stages and a different actor). Therefore, the original goal should be kept.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs accurately decompose the parent HLG 'Approve or Reject Reports'. Section B of the project description explicitly states that the Organization Office performs a preliminary review, marking reports as accepted or rejected, and that a written explanation is mandatory for rejections. LLG llg_001 covers the acceptance action, llg_002 covers the rejection action, and llg_003 covers the mandatory explanation for rejection. All three are explicitly supported by the documentation and collectively satisfy the parent goal without duplication or omission. There are no unsupported or missing essential capabilities.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_008": {
-      "branch_id": "branch_008",
-      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Manage Approved Report Resolution' is supported by the project description, which details the Technical Office Staff's role in assigning reports, tracking progress, updating statuses, and facilitating communication to ensure resolution. However, the current hierarchy for this actor is fragmented. The sibling goals 'Update Report Status' and 'Facilitate Internal Communication' represent specific workflow phases or capabilities that are integral parts of the broader resolution management process described in the original HLG. According to the consolidation audit, these should not be independent HLGs if they are merely steps in the same end-to-end outcome. The original HLG is the correct umbrella goal that encompasses assignment, tracking, status updates, and communication. Therefore, it should be kept as the primary goal for this actor, and the redundant sibling goals should ideally be removed in a separate step, but for this specific evaluation, the original goal is valid and correctly scoped as the umbrella intention. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain material defects due to duplication with sibling HLGs and unsupported capabilities. Specifically, 'llg_003' (UpdateApprovedReportStatus) duplicates the sibling HLG 'Update Report Status', and 'llg_004' (AddReportProgressUpdate) duplicates the sibling HLG 'Facilitate Internal Communication' (which covers exchanging information/comments). Additionally, 'llg_007' and 'llg_008' (retrieving lists of internal/external teams) are not explicitly documented as distinct capabilities in the project description; the text states reports are assigned based on category or to specific companies, but does not describe a feature to retrieve a list of available teams for assignment. The essential capability of 'tracking progress' mentioned in the parent HLG description is also not clearly covered by the remaining LLGs if 'UpdateReportStatus' and 'FacilitateInternalCommunication' are removed, as 'RetrieveReportProgressHistory' is a read operation, not the active tracking/monitoring of ongoing work implied by the lifecycle management.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Manage Approved Report Resolution' is supported by the project description, which details the Technical Office Staff's role in assigning reports, tracking progress, updating statuses, and facilitating communication to ensure resolution. However, the current hierarchy for this actor is fragmented. The sibling goals 'Update Report Status' and 'Facilitate Internal Communication' represent specific workflow phases or capabilities that are integral parts of the broader resolution management process described in the original HLG. According to the consolidation audit, these should not be independent HLGs if they are merely steps in the same end-to-end outcome. The original HLG is the correct umbrella goal that encompasses assignment, tracking, status updates, and communication. Therefore, it should be kept as the primary goal for this actor, and the redundant sibling goals should ideally be removed in a separate step, but for this specific evaluation, the original goal is valid and correctly scoped as the umbrella intention.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 4,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
-          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 1
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain material defects due to duplication with sibling HLGs and unsupported capabilities. Specifically, 'llg_003' (UpdateApprovedReportStatus) duplicates the sibling HLG 'Update Report Status', and 'llg_004' (AddReportProgressUpdate) duplicates the sibling HLG 'Facilitate Internal Communication' (which covers exchanging information/comments). Additionally, 'llg_007' and 'llg_008' (retrieving lists of internal/external teams) are not explicitly documented as distinct capabilities in the project description; the text states reports are assigned based on category or to specific companies, but does not describe a feature to retrieve a list of available teams for assignment. The essential capability of 'tracking progress' mentioned in the parent HLG description is also not clearly covered by the remaining LLGs if 'UpdateReportStatus' and 'FacilitateInternalCommunication' are removed, as 'RetrieveReportProgressHistory' is a read operation, not the active tracking/monitoring of ongoing work implied by the lifecycle management.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 2,
-        "regeneration_feedback": "Remove llg_003 (duplicates sibling 'Update Report Status') and llg_004 (duplicates sibling 'Facilitate Internal Communication'). Remove llg_007 and llg_008 as they are not explicitly documented. Ensure the remaining LLGs cover the core assignment logic (internal/external) and any unique tracking/monitoring actions not covered by the sibling status update goal.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_003",
-          "llg_004",
-          "llg_007",
-          "llg_008"
-        ],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_009": {
-      "branch_id": "branch_009",
-      "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Update Report Status' is a specific workflow phase (state transition) rather than an independent stakeholder outcome. The project description indicates that the Technical Office Staff's primary intention is to manage the resolution of approved reports, which includes assignment, tracking, status updates, and communication. The sibling HLG 'Manage Approved Report Resolution' explicitly covers this end-to-end lifecycle ('from initial assignment... through tracking progress, updating report statuses, and facilitating necessary communication'). Therefore, 'Update Report Status' is fully redundant as it is a subset of the broader 'Manage Approved Report Resolution' goal.",
-      "final_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Update Report Status' is a specific workflow phase (state transition) rather than an independent stakeholder outcome. The project description indicates that the Technical Office Staff's primary intention is to manage the resolution of approved reports, which includes assignment, tracking, status updates, and communication. The sibling HLG 'Manage Approved Report Resolution' explicitly covers this end-to-end lifecycle ('from initial assignment... through tracking progress, updating report statuses, and facilitating necessary communication'). Therefore, 'Update Report Status' is fully redundant as it is a subset of the broader 'Manage Approved Report Resolution' goal.",
-        "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 1,
-        "rewriting_focus": null,
-        "removal_basis": "FULLY_REDUNDANT",
-        "covered_by_high_level_goal_name": "Manage Approved Report Resolution",
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 3
         }
       },
       "replacement_request": null,
       "low_level_evaluation": null
-    },
-    "branch_010": {
-      "branch_id": "branch_010",
-      "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Facilitate Internal Communication' is fully redundant with the sibling HLG 'Manage Approved Report Resolution'. The project description states that the Technical Office Staff manages the lifecycle of approved reports, which explicitly includes 'facilitating necessary communication' with external maintenance personnel. The sibling HLG 'Manage Approved Report Resolution' is defined as covering the 'entire lifecycle... through tracking progress, updating report statuses, and facilitating necessary communication'. Therefore, the specific communication goal is a subset of the broader resolution management goal and does not represent an independently satisfiable stakeholder outcome distinct from the overall resolution process.",
-      "final_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Facilitate Internal Communication' is fully redundant with the sibling HLG 'Manage Approved Report Resolution'. The project description states that the Technical Office Staff manages the lifecycle of approved reports, which explicitly includes 'facilitating necessary communication' with external maintenance personnel. The sibling HLG 'Manage Approved Report Resolution' is defined as covering the 'entire lifecycle... through tracking progress, updating report statuses, and facilitating necessary communication'. Therefore, the specific communication goal is a subset of the broader resolution management goal and does not represent an independently satisfiable stakeholder outcome distinct from the overall resolution process.",
-        "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 1,
-        "rewriting_focus": null,
-        "removal_basis": "FULLY_REDUNDANT",
-        "covered_by_high_level_goal_name": "Manage Approved Report Resolution",
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": null
-    },
-    "branch_011": {
-      "branch_id": "branch_011",
-      "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Receive Assigned Tasks' is a narrow workflow phase (discovery/access) that is fully encompassed by the sibling HLG 'Manage Assigned Maintenance Reports'. The project description indicates that external maintenance personnel's primary intention is to handle and resolve assigned reports, which includes accessing details, updating progress, communicating, and marking as resolved. The sibling HLG explicitly covers 'accessing report details' and the full lifecycle of handling these reports. Therefore, 'Receive Assigned Tasks' is redundant as it does not represent an independently satisfiable stakeholder outcome distinct from the broader management goal.",
-      "final_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Receive Assigned Tasks' is a narrow workflow phase (discovery/access) that is fully encompassed by the sibling HLG 'Manage Assigned Maintenance Reports'. The project description indicates that external maintenance personnel's primary intention is to handle and resolve assigned reports, which includes accessing details, updating progress, communicating, and marking as resolved. The sibling HLG explicitly covers 'accessing report details' and the full lifecycle of handling these reports. Therefore, 'Receive Assigned Tasks' is redundant as it does not represent an independently satisfiable stakeholder outcome distinct from the broader management goal.",
-        "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 1,
-        "rewriting_focus": null,
-        "removal_basis": "FULLY_REDUNDANT",
-        "covered_by_high_level_goal_name": "Manage Assigned Maintenance Reports",
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": null
-    },
-    "branch_012": {
-      "branch_id": "branch_012",
-      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Assigned Maintenance Reports' is a valid, supported, and appropriately scoped umbrella goal for the External Maintenance Personnel actor. It correctly encompasses the end-to-end workflow of accessing assigned reports, updating their status (moving from Assigned to In Progress), communicating with the technical office, and marking them as resolved. While sibling goals like 'Receive Assigned Tasks' and 'Communicate with Technical Office' exist, they represent specific phases or capabilities within this broader management intention. The original HLG is not redundant because it explicitly includes the resolution and status update actions which are distinct from mere reception or communication. It aligns with the project description's Case 1 workflow where external personnel actively manage the report lifecycle within the system. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain a material defect. LLG llg_003 ('Update Intermediate Status of Maintenance Report') explicitly includes the capability to change the status to 'On Hold' (or 'Suspended'). However, the project description states that 'In some cases, for organizational or technical reasons, the report can be set to Suspended', and this action is typically performed by the technical office or administration, not the external maintenance personnel. The description for external personnel in Case 1 only explicitly authorizes them to 'move the report from Assigned to In Progress' and 'mark the report as resolved'. It does not grant them the authority to suspend reports. Therefore, llg_003 is unsupported in its current form because it includes an unauthorized status transition. The other LLGs (listing, retrieving details, commenting, viewing comments, and marking as resolved) are well-supported by the documentation.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Assigned Maintenance Reports' is a valid, supported, and appropriately scoped umbrella goal for the External Maintenance Personnel actor. It correctly encompasses the end-to-end workflow of accessing assigned reports, updating their status (moving from Assigned to In Progress), communicating with the technical office, and marking them as resolved. While sibling goals like 'Receive Assigned Tasks' and 'Communicate with Technical Office' exist, they represent specific phases or capabilities within this broader management intention. The original HLG is not redundant because it explicitly includes the resolution and status update actions which are distinct from mere reception or communication. It aligns with the project description's Case 1 workflow where external personnel actively manage the report lifecycle within the system.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 2,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
-          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 1
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain a material defect. LLG llg_003 ('Update Intermediate Status of Maintenance Report') explicitly includes the capability to change the status to 'On Hold' (or 'Suspended'). However, the project description states that 'In some cases, for organizational or technical reasons, the report can be set to Suspended', and this action is typically performed by the technical office or administration, not the external maintenance personnel. The description for external personnel in Case 1 only explicitly authorizes them to 'move the report from Assigned to In Progress' and 'mark the report as resolved'. It does not grant them the authority to suspend reports. Therefore, llg_003 is unsupported in its current form because it includes an unauthorized status transition. The other LLGs (listing, retrieving details, commenting, viewing comments, and marking as resolved) are well-supported by the documentation.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 2,
-        "regeneration_feedback": "Remove the capability to set the status to 'Suspended' or 'On Hold' from llg_003. The external maintenance personnel are only documented to be able to move the report from 'Assigned' to 'In Progress' and to mark it as 'Resolved'. Restrict llg_003 to only the 'In Progress' status update.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_003"
-        ],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_013": {
-      "branch_id": "branch_013",
-      "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The goal 'Communicate with Technical Office' is supported by the project description, which states that 'Staff from the technical office and external maintenance workers can exchange information and comments through the report'. However, looking at the sibling hierarchy for the same actor (External Maintenance Personnel), there is a goal named 'Manage Assigned Maintenance Reports'. The description of this sibling goal explicitly includes 'exchanging information and comments with the technical office' as part of the process to 'efficiently handle and resolve maintenance reports'. Since the communication capability is a sub-component of the broader management and resolution workflow, and the sibling goal already encompasses this specific capability along with others (accessing details, updating progress, marking resolved), the original goal is fully redundant. It does not represent an independently satisfiable stakeholder outcome distinct from the management of the assigned reports.",
-      "final_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for REMOVE_ORIGINAL_HIGH_LEVEL_GOAL. The goal 'Communicate with Technical Office' is supported by the project description, which states that 'Staff from the technical office and external maintenance workers can exchange information and comments through the report'. However, looking at the sibling hierarchy for the same actor (External Maintenance Personnel), there is a goal named 'Manage Assigned Maintenance Reports'. The description of this sibling goal explicitly includes 'exchanging information and comments with the technical office' as part of the process to 'efficiently handle and resolve maintenance reports'. Since the communication capability is a sub-component of the broader management and resolution workflow, and the sibling goal already encompasses this specific capability along with others (accessing details, updating progress, marking resolved), the original goal is fully redundant. It does not represent an independently satisfiable stakeholder outcome distinct from the management of the assigned reports.",
-        "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 1,
-        "rewriting_focus": null,
-        "removal_basis": "FULLY_REDUNDANT",
-        "covered_by_high_level_goal_name": "Manage Assigned Maintenance Reports",
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": null
-    },
-    "branch_014": {
-      "branch_id": "branch_014",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Manage System Configuration and Administration' is supported by the project description, which explicitly states that the Municipal Administrator is responsible for system configuration, user management, and accessing private statistics. The description details specific administrative capabilities, such as configuring automatic report assignment rules and managing user accounts/permissions. The sibling goal 'Access Comprehensive Statistics' covers the statistical viewing aspect but does not encompass the configuration and user management capabilities. Therefore, the original goal is not redundant. However, the bottom-up reconstruction 'Administer Participium System' is a more concise and standard formulation of the same intent. While the original is acceptable, the reconstruction is slightly more precise as an umbrella term for the administrative functions. Given the rubric, the original goal is supported and independently scoped (distinct from statistics access), so it can be kept. However, looking at the quality score rubric, the original description is quite verbose but accurate. The reconstruction is cleaner. Let's evaluate if REWRITE is better. The original goal name is 'Manage System Configuration and Administration'. The reconstruction is 'Administer Participium System'. Both are valid. The original description is detailed. The decision should likely be KEEP because the original is fully supported and not redundant, and the reconstruction doesn't offer a materially superior semantic scope, just a different phrasing. Wait, the prompt asks to decide if the *original* should be kept, rewritten, or removed. The original is supported. Is it fragmented? No, it groups configuration and user management. Is it redundant? No, 'Access Comprehensive Statistics' is separate. So KEEP is appropriate. The quality score should be high because it is supported and correctly scoped. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs cover the two main administrative areas described in the documentation: configuring automatic report assignment rules (llg_001 to llg_004) and managing user accounts and roles (llg_005 to llg_010). The documentation explicitly states that the Municipal Administrator can configure automatic assignment rules and is responsible for user management. The specific CRUD operations (Create, Read, Update, Delete/Deactivate) for these entities are standard interpretations of 'manage' and 'configure' in this context and are supported by the need to oversee these parameters. There are no unsupported LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is complete and aligned with the documentation.",
-      "final_decision": "CONFIRM_BRANCH",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Manage System Configuration and Administration' is supported by the project description, which explicitly states that the Municipal Administrator is responsible for system configuration, user management, and accessing private statistics. The description details specific administrative capabilities, such as configuring automatic report assignment rules and managing user accounts/permissions. The sibling goal 'Access Comprehensive Statistics' covers the statistical viewing aspect but does not encompass the configuration and user management capabilities. Therefore, the original goal is not redundant. However, the bottom-up reconstruction 'Administer Participium System' is a more concise and standard formulation of the same intent. While the original is acceptable, the reconstruction is slightly more precise as an umbrella term for the administrative functions. Given the rubric, the original goal is supported and independently scoped (distinct from statistics access), so it can be kept. However, looking at the quality score rubric, the original description is quite verbose but accurate. The reconstruction is cleaner. Let's evaluate if REWRITE is better. The original goal name is 'Manage System Configuration and Administration'. The reconstruction is 'Administer Participium System'. Both are valid. The original description is detailed. The decision should likely be KEEP because the original is fully supported and not redundant, and the reconstruction doesn't offer a materially superior semantic scope, just a different phrasing. Wait, the prompt asks to decide if the *original* should be kept, rewritten, or removed. The original is supported. Is it fragmented? No, it groups configuration and user management. Is it redundant? No, 'Access Comprehensive Statistics' is separate. So KEEP is appropriate. The quality score should be high because it is supported and correctly scoped.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The current LLGs cover the two main administrative areas described in the documentation: configuring automatic report assignment rules (llg_001 to llg_004) and managing user accounts and roles (llg_005 to llg_010). The documentation explicitly states that the Municipal Administrator can configure automatic assignment rules and is responsible for user management. The specific CRUD operations (Create, Read, Update, Delete/Deactivate) for these entities are standard interpretations of 'manage' and 'configure' in this context and are supported by the need to oversee these parameters. There are no unsupported LLGs, and no essential capabilities explicitly required by the parent HLG are missing. The decomposition is complete and aligned with the documentation.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_015": {
-      "branch_id": "branch_015",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Access Comprehensive Statistics' is supported by the documentation, which explicitly states that the private section is accessible only to administrators and allows viewing charts and tables in addition to public statistics. The reconstructed goal 'Monitor and Analyze System Performance and Usage' is a valid interpretation of the intent behind accessing these statistics. However, the original name 'Access Comprehensive Statistics' is slightly less precise than the reconstruction in capturing the analytical intent, but it is not materially defective. The goal is distinct from 'Manage System Configuration and Administration' as it concerns data consumption/analysis rather than system configuration. It is not redundant with other goals. The granularity is appropriate for a High-Level Goal. Therefore, it should be kept. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs include capabilities that are not supported by the documentation. Specifically, 'GenerateCustomStatisticalReports' (llg_002) implies a feature to define parameters for tailored reports, which is not mentioned in the text (the text only mentions viewing charts/tables and public stats like trends over day/week/month). 'ExportStatisticsData' (llg_003) is also not documented; the text does not mention exporting data. 'ViewPerformanceDashboards' (llg_004) uses terminology ('performance', 'system health') that goes beyond the documented scope of 'reports per category' and 'trends'. The documentation explicitly states that in the private section, it is possible to view 'charts and tables' in addition to public statistics. Therefore, the essential capability is to view these specific charts and tables. The current LLGs are largely unsupported or misleading interpretations of this simple viewing capability.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Access Comprehensive Statistics' is supported by the documentation, which explicitly states that the private section is accessible only to administrators and allows viewing charts and tables in addition to public statistics. The reconstructed goal 'Monitor and Analyze System Performance and Usage' is a valid interpretation of the intent behind accessing these statistics. However, the original name 'Access Comprehensive Statistics' is slightly less precise than the reconstruction in capturing the analytical intent, but it is not materially defective. The goal is distinct from 'Manage System Configuration and Administration' as it concerns data consumption/analysis rather than system configuration. It is not redundant with other goals. The granularity is appropriate for a High-Level Goal. Therefore, it should be kept.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 4,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs include capabilities that are not supported by the documentation. Specifically, 'GenerateCustomStatisticalReports' (llg_002) implies a feature to define parameters for tailored reports, which is not mentioned in the text (the text only mentions viewing charts/tables and public stats like trends over day/week/month). 'ExportStatisticsData' (llg_003) is also not documented; the text does not mention exporting data. 'ViewPerformanceDashboards' (llg_004) uses terminology ('performance', 'system health') that goes beyond the documented scope of 'reports per category' and 'trends'. The documentation explicitly states that in the private section, it is possible to view 'charts and tables' in addition to public statistics. Therefore, the essential capability is to view these specific charts and tables. The current LLGs are largely unsupported or misleading interpretations of this simple viewing capability.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 1,
-        "regeneration_feedback": "Remove unsupported capabilities like custom report generation, data export, and performance dashboards. Focus on the documented capability: viewing private statistics which include charts and tables in addition to public statistics (reports per category, trends over day/week/month).",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_002",
-          "llg_003",
-          "llg_004"
-        ],
-        "missing_essential_capabilities": [
-          "View private statistics charts and tables"
-        ],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
-        }
-      }
     }
   },
   "high_level_goals": {
     "goals": [
       {
-        "name": "Submit Urban Issue Reports",
-        "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+        "name": "Report urban inconveniences",
+        "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
         "actor": {
           "name": "Citizen",
-          "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+          "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
         }
       },
       {
-        "name": "Register and Activate Account",
-        "description": "Enable citizens to register their personal details and confirm their account activation to gain access to the system's full functionalities.",
+        "name": "Receive updates on report status",
+        "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
         "actor": {
           "name": "Citizen",
-          "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+          "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
         }
       },
       {
-        "name": "Communicate with Administration",
-        "description": "To exchange messages with municipal operators regarding their specific reports.",
+        "name": "View and follow public reports",
+        "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
         "actor": {
           "name": "Citizen",
-          "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+          "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
         }
       },
       {
-        "name": "Monitor Community Issues",
-        "description": "To view and follow other citizens' open reports to stay aware of urban issues in the community.",
+        "name": "Interact with public administration",
+        "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
         "actor": {
           "name": "Citizen",
-          "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+          "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
         }
       },
       {
-        "name": "Access Public Report Information",
-        "description": "To view public reports on an interactive map and in a summary table to understand urban issues.",
+        "name": "Access public information on urban issues",
+        "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
         "actor": {
           "name": "Non-Registered User",
-          "description": "An end-user who can view public reports and statistics without logging in."
+          "description": "Can view public reports on the interactive map and summary table, and public statistics."
         }
       },
       {
-        "name": "View Public System Statistics",
-        "description": "To access public statistics regarding report categories and trends.",
-        "actor": {
-          "name": "Non-Registered User",
-          "description": "An end-user who can view public reports and statistics without logging in."
-        }
-      },
-      {
-        "name": "Approve or Reject Reports",
-        "description": "To formally accept or decline citizen reports, providing explanations for rejections.",
+        "name": "Efficiently review and categorize reports",
+        "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
         "actor": {
           "name": "Organization Office Staff",
-          "description": "Municipal employees responsible for the initial review, approval, or rejection of citizen reports."
+          "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
         }
       },
       {
-        "name": "Manage Approved Report Resolution",
-        "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+        "name": "Provide clear explanations for rejected reports",
+        "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
+        }
+      },
+      {
+        "name": "Manage the Lifecycle of Approved Reports",
+        "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
         "actor": {
           "name": "Technical Office Staff",
-          "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+          "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
         }
       },
       {
-        "name": "Receive Assigned Tasks",
-        "description": "To receive and access reports assigned for intervention and resolution.",
+        "name": "Manage Report Resolution Lifecycle",
+        "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+        }
+      },
+      {
+        "name": "Collaborate with external entities",
+        "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+        }
+      },
+      {
+        "name": "Receive and view assigned reports",
+        "description": "To efficiently access and understand the details of reports that have been assigned for intervention, ensuring they have all necessary information to plan and commence work.",
         "actor": {
           "name": "External Maintenance Personnel",
-          "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+          "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
         }
       },
       {
-        "name": "Manage Assigned Maintenance Reports",
-        "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+        "name": "Update report status during intervention",
+        "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
         "actor": {
           "name": "External Maintenance Personnel",
-          "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+          "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
         }
       },
       {
-        "name": "Communicate with Technical Office",
-        "description": "To exchange information and comments with the municipal technical office regarding report progress.",
+        "name": "Communicate with Technical Office Staff",
+        "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
         "actor": {
           "name": "External Maintenance Personnel",
-          "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+          "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
         }
       },
       {
-        "name": "Manage System Configuration and Administration",
-        "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+        "name": "Configure Automatic Report Assignment Rules",
+        "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
         "actor": {
           "name": "Municipal Administrator",
-          "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
-        }
-      },
-      {
-        "name": "Access Comprehensive Statistics",
-        "description": "To view both public and private statistics, including detailed charts and tables, for system oversight and analysis.",
-        "actor": {
-          "name": "Municipal Administrator",
-          "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+          "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
         }
       }
     ]
@@ -764,718 +158,759 @@
   "low_level_goals": {
     "low_level_goals": [
       {
-        "name": "RegisterCitizenAccount",
-        "description": "Citizen provides registration details including username, name, and email address.",
+        "name": "Select report category",
+        "description": "Citizen selects a predefined category for the urban inconvenience being reported.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Report urban inconveniences",
+          "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "VerifyCitizenEmail",
-        "description": "Citizen clicks a confirmation link received via email to activate their account.",
+        "name": "Enter textual description of inconvenience",
+        "description": "Citizen provides a detailed textual description of the urban inconvenience.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Report urban inconveniences",
+          "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "UploadCitizenProfilePhoto",
-        "description": "Citizen uploads a personal photo to be displayed on their user profile.",
+        "name": "Specify inconvenience location",
+        "description": "Citizen specifies the exact geographical location of the inconvenience, potentially using a map interface or address input.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Report urban inconveniences",
+          "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "CreateReport",
-        "description": "Citizen submits a new report with details such as title, description, and category.",
+        "name": "Upload evidence (image/video)",
+        "description": "Citizen uploads an image or video file to provide visual evidence of the reported inconvenience.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Report urban inconveniences",
+          "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "AttachMediaToReport",
-        "description": "Citizen uploads one or more photos (up to 3 per report) to be included with their report.",
+        "name": "Submit report",
+        "description": "Citizen finalizes and submits the complete report to the public administration.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Report urban inconveniences",
+          "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "SpecifyReportLocation",
-        "description": "Citizen provides geographical coordinates or an address to pinpoint the issue location.",
+        "name": "Receive report status change notification",
+        "description": "The system sends a notification to the citizen when the status of their submitted report changes.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Receive updates on report status",
+          "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "SelectReportCategory",
-        "description": "Citizen chooses a predefined category for the urban issue being reported.",
+        "name": "View current status of submitted report",
+        "description": "The citizen retrieves and displays the most recent status of a specific report they have submitted.",
         "high_level_associated": {
-          "name": "Submit Urban Issue Reports",
-          "description": "To effectively report urban inconveniences and malfunctions to the public administration.",
+          "name": "Receive updates on report status",
+          "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "SendMessageToOperator",
-        "description": "Citizen sends a message to the municipal operator assigned to their specific report.",
+        "name": "Browse public reports on interactive map",
+        "description": "The system shall allow a Citizen to view public reports displayed on an interactive map interface.",
         "high_level_associated": {
-          "name": "Communicate with Administration",
-          "description": "To exchange messages with municipal operators regarding their specific reports.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "ReceiveMessageFromOperator",
-        "description": "Citizen receives a message from a municipal operator concerning their report.",
+        "name": "Filter public reports",
+        "description": "The system shall allow a Citizen to apply filters to the list or map of public reports based on criteria such as status, category, or date range.",
         "high_level_associated": {
-          "name": "Communicate with Administration",
-          "description": "To exchange messages with municipal operators regarding their specific reports.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "ViewReportMessagesThread",
-        "description": "Citizen views the entire conversation history between themselves and the administration for a specific report.",
+        "name": "Select public report to view details",
+        "description": "The system shall allow a Citizen to select a specific public report from a list or map to view its detailed information.",
         "high_level_associated": {
-          "name": "Communicate with Administration",
-          "description": "To exchange messages with municipal operators regarding their specific reports.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "BrowsePublicReportsList",
-        "description": "Citizen views a list of all publicly available reports submitted by other citizens.",
+        "name": "Follow public report",
+        "description": "The system shall allow a Citizen to mark a public report to receive updates on its status changes.",
         "high_level_associated": {
-          "name": "Monitor Community Issues",
-          "description": "To view and follow other citizens' open reports to stay aware of urban issues in the community.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "FilterPublicReportsByCategory",
-        "description": "Citizen applies a filter to view public reports belonging to specific categories.",
+        "name": "View public reports in summary table",
+        "description": "The system shall allow a Citizen to view a list of public reports presented in a tabular format, showing key summary information for each report.",
         "high_level_associated": {
-          "name": "Monitor Community Issues",
-          "description": "To view and follow other citizens' open reports to stay aware of urban issues in the community.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "FollowPublicReport",
-        "description": "Citizen subscribes to receive updates on the status of another citizen's public report.",
+        "name": "Sort public reports",
+        "description": "The system shall allow a Citizen to sort the displayed public reports based on various attributes such as date, status, or proximity.",
         "high_level_associated": {
-          "name": "Monitor Community Issues",
-          "description": "To view and follow other citizens' open reports to stay aware of urban issues in the community.",
+          "name": "View and follow public reports",
+          "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "UnfollowPublicReport",
-        "description": "Citizen unsubscribes from receiving updates on a previously followed public report.",
+        "name": "Send message to municipal operator",
+        "description": "The Citizen sends an initial message or provides further information to a municipal operator regarding a specific report.",
         "high_level_associated": {
-          "name": "Monitor Community Issues",
-          "description": "To view and follow other citizens' open reports to stay aware of urban issues in the community.",
+          "name": "Interact with public administration",
+          "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
           "actor": {
             "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
           }
         }
       },
       {
-        "name": "RetrievePublicReportsMapData",
-        "description": "Non-registered user requests data to display public reports on an interactive map interface.",
+        "name": "Receive message from municipal operator",
+        "description": "The Citizen receives a message or clarification from a municipal operator regarding one of their submitted reports.",
         "high_level_associated": {
-          "name": "Access Public Report Information",
-          "description": "To view public reports on an interactive map and in a summary table to understand urban issues.",
+          "name": "Interact with public administration",
+          "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+          "actor": {
+            "name": "Citizen",
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+          }
+        }
+      },
+      {
+        "name": "View conversation history for report",
+        "description": "The Citizen retrieves and displays the complete history of messages exchanged with municipal operators for a specific report.",
+        "high_level_associated": {
+          "name": "Interact with public administration",
+          "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+          "actor": {
+            "name": "Citizen",
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+          }
+        }
+      },
+      {
+        "name": "Reply to municipal operator's message",
+        "description": "The Citizen sends a message in direct response to a specific message received from a municipal operator regarding a report, providing clarifications or additional details.",
+        "high_level_associated": {
+          "name": "Interact with public administration",
+          "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+          "actor": {
+            "name": "Citizen",
+            "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+          }
+        }
+      },
+      {
+        "name": "View public reports on interactive map (Non-Registered User)",
+        "description": "Non-Registered User navigates an interactive map to discover publicly available reports of urban inconveniences.",
+        "high_level_associated": {
+          "name": "Access public information on urban issues",
+          "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
           "actor": {
             "name": "Non-Registered User",
-            "description": "An end-user who can view public reports and statistics without logging in."
+            "description": "Can view public reports on the interactive map and summary table, and public statistics."
           }
         }
       },
       {
-        "name": "RetrievePublicReportsTableData",
-        "description": "Non-registered user requests data to display public reports in a summary table format.",
+        "name": "Access summary table of public reports",
+        "description": "Non-Registered User views a tabular summary of public reports, potentially with sorting and basic filtering options.",
         "high_level_associated": {
-          "name": "Access Public Report Information",
-          "description": "To view public reports on an interactive map and in a summary table to understand urban issues.",
+          "name": "Access public information on urban issues",
+          "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
           "actor": {
             "name": "Non-Registered User",
-            "description": "An end-user who can view public reports and statistics without logging in."
+            "description": "Can view public reports on the interactive map and summary table, and public statistics."
           }
         }
       },
       {
-        "name": "FilterPublicReportsByLocation",
-        "description": "Non-registered user applies a geographical filter to view public reports within a specific area.",
+        "name": "View public statistics on urban issues",
+        "description": "Non-Registered User accesses charts, graphs, and tables displaying public statistics related to urban inconveniences.",
         "high_level_associated": {
-          "name": "Access Public Report Information",
-          "description": "To view public reports on an interactive map and in a summary table to understand urban issues.",
+          "name": "Access public information on urban issues",
+          "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
           "actor": {
             "name": "Non-Registered User",
-            "description": "An end-user who can view public reports and statistics without logging in."
+            "description": "Can view public reports on the interactive map and summary table, and public statistics."
           }
         }
       },
       {
-        "name": "RetrievePublicReportCategoryStatistics",
-        "description": "Non-registered user requests and views statistics broken down by report categories.",
+        "name": "Filter public reports (Non-Registered User)",
+        "description": "Non-Registered User applies filters (e.g., by category, status, date range) to narrow down the displayed public reports.",
         "high_level_associated": {
-          "name": "View Public System Statistics",
-          "description": "To access public statistics regarding report categories and trends.",
+          "name": "Access public information on urban issues",
+          "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
           "actor": {
             "name": "Non-Registered User",
-            "description": "An end-user who can view public reports and statistics without logging in."
+            "description": "Can view public reports on the interactive map and summary table, and public statistics."
           }
         }
       },
       {
-        "name": "RetrievePublicReportTrendStatistics",
-        "description": "Non-registered user requests and views statistics showing trends in report submissions over time.",
+        "name": "Access list of new, unreviewed reports",
+        "description": "Organization Office Staff retrieves a list of all citizen reports awaiting initial review.",
         "high_level_associated": {
-          "name": "View Public System Statistics",
-          "description": "To access public statistics regarding report categories and trends.",
-          "actor": {
-            "name": "Non-Registered User",
-            "description": "An end-user who can view public reports and statistics without logging in."
-          }
-        }
-      },
-      {
-        "name": "ApproveReport",
-        "description": "Office staff formally accepts a citizen report, marking it as valid and ready for further processing.",
-        "high_level_associated": {
-          "name": "Approve or Reject Reports",
-          "description": "To formally accept or decline citizen reports, providing explanations for rejections.",
+          "name": "Efficiently review and categorize reports",
+          "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
           "actor": {
             "name": "Organization Office Staff",
-            "description": "Municipal employees responsible for the initial review, approval, or rejection of citizen reports."
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "RejectReport",
-        "description": "Office staff formally declines a citizen report, marking it as invalid or inappropriate.",
+        "name": "View details of specific report for review",
+        "description": "Organization Office Staff opens and examines the full details of a single report, including description, location, and attached evidence.",
         "high_level_associated": {
-          "name": "Approve or Reject Reports",
-          "description": "To formally accept or decline citizen reports, providing explanations for rejections.",
+          "name": "Efficiently review and categorize reports",
+          "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
           "actor": {
             "name": "Organization Office Staff",
-            "description": "Municipal employees responsible for the initial review, approval, or rejection of citizen reports."
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "ProvideRejectionReason",
-        "description": "Office staff inputs a mandatory explanation for why a report was rejected.",
+        "name": "Mark report as 'Accepted'",
+        "description": "Organization Office Staff changes the status of a valid report to 'Accepted'.",
         "high_level_associated": {
-          "name": "Approve or Reject Reports",
-          "description": "To formally accept or decline citizen reports, providing explanations for rejections.",
+          "name": "Efficiently review and categorize reports",
+          "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
           "actor": {
             "name": "Organization Office Staff",
-            "description": "Municipal employees responsible for the initial review, approval, or rejection of citizen reports."
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "RetrieveMyAssignedReports",
-        "description": "External maintenance personnel retrieves a list of all reports assigned to them for intervention.",
+        "name": "Mark report as 'Rejected'",
+        "description": "Organization Office Staff changes the status of an invalid report to 'Rejected'.",
         "high_level_associated": {
-          "name": "Receive Assigned Tasks",
-          "description": "To receive and access reports assigned for intervention and resolution.",
+          "name": "Efficiently review and categorize reports",
+          "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
           "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "name": "Organization Office Staff",
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "ViewAssignedReportDetails",
-        "description": "External maintenance personnel views the full details of a specific report assigned to them.",
+        "name": "Enter mandatory explanation for rejected report",
+        "description": "Organization Office Staff types in a required explanation detailing why a report was rejected.",
         "high_level_associated": {
-          "name": "Receive Assigned Tasks",
-          "description": "To receive and access reports assigned for intervention and resolution.",
+          "name": "Provide clear explanations for rejected reports",
+          "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
           "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "name": "Organization Office Staff",
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "AcceptAssignedReport",
-        "description": "External maintenance personnel formally accepts an assigned report, acknowledging receipt and responsibility.",
+        "name": "Submit explanation for rejected report",
+        "description": "Organization Office Staff saves and sends the entered explanation for a rejected report.",
         "high_level_associated": {
-          "name": "Receive Assigned Tasks",
-          "description": "To receive and access reports assigned for intervention and resolution.",
+          "name": "Provide clear explanations for rejected reports",
+          "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
           "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "name": "Organization Office Staff",
+            "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
           }
         }
       },
       {
-        "name": "SendMessageToTechnicalOffice",
-        "description": "External maintenance personnel sends a message to the municipal technical office regarding a report's progress or issues.",
+        "name": "Access list of approved reports",
+        "description": "Retrieve a paginated list of all citizen reports that have been approved and are awaiting or undergoing lifecycle management.",
         "high_level_associated": {
-          "name": "Communicate with Technical Office",
-          "description": "To exchange information and comments with the municipal technical office regarding report progress.",
-          "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
-          }
-        }
-      },
-      {
-        "name": "ReceiveMessageFromTechnicalOffice",
-        "description": "External maintenance personnel receives a message from the municipal technical office regarding a report.",
-        "high_level_associated": {
-          "name": "Communicate with Technical Office",
-          "description": "To exchange information and comments with the municipal technical office regarding report progress.",
-          "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
-          }
-        }
-      },
-      {
-        "name": "ViewReportCommunicationLog",
-        "description": "External maintenance personnel views the communication history with the technical office for a specific report.",
-        "high_level_associated": {
-          "name": "Communicate with Technical Office",
-          "description": "To exchange information and comments with the municipal technical office regarding report progress.",
-          "actor": {
-            "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
-          }
-        }
-      },
-      {
-        "name": "RetrieveAllReportStatistics",
-        "description": "Municipal administrator retrieves comprehensive statistics covering all report types, statuses, and user interactions.",
-        "high_level_associated": {
-          "name": "Access Comprehensive Statistics",
-          "description": "To view both public and private statistics, including detailed charts and tables, for system oversight and analysis.",
-          "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
-          }
-        }
-      },
-      {
-        "name": "GenerateCustomStatisticalReports",
-        "description": "Municipal administrator defines parameters to generate tailored statistical reports based on specific criteria.",
-        "high_level_associated": {
-          "name": "Access Comprehensive Statistics",
-          "description": "To view both public and private statistics, including detailed charts and tables, for system oversight and analysis.",
-          "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
-          }
-        }
-      },
-      {
-        "name": "ExportStatisticsData",
-        "description": "Municipal administrator exports statistical data from the system in various formats for external analysis.",
-        "high_level_associated": {
-          "name": "Access Comprehensive Statistics",
-          "description": "To view both public and private statistics, including detailed charts and tables, for system oversight and analysis.",
-          "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
-          }
-        }
-      },
-      {
-        "name": "ViewPerformanceDashboards",
-        "description": "Municipal administrator views interactive dashboards displaying key performance indicators and system health metrics.",
-        "high_level_associated": {
-          "name": "Access Comprehensive Statistics",
-          "description": "To view both public and private statistics, including detailed charts and tables, for system oversight and analysis.",
-          "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
-          }
-        }
-      },
-      {
-        "name": "AssignApprovedReportToInternalTeam",
-        "description": "The Technical Office Staff assigns a specific approved citizen report to an internal municipal team for resolution.",
-        "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "AssignApprovedReportToExternalTeam",
-        "description": "The Technical Office Staff assigns a specific approved citizen report to an external service provider or contractor for resolution.",
+        "name": "View details of an approved report",
+        "description": "Display all specific information, including historical data and current status, for a selected approved citizen report.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "UpdateApprovedReportStatus",
-        "description": "The Technical Office Staff updates the resolution status of an approved citizen report (e.g., 'In Progress', 'Resolved', 'Pending External Action').",
+        "name": "Assign an approved report to an internal office",
+        "description": "Allocate an approved citizen report to a specific internal technical office responsible for its resolution.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "AddReportProgressUpdate",
-        "description": "The Technical Office Staff adds a new progress update or internal comment to an approved citizen report to document actions or communicate with assigned teams.",
+        "name": "Assign an approved report to an external partner",
+        "description": "Allocate an approved citizen report to a specific external company or partner responsible for its resolution.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RetrieveApprovedReportDetails",
-        "description": "The Technical Office Staff retrieves all detailed information for a specific approved citizen report, including its current status, assignment, and history.",
+        "name": "Plan an intervention for an assigned report",
+        "description": "Record and associate a detailed plan of action, including tasks, resources, and timelines, with an assigned citizen report.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RetrieveReportProgressHistory",
-        "description": "The Technical Office Staff retrieves the complete history of progress updates and internal comments for a specific approved citizen report.",
+        "name": "Update a report's status to 'In Progress'",
+        "description": "Change the status of an assigned report to indicate that work has officially commenced.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RetrieveAvailableInternalTeams",
-        "description": "The Technical Office Staff retrieves a list of all internal teams available for report assignment.",
+        "name": "Update a report's status to 'Work in Progress'",
+        "description": "Change the status of an assigned report to reflect ongoing work and active resolution efforts.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RetrieveAvailableExternalTeams",
-        "description": "The Technical Office Staff retrieves a list of all external teams or contractors available for report assignment.",
+        "name": "Update a report's status to 'Suspended'",
+        "description": "Change the status of an assigned report to indicate that work is temporarily halted due to external factors or dependencies.",
         "high_level_associated": {
-          "name": "Manage Approved Report Resolution",
-          "description": "The Technical Office Staff aims to efficiently manage the entire lifecycle of approved citizen reports, from initial assignment to the appropriate internal or external teams, through tracking progress, updating report statuses, and facilitating necessary communication, to ensure the timely and effective resolution of reported urban issues.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
             "name": "Technical Office Staff",
-            "description": "Municipal employees who manage approved reports, assign them to relevant teams, track progress, and ensure resolution."
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "DefineAutomaticReportAssignmentRule",
-        "description": "The Municipal Administrator can define a new rule for automatically assigning reports based on specified criteria.",
+        "name": "Update a report's status to 'Resolved'",
+        "description": "Change the status of an assigned report to indicate that the reported issue has been successfully addressed and fixed.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "ModifyAutomaticReportAssignmentRule",
-        "description": "The Municipal Administrator can modify an existing automatic report assignment rule's criteria or actions.",
+        "name": "Close a resolved report",
+        "description": "Finalize the lifecycle of a report by marking it as closed after its status has been set to 'Resolved'.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage the Lifecycle of Approved Reports",
+          "description": "To effectively oversee and progress approved citizen reports from initial assignment through to resolution, ensuring timely intervention planning, status updates, and final closure, whether handled internally or by external partners.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RemoveAutomaticReportAssignmentRule",
-        "description": "The Municipal Administrator can remove an existing automatic report assignment rule from the system.",
+        "name": "Update report status to 'In Progress'",
+        "description": "Invoke an API to change the status of an approved citizen report to 'In Progress' to indicate active work has begun.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "ViewAutomaticReportAssignmentRules",
-        "description": "The Municipal Administrator can retrieve and view all currently configured automatic report assignment rules.",
+        "name": "Update report status to 'Resolved'",
+        "description": "Invoke an API to change the status of a citizen report to 'Resolved' after the issue has been successfully addressed.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "CreateUserAccount",
-        "description": "The Municipal Administrator can create a new user account in the Participium system.",
+        "name": "Add internal notes to report",
+        "description": "Invoke an API to append a new internal note or comment to a specific report's record for documentation purposes.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "UpdateUserAccountDetails",
-        "description": "The Municipal Administrator can modify the details of an existing user account, such as name, email, or contact information.",
+        "name": "View complete status history of report",
+        "description": "Invoke an API to retrieve and display the full chronological history of all status changes and actions taken on a specific report.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "DeactivateUserAccount",
-        "description": "The Municipal Administrator can deactivate an existing user account, preventing the user from logging in while retaining their data for audit purposes.",
+        "name": "Assign report to responsible party",
+        "description": "Invoke an API to allocate an approved citizen report to a specific responsible office or external company for resolution.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "AssignUserRole",
-        "description": "The Municipal Administrator can assign a specific role (e.g., 'Reporter', 'Reviewer', 'Public User') to a user account.",
+        "name": "Plan intervention for report",
+        "description": "Invoke an API to define and record the planned actions or steps to address the issue described in a citizen report.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "RevokeUserRole",
-        "description": "The Municipal Administrator can revoke a specific role from a user account.",
+        "name": "Update report status to 'Work in Progress'",
+        "description": "Invoke an API to change the status of an approved citizen report to 'Work in Progress' to indicate ongoing work.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "ViewUserAccountsAndRoles",
-        "description": "The Municipal Administrator can retrieve and view a list of all user accounts, their assigned roles, and associated permissions.",
+        "name": "Update report status to 'Suspended'",
+        "description": "Invoke an API to change the status of an approved citizen report to 'Suspended' when work is temporarily halted due to external factors or dependencies.",
         "high_level_associated": {
-          "name": "Manage System Configuration and Administration",
-          "description": "To ensure the efficient and proper functioning of the Participium system by configuring its operational parameters, such as automatic report assignment rules, and overseeing user accounts and access permissions.",
+          "name": "Manage Report Resolution Lifecycle",
+          "description": "Enable the Technical Office Staff to oversee and manage the entire lifecycle of approved citizen reports, including assigning reports to responsible parties, planning interventions, updating report statuses to 'In Progress', 'Work in Progress', 'Suspended', and 'Resolved' as appropriate, and maintaining a comprehensive history of all status changes and actions taken to ensure efficient problem resolution.",
           "actor": {
-            "name": "Municipal Administrator",
-            "description": "A municipal employee responsible for system configuration, user management, and accessing private statistics."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "Submit Citizen Registration Information",
-        "description": "Allow the citizen to submit their personal details, such as name, email, and password, to initiate the account creation process.",
+        "name": "Send message to external maintenance personnel",
+        "description": "Technical Office Staff composes and sends a message to external personnel regarding an assigned report.",
         "high_level_associated": {
-          "name": "Register and Activate Account",
-          "description": "Enable citizens to register their personal details and confirm their account activation to gain access to the system's full functionalities.",
+          "name": "Collaborate with external entities",
+          "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
           "actor": {
-            "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "Verify Citizen Account via Activation Token",
-        "description": "Enable the citizen to use a unique activation token, typically received via email, to confirm and activate their newly registered account.",
+        "name": "Receive message from external maintenance personnel",
+        "description": "Technical Office Staff receives a message from external personnel regarding an assigned report.",
         "high_level_associated": {
-          "name": "Register and Activate Account",
-          "description": "Enable citizens to register their personal details and confirm their account activation to gain access to the system's full functionalities.",
+          "name": "Collaborate with external entities",
+          "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
           "actor": {
-            "name": "Citizen",
-            "description": "An end-user who registers, submits reports about urban issues, receives updates, and can follow other reports."
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
           }
         }
       },
       {
-        "name": "List Assigned Maintenance Reports",
-        "description": "The system shall allow the External Maintenance Personnel to retrieve a summary list of all maintenance reports currently assigned to them, including their unique identifier and current status.",
+        "name": "Attach documents to assigned report for external personnel",
+        "description": "Technical Office Staff uploads and attaches additional files or instructions to a report for external maintenance personnel.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Collaborate with external entities",
+          "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
+          "actor": {
+            "name": "Technical Office Staff",
+            "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+          }
+        }
+      },
+      {
+        "name": "Receive notification for newly assigned report",
+        "description": "The system shall push a notification to the External Maintenance Personnel when a new report is assigned to them.",
+        "high_level_associated": {
+          "name": "Receive and view assigned reports",
+          "description": "To efficiently access and understand the details of reports that have been assigned for intervention, ensuring they have all necessary information to plan and commence work.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
           }
         }
       },
       {
-        "name": "Retrieve Detailed Maintenance Report Information",
-        "description": "The system shall allow the External Maintenance Personnel to access all specific details of a selected assigned maintenance report, including its description, location, reported issues, and any attached media.",
+        "name": "Access list of assigned reports",
+        "description": "The External Maintenance Personnel shall be able to retrieve a list of all reports currently assigned to them.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Receive and view assigned reports",
+          "description": "To efficiently access and understand the details of reports that have been assigned for intervention, ensuring they have all necessary information to plan and commence work.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
           }
         }
       },
       {
-        "name": "Update Intermediate Status of Maintenance Report",
-        "description": "The system shall allow the External Maintenance Personnel to change the status of an assigned maintenance report to an intermediate state, such as 'In Progress' or 'On Hold', reflecting the current stage of work.",
+        "name": "View details of assigned report",
+        "description": "The External Maintenance Personnel shall be able to retrieve and display the comprehensive details of a specific report assigned to them.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Receive and view assigned reports",
+          "description": "To efficiently access and understand the details of reports that have been assigned for intervention, ensuring they have all necessary information to plan and commence work.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
           }
         }
       },
       {
-        "name": "Add Comment to Maintenance Report",
-        "description": "The system shall allow the External Maintenance Personnel to post new comments or provide additional information related to an assigned maintenance report, making it visible to the Municipality's technical office.",
+        "name": "Update assigned report status to 'In Progress'",
+        "description": "The External Maintenance Personnel updates the status of an assigned report to 'In Progress' to indicate active work has begun.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Update report status during intervention",
+          "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
           }
         }
       },
       {
-        "name": "View Existing Comments on Maintenance Report",
-        "description": "The system shall allow the External Maintenance Personnel to read all previous comments and communications associated with a specific assigned maintenance report.",
+        "name": "Update assigned report status to 'Resolved'",
+        "description": "The External Maintenance Personnel updates the status of an assigned report to 'Resolved' to indicate that the intervention is complete.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Update report status during intervention",
+          "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
           }
         }
       },
       {
-        "name": "Mark Maintenance Report as Resolved",
-        "description": "The system shall allow the External Maintenance Personnel to set the final status of an assigned maintenance report to 'Resolved' upon successful completion of the maintenance intervention.",
+        "name": "Send message to Technical Office Staff",
+        "description": "External Maintenance Personnel composes and sends a message to the Technical Office Staff regarding an assigned report.",
         "high_level_associated": {
-          "name": "Manage Assigned Maintenance Reports",
-          "description": "To efficiently handle and resolve maintenance reports assigned by the Municipality's technical office, including accessing report details, updating their progress, exchanging information and comments with the technical office, and marking them as resolved upon completion of the intervention.",
+          "name": "Communicate with Technical Office Staff",
+          "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
           "actor": {
             "name": "External Maintenance Personnel",
-            "description": "Staff from external companies who are assigned specific reports to resolve and update their status within the system."
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+          }
+        }
+      },
+      {
+        "name": "Receive message from Technical Office Staff",
+        "description": "External Maintenance Personnel receives a message from the Technical Office Staff regarding an assigned report.",
+        "high_level_associated": {
+          "name": "Communicate with Technical Office Staff",
+          "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
+          "actor": {
+            "name": "External Maintenance Personnel",
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+          }
+        }
+      },
+      {
+        "name": "View conversation history for assigned report",
+        "description": "External Maintenance Personnel accesses and reviews the entire message exchange history related to a specific assigned report.",
+        "high_level_associated": {
+          "name": "Communicate with Technical Office Staff",
+          "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
+          "actor": {
+            "name": "External Maintenance Personnel",
+            "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+          }
+        }
+      },
+      {
+        "name": "Create Automatic Report Assignment Rule",
+        "description": "The Municipal Administrator can define a new rule for automatically assigning specific report categories to external companies or offices.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+          }
+        }
+      },
+      {
+        "name": "Update Automatic Report Assignment Rule",
+        "description": "The Municipal Administrator can modify the parameters of an existing rule for automatic report assignment.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+          }
+        }
+      },
+      {
+        "name": "Delete Automatic Report Assignment Rule",
+        "description": "The Municipal Administrator can remove an existing rule for automatic report assignment from the system.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+          }
+        }
+      },
+      {
+        "name": "Retrieve Automatic Report Assignment Rules",
+        "description": "The Municipal Administrator can view a list of all configured automatic report assignment rules and their details.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+          }
+        }
+      },
+      {
+        "name": "Enable Automatic Report Assignment Rule",
+        "description": "The Municipal Administrator can activate a previously created or disabled rule for automatic report assignment.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+          }
+        }
+      },
+      {
+        "name": "Disable Automatic Report Assignment Rule",
+        "description": "The Municipal Administrator can deactivate an active rule for automatic report assignment, preventing its execution.",
+        "high_level_associated": {
+          "name": "Configure Automatic Report Assignment Rules",
+          "description": "To enable efficient and automated routing of specific report categories directly to external companies or offices, bypassing initial municipal review, thereby streamlining the resolution process.",
+          "actor": {
+            "name": "Municipal Administrator",
+            "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
           }
         }
       }
     ]
   },
-  "missing_hlg_evaluation": {
-    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. The project description's functional requirements are fully covered by the current High-Level Goals. Specifically: 1) Citizen registration and activation is covered by 'Register and Activate Account'. 2) Report submission is covered by 'Submit Urban Issue Reports'. 3) Citizen communication and updates (including notifications and messaging) are covered by 'Communicate with Administration' and 'Monitor Community Issues' (for following others). 4) Public access to reports and statistics for non-registered users is covered by 'Access Public Report Information' and 'View Public System Statistics'. 5) Organization Office staff review and decision-making is covered by 'Approve or Reject Reports'. 6) Technical Office staff management of the lifecycle, assignment, status updates, and internal communication is covered by 'Manage Approved Report Resolution', 'Update Report Status', and 'Facilitate Internal Communication'. 7) External maintenance personnel tasks are covered by 'Receive Assigned Tasks', 'Manage Assigned Maintenance Reports', and 'Communicate with Technical Office'. 8) Municipal Administrator configuration and statistics access is covered by 'Manage System Configuration and Administration' and 'Access Comprehensive Statistics'. The retired goals (e.g., 'Review Citizen Reports', 'Assign Approved Reports', 'Configure System Settings') are semantically entailed by the current, more comprehensive HLGs ('Approve or Reject Reports', 'Manage Approved Report Resolution', 'Manage System Configuration and Administration'). No distinct actor-level functional outcomes are left uncovered.",
-    "quality_score": 5,
-    "missing_goal_requests": [],
-    "voter_count": 3,
-    "valid_vote_count": 3,
-    "winning_vote_count": 3,
-    "vote_distribution": {
-      "NO_MISSING_HIGH_LEVEL_GOALS": 3
-    }
+  "missing_hlg_evaluation": null,
+  "missing_hlg_decision": null,
+  "llg_regeneration_counts": {
+    "hlg_9ff35dc9d04a67ca_001": 1,
+    "hlg_42b1e389973b6476_001": 1,
+    "hlg_614a9646fc92d22e_001": 1,
+    "hlg_6d30f9d257f3c1a7_001": 1,
+    "hlg_0a9173cad26c8343_001": 1
   },
-  "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-  "llg_regeneration_counts": {},
-  "warnings": [
-    "HLG_REMOVAL_BATCH_LIMIT_OR_DEPENDENCY_GUARD (4 requested, 2 applied)"
-  ]
+  "warnings": []
 }

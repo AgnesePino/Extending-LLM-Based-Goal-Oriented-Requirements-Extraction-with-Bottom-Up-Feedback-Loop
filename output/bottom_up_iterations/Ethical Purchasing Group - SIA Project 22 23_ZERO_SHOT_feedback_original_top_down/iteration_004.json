@@ -1,62 +1,167 @@
 {
   "iteration": 4,
   "reconstructions": {
-    "branch_005": {
-      "reconstructed_high_level_goal": "Manage fair and transparent product allocation to customer orders",
-      "rationale": "The low-level goal explicitly states that product quantities are allocated based on a 'fair-play score consideration' and that the customer can 'view' these quantities. This indicates a dual concern for both the fairness of the allocation process and the transparency of that process to the customer. Therefore, the high-level goal should reflect the overarching objective of managing product allocation in a way that is both fair (using the fair-play score) and transparent (allowing the customer to view it).",
-      "branch_id": "branch_005",
+    "hlg_59c8493485a77f44_001": {
+      "reconstructed_high_level_goal": "The Farmer wants to manage their product offers by creating new ones with specified product details, quantity, price, and availability dates, modifying the quantity and price of existing offers, and retrieving a list of all published offers, in addition to receiving notifications regarding their upcoming product delivery schedule or confirmation.",
+      "rationale": "llg_001 contributes the capability for the Farmer to create new product offers, specifying product details, quantity, price, and availability dates. llg_002 adds the capability to modify the available quantity for an existing product offer. llg_003 adds the capability to change the price for an existing product offer. llg_004 contributes the capability for the Farmer to retrieve a list of all their currently published product offers. llg_005 introduces the distinct capability for the Farmer to receive notifications regarding their upcoming product delivery schedule or confirmation, which is an outlier concerning product offer management but must be included for a lossless reconstruction.",
+      "branch_id": "hlg_59c8493485a77f44_001",
       "source_low_level_goal_ids": [
-        "ViewOrderAllocatedQuantities"
+        "createProductOffer",
+        "updateProductOfferQuantity",
+        "updateProductOfferPrice",
+        "viewOwnProductOffers",
+        "receiveDeliveryNotification"
       ]
     },
-    "branch_007": {
-      "reconstructed_high_level_goal": "Manage Store Product Flow and Customer Service",
-      "rationale": "The low-level goals collectively describe the essential operational activities for a store, encompassing the management of product inflow (farmer deliveries), product outflow (customer pickups), and post-transaction customer support (refunds). These operations are grouped because they are all critical for efficient store functioning and ensuring customer satisfaction related to product acquisition and fulfillment.",
-      "branch_id": "branch_007",
+    "hlg_0eed50333bcb0d01_001": {
+      "reconstructed_high_level_goal": "The Customer wants to manage their shopping cart by adding, removing, changing quantities, and reviewing products, and to manage their orders by proceeding to placement, selecting pickup slots, finalizing, placing, cancelling, listing, and viewing details of past and pending orders.",
+      "rationale": "This High-Level Goal is a lossless reconstruction of the provided Low-Level Goals. llg_001 contributes the capability to add a specified quantity of a product from an offer to the shopping cart. llg_002 adds the capability to remove a specific product item from the shopping cart. llg_003 includes the capability to change the quantity of a specific product already in the shopping cart. llg_004 provides the capability to retrieve and review all items, quantities, and total price in the shopping cart. llg_005 introduces the capability to proceed from the shopping cart to the order placement process. llg_006 adds the capability to choose an available time slot for picking up an order. llg_007 contributes the capability to finalize and place an order after reviewing all details, including products, pickup slot, and payment method. llg_008 includes the capability to cancel a pending order before its pickup time. llg_009 adds the capability to retrieve a list of all past and pending orders. Finally, llg_010 provides the capability to view the specific details of a particular order, including items, quantities, price, and status. All distinct functional capabilities from the children are explicitly preserved and aggregated.",
+      "branch_id": "hlg_0eed50333bcb0d01_001",
       "source_low_level_goal_ids": [
-        "ScheduleFarmerDeliverySlot",
-        "ViewFarmerDeliverySchedule",
-        "ViewUpcomingDeliveryReminders",
-        "ConfirmFarmerDelivery",
-        "ViewCustomerPickupReservations",
-        "ViewUpcomingPickupReminders",
-        "MarkOrderAsPickedUp",
-        "InitiateRefundForOrderItem",
-        "ApproveRefundRequest",
-        "ViewPendingRefunds"
+        "addProductToCart",
+        "removeProductFromCart",
+        "updateProductQuantityInCart",
+        "viewCartContents",
+        "initiateOrderPlacementFromCart",
+        "selectPickupSlot",
+        "confirmOrder",
+        "cancelOrder",
+        "viewOwnOrderHistory",
+        "viewOrderDetails"
+      ]
+    },
+    "hlg_f7a97fb976f1a448_001": {
+      "reconstructed_high_level_goal": "Enable Customers to manage their digital wallet by checking its balance, depositing funds using a specified payment method, and reviewing all associated transactions; to manage order pickups by viewing scheduled times for pending orders and receiving notifications for upcoming pickups; and to manage their fair-play score by retrieving it and having it adjusted by the System based on order no-shows, late pickups, cancellations, and successful on-time pickups.",
+      "rationale": "This High-Level Goal is a lossless reconstruction that aggregates all distinct functional capabilities present in the Low-Level Goals. llg_001 adds the capability for the Customer to check their current digital wallet balance. llg_002 adds the capability for the Customer to deposit funds into their digital wallet using a specified payment method. llg_003 adds the capability for the Customer to review a record of all transactions made to and from their digital wallet. llg_004 adds the capability for the Customer to see a list of their scheduled pickup times for pending orders. llg_005 adds the capability for the Customer to receive a notification reminding them of an upcoming order pickup. llg_006 adds the capability for the Customer to retrieve their current fair-play score. llg_007 adds the capability for the System to decrease a customer's fair-play score when an order is marked as a no-show. llg_008 adds the capability for the System to decrease a customer's fair-play score when an order is marked as a late pickup. llg_009 adds the capability for the System to decrease a customer's fair-play score when a customer cancels an order. llg_010 adds the capability for the System to increase a customer's fair-play score when an order is successfully picked up on time. The reconstructed goal explicitly includes three distinct functional areas: digital wallet management, order pickup management and notification, and fair-play score management, ensuring all capabilities are preserved without generalization or omission.",
+      "branch_id": "hlg_f7a97fb976f1a448_001",
+      "source_low_level_goal_ids": [
+        "viewWalletBalance",
+        "addFundsToWallet",
+        "viewTransactionHistory",
+        "viewUpcomingPickupReservations",
+        "receivePickupReminder",
+        "viewFairPlayScore",
+        "applyFairPlayPenaltyForNoShow",
+        "applyFairPlayPenaltyForLatePickup",
+        "applyFairPlayPenaltyForCancellation",
+        "applyFairPlayBonusForOnTimePickup"
+      ]
+    },
+    "hlg_aed6e5875e2342fd_001": {
+      "reconstructed_high_level_goal": "The Store Employee wants to find a customer's account using their ID or email, create a new order on behalf of a specific customer by selecting products and a pickup slot, and finalize an order placed on behalf of a customer.",
+      "rationale": "llg_001 contributes the capability for the Store Employee to find a customer's account using their ID or email to assist with order placement. llg_002 adds the capability for the Store Employee to create a new order on behalf of a specific customer, including the selection of products and a pickup slot. llg_003 completes the process by adding the capability for the Store Employee to finalize an order placed on behalf of a customer.",
+      "branch_id": "hlg_aed6e5875e2342fd_001",
+      "source_low_level_goal_ids": [
+        "searchCustomerAccount",
+        "createOrderForCustomer",
+        "confirmCustomerOrder"
+      ]
+    },
+    "hlg_226c1ffe93077992_001": {
+      "reconstructed_high_level_goal": "Enable the Store Employee to manage both inbound farmer deliveries by recording their details and notifying farmers about scheduled or completed deliveries, and outbound customer order pickups by retrieving and displaying pending orders, marking orders as picked up, and sending customer reminder notifications.",
+      "rationale": "The reconstructed high-level goal comprehensively covers all distinct functional capabilities present in the low-level goals. llg_001 contributes the capability for the Store Employee to record details of a farmer's delivery, including items and quantities. llg_002 adds the capability for the Store Employee to mark a specific customer order as picked up. llg_003 provides the capability for the Store Employee to retrieve and display a list of all customer orders pending pickup for a specific time slot. llg_004 introduces the capability for the Store Employee to trigger sending reminder notifications to customers about their upcoming order pickup. llg_005 adds the capability for the Store Employee to initiate sending notifications to farmers regarding their scheduled or completed deliveries. The goal explicitly includes both the 'farmer delivery' (inbound) and 'customer order pickup' (outbound) aspects, ensuring no functionality is lost or generalized.",
+      "branch_id": "hlg_226c1ffe93077992_001",
+      "source_low_level_goal_ids": [
+        "recordFarmerDelivery",
+        "markCustomerOrderAsPickedUp",
+        "viewAllPendingCustomerPickupsForSlot",
+        "sendCustomerPickupReminder",
+        "sendFarmerDeliveryNotification"
+      ]
+    },
+    "hlg_8ecef516f138a29e_001": {
+      "reconstructed_high_level_goal": "The system shall enable customers to retrieve a list of all available product offers from farmers, filter this list by product category or farmer's ID/name, search for offers using keywords or phrases, sort the retrieved list by price, date posted, or farmer rating, and retrieve and view detailed information for specific product offers including description, price, available quantity, and farmer information.",
+      "rationale": "llg_001 establishes the core capability for customers to retrieve a list of all available product offers from farmers. llg_002 adds the ability to filter this list by a specified product category. llg_003 further enhances filtering by allowing customers to refine the list by a specific farmer's ID or name. llg_004 introduces a search mechanism for product offers using keywords or phrases. llg_005 provides functionality to sort the retrieved list based on criteria such as price, date posted, or farmer rating. llg_006 adds the capability to retrieve and view detailed information of a specific product offer, encompassing its description, price, available quantity, and farmer information.",
+      "branch_id": "hlg_8ecef516f138a29e_001",
+      "source_low_level_goal_ids": [
+        "retrieveAllProductOffers",
+        "filterProductOffersByCategory",
+        "filterProductOffersByFarmer",
+        "searchProductOffersByKeyword",
+        "sortProductOffers",
+        "retrieveSpecificProductOfferDetails"
+      ]
+    },
+    "hlg_5af819b47abe0b7b_001": {
+      "reconstructed_high_level_goal": "The Store Employee wants to initiate refund requests for specific orders by specifying the reason and amount, view all refund requests awaiting approval, and approve pending refund requests to trigger the actual refund transaction.",
+      "rationale": "llg_001 contributes the capability for the Store Employee to initiate a refund request for a customer and a specific order, including specifying the reason and amount. llg_002 contributes the capability for the Store Employee to approve a pending refund request, which triggers the actual refund transaction. llg_003 contributes the capability for the Store Employee to view a list of all refund requests that are awaiting approval.",
+      "branch_id": "hlg_5af819b47abe0b7b_001",
+      "source_low_level_goal_ids": [
+        "initiateRefundForOrder",
+        "approveRefundRequest",
+        "viewPendingRefundRequests"
+      ]
+    },
+    "hlg_67f29169fed44d91_001": {
+      "reconstructed_high_level_goal": "The Customer can discover available products by searching with keywords, browsing by category, retrieving an initial list, or viewing products offered by a specific farmer, and can refine these product lists using various filters, and view detailed information for any specific product.",
+      "rationale": "This High-Level Goal comprehensively captures all distinct capabilities from the Low-Level Goals. llg_001 contributes the ability to search for products using keywords or phrases. llg_002 adds the capability to browse products by category. llg_003 introduces the functionality to apply filters based on criteria such as farmer, price range, organic status, or availability. llg_004 provides the ability to view detailed information for a specific product, including its description, price, quantity, and associated farmer information. llg_005 enables the customer to view all products offered by a specific farmer. llg_006 adds the capability to retrieve an initial list of all currently available products without specific search or filter criteria.",
+      "branch_id": "hlg_67f29169fed44d91_001",
+      "source_low_level_goal_ids": [
+        "searchProductsByKeyword",
+        "listProductsByCategory",
+        "filterProductsByCriteria",
+        "retrieveProductDetails",
+        "listProductsByFarmer",
+        "retrieveAllAvailableProducts"
       ]
     }
   },
   "evaluations": {
-    "branch_005": {
-      "branch_id": "branch_005",
-      "rationale": "HLG evaluation failed: No HighLevelGoalEvaluation voting quorum: {'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL': 1}; required 2/3. Rejected votes: 1x ValueError: quality_score conflicts with the selected decision; 1x ValueError: Evaluator response does not contain a JSON object..",
-      "final_decision": "EVALUATION_INCONCLUSIVE",
-      "high_level_evaluation": {
-        "rationale": "HLG evaluation failed: No HighLevelGoalEvaluation voting quorum: {'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL': 1}; required 2/3. Rejected votes: 1x ValueError: quality_score conflicts with the selected decision; 1x ValueError: Evaluator response does not contain a JSON object..",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 0,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 0,
-        "winning_vote_count": 0,
-        "vote_distribution": {}
-      },
-      "replacement_request": null,
-      "low_level_evaluation": null
-    },
-    "branch_007": {
-      "branch_id": "branch_007",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Store Logistics' is supported by the project description, which explicitly mentions 'farmer deliveries, ... pickup reservations, ... and refunds' as system capabilities managed by the store. The actor description confirms the Store Employee 'manages store operations'. The bottom-up reconstruction 'Manage Store Product Flow and Customer Service' is semantically equivalent, capturing the same operational scope (inflow, outflow, and post-transaction support). The goal is distinct from the sibling 'Facilitate Customer Orders', which focuses specifically on the transactional act of placing orders on behalf of customers, whereas 'Manage Store Logistics' covers the broader operational lifecycle including physical logistics and financial adjustments (refunds). Therefore, the original goal is valid, appropriately scoped, and not redundant. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain several unsupported capabilities. Specifically, 'ViewUpcomingDeliveryReminders' (llg_003) and 'ViewUpcomingPickupReminders' (llg_006) are unsupported because the project description mentions 'reminders' generally but does not specify that store employees view automated reminders for deliveries or pickups; reminders are typically customer-facing or system-generated notifications, not a distinct employee viewing task. Furthermore, 'ApproveRefundRequest' (llg_009) is unsupported as the description states the system manages 'refunds' but does not specify an approval workflow or that employees must approve them (it could be automatic or initiated directly). 'ConfirmFarmerDelivery' (llg_004) is also questionable as the description says farmers 'enter product availability' and the system manages 'farmer deliveries', but does not explicitly state that employees confirm receipt to update inventory; inventory management is not explicitly detailed as a manual confirmation step. These additions go beyond the explicit documentation.",
+    "hlg_59c8493485a77f44_001": {
+      "branch_id": "hlg_59c8493485a77f44_001",
+      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG describes the Farmer's ability to 'communicate and update the availability and quantity of their produce'. The LLGs include creating offers (with price/dates), updating quantity/price, viewing offers, and receiving delivery notifications. The reconstruction HLG' accurately aggregates these LLGs, including the delivery notification outlier. Comparing the sets: HLG' entails the creation and update capabilities implied by HLG, but HLG does not explicitly entail the specific management of price, viewing lists, or receiving delivery notifications. Conversely, HLG' includes 'receiving notifications regarding their upcoming product delivery schedule', which is a distinct functional outcome (delivery logistics) separate from 'communicating availability' (product data entry). The project description supports 'farmer deliveries' and 'enter product availability'. The parent HLG is a valid but incomplete fragment of the broader 'Manage Product Offerings' and delivery coordination responsibility. Since the reconstruction adds the delivery notification capability which is not in the original HLG's scope, the relationship is PARTIAL_OVERLAP. The original HLG is supported by the documentation for the availability/quantity aspect, so it should be kept, but the LLG decomposition needs evaluation to ensure the delivery notification LLG is correctly scoped or if the parent needs to be broadened to cover the full documented farmer interaction with the system regarding offers and deliveries. However, the prompt asks to decide on the HLG. The HLG 'Manage Product Offerings' is a valid stakeholder outcome. The LLGs extend it to delivery notifications. This suggests the HLG might be too narrow if the system intends for farmers to manage their entire supply chain interaction, but 'Manage Product Offerings' is a precise, supported goal. The divergence is in the decomposition including an extra capability. Thus, KEEP the HLG and require LLG evaluation to check if the delivery notification LLG belongs here or elsewhere (though no other sibling exists, it might be a misplaced LLG or the HLG needs rewriting to 'Manage Product Offers and Deliveries'). Given the strictness, if the HLG is 'Manage Product Offerings', receiving delivery notifications is arguably outside that specific scope. However, the HLG is valid. The reconstruction is broader. Therefore, PARTIAL_OVERLAP. The HLG is valid, so KEEP. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is fundamentally flawed. llg_005 (receiveDeliveryNotification) is unsupported by the parent HLG 'Manage Product Offerings' and the project description, which assigns delivery logistics to 'Manage Store Logistics' (Store Employee) and does not document farmer-facing delivery notifications as part of product offer management. Furthermore, the parent HLG explicitly includes 'update the availability' in its description, but the current LLGs only cover quantity and price updates (llg_002, llg_003), omitting the essential capability to update availability dates or status for existing offers. This omission and the inclusion of an out-of-scope LLG require regeneration.",
       "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Store Logistics' is supported by the project description, which explicitly mentions 'farmer deliveries, ... pickup reservations, ... and refunds' as system capabilities managed by the store. The actor description confirms the Store Employee 'manages store operations'. The bottom-up reconstruction 'Manage Store Product Flow and Customer Service' is semantically equivalent, capturing the same operational scope (inflow, outflow, and post-transaction support). The goal is distinct from the sibling 'Facilitate Customer Orders', which focuses specifically on the transactional act of placing orders on behalf of customers, whereas 'Manage Store Logistics' covers the broader operational lifecycle including physical logistics and financial adjustments (refunds). Therefore, the original goal is valid, appropriately scoped, and not redundant.",
+        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG describes the Farmer's ability to 'communicate and update the availability and quantity of their produce'. The LLGs include creating offers (with price/dates), updating quantity/price, viewing offers, and receiving delivery notifications. The reconstruction HLG' accurately aggregates these LLGs, including the delivery notification outlier. Comparing the sets: HLG' entails the creation and update capabilities implied by HLG, but HLG does not explicitly entail the specific management of price, viewing lists, or receiving delivery notifications. Conversely, HLG' includes 'receiving notifications regarding their upcoming product delivery schedule', which is a distinct functional outcome (delivery logistics) separate from 'communicating availability' (product data entry). The project description supports 'farmer deliveries' and 'enter product availability'. The parent HLG is a valid but incomplete fragment of the broader 'Manage Product Offerings' and delivery coordination responsibility. Since the reconstruction adds the delivery notification capability which is not in the original HLG's scope, the relationship is PARTIAL_OVERLAP. The original HLG is supported by the documentation for the availability/quantity aspect, so it should be kept, but the LLG decomposition needs evaluation to ensure the delivery notification LLG is correctly scoped or if the parent needs to be broadened to cover the full documented farmer interaction with the system regarding offers and deliveries. However, the prompt asks to decide on the HLG. The HLG 'Manage Product Offerings' is a valid stakeholder outcome. The LLGs extend it to delivery notifications. This suggests the HLG might be too narrow if the system intends for farmers to manage their entire supply chain interaction, but 'Manage Product Offerings' is a precise, supported goal. The divergence is in the decomposition including an extra capability. Thus, KEEP the HLG and require LLG evaluation to check if the delivery notification LLG belongs here or elsewhere (though no other sibling exists, it might be a misplaced LLG or the HLG needs rewriting to 'Manage Product Offers and Deliveries'). Given the strictness, if the HLG is 'Manage Product Offerings', receiving delivery notifications is arguably outside that specific scope. However, the HLG is valid. The reconstruction is broader. Therefore, PARTIAL_OVERLAP. The HLG is valid, so KEEP.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
+          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 1
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": {
+        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is fundamentally flawed. llg_005 (receiveDeliveryNotification) is unsupported by the parent HLG 'Manage Product Offerings' and the project description, which assigns delivery logistics to 'Manage Store Logistics' (Store Employee) and does not document farmer-facing delivery notifications as part of product offer management. Furthermore, the parent HLG explicitly includes 'update the availability' in its description, but the current LLGs only cover quantity and price updates (llg_002, llg_003), omitting the essential capability to update availability dates or status for existing offers. This omission and the inclusion of an out-of-scope LLG require regeneration.",
+        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+        "quality_score": 1,
+        "regeneration_feedback": "Remove llg_005 as it is outside the scope of product offer management. Add an LLG for updating the availability dates or status of existing product offers to fully cover the parent HLG's description.",
+        "unsupported_or_misleading_llg_ids": [
+          "llg_005"
+        ],
+        "missing_essential_capabilities": [
+          "Update availability dates or status for existing product offers"
+        ],
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "REGENERATE_LOW_LEVEL_GOALS": 3
+        }
+      }
+    },
+    "hlg_0eed50333bcb0d01_001": {
+      "branch_id": "hlg_0eed50333bcb0d01_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcomes {select products, place orders, manage order details, payment, pickup arrangements}. The reconstruction HLG' aggregates the LLGs into {manage cart, proceed to placement, select pickup, finalize/place, cancel, list, view details}. HLG' entails the core of HLG (placing and managing orders), but HLG explicitly includes 'payment' as a material outcome. The LLGs do not contain a distinct payment execution goal (e.g., 'payWithWallet'), only 'confirmOrder' which mentions payment method. While the project supports automatic payment via wallets, the specific HLG clause 'including payment' is not fully entailed by the current LLG set which focuses on cart and order status management. However, 'confirmOrder' implies the finalization step where payment is triggered. More critically, the HLG description 'manage their order details' is broad, while the LLGs cover specific CRUD-like operations on orders (view, cancel). The relationship is PARTIAL_OVERLAP because HLG' does not explicitly entail the 'payment' management outcome as a distinct capability separate from order confirmation, and HLG does not explicitly entail the detailed cart management operations (add/remove/update) which are prominent in HLG'. The parent is valid and supported by the documentation (Customer places orders, manages wallet/pickup). The divergence is in the decomposition's granularity and explicitness of payment/cart steps. Therefore, the parent should be kept, and the LLGs need evaluation to ensure they correctly support the parent's intent, particularly regarding the payment aspect. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The decomposition is complete, precise, and fully supported. llg_001, llg_002, llg_003, and llg_004 map to the documented capability to 'manage their shopping cart by adding, removing, changing quantities, and reviewing products'. llg_005, llg_006, and llg_007 map to 'proceeding to placement, selecting pickup slots, finalizing, and placing' orders, which aligns with the parent's 'place orders' and 'pickup arrangements' requirements. llg_008, llg_009, and llg_010 map to 'managing their order details' by 'cancelling, listing, and viewing details of past and pending orders'. All LLGs are distinct stakeholder capabilities explicitly entailed by the parent HLG and project description. No unsupported additions, redundancies, or missing essential capabilities were identified.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcomes {select products, place orders, manage order details, payment, pickup arrangements}. The reconstruction HLG' aggregates the LLGs into {manage cart, proceed to placement, select pickup, finalize/place, cancel, list, view details}. HLG' entails the core of HLG (placing and managing orders), but HLG explicitly includes 'payment' as a material outcome. The LLGs do not contain a distinct payment execution goal (e.g., 'payWithWallet'), only 'confirmOrder' which mentions payment method. While the project supports automatic payment via wallets, the specific HLG clause 'including payment' is not fully entailed by the current LLG set which focuses on cart and order status management. However, 'confirmOrder' implies the finalization step where payment is triggered. More critically, the HLG description 'manage their order details' is broad, while the LLGs cover specific CRUD-like operations on orders (view, cancel). The relationship is PARTIAL_OVERLAP because HLG' does not explicitly entail the 'payment' management outcome as a distinct capability separate from order confirmation, and HLG does not explicitly entail the detailed cart management operations (add/remove/update) which are prominent in HLG'. The parent is valid and supported by the documentation (Customer places orders, manages wallet/pickup). The divergence is in the decomposition's granularity and explicitness of payment/cart steps. Therefore, the parent should be kept, and the LLGs need evaluation to ensure they correctly support the parent's intent, particularly regarding the payment aspect.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -67,24 +172,185 @@
       },
       "replacement_request": null,
       "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current LLGs contain several unsupported capabilities. Specifically, 'ViewUpcomingDeliveryReminders' (llg_003) and 'ViewUpcomingPickupReminders' (llg_006) are unsupported because the project description mentions 'reminders' generally but does not specify that store employees view automated reminders for deliveries or pickups; reminders are typically customer-facing or system-generated notifications, not a distinct employee viewing task. Furthermore, 'ApproveRefundRequest' (llg_009) is unsupported as the description states the system manages 'refunds' but does not specify an approval workflow or that employees must approve them (it could be automatic or initiated directly). 'ConfirmFarmerDelivery' (llg_004) is also questionable as the description says farmers 'enter product availability' and the system manages 'farmer deliveries', but does not explicitly state that employees confirm receipt to update inventory; inventory management is not explicitly detailed as a manual confirmation step. These additions go beyond the explicit documentation.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 2,
-        "regeneration_feedback": "Remove unsupported LLGs: llg_003 (ViewUpcomingDeliveryReminders), llg_006 (ViewUpcomingPickupReminders), llg_009 (ApproveRefundRequest), and llg_004 (ConfirmFarmerDelivery). Keep llg_001, llg_002, llg_005, llg_007, llg_008, and llg_010 as they align with scheduling, viewing schedules/reservations, marking pickups, and processing refunds.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_003",
-          "llg_006",
-          "llg_009",
-          "llg_004"
-        ],
+        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The decomposition is complete, precise, and fully supported. llg_001, llg_002, llg_003, and llg_004 map to the documented capability to 'manage their shopping cart by adding, removing, changing quantities, and reviewing products'. llg_005, llg_006, and llg_007 map to 'proceeding to placement, selecting pickup slots, finalizing, and placing' orders, which aligns with the parent's 'place orders' and 'pickup arrangements' requirements. llg_008, llg_009, and llg_010 map to 'managing their order details' by 'cancelling, listing, and viewing details of past and pending orders'. All LLGs are distinct stakeholder capabilities explicitly entailed by the parent HLG and project description. No unsupported additions, redundancies, or missing essential capabilities were identified.",
+        "decision": "KEEP_LOW_LEVEL_GOALS",
+        "quality_score": 5,
+        "regeneration_feedback": null,
+        "unsupported_or_misleading_llg_ids": [],
         "missing_essential_capabilities": [],
         "voter_count": 3,
         "valid_vote_count": 3,
         "winning_vote_count": 3,
         "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
+          "KEEP_LOW_LEVEL_GOALS": 3
         }
       }
+    },
+    "hlg_f7a97fb976f1a448_001": {
+      "branch_id": "hlg_f7a97fb976f1a448_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Personal Account' is supported by the documentation, which explicitly states the system manages customer wallets, pickup reservations, and fair-play scores. The material outcome set of the HLG is {manage wallet, manage pickup reservations, understand fair-play score}. The reconstructed HLG' aggregates the LLGs into {check balance, deposit funds, review transactions, view scheduled pickups, receive reminders, retrieve score, system-adjust score}. HLG' entails the HLG's outcomes: wallet management covers balance/deposit/history; pickup management covers viewing/reservations/reminders; fair-play management covers viewing and system adjustments. Conversely, the HLG entails HLG' as 'manage' and 'understand' are sufficient abstractions for the specific LLG actions. The actor (Customer) is consistent, though LLGs llg_007-010 involve System actions, which are correctly framed as the Customer's goal of having their score managed/adjusted. No sibling HLG covers these specific account management capabilities (siblings cover orders and browsing). The reconstruction is a lossless aggregate of the children, and the parent is a valid, precise stakeholder outcome.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Personal Account' is supported by the documentation, which explicitly states the system manages customer wallets, pickup reservations, and fair-play scores. The material outcome set of the HLG is {manage wallet, manage pickup reservations, understand fair-play score}. The reconstructed HLG' aggregates the LLGs into {check balance, deposit funds, review transactions, view scheduled pickups, receive reminders, retrieve score, system-adjust score}. HLG' entails the HLG's outcomes: wallet management covers balance/deposit/history; pickup management covers viewing/reservations/reminders; fair-play management covers viewing and system adjustments. Conversely, the HLG entails HLG' as 'manage' and 'understand' are sufficient abstractions for the specific LLG actions. The actor (Customer) is consistent, though LLGs llg_007-010 involve System actions, which are correctly framed as the Customer's goal of having their score managed/adjusted. No sibling HLG covers these specific account management capabilities (siblings cover orders and browsing). The reconstruction is a lossless aggregate of the children, and the parent is a valid, precise stakeholder outcome.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_aed6e5875e2342fd_001": {
+      "branch_id": "hlg_aed6e5875e2342fd_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Facilitate Customer Orders' is supported by the documentation, which states that store employees enter orders on behalf of customers. The material outcome set of the HLG is {place orders for customers}. The reconstructed HLG' aggregates the LLGs into {find customer account, create order, finalize order}. While 'find customer account' is a preparatory step and 'finalize order' is part of the order lifecycle, the core functional intention of placing an order on behalf of a customer is preserved. The reconstruction is a lossless aggregate of the children which implement the parent's goal. The parent is valid, precise, and supported. The relationship is EQUIVALENT because the reconstruction accurately reflects the documented capability of the actor to manage the order placement process for assisted customers, and no essential outcome is missing or added that would change the stakeholder's functional responsibility.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Facilitate Customer Orders' is supported by the documentation, which states that store employees enter orders on behalf of customers. The material outcome set of the HLG is {place orders for customers}. The reconstructed HLG' aggregates the LLGs into {find customer account, create order, finalize order}. While 'find customer account' is a preparatory step and 'finalize order' is part of the order lifecycle, the core functional intention of placing an order on behalf of a customer is preserved. The reconstruction is a lossless aggregate of the children which implement the parent's goal. The parent is valid, precise, and supported. The relationship is EQUIVALENT because the reconstruction accurately reflects the documented capability of the actor to manage the order placement process for assisted customers, and no essential outcome is missing or added that would change the stakeholder's functional responsibility.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_226c1ffe93077992_001": {
+      "branch_id": "hlg_226c1ffe93077992_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Store Logistics' is supported by the documentation, which explicitly mentions 'farmer deliveries' and 'pickup reservations' as system capabilities managed by store employees. The material outcome set of the HLG is {log farmer deliveries, manage customer pickups}. The reconstructed HLG' explicitly enumerates {record farmer delivery details, notify farmers, retrieve pending pickups, mark orders as picked up, send customer reminders}. HLG' entails the HLG because recording details and managing pickups (via marking/reminders) covers the high-level intent of logging and managing. HLG entails HLG' because the specific actions (recording, notifying, retrieving, marking, reminding) are the standard operational decomposition of 'logging deliveries' and 'managing pickups' in this context. No essential outcome is missing or added. The actor is consistent. The sibling branches cover orders and refunds, which are distinct from logistics. The reconstruction is a precise, lossless aggregate of the LLGs.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Manage Store Logistics' is supported by the documentation, which explicitly mentions 'farmer deliveries' and 'pickup reservations' as system capabilities managed by store employees. The material outcome set of the HLG is {log farmer deliveries, manage customer pickups}. The reconstructed HLG' explicitly enumerates {record farmer delivery details, notify farmers, retrieve pending pickups, mark orders as picked up, send customer reminders}. HLG' entails the HLG because recording details and managing pickups (via marking/reminders) covers the high-level intent of logging and managing. HLG entails HLG' because the specific actions (recording, notifying, retrieving, marking, reminding) are the standard operational decomposition of 'logging deliveries' and 'managing pickups' in this context. No essential outcome is missing or added. The actor is consistent. The sibling branches cover orders and refunds, which are distinct from logistics. The reconstruction is a precise, lossless aggregate of the LLGs.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_8ecef516f138a29e_001": {
+      "branch_id": "hlg_8ecef516f138a29e_001",
+      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Browse Product Offers' expresses the outcome set {view available products, view details}. The reconstruction HLG' expresses {retrieve list, filter by category, filter by farmer, search by keyword, sort, view details}. HLG' entails HLG (viewing details and retrieving the list covers viewing available products). However, HLG' adds specific operational capabilities (filtering, searching, sorting) that are not explicitly stated in the original HLG's description, which is limited to 'view available products and their details'. While the documentation supports these capabilities under the Customer actor, the original HLG is a valid, supported, and precise high-level goal for the core browsing activity. The reconstruction is a lossless aggregate of the LLGs but is broader in its explicit enumeration than the original parent's concise description. This constitutes PARTIAL_OVERLAP where the reconstruction adds detail not in the parent's text, but the parent remains valid. The parent is not redundant because 'Discover Available Products' (sibling) is a distinct, broader goal, and 'Browse Product Offers' focuses on the specific offer-viewing workflow. The parent passes the independent scope audit as a recognizable actor-owned functional outcome. Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is flawed due to redundancy and unsupported scope. First, 'Discover Available Products' is a sibling HLG with the description 'explore and identify available fresh produce', which directly overlaps with the current HLG 'Browse Product Offers'. The current LLGs (llg_001 through llg_005) describe discovery mechanisms (retrieving lists, filtering, searching, sorting) that belong to the sibling HLG, not the current one. Second, the current HLG description is 'To view available products and their details'. The only LLG that strictly aligns with this specific scope is llg_006 (retrieve specific details). The other LLGs (llg_001-llg_005) are either redundant with the sibling HLG or introduce capabilities (filtering, sorting, keyword search) that are not explicitly entailed by the narrow parent description 'view available products and their details' without importing the broader 'Discover' scope. Therefore, the current LLGs are misleading as they conflate two distinct HLGs.",
+      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "high_level_evaluation": {
+        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Browse Product Offers' expresses the outcome set {view available products, view details}. The reconstruction HLG' expresses {retrieve list, filter by category, filter by farmer, search by keyword, sort, view details}. HLG' entails HLG (viewing details and retrieving the list covers viewing available products). However, HLG' adds specific operational capabilities (filtering, searching, sorting) that are not explicitly stated in the original HLG's description, which is limited to 'view available products and their details'. While the documentation supports these capabilities under the Customer actor, the original HLG is a valid, supported, and precise high-level goal for the core browsing activity. The reconstruction is a lossless aggregate of the LLGs but is broader in its explicit enumeration than the original parent's concise description. This constitutes PARTIAL_OVERLAP where the reconstruction adds detail not in the parent's text, but the parent remains valid. The parent is not redundant because 'Discover Available Products' (sibling) is a distinct, broader goal, and 'Browse Product Offers' focuses on the specific offer-viewing workflow. The parent passes the independent scope audit as a recognizable actor-owned functional outcome.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 4,
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "requires_llg_evaluation": true,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
+          "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL": 1
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": {
+        "rationale": "Voting result 2/3 for REGENERATE_LOW_LEVEL_GOALS. The decomposition is flawed due to redundancy and unsupported scope. First, 'Discover Available Products' is a sibling HLG with the description 'explore and identify available fresh produce', which directly overlaps with the current HLG 'Browse Product Offers'. The current LLGs (llg_001 through llg_005) describe discovery mechanisms (retrieving lists, filtering, searching, sorting) that belong to the sibling HLG, not the current one. Second, the current HLG description is 'To view available products and their details'. The only LLG that strictly aligns with this specific scope is llg_006 (retrieve specific details). The other LLGs (llg_001-llg_005) are either redundant with the sibling HLG or introduce capabilities (filtering, sorting, keyword search) that are not explicitly entailed by the narrow parent description 'view available products and their details' without importing the broader 'Discover' scope. Therefore, the current LLGs are misleading as they conflate two distinct HLGs.",
+        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+        "quality_score": 2,
+        "regeneration_feedback": "Remove llg_001 through llg_005 as they duplicate the sibling HLG 'Discover Available Products' or are not strictly entailed by the narrow parent description. Retain llg_006 as it directly supports 'view... their details'. If the parent HLG is intended to cover the full browsing experience, the HLG definition itself is ambiguous with the sibling; however, based on the provided text, the current LLGs are misaligned with the specific parent boundary.",
+        "unsupported_or_misleading_llg_ids": [
+          "llg_001",
+          "llg_002",
+          "llg_003",
+          "llg_004",
+          "llg_005"
+        ],
+        "missing_essential_capabilities": [],
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_LOW_LEVEL_GOALS": 1,
+          "REGENERATE_LOW_LEVEL_GOALS": 2
+        }
+      }
+    },
+    "hlg_5af819b47abe0b7b_001": {
+      "branch_id": "hlg_5af819b47abe0b7b_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation explicitly supports 'refunds' as a system capability. The Store Employee actor is defined to 'manage store operations', which entails administrative control over financial corrections like refunds. The original HLG 'Process Customer Refunds' expresses the outcomes {initiate, approve, view/manage}. The reconstructed HLG' explicitly enumerates {initiate, view, approve}. Both directions entail the same set of functional outcomes for the same actor. The parent is not a mere fragment (it covers the full lifecycle of a refund) and is not redundant with siblings (Orders and Logistics are distinct). The description is precise and supported.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The documentation explicitly supports 'refunds' as a system capability. The Store Employee actor is defined to 'manage store operations', which entails administrative control over financial corrections like refunds. The original HLG 'Process Customer Refunds' expresses the outcomes {initiate, approve, view/manage}. The reconstructed HLG' explicitly enumerates {initiate, view, approve}. Both directions entail the same set of functional outcomes for the same actor. The parent is not a mere fragment (it covers the full lifecycle of a refund) and is not redundant with siblings (Orders and Logistics are distinct). The description is precise and supported.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 3,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
+    },
+    "hlg_67f29169fed44d91_001": {
+      "branch_id": "hlg_67f29169fed44d91_001",
+      "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Discover Available Products' and the reconstruction HLG' both express the Customer's capability to explore, search, filter, and view details of available produce. The material outcome sets are identical: {search, browse/filter, view details, list by farmer/category}. The documentation explicitly supports 'customers browse offers'. While a sibling branch 'Browse Product Offers' exists, the original HLG is not fully redundant because its LLGs include specific capabilities like 'filterProductsByCriteria' (with price/organic filters) and 'listProductsByFarmer' which are distinct from the sibling's simpler 'filterProductOffersByFarmer' and 'sortProductOffers'. The reconstruction accurately aggregates the LLGs without adding unsupported outcomes. The parent is valid, supported, and precisely scoped.",
+      "final_decision": "CONFIRM_BRANCH",
+      "high_level_evaluation": {
+        "rationale": "Voting result 2/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG 'Discover Available Products' and the reconstruction HLG' both express the Customer's capability to explore, search, filter, and view details of available produce. The material outcome sets are identical: {search, browse/filter, view details, list by farmer/category}. The documentation explicitly supports 'customers browse offers'. While a sibling branch 'Browse Product Offers' exists, the original HLG is not fully redundant because its LLGs include specific capabilities like 'filterProductsByCriteria' (with price/organic filters) and 'listProductsByFarmer' which are distinct from the sibling's simpler 'filterProductOffersByFarmer' and 'sortProductOffers'. The reconstruction accurately aggregates the LLGs without adding unsupported outcomes. The parent is valid, supported, and precisely scoped.",
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
+        "rewriting_focus": null,
+        "removal_basis": null,
+        "covered_by_branch_id": null,
+        "covered_by_high_level_goal_name": null,
+        "voter_count": 3,
+        "valid_vote_count": 3,
+        "winning_vote_count": 2,
+        "vote_distribution": {
+          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 2,
+          "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL": 1
+        }
+      },
+      "replacement_request": null,
+      "low_level_evaluation": null
     }
   },
   "high_level_goals": {
@@ -95,14 +361,6 @@
         "actor": {
           "name": "Farmer",
           "description": "Enters product availability into the system."
-        }
-      },
-      {
-        "name": "Access Product Offers",
-        "description": "To easily discover and view available km-zero fruit and vegetable products from various farmers.",
-        "actor": {
-          "name": "Customer",
-          "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
         }
       },
       {
@@ -122,14 +380,6 @@
         }
       },
       {
-        "name": "Receive Fair Product Allocation",
-        "description": "To ensure that product allocation is fair and considers their fair-play score when quantities are limited.",
-        "actor": {
-          "name": "Customer",
-          "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
-        }
-      },
-      {
         "name": "Facilitate Customer Orders",
         "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
         "actor": {
@@ -139,10 +389,34 @@
       },
       {
         "name": "Manage Store Logistics",
-        "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+        "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
         "actor": {
           "name": "Store Employee",
           "description": "Enters orders on behalf of customers and manages store operations."
+        }
+      },
+      {
+        "name": "Browse Product Offers",
+        "description": "To view available products and their details from farmers.",
+        "actor": {
+          "name": "Customer",
+          "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+        }
+      },
+      {
+        "name": "Process Customer Refunds",
+        "description": "To efficiently manage and execute refund operations for customer orders.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Enters orders on behalf of customers and manages store operations."
+        }
+      },
+      {
+        "name": "Discover Available Products",
+        "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+        "actor": {
+          "name": "Customer",
+          "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
         }
       }
     ]
@@ -150,116 +424,8 @@
   "low_level_goals": {
     "low_level_goals": [
       {
-        "name": "CreateProductOffering",
-        "description": "Farmer creates a new product offering by providing product details, initial quantity, and price.",
-        "high_level_associated": {
-          "name": "Manage Product Offerings",
-          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
-          "actor": {
-            "name": "Farmer",
-            "description": "Enters product availability into the system."
-          }
-        }
-      },
-      {
-        "name": "UpdateProductOfferingQuantity",
-        "description": "Farmer updates the available quantity for an existing product offering.",
-        "high_level_associated": {
-          "name": "Manage Product Offerings",
-          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
-          "actor": {
-            "name": "Farmer",
-            "description": "Enters product availability into the system."
-          }
-        }
-      },
-      {
-        "name": "UpdateProductOfferingPrice",
-        "description": "Farmer updates the price for an existing product offering.",
-        "high_level_associated": {
-          "name": "Manage Product Offerings",
-          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
-          "actor": {
-            "name": "Farmer",
-            "description": "Enters product availability into the system."
-          }
-        }
-      },
-      {
-        "name": "SetProductOfferingAvailability",
-        "description": "Farmer sets the availability status (e.g., active/inactive) for a specific product offering.",
-        "high_level_associated": {
-          "name": "Manage Product Offerings",
-          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
-          "actor": {
-            "name": "Farmer",
-            "description": "Enters product availability into the system."
-          }
-        }
-      },
-      {
-        "name": "RetrieveFarmerProductOfferings",
-        "description": "Farmer retrieves a list of all their currently active and inactive product offerings.",
-        "high_level_associated": {
-          "name": "Manage Product Offerings",
-          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
-          "actor": {
-            "name": "Farmer",
-            "description": "Enters product availability into the system."
-          }
-        }
-      },
-      {
-        "name": "ListAllProductOffers",
-        "description": "Customer retrieves a comprehensive list of all available product offers from various farmers.",
-        "high_level_associated": {
-          "name": "Access Product Offers",
-          "description": "To easily discover and view available km-zero fruit and vegetable products from various farmers.",
-          "actor": {
-            "name": "Customer",
-            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
-          }
-        }
-      },
-      {
-        "name": "FilterProductOffersByCategory",
-        "description": "Customer filters the list of product offers based on specific categories (e.g., 'fruits', 'vegetables').",
-        "high_level_associated": {
-          "name": "Access Product Offers",
-          "description": "To easily discover and view available km-zero fruit and vegetable products from various farmers.",
-          "actor": {
-            "name": "Customer",
-            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
-          }
-        }
-      },
-      {
-        "name": "SearchProductOffersByKeyword",
-        "description": "Customer searches for product offers using a keyword or phrase.",
-        "high_level_associated": {
-          "name": "Access Product Offers",
-          "description": "To easily discover and view available km-zero fruit and vegetable products from various farmers.",
-          "actor": {
-            "name": "Customer",
-            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
-          }
-        }
-      },
-      {
-        "name": "ViewProductOfferDetails",
-        "description": "Customer views detailed information for a specific product offer, including description, price, and farmer information.",
-        "high_level_associated": {
-          "name": "Access Product Offers",
-          "description": "To easily discover and view available km-zero fruit and vegetable products from various farmers.",
-          "actor": {
-            "name": "Customer",
-            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
-          }
-        }
-      },
-      {
-        "name": "AddItemToShoppingCart",
-        "description": "Customer adds a specified quantity of a product to their shopping cart.",
+        "name": "addProductToCart",
+        "description": "The Customer wants to add a specified quantity of a product from an offer to their shopping cart.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -270,8 +436,8 @@
         }
       },
       {
-        "name": "UpdateShoppingCartItemQuantity",
-        "description": "Customer modifies the quantity of a specific product already in their shopping cart.",
+        "name": "removeProductFromCart",
+        "description": "The Customer wants to remove a specific product item from their shopping cart.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -282,8 +448,8 @@
         }
       },
       {
-        "name": "RemoveItemFromShoppingCart",
-        "description": "Customer removes a specific product from their shopping cart.",
+        "name": "updateProductQuantityInCart",
+        "description": "The Customer wants to change the quantity of a specific product already in their shopping cart.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -294,8 +460,8 @@
         }
       },
       {
-        "name": "ViewShoppingCartContents",
-        "description": "Customer retrieves and reviews the current items and total cost in their shopping cart.",
+        "name": "viewCartContents",
+        "description": "The Customer wants to retrieve and review all items currently in their shopping cart, including quantities and total price.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -306,8 +472,8 @@
         }
       },
       {
-        "name": "PlaceOrderFromCart",
-        "description": "Customer finalizes the items in their shopping cart and places a new order.",
+        "name": "initiateOrderPlacementFromCart",
+        "description": "The Customer wants to proceed from their shopping cart to the order placement process.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -318,8 +484,8 @@
         }
       },
       {
-        "name": "AuthorizeOrderPayment",
-        "description": "Customer authorizes the system to deduct the total order amount from their wallet upon successful order placement.",
+        "name": "selectPickupSlot",
+        "description": "The Customer wants to choose an available time slot for picking up their order.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -330,8 +496,8 @@
         }
       },
       {
-        "name": "SelectOrderPickupSlot",
-        "description": "Customer selects an available time slot for picking up their placed order.",
+        "name": "confirmOrder",
+        "description": "The Customer wants to finalize and place their order after reviewing all details, including products, pickup slot, and payment method.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -342,8 +508,8 @@
         }
       },
       {
-        "name": "CancelExistingOrder",
-        "description": "Customer cancels a previously placed order, subject to system rules.",
+        "name": "cancelOrder",
+        "description": "The Customer wants to cancel a pending order before its pickup time.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -354,8 +520,8 @@
         }
       },
       {
-        "name": "ViewOrderStatus",
-        "description": "Customer retrieves the current status of a specific placed order (e.g., 'pending', 'allocated', 'ready for pickup').",
+        "name": "viewOwnOrderHistory",
+        "description": "The Customer wants to retrieve a list of all their past and pending orders.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -366,8 +532,8 @@
         }
       },
       {
-        "name": "ViewOrderHistory",
-        "description": "Customer retrieves a list of all their past orders.",
+        "name": "viewOrderDetails",
+        "description": "The Customer wants to view the specific details of a particular order, including items, quantities, price, and status.",
         "high_level_associated": {
           "name": "Place and Manage Orders",
           "description": "To conveniently select products, place orders, and manage their order details, including payment and pickup arrangements.",
@@ -378,92 +544,8 @@
         }
       },
       {
-        "name": "SearchCustomerAccount",
-        "description": "Store Employee searches for a customer's account using identifiers like name or ID.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "CreateOrderForCustomer",
-        "description": "Store Employee creates a new order on behalf of a specific customer, adding initial products.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "AddProductToCustomerOrder",
-        "description": "Store Employee adds a product with a specified quantity to an existing order for a customer.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "UpdateProductInCustomerOrder",
-        "description": "Store Employee modifies the quantity of a product within an existing customer order.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "RemoveProductFromCustomerOrder",
-        "description": "Store Employee removes a specific product from an existing customer order.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "FinalizeCustomerOrder",
-        "description": "Store Employee finalizes an order placed on behalf of a customer, making it ready for processing.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "ViewCustomerOrderHistory",
-        "description": "Store Employee retrieves the complete order history for a specific customer.",
-        "high_level_associated": {
-          "name": "Facilitate Customer Orders",
-          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
-          "actor": {
-            "name": "Store Employee",
-            "description": "Enters orders on behalf of customers and manages store operations."
-          }
-        }
-      },
-      {
-        "name": "RetrieveWalletBalance",
-        "description": "The Customer retrieves their current payment wallet balance from the system.",
+        "name": "viewWalletBalance",
+        "description": "The Customer wants to check their current digital wallet balance.",
         "high_level_associated": {
           "name": "Manage Personal Account",
           "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
@@ -474,8 +556,8 @@
         }
       },
       {
-        "name": "RetrieveUpcomingPickupReservations",
-        "description": "The Customer retrieves a list of their upcoming pickup reservations from the system.",
+        "name": "addFundsToWallet",
+        "description": "The Customer wants to deposit funds into their digital wallet using a specified payment method.",
         "high_level_associated": {
           "name": "Manage Personal Account",
           "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
@@ -486,8 +568,8 @@
         }
       },
       {
-        "name": "ViewPickupReminders",
-        "description": "The Customer views any active reminders associated with their pickup reservations.",
+        "name": "viewTransactionHistory",
+        "description": "The Customer wants to review a record of all transactions made to and from their digital wallet.",
         "high_level_associated": {
           "name": "Manage Personal Account",
           "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
@@ -498,8 +580,8 @@
         }
       },
       {
-        "name": "RetrieveFairPlayScore",
-        "description": "The Customer retrieves their current fair-play score from the system.",
+        "name": "viewUpcomingPickupReservations",
+        "description": "The Customer wants to see a list of their scheduled pickup times for pending orders.",
         "high_level_associated": {
           "name": "Manage Personal Account",
           "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
@@ -510,11 +592,11 @@
         }
       },
       {
-        "name": "ViewOrderAllocatedQuantities",
-        "description": "The customer views the specific quantities of products allocated to their order, reflecting the fair-play score consideration.",
+        "name": "receivePickupReminder",
+        "description": "The Customer wants to receive a notification reminding them of an upcoming order pickup.",
         "high_level_associated": {
-          "name": "Receive Fair Product Allocation",
-          "description": "To ensure that product allocation is fair and considers their fair-play score when quantities are limited.",
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
           "actor": {
             "name": "Customer",
             "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
@@ -522,11 +604,71 @@
         }
       },
       {
-        "name": "ScheduleFarmerDeliverySlot",
-        "description": "Allow the Store Employee to schedule a specific time slot for a farmer to deliver produce to the store.",
+        "name": "viewFairPlayScore",
+        "description": "The Customer wants to retrieve their current fair-play score.",
         "high_level_associated": {
-          "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "applyFairPlayPenaltyForNoShow",
+        "description": "The System wants to decrease a customer's fair-play score by a predefined amount when an order is marked as a no-show.",
+        "high_level_associated": {
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "applyFairPlayPenaltyForLatePickup",
+        "description": "The System wants to decrease a customer's fair-play score by a predefined amount when an order is marked as a late pickup.",
+        "high_level_associated": {
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "applyFairPlayPenaltyForCancellation",
+        "description": "The System wants to decrease a customer's fair-play score by a predefined amount when a customer cancels an order.",
+        "high_level_associated": {
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "applyFairPlayBonusForOnTimePickup",
+        "description": "The System wants to increase a customer's fair-play score by a predefined amount when an order is successfully picked up on time.",
+        "high_level_associated": {
+          "name": "Manage Personal Account",
+          "description": "To oversee their payment wallet, pickup reservations, and understand their fair-play score.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "searchCustomerAccount",
+        "description": "The Store Employee wants to find a customer's account using their ID or email to assist with order placement.",
+        "high_level_associated": {
+          "name": "Facilitate Customer Orders",
+          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
@@ -534,11 +676,11 @@
         }
       },
       {
-        "name": "ViewFarmerDeliverySchedule",
-        "description": "Allow the Store Employee to view the complete schedule of all upcoming farmer deliveries.",
+        "name": "createOrderForCustomer",
+        "description": "The Store Employee wants to create a new order on behalf of a specific customer, including selecting products and a pickup slot.",
         "high_level_associated": {
-          "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "name": "Facilitate Customer Orders",
+          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
@@ -546,11 +688,11 @@
         }
       },
       {
-        "name": "ViewCustomerPickupReservations",
-        "description": "Allow the Store Employee to view all scheduled customer pickup reservations, including order details and customer information.",
+        "name": "confirmCustomerOrder",
+        "description": "The Store Employee wants to finalize an order placed on behalf of a customer.",
         "high_level_associated": {
-          "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "name": "Facilitate Customer Orders",
+          "description": "To efficiently place orders for customers who require assistance or prefer in-person service.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
@@ -558,11 +700,11 @@
         }
       },
       {
-        "name": "MarkOrderAsPickedUp",
-        "description": "Allow the Store Employee to mark a specific customer order as successfully picked up from the store.",
+        "name": "recordFarmerDelivery",
+        "description": "The Store Employee records the details of a farmer's delivery, including items and quantities, into the system.",
         "high_level_associated": {
           "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
@@ -570,11 +712,11 @@
         }
       },
       {
-        "name": "InitiateRefundForOrderItem",
-        "description": "Allow the Store Employee to initiate a refund process for a specific item within a customer's order.",
+        "name": "markCustomerOrderAsPickedUp",
+        "description": "The Store Employee marks a specific customer order as picked up in the system, indicating it has been successfully handed over.",
         "high_level_associated": {
           "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
@@ -582,38 +724,228 @@
         }
       },
       {
-        "name": "ViewPendingRefunds",
-        "description": "Allow the Store Employee to view a list of all refund requests that are currently pending approval or processing.",
+        "name": "viewAllPendingCustomerPickupsForSlot",
+        "description": "The Store Employee retrieves and displays a list of all customer orders that are pending pickup for a specific time slot.",
         "high_level_associated": {
           "name": "Manage Store Logistics",
-          "description": "To coordinate and oversee the operational aspects of the purchasing group, including scheduling farmer deliveries, managing customer pickups, and processing refunds efficiently.",
+          "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
           "actor": {
             "name": "Store Employee",
             "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "sendCustomerPickupReminder",
+        "description": "The Store Employee triggers the system to send a reminder notification to a customer about their upcoming order pickup.",
+        "high_level_associated": {
+          "name": "Manage Store Logistics",
+          "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
+          "actor": {
+            "name": "Store Employee",
+            "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "sendFarmerDeliveryNotification",
+        "description": "The Store Employee initiates the system to send a notification to a farmer regarding their scheduled or completed delivery.",
+        "high_level_associated": {
+          "name": "Manage Store Logistics",
+          "description": "To efficiently oversee and coordinate the operational flow of goods, including logging farmer deliveries and managing customer pickups, ensuring smooth transitions from farm to customer.",
+          "actor": {
+            "name": "Store Employee",
+            "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "initiateRefundForOrder",
+        "description": "The Store Employee wants to start the process of refunding a customer for a specific order, specifying the reason and amount.",
+        "high_level_associated": {
+          "name": "Process Customer Refunds",
+          "description": "To efficiently manage and execute refund operations for customer orders.",
+          "actor": {
+            "name": "Store Employee",
+            "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "approveRefundRequest",
+        "description": "The Store Employee wants to approve a pending refund request, triggering the actual refund transaction.",
+        "high_level_associated": {
+          "name": "Process Customer Refunds",
+          "description": "To efficiently manage and execute refund operations for customer orders.",
+          "actor": {
+            "name": "Store Employee",
+            "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "viewPendingRefundRequests",
+        "description": "The Store Employee wants to see a list of all refund requests awaiting approval.",
+        "high_level_associated": {
+          "name": "Process Customer Refunds",
+          "description": "To efficiently manage and execute refund operations for customer orders.",
+          "actor": {
+            "name": "Store Employee",
+            "description": "Enters orders on behalf of customers and manages store operations."
+          }
+        }
+      },
+      {
+        "name": "searchProductsByKeyword",
+        "description": "The Customer can search for available products using a specific keyword or phrase.",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "listProductsByCategory",
+        "description": "The Customer can browse available products by selecting a specific product category (e.g., 'Fruits', 'Vegetables', 'Dairy').",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "filterProductsByCriteria",
+        "description": "The Customer can apply filters to the list of available products based on criteria such as farmer, price range, organic status, or availability.",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "retrieveProductDetails",
+        "description": "The Customer can view detailed information for a specific product, including its description, price, available quantity, and associated farmer information.",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "listProductsByFarmer",
+        "description": "The Customer can view all products offered by a specific farmer.",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "retrieveAllAvailableProducts",
+        "description": "The Customer can retrieve an initial list of all currently available products without specific search or filter criteria.",
+        "high_level_associated": {
+          "name": "Discover Available Products",
+          "description": "The Customer aims to effortlessly explore and identify available fresh produce and other offerings from farmers, enabling informed selection for their needs.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
+          }
+        }
+      },
+      {
+        "name": "createProductOffer",
+        "description": "The Farmer can create a new product offer in the system, specifying details such as produce type, initial quantity, and price.",
+        "high_level_associated": {
+          "name": "Manage Product Offerings",
+          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
+          "actor": {
+            "name": "Farmer",
+            "description": "Enters product availability into the system."
+          }
+        }
+      },
+      {
+        "name": "updateProductOfferQuantity",
+        "description": "The Farmer can update the available quantity for an existing product offer in the system.",
+        "high_level_associated": {
+          "name": "Manage Product Offerings",
+          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
+          "actor": {
+            "name": "Farmer",
+            "description": "Enters product availability into the system."
+          }
+        }
+      },
+      {
+        "name": "updateProductOfferPrice",
+        "description": "The Farmer can modify the price for an existing product offer in the system.",
+        "high_level_associated": {
+          "name": "Manage Product Offerings",
+          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
+          "actor": {
+            "name": "Farmer",
+            "description": "Enters product availability into the system."
+          }
+        }
+      },
+      {
+        "name": "viewOwnProductOffers",
+        "description": "The Farmer can retrieve and view a list of all their currently active and inactive product offers, including their details.",
+        "high_level_associated": {
+          "name": "Manage Product Offerings",
+          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
+          "actor": {
+            "name": "Farmer",
+            "description": "Enters product availability into the system."
+          }
+        }
+      },
+      {
+        "name": "updateProductOfferAvailabilityStatus",
+        "description": "The Farmer can update the availability status (e.g., 'available', 'unavailable', 'seasonal') or specific availability dates for an existing product offer.",
+        "high_level_associated": {
+          "name": "Manage Product Offerings",
+          "description": "To effectively communicate and update the availability and quantity of their produce to the purchasing group.",
+          "actor": {
+            "name": "Farmer",
+            "description": "Enters product availability into the system."
+          }
+        }
+      },
+      {
+        "name": "retrieveSpecificProductOfferDetails",
+        "description": "Allow the Customer to retrieve the full details of a specific product offer, including price, quantity, farmer information, and product description, by providing its unique identifier.",
+        "high_level_associated": {
+          "name": "Browse Product Offers",
+          "description": "To view available products and their details from farmers.",
+          "actor": {
+            "name": "Customer",
+            "description": "Browses offers, places orders, and manages their wallet and pickup reservations."
           }
         }
       }
     ]
   },
-  "missing_hlg_evaluation": {
-    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. The current High-Level Goals comprehensively cover all explicit functional requirements in the project description. Farmer availability entry is covered by 'Manage Product Offerings'. Customer browsing, ordering, wallet management, and pickup reservations are covered by 'Access Product Offers', 'Place and Manage Orders', and 'Manage Personal Account'. The fair-play score and its influence on allocation are covered by 'Receive Fair Product Allocation' and 'Manage Personal Account'. Store employee order entry is covered by 'Facilitate Customer Orders'. Store logistics, including farmer deliveries, pickups, and refunds, are covered by 'Manage Store Logistics'. Reminders are implicitly covered within the management of pickups and orders. No explicit actor-level functional requirements are missing.",
-    "quality_score": 5,
-    "missing_goal_requests": [],
-    "voter_count": 3,
-    "valid_vote_count": 3,
-    "winning_vote_count": 3,
-    "vote_distribution": {
-      "NO_MISSING_HIGH_LEVEL_GOALS": 3
-    }
-  },
-  "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+  "missing_hlg_evaluation": null,
+  "missing_hlg_decision": null,
   "llg_regeneration_counts": {
-    "customer::manage personal account": 1,
-    "customer::receive fair product allocation": 2,
-    "store employee::manage store logistics": 1
+    "hlg_59c8493485a77f44_001": 1,
+    "hlg_8ecef516f138a29e_001": 1
   },
-  "warnings": [
-    "UNRESOLVED_EVALUATION_INCONCLUSIVE"
-  ]
+  "warnings": []
 }

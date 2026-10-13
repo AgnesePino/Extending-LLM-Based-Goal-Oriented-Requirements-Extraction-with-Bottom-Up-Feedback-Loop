@@ -82,12 +82,23 @@ class HighLevelGoalRemovalBasis(str, Enum):
     FULLY_REDUNDANT = "FULLY_REDUNDANT"
 
 
+class ReconstructionRelationship(str, Enum):
+    EQUIVALENT = "EQUIVALENT"
+    PARTIAL_OVERLAP = "PARTIAL_OVERLAP"
+    MATCHES_SIBLING = "MATCHES_SIBLING"
+    DIFFERENT = "DIFFERENT"
+    NOT_RECONSTRUCTABLE = "NOT_RECONSTRUCTABLE"
+
+
 class HighLevelGoalEvaluation(BaseModel):
     rationale: str
     decision: HighLevelGoalDecision
     quality_score: int = Field(ge=0, le=5)
+    reconstruction_relationship: ReconstructionRelationship
+    requires_llg_evaluation: bool
     rewriting_focus: str | None = None
     removal_basis: HighLevelGoalRemovalBasis | None = None
+    covered_by_branch_id: str | None = None
     covered_by_high_level_goal_name: str | None = None
     voter_count: int = 1
     valid_vote_count: int = 1
@@ -98,6 +109,84 @@ class HighLevelGoalEvaluation(BaseModel):
     def check_rewriting_focus(self):
         if self.decision == HighLevelGoalDecision.REWRITE and not self.rewriting_focus:
             raise ValueError("REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus")
+        if self.decision != HighLevelGoalDecision.REWRITE and self.rewriting_focus:
+            raise ValueError(
+                "Only REWRITE_ORIGINAL_HIGH_LEVEL_GOAL may define rewriting_focus"
+            )
+        if (
+            self.decision == HighLevelGoalDecision.REMOVE
+            and self.removal_basis is None
+        ):
+            raise ValueError("REMOVE_ORIGINAL_HIGH_LEVEL_GOAL requires removal_basis")
+        if (
+            self.decision == HighLevelGoalDecision.REMOVE
+            and self.removal_basis == HighLevelGoalRemovalBasis.FULLY_REDUNDANT
+            and (
+                not self.covered_by_branch_id
+                or not self.covered_by_high_level_goal_name
+            )
+        ):
+            raise ValueError(
+                "FULLY_REDUNDANT removal requires an exact covering branch"
+            )
+        if (
+            self.removal_basis == HighLevelGoalRemovalBasis.FULLY_REDUNDANT
+            and self.reconstruction_relationship
+            != ReconstructionRelationship.MATCHES_SIBLING
+        ):
+            raise ValueError(
+                "FULLY_REDUNDANT removal requires MATCHES_SIBLING"
+            )
+        if (
+            self.removal_basis == HighLevelGoalRemovalBasis.UNSUPPORTED
+            and (self.covered_by_branch_id or self.covered_by_high_level_goal_name)
+        ):
+            raise ValueError(
+                "UNSUPPORTED removal cannot define a covering branch"
+            )
+        if self.decision != HighLevelGoalDecision.REMOVE and (
+            self.removal_basis is not None
+            or self.covered_by_branch_id is not None
+            or self.covered_by_high_level_goal_name is not None
+        ):
+            raise ValueError(
+                "Only REMOVE_ORIGINAL_HIGH_LEVEL_GOAL may define removal metadata"
+            )
+        if (
+            self.decision != HighLevelGoalDecision.KEEP
+            and self.requires_llg_evaluation
+        ):
+            raise ValueError(
+                "Only KEEP_ORIGINAL_HIGH_LEVEL_GOAL may require LLG evaluation"
+            )
+        if (
+            self.decision == HighLevelGoalDecision.KEEP
+            and self.reconstruction_relationship
+            == ReconstructionRelationship.EQUIVALENT
+            and self.requires_llg_evaluation
+        ):
+            raise ValueError(
+                "An equivalent reconstruction must not trigger LLG evaluation"
+            )
+        if (
+            self.decision == HighLevelGoalDecision.KEEP
+            and self.reconstruction_relationship
+            == ReconstructionRelationship.EQUIVALENT
+            and self.quality_score != 5
+        ):
+            raise ValueError(
+                "KEEP with EQUIVALENT requires quality_score 5"
+            )
+        if (
+            self.decision == HighLevelGoalDecision.KEEP
+            and self.reconstruction_relationship
+            != ReconstructionRelationship.EQUIVALENT
+            and not self.requires_llg_evaluation
+        ):
+            raise ValueError(
+                "A non-equivalent or absent reconstruction of a kept HLG must "
+                "trigger LLG evaluation"
+            )
         return self
 
 
@@ -133,6 +222,35 @@ class LowLevelGoalEvaluation(BaseModel):
         if isinstance(value, (str, int, float)):
             value = [value]
         return [str(item) for item in value]
+
+    @model_validator(mode="after")
+    def check_llg_decision_evidence(self):
+        if self.decision == LowLevelGoalDecision.KEEP:
+            if self.quality_score != 5:
+                raise ValueError(
+                    "KEEP_LOW_LEVEL_GOALS requires a complete 5/5 decomposition"
+                )
+            if (
+                self.regeneration_feedback
+                or self.unsupported_or_misleading_llg_ids
+                or self.missing_essential_capabilities
+            ):
+                raise ValueError(
+                    "KEEP_LOW_LEVEL_GOALS cannot report unresolved LLG defects"
+                )
+        if self.decision == LowLevelGoalDecision.REGENERATE:
+            if not self.regeneration_feedback:
+                raise ValueError(
+                    "REGENERATE_LOW_LEVEL_GOALS requires regeneration_feedback"
+                )
+            if not (
+                self.unsupported_or_misleading_llg_ids
+                or self.missing_essential_capabilities
+            ):
+                raise ValueError(
+                    "REGENERATE_LOW_LEVEL_GOALS requires structured defect evidence"
+                )
+        return self
 
 
 class MissingHighLevelGoalDecision(str, Enum):

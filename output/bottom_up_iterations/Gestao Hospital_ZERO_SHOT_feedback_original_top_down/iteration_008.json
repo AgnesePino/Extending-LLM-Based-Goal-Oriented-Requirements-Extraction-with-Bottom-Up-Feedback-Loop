@@ -1,36 +1,34 @@
 {
   "iteration": 8,
   "reconstructions": {
-    "branch_006": {
-      "reconstructed_high_level_goal": "Access Patient Information",
-      "rationale": "The low-level goal explicitly details the retrieval of various pieces of patient information (full name, CPF, date of birth, sex, admission date) for a specific patient by the Hospital Admissions Staff. This directly supports the overarching goal of enabling access to patient information.",
-      "branch_id": "branch_006",
+    "hlg_93ae286ddf03ddb7_001": {
+      "reconstructed_high_level_goal": "The system shall enable hospital staff to manage bed availability by updating the total number of beds and the count of occupied beds within specific wards, changing the status of individual beds to 'occupied' for patient admissions or transfers or to 'available' after patient discharge or transfer, and by viewing an overview of bed availability across the hospital or specific wards, and retrieving the current status of an individual bed by its identifier.",
+      "rationale": "This high-level goal is a lossless reconstruction that incorporates every distinct functional capability from the low-level goals. llg_001 contributes the capability to update the total number of beds available in a specific ward. llg_002 adds the capability to update the count of occupied beds within a specific ward. llg_003 provides the capability to view an overview of bed availability across the hospital or specific wards. llg_004 introduces the capability to change the status of a specific bed to 'occupied' for patient admissions or transfers. llg_005 adds the capability to change the status of a specific bed to 'available' after a patient discharge or transfer. Finally, llg_006 contributes the capability to retrieve the current status of an individual bed by its identifier. All distinct actions (update, change status, view, retrieve) and objects (total beds, occupied beds, individual bed status, bed availability overview) are explicitly preserved.",
+      "branch_id": "hlg_93ae286ddf03ddb7_001",
       "source_low_level_goal_ids": [
-        "Retrieve Patient Details"
-      ]
-    },
-    "branch_007": {
-      "reconstructed_high_level_goal": "Manage Inter-Hospital Product Transfers",
-      "rationale": "The low-level goals collectively describe the complete lifecycle of moving products between hospitals. They cover initiating a transfer request, tracking its progress, and confirming its successful receipt and inventory update. Together, these operations ensure efficient and accurate management of product logistics between different hospital locations.",
-      "branch_id": "branch_007",
-      "source_low_level_goal_ids": [
-        "Initiate Product Transfer Request",
-        "Confirm Product Transfer Receipt",
-        "Track Product Transfer Status"
+        "Update Ward Total Beds",
+        "Update Ward Occupied Beds",
+        "View Hospital Bed Availability",
+        "Mark Bed as Occupied",
+        "Mark Bed as Available",
+        "Retrieve Specific Bed Status"
       ]
     }
   },
   "evaluations": {
-    "branch_006": {
-      "branch_id": "branch_006",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Access Comprehensive Patient Details' is fully supported by the project description, which explicitly requires the system to 'provide access to patient details such as full name, CPF, date of birth, sex, and admission date.' This capability is distinct from the sibling goal 'Streamline Patient Admission and Discharge,' which focuses on the check-in/check-out workflow, and 'Provide Timely Patient Placement Recommendations,' which focuses on bed availability. Accessing patient details is an independent stakeholder outcome necessary for administrative tasks and care coordination, not merely a sub-step of admission or discharge. The bottom-up reconstruction 'Access Patient Information' is semantically equivalent but slightly less precise than the original, which correctly emphasizes the 'comprehensive' nature of the data (listing specific fields). Therefore, the original goal should be kept as it accurately reflects the documented requirement at the appropriate granularity. Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single Low-Level Goal (llg_001) 'Retrieve Patient Details' accurately captures the core capability required by the parent High-Level Goal 'Access Comprehensive Patient Details'. The project description explicitly states that the system must 'provide access to patient details such as full name, CPF, date of birth, sex, and admission date.' The LLG description correctly enumerates these specific data points and assigns the action to the correct actor (Hospital Admissions Staff). There are no unsupported operations (such as updating or deleting patient details, which are not mentioned in the description) and no essential capabilities are missing from the decomposition. The decomposition is precise, supported, and internally consistent.",
+    "hlg_93ae286ddf03ddb7_001": {
+      "branch_id": "hlg_93ae286ddf03ddb7_001",
+      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcome set {monitor bed availability, update bed status, optimize utilization for admissions/transfers/discharges}. The reconstruction HLG' explicitly enumerates {update ward totals, update occupied counts, view availability overview, mark occupied, mark available, retrieve specific status}. HLG' entails all material operational clauses of the HLG (monitoring via view/retrieve, updating via mark/update). The HLG's 'optimizing utilization' is a high-level purpose statement supported by the project description's goal to maximize resource utilization, not a distinct functional action missing from HLG'. The actor (Hospital Staff) and scope (bed management) are consistent. The documentation supports monitoring and managing beds. No sibling covers this responsibility. The reconstruction is a lossless aggregate of the LLGs and semantically equivalent to the parent's functional intent.",
       "final_decision": "CONFIRM_BRANCH",
       "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Access Comprehensive Patient Details' is fully supported by the project description, which explicitly requires the system to 'provide access to patient details such as full name, CPF, date of birth, sex, and admission date.' This capability is distinct from the sibling goal 'Streamline Patient Admission and Discharge,' which focuses on the check-in/check-out workflow, and 'Provide Timely Patient Placement Recommendations,' which focuses on bed availability. Accessing patient details is an independent stakeholder outcome necessary for administrative tasks and care coordination, not merely a sub-step of admission or discharge. The bottom-up reconstruction 'Access Patient Information' is semantically equivalent but slightly less precise than the original, which correctly emphasizes the 'comprehensive' nature of the data (listing specific fields). Therefore, the original goal should be kept as it accurately reflects the documented requirement at the appropriate granularity.",
+        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original HLG expresses the outcome set {monitor bed availability, update bed status, optimize utilization for admissions/transfers/discharges}. The reconstruction HLG' explicitly enumerates {update ward totals, update occupied counts, view availability overview, mark occupied, mark available, retrieve specific status}. HLG' entails all material operational clauses of the HLG (monitoring via view/retrieve, updating via mark/update). The HLG's 'optimizing utilization' is a high-level purpose statement supported by the project description's goal to maximize resource utilization, not a distinct functional action missing from HLG'. The actor (Hospital Staff) and scope (bed management) are consistent. The documentation supports monitoring and managing beds. No sibling covers this responsibility. The reconstruction is a lossless aggregate of the LLGs and semantically equivalent to the parent's functional intent.",
         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
         "quality_score": 5,
+        "reconstruction_relationship": "EQUIVALENT",
+        "requires_llg_evaluation": false,
         "rewriting_focus": null,
         "removal_basis": null,
+        "covered_by_branch_id": null,
         "covered_by_high_level_goal_name": null,
         "voter_count": 3,
         "valid_vote_count": 3,
@@ -40,118 +38,73 @@
         }
       },
       "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_LOW_LEVEL_GOALS. The single Low-Level Goal (llg_001) 'Retrieve Patient Details' accurately captures the core capability required by the parent High-Level Goal 'Access Comprehensive Patient Details'. The project description explicitly states that the system must 'provide access to patient details such as full name, CPF, date of birth, sex, and admission date.' The LLG description correctly enumerates these specific data points and assigns the action to the correct actor (Hospital Admissions Staff). There are no unsupported operations (such as updating or deleting patient details, which are not mentioned in the description) and no essential capabilities are missing from the decomposition. The decomposition is precise, supported, and internally consistent.",
-        "decision": "KEEP_LOW_LEVEL_GOALS",
-        "quality_score": 5,
-        "regeneration_feedback": null,
-        "unsupported_or_misleading_llg_ids": [],
-        "missing_essential_capabilities": [],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_LOW_LEVEL_GOALS": 3
-        }
-      }
-    },
-    "branch_007": {
-      "branch_id": "branch_007",
-      "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Facilitate Inter-Hospital Product Transfers' is fully supported by the project description, which explicitly states the system should 'facilitate the transfer of necessary products, like blood, between hospitals by identifying the closest facility with available stock.' The goal is correctly scoped to the Logistics Coordinator actor and represents a distinct, independently satisfiable stakeholder outcome (moving resources between locations) that is not subsumed by the inventory management goals (which focus on local stock levels and item lifecycle) or hospital information maintenance. The bottom-up reconstruction 'Manage Inter-Hospital Product Transfers' is semantically equivalent but slightly less precise regarding the 'facilitation' and 'coordination' aspect emphasized in the description and actor profile. The original wording is faithful and precise. No other sibling goal covers this specific inter-hospital logistics function. Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) describe a full lifecycle for product transfers (initiate, track, confirm receipt). However, the project description explicitly limits the system's capability regarding transfers to 'identifying the closest facility with available stock.' It does not mention initiating requests, tracking status (pending/in transit/delivered), or confirming receipt. These operations are conventional logistics workflow steps but are not entailed by the provided documentation. The core documented capability is the identification/recommendation of the source hospital based on proximity and stock availability. The current LLGs miss this essential capability and include unsupported lifecycle operations.",
-      "final_decision": "REGENERATE_LOW_LEVEL_GOALS",
-      "high_level_evaluation": {
-        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. The original High-Level Goal 'Facilitate Inter-Hospital Product Transfers' is fully supported by the project description, which explicitly states the system should 'facilitate the transfer of necessary products, like blood, between hospitals by identifying the closest facility with available stock.' The goal is correctly scoped to the Logistics Coordinator actor and represents a distinct, independently satisfiable stakeholder outcome (moving resources between locations) that is not subsumed by the inventory management goals (which focus on local stock levels and item lifecycle) or hospital information maintenance. The bottom-up reconstruction 'Manage Inter-Hospital Product Transfers' is semantically equivalent but slightly less precise regarding the 'facilitation' and 'coordination' aspect emphasized in the description and actor profile. The original wording is faithful and precise. No other sibling goal covers this specific inter-hospital logistics function.",
-        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "quality_score": 5,
-        "rewriting_focus": null,
-        "removal_basis": null,
-        "covered_by_high_level_goal_name": null,
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
-        }
-      },
-      "replacement_request": null,
-      "low_level_evaluation": {
-        "rationale": "Voting result 3/3 for REGENERATE_LOW_LEVEL_GOALS. The current Low-Level Goals (LLGs) describe a full lifecycle for product transfers (initiate, track, confirm receipt). However, the project description explicitly limits the system's capability regarding transfers to 'identifying the closest facility with available stock.' It does not mention initiating requests, tracking status (pending/in transit/delivered), or confirming receipt. These operations are conventional logistics workflow steps but are not entailed by the provided documentation. The core documented capability is the identification/recommendation of the source hospital based on proximity and stock availability. The current LLGs miss this essential capability and include unsupported lifecycle operations.",
-        "decision": "REGENERATE_LOW_LEVEL_GOALS",
-        "quality_score": 1,
-        "regeneration_feedback": "Remove the unsupported lifecycle operations (initiate, track, confirm). Replace them with the documented capability: Identify the closest hospital with available stock for a requested product transfer.",
-        "unsupported_or_misleading_llg_ids": [
-          "llg_001",
-          "llg_002",
-          "llg_003"
-        ],
-        "missing_essential_capabilities": [
-          "Identify closest hospital with available stock for transfer"
-        ],
-        "voter_count": 3,
-        "valid_vote_count": 3,
-        "winning_vote_count": 3,
-        "vote_distribution": {
-          "REGENERATE_LOW_LEVEL_GOALS": 3
-        }
-      }
+      "low_level_evaluation": null
     }
   },
   "high_level_goals": {
     "goals": [
       {
-        "name": "Maintain Comprehensive Hospital Information",
-        "description": "To ensure that all relevant details about hospitals, including their name, address, and available beds, are accurately registered and easily retrievable for system-wide management.",
+        "name": "Access Timely Hospital Care",
+        "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
         "actor": {
-          "name": "Public Health System Administrator",
-          "description": "Manages the registration and detailed information of hospitals, overseeing the overall system for resource optimization."
+          "name": "Patient",
+          "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
         }
       },
       {
-        "name": "Manage Hospital Inventory Items and Quantities",
-        "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+        "name": "Experience Seamless Admission and Discharge",
+        "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
         "actor": {
-          "name": "Hospital Inventory Manager",
-          "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+          "name": "Patient",
+          "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
         }
       },
       {
-        "name": "Monitor Critical Stock Levels",
-        "description": "To effectively track inventory thresholds for all products, identifying when stock levels are low (e.g., four or fewer items/liters) to prevent shortages and ensure hospitals have sufficient supplies for their immediate needs.",
+        "name": "Manage Hospital Bed Availability",
+        "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
         "actor": {
-          "name": "Hospital Inventory Manager",
-          "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+          "name": "Hospital Staff",
+          "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
         }
       },
       {
-        "name": "Streamline Patient Admission and Discharge",
-        "description": "To facilitate efficient and organized processes for patient check-in and check-out, ensuring smooth transitions for patients within the health system.",
+        "name": "Maintain Accurate Inventory Control",
+        "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
         "actor": {
-          "name": "Hospital Admissions Staff",
-          "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+          "name": "Hospital Staff",
+          "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
         }
       },
       {
-        "name": "Provide Timely Patient Placement Recommendations",
-        "description": "To quickly identify and recommend the nearest hospital with available beds to a patient based on their current location, optimizing patient care and resource utilization.",
+        "name": "Facilitate Inter-Hospital Resource Coordination",
+        "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
         "actor": {
-          "name": "Hospital Admissions Staff",
-          "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+          "name": "Hospital Staff",
+          "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
         }
       },
       {
-        "name": "Access Comprehensive Patient Details",
-        "description": "To retrieve and utilize essential patient information, such as full name, CPF, date of birth, sex, and admission date, to support patient care and administrative tasks.",
+        "name": "Monitor and Optimize System-Wide Resource Utilization",
+        "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
         "actor": {
-          "name": "Hospital Admissions Staff",
-          "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+          "name": "Health System Administrator",
+          "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
         }
       },
       {
-        "name": "Facilitate Inter-Hospital Product Transfers",
-        "description": "To efficiently coordinate and execute the transfer of necessary products, such as blood, between different hospitals by identifying the closest facility with available stock.",
+        "name": "Guarantee Critical Stock Availability",
+        "description": "To ensure that all hospitals maintain minimum required stock levels of essential products, especially blood, for immediate needs.",
         "actor": {
-          "name": "Logistics Coordinator",
-          "description": "Facilitates the transfer of necessary products, such as blood, between hospitals based on stock availability and proximity."
+          "name": "Health System Administrator",
+          "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+        }
+      },
+      {
+        "name": "Enable Strategic Resource Allocation",
+        "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+        "actor": {
+          "name": "Health System Administrator",
+          "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
         }
       }
     ]
@@ -159,253 +112,507 @@
   "low_level_goals": {
     "low_level_goals": [
       {
-        "name": "Register New Hospital",
-        "description": "The system shall allow the Public Health System Administrator to register a new hospital by providing its name, address, and initial total bed capacity.",
+        "name": "Submit Patient Location",
+        "description": "The Patient provides their current geographical coordinates to the system to enable location-based hospital search.",
         "high_level_associated": {
-          "name": "Maintain Comprehensive Hospital Information",
-          "description": "To ensure that all relevant details about hospitals, including their name, address, and available beds, are accurately registered and easily retrievable for system-wide management.",
+          "name": "Access Timely Hospital Care",
+          "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
           "actor": {
-            "name": "Public Health System Administrator",
-            "description": "Manages the registration and detailed information of hospitals, overseeing the overall system for resource optimization."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Update Hospital Address",
-        "description": "The system shall allow the Public Health System Administrator to update the physical address of an existing hospital record.",
+        "name": "Specify Medical Needs",
+        "description": "The Patient selects or inputs their specific medical condition or required specialty to filter hospital recommendations.",
         "high_level_associated": {
-          "name": "Maintain Comprehensive Hospital Information",
-          "description": "To ensure that all relevant details about hospitals, including their name, address, and available beds, are accurately registered and easily retrievable for system-wide management.",
+          "name": "Access Timely Hospital Care",
+          "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
           "actor": {
-            "name": "Public Health System Administrator",
-            "description": "Manages the registration and detailed information of hospitals, overseeing the overall system for resource optimization."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Update Hospital Bed Capacity",
-        "description": "The system shall allow the Public Health System Administrator to update the total number of available beds for an existing hospital.",
+        "name": "Request Hospital Recommendations",
+        "description": "The Patient sends a query to the system to retrieve a list of nearby hospitals with available beds matching their specified medical needs.",
         "high_level_associated": {
-          "name": "Maintain Comprehensive Hospital Information",
-          "description": "To ensure that all relevant details about hospitals, including their name, address, and available beds, are accurately registered and easily retrievable for system-wide management.",
+          "name": "Access Timely Hospital Care",
+          "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
           "actor": {
-            "name": "Public Health System Administrator",
-            "description": "Manages the registration and detailed information of hospitals, overseeing the overall system for resource optimization."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Retrieve Specific Hospital Details",
-        "description": "The system shall allow the Public Health System Administrator to retrieve all detailed information for a specific hospital using its unique identifier.",
+        "name": "View Hospital Details",
+        "description": "The Patient selects a recommended hospital to view its detailed information, such as address, contact, and specific services.",
         "high_level_associated": {
-          "name": "Maintain Comprehensive Hospital Information",
-          "description": "To ensure that all relevant details about hospitals, including their name, address, and available beds, are accurately registered and easily retrievable for system-wide management.",
+          "name": "Access Timely Hospital Care",
+          "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
           "actor": {
-            "name": "Public Health System Administrator",
-            "description": "Manages the registration and detailed information of hospitals, overseeing the overall system for resource optimization."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Query Hospitals with Available Beds by Location",
-        "description": "The system shall allow the Hospital Admissions Staff to query for hospitals with available beds within a specified geographical radius of a given patient location.",
+        "name": "Initiate Navigation to Hospital",
+        "description": "The Patient triggers the system to provide navigation instructions to the selected hospital.",
         "high_level_associated": {
-          "name": "Provide Timely Patient Placement Recommendations",
-          "description": "To quickly identify and recommend the nearest hospital with available beds to a patient based on their current location, optimizing patient care and resource utilization.",
+          "name": "Access Timely Hospital Care",
+          "description": "To quickly identify and be directed to the most suitable hospital with available beds based on their current location and needs.",
           "actor": {
-            "name": "Hospital Admissions Staff",
-            "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Recommend Nearest Hospital with Beds",
-        "description": "The system shall provide the Hospital Admissions Staff with a recommendation for the nearest hospital that has available beds, based on a patient's current coordinates.",
+        "name": "Patient Submits Identification for Admission",
+        "description": "The patient provides their identification details to initiate the hospital admission process.",
         "high_level_associated": {
-          "name": "Provide Timely Patient Placement Recommendations",
-          "description": "To quickly identify and recommend the nearest hospital with available beds to a patient based on their current location, optimizing patient care and resource utilization.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Admissions Staff",
-            "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Register a new inventory item",
-        "description": "The Hospital Inventory Manager can register a new product or blood bank supply item into the hospital inventory system, providing all necessary details such as item name, type, unit, and initial quantity.",
+        "name": "Patient Submits Personal and Medical Information for Admission",
+        "description": "The patient enters their personal and relevant medical history details required for hospital admission.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Retrieve details of a specific inventory item",
-        "description": "The Hospital Inventory Manager can retrieve and view the complete details of a specific inventory item (product or blood bank supply) by its unique identifier.",
+        "name": "Patient Reviews and Acknowledges Hospital Admission Policies",
+        "description": "The patient reads and confirms understanding of the hospital's admission terms and conditions.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Retrieve a list of all inventory items",
-        "description": "The Hospital Inventory Manager can retrieve and view a comprehensive list of all registered inventory items, including products and blood bank supplies, along with their current quantities.",
+        "name": "Patient Confirms Admission Record",
+        "description": "The patient verifies the accuracy of their submitted admission information before finalization.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Update details of an existing inventory item",
-        "description": "The Hospital Inventory Manager can modify the non-quantity related details of an existing inventory item, such as its name, description, or unit type.",
+        "name": "Patient Requests to Initiate Discharge Process",
+        "description": "The patient signals their readiness to begin the hospital discharge procedure.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Remove an inventory item",
-        "description": "The Hospital Inventory Manager can remove an inventory item (product or blood bank supply) from the hospital inventory system.",
+        "name": "Patient Verifies Personal and Medical Details for Discharge",
+        "description": "The patient reviews and confirms the accuracy of their personal and medical information relevant to the discharge process.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Update the quantity of an inventory item",
-        "description": "The Hospital Inventory Manager can adjust the current stock quantity of a specific inventory item (e.g., add received stock, subtract dispensed stock).",
+        "name": "Patient Reviews and Acknowledges Hospital Discharge Policies",
+        "description": "The patient reads and confirms understanding of the hospital's discharge terms and conditions.",
         "high_level_associated": {
-          "name": "Manage Hospital Inventory Items and Quantities",
-          "description": "To effectively oversee the complete lifecycle of all inventory items within a hospital, including products and blood bank supplies, by enabling their registration, retrieval, update, and removal, and accurately tracking their current quantities to support operational needs and resource allocation.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Retrieve Products Below Critical Threshold",
-        "description": "The system should allow the Hospital Inventory Manager to retrieve a list of all products whose current stock level is four or fewer items/liters.",
+        "name": "Patient Confirms Discharge Record",
+        "description": "The patient verifies the accuracy of their discharge information before finalization.",
         "high_level_associated": {
-          "name": "Monitor Critical Stock Levels",
-          "description": "To effectively track inventory thresholds for all products, identifying when stock levels are low (e.g., four or fewer items/liters) to prevent shortages and ensure hospitals have sufficient supplies for their immediate needs.",
+          "name": "Experience Seamless Admission and Discharge",
+          "description": "To undergo efficient and streamlined processes for checking into and out of hospitals.",
           "actor": {
-            "name": "Hospital Inventory Manager",
-            "description": "Manages and tracks hospital inventories, including products, quantities, and blood bank supplies, and monitors inventory thresholds."
+            "name": "Patient",
+            "description": "Individuals who are admitted to or discharged from hospitals, and who may receive hospital recommendations."
           }
         }
       },
       {
-        "name": "Register Patient Admission",
-        "description": "The system shall allow the Hospital Admissions Staff to register a new patient admission, capturing all necessary details for check-in.",
+        "name": "Update Ward Total Beds",
+        "description": "The system shall allow hospital staff to update the total number of beds available in a specific ward.",
         "high_level_associated": {
-          "name": "Streamline Patient Admission and Discharge",
-          "description": "To facilitate efficient and organized processes for patient check-in and check-out, ensuring smooth transitions for patients within the health system.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Hospital Admissions Staff",
-            "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
           }
         }
       },
       {
-        "name": "Record Patient Discharge",
-        "description": "The system shall allow the Hospital Admissions Staff to record a patient's discharge, finalizing their check-out process.",
+        "name": "Update Ward Occupied Beds",
+        "description": "The system shall allow hospital staff to update the count of occupied beds within a specific ward.",
         "high_level_associated": {
-          "name": "Streamline Patient Admission and Discharge",
-          "description": "To facilitate efficient and organized processes for patient check-in and check-out, ensuring smooth transitions for patients within the health system.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Hospital Admissions Staff",
-            "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
           }
         }
       },
       {
-        "name": "Retrieve Patient Details",
-        "description": "The system shall allow the Hospital Admissions Staff to retrieve comprehensive patient information, including full name, CPF, date of birth, sex, and admission date, for a specific patient.",
+        "name": "View Hospital Bed Availability",
+        "description": "The system shall allow hospital staff to view an overview of bed availability across the hospital or specific wards.",
         "high_level_associated": {
-          "name": "Access Comprehensive Patient Details",
-          "description": "To retrieve and utilize essential patient information, such as full name, CPF, date of birth, sex, and admission date, to support patient care and administrative tasks.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Hospital Admissions Staff",
-            "description": "Handles patient check-in and check-out processes, accesses patient details, and utilizes the system to recommend hospitals with available beds."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
           }
         }
       },
       {
-        "name": "Submit Product and Quantity for Stock Search",
-        "description": "The Logistics Coordinator provides the system with the specific product identifier (e.g., 'Blood Type A+') and the desired quantity (e.g., '2 units') for which to search for available stock across hospitals.",
+        "name": "Mark Bed as Occupied",
+        "description": "The system shall allow hospital staff to change the status of a specific bed to 'occupied' for patient admissions or transfers.",
         "high_level_associated": {
-          "name": "Facilitate Inter-Hospital Product Transfers",
-          "description": "To efficiently coordinate and execute the transfer of necessary products, such as blood, between different hospitals by identifying the closest facility with available stock.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Logistics Coordinator",
-            "description": "Facilitates the transfer of necessary products, such as blood, between hospitals based on stock availability and proximity."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
           }
         }
       },
       {
-        "name": "Initiate Search for Closest Hospital with Specified Stock",
-        "description": "The Logistics Coordinator triggers the system to perform a search across all registered hospitals to identify the one closest to the requesting facility that currently holds the specified product and quantity.",
+        "name": "Mark Bed as Available",
+        "description": "The system shall allow hospital staff to change the status of a specific bed to 'available' after a patient discharge or transfer.",
         "high_level_associated": {
-          "name": "Facilitate Inter-Hospital Product Transfers",
-          "description": "To efficiently coordinate and execute the transfer of necessary products, such as blood, between different hospitals by identifying the closest facility with available stock.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Logistics Coordinator",
-            "description": "Facilitates the transfer of necessary products, such as blood, between hospitals based on stock availability and proximity."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
           }
         }
       },
       {
-        "name": "Retrieve Search Results of Closest Hospitals with Stock",
-        "description": "The Logistics Coordinator accesses and views the list of hospitals returned by the system, ordered by proximity, that have the requested product and quantity available, along with their respective stock levels.",
+        "name": "Retrieve Specific Bed Status",
+        "description": "The system shall allow hospital staff to retrieve the current status of an individual bed by its identifier.",
         "high_level_associated": {
-          "name": "Facilitate Inter-Hospital Product Transfers",
-          "description": "To efficiently coordinate and execute the transfer of necessary products, such as blood, between different hospitals by identifying the closest facility with available stock.",
+          "name": "Manage Hospital Bed Availability",
+          "description": "To effectively monitor and update the status of hospital beds, ensuring accurate information for patient admissions, transfers, and discharges, thereby optimizing bed utilization for patient care.",
           "actor": {
-            "name": "Logistics Coordinator",
-            "description": "Facilitates the transfer of necessary products, such as blood, between hospitals based on stock availability and proximity."
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Add Product Type to Inventory",
+        "description": "The Hospital Staff registers a new type of product (e.g., blood type, medication) into the hospital's inventory system.",
+        "high_level_associated": {
+          "name": "Maintain Accurate Inventory Control",
+          "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Update Product Quantity in Stock",
+        "description": "The Hospital Staff modifies the current quantity of a specific product in the hospital's inventory.",
+        "high_level_associated": {
+          "name": "Maintain Accurate Inventory Control",
+          "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Record Product Usage",
+        "description": "The Hospital Staff logs the consumption of a specific quantity of a product from the inventory.",
+        "high_level_associated": {
+          "name": "Maintain Accurate Inventory Control",
+          "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "View Hospital Inventory Levels",
+        "description": "The Hospital Staff retrieves and displays the current stock levels for all products in their hospital's inventory.",
+        "high_level_associated": {
+          "name": "Maintain Accurate Inventory Control",
+          "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Set Minimum Stock Level for Product",
+        "description": "The Hospital Staff defines the minimum acceptable quantity for a specific product in their hospital's inventory.",
+        "high_level_associated": {
+          "name": "Maintain Accurate Inventory Control",
+          "description": "To accurately track and manage the quantities of various products, including blood, within the hospital's stock.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Request Product Transfer from Another Hospital",
+        "description": "The Hospital Staff initiates a request to another hospital for a specific product transfer.",
+        "high_level_associated": {
+          "name": "Facilitate Inter-Hospital Resource Coordination",
+          "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Approve Incoming Product Transfer Request",
+        "description": "The Hospital Staff reviews and approves a product transfer request received from another hospital.",
+        "high_level_associated": {
+          "name": "Facilitate Inter-Hospital Resource Coordination",
+          "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "Reject Incoming Product Transfer Request",
+        "description": "The Hospital Staff reviews and rejects a product transfer request received from another hospital.",
+        "high_level_associated": {
+          "name": "Facilitate Inter-Hospital Resource Coordination",
+          "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "View Outgoing Product Transfer Status",
+        "description": "The Hospital Staff checks the current status of product transfer requests they have initiated to other hospitals.",
+        "high_level_associated": {
+          "name": "Facilitate Inter-Hospital Resource Coordination",
+          "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "View Pending Incoming Product Transfer Requests",
+        "description": "The Hospital Staff retrieves a list of product transfer requests from other hospitals awaiting their review and action.",
+        "high_level_associated": {
+          "name": "Facilitate Inter-Hospital Resource Coordination",
+          "description": "To efficiently coordinate the transfer of necessary products, such as blood, from other hospitals while maintaining local minimum stock levels.",
+          "actor": {
+            "name": "Hospital Staff",
+            "description": "Personnel responsible for managing hospital resources, including registering hospitals, monitoring beds, managing inventory, overseeing blood banks, and coordinating product transfers within their hospital."
+          }
+        }
+      },
+      {
+        "name": "View System-Wide Bed Availability",
+        "description": "Allow the Health System Administrator to retrieve aggregated bed availability data across all hospitals in the public health system.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "View System-Wide Inventory Levels",
+        "description": "Allow the Health System Administrator to retrieve consolidated inventory levels for all products and blood banks across all hospitals in the public health system.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Identify Hospitals with Surplus Resources",
+        "description": "Allow the Health System Administrator to identify specific hospitals that have a surplus of resources (e.g., beds, products, blood) based on predefined thresholds.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Identify Hospitals with Deficit Resources",
+        "description": "Allow the Health System Administrator to identify specific hospitals that have a deficit of resources (e.g., beds, products, blood) based on predefined thresholds.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Retrieve System Bed Occupancy Dashboard",
+        "description": "Allow the Health System Administrator to access a detailed dashboard displaying bed occupancy rates and trends across the entire public health system.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Retrieve System Critical Stock Report",
+        "description": "Allow the Health System Administrator to generate a report detailing critical stock levels for products and blood banks across the public health system, highlighting items below minimum thresholds.",
+        "high_level_associated": {
+          "name": "Monitor and Optimize System-Wide Resource Utilization",
+          "description": "Enable the Health System Administrator to gain a comprehensive overview of resource status across all hospitals, including aggregated bed availability, detailed bed occupancy dashboards, and consolidated inventory levels for all products and blood banks. This goal also encompasses the ability to identify hospitals with resource surpluses or deficits and generate critical stock reports to proactively manage resource distribution, prevent waste, and ensure minimum stock levels are maintained throughout the public health system.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Set System-Wide Minimum Stock Levels",
+        "description": "The Health System Administrator defines and updates the minimum required stock levels for essential products, such as blood, that all hospitals in the network must maintain.",
+        "high_level_associated": {
+          "name": "Guarantee Critical Stock Availability",
+          "description": "To ensure that all hospitals maintain minimum required stock levels of essential products, especially blood, for immediate needs.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Initiate System-Wide Product Transfer",
+        "description": "The Health System Administrator can initiate a transfer of a specified product and quantity from a selected source hospital to a designated destination hospital.",
+        "high_level_associated": {
+          "name": "Enable Strategic Resource Allocation",
+          "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "View System Transfer History",
+        "description": "The Health System Administrator can retrieve and view a historical log of all product transfers that have occurred across the health system.",
+        "high_level_associated": {
+          "name": "Enable Strategic Resource Allocation",
+          "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "Query Product Availability Across Hospitals",
+        "description": "The Health System Administrator can query the system to identify the current stock levels of a specific product in all hospitals within the network to determine potential source hospitals for transfers.",
+        "high_level_associated": {
+          "name": "Enable Strategic Resource Allocation",
+          "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "View Current Product Demand Across Hospitals",
+        "description": "The Health System Administrator can view aggregated current demand for specific products across all hospitals in the health system to prioritize strategic transfers.",
+        "high_level_associated": {
+          "name": "Enable Strategic Resource Allocation",
+          "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
+          }
+        }
+      },
+      {
+        "name": "View Hospital Minimum Stock Levels",
+        "description": "The Health System Administrator can view the configured minimum stock levels for specific products at individual hospitals to monitor compliance and inform transfer decisions.",
+        "high_level_associated": {
+          "name": "Enable Strategic Resource Allocation",
+          "description": "To coordinate and manage the strategic transfer of products between hospitals to meet system-wide demands and emergencies.",
+          "actor": {
+            "name": "Health System Administrator",
+            "description": "Oversees the entire public health system, coordinates inter-hospital resource transfers, and ensures optimal resource utilization and minimum stock levels across the network."
           }
         }
       }
     ]
   },
-  "missing_hlg_evaluation": {
-    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
-    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. The project description's functional requirements are fully covered by the current High-Level Goals. Specifically: (1) Hospital registration/retrieval is covered by 'Maintain Comprehensive Hospital Information'; (2) Inventory management and tracking are covered by 'Manage Hospital Inventory Items and Quantities'; (3) Threshold monitoring is covered by 'Monitor Critical Stock Levels'; (4) Patient check-in/out is covered by 'Streamline Patient Admission and Discharge'; (5) Bed availability recommendations are covered by 'Provide Timely Patient Placement Recommendations'; (6) Patient detail access is covered by 'Access Comprehensive Patient Details'; and (7) Inter-hospital product transfer identification is covered by 'Facilitate Inter-Hospital Product Transfers'. The retired goals ('Optimize Public Health System Resources', 'Optimize Product Distribution Based on Availability', 'Ensure Accurate Inventory Management', 'Ensure Comprehensive Hospital Inventory Management') were redundant or overly broad; their specific documented outcomes are entailed by the more precise current HLGs. No explicit actor-level functional requirement remains uncovered.",
-    "quality_score": 5,
-    "missing_goal_requests": [],
-    "voter_count": 3,
-    "valid_vote_count": 3,
-    "winning_vote_count": 3,
-    "vote_distribution": {
-      "NO_MISSING_HIGH_LEVEL_GOALS": 3
-    }
-  },
-  "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+  "missing_hlg_evaluation": null,
+  "missing_hlg_decision": null,
   "llg_regeneration_counts": {
-    "hospital inventory manager::monitor critical stock levels": 1,
-    "hospital admissions staff::streamline patient admission and discharge": 1,
-    "hospital admissions staff::access comprehensive patient details": 2,
-    "logistics coordinator::facilitate inter-hospital product transfers": 1
+    "hlg_2eb718edc8460b1b_001": 1,
+    "hlg_50bc4605094e00ea_001": 1,
+    "hlg_1228e2cbab58c0da_001": 1,
+    "hlg_29a3f737d15593b7_001": 1,
+    "hlg_93ae286ddf03ddb7_001": 1
   },
   "warnings": []
 }
