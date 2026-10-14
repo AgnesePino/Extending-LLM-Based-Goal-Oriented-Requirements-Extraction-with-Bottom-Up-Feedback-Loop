@@ -46,12 +46,30 @@ una deduplicazione deterministica basata sul nome normalizzato dell'HLG. Rimane
 invariato: le decisioni sulla ridondanza semantica introdotte da questa
 estensione appartengono al critic HLG bottom-up.
 
+## Flusso effettivo dei notebook
+
+L'esperimento è diviso in tre notebook con responsabilità separate. Il notebook
+di valutazione non richiama i modelli e non modifica gli output della pipeline.
+
+| Notebook | Input | Operazioni effettive | Output |
+| --- | --- | --- | --- |
+| `01_pipeline_execution_top_down_only.ipynb` | `ALL_GROUNDTRUTHS` e documentazione associata | Genera descrizione quando è presente `link-readme`, quindi attori, HLG e LLG; ogni stadio usa generazione Zero-shot e reflection Few-shot | Un JSON per ogni dataset completato in `output/top_down/` |
+| `01_pipeline_execution_bottom_up_only.ipynb` | JSON strutturati in `output/top_down/` | Carica la gerarchia senza rieseguire l'estrazione iniziale, valida e corregge i branch con discovery disabilitata | Risultato finale, oppure artefatto di errore, in `output/top_down_bottom_up/`; trace in `output/bottom_up_iterations/` |
+| `02_experimental_evaluation_top_down_vs_bottom_up.ipynb` | Coppie complete top-down/top-down+bottom-up e ground truth | Estrae i goal salvati, calcola metriche semantiche finali e per iterazione e produce grafici; non genera goal e non esegue critic | CSV, JSON e PNG in `output/evaluation/top_down_vs_bottom_up/` |
+
+Il percorso sperimentale corrente termina alla valutazione di HLG e LLG. Il
+mapping degli LLG sugli endpoint API fa parte dell'architettura generale del
+repository, ma non viene eseguito da questi tre notebook e non entra nelle
+metriche riportate di seguito.
+
 ## Ciclo bottom-up corrente di validazione e correzione
 
 La baseline usa la logica originale di `src.extraction.extractor`, `src.utils`
 e `src.self_critique.refine_response`: prompt dell'allegato, parsing originale,
-soglia 8,5 e 3 tentativi. Gemini/Qwen, Zero-shot e critic attivo restano la
-configurazione sperimentale corrente.
+soglia 8,5 e 3 tentativi. Gemini/Qwen, Zero-shot, critic attivo e
+`ENABLE_HLG_DISCOVERY = False` costituiscono la configurazione sperimentale
+corrente: il run riportato in questo README non esegue il critic di copertura
+globale e non cerca nuovi HLG mancanti.
 La reflection originale e quella focalizzata per le riparazioni bottom-up sono
 nello stesso `src.self_critique.refine_response`, ma usano simboli distinti: la
 baseline conserva i nomi e i prompt originali, mentre l'estensione usa il
@@ -67,11 +85,30 @@ tutti i branch attivi prima di applicare le correzioni; nell'iterazione iniziale
 sono attivi tutti i branch. La convergenza è un accordo interno dei critic,
 non una garanzia di corrispondenza alla ground truth.
 
+La configurazione registrata negli artefatti dell'esperimento è:
+
+| Parametro | Valore del run |
+| --- | --- |
+| Generatore | `gemini-2.5-flash` |
+| Valutatore | `qwen/qwen3.8-27b` tramite Groq |
+| Discovery HLG | disabilitata |
+| Voting dei critic HLG/LLG | 3 voter, quorum 2, temperatura 0.2, fino a 3 tentativi per voto non valido |
+| Generazione delle riparazioni | Zero-shot + reflection Few-shot con 4 esempi, soglia 8/10, massimo 5 tentativi |
+| Memoria dei critic | per progetto, 4 scambi, 2 riepiloghi di stato, budget storico di 1.000 caratteri |
+| Limite del ciclo | 25 iterazioni nel notebook |
+| Correzioni per iterazione | massimo 2 rewrite HLG, oppure 2 rimozioni HLG, oppure 2 rigenerazioni LLG |
+| Client Groq del notebook | timeout 120 secondi, 1 retry del client |
+
 ### Obiettivi e perimetro dell'input
 
 La fase bottom-up ha un unico obiettivo principale: **validare e correggere** la
 gerarchia prodotta dalla baseline, rimuovendo ridondanze effettive e riparando le
 decomposizioni HLG-LLG incoerenti.
+
+Il notebook usa i nomi presenti in `ALL_GROUNDTRUTHS` soltanto come allowlist per
+selezionare i file top-down. I goal annotati della ground truth non vengono
+passati al reconstructor, ai critic o ai generatori bottom-up; vengono letti
+soltanto in seguito dal notebook di valutazione.
 
 La discovery degli HLG mancanti è un modulo separato e opzionale, disattivato per
 impostazione predefinita. Può essere abilitato nel notebook impostando
@@ -136,7 +173,7 @@ critic. La prima iterazione riceve soltanto un riepilogo della gerarchia
 iniziale. Generatori, ricostruzione, valutazione top-down e progetti differenti
 non condividono questa memoria. Il contesto conservato è compatto: contiene al
 massimo quattro scambi recenti del valutatore e conserva due riepiloghi degli
-aggiornamenti, ma invia solo l'ultimo. Il budget di 2.500 caratteri limita gli
+aggiornamenti, ma invia solo l'ultimo. Il budget di 1.000 caratteri limita gli
 scambi, non il riepilogo o il prompt corrente, anziché riprodurre
 integralmente i prompt precedenti.
 
@@ -149,13 +186,18 @@ realmente mancanti dalle varianti più ristrette di obiettivi già coperti.
 Ogni decisione del valutatore bottom-up utilizza tre chiamate parallele
 indipendenti e una maggioranza di 2 su 3. Per il primo critic il quorum riguarda
 anche le rimozioni HLG, senza requisito di unanimità, mantenendo i controlli
-sulla base della rimozione e sul sibling coprente. Il voto aggregato considera
-la terna completa relazione/decisione/routing, evitando di aggregare campi
-provenienti da diagnosi incompatibili. Ogni voter assegna inoltre
+sulla base della rimozione e sul sibling coprente. Il quorum viene calcolato
+sulla decisione (`KEEP`, `REWRITE`, `REMOVE` e analoghe), non sulla terna
+relazione/decisione/routing. Se la maggioranza del critic HLG sceglie `KEEP` ma
+diverge sulla relazione, viene conservato un voto rappresentativo della
+maggioranza, privilegiando quello che richiede il controllo LLG. Ogni voter assegna inoltre
 all'artefatto corrente un punteggio di qualità da 0 a 5 usando esempi specifici:
-i punteggi 3, 4 e 5 sono sufficienti, mentre 0, 1 e 2 richiedono una correzione.
-Un voto il cui punteggio contraddice la decisione viene scartato prima
-dell'aggregazione. È possibile usare cinque voter con quorum 3 su 5 impostando
+in generale 3, 4 e 5 sono compatibili con `KEEP`, mentre 0, 1 e 2 richiedono una
+correzione. Il critic LLG è più restrittivo: `KEEP_LOW_LEVEL_GOALS` richiede
+5/5. Un voto il cui punteggio contraddice la decisione viene scartato prima
+dell'aggregazione. Il risultato conserva un voto rappresentativo, non la media
+degli score né l'unione delle evidenze. È possibile usare cinque voter con
+quorum 3 su 5 impostando
 `BOTTOM_UP_EVALUATOR_VOTERS=5`. Tutti i voter ricevono lo stesso snapshot
 immutabile della conversazione e soltanto il verdetto aggregato viene scritto
 nella memoria e nel trace dell'iterazione. Per impostazione predefinita, una
@@ -176,13 +218,15 @@ Il routing HLG–LLG segue questo albero decisionale:
 | qualsiasi | intenzione completamente non documentata | `REMOVE` | no |
 | `NOT_RECONSTRUCTABLE` | valido ma senza LLG | `KEEP` | sì, per generare gli LLG |
 
-Le riscritture degli HLG e le rigenerazioni degli LLG bottom-up utilizzano una
-generazione zero-shot seguita dal critic
-top-down few-shot abilitato. In questa fase l'estrazione degli attori non viene
-ripetuta: vengono riutilizzati gli attori persistiti dalla baseline. La
-configurazione di generazione bottom-up è esplicita e non eredita il profilo di
-estrazione di una baseline precedente. Le generazioni dovute alla discovery
-seguono lo stesso percorso, ma avvengono soltanto quando il modulo è abilitato.
+Le riscritture degli HLG e le rigenerazioni degli LLG utilizzano Gemini in
+Zero-shot seguito dalla reflection Few-shot specifica del bottom-up: quattro
+esempi, soglia `8/10` e fino a cinque tentativi. Questo critic generativo è
+distinto dai critic HLG/LLG con voting e usa una sola valutazione per tentativo.
+La reflection può restituire l'ultimo risultato anche se resta sotto soglia dopo
+l'esaurimento dei tentativi; il branch viene comunque rivalutato dal ciclo
+successivo. L'estrazione degli attori non viene ripetuta e la configurazione di
+generazione non viene ereditata dalla baseline. Le generazioni dovute alla
+discovery seguono lo stesso percorso soltanto quando il modulo è abilitato.
 
 Il valore predefinito dell'orchestratore è di 5 iterazioni, mentre il notebook
 bottom-up corrente imposta esplicitamente un limite sperimentale di 25. Un branch
@@ -197,20 +241,24 @@ obiettivi distinti.
 | Decisione del valutatore | Aggiornamento della gerarchia corrente | Crea un nuovo branch? |
 |---|---|---|
 | `CONFIRM_BRANCH` | Mantiene il branch finché la struttura degli HLG non cambia | No |
-| `REWRITE_ORIGINAL_HIGH_LEVEL_GOAL` | Chiama il generatore HLG top-down, sostituisce un HLG e ne rigenera gli LLG | Sostituzione, non discovery netta |
+| `REWRITE_ORIGINAL_HIGH_LEVEL_GOAL` | Chiama il percorso generativo bottom-up, sostituisce un HLG e ne rigenera gli LLG | Sostituzione, non discovery netta |
 | `REMOVE_ORIGINAL_HIGH_LEVEL_GOAL` | Elimina il branch; se ridondante, richiede consolidamento degli LLG nel target coprente | No; può rigenerare un branch mantenuto |
-| `REGENERATE_LOW_LEVEL_GOALS` | Chiama il generatore LLG top-down per lo stesso HLG parent | No |
-| `MISSING_HIGH_LEVEL_GOALS_FOUND` | In modalità discovery, chiama il generatore HLG top-down e poi quello LLG top-down | Sì |
+| `REGENERATE_LOW_LEVEL_GOALS` | Chiama il generatore LLG bottom-up per lo stesso HLG parent | No |
+| `MISSING_HIGH_LEVEL_GOALS_FOUND` | In modalità discovery, chiama il percorso generativo bottom-up per HLG e LLG | Sì |
 | `EVALUATION_INCONCLUSIVE` | Lascia invariata la gerarchia corrente e registra un warning | No |
 
 Le correzioni alla gerarchia degli obiettivi vengono ordinate deliberatamente:
-in una singola iterazione vengono applicate al massimo una riscrittura HLG e due
-rimozioni HLG, mentre viene rigenerato un solo branch LLG alla volta. La
+in una singola iterazione vengono applicate al massimo due riscritture HLG; solo
+se non viene applicato alcun rewrite possono essere eseguite fino a due
+rimozioni HLG; solo in assenza di rewrite e rimozioni possono essere rigenerati
+fino a due branch LLG. Le correzioni indipendenti della categoria selezionata
+sono applicate insieme dopo aver raccolto i verdetti del pass. La
 discovery opzionale degli HLG mancanti non ha un limite numerico quando è
 abilitata: ogni gap distinto e documentato restituito dal critic di copertura
-viene generato una volta che la gerarchia è stabile. Un branch esistente può essere rigenerato o riscritto al
-massimo due volte. Questi limiti sono protezioni ingegneristiche contro cicli di
-correzione ripetuti, non soglie ottimizzate empiricamente.
+viene generato una volta che la gerarchia è stabile. Un branch esistente può
+essere rigenerato o riscritto al massimo due volte. Questi limiti sono
+protezioni ingegneristiche contro cicli di correzione ripetuti, non soglie
+ottimizzate empiricamente.
 
 Le decomposizioni LLG, sia quelle generate per un nuovo HLG sia quelle rigenerate
 per un branch esistente, non hanno un limite numerico fisso: al generatore viene
@@ -229,140 +277,216 @@ dopo la conferma di tutti i branch correnti e può restituire tutti i gap distin
 e documentati a livello di attore. Un gap può
 essere esplicito oppure dedotto da almeno due passaggi coerenti del workflow o da
 responsabilità dell'attore. Quando viene accettato, i normali generatori HLG e
-LLG top-down creano un nuovo branch. Il processo bottom-up non è quindi limitato
-alla rimozione o alla riscrittura della baseline.
+LLG del percorso bottom-up creano un nuovo branch, che viene poi sottoposto allo
+stesso audit dei branch esistenti. Soltanto con questa opzione il processo può
+aggiungere un HLG realmente nuovo invece di limitarsi a confermare, riscrivere,
+rimuovere o rigenerare parti della baseline.
 
-Quando viene abilitata, la discovery presenta tuttavia importanti limitazioni:
+Dal codice emergono alcuni vincoli della discovery corrente, ancora da misurare
+sperimentalmente:
 
 - la discovery si basa su un'unica descrizione consolidata del progetto, anziché
   su una raccolta indicizzata di passaggi sorgente;
 - la discovery è limitata agli attori già rappresentati nell'insieme corrente di
   HLG;
-- la ridondanza degli HLG viene decisa esclusivamente dal critic HLG sulla base
-  del contesto semantico completo e degli LLG associati; l'orchestratore non
-  blocca né fonde HLG perché i rispettivi valori normalizzati `actor::name`
-  coincidono;
-- gli LLG rigenerati vengono accettati quando non sono vuoti; non è presente un
-  controllo semantico deterministico della copertura prima e dopo la modifica;
-- gli HLG rimossi e sostituiti vengono nuovamente sottoposti ad audit tramite una
-  checklist conservata, ma il giudizio finale sulla copertura rimane basato sul
-  modello;
-- le tre chiamate specializzate al valutatore aumentano il costo al crescere del
-  numero di branch attivi.
+- non conserva una mappa evidence-to-goal e il giudizio di copertura resta
+  interamente basato sul modello;
+- non è presente un controllo deterministico che dimostri che un HLG aggiunto
+  copra davvero un requisito prima assente senza duplicare un branch esistente;
+- con tre voter, il controllo globale aggiunge almeno tre chiamate di
+  valutazione ogni volta che la gerarchia torna stabile, oltre alle eventuali
+  chiamate di generazione e al nuovo audit dei branch.
 
-La valutazione attualmente salvata mostra una precisione maggiore con una
-riduzione più contenuta della recall. La macro F1 degli HLG aumenta da `0.5504`
-a `0.6299` e quella degli LLG da `0.3768` a `0.4300`. La recall degli HLG
-passa da `0.7507` a `0.7070`, mentre quella degli LLG passa da `0.4888` a
-`0.4579`. Il numero di HLG diminuisce da 105 a 70 e quello degli LLG da 457 a
-328. Questi file precedono l'audit di discovery senza limite numerico e il prompt
-di rigenerazione LLG completo e atomico; devono quindi essere rigenerati prima
-di poter essere considerati risultati definitivi per il codice corrente.
+### Risultati sperimentali con discovery disabilitata
 
-Nessuno dei trace attualmente salvati contiene una decisione finale
-`MISSING_HIGH_LEVEL_GOALS_FOUND`. Il percorso di discovery è implementato e
-testato dal ciclo, ma questo snapshot sperimentale non dimostra ancora il
-recupero di un'intenzione funzionale realmente assente. Le misurazioni
-dettagliate sono disponibili in
-`output/evaluation/top_down_vs_bottom_up/top_down_vs_bottom_up_macro_summary.csv`
-e
-`output/evaluation/top_down_vs_bottom_up/top_down_vs_bottom_up_deltas.csv`.
+L'ultimo esperimento salvato usa esplicitamente
+`ENABLE_HLG_DISCOVERY = False`: valuta soltanto la capacità del bottom-up di
+**validare e correggere i branch HLG-LLG già presenti nella baseline**. Il critic
+di copertura globale non viene invocato, la decisione
+`MISSING_HIGH_LEVEL_GOALS_FOUND` non è raggiungibile e nessun nuovo branch può
+essere aggiunto tramite discovery. Di conseguenza, questi risultati non misurano
+la capacità di recuperare requisiti o HLG assenti.
 
-### Roadmap di sviluppo orientata alla discovery
+Il run comprende 11 dataset e usa tre voter indipendenti per ogni decisione dei
+critic HLG e LLG, con quorum 2 su 3. Tutti gli 11 cicli convergono con
+`ALL_BRANCHES_CONFIRMED`; in questa configurazione significa che tutti i branch
+esistenti sono stati confermati o corretti, non che la gerarchia sia completa
+rispetto a eventuali requisiti mancanti. I cicli completano da 3 a 8 iterazioni,
+quindi nessuno raggiunge il limite di 25. Otto dataset conservano almeno un
+warning nel risultato (18 warning complessivi): convergenza non significa
+assenza di anomalie registrate durante le correzioni. La dodicesima baseline,
+*Calculator*, non entra nel confronto: il notebook bottom-up ha salvato un
+artefatto di errore perché un parent incorporato negli LLG non era presente
+nell'insieme degli HLG strutturati. Il notebook di valutazione esclude gli output con
+`bottomUpError` o privi delle collezioni finali.
 
-Gli elementi seguenti sono miglioramenti proposti e **non sono implementati
-nella pipeline corrente**. Sono ordinati in funzione di un obiettivo orientato
-alla recall, continuando comunque a proteggere la precisione.
+#### Metodo di valutazione
 
-1. **Costruire un registro di copertura evidence-to-goal.** Suddividere ogni
-   artefatto sorgente disponibile in passaggi indirizzabili e richiedere che ogni
-   attore, HLG e LLG conservi gli ID delle fonti. Estrarre capacità candidate da
-   ogni passaggio e mantenere uno stato esplicito `covered`,
-   `partially covered`, `uncovered` o `conflicting`. La discovery può quindi
-   concentrarsi sulle evidenze non coperte, anziché chiedere una sola volta al
-   modello se manca qualcosa. La generazione basata sul retrieval può inoltre
-   fornire l'attribuzione delle fonti e ridurre le generazioni non supportate,
-   come mostrato in
-   [In-Context Retrieval-Augmented Language Models](https://aclanthology.org/2023.tacl-1.75/).
+Il notebook `02_experimental_evaluation_top_down_vs_bottom_up.ipynb` associa i
+file tramite il campo `name` e include un dataset soltanto se trova baseline,
+risultato bottom-up completo e ground truth. Per la baseline legge
+`structuredHighLevelGoals`/`structuredLowLevelGoals`; per il feedback legge
+`finalHighLevelGoals`/`finalLowLevelGoals`. Da ogni oggetto usa il campo `name`,
+con fallback a `description`; non valuta attori, descrizioni complete, mapping
+API o razionali dei critic.
 
-2. **Aggiungere una vera fase di discovery degli attori.** Eseguire l'estrazione
-   degli attori sulle evidenze non coperte e consentire a un attore supportato da
-   evidenze di entrare in `known_actors` prima della generazione del relativo
-   HLG. Richiedere almeno un passaggio sorgente e un'intenzione funzionale
-   distinta. In questo modo la discovery supera l'attuale limite degli attori
-   già esistenti.
+La metrica usa `bert-base-uncased` con mean pooling e similarità coseno. Trova un
+matching uno-a-uno tra goal generati e di riferimento mediante algoritmo
+ungherese, conserva soltanto le coppie con similarità almeno `0.65` e calcola:
 
-3. **Separare la discovery dalla validazione distruttiva.** Produrre e validare
-   prima un insieme additivo di candidati su una baseline immutabile; eseguire
-   solo successivamente eventuali fusioni, riscritture e rimozioni. Un nuovo
-   candidato non dovrebbe essere soppresso soltanto perché un altro branch viene
-   corretto nella stessa iterazione.
+- soft Precision = somma delle similarità accettate / goal generati;
+- soft Recall = somma delle similarità accettate / goal di riferimento;
+- F1 = media armonica delle due quantità.
 
-4. **Utilizzare un retrieval mirato e iterativo.** Interrogare separatamente le
-   evidenze per attore, entità di dominio, workflow, fase del ciclo di vita e
-   capacità attualmente non coperta. Reinserire ogni gap individuato nella fase
-   di retrieval successiva. Questo approccio segue il pattern
-   retrieve-generate-retrieve studiato da
-   [Iter-RetGen](https://aclanthology.org/2023.findings-emnlp.620/) ed evita di
-   dipendere da un unico prompt globale.
+Le risorse NLTK vengono inizializzate dal notebook, ma la configurazione
+effettiva usa `preprocess=False`: i testi entrano in BERT senza stemming,
+lemmatizzazione o rimozione delle stopword. Le sintesi seguenti sono
+macro-medie: ogni dataset ha lo stesso peso, indipendentemente dal numero di
+goal. Le macro-medie finali sono:
 
-5. **Utilizzare un'aggregazione gerarchica e globale delle evidenze.** La
-   discovery dei requisiti è un problema di comprensione dell'intero corpus, non
-   soltanto di ricerca del passaggio più vicino. Un grafo o un indice gerarchico
-   può collegare attori, risorse, eventi, vincoli e operazioni prima di proporre
-   intenzioni mancanti. Lo
-   [studio sulla summarization globale di GraphRAG](https://arxiv.org/abs/2404.16130)
-   riporta una maggiore completezza e varietà nelle domande globali su corpus di
-   grandi dimensioni.
+| Livello | Configurazione | Precision | Recall | F1 | Goal totali |
+| --- | --- | ---: | ---: | ---: | ---: |
+| HLG | Top-down | 0.4112 | 0.7216 | 0.5019 | 104 |
+| HLG | Top-down + bottom-up | 0.4359 | 0.7155 | 0.5210 | 96 |
+| LLG | Top-down | 0.3264 | 0.5113 | 0.3840 | 439 |
+| LLG | Top-down + bottom-up | 0.3221 | 0.5030 | 0.3779 | 436 |
 
-6. **Correggere i branch in modo additivo.** In presenza di un gap LLG,
-   conservare gli LLG esistenti supportati e generare soltanto le capacità
-   esplicitamente mancanti. Per la rinomina o la correzione dell'ambito di un
-   HLG, riassegnare prima il parent degli LLG supportati e poi generare le
-   aggiunte. Eseguire un confronto di copertura shadow prima e dopo la modifica e
-   rifiutare una variazione che perda una capacità supportata dalle fonti. Questo
-   affronta direttamente la regressione di Genome Nexus.
+Per gli HLG il bottom-up aumenta la precisione di `0.0247`, riduce la recall di
+soli `0.0061` e porta la F1 da `0.5019` a `0.5210` (`+0.0191`, circa `+3.8%`).
+La F1 migliora in 5 dataset, rimane invariata in 4 e peggiora in 2; il numero
+totale di HLG diminuisce di 8 (`-7.7%`). Per gli LLG, invece, precision, recall e
+F1 diminuiscono rispettivamente di `0.0043`, `0.0083` e `0.0061` (F1 circa
+`-1.6%`). La F1 migliora comunque in 6 dataset, resta invariata in 1 e peggiora
+in 4, ma il forte peggioramento di *Assegno Unico Universale* (`-0.0990`) rende
+negativo il risultato macro; il numero complessivo di LLG cambia di appena 3
+unità (`-0.7%`).
 
-7. **Generare un insieme eterogeneo di candidati e poi validarlo.** Produrre più
-   candidati di discovery da prospettive indipendenti basate su attori, workflow
-   e risorse dati; raggruppare i duplicati semantici e mantenere i candidati
-   supportati da evidenze distinte. È più sicuro che aumentare senza vincoli il
-   numero di obiettivi generati. I prompt lunghi, da soli, non sono sufficienti:
-   i fatti rilevanti possono essere sottoutilizzati in base alla loro posizione,
-   come documentato in
-   [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/).
+Rispetto ai valori precedentemente documentati con un solo voter, il nuovo
+assetto produce correzioni molto meno aggressive:
 
-8. **Rafforzare le decisioni distruttive.** Richiedere due giudizi indipendenti o
-   un controllo deterministico delle evidenze prima di `REMOVE` o di un
-   `REWRITE` con perdita di informazioni. Randomizzare l'ordine dei candidati
-   nei confronti a coppie e riportare i disaccordi. I giudici LLM possono
-   manifestare bias di posizione, verbosità e auto-preferenza, come documentato
-   da
-   [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://papers.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html).
+| Livello | Un solo voter: delta F1 | Voto 2 su 3: delta F1 | Un solo voter: delta goal | Voto 2 su 3: delta goal |
+| --- | ---: | ---: | ---: | ---: |
+| HLG | +0.0795 (0.5504 → 0.6299) | +0.0191 (0.5019 → 0.5210) | -35 (105 → 70) | -8 (104 → 96) |
+| LLG | +0.0532 (0.3768 → 0.4300) | -0.0061 (0.3840 → 0.3779) | -129 (457 → 328) | -3 (439 → 436) |
 
-9. **Terminare in base alla saturazione misurata della copertura.** Interrompere
-   la discovery soltanto dopo aver controllato tutte le unità di evidenza e
-   quando più passaggi indipendenti non aggiungono nuove capacità validate.
-   Mantenere contatori separati per branch scoperti, fusi, riscritti e rimossi;
-   `NO_MISSING_HIGH_LEVEL_GOALS` restituito da una singola chiamata al modello
-   non dovrebbe essere l'unico criterio di completezza.
+La maggioranza riduce quindi le rimozioni e protegge meglio la recall HLG: la
+perdita passa da `-0.0437` con un voter a `-0.0061` con tre voter. Questa
+prudenza, però, riduce anche il guadagno di precisione e non migliora la qualità
+LLG aggregata nel nuovo run. Non si può attribuire causalmente la differenza al
+solo numero di voter: il vecchio snapshot comprendeva 12 dataset, quello nuovo
+ne comprende 11 (manca *Calculator*), e sono cambiati anche i file top-down, la
+ground truth e la logica della pipeline. Per misurare isolatamente l'effetto del
+voting occorre rieseguire entrambe le configurazioni sugli stessi input, con lo
+stesso codice e gli stessi seed. Il confronto non è inoltre un confronto tra
+discovery attiva e disattiva: il nuovo snapshot documenta esclusivamente il
+percorso con discovery disabilitata.
 
-10. **Valutare direttamente la discovery.** Oltre a precisione, recall e F1,
-    riportare la copertura delle evidenze, il numero di HLG/LLG realmente nuovi e
-    supportati, il tasso di aggiunte non supportate, la perdita distruttiva di
-    copertura, la recall degli attori e i risultati di esecuzioni ripetute con
-    intervalli di confidenza. Il feedback iterativo è una strategia utile in fase
-    di inferenza, come mostrato in
-    [Self-Refine](https://openreview.net/pdf?id=S37hOerQLB), ma il ciclo di
-    feedback deve ottimizzare esplicitamente l'obiettivo desiderato. Per i gap
-    ambigui, è preferibile mantenere una coda di validazione umana anziché
-    aggiungere o rimuovere silenziosamente un requisito.
+Come previsto dalla configurazione, nessuno dei trace salvati contiene una
+decisione `MISSING_HIGH_LEVEL_GOALS_FOUND`. Questa assenza non è un risultato del
+critic: deriva dal fatto che la discovery non è stata eseguita. Le misurazioni
+dettagliate della sola validazione/correzione comprendono metriche assolute,
+delta per dataset, sintesi macro, andamento per iterazione e due grafici. Sono
+salvate in `output/evaluation/top_down_vs_bottom_up/` nei file
+`top_down_vs_bottom_up_metrics.csv`, `top_down_vs_bottom_up_deltas.csv`,
+`top_down_vs_bottom_up_macro_summary.csv`, `iteration_metrics.csv`,
+`iteration_macro_summary.csv`, `iteration_metric_trend.png`,
+`iteration_metric_trend_by_dataset.png` ed `evaluation_summary.json`.
 
-Per questo repository, il primo incremento di implementazione consigliato
-comprende gli elementi 1, 2, 3 e 6: copertura a livello di evidenza, discovery di
-nuovi attori, fase di discovery additiva e controllo di non regressione. Nel
-complesso, questi interventi agiscono direttamente sulla recall senza modificare
-la baseline top-down originale.
+Nei grafici iterativi, l'iterazione 0 è la baseline top-down. La media al passo
+N include soltanto i dataset che hanno effettivamente raggiunto quel passo; per
+questo le curve delle iterazioni avanzate cambiano composizione e vanno lette
+insieme al relativo numero di dataset, non come una serie longitudinale su un
+campione costante.
+
+### Osservazioni sulla discovery e priorità sperimentali
+
+La discovery è implementata, ma non è stata eseguita nell'esperimento corrente.
+Non è quindi ancora possibile concludere che migliori la recall, che introduca
+troppi falsi positivi o che il voting ne aumenti l'affidabilità. Le osservazioni
+seguenti derivano dal codice e definiscono ciò che dovrà essere verificato nei
+prossimi esperimenti; non sono risultati già osservati.
+
+#### Comportamento già verificabile dal codice
+
+- il critic di discovery viene chiamato soltanto dopo la conferma dei branch
+  esistenti e riceve la descrizione del progetto, gli HLG correnti, gli attori
+  noti e gli HLG ritirati;
+- gli attori noti derivano dagli HLG disponibili: la discovery corrente può
+  aggiungere nuovi HLG per questi attori, ma non esegue una nuova estrazione e
+  non introduce attori assenti;
+- il critic restituisce richieste di generazione, non goal definitivi. Ogni
+  richiesta accettata passa dai generatori bottom-up di HLG e LLG e il nuovo
+  branch viene rivalutato nelle iterazioni successive;
+- una discovery positiva annulla le conferme precedenti, mentre la convergenza
+  con discovery attiva richiede anche `NO_MISSING_HIGH_LEVEL_GOALS`;
+- il giudizio di copertura è prodotto dal modello sulla descrizione consolidata:
+  non esiste ancora una mappa deterministica tra evidenze, attori e goal;
+- la ground truth non viene mostrata al critic di discovery e resta confinata al
+  notebook di valutazione.
+
+Queste proprietà indicano che il primo passo non dovrebbe essere sostituire
+subito la discovery corrente con retrieval, grafi o altri meccanismi più
+complessi. Occorre prima misurarne il comportamento sulla stessa baseline e
+ground truth usate per le configurazioni senza discovery.
+
+#### Domande da verificare nei prossimi run
+
+Per ciascuna configurazione dei voter, il confronto
+`ENABLE_HLG_DISCOVERY=False` contro `True` dovrà stabilire:
+
+1. quanti HLG mancanti della ground truth vengono effettivamente recuperati;
+2. quanti HLG aggiunti sono supportati dalla documentazione ma non annotati
+   nella ground truth;
+3. quanti candidati sono non supportati, duplicati o troppo simili a branch già
+   presenti;
+4. se l'aumento eventuale della recall compensa la variazione di precisione e
+   F1, separatamente per HLG e LLG;
+5. se i nuovi branch restano stabili dopo il successivo audit oppure vengono
+   riscritti o rimossi;
+6. come cambiano convergenza, numero di iterazioni, warning e costo in chiamate;
+7. quanto concordano i voter non soltanto sulla decisione finale, ma anche sul
+   gap individuato e sulle evidenze che lo giustificano.
+
+La sola decisione `NO_MISSING_HIGH_LEVEL_GOALS` non deve essere interpretata
+come prova di completezza. Analogamente, un aumento del numero di goal o della
+recall non dimostra da solo che la discovery abbia funzionato: le aggiunte
+devono essere controllate rispetto alla documentazione e alla ground truth, e
+devono essere distinte dalle normali riscritture o sostituzioni di branch.
+
+#### Adeguamenti necessari per il confronto tra voter
+
+L'implementazione attuale accetta soltanto 3 o 5 voter dello stesso modello e
+calcola un quorum di maggioranza. Di conseguenza, il run con un solo voter e
+quello con quattro voter eterogenei non sono ottenibili modificando soltanto una
+variabile di configurazione: richiedono la nuova infrastruttura e artefatti che
+registrino modello e prompting di ciascun voto.
+
+Per i quattro voter proposti — Gemini Few-shot, Gemini One-shot, Qwen Few-shot e
+Qwen Zero-shot — deve essere definita prima dell'esecuzione anche la gestione di
+un possibile pareggio 2–2. La regola scelta, ad esempio astensione/inconclusive,
+voto di spareggio o quorum qualificato, dovrà essere mantenuta uguale con
+discovery attiva e disattivata e riportata insieme ai risultati. Senza questa
+regola, la "risposta complessiva" non è ancora definita in modo riproducibile.
+
+#### Miglioramenti successivi, guidati dai risultati
+
+Gli interventi architetturali verranno considerati dopo il confronto
+sperimentale, in funzione degli errori osservati:
+
+| Evidenza sperimentale | Possibile intervento successivo |
+| --- | --- |
+| HLG mancanti associati ad attori assenti | aggiungere una fase separata di discovery degli attori |
+| Goal nuovi non supportati o difficili da verificare | introdurre un registro evidence-to-goal con riferimenti alle fonti |
+| Duplicati o gap formulati in modo troppo generico | generare più candidati e applicare deduplicazione e validazione esplicite |
+| Perdita di capacità durante rewrite o rigenerazione | applicare correzioni additive e un controllo di non regressione prima/dopo |
+| Descrizioni lunghe o copertura globale insufficiente | valutare retrieval mirato o aggregazione gerarchica delle evidenze |
+| Elevato disaccordo tra voter | analizzare separatamente effetto del modello, prompting e ordine delle evidenze |
+
+Questa priorità mantiene separati due obiettivi: prima misurare l'effetto della
+discovery e della composizione dei voter; soltanto dopo modificare il modo in cui
+le evidenze vengono recuperate, aggregate o trasformate in nuovi goal. Il piano
+completo delle sei condizioni è riportato nella sezione
+[Piano per i prossimi esperimenti](#piano-per-i-prossimi-esperimenti).
 
 ## Installazione
 
@@ -419,7 +543,7 @@ I modelli originali sono stati sostituiti perché deprecati o non più adeguati
 all'ambiente di esecuzione corrente. La pipeline utilizza ora:
 
 - **Gemini 2.5 Flash** come generatore di output strutturato;
-- **Qwen 3.8 27B tramite Groq** come critic.
+- **`qwen/qwen3.8-27b` tramite Groq** come critic.
 
 L'estrazione di attori, HLG e LLG parte da una generazione zero-shot e utilizza
 poi il critic few-shot per assegnare un punteggio al risultato e fornire feedback
@@ -427,3 +551,56 @@ per un nuovo tentativo quando la soglia di qualità non viene raggiunta. Generar
 e valutare tutti gli LLG a partire dall'insieme completo degli HLG preserva la
 semantica della pipeline originale ed evita che ciascun singolo branch venga
 valutato erroneamente come se dovesse rappresentare l'intero sistema software.
+
+## Piano per i prossimi esperimenti
+
+Il passo successivo sarà confrontare tre configurazioni del valutatore bottom-up
+usando la ground truth aggiornata. Prima del confronto dovrà essere rigenerata
+la baseline top-down di *Calculator*, eliminando l'incoerenza tra il parent
+incorporato nei suoi LLG e `structuredHighLevelGoals`, così da includere lo
+stesso insieme completo di dataset in tutti i run.
+
+L'aggregatore corrente supporta soltanto 3 o 5 voter omogenei. Le condizioni con
+1 e 4 voter richiedono quindi un'estensione esplicita del codice; non devono
+essere simulate eliminando voti dopo l'esecuzione, perché cambierebbero memoria,
+retry e percorso decisionale.
+
+Le tre configurazioni previste sono:
+
+1. **Un solo voter:** rieseguire la logica originaria con un unico voter sulla
+   ground truth aggiornata, usando lo stesso prompt previsto per i voter
+   omogenei. Questo run costituirà la nuova baseline sperimentale, ma richiede che
+   l'aggregatore accetti esplicitamente `voter_count=1`.
+2. **Tre voter omogenei:** rieseguire il voting 2 su 3 usando per tutti i voter
+   lo stesso modello, lo stesso prompting e gli stessi esempi. I prompt e gli
+   altri parametri dovranno coincidere con quelli del run a singolo voter, in
+   modo da isolare per quanto possibile l'effetto della maggioranza.
+3. **Quattro voter eterogenei:** valutare la nuova infrastruttura composta da
+   due voter Gemini, uno Few-shot e uno One-shot, e due voter Qwen, uno Few-shot
+   e uno Zero-shot. Questo esperimento servirà a osservare come la diversità di
+   modello e strategia di prompting influenza i singoli giudizi, il disaccordo
+   tra voter e la risposta aggregata finale. Prima del run dovrà essere fissata
+   la regola per un eventuale pareggio 2–2 e tale regola dovrà essere salvata
+   negli artefatti sperimentali.
+
+Ciascuna configurazione dovrà essere eseguita due volte sullo stesso identico
+input: una con `ENABLE_HLG_DISCOVERY = False` e una con
+`ENABLE_HLG_DISCOVERY = True`. Il piano comprende quindi sei condizioni
+sperimentali:
+
+| Configurazione dei voter | Discovery disabilitata | Discovery abilitata |
+| --- | --- | --- |
+| 1 voter | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
+| 3 voter omogenei | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
+| 4 voter eterogenei Gemini/Qwen | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
+
+Per rendere il confronto interpretabile dovranno restare fissi ground truth,
+baseline top-down, dataset, prompt condivisi, limiti di iterazione, soglie e
+parametri di generazione; dovranno cambiare soltanto il numero/composizione dei
+voter e lo stato della discovery. Oltre a Precision, Recall e F1 di HLG e LLG,
+sarà utile registrare il numero di modifiche, la convergenza, i warning, il
+disaccordo tra voter e il costo in chiamate. Nei run con discovery attiva
+andranno misurati separatamente anche gli HLG realmente nuovi e supportati, i
+duplicati introdotti, le aggiunte non supportate e il recupero dei goal mancanti.
+I risultati attuali non coprono questo piano: rappresentano soltanto la
+configurazione con tre voter omogenei e discovery disabilitata.
