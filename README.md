@@ -66,7 +66,9 @@ metriche riportate di seguito.
 
 La baseline usa la logica originale di `src.extraction.extractor`, `src.utils`
 e `src.self_critique.refine_response`: prompt dell'allegato, parsing originale,
-soglia 8,5 e 3 tentativi. Gemini/Qwen, Zero-shot, critic attivo e
+soglia 8,5 e 3 tentativi. La baseline usa Qwen/Ministral; il bottom-up usa
+Qwen per costruzione e riparazioni e l'ensemble Ministral/Bonsai/Gemma per le
+decisioni HLG/LLG. Zero-shot, critic attivo e
 `ENABLE_HLG_DISCOVERY = False` costituiscono la configurazione sperimentale
 corrente: il run riportato in questo README non esegue il critic di copertura
 globale e non cerca nuovi HLG mancanti.
@@ -89,15 +91,18 @@ La configurazione registrata negli artefatti dell'esperimento è:
 
 | Parametro | Valore del run |
 | --- | --- |
-| Generatore | `gemini-2.5-flash` |
-| Valutatore | `qwen/qwen3.8-27b` tramite Groq |
+| Generatore | `qwen/qwen3.8-27b` tramite Groq |
+| Valutatori HLG/LLG | Ensemble locale Ministral + Bonsai + Gemma tramite LM Studio |
+| Valutatore discovery | Ensemble locale Ministral + Bonsai + Gemma tramite LM Studio |
 | Discovery HLG | disabilitata |
-| Voting dei critic HLG/LLG | 3 voter, quorum 2, temperatura 0.2, fino a 3 tentativi per voto non valido |
+| Voting dei critic HLG/LLG | Few-shot: 9 esempi HLG e 7 esempi LLG; 3 modelli con lo stesso input, load–evaluate–unload sequenziale; quorum 2/3 per HLG e veto LLG motivato per la rigenerazione |
+| Prompt discovery | Few-shot con 3 esempi e condizione di discovery esplicita, votato separatamente dai tre modelli |
 | Generazione delle riparazioni | Zero-shot + reflection Few-shot con 4 esempi, soglia 8/10, massimo 5 tentativi |
 | Memoria dei critic | per progetto, 4 scambi, 2 riepiloghi di stato, budget storico di 1.000 caratteri |
 | Limite del ciclo | 25 iterazioni nel notebook |
+| Pacing dataset bottom-up | gruppi da 3; 60 s tra dataset e 120 s dopo ogni gruppo |
 | Correzioni per iterazione | massimo 2 rewrite HLG, oppure 2 rimozioni HLG, oppure 2 rigenerazioni LLG |
-| Client Groq del notebook | timeout 120 secondi, 1 retry del client |
+| Client del notebook | timeout 120 secondi, 1 retry per Qwen/Groq e Ministral/LM Studio |
 
 ### Obiettivi e perimetro dell'input
 
@@ -146,11 +151,13 @@ Durante ogni iterazione, l'orchestratore esegue le seguenti operazioni:
    `reconstruction_relationship` (`EQUIVALENT`, `PARTIAL_OVERLAP`,
    `MATCHES_SIBLING`, `DIFFERENT` o `NOT_RECONSTRUCTABLE`) e il flag
    `requires_llg_evaluation`;
-4. invoca il secondo critic soltanto per un `KEEP` con
-   `requires_llg_evaluation=true`. Un `KEEP` equivalente e documentato conferma
-   direttamente il branch, ma richiede uno score HLG di 5/5; `REWRITE` e
-   `REMOVE` non valutano la vecchia
-   decomposizione;
+4. invoca il critic LLG per ogni HLG mantenuto, anche quando la ricostruzione è
+   `EQUIVALENT`: l'equivalenza aggregata non dimostra infatti che ogni singolo
+   LLG sia supportato, necessario e non ridondante. `REWRITE` e `REMOVE` non
+   valutano la vecchia decomposizione. Il critic LLG riceve
+   anche il verdetto HLG aggregato: una relazione materialmente non equivalente
+   non può essere annullata da un `KEEP` LLG e richiede la rigenerazione mirata
+   della decomposizione;
 5. soltanto quando la discovery è abilitata e tutti i branch correnti sono stati
    confermati, esegue un prompt separato di copertura sull'intero progetto,
    considerando la descrizione, l'insieme corrente di HLG e le intenzioni
@@ -183,8 +190,17 @@ decomposizioni valide e associabili alle API con difetti sostanziali di
 copertura. Il prompt globale opzionale distingue le intenzioni degli attori
 realmente mancanti dalle varianti più ristrette di obiettivi già coperti.
 
-Ogni decisione del valutatore bottom-up utilizza tre chiamate parallele
-indipendenti e una maggioranza di 2 su 3. Per il primo critic il quorum riguarda
+Ogni decisione HLG/LLG del valutatore bottom-up utilizza tre chiamate sequenziali
+indipendenti, una per `mistralai/ministral-3-14b-reasoning`, una per
+`prism-ml/bonsai-27b` e una per `google/gemma-4-12b-qat`. Le decisioni HLG
+mantengono la maggioranza 2 su 3. Per gli LLG, se tutti e tre i voti sono validi,
+anche un solo `REGENERATE_LOW_LEVEL_GOALS` corredato dalle prove strutturate
+richieste attiva la riparazione: due `KEEP` generici non possono cancellare un
+difetto concreto identificato dal terzo critic. Se manca un voto valido, torna
+ad applicarsi il quorum ordinario e un pareggio resta inconclusivo.
+I tre modelli ricevono esattamente lo stesso prompt e lo stesso snapshot della
+memoria. Ogni modello viene caricato in LM Studio, produce il proprio voto e
+viene scaricato prima di caricare il successivo. Per il primo critic il quorum riguarda
 anche le rimozioni HLG, senza requisito di unanimità, mantenendo i controlli
 sulla base della rimozione e sul sibling coprente. Il quorum viene calcolato
 sulla decisione (`KEEP`, `REWRITE`, `REMOVE` e analoghe), non sulla terna
@@ -192,14 +208,11 @@ relazione/decisione/routing. Se la maggioranza del critic HLG sceglie `KEEP` ma
 diverge sulla relazione, viene conservato un voto rappresentativo della
 maggioranza, privilegiando quello che richiede il controllo LLG. Ogni voter assegna inoltre
 all'artefatto corrente un punteggio di qualità da 0 a 5 usando esempi specifici:
-in generale 3, 4 e 5 sono compatibili con `KEEP`, mentre 0, 1 e 2 richiedono una
-correzione. Il critic LLG è più restrittivo: `KEEP_LOW_LEVEL_GOALS` richiede
+solo 4 e 5 sono compatibili con una decisione di passaggio, mentre 0–3 richiedono
+una correzione. Il critic LLG è più restrittivo: `KEEP_LOW_LEVEL_GOALS` richiede
 5/5. Un voto il cui punteggio contraddice la decisione viene scartato prima
 dell'aggregazione. Il risultato conserva un voto rappresentativo, non la media
-degli score né l'unione delle evidenze. È possibile usare cinque voter con
-quorum 3 su 5 impostando
-`BOTTOM_UP_EVALUATOR_VOTERS=5`. Tutti i voter ricevono lo stesso snapshot
-immutabile della conversazione e soltanto il verdetto aggregato viene scritto
+degli score né l'unione delle evidenze. Soltanto il verdetto aggregato viene scritto
 nella memoria e nel trace dell'iterazione. Per impostazione predefinita, una
 risposta individuale non valida dispone di tre tentativi complessivi (due retry);
 `BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS` accetta valori da 1 a 3.
@@ -208,7 +221,7 @@ Il routing HLG–LLG segue questo albero decisionale:
 
 | Relazione diagnosticata | Stato del parent | Decisione | Critic LLG |
 |---|---|---|---|
-| `EQUIVALENT` | documentato e valido | `KEEP` | no |
+| `EQUIVALENT` | documentato e valido | `KEEP` | sì, audit indipendente di ogni LLG |
 | `PARTIAL_OVERLAP` | valido | `KEEP` | sì |
 | `PARTIAL_OVERLAP` | formulato male | `REWRITE` | no |
 | `MATCHES_SIBLING` | interamente ridondante | `REMOVE` | no |
@@ -218,7 +231,7 @@ Il routing HLG–LLG segue questo albero decisionale:
 | qualsiasi | intenzione completamente non documentata | `REMOVE` | no |
 | `NOT_RECONSTRUCTABLE` | valido ma senza LLG | `KEEP` | sì, per generare gli LLG |
 
-Le riscritture degli HLG e le rigenerazioni degli LLG utilizzano Gemini in
+Le riscritture degli HLG e le rigenerazioni degli LLG utilizzano Qwen in
 Zero-shot seguito dalla reflection Few-shot specifica del bottom-up: quattro
 esempi, soglia `8/10` e fino a cinque tentativi. Questo critic generativo è
 distinto dai critic HLG/LLG con voting e usa una sola valutazione per tentativo.
@@ -293,8 +306,8 @@ sperimentalmente:
   interamente basato sul modello;
 - non è presente un controllo deterministico che dimostri che un HLG aggiunto
   copra davvero un requisito prima assente senza duplicare un branch esistente;
-- con tre voter, il controllo globale aggiunge almeno tre chiamate di
-  valutazione ogni volta che la gerarchia torna stabile, oltre alle eventuali
+- il controllo globale di discovery usa una singola chiamata Ministral ogni
+  volta che la gerarchia torna stabile, oltre alle eventuali
   chiamate di generazione e al nuovo audit dei branch.
 
 ### Risultati sperimentali con discovery disabilitata
@@ -453,20 +466,14 @@ recall non dimostra da solo che la discovery abbia funzionato: le aggiunte
 devono essere controllate rispetto alla documentazione e alla ground truth, e
 devono essere distinte dalle normali riscritture o sostituzioni di branch.
 
-#### Adeguamenti necessari per il confronto tra voter
+#### Ensemble eterogeneo corrente
 
-L'implementazione attuale accetta soltanto 3 o 5 voter dello stesso modello e
-calcola un quorum di maggioranza. Di conseguenza, il run con un solo voter e
-quello con quattro voter eterogenei non sono ottenibili modificando soltanto una
-variabile di configurazione: richiedono la nuova infrastruttura e artefatti che
-registrino modello e prompting di ciascun voto.
-
-Per i quattro voter proposti — Gemini Few-shot, Gemini One-shot, Qwen Few-shot e
-Qwen Zero-shot — deve essere definita prima dell'esecuzione anche la gestione di
-un possibile pareggio 2–2. La regola scelta, ad esempio astensione/inconclusive,
-voto di spareggio o quorum qualificato, dovrà essere mantenuta uguale con
-discovery attiva e disattivata e riportata insieme ai risultati. Senza questa
-regola, la "risposta complessiva" non è ancora definita in modo riproducibile.
+L'implementazione corrente usa tre voter diversi — Ministral, Bonsai e Gemma —
+con lo stesso prompting. HLG e discovery usano il quorum 2/3; la valutazione LLG
+applica inoltre il veto di riparazione motivato quando tutti i voti sono validi.
+Il model id associato a ogni decisione è riportato nella motivazione aggregata e
+la configurazione completa è salvata negli artefatti. La discovery resta un
+prompt separato, ma viene valutata dallo stesso ensemble.
 
 #### Miglioramenti successivi, guidati dai risultati
 
@@ -509,10 +516,32 @@ Assicurarsi che Python e le dipendenze necessarie siano installati.
    pip install -r requirements.txt
    ```
 
-3. Eseguire `notebook/01_pipeline_execution_top_down_only.ipynb`.
-4. Eseguire `notebook/01_pipeline_execution_bottom_up_only.ipynb`.
-5. Facoltativamente, eseguire
+3. In LM Studio caricare `mistralai/ministral-3-14b-reasoning`,
+   `prism-ml/bonsai-27b` e `google/gemma-4-12b-qat`, quindi avviare il server
+   locale OpenAI-compatible (default `http://127.0.0.1:1234/v1`).
+4. Eseguire `notebook/01_pipeline_execution_top_down_only.ipynb`.
+5. Eseguire `notebook/01_pipeline_execution_bottom_up_only.ipynb`.
+6. Facoltativamente, eseguire
    `notebook/02_experimental_evaluation_top_down_vs_bottom_up.ipynb`.
+
+Le impostazioni dei modelli possono essere personalizzate tramite variabili
+d'ambiente:
+
+| Variabile | Default | Uso |
+|---|---|---|
+| `QWEN_GENERATOR_MODEL` | `qwen/qwen3.8-27b` | Model id Qwen su Groq |
+| `QWEN_GENERATOR_MAX_TOKENS` | `4000` | Budget massimo delle generazioni strutturate |
+| `QWEN_RATE_LIMIT_CYCLES` | `3` | Giri massimi delle chiavi in caso di rate limit Groq |
+| `QWEN_RATE_LIMIT_WAIT_SECONDS` | `60` | Attesa dopo un giro completo di chiavi temporaneamente limitate |
+| `LM_STUDIO_BASE_URL` | `http://127.0.0.1:1234/v1` | Endpoint locale OpenAI-compatible |
+| `LM_STUDIO_MANAGEMENT_BASE_URL` | `http://127.0.0.1:1234/api/v1` | Endpoint nativo per caricare e scaricare i modelli |
+| `LM_STUDIO_MODEL_MANAGEMENT_TIMEOUT_SECONDS` | `600` | Timeout di load/unload dei modelli locali |
+| `LM_STUDIO_EVALUATOR_CONTEXT_LENGTH` | `8192` | Context length usata quando viene caricata un'istanza critic |
+| `MINISTRAL_CRITIC_MODEL` | `mistralai/ministral-3-14b-reasoning` | Model id esatto mostrato da LM Studio |
+| `BONSAI_CRITIC_MODEL` | `prism-ml/bonsai-27b` | Secondo voter del critic HLG/LLG bottom-up |
+| `GEMMA_CRITIC_MODEL` | `google/gemma-4-12b-qat` | Terzo voter del critic HLG/LLG bottom-up |
+| `MINISTRAL_CRITIC_MAX_TOKENS` | `700` | Budget massimo di ogni valutazione |
+| `DESCRIPTION_SOURCE_MAX_CHARS` | `18000` | Limite testa/coda del README inviato a Qwen per generare la descrizione |
 
 ## Licenza
 
@@ -542,8 +571,8 @@ predefiniti del bottom-up.
 I modelli originali sono stati sostituiti perché deprecati o non più adeguati
 all'ambiente di esecuzione corrente. La pipeline utilizza ora:
 
-- **Gemini 2.5 Flash** come generatore di output strutturato;
-- **`qwen/qwen3.8-27b` tramite Groq** come critic.
+- **`qwen/qwen3.8-27b` tramite Groq** come generatore di output strutturato;
+- **Ministral locale tramite LM Studio** come critic.
 
 L'estrazione di attori, HLG e LLG parte da una generazione zero-shot e utilizza
 poi il critic few-shot per assegnare un punteggio al risultato e fornire feedback
@@ -554,53 +583,26 @@ valutato erroneamente come se dovesse rappresentare l'intero sistema software.
 
 ## Piano per i prossimi esperimenti
 
-Il passo successivo sarà confrontare tre configurazioni del valutatore bottom-up
-usando la ground truth aggiornata. Prima del confronto dovrà essere rigenerata
-la baseline top-down di *Calculator*, eliminando l'incoerenza tra il parent
-incorporato nei suoi LLG e `structuredHighLevelGoals`, così da includere lo
-stesso insieme completo di dataset in tutti i run.
+La configurazione bottom-up corrente usa un ensemble eterogeneo fisso composto
+da Ministral, Bonsai e Gemma. I tre modelli ricevono lo stesso input e le
+decisioni HLG usano un quorum 2/3, mentre quelle LLG includono il veto di
+rigenerazione motivato. La discovery è un controllo separato eseguito dagli
+stessi tre modelli con quorum 2/3.
 
-L'aggregatore corrente supporta soltanto 3 o 5 voter omogenei. Le condizioni con
-1 e 4 voter richiedono quindi un'estensione esplicita del codice; non devono
-essere simulate eliminando voti dopo l'esecuzione, perché cambierebbero memoria,
-retry e percorso decisionale.
+La stessa baseline dovrà essere eseguita nelle due condizioni seguenti:
 
-Le tre configurazioni previste sono:
-
-1. **Un solo voter:** rieseguire la logica originaria con un unico voter sulla
-   ground truth aggiornata, usando lo stesso prompt previsto per i voter
-   omogenei. Questo run costituirà la nuova baseline sperimentale, ma richiede che
-   l'aggregatore accetti esplicitamente `voter_count=1`.
-2. **Tre voter omogenei:** rieseguire il voting 2 su 3 usando per tutti i voter
-   lo stesso modello, lo stesso prompting e gli stessi esempi. I prompt e gli
-   altri parametri dovranno coincidere con quelli del run a singolo voter, in
-   modo da isolare per quanto possibile l'effetto della maggioranza.
-3. **Quattro voter eterogenei:** valutare la nuova infrastruttura composta da
-   due voter Gemini, uno Few-shot e uno One-shot, e due voter Qwen, uno Few-shot
-   e uno Zero-shot. Questo esperimento servirà a osservare come la diversità di
-   modello e strategia di prompting influenza i singoli giudizi, il disaccordo
-   tra voter e la risposta aggregata finale. Prima del run dovrà essere fissata
-   la regola per un eventuale pareggio 2–2 e tale regola dovrà essere salvata
-   negli artefatti sperimentali.
-
-Ciascuna configurazione dovrà essere eseguita due volte sullo stesso identico
-input: una con `ENABLE_HLG_DISCOVERY = False` e una con
-`ENABLE_HLG_DISCOVERY = True`. Il piano comprende quindi sei condizioni
-sperimentali:
-
-| Configurazione dei voter | Discovery disabilitata | Discovery abilitata |
+| Ensemble HLG/LLG | Discovery disabilitata | Discovery abilitata |
 | --- | --- | --- |
-| 1 voter | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
-| 3 voter omogenei | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
-| 4 voter eterogenei Gemini/Qwen | validazione/correzione | validazione/correzione + ricerca di HLG mancanti |
+| Ministral + Bonsai + Gemma, politica severa documentata sopra | validazione/correzione | validazione/correzione + discovery ensemble |
 
 Per rendere il confronto interpretabile dovranno restare fissi ground truth,
 baseline top-down, dataset, prompt condivisi, limiti di iterazione, soglie e
-parametri di generazione; dovranno cambiare soltanto il numero/composizione dei
-voter e lo stato della discovery. Oltre a Precision, Recall e F1 di HLG e LLG,
+parametri di generazione; tra le due condizioni dovrà cambiare soltanto lo stato
+della discovery. Oltre a Precision, Recall e F1 di HLG e LLG,
 sarà utile registrare il numero di modifiche, la convergenza, i warning, il
 disaccordo tra voter e il costo in chiamate. Nei run con discovery attiva
 andranno misurati separatamente anche gli HLG realmente nuovi e supportati, i
 duplicati introdotti, le aggiunte non supportate e il recupero dei goal mancanti.
-I risultati attuali non coprono questo piano: rappresentano soltanto la
-configurazione con tre voter omogenei e discovery disabilitata.
+I risultati già presenti nel repository precedono questa modifica e
+rappresentano la precedente configurazione omogenea; non devono essere attribuiti
+all'ensemble Ministral–Bonsai–Gemma senza rieseguire i notebook.

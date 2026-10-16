@@ -10,12 +10,14 @@ le funzioni con prefisso `BottomUp`/`bottom_up_` contengono la reflection
 focalizzata usata esclusivamente dalle riparazioni. Analogamente,
 `src.extraction.extractor` conserva i generatori originali e contiene
 `generate_bottom_up_low_level_goals` per il contesto di riparazione. I percorsi
-sono distinti tramite nomi espliciti, mentre i client Gemini/Qwen restano
+sono distinti tramite nomi espliciti, mentre i client Qwen/Ministral restano
 condivisi.
 
 ## 1. Ingresso e costruzione dei branch
 
 Il notebook seleziona i file `*_top_down.json` in `output/top_down/` il cui nome di dataset compare in `ALL_GROUNDTRUTHS`. `BASELINE_FILE_OVERRIDES` permette di scegliere file specifici. La ground truth serve qui per selezionare i dataset; non viene fornita ai critic come risposta attesa.
+
+L'esecuzione dei dataset è sequenziale e organizzata in gruppi da 3. Il notebook attende 60 secondi tra due dataset dello stesso gruppo e 120 secondi dopo ogni terzo dataset; la pausa da 120 secondi sostituisce quella da 60 al confine del gruppo. Le pause vengono applicate anche quando un dataset fallisce, tranne dopo l'ultimo input.
 
 Ogni baseline deve contenere `description`, `structuredHighLevelGoals` e `structuredLowLevelGoals`. Non vengono rieseguite l'estrazione iniziale degli attori o dei goal. Le configurazioni della baseline sono conservate come provenienza; le nuove generazioni usano la configurazione bottom-up del notebook.
 
@@ -41,11 +43,11 @@ I branch già confermati vengono saltati nelle iterazioni successive finché la 
 
 ## 3. Ricostruzione cieca di HLG′
 
-Il reconstructor riceve soltanto le descrizioni degli LLG del branch con etichette locali `llg_NNN`. Non vede il parent originale, gli altri branch o la descrizione del progetto. Inferisce un'intenzione comune e una motivazione tramite Gemini. La ricostruzione deve essere **lossless**: deve rendere visibile ogni capacità distinta dei figli, inclusi eventuali outlier, senza nasconderli dietro verbi generici come *manage*, *handle* o *process*. La motivazione deve associare ogni `llg_NNN` alla capacità che introduce. In questo modo un figlio fuori scope rende HLG′ più ampio o diverso e attiva il routing verso Critic 2.
+Il reconstructor riceve soltanto le descrizioni degli LLG del branch con etichette locali `llg_NNN`. Non vede il parent originale, gli altri branch o la descrizione del progetto. Inferisce un'intenzione comune e una motivazione tramite Qwen. La ricostruzione deve essere **lossless**: deve rendere visibile ogni capacità distinta dei figli, inclusi eventuali outlier, senza nasconderli dietro verbi generici come *manage*, *handle* o *process*. La motivazione deve associare ogni `llg_NNN` alla capacità che introduce. In questo modo un figlio fuori scope rende HLG′ più ampio o diverso e attiva il routing verso Critic 2.
 
 Il risultato contiene `reconstructed_high_level_goal`, `rationale`, `branch_id` e `source_low_level_goal_ids`. Quest'ultimo campo salva attualmente i nomi degli LLG, non le etichette locali del prompt.
 
-Per un branch vuoto non viene chiamato Gemini: il codice restituisce una ricostruzione esplicita di impossibilità. La mancanza di figli non dimostra che il parent sia errato.
+Per un branch vuoto non viene chiamato Qwen: il codice restituisce una ricostruzione esplicita di impossibilità. La mancanza di figli non dimostra che il parent sia errato.
 
 ## 4. Critic 1: validazione HLG e diagnosi semantica
 
@@ -79,7 +81,7 @@ Il prompt richiede prima una validazione indipendente del parent: supporto docum
 
 Un HLG e un HLG′ possono essere equivalenti e condividere un errore di scope. Per esempio, entrambi descrivono soltanto l'inserimento dati mentre l'unico esito documentato è completare e inviare una domanda, senza sibling che coprano il resto. Il prompt richiede `REWRITE` del parent incompleto. Se il parent già rappresenta tutto l'esito e soltanto i figli sono incompleti, richiede `KEEP` e Critic 2.
 
-Il prompt operativo contiene 8 esempi compatti strutturati nello stile degli HLG del ground truth, ma non usa le risposte target dei dataset. Copre equivalenza autentica, copertura parziale, attore scorretto, parent incompleto, sibling con parent distinto, ridondanza completa, divergenza e intenzione non documentata. La motivazione deve indicare evidenza e differenze funzionali concrete; difetti puramente stilistici non giustificano rewrite.
+Il prompt operativo contiene 9 esempi compatti strutturati nello stile degli HLG del ground truth, ma non usa le risposte target dei dataset. Copre equivalenza autentica, copertura parziale, attore scorretto, parent incompleto, sibling con parent distinto, ridondanza completa, divergenza e intenzione non documentata. La motivazione deve indicare evidenza e differenze funzionali concrete; difetti puramente stilistici non giustificano rewrite.
 
 ### Vincoli Python sul risultato
 
@@ -94,11 +96,11 @@ Il modello [HighLevelGoalEvaluation](../data_model.py) salva decisione, score, r
 - `KEEP` con altra relazione impone `requires_llg_evaluation=true`;
 - `REWRITE` e `REMOVE` impongono il flag a false.
 
-Il codice verifica inoltre che `NOT_RECONSTRUCTABLE` corrisponda effettivamente a un branch vuoto. Per una rimozione ridondante controlla ID, nome HLG e nome dell'attore del sibling. Se la base di rimozione non supera questi controlli, il verdetto viene convertito in KEEP con motivazione del blocco e score 3; il routing dipende dalla relazione.
+Il codice verifica inoltre che `NOT_RECONSTRUCTABLE` corrisponda effettivamente a un branch vuoto. Per una rimozione ridondante controlla ID, nome HLG e nome dell'attore del sibling. Se la base di rimozione non supera questi controlli, il verdetto viene convertito in KEEP con motivazione del blocco e score 4; il routing dipende dalla relazione.
 
 ## 5. Critic 2: verifica della decomposizione
 
-`evaluate_branch()` invoca il critic LLG soltanto per KEEP con `requires_llg_evaluation=true`. Il critic riceve progetto, parent, HLG′ e motivazione, LLG correnti con ID locali, nomi e descrizioni, e HLG sibling compattati.
+`evaluate_branch()` invoca il critic LLG per ogni HLG mantenuto. Anche un HLG′ equivalente dimostra soltanto che il significato aggregato dei figli coincide con il parent: non certifica supporto, necessità e non-ridondanza di ciascun LLG. Il critic riceve progetto, parent, HLG′ e motivazione, LLG correnti con ID locali, nomi e descrizioni, e HLG sibling compattati.
 
 Le decisioni sono `KEEP_LOW_LEVEL_GOALS` e `REGENERATE_LOW_LEVEL_GOALS`. Il prompt cerca capacità essenziali mancanti, figli non documentati o fuori scope, duplicazioni, frammenti puramente UI/tecnici e responsabilità di sibling. Non richiede rigenerazione solo per stile o per l'assenza di funzionalità opzionali. Un verbo ampio nel parent non autorizza automaticamente tutte le operazioni convenzionali sullo stesso oggetto.
 
@@ -108,24 +110,28 @@ Dopo il voting, il codice elimina gli ID problematici inesistenti e le descrizio
 
 Per un branch vuoto, un KEEP del critic LLG viene forzato a REGENERATE. La conferma senza decomposizione è quindi impedita dal normale percorso di validazione.
 
-## 6. Voting: tre chiamate per ogni critic attivo
+## 6. Voting: tre modelli con lo stesso input
 
-I tre critic sono tre ruoli: HLG, LLG e discovery. Ogni ruolo attivato usa a sua volta 3 chiamate parallele dello stesso modello, con temperatura 0.2 e quorum 2/3. Il numero di voter può essere configurato a 5, con quorum 3/5. Anche REMOVE usa il quorum ordinario: non serve unanimità.
+I critic HLG e LLG usano un ensemble eterogeneo fisso: `mistralai/ministral-3-14b-reasoning`, `prism-ml/bonsai-27b` e `google/gemma-4-12b-qat`. I tre modelli ricevono lo stesso system prompt, lo stesso prompt utente per il medesimo branch e lo stesso snapshot della memoria. L'ordine è model-major: dopo che Qwen ha ricostruito i branch uno alla volta, LM Studio carica Ministral una sola volta e gli fa valutare in sequenza tutti i branch HLG; lo scarica e ripete l'intero insieme con Bonsai, poi con Gemma. Gli HLG vengono aggregati con quorum 2/3. Ogni HLG mantenuto passa poi allo stadio LLG, che usa lo stesso batching per modello. Se tutti e tre i voti LLG sono validi, un singolo `REGENERATE` con prove strutturate attiva la riparazione; con un pannello incompleto torna ad applicarsi il quorum ordinario. In questo modo ogni stadio richiede al massimo tre load/unload, non tre cambi di modello per ogni branch. Anche REMOVE usa il quorum ordinario: non serve unanimità e restano attivi i gate distruttivi. La discovery è un giudizio separato, ma usa lo stesso ensemble e lo stesso quorum 2/3; il suo prompt aggiunge esplicitamente la condizione di ricerca degli HLG mancanti.
+
+Tutti i prompt di giudizio sono few-shot. Il critic HLG contiene 9 esempi di calibrazione, il critic LLG ne contiene 7 e il prompt separato di discovery ne contiene 3. Ogni membro dell'ensemble riceve integralmente gli stessi esempi insieme allo stesso caso da valutare. Il critic Ministral usato nella reflection delle correzioni Qwen usa invece i 4 esempi few-shot configurati dal notebook.
+
+Il critic LLG riceve anche il verdetto HLG aggregato. Se il quorum HLG ha classificato la ricostruzione come `PARTIAL_OVERLAP`, `DIFFERENT`, `MATCHES_SIBLING` o `NOT_RECONSTRUCTABLE`, il branch non può essere confermato invariato da un successivo `KEEP_LOW_LEVEL_GOALS`: il prompt deve localizzare la causa del mismatch e un controllo deterministico converte comunque un eventuale KEEP contraddittorio in una rigenerazione mirata. Anche `EQUIVALENT` passa ora all'audit LLG indipendente. Un voto severo costituisce veto soltanto se è un `REGENERATE` valido, contiene almeno una prova strutturata e tutti e tre i voter hanno risposto validamente.
 
 Ogni voter ha fino a 3 tentativi complessivi. Le risposte devono essere JSON validi, conformi a Pydantic e coerenti con lo score:
 
 | Score | Significato | Decisioni ammesse |
 |---|---|---|
-| 0–2 | Difetto materiale o intenzione non supportata | REWRITE, REMOVE, REGENERATE, FOUND |
-| 3–5 | Artefatto generalmente accettabile | KEEP HLG, NO_MISSING |
+| 0–3 | Difetto materiale o residuo che richiede correzione | REWRITE, REMOVE, REGENERATE, FOUND |
+| 4–5 | Artefatto supportato e senza difetti materiali | KEEP HLG, NO_MISSING |
 
 Per Critic 2 vale un vincolo più severo: `KEEP_LOW_LEVEL_GOALS` richiede esattamente 5/5; uno score 3 o 4 non è sufficiente a confermare la decomposizione.
 
-Il quorum riguarda la decisione (`KEEP`, `REWRITE`, `REMOVE`, ecc.). Per Critic 1, quando almeno 2 voter scelgono `KEEP` ma divergono sulla relazione, viene conservato un singolo voto coerente appartenente alla maggioranza e viene preferito quello più rigoroso: un voto non equivalente che attiva Critic 2 prevale su `EQUIVALENT`. In questo modo il disaccordo sul routing produce un controllo aggiuntivo invece di un falso `INCONCLUSIVE`. `REMOVE` e `REWRITE` richiedono comunque almeno 2 voti su 3 sulla rispettiva azione.
+Il quorum riguarda la decisione (`KEEP`, `REWRITE`, `REMOVE`, ecc.). Per Critic 1, quando almeno 2 voter scelgono `KEEP` ma divergono sulla relazione, viene conservato un singolo voto coerente appartenente alla maggioranza e viene preferito quello più rigoroso. Tutti gli HLG mantenuti passano comunque a Critic 2. `REMOVE` e `REWRITE` richiedono almeno 2 voti su 3 sulla rispettiva azione; soltanto `REGENERATE_LOW_LEVEL_GOALS` dispone del veto motivato descritto sopra.
 
 Il risultato conserva un voto rappresentativo del gruppo vincente, non la media degli score e non l'unione delle evidenze. Per un `KEEP` HLG viene privilegiato il routing verso Critic 2; negli altri casi la scelta privilegia il voto con più elementi nelle liste di problemi/gap. I metadati di rimozione del voto rappresentativo superano poi i controlli deterministici sul sibling coprente.
 
-Nel trace si salvano `voter_count`, `valid_vote_count`, `winning_vote_count` e `vote_distribution`. La distribuzione e il quorum contano le decisioni; i singoli voti non sono persistiti.
+Nel trace si salvano `voter_count`, `valid_vote_count`, `winning_vote_count` e `vote_distribution`. La motivazione aggregata registra inoltre la decisione restituita da ciascun model id; il contenuto completo dei singoli voti non viene persistito.
 
 ## 7. Applicazione delle correzioni
 
@@ -137,7 +143,7 @@ La priorità è esclusiva tra categorie, ma applica insieme tutte le correzioni 
 
 La separazione delle chiamate LLG evita che un batch grande superi i limiti di contesto e impedisce che un errore su un branch annulli le altre correzioni. Una rimozione `UNSUPPORTED` elimina parent e figli. Una rimozione `FULLY_REDUNDANT` prepara la rigenerazione del target usando i candidati LLG di entrambi i branch.
 
-Le nuove generazioni riusano Gemini e l'infrastruttura condivisa, ma passano dalla reflection focalizzata bottom-up `generate_bottom_up_response_with_reflection`; non modificano né invocano il percorso di reflection della baseline top-down. Nel notebook: Zero-shot, critic few-shot attivo con 4 esempi, soglia 8/10 e fino a 5 tentativi. Questo critic generativo è distinto dal voting bottom-up e non usa automaticamente tre voti. Il parametro `evaluator_ablation` controlla questa reflection, non disattiva Critic 1 o Critic 2.
+Le nuove generazioni riusano Qwen e l'infrastruttura condivisa, ma passano dalla reflection focalizzata bottom-up `generate_bottom_up_response_with_reflection`; non modificano né invocano il percorso di reflection della baseline top-down. Nel notebook: Zero-shot, critic few-shot attivo con 4 esempi, soglia 8/10 e fino a 5 tentativi. Questo critic generativo è distinto dal voting bottom-up e non usa automaticamente tre voti. Il parametro `evaluator_ablation` controlla questa reflection, non disattiva Critic 1 o Critic 2.
 
 La reflection può restituire l'ultimo risultato anche sotto soglia dopo l'esaurimento dei tentativi: la soglia non è una garanzia di accettazione assoluta. Il ciclo successivo valida di nuovo i branch.
 
@@ -147,9 +153,11 @@ La preservazione delle capacità valide viene richiesta al generatore, ma non ve
 
 Il critic preferisce `REMOVE` a `REWRITE` quando un HLG non lascia alcuna intenzione documentata autonoma dopo la rimozione delle parti errate, oppure quando è un frammento di workflow interamente assorbito da un preciso HLG sibling dello stesso attore. Restano obbligatori il quorum, l'identificazione esatta del sibling per `FULLY_REDUNDANT`, il dependency guard e il limite di due rimozioni per iterazione.
 
-## 8. Discovery opzionale
+## 8. Due output: senza e con discovery
 
-Nel notebook `ENABLE_HLG_DISCOVERY=False`: nessuna chiamata a Critic 3. Se True, la discovery parte solo quando tutte le conferme sono disponibili. Non precede le riparazioni dei branch.
+Per ogni baseline il notebook avvia due cicli indipendenti dallo stesso stato top-down: prima senza discovery e poi con discovery. Il primo salva in `output/top_down_bottom_up/`; il secondo salva in `output/top_down_bottom_up_discovery/`. Anche i trace delle iterazioni sono separati, rispettivamente in `output/bottom_up_iterations/` e `output/bottom_up_iterations_discovery/`, quindi un profilo non sovrascrive l'altro.
+
+Nel secondo profilo la discovery parte solo quando tutte le conferme dei branch sono disponibili e non precede le riparazioni. La valutano Ministral, Bonsai e Gemma con lo stesso input, gli stessi esempi few-shot e quorum 2/3. Rispetto ai prompt ordinari, il prompt discovery contiene la condizione esplicita di verificare l'intera descrizione e individuare almeno un'intenzione funzionale actor-level documentata ma assente dagli HLG correnti.
 
 Il critic riceve progetto, HLG correnti, attori noti e HLG ritirati; restituisce richieste focalizzate, non goal definitivi. Gli attori noti derivano dagli HLG iniziali e successivi, non da un nuovo pass di estrazione. Non vengono introdotti attori nuovi.
 
@@ -161,7 +169,7 @@ La memoria è isolata per progetto e condivisa dai critic bottom-up attivi. Cons
 
 I voter della stessa valutazione vedono lo stesso stato della memoria; nessuno vede il voto degli altri. Dopo l'aggregazione viene registrato il risultato. Ricostruzione e generazione non condividono questa memoria.
 
-Il modello generatore ha default `gemini-2.5-flash`, modificabile con `GEMINI_MODEL`; il valutatore è `qwen/qwen3.8-27b` su Groq. Il budget di completamento mantiene il default condiviso di 700 token. Come nella pipeline top-down, il client riceve testo e restituisce testo senza attivare il `response_format` del provider. Nel bottom-up il prompt richiede comunque un oggetto JSON: il modulo bottom-up lo estrae dalla risposta, Pydantic verifica campi, enum e coerenza decisione/score e, se parsing o validazione falliscono, viene ripetuto soltanto quel voto. Il system prompt limita inoltre la motivazione a 200 parole per ridurre il rischio di troncamento. La compattazione riduce i prompt, ma non esiste un preflight esatto dei token né una riduzione automatica del prompt troppo grande.
+Il modello generatore ha default `qwen/qwen3.8-27b` su Groq, modificabile con `QWEN_GENERATOR_MODEL`. I tre model id dell'ensemble locale sono configurabili con `MINISTRAL_CRITIC_MODEL`, `BONSAI_CRITIC_MODEL` e `GEMMA_CRITIC_MODEL`; sono usati per HLG, LLG e discovery. La reflection delle rigenerazioni usa invece il solo `MINISTRAL_CRITIC_MODEL`. I voter bottom-up usano l'endpoint nativo LM Studio con un budget predefinito di 1.600 token: Ministral mantiene il reasoning, mentre per Bonsai e Gemma viene disattivato per garantire l'emissione del JSON finale. Pydantic verifica campi, enum e coerenza decisione/score e, se parsing o validazione falliscono, viene ripetuto soltanto il voto del modello interessato. Il system prompt limita inoltre la motivazione a 200 parole per ridurre il rischio di troncamento.
 
 ## 10. Convergenza, arresti ed errori
 
@@ -187,7 +195,7 @@ Errori non gestiti, inclusi quelli dei generatori, interrompono il dataset: il n
 |---|---|---|
 | DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS | 5 | Libreria |
 | GLOBAL_CYCLE_MAX_ITERATIONS_OVERRIDE | 25 | Notebook |
-| ENABLE_HLG_DISCOVERY | False | Notebook |
+| DISCOVERY_RUN_MODES | (False, True) | Due profili indipendenti per ogni baseline |
 | MAX_HLG_REWRITES_PER_BRANCH | 2 | Contatore per ID HLG |
 | MAX_HLG_REWRITES_PER_ITERATION | 2 | Rewrite HLG applicati nello stesso pass; gli altri vengono rivalutati nel pass successivo |
 | MAX_LLG_REGENERATIONS_PER_BRANCH | 2 | Correzioni LLG ordinarie per ID |
@@ -199,15 +207,15 @@ Errori non gestiti, inclusi quelli dei generatori, interrompono il dataset: il n
 | BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS | 3 | Configurabile: 1–3 |
 | BOTTOM_UP_EVALUATOR_TEMPERATURE | 0.2 | Default configurabile |
 | BOTTOM_UP_QUALITY_THRESHOLD | 3/5 | Soglia bottom-up |
-| Esempi bottom-up | HLG 8 compatti, LLG 6, discovery 3 | Prompt separati |
-| GROQ_LLAMA_MAX_TOKENS | 700 | Completamento testuale del critic; parsing e validazione avvengono nel bottom-up |
-| REQUEST_TIMEOUT_SECONDS / API_MAX_RETRIES | 120 / 1 | Client Groq creato dal notebook |
+| Esempi bottom-up | HLG 9, LLG 7, discovery 3 | Prompt separati |
+| BOTTOM_UP_CRITIC_MAX_TOKENS | 1600 | Output dei tre voter bottom-up; reasoning disattivato per Bonsai e Gemma |
+| REQUEST_TIMEOUT_SECONDS / API_MAX_RETRIES | 120 / 1 | Client Qwen/Groq e Ministral/LM Studio creati dal notebook |
 
 Non esiste un limite fisso al numero di LLG contenuti in una singola rigenerazione. I limiti per iterazione riducono invece il numero di branch modificati contemporaneamente; il limite globale delle iterazioni resta la protezione complessiva contro oscillazioni.
 
 ## 12. Trace, file salvati e riesecuzione
 
-I file `iteration_NNN.json` contengono ricostruzioni e verdetti del pass, gerarchia dopo le correzioni, valutazione discovery o null, contatori LLG e warning. Pertanto un verdetto può riferirsi a un parent precedente che non compare più nella gerarchia finale del medesimo file. I branch congelati non vengono riportati come nuove valutazioni; i contatori di rewrite non sono persistiti nel trace.
+I file `iteration_NNN.json` vengono aggiornati dopo ogni decisione di branch. Durante il pass espongono `checkpoint_complete=false` e i contatori `completed_branch_count`/`total_branch_count`; al termine sono sovrascritti con lo stato completo e `checkpoint_complete=true`. Ogni verdetto conserva in `critic_votes` i tre record individuali (modello, risposta grezza, JSON interpretato oppure errore) oltre al risultato aggregato. Il trace contiene inoltre ricostruzioni, gerarchia dopo le correzioni, valutazione discovery o null, contatori LLG e warning. Pertanto un verdetto può riferirsi a un parent precedente che non compare più nella gerarchia finale del medesimo file. I branch congelati non vengono riportati come nuove valutazioni; i contatori di rewrite non sono persistiti nel trace.
 
 Nel risultato del notebook, `globalGoalCycle` contiene l'intero ciclo, mentre `finalHighLevelGoals` e `finalLowLevelGoals` contengono gli artefatti finali. I campi strutturati originari della baseline restano nel JSON combinato: per il risultato corretto bisogna leggere i campi finali.
 
@@ -223,7 +231,7 @@ Precision, Recall e F1 vengono calcolati separatamente nel [notebook di valutazi
 
 Questi limiti descrivono l'implementazione attuale, non correzioni applicate con questa revisione della documentazione.
 
-- **Conferma aggregata:** EQUIVALENT + KEEP salta Critic 2. Singoli LLG non supportati che non cambiano l'intenzione aggregata possono sfuggire al controllo.
+- **Conferma aggregata:** `EQUIVALENT + KEEP` non basta a confermare il branch; tutti gli LLG vengono comunque controllati. Restano possibili errori semantici condivisi dai tre modelli, da misurare sperimentalmente.
 - **Contatore rewrite:** l'ID dipende dal contenuto dell'HLG. Una riscrittura cambia normalmente ID, quindi il limite di 2 non segue tutta la discendenza del branch. Il limite globale resta operativo.
 - **Preservazione dopo generazione:** l'accettazione controlla non-vuoto, associazione e duplicati, non la conservazione delle capacità. Un consolidamento può perdere dettagli nonostante il prompt.
 - **Duplicati HLG strutturalmente identici:** gli LLG vengono associati al primo parent uguale; gli altri branch possono risultare vuoti. Anche l'associazione di LLG generati a più parent identici può essere ambigua.
@@ -232,4 +240,4 @@ Questi limiti descrivono l'implementazione attuale, non correzioni applicate con
 - **Trace e confronto sperimentale:** mancano i voti individuali e una firma/versione del prompt; il rerun sostituisce gli artefatti. Il rafforzamento del prompt deve essere valutato su output nuovi.
 - **Verifica automatica:** sono stati eseguiti controlli locali simulati dei percorsi principali, ma nel repository non è presente una suite persistita che copra tutti i casi della matrice e gli errori di generazione.
 
-Per B branch attivi, V voter e L branch instradati verso Critic 2, il pass usa fino a B ricostruzioni (i branch vuoti non chiamano Gemini), V × B voti HLG e V × L voti LLG; con discovery aggiunge V voti di copertura. Retry, reflection e rotazione delle chiavi possono aumentare le chiamate effettive.
+Per B branch attivi, V voter e L branch instradati verso Critic 2, il pass usa fino a B ricostruzioni (i branch vuoti non chiamano Qwen), V × B voti HLG e V × L voti LLG; con discovery aggiunge V voti di copertura. Retry e reflection possono aumentare le chiamate effettive.

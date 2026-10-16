@@ -1,6 +1,6 @@
 import os
+import json
 import re
-import sys
 from enum import Enum
 
 
@@ -9,9 +9,11 @@ import src.examples.shot_learning
 from src.data_model import Critique
 from  src.examples.shot_learning import ShotPromptingMode
 from src.llm_clients import (
+    configured_critic_model,
     generate_evaluator_response,
     generate_response_llama,
     generate_response,
+    loaded_local_evaluator_model,
 )
 
 
@@ -26,6 +28,9 @@ TOP_DOWN_EVALUATOR_DESCRIPTION_MAX_CHARS = int(
 TOP_DOWN_EVALUATOR_ACTOR_DESCRIPTION_MAX_CHARS = 70
 TOP_DOWN_EVALUATOR_HLG_DESCRIPTION_MAX_CHARS = 90
 TOP_DOWN_EVALUATOR_LLG_DESCRIPTION_MAX_CHARS = 60
+TOP_DOWN_EVALUATION_PARSE_ATTEMPTS = int(
+    os.getenv("TOP_DOWN_EVALUATION_PARSE_ATTEMPTS", "3")
+)
 
 class EvalMode(Enum):
     ACTORS = "Actors"
@@ -281,226 +286,6 @@ def _top_down_llg_branch_blocks(low_level_goals) -> list[str]:
     ]
 
 
-def _top_down_examples(eval_mode: EvalMode) -> list[str]:
-    if eval_mode == EvalMode.ACTORS:
-        return [
-            examples.shot_learning.example1_actors_withFeedback1,
-            examples.shot_learning.example1_actors_withFeedback2,
-            examples.shot_learning.example1_actors_withFeedback3,
-            examples.shot_learning.example1_actors_withFeedback4,
-        ]
-    if eval_mode == EvalMode.HIGH_LEVEL:
-        return [
-            examples.shot_learning.example1_hl_withFeedback1,
-            examples.shot_learning.example1_hl_withFeedback2,
-            examples.shot_learning.example1_hl_withFeedback3,
-            examples.shot_learning.example1_hl_withFeedback4,
-        ]
-    return [
-        examples.shot_learning.example1_ll_withFeedback1,
-        examples.shot_learning.example1_ll_withFeedback2,
-        examples.shot_learning.example1_ll_withFeedback3,
-        examples.shot_learning.example1_ll_withFeedback4,
-    ]
-
-
-def _build_top_down_system_prompt(
-    eval_mode: EvalMode,
-    example_count: int,
-) -> str:
-    prompt = (
-        "You are a software-engineering evaluator specialized in "
-        "Goal-Oriented Requirements Engineering (GORE). An actor is the "
-        "'who'; a high-level goal is the strategic 'why'; a low-level goal "
-        "is an atomic functional interaction describing 'how'. Evaluate only "
-        "functional goals. Identify missing, contradictory or unsupported "
-        "items and propose concrete corrections."
-    )
-    selected = _top_down_examples(eval_mode)[:example_count]
-    if selected:
-        prompt += "\n\n### Evaluation examples\n\n" + "\n\n---\n\n".join(
-            selected
-        )
-    return prompt
-
-
-def _top_down_evaluation_task(eval_mode: EvalMode) -> tuple[str, str, str]:
-    if eval_mode == EvalMode.ACTORS:
-        return (
-            "a software description and extracted actors",
-            "Considering actor names rather than wording details, evaluate "
-            "whether the end-user roles are correct and complete.",
-            "",
-        )
-    if eval_mode == EvalMode.HIGH_LEVEL:
-        return (
-            "a software description, actors and high-level goals",
-            "Assume the actors are correct and evaluate the high-level goals.",
-            "Multiple actors may share goals. Reject non-functional goals.",
-        )
-    return (
-        "a software description, actors, high-level goals and low-level goals",
-        "Assume actors and high-level goals are correct and evaluate the "
-        "low-level goals.",
-        "Each low-level goal should be an atomic actor-system interaction "
-        "that could map to one API capability. Reject non-functional goals.",
-    )
-
-
-def _build_top_down_user_prompt(
-    eval_mode: EvalMode,
-    description: str,
-    actors_text: str,
-    high_level_text: str = "",
-    low_level_text: str = "",
-    batch_note: str = "",
-) -> str:
-    provided_with, task, extra_rule = _top_down_evaluation_task(eval_mode)
-    sections = [
-        f"You are given {provided_with}.",
-        f"{task} {extra_rule}",
-        "Check correctness, contradictions, unsupported items and important "
-        "omissions. Score 0 for a major contradiction or omission and 10 when "
-        "there is no relevant error. Suggest concrete corrections when needed.",
-    ]
-    if batch_note:
-        sections.append(batch_note)
-    sections.extend(
-        [
-            "Respond with exactly these two fields and no other text:\n"
-            "Feedback: [feedback]\nScore: [0.0-10.0]",
-            f"### Description\n{description}",
-            f"### Actors\n{actors_text}",
-        ]
-    )
-    if high_level_text:
-        sections.append(f"### High-level goals\n{high_level_text}")
-    if low_level_text:
-        sections.append(f"### Low-level goals\n{low_level_text}")
-    sections.append("### Final evaluation\nFeedback:")
-    return "\n\n".join(sections)
-
-
-def _call_budgeted_top_down_evaluator(
-    eval_mode: EvalMode,
-    user_prompt: str,
-) -> str:
-    """Use the largest few-shot prefix that remains under the input budget."""
-    for example_count in range(4, -1, -1):
-        system_prompt = _build_top_down_system_prompt(eval_mode, example_count)
-        input_chars = len(system_prompt) + len(user_prompt)
-        if input_chars <= TOP_DOWN_EVALUATOR_MAX_INPUT_CHARS:
-            if example_count < 4:
-                print(
-                    "[top-down evaluator] token budget: using "
-                    f"{example_count}/4 few-shot examples "
-                    f"({input_chars} input chars)."
-                )
-            return generate_response_llama(user_prompt, system_prompt)
-    raise ValueError(
-        "Top-down evaluator target is too large even without few-shot "
-        "examples; semantic batching is required."
-    )
-
-
-def _pack_top_down_blocks(
-    blocks: list[str],
-    character_budget: int,
-) -> list[list[str]]:
-    batches: list[list[str]] = []
-    current: list[str] = []
-    current_size = 0
-    for block in blocks:
-        block_size = len(block) + 2
-        if current and current_size + block_size > character_budget:
-            batches.append(current)
-            current = []
-            current_size = 0
-        current.append(block)
-        current_size += block_size
-    if current:
-        batches.append(current)
-    return batches
-
-
-def _evaluate_top_down_llg_batches(
-    description: str,
-    actors_text: str,
-    high_level_goals,
-    branch_blocks: list[str],
-) -> str:
-    """Split only oversized LLG evaluations, aligned to complete HLG branches."""
-    hlg_index = "\n".join(
-        f"- [{goal.actor.name}] {goal.name}"
-        for goal in _top_down_collection_items(high_level_goals, "goals")
-    )
-    system_prompt = _build_top_down_system_prompt(EvalMode.LOW_LEVEL, 0)
-    common_note = (
-        "This is one semantic batch of a larger result. Evaluate only the "
-        "listed branches. Do not penalize goals belonging to omitted branches; "
-        "check completeness within every listed branch."
-    )
-    combined_prompt = _build_top_down_user_prompt(
-        EvalMode.LOW_LEVEL,
-        description,
-        actors_text,
-        hlg_index,
-        "\n\n".join(branch_blocks),
-        "The detailed low-level goals below form the complete result. The "
-        "high-level section is a compact index used to avoid repeated text.",
-    )
-    if (
-        len(system_prompt) + len(combined_prompt)
-        <= TOP_DOWN_EVALUATOR_MAX_INPUT_CHARS
-    ):
-        print(
-            "[top-down evaluator] using compact zero-shot LLG evaluation "
-            f"({len(system_prompt) + len(combined_prompt)} input chars)."
-        )
-        return generate_response_llama(combined_prompt, system_prompt)
-
-    empty_prompt = _build_top_down_user_prompt(
-        EvalMode.LOW_LEVEL,
-        description,
-        actors_text,
-        hlg_index,
-        "",
-        common_note,
-    )
-    branch_budget = max(
-        2500,
-        TOP_DOWN_EVALUATOR_MAX_INPUT_CHARS
-        - len(system_prompt)
-        - len(empty_prompt)
-        - 500,
-    )
-    batches = _pack_top_down_blocks(branch_blocks, branch_budget)
-    print(
-        "[top-down evaluator] oversized low-level evaluation split into "
-        f"{len(batches)} semantic batch(es)."
-    )
-
-    scores: list[float] = []
-    feedback_parts: list[str] = []
-    for batch_index, batch in enumerate(batches, start=1):
-        batch_prompt = _build_top_down_user_prompt(
-            EvalMode.LOW_LEVEL,
-            description,
-            actors_text,
-            hlg_index,
-            "\n\n".join(batch),
-            f"Semantic batch {batch_index}/{len(batches)}. {common_note}",
-        )
-        response = generate_response_llama(batch_prompt, system_prompt)
-        score, feedback = parse_evaluation(response)
-        scores.append(score)
-        feedback_parts.append(f"Batch {batch_index}: {feedback}")
-
-    aggregate_score = min(scores)
-    aggregate_feedback = " | ".join(feedback_parts)
-    return f"Feedback: {aggregate_feedback}\nScore: {aggregate_score}"
-
-
 def get_evaluation(
     eval_mode: EvalMode,
     description,
@@ -545,23 +330,55 @@ def get_evaluation(
 
 def parse_evaluation(evaluation: str|Critique):
     if type(evaluation) == str:
-        normalized = evaluation.strip()
+        normalized = re.sub(
+            r"<think>.*?</think>", "", evaluation, flags=re.IGNORECASE | re.DOTALL
+        ).strip()
+        normalized = re.sub(r"^```(?:json|text)?\s*|\s*```$", "", normalized, flags=re.I)
+        normalized = normalized.replace("**", "").strip()
+
+        if normalized.startswith("{"):
+            try:
+                payload = json.loads(normalized)
+            except json.JSONDecodeError:
+                payload = None
+            if isinstance(payload, dict):
+                lowered = {str(key).lower(): value for key, value in payload.items()}
+                if "score" in lowered and ("feedback" in lowered or "critique" in lowered):
+                    score = float(lowered["score"])
+                    feedback = str(
+                        lowered.get("feedback", lowered.get("critique", ""))
+                    ).strip()
+                    if not 0 <= score <= 10:
+                        raise ValueError("Evaluation score must be between 0 and 10.")
+                    return score, feedback
+
         score_matches = list(
             re.finditer(
-                r"(?im)^\s*Score\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*$",
+                r"(?i)\bScore\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*(?:/\s*10)?",
                 normalized,
             )
         )
-        feedback_match = re.search(
-            r"(?is)Feedback\s*:\s*(.*?)(?=\n\s*Score\s*:)",
-            normalized,
-        )
-        if not score_matches or feedback_match is None:
+        if not score_matches:
             raise ValueError(
                 "Input text must contain Feedback: ... and a final Score: line."
             )
-        score = float(score_matches[-1].group(1))
-        feedback = " ".join(feedback_match.group(1).split())
+        final_score_match = score_matches[-1]
+        feedback_matches = list(
+            re.finditer(
+                r"(?i)\bFeedback\s*:\s*",
+                normalized[: final_score_match.start()],
+            )
+        )
+        if not feedback_matches:
+            raise ValueError(
+                "Input text must contain Feedback: ... and a final Score: line."
+            )
+        score = float(final_score_match.group(1))
+        feedback = " ".join(
+            normalized[
+                feedback_matches[-1].end() : final_score_match.start()
+            ].split()
+        ).strip("#>*- ")
         if not 0 <= score <= 10:
             raise ValueError("Evaluation score must be between 0 and 10.")
 
@@ -574,27 +391,59 @@ def parse_evaluation(evaluation: str|Critique):
 
     return score, feedback
 
-
-
+def _compact_result_summary(result) -> str:
+    """Keep notebook logs readable when a structured result is very large."""
+    for field_name in ("actors", "goals", "low_level_goals"):
+        items = getattr(result, field_name, None)
+        if isinstance(items, list):
+            return f"{type(result).__name__}: {len(items)} {field_name}"
+    text = str(result)
+    if len(text) > 500:
+        text = text[:497] + "..."
+    return text
 
 
 def generate_response_with_reflection(target_type, call_function, define_args, eval_mode, eval_args, shotPromptingMode=ShotPromptingMode.ZERO_SHOT, max_attempts=MAX_ATTEMPTS, llama_ablation = False):
     feedback = None
+    score = None
+    critique = None
     for attempt in range(1, max_attempts + 1):
         print(f"{target_type} STARTING... (attempt {attempt})")
         result = call_function(*define_args, feedback=feedback, mode = shotPromptingMode )
         print(f"{target_type} DONE...")
-        print(result)
+        print(_compact_result_summary(result))
 
         if llama_ablation:
             return result, 10, None
 
-        print(f"Evaluation for {target_type} STARTING...")
-        evaluation = get_evaluation(eval_mode, *eval_args, result)
-        print(f"Evaluation for {target_type} DONE...")
+        evaluation_parse_error = None
+        for evaluation_attempt in range(1, TOP_DOWN_EVALUATION_PARSE_ATTEMPTS + 1):
+            print(
+                f"Evaluation for {target_type} STARTING... "
+                f"(format attempt {evaluation_attempt})"
+            )
+            evaluation = get_evaluation(eval_mode, *eval_args, result)
+            print(f"Evaluation for {target_type} DONE...")
 
-        try:
-            score, critique = parse_evaluation(evaluation)
+            try:
+                score, critique = parse_evaluation(evaluation)
+                evaluation_parse_error = None
+                break
+            except (TypeError, ValueError) as exc:
+                evaluation_parse_error = exc
+                preview = " ".join(str(evaluation).split())
+                if len(preview) > 500:
+                    preview = preview[:497] + "..."
+                print(f"Invalid evaluator format: {exc}")
+                print(f"Evaluator output preview: {preview}")
+
+        if evaluation_parse_error is not None:
+            raise RuntimeError(
+                f"The {target_type} critic returned malformed output after "
+                f"{TOP_DOWN_EVALUATION_PARSE_ATTEMPTS} attempts."
+            ) from evaluation_parse_error
+
+        if score is not None:
             print(f"Score: {score}")
             print(f"Critique: {critique}")
 
@@ -608,10 +457,6 @@ def generate_response_with_reflection(target_type, call_function, define_args, e
             else:
                 print("Unsatisfactory score. Retrying...")
                 feedback = Feedback(previous_output=result, critique=critique)
-        except ValueError as e:
-            print(f"Error while parsing evaluation: {e}")
-            sys.exit(1)  # Exit the program if parsing fails
-
     #raise RuntimeError("Failed to achieve a satisfactory score within the maximum number of attempts.")
     print("Failed to achieve a satisfactory score within the maximum number of attempts.")
     return result, score, critique
@@ -804,7 +649,13 @@ def get_bottom_up_evaluation(
 
             Feedback:
         """
-    return generate_evaluator_response(prompt, sys_prompt)
+    critic_model = configured_critic_model()
+    with loaded_local_evaluator_model(critic_model):
+        return generate_evaluator_response(
+            prompt,
+            sys_prompt,
+            model=critic_model,
+        )
 
 
 def parse_bottom_up_evaluation(evaluation: str | Critique):
@@ -861,7 +712,7 @@ def generate_bottom_up_response_with_reflection(
             mode=shotPromptingMode,
         )
         print(f"{target_type} DONE...")
-        print(result)
+        print(_compact_result_summary(result))
         if llama_ablation:
             return result, 10, None
         print(f"Evaluation for {target_type} STARTING...")

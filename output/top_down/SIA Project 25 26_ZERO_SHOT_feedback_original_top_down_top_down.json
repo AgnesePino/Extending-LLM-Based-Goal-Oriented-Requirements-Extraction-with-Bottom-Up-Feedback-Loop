@@ -1,244 +1,218 @@
 {
     "name": "SIA Project 25 26",
-    "description": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: [https://iris.sad.ve.it/](https://iris.sad.ve.it/?utm_source=gemini). The system, once developed, will be made available as open-source software to all Italian public administrations through the portal [https://developers.italia.it/](https://developers.italia.it/?utm_source=gemini).\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section).\nIf the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n\n* Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved.\nNote: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n* Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo).\nMoreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description.\nEven non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
-    "rawDescription": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: [https://iris.sad.ve.it/](https://iris.sad.ve.it/?utm_source=gemini). The system, once developed, will be made available as open-source software to all Italian public administrations through the portal [https://developers.italia.it/](https://developers.italia.it/?utm_source=gemini).\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section).\nIf the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n\n* Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved.\nNote: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n* Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo).\nMoreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description.\nEven non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
+    "description": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: https://iris.sad.ve.it/. The system, once developed, will be made available as open-source software to all Italian public administrations through the portal https://developers.italia.it/.\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section). If the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n- Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved. Note: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n- Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo). Moreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description. Even non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
+    "rawDescription": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: https://iris.sad.ve.it/. The system, once developed, will be made available as open-source software to all Italian public administrations through the portal https://developers.italia.it/.\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section). If the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n- Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved. Note: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n- Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo). Moreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description. Even non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
     "documentationPreprocessing": {
         "chunked": false,
         "chunkCount": 1,
-        "originalChars": 5921,
-        "processedChars": 5921,
+        "originalChars": 5824,
+        "processedChars": 5824,
         "strategy": "groundtruth_description"
     },
     "actors": [
         "Citizen",
-        "Non-Registered User",
-        "Organization Office Staff",
-        "Technical Office Staff",
+        "Guest",
+        "Municipality Staff",
         "External Maintenance Personnel",
-        "Municipal Administrator"
+        "Administrator"
     ],
     "highLevelGoals": [
-        "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
-        "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
-        "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
-        "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
-        "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
-        "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
-        "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
-        "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-        "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
-        "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
-        "External Maintenance Personnel aims to receive and access reports assigned to them by the Technical Office for intervention.",
-        "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
-        "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
-        "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
-        "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues."
+        "Allow registered citizens to submit detailed reports about urban inconveniences, including location, description, category, and photos, to facilitate the identification of problems in the city.",
+        "Require citizens to register and confirm their email address to ensure the authenticity of report submitters and maintain the integrity of the participation system.",
+        "Notify citizens of changes in the status of their submitted reports through the platform and email to maintain transparency and trust in the public administration.",
+        "Enable citizens to exchange messages with municipal operators regarding their reports to clarify issues and provide additional information.",
+        "Allow citizens to follow reports submitted by other citizens and receive notifications about their progress to foster community engagement and awareness.",
+        "Allow citizens to control the visibility of their identity in public reports and manage notification settings to respect their privacy choices.",
+        "Enable unregistered visitors to view the interactive map, summary tables, and public statistics of urban issues to promote transparency without requiring an account.",
+        "Allow municipality staff to perform preliminary reviews of submitted reports to determine their validity and decide whether to accept or reject them with mandatory explanations for rejections.",
+        "Enable staff to assign accepted reports to the appropriate technical offices or external companies based on the problem category to ensure efficient resource allocation.",
+        "Allow staff to update the lifecycle status of reports (e.g., In Progress, Work in Progress, Suspended, Resolved) to accurately reflect the state of urban maintenance activities.",
+        "Enable staff to communicate with external maintenance personnel and update report statuses when external companies resolve issues outside the system.",
+        "Allow external maintenance personnel with system access to update the status of assigned reports and mark them as resolved upon completion of work.",
+        "Enable external maintenance personnel to exchange comments and information with municipality staff regarding specific reports to facilitate problem resolution.",
+        "Allow administrators to configure automatic assignment rules for specific report categories to external companies to streamline the workflow and reduce manual intervention.",
+        "Provide administrators with access to private statistics, charts, and tables to analyze report trends, identify recurring issues, and optimize municipal resource planning.",
+        "Enable administrators to manage user registrations, roles, and access permissions to ensure the security and proper functioning of the participation platform."
     ],
     "lowLevelGoals": [
-        "Citizen selects a predefined category for the urban inconvenience being reported.",
-        "Citizen provides a detailed textual description of the urban inconvenience.",
-        "Citizen specifies the exact geographical location of the inconvenience, potentially using a map interface or address input.",
-        "Citizen uploads an image or video file to provide visual evidence of the reported inconvenience.",
-        "Citizen finalizes and submits the complete report to the public administration.",
-        "Citizen receives an automated notification when the status of one of their submitted reports changes.",
-        "Citizen accesses and views the most recent status of a specific report they have submitted.",
-        "Citizen views a chronological log of all status changes for a specific report they have submitted.",
-        "Citizen navigates an interactive map to discover publicly available reports of urban inconveniences.",
-        "Citizen applies filters (e.g., by category, status, date range) to narrow down the displayed public reports.",
-        "Citizen uses keywords or location criteria to search for specific public reports.",
-        "Citizen clicks on a public report to open and view its full details, including description, location, and status.",
-        "Citizen opts to receive notifications for status changes or comments on a specific public report.",
-        "Citizen composes and sends a message to the municipal operator regarding a specific report they submitted.",
-        "Citizen receives a message from a municipal operator in response to their report or inquiry.",
-        "Citizen accesses and reviews the entire message exchange history related to a specific report.",
-        "Non-Registered User navigates an interactive map to discover publicly available reports of urban inconveniences.",
-        "Non-Registered User views a tabular summary of public reports, potentially with sorting and basic filtering options.",
-        "Non-Registered User accesses charts, graphs, and tables displaying public statistics related to urban inconveniences.",
-        "Non-Registered User applies filters (e.g., by category, status, date range) to narrow down the displayed public reports.",
-        "Organization Office Staff retrieves a list of all citizen reports awaiting initial review.",
-        "Organization Office Staff opens and examines the full details of a single report, including description, location, and attached evidence.",
-        "Organization Office Staff changes the status of a valid report to 'Accepted'.",
-        "Organization Office Staff changes the status of an invalid report to 'Rejected'.",
-        "Organization Office Staff types in a required explanation detailing why a report was rejected.",
-        "Organization Office Staff saves and sends the entered explanation for a rejected report.",
-        "Technical Office Staff retrieves a list of all reports that have been accepted by the Organization Office Staff.",
-        "Technical Office Staff opens and examines the full details of an approved report.",
-        "Technical Office Staff selects an internal technical office and assigns an approved report to it.",
-        "Technical Office Staff selects an external company and assigns an approved report to it.",
-        "Technical Office Staff assigns a specific problem category to an approved report for better organization and routing.",
-        "Technical Office Staff changes the status of an assigned report to 'In Progress' to indicate active work.",
-        "Technical Office Staff changes the status of a completed report to 'Resolved'.",
-        "Technical Office Staff adds private notes or comments to a report for internal tracking and communication.",
-        "Technical Office Staff accesses a detailed log of all status changes and associated timestamps for a specific report.",
-        "Technical Office Staff composes and sends a message to external personnel regarding an assigned report.",
-        "Technical Office Staff receives a message from external personnel regarding an assigned report.",
-        "Technical Office Staff uploads and attaches additional files or instructions to a report for external maintenance personnel.",
-        "External Maintenance Personnel receives an alert when a new report is assigned to their company.",
-        "External Maintenance Personnel views a list of all reports currently assigned to their company.",
-        "External Maintenance Personnel opens and examines the full details of a specific report assigned to them.",
-        "External Maintenance Personnel changes the status of an assigned report to 'In Progress' to indicate active work.",
-        "External Maintenance Personnel changes the status of a completed assigned report to 'Resolved'.",
-        "External Maintenance Personnel uploads images or documents as proof of completion for a resolved report.",
-        "External Maintenance Personnel composes and sends a message to the Technical Office Staff regarding an assigned report.",
-        "External Maintenance Personnel receives a message from the Technical Office Staff regarding an assigned report.",
-        "External Maintenance Personnel accesses and reviews the entire message exchange history related to a specific assigned report.",
-        "Municipal Administrator sets up criteria and rules for automatically assigning incoming reports to specific offices or companies based on report categories.",
-        "Municipal Administrator updates or changes previously defined rules for automatic report assignment.",
-        "Municipal Administrator sets up or modifies notification settings (e.g., email, in-app alerts) for different user roles within the system.",
-        "Municipal Administrator creates, modifies, or deletes user accounts and assigns/revokes their permissions.",
-        "Municipal Administrator accesses publicly available statistical data, such as report counts by category or average resolution times.",
-        "Municipal Administrator views restricted statistical data, such as staff performance metrics or detailed financial breakdowns related to report resolution.",
-        "Municipal Administrator defines specific parameters and criteria to generate tailored statistical reports.",
-        "Municipal Administrator downloads statistical data in various formats (e.g., CSV, PDF) for external use or archiving."
+        "The system creates a new report record with the provided title, description, category, and location coordinates, and returns the unique report ID.",
+        "The system accepts a binary file upload, associates it with the specified report ID, and returns a URL or reference to the stored image.",
+        "The system creates a new user account with the provided email and password, generates a unique verification token, and stores the user in an unverified state.",
+        "The system validates the provided email verification token, updates the user's status to verified, and enables full account functionality.",
+        "The system retrieves the current status and history of status changes for the specified report ID and returns the data to the authenticated user.",
+        "The system sends an email notification to the citizen's registered address containing the new status and a link to the report details.",
+        "The system creates a new message record associated with the specified report ID, authored by the citizen, and stores it in the report's communication thread.",
+        "The system retrieves the list of messages exchanged between the citizen and municipality staff for the specified report ID.",
+        "The system adds the authenticated citizen to the list of followers for the specified report ID.",
+        "The system removes the authenticated citizen from the list of followers for the specified report ID.",
+        "The system updates the user's profile settings to specify whether their name and avatar are visible on public reports.",
+        "The system updates the user's notification preferences to enable or disable specific types of alerts (e.g., status changes, new messages).",
+        "The system retrieves the list of public reports with their location, category, and status for display on the interactive map without requiring authentication.",
+        "The system retrieves aggregated public statistics (e.g., total reports, resolved count, average resolution time) for display to unregistered visitors.",
+        "The system updates the status of the specified report to 'Accepted' and records the staff member's approval action.",
+        "The system updates the status of the specified report to 'Rejected', requires a mandatory reason string, and records the staff member's rejection action.",
+        "The system associates the specified report ID with a designated technical office or external company ID, updating the report's assignment field.",
+        "The system updates the lifecycle status of the specified report to 'In Progress' and logs the timestamp and staff member responsible.",
+        "The system updates the lifecycle status of the specified report to 'Resolved' and logs the completion timestamp.",
+        "The system creates a message record from the staff member to the external maintenance personnel associated with the report, facilitating off-system coordination.",
+        "The system updates the status of the specified report to 'Resolved' based on input from external maintenance personnel, bypassing internal staff confirmation if configured.",
+        "The system creates a message record from the external maintenance personnel to the municipality staff regarding the specified report.",
+        "The system creates or updates a rule that automatically assigns reports of a specific category to a designated external company or office.",
+        "The system retrieves private statistical data, including detailed breakdowns by category, office, and time period, for administrative analysis.",
+        "The system updates the role or access permissions of an existing user account based on administrative input."
     ],
     "structuredActors": {
         "actors": [
             {
                 "name": "Citizen",
-                "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                "description": "Registered user who submits reports, follows issues, and receives notifications."
             },
             {
-                "name": "Non-Registered User",
-                "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                "name": "Guest",
+                "description": "Unregistered visitor who can view public maps, reports, and statistics."
             },
             {
-                "name": "Organization Office Staff",
-                "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-            },
-            {
-                "name": "Technical Office Staff",
-                "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+                "name": "Municipality Staff",
+                "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
             },
             {
                 "name": "External Maintenance Personnel",
-                "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                "description": "External maintenance personnel who update report status and exchange comments with municipality staff."
             },
             {
-                "name": "Municipal Administrator",
-                "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+                "name": "Administrator",
+                "description": "System manager who configures settings, views private statistics, and manages users."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Report urban inconveniences",
-                "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                "name": "Enable Citizen Reporting of Urban Issues",
+                "description": "Allow registered citizens to submit detailed reports about urban inconveniences, including location, description, category, and photos, to facilitate the identification of problems in the city.",
                 "actor": {
                     "name": "Citizen",
-                    "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "Receive updates on report status",
-                "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
+                "name": "Ensure Citizen Identity Verification",
+                "description": "Require citizens to register and confirm their email address to ensure the authenticity of report submitters and maintain the integrity of the participation system.",
                 "actor": {
                     "name": "Citizen",
-                    "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "View and follow public reports",
-                "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                "name": "Provide Real-Time Status Updates",
+                "description": "Notify citizens of changes in the status of their submitted reports through the platform and email to maintain transparency and trust in the public administration.",
                 "actor": {
                     "name": "Citizen",
-                    "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "Interact with public administration",
-                "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+                "name": "Facilitate Two-Way Communication",
+                "description": "Enable citizens to exchange messages with municipal operators regarding their reports to clarify issues and provide additional information.",
                 "actor": {
                     "name": "Citizen",
-                    "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "Access public information on urban issues",
-                "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
+                "name": "Monitor Community Issues",
+                "description": "Allow citizens to follow reports submitted by other citizens and receive notifications about their progress to foster community engagement and awareness.",
                 "actor": {
-                    "name": "Non-Registered User",
-                    "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                    "name": "Citizen",
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "Efficiently review and categorize reports",
-                "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
+                "name": "Manage Personal Privacy Preferences",
+                "description": "Allow citizens to control the visibility of their identity in public reports and manage notification settings to respect their privacy choices.",
                 "actor": {
-                    "name": "Organization Office Staff",
-                    "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
+                    "name": "Citizen",
+                    "description": "Registered user who submits reports, follows issues, and receives notifications."
                 }
             },
             {
-                "name": "Provide clear explanations for rejected reports",
-                "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
+                "name": "Access Public Urban Data",
+                "description": "Enable unregistered visitors to view the interactive map, summary tables, and public statistics of urban issues to promote transparency without requiring an account.",
                 "actor": {
-                    "name": "Organization Office Staff",
-                    "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
+                    "name": "Guest",
+                    "description": "Unregistered visitor who can view public maps, reports, and statistics."
                 }
             },
             {
-                "name": "Manage and assign approved reports",
-                "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
+                "name": "Review and Validate Citizen Reports",
+                "description": "Allow municipality staff to perform preliminary reviews of submitted reports to determine their validity and decide whether to accept or reject them with mandatory explanations for rejections.",
                 "actor": {
-                    "name": "Technical Office Staff",
-                    "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+                    "name": "Municipality Staff",
+                    "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                 }
             },
             {
-                "name": "Track and update report lifecycle",
-                "description": "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
+                "name": "Assign Reports to Responsible Offices",
+                "description": "Enable staff to assign accepted reports to the appropriate technical offices or external companies based on the problem category to ensure efficient resource allocation.",
                 "actor": {
-                    "name": "Technical Office Staff",
-                    "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+                    "name": "Municipality Staff",
+                    "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                 }
             },
             {
-                "name": "Collaborate with external entities",
-                "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
+                "name": "Track Intervention Progress",
+                "description": "Allow staff to update the lifecycle status of reports (e.g., In Progress, Work in Progress, Suspended, Resolved) to accurately reflect the state of urban maintenance activities.",
                 "actor": {
-                    "name": "Technical Office Staff",
-                    "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
+                    "name": "Municipality Staff",
+                    "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                 }
             },
             {
-                "name": "Receive and process assigned reports",
-                "description": "External Maintenance Personnel aims to receive and access reports assigned to them by the Technical Office for intervention.",
+                "name": "Coordinate with External Maintenance",
+                "description": "Enable staff to communicate with external maintenance personnel and update report statuses when external companies resolve issues outside the system.",
+                "actor": {
+                    "name": "Municipality Staff",
+                    "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
+                }
+            },
+            {
+                "name": "Update External Report Status",
+                "description": "Allow external maintenance personnel with system access to update the status of assigned reports and mark them as resolved upon completion of work.",
                 "actor": {
                     "name": "External Maintenance Personnel",
-                    "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                    "description": "External maintenance personnel who update report status and exchange comments with municipality staff."
                 }
             },
             {
-                "name": "Update report status during intervention",
-                "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
+                "name": "Exchange Technical Information",
+                "description": "Enable external maintenance personnel to exchange comments and information with municipality staff regarding specific reports to facilitate problem resolution.",
                 "actor": {
                     "name": "External Maintenance Personnel",
-                    "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                    "description": "External Maintenance personnel who update report status and exchange comments with municipality staff."
                 }
             },
             {
-                "name": "Communicate with Technical Office Staff",
-                "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
+                "name": "Configure System Automation",
+                "description": "Allow administrators to configure automatic assignment rules for specific report categories to external companies to streamline the workflow and reduce manual intervention.",
                 "actor": {
-                    "name": "External Maintenance Personnel",
-                    "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                    "name": "Administrator",
+                    "description": "System manager who configures settings, views private statistics, and manages users."
                 }
             },
             {
-                "name": "Configure system settings",
-                "description": "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
+                "name": "Analyze Urban Maintenance Trends",
+                "description": "Provide administrators with access to private statistics, charts, and tables to analyze report trends, identify recurring issues, and optimize municipal resource planning.",
                 "actor": {
-                    "name": "Municipal Administrator",
-                    "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+                    "name": "Administrator",
+                    "description": "System manager who configures settings, views private statistics, and manages users."
                 }
             },
             {
-                "name": "Access comprehensive statistics",
-                "description": "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues.",
+                "name": "Manage User Accounts",
+                "description": "Enable administrators to manage user registrations, roles, and access permissions to ensure the security and proper functioning of the participation platform.",
                 "actor": {
-                    "name": "Municipal Administrator",
-                    "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+                    "name": "Administrator",
+                    "description": "System manager who configures settings, views private statistics, and manages users."
                 }
             }
         ]
@@ -246,687 +220,327 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Select report category",
-                "description": "Citizen selects a predefined category for the urban inconvenience being reported.",
+                "name": "Create Urban Issue Report",
+                "description": "The system creates a new report record with the provided title, description, category, and location coordinates, and returns the unique report ID.",
                 "high_level_associated": {
-                    "name": "Report urban inconveniences",
-                    "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                    "name": "Enable Citizen Reporting of Urban Issues",
+                    "description": "Allow registered citizens to submit detailed reports about urban inconveniences, including location, description, category, and photos, to facilitate the identification of problems in the city.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Enter textual description of inconvenience",
-                "description": "Citizen provides a detailed textual description of the urban inconvenience.",
+                "name": "Attach Photo to Report",
+                "description": "The system accepts a binary file upload, associates it with the specified report ID, and returns a URL or reference to the stored image.",
                 "high_level_associated": {
-                    "name": "Report urban inconveniences",
-                    "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                    "name": "Enable Citizen Reporting of Urban Issues",
+                    "description": "Allow registered citizens to submit detailed reports about urban inconveniences, including location, description, category, and photos, to facilitate the identification of problems in the city.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Specify inconvenience location",
-                "description": "Citizen specifies the exact geographical location of the inconvenience, potentially using a map interface or address input.",
+                "name": "Register New Citizen Account",
+                "description": "The system creates a new user account with the provided email and password, generates a unique verification token, and stores the user in an unverified state.",
                 "high_level_associated": {
-                    "name": "Report urban inconveniences",
-                    "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                    "name": "Ensure Citizen Identity Verification",
+                    "description": "Require citizens to register and confirm their email address to ensure the authenticity of report submitters and maintain the integrity of the participation system.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Upload evidence (image/video)",
-                "description": "Citizen uploads an image or video file to provide visual evidence of the reported inconvenience.",
+                "name": "Verify Email Address",
+                "description": "The system validates the provided email verification token, updates the user's status to verified, and enables full account functionality.",
                 "high_level_associated": {
-                    "name": "Report urban inconveniences",
-                    "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                    "name": "Ensure Citizen Identity Verification",
+                    "description": "Require citizens to register and confirm their email address to ensure the authenticity of report submitters and maintain the integrity of the participation system.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Submit report",
-                "description": "Citizen finalizes and submits the complete report to the public administration.",
+                "name": "Retrieve Report Status",
+                "description": "The system retrieves the current status and history of status changes for the specified report ID and returns the data to the authenticated user.",
                 "high_level_associated": {
-                    "name": "Report urban inconveniences",
-                    "description": "Citizens aim to effectively report various urban inconveniences and malfunctions to the public administration, providing necessary details and evidence.",
+                    "name": "Provide Real-Time Status Updates",
+                    "description": "Notify citizens of changes in the status of their submitted reports through the platform and email to maintain transparency and trust in the public administration.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Receive report status change notification",
-                "description": "Citizen receives an automated notification when the status of one of their submitted reports changes.",
+                "name": "Send Status Change Email",
+                "description": "The system sends an email notification to the citizen's registered address containing the new status and a link to the report details.",
                 "high_level_associated": {
-                    "name": "Receive updates on report status",
-                    "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
+                    "name": "Provide Real-Time Status Updates",
+                    "description": "Notify citizens of changes in the status of their submitted reports through the platform and email to maintain transparency and trust in the public administration.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "View current status of submitted report",
-                "description": "Citizen accesses and views the most recent status of a specific report they have submitted.",
+                "name": "Send Message to Municipality",
+                "description": "The system creates a new message record associated with the specified report ID, authored by the citizen, and stores it in the report's communication thread.",
                 "high_level_associated": {
-                    "name": "Receive updates on report status",
-                    "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
+                    "name": "Facilitate Two-Way Communication",
+                    "description": "Enable citizens to exchange messages with municipal operators regarding their reports to clarify issues and provide additional information.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Access status change history for submitted report",
-                "description": "Citizen views a chronological log of all status changes for a specific report they have submitted.",
+                "name": "Retrieve Report Communication Thread",
+                "description": "The system retrieves the list of messages exchanged between the citizen and municipality staff for the specified report ID.",
                 "high_level_associated": {
-                    "name": "Receive updates on report status",
-                    "description": "Citizens want to be informed about the progress and status changes of their submitted reports, fostering trust and transparency.",
+                    "name": "Facilitate Two-Way Communication",
+                    "description": "Enable citizens to exchange messages with municipal operators regarding their reports to clarify issues and provide additional information.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Browse public reports on interactive map",
-                "description": "Citizen navigates an interactive map to discover publicly available reports of urban inconveniences.",
+                "name": "Follow Community Report",
+                "description": "The system adds the authenticated citizen to the list of followers for the specified report ID.",
                 "high_level_associated": {
-                    "name": "View and follow public reports",
-                    "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                    "name": "Monitor Community Issues",
+                    "description": "Allow citizens to follow reports submitted by other citizens and receive notifications about their progress to foster community engagement and awareness.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Filter public reports",
-                "description": "Citizen applies filters (e.g., by category, status, date range) to narrow down the displayed public reports.",
+                "name": "Unfollow Community Report",
+                "description": "The system removes the authenticated citizen from the list of followers for the specified report ID.",
                 "high_level_associated": {
-                    "name": "View and follow public reports",
-                    "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                    "name": "Monitor Community Issues",
+                    "description": "Allow citizens to follow reports submitted by other citizens and receive notifications about their progress to foster community engagement and awareness.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Search for public reports",
-                "description": "Citizen uses keywords or location criteria to search for specific public reports.",
+                "name": "Update Identity Visibility Preference",
+                "description": "The system updates the user's profile settings to specify whether their name and avatar are visible on public reports.",
                 "high_level_associated": {
-                    "name": "View and follow public reports",
-                    "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                    "name": "Manage Personal Privacy Preferences",
+                    "description": "Allow citizens to control the visibility of their identity in public reports and manage notification settings to respect their privacy choices.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Select public report to view details",
-                "description": "Citizen clicks on a public report to open and view its full details, including description, location, and status.",
+                "name": "Update Notification Preferences",
+                "description": "The system updates the user's notification preferences to enable or disable specific types of alerts (e.g., status changes, new messages).",
                 "high_level_associated": {
-                    "name": "View and follow public reports",
-                    "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                    "name": "Manage Personal Privacy Preferences",
+                    "description": "Allow citizens to control the visibility of their identity in public reports and manage notification settings to respect their privacy choices.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "description": "Registered user who submits reports, follows issues, and receives notifications."
                     }
                 }
             },
             {
-                "name": "Subscribe to updates for public report",
-                "description": "Citizen opts to receive notifications for status changes or comments on a specific public report.",
+                "name": "Retrieve Public Map Data",
+                "description": "The system retrieves the list of public reports with their location, category, and status for display on the interactive map without requiring authentication.",
                 "high_level_associated": {
-                    "name": "View and follow public reports",
-                    "description": "Citizens desire to view and track the status of other public reports, understanding the overall urban environment issues and their resolution.",
+                    "name": "Access Public Urban Data",
+                    "description": "Enable unregistered visitors to view the interactive map, summary tables, and public statistics of urban issues to promote transparency without requiring an account.",
                     "actor": {
-                        "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "name": "Guest",
+                        "description": "Unregistered visitor who can view public maps, reports, and statistics."
                     }
                 }
             },
             {
-                "name": "Send message to municipal operator",
-                "description": "Citizen composes and sends a message to the municipal operator regarding a specific report they submitted.",
+                "name": "Retrieve Public Statistics",
+                "description": "The system retrieves aggregated public statistics (e.g., total reports, resolved count, average resolution time) for display to unregistered visitors.",
                 "high_level_associated": {
-                    "name": "Interact with public administration",
-                    "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+                    "name": "Access Public Urban Data",
+                    "description": "Enable unregistered visitors to view the interactive map, summary tables, and public statistics of urban issues to promote transparency without requiring an account.",
                     "actor": {
-                        "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "name": "Guest",
+                        "description": "Unregistered visitor who can view public maps, reports, and statistics."
                     }
                 }
             },
             {
-                "name": "Receive message from municipal operator",
-                "description": "Citizen receives a message from a municipal operator in response to their report or inquiry.",
+                "name": "Accept Citizen Report",
+                "description": "The system updates the status of the specified report to 'Accepted' and records the staff member's approval action.",
                 "high_level_associated": {
-                    "name": "Interact with public administration",
-                    "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+                    "name": "Review and Validate Citizen Reports",
+                    "description": "Allow municipality staff to perform preliminary reviews of submitted reports to determine their validity and decide whether to accept or reject them with mandatory explanations for rejections.",
                     "actor": {
-                        "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "View conversation history for report",
-                "description": "Citizen accesses and reviews the entire message exchange history related to a specific report.",
+                "name": "Reject Citizen Report",
+                "description": "The system updates the status of the specified report to 'Rejected', requires a mandatory reason string, and records the staff member's rejection action.",
                 "high_level_associated": {
-                    "name": "Interact with public administration",
-                    "description": "Citizens seek to communicate with municipal operators regarding their reports to provide further information or receive clarifications.",
+                    "name": "Review and Validate Citizen Reports",
+                    "description": "Allow municipality staff to perform preliminary reviews of submitted reports to determine their validity and decide whether to accept or reject them with mandatory explanations for rejections.",
                     "actor": {
-                        "name": "Citizen",
-                        "description": "Registers, submits reports about urban inconveniences, receives updates, and can view and follow public reports."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "View public reports on interactive map (Non-Registered User)",
-                "description": "Non-Registered User navigates an interactive map to discover publicly available reports of urban inconveniences.",
+                "name": "Assign Report to Office",
+                "description": "The system associates the specified report ID with a designated technical office or external company ID, updating the report's assignment field.",
                 "high_level_associated": {
-                    "name": "Access public information on urban issues",
-                    "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
+                    "name": "Assign Reports to Responsible Offices",
+                    "description": "Enable staff to assign accepted reports to the appropriate technical offices or external companies based on the problem category to ensure efficient resource allocation.",
                     "actor": {
-                        "name": "Non-Registered User",
-                        "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "Access summary table of public reports",
-                "description": "Non-Registered User views a tabular summary of public reports, potentially with sorting and basic filtering options.",
+                "name": "Set Report Status to In Progress",
+                "description": "The system updates the lifecycle status of the specified report to 'In Progress' and logs the timestamp and staff member responsible.",
                 "high_level_associated": {
-                    "name": "Access public information on urban issues",
-                    "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
+                    "name": "Track Intervention Progress",
+                    "description": "Allow staff to update the lifecycle status of reports (e.g., In Progress, Work in Progress, Suspended, Resolved) to accurately reflect the state of urban maintenance activities.",
                     "actor": {
-                        "name": "Non-Registered User",
-                        "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "View public statistics on urban issues",
-                "description": "Non-Registered User accesses charts, graphs, and tables displaying public statistics related to urban inconveniences.",
+                "name": "Set Report Status to Resolved",
+                "description": "The system updates the lifecycle status of the specified report to 'Resolved' and logs the completion timestamp.",
                 "high_level_associated": {
-                    "name": "Access public information on urban issues",
-                    "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
+                    "name": "Track Intervention Progress",
+                    "description": "Allow staff to update the lifecycle status of reports (e.g., In Progress, Work in Progress, Suspended, Resolved) to accurately reflect the state of urban maintenance activities.",
                     "actor": {
-                        "name": "Non-Registered User",
-                        "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "Filter public reports (Non-Registered User)",
-                "description": "Non-Registered User applies filters (e.g., by category, status, date range) to narrow down the displayed public reports.",
+                "name": "Send Coordination Message to External",
+                "description": "The system creates a message record from the staff member to the external maintenance personnel associated with the report, facilitating off-system coordination.",
                 "high_level_associated": {
-                    "name": "Access public information on urban issues",
-                    "description": "Non-registered users aim to view public reports and statistics to stay informed about urban inconveniences and the municipality's efforts.",
+                    "name": "Coordinate with External Maintenance",
+                    "description": "Enable staff to communicate with external maintenance personnel and update report statuses when external companies resolve issues outside the system.",
                     "actor": {
-                        "name": "Non-Registered User",
-                        "description": "Can view public reports on the interactive map and summary table, and public statistics."
+                        "name": "Municipality Staff",
+                        "description": "Municipality staff who reviews, approves, rejects, assigns, and manages the lifecycle of reports."
                     }
                 }
             },
             {
-                "name": "Access list of new, unreviewed reports",
-                "description": "Organization Office Staff retrieves a list of all citizen reports awaiting initial review.",
+                "name": "Mark External Report as Resolved",
+                "description": "The system updates the status of the specified report to 'Resolved' based on input from external maintenance personnel, bypassing internal staff confirmation if configured.",
                 "high_level_associated": {
-                    "name": "Efficiently review and categorize reports",
-                    "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "View details of specific report for review",
-                "description": "Organization Office Staff opens and examines the full details of a single report, including description, location, and attached evidence.",
-                "high_level_associated": {
-                    "name": "Efficiently review and categorize reports",
-                    "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "Mark report as 'Accepted'",
-                "description": "Organization Office Staff changes the status of a valid report to 'Accepted'.",
-                "high_level_associated": {
-                    "name": "Efficiently review and categorize reports",
-                    "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "Mark report as 'Rejected'",
-                "description": "Organization Office Staff changes the status of an invalid report to 'Rejected'.",
-                "high_level_associated": {
-                    "name": "Efficiently review and categorize reports",
-                    "description": "Organization Office Staff aims to perform a preliminary review of citizen reports to determine their validity and assign them appropriate statuses (accepted/rejected).",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "Enter mandatory explanation for rejected report",
-                "description": "Organization Office Staff types in a required explanation detailing why a report was rejected.",
-                "high_level_associated": {
-                    "name": "Provide clear explanations for rejected reports",
-                    "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "Submit explanation for rejected report",
-                "description": "Organization Office Staff saves and sends the entered explanation for a rejected report.",
-                "high_level_associated": {
-                    "name": "Provide clear explanations for rejected reports",
-                    "description": "Organization Office Staff seeks to provide mandatory written explanations for rejected reports to maintain transparency and citizen trust.",
-                    "actor": {
-                        "name": "Organization Office Staff",
-                        "description": "Performs preliminary review of citizen reports, marking them as accepted or rejected, and provides explanations for rejections."
-                    }
-                }
-            },
-            {
-                "name": "Access list of approved reports",
-                "description": "Technical Office Staff retrieves a list of all reports that have been accepted by the Organization Office Staff.",
-                "high_level_associated": {
-                    "name": "Manage and assign approved reports",
-                    "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "View details of approved report",
-                "description": "Technical Office Staff opens and examines the full details of an approved report.",
-                "high_level_associated": {
-                    "name": "Manage and assign approved reports",
-                    "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Assign approved report to internal office",
-                "description": "Technical Office Staff selects an internal technical office and assigns an approved report to it.",
-                "high_level_associated": {
-                    "name": "Manage and assign approved reports",
-                    "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Assign approved report to external company",
-                "description": "Technical Office Staff selects an external company and assigns an approved report to it.",
-                "high_level_associated": {
-                    "name": "Manage and assign approved reports",
-                    "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Categorize approved report by problem type",
-                "description": "Technical Office Staff assigns a specific problem category to an approved report for better organization and routing.",
-                "high_level_associated": {
-                    "name": "Manage and assign approved reports",
-                    "description": "Technical Office Staff aims to effectively manage approved reports by assigning them to the correct technical offices or external companies based on problem categories.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Update report status to 'In Progress'",
-                "description": "Technical Office Staff changes the status of an assigned report to 'In Progress' to indicate active work.",
-                "high_level_associated": {
-                    "name": "Track and update report lifecycle",
-                    "description": "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Update report status to 'Resolved'",
-                "description": "Technical Office Staff changes the status of a completed report to 'Resolved'.",
-                "high_level_associated": {
-                    "name": "Track and update report lifecycle",
-                    "description": "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Add internal notes to report",
-                "description": "Technical Office Staff adds private notes or comments to a report for internal tracking and communication.",
-                "high_level_associated": {
-                    "name": "Track and update report lifecycle",
-                    "description": "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "View complete status history of report",
-                "description": "Technical Office Staff accesses a detailed log of all status changes and associated timestamps for a specific report.",
-                "high_level_associated": {
-                    "name": "Track and update report lifecycle",
-                    "description": "Technical Office Staff seeks to accurately track and update the status of reports throughout their lifecycle, from 'In Progress' to 'Resolved'.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Send message to external maintenance personnel",
-                "description": "Technical Office Staff composes and sends a message to external personnel regarding an assigned report.",
-                "high_level_associated": {
-                    "name": "Collaborate with external entities",
-                    "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Receive message from external maintenance personnel",
-                "description": "Technical Office Staff receives a message from external personnel regarding an assigned report.",
-                "high_level_associated": {
-                    "name": "Collaborate with external entities",
-                    "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Attach documents to assigned report for external personnel",
-                "description": "Technical Office Staff uploads and attaches additional files or instructions to a report for external maintenance personnel.",
-                "high_level_associated": {
-                    "name": "Collaborate with external entities",
-                    "description": "Technical Office Staff aims to facilitate communication and information exchange with external maintenance personnel to ensure timely resolution of issues.",
-                    "actor": {
-                        "name": "Technical Office Staff",
-                        "description": "Manages approved reports, assigns them to responsible offices or external companies, plans interventions, updates report statuses, and closes resolved issues."
-                    }
-                }
-            },
-            {
-                "name": "Receive notification for newly assigned report",
-                "description": "External Maintenance Personnel receives an alert when a new report is assigned to their company.",
-                "high_level_associated": {
-                    "name": "Receive and process assigned reports",
-                    "description": "External Maintenance Personnel aims to receive and access reports assigned to them by the Technical Office for intervention.",
+                    "name": "Update External Report Status",
+                    "description": "Allow external maintenance personnel with system access to update the status of assigned reports and mark them as resolved upon completion of work.",
                     "actor": {
                         "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                        "description": "External maintenance personnel who update report status and exchange comments with municipality staff."
                     }
                 }
             },
             {
-                "name": "Access list of assigned reports",
-                "description": "External Maintenance Personnel views a list of all reports currently assigned to their company.",
+                "name": "Send Technical Comment to Staff",
+                "description": "The system creates a message record from the external maintenance personnel to the municipality staff regarding the specified report.",
                 "high_level_associated": {
-                    "name": "Receive and process assigned reports",
-                    "description": "External Maintenance Personnel aims to receive and access reports assigned to them by the Technical Office for intervention.",
+                    "name": "Exchange Technical Information",
+                    "description": "Enable external maintenance personnel to exchange comments and information with municipality staff regarding specific reports to facilitate problem resolution.",
                     "actor": {
                         "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                        "description": "External maintenance personnel who update report status and exchange comments with municipality staff."
                     }
                 }
             },
             {
-                "name": "View details of assigned report",
-                "description": "External Maintenance Personnel opens and examines the full details of a specific report assigned to them.",
+                "name": "Configure Auto-Assignment Rule",
+                "description": "The system creates or updates a rule that automatically assigns reports of a specific category to a designated external company or office.",
                 "high_level_associated": {
-                    "name": "Receive and process assigned reports",
-                    "description": "External Maintenance Personnel aims to receive and access reports assigned to them by the Technical Office for intervention.",
+                    "name": "Configure System Automation",
+                    "description": "Allow administrators to configure automatic assignment rules for specific report categories to external companies to streamline the workflow and reduce manual intervention.",
                     "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                        "name": "Administrator",
+                        "description": "System manager who configures settings, views private statistics, and manages users."
                     }
                 }
             },
             {
-                "name": "Update assigned report status to 'In Progress'",
-                "description": "External Maintenance Personnel changes the status of an assigned report to 'In Progress' to indicate active work.",
+                "name": "Retrieve Private Statistics",
+                "description": "The system retrieves private statistical data, including detailed breakdowns by category, office, and time period, for administrative analysis.",
                 "high_level_associated": {
-                    "name": "Update report status during intervention",
-                    "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
+                    "name": "Analyze Urban Maintenance Trends",
+                    "description": "Provide administrators with access to private statistics, charts, and tables to analyze report trends, identify recurring issues, and optimize municipal resource planning.",
                     "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
+                        "name": "Administrator",
+                        "description": "System manager who configures settings, views private statistics, and manages users."
                     }
                 }
             },
             {
-                "name": "Update assigned report status to 'Resolved'",
-                "description": "External Maintenance Personnel changes the status of a completed assigned report to 'Resolved'.",
+                "name": "Update User Role",
+                "description": "The system updates the role or access permissions of an existing user account based on administrative input.",
                 "high_level_associated": {
-                    "name": "Update report status during intervention",
-                    "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
+                    "name": "Manage User Accounts",
+                    "description": "Enable administrators to manage user registrations, roles, and access permissions to ensure the security and proper functioning of the participation platform.",
                     "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
-                    }
-                }
-            },
-            {
-                "name": "Upload completion evidence for resolved report",
-                "description": "External Maintenance Personnel uploads images or documents as proof of completion for a resolved report.",
-                "high_level_associated": {
-                    "name": "Update report status during intervention",
-                    "description": "External Maintenance Personnel seeks to update the status of reports to reflect the progress of their work, such as 'In Progress' or 'Resolved'.",
-                    "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
-                    }
-                }
-            },
-            {
-                "name": "Send message to Technical Office Staff",
-                "description": "External Maintenance Personnel composes and sends a message to the Technical Office Staff regarding an assigned report.",
-                "high_level_associated": {
-                    "name": "Communicate with Technical Office Staff",
-                    "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
-                    "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
-                    }
-                }
-            },
-            {
-                "name": "Receive message from Technical Office Staff",
-                "description": "External Maintenance Personnel receives a message from the Technical Office Staff regarding an assigned report.",
-                "high_level_associated": {
-                    "name": "Communicate with Technical Office Staff",
-                    "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
-                    "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
-                    }
-                }
-            },
-            {
-                "name": "View conversation history for assigned report",
-                "description": "External Maintenance Personnel accesses and reviews the entire message exchange history related to a specific assigned report.",
-                "high_level_associated": {
-                    "name": "Communicate with Technical Office Staff",
-                    "description": "External Maintenance Personnel aims to exchange information and comments with the Technical Office Staff regarding specific reports.",
-                    "actor": {
-                        "name": "External Maintenance Personnel",
-                        "description": "For companies with Participium access, receives assigned reports, updates their status (In Progress, Resolved), and communicates with Technical Office Staff."
-                    }
-                }
-            },
-            {
-                "name": "Define rules for automatic report assignment",
-                "description": "Municipal Administrator sets up criteria and rules for automatically assigning incoming reports to specific offices or companies based on report categories.",
-                "high_level_associated": {
-                    "name": "Configure system settings",
-                    "description": "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Modify existing automatic report assignment rules",
-                "description": "Municipal Administrator updates or changes previously defined rules for automatic report assignment.",
-                "high_level_associated": {
-                    "name": "Configure system settings",
-                    "description": "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Configure notification preferences for user roles",
-                "description": "Municipal Administrator sets up or modifies notification settings (e.g., email, in-app alerts) for different user roles within the system.",
-                "high_level_associated": {
-                    "name": "Configure system settings",
-                    "description": "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Manage user accounts and permissions",
-                "description": "Municipal Administrator creates, modifies, or deletes user accounts and assigns/revokes their permissions.",
-                "high_level_associated": {
-                    "name": "Configure system settings",
-                    "description": "Municipal Administrator aims to configure various system settings, such as automatic report assignment rules, to optimize operational efficiency.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "View public statistics",
-                "description": "Municipal Administrator accesses publicly available statistical data, such as report counts by category or average resolution times.",
-                "high_level_associated": {
-                    "name": "Access comprehensive statistics",
-                    "description": "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Access private statistics",
-                "description": "Municipal Administrator views restricted statistical data, such as staff performance metrics or detailed financial breakdowns related to report resolution.",
-                "high_level_associated": {
-                    "name": "Access comprehensive statistics",
-                    "description": "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Generate custom statistical reports",
-                "description": "Municipal Administrator defines specific parameters and criteria to generate tailored statistical reports.",
-                "high_level_associated": {
-                    "name": "Access comprehensive statistics",
-                    "description": "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
-                    }
-                }
-            },
-            {
-                "name": "Export statistical data",
-                "description": "Municipal Administrator downloads statistical data in various formats (e.g., CSV, PDF) for external use or archiving.",
-                "high_level_associated": {
-                    "name": "Access comprehensive statistics",
-                    "description": "Municipal Administrator seeks to access both public and private statistics, including charts and tables, to gain insights into system performance and urban issues.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Configures system settings, such as automatic report assignment to external companies, and accesses private statistics."
+                        "name": "Administrator",
+                        "description": "System manager who configures settings, views private statistics, and manages users."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 10.0,
+        "actors": 7.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 9.5
+        "lowLevelGoals": 10.0
     },
     "baselineCritiques": {
-        "actors": "The identified actors are comprehensive and accurately reflect the roles described in the system. \"Citizen\" covers the primary users who register and submit reports. \"Non-Registered User\" correctly identifies the audience for public statistics and map views. \"Organization Office Staff\" and \"Technical Office Staff\" appropriately distinguish the internal administrative roles involved in reviewing and managing reports. \"External Maintenance Personnel\" captures the third-party entities that receive assigned tasks. \"Municipal Administrator\" covers the high-level configuration and private statistics access. There are no obvious omissions or contradictions.",
-        "highLevelGoals": "The high-level goals are comprehensive, accurately reflecting the functional requirements for all defined actors (Citizens, Non-Registered Users, Staff, External Personnel, and Administrators). They correctly capture the core workflows: reporting, reviewing, assigning, maintaining, and statistical analysis. There are no contradictions with the description, and no major functional omissions are evident. The goals are appropriately abstract (high-level) and functional in nature.",
-        "lowLevelGoals": "The low-level goals are comprehensive, well-structured, and accurately reflect the functional requirements derived from the high-level goals and software description. They correctly map to specific actor actions (e.g., selecting a location, assigning reports, configuring rules) and cover all major workflows (registration, reporting, review, assignment, resolution, statistics). There are no obvious contradictions or major omissions regarding the core functionality described. The distinction between public and private statistics is handled correctly. The goals are appropriately granular for a low-level specification."
+        "actors": "The actors defined are mostly appropriate for the system's description. However, there is a redundancy between \"Municipality Staff\" and \"External Maintenance Personnel,\" as both seem to handle report management, which could lead to confusion. Additionally, the role of \"Administrator\" overlaps with \"System manager,\" which might be better consolidated into one clear actor. The \"Guest\" role is correctly identified but could be more explicitly named (e.g., \"Unregistered User\") for clarity.",
+        "highLevelGoals": "The high-level goals are comprehensive and align well with the software description. All goals are functional and address the core functionalities of Participium, including citizen reporting, staff management, external maintenance coordination, and administrative tasks. No contradictions or omissions were found.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of the Participium system. There are no contradictions or omissions in the provided low-level goals. All goals are specific, actionable, and directly correspond to actions performed by the actors as described."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; configured Gemini/Qwen clients",
-        "generatorModel": "gemini-2.5-flash",
+        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+        "generatorModel": "qwen/qwen3.8-27b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
         "lowLevelGoalPromptingMode": "ZERO_SHOT",
         "highLevelGoalEvaluatorEnabled": true,
         "lowLevelGoalEvaluatorEnabled": true,
-        "goalEvaluatorModel": "qwen/qwen3.8-27b",
+        "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,

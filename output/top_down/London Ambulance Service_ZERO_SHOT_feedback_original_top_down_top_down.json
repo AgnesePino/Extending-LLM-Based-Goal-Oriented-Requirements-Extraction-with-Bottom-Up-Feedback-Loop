@@ -1,139 +1,100 @@
 {
     "name": "London Ambulance Service",
-    "description": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit. The Computer Aided Despatch system analyzes incident forms and assigns vehicles. The exact location of moving ambulances must be tracked, requiring ambulance staff to follow standard routes and communicate departure and destination information so that radio operators and the CAD can accurately record the corresponding data.",
-    "rawDescription": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit. The Computer Aided Despatch system analyzes incident forms and assigns vehicles. The exact location of moving ambulances must be tracked, requiring ambulance staff to follow standard routes and communicate departure and destination information so that radio operators and the CAD can accurately record the corresponding data.",
+    "description": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit.\n\nTo make this work, the Computer Aided Despatch system analyzes incident forms and assigns vehicles. It is vital to track the exact location of moving ambulances. This requires ambulance staff to follow standard routes and correctly communicate departure and destination information, allowing radio operators and the CAD system to record data accurately.",
+    "rawDescription": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit.\n\nTo make this work, the Computer Aided Despatch system analyzes incident forms and assigns vehicles. It is vital to track the exact location of moving ambulances. This requires ambulance staff to follow standard routes and correctly communicate departure and destination information, allowing radio operators and the CAD system to record data accurately.",
     "documentationPreprocessing": {
         "chunked": false,
         "chunkCount": 1,
-        "originalChars": 572,
-        "processedChars": 572,
+        "originalChars": 601,
+        "processedChars": 601,
         "strategy": "groundtruth_description"
     },
     "actors": [
-        "Emergency Caller",
-        "Dispatcher",
-        "Ambulance Staff",
-        "Radio Operator"
+        "Caller",
+        "Radio Operator",
+        "Ambulance Crew",
+        "Ambulance Driver"
     ],
     "highLevelGoals": [
-        "The Emergency Caller's primary goal is to ensure that an ambulance is dispatched promptly to their location to provide necessary medical aid during an emergency.",
-        "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-        "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-        "The Dispatcher must ensure that the entire process of receiving a call and dispatching an ambulance does not exceed a predefined maximum time limit.",
-        "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-        "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
-        "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness."
+        "Ensure that the emergency call is successfully received and the incident details are accurately captured to initiate the dispatch process.",
+        "Assess the severity and nature of the incident to determine the appropriate response and resource allocation.",
+        "Allocate an available ambulance to the incident such that it can reach the scene within the 11-minute target time.",
+        "Communicate departure and destination information accurately to allow the CAD system to record data and track the ambulance's location.",
+        "Follow standard routes to ensure predictable travel times and accurate location tracking by the dispatch system."
     ],
     "lowLevelGoals": [
-        "Allow the Emergency Caller to initiate an emergency call to the London Ambulance Service, triggering the dispatch process.",
-        "Enable the Emergency Caller to communicate their current location or the incident location to the system during an emergency call.",
-        "Allow the Emergency Caller to provide critical details about the emergency incident (e.g., nature of emergency, number of casualties) to the call taker, which are then logged into the system.",
-        "Allow the Dispatcher to fetch and display a list of all active emergency calls awaiting ambulance assignment.",
-        "Enable the Dispatcher to filter the pool of available ambulances based on their proximity to a specified incident location.",
-        "Provide the Dispatcher with a real-time overview of the operational status (e.g., 'available', 'en route', 'at scene') for all ambulances.",
-        "Enable the CAD system to analyze incident details and available ambulance data to suggest the most optimal ambulance for dispatch, considering proximity, status, and incident priority.",
-        "Allow the Dispatcher to select a specific available ambulance and formally assign it to a particular emergency incident, linking the two in the system.",
-        "Enable the Dispatcher to finalize and confirm the dispatch of an assigned ambulance, triggering system notifications to the ambulance crew.",
-        "Allow the Dispatcher to request the system to compute and display the estimated time of arrival for a selected ambulance to a given incident location, considering traffic and distance.",
-        "Provide the Dispatcher with a real-time view of an en-route ambulance's current location, speed, and remaining distance to the incident scene.",
-        "Notify the Dispatcher automatically if an ambulance's estimated arrival time is projected to exceed the predefined target response time for an incident.",
-        "Enable the Dispatcher to trigger the process of reassigning a different ambulance to an incident if the currently assigned ambulance is significantly delayed or unable to meet the target.",
-        "Display a dynamic timer for each pending incident, showing the elapsed time since the call was received and the remaining time until the maximum dispatch limit.",
-        "Alert the Dispatcher when an emergency incident is approaching its predefined maximum time limit for dispatch, prompting urgent action.",
-        "Allow the Dispatcher to manually adjust the priority level of an incident, influencing its visibility and order in the dispatch queue.",
-        "Enable Ambulance Staff to update their ambulance's status to 'en route' to an incident via their mobile terminal.",
-        "Provide Ambulance Staff with a recommended route to the incident location or destination hospital, including turn-by-turn navigation, via their mobile terminal.",
-        "Enable Ambulance Staff to update their ambulance's status to 'at scene' upon arrival at the incident location via their mobile terminal.",
-        "Enable Ambulance Staff to update their ambulance's status to 'departing scene' (e.g., with patient) via their mobile terminal.",
-        "Enable Ambulance Staff to update their ambulance's status to 'at hospital' upon arrival at the destination hospital via their mobile terminal.",
-        "Enable Ambulance Staff to update their ambulance's status to 'available' for new assignments after completing a job via their mobile terminal.",
-        "Allow the Radio Operator to input and record the precise departure time communicated by ambulance staff for an assigned incident.",
-        "Allow the Radio Operator to input and record the precise arrival time at the incident scene communicated by ambulance staff.",
-        "Allow the Radio Operator to input and record the precise departure time from the incident scene communicated by ambulance staff.",
-        "Allow the Radio Operator to input and record the precise arrival time at the destination hospital communicated by ambulance staff.",
-        "Allow the Radio Operator to manually update an ambulance's operational status to 'available' based on verbal communication from staff.",
-        "Allow the Radio Operator to input or confirm the designated destination (e.g., specific hospital) for an ambulance based on staff communication.",
-        "Provide the Radio Operator with a graphical map interface showing the current, real-time GPS positions of all active ambulances.",
-        "Enable the Radio Operator to select an ambulance on the map and view detailed information such as its current job, destination, speed, and last reported status.",
-        "Allow the Radio Operator to retrieve and visualize the historical movement path and timestamps for a specific ambulance over a defined period.",
-        "Alert the Radio Operator with real-time notifications whenever an ambulance changes its operational status (e.g., from 'en route' to 'at scene')."
+        "The system validates the caller's identity and captures the incident type, location, and contact details into a new incident record.",
+        "The system assigns a unique incident ID and sets the incident status to 'Active' to trigger the dispatch workflow.",
+        "The system calculates a priority score based on the incident type and reported symptoms to determine the response level.",
+        "The system updates the incident record with the final priority level and required resource types (e.g., ALS, BLS).",
+        "The system queries the fleet database for ambulances that are available, within range, and equipped for the required priority level.",
+        "The system calculates the estimated time of arrival (ETA) for each candidate ambulance based on current traffic and distance.",
+        "The system assigns the ambulance with the lowest ETA that meets the 11-minute target to the incident and updates its status to 'En Route'.",
+        "The system records the timestamp and location of the ambulance's departure from the station.",
+        "The system updates the incident record with the confirmed destination address and any en-route location changes.",
+        "The system retrieves the pre-defined standard route for the assigned ambulance to ensure predictable travel times.",
+        "The system continuously updates the ambulance's GPS location in the CAD system to maintain accurate tracking."
     ],
     "structuredActors": {
         "actors": [
             {
-                "name": "Emergency Caller",
-                "description": "Initiates an emergency by making a call to the London Ambulance Service."
-            },
-            {
-                "name": "Dispatcher",
-                "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-            },
-            {
-                "name": "Ambulance Staff",
-                "description": "Follows routes and communicates departure and destination information for tracking purposes."
+                "name": "Caller",
+                "description": "Person who initiates the emergency call and provides incident details."
             },
             {
                 "name": "Radio Operator",
-                "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
+            },
+            {
+                "name": "Ambulance Crew",
+                "description": "Personnel in the ambulance who follow routes and communicate location updates."
+            },
+            {
+                "name": "Ambulance Driver",
+                "description": "Individual who operates the ambulance, follows standard routes, and tracks location for dispatch."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Receive timely emergency medical assistance",
-                "description": "The Emergency Caller's primary goal is to ensure that an ambulance is dispatched promptly to their location to provide necessary medical aid during an emergency.",
+                "name": "Initiate Emergency Dispatch",
+                "description": "Ensure that the emergency call is successfully received and the incident details are accurately captured to initiate the dispatch process.",
                 "actor": {
-                    "name": "Emergency Caller",
-                    "description": "Initiates an emergency by making a call to the London Ambulance Service."
+                    "name": "Caller",
+                    "description": "Person who initiates the emergency call and provides incident details."
                 }
             },
             {
-                "name": "Efficiently allocate available ambulances",
-                "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                "actor": {
-                    "name": "Dispatcher",
-                    "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                }
-            },
-            {
-                "name": "Ensure ambulances reach scenes within target time",
-                "description": "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-                "actor": {
-                    "name": "Dispatcher",
-                    "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                }
-            },
-            {
-                "name": "Maintain dispatch process within time limits",
-                "description": "The Dispatcher must ensure that the entire process of receiving a call and dispatching an ambulance does not exceed a predefined maximum time limit.",
-                "actor": {
-                    "name": "Dispatcher",
-                    "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                }
-            },
-            {
-                "name": "Accurately communicate ambulance status and location",
-                "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                "actor": {
-                    "name": "Ambulance Staff",
-                    "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                }
-            },
-            {
-                "name": "Accurately record ambulance movement data",
-                "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                "name": "Assess Incident Priority",
+                "description": "Assess the severity and nature of the incident to determine the appropriate response and resource allocation.",
                 "actor": {
                     "name": "Radio Operator",
-                    "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                    "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                 }
             },
             {
-                "name": "Effectively monitor ambulance locations",
-                "description": "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness.",
+                "name": "Allocate Ambulance Within Time Limit",
+                "description": "Allocate an available ambulance to the incident such that it can reach the scene within the 11-minute target time.",
                 "actor": {
                     "name": "Radio Operator",
-                    "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                    "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
+                }
+            },
+            {
+                "name": "Communicate Location Updates",
+                "description": "Communicate departure and destination information accurately to allow the CAD system to record data and track the ambulance's location.",
+                "actor": {
+                    "name": "Ambulance Crew",
+                    "description": "Personnel in the ambulance who follow routes and communicate location updates."
+                }
+            },
+            {
+                "name": "Follow Standard Routes",
+                "description": "Follow standard routes to ensure predictable travel times and accurate location tracking by the dispatch system.",
+                "actor": {
+                    "name": "Ambulance Driver",
+                    "description": "Individual who operates the ambulance, follows standard routes, and tracks location for dispatch."
                 }
             }
         ]
@@ -141,411 +102,159 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "InitiateEmergencyCall",
-                "description": "Allow the Emergency Caller to initiate an emergency call to the London Ambulance Service, triggering the dispatch process.",
+                "name": "Submit Incident Details",
+                "description": "The system validates the caller's identity and captures the incident type, location, and contact details into a new incident record.",
                 "high_level_associated": {
-                    "name": "Receive timely emergency medical assistance",
-                    "description": "The Emergency Caller's primary goal is to ensure that an ambulance is dispatched promptly to their location to provide necessary medical aid during an emergency.",
+                    "name": "Initiate Emergency Dispatch",
+                    "description": "Ensure that the emergency call is successfully received and the incident details are accurately captured to initiate the dispatch process.",
                     "actor": {
-                        "name": "Emergency Caller",
-                        "description": "Initiates an emergency by making a call to the London Ambulance Service."
+                        "name": "Caller",
+                        "description": "Person who initiates the emergency call and provides incident details."
                     }
                 }
             },
             {
-                "name": "ProvideIncidentLocation",
-                "description": "Enable the Emergency Caller to communicate their current location or the incident location to the system during an emergency call.",
+                "name": "Create Incident Record",
+                "description": "The system assigns a unique incident ID and sets the incident status to 'Active' to trigger the dispatch workflow.",
                 "high_level_associated": {
-                    "name": "Receive timely emergency medical assistance",
-                    "description": "The Emergency Caller's primary goal is to ensure that an ambulance is dispatched promptly to their location to provide necessary medical aid during an emergency.",
+                    "name": "Initiate Emergency Dispatch",
+                    "description": "Ensure that the emergency call is successfully received and the incident details are accurately captured to initiate the dispatch process.",
                     "actor": {
-                        "name": "Emergency Caller",
-                        "description": "Initiates an emergency by making a call to the London Ambulance Service."
+                        "name": "Caller",
+                        "description": "Person who initiates the emergency call and provides incident details."
                     }
                 }
             },
             {
-                "name": "DescribeIncidentDetails",
-                "description": "Allow the Emergency Caller to provide critical details about the emergency incident (e.g., nature of emergency, number of casualties) to the call taker, which are then logged into the system.",
+                "name": "Calculate Incident Priority Score",
+                "description": "The system calculates a priority score based on the incident type and reported symptoms to determine the response level.",
                 "high_level_associated": {
-                    "name": "Receive timely emergency medical assistance",
-                    "description": "The Emergency Caller's primary goal is to ensure that an ambulance is dispatched promptly to their location to provide necessary medical aid during an emergency.",
-                    "actor": {
-                        "name": "Emergency Caller",
-                        "description": "Initiates an emergency by making a call to the London Ambulance Service."
-                    }
-                }
-            },
-            {
-                "name": "RetrievePendingEmergencyCalls",
-                "description": "Allow the Dispatcher to fetch and display a list of all active emergency calls awaiting ambulance assignment.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "FilterAvailableAmbulancesByLocation",
-                "description": "Enable the Dispatcher to filter the pool of available ambulances based on their proximity to a specified incident location.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "ViewAmbulanceAvailabilityStatus",
-                "description": "Provide the Dispatcher with a real-time overview of the operational status (e.g., 'available', 'en route', 'at scene') for all ambulances.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "SuggestOptimalAmbulance",
-                "description": "Enable the CAD system to analyze incident details and available ambulance data to suggest the most optimal ambulance for dispatch, considering proximity, status, and incident priority.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "AssignAmbulanceToIncident",
-                "description": "Allow the Dispatcher to select a specific available ambulance and formally assign it to a particular emergency incident, linking the two in the system.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "ConfirmAmbulanceDispatch",
-                "description": "Enable the Dispatcher to finalize and confirm the dispatch of an assigned ambulance, triggering system notifications to the ambulance crew.",
-                "high_level_associated": {
-                    "name": "Efficiently allocate available ambulances",
-                    "description": "The Dispatcher aims to quickly and effectively assign the most suitable available ambulance to each emergency call to ensure rapid response.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "CalculateEstimatedArrivalTime",
-                "description": "Allow the Dispatcher to request the system to compute and display the estimated time of arrival for a selected ambulance to a given incident location, considering traffic and distance.",
-                "high_level_associated": {
-                    "name": "Ensure ambulances reach scenes within target time",
-                    "description": "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "MonitorAmbulanceProgress",
-                "description": "Provide the Dispatcher with a real-time view of an en-route ambulance's current location, speed, and remaining distance to the incident scene.",
-                "high_level_associated": {
-                    "name": "Ensure ambulances reach scenes within target time",
-                    "description": "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "ReceiveTargetTimeAlerts",
-                "description": "Notify the Dispatcher automatically if an ambulance's estimated arrival time is projected to exceed the predefined target response time for an incident.",
-                "high_level_associated": {
-                    "name": "Ensure ambulances reach scenes within target time",
-                    "description": "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "InitiateAmbulanceReassignment",
-                "description": "Enable the Dispatcher to trigger the process of reassigning a different ambulance to an incident if the currently assigned ambulance is significantly delayed or unable to meet the target.",
-                "high_level_associated": {
-                    "name": "Ensure ambulances reach scenes within target time",
-                    "description": "The Dispatcher's critical goal is to ensure that allocated ambulances can arrive at the incident scene within the specified 11-minute target time.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "ViewIncidentProcessingTimer",
-                "description": "Display a dynamic timer for each pending incident, showing the elapsed time since the call was received and the remaining time until the maximum dispatch limit.",
-                "high_level_associated": {
-                    "name": "Maintain dispatch process within time limits",
-                    "description": "The Dispatcher must ensure that the entire process of receiving a call and dispatching an ambulance does not exceed a predefined maximum time limit.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "ReceiveDispatchTimeWarning",
-                "description": "Alert the Dispatcher when an emergency incident is approaching its predefined maximum time limit for dispatch, prompting urgent action.",
-                "high_level_associated": {
-                    "name": "Maintain dispatch process within time limits",
-                    "description": "The Dispatcher must ensure that the entire process of receiving a call and dispatching an ambulance does not exceed a predefined maximum time limit.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "SetIncidentPriority",
-                "description": "Allow the Dispatcher to manually adjust the priority level of an incident, influencing its visibility and order in the dispatch queue.",
-                "high_level_associated": {
-                    "name": "Maintain dispatch process within time limits",
-                    "description": "The Dispatcher must ensure that the entire process of receiving a call and dispatching an ambulance does not exceed a predefined maximum time limit.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Allocates available ambulances to emergency calls and uses the Computer Aided Despatch (CAD) system."
-                    }
-                }
-            },
-            {
-                "name": "UpdateAmbulanceStatusToEnRoute",
-                "description": "Enable Ambulance Staff to update their ambulance's status to 'en route' to an incident via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "DisplayRecommendedRoute",
-                "description": "Provide Ambulance Staff with a recommended route to the incident location or destination hospital, including turn-by-turn navigation, via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "UpdateAmbulanceStatusToAtScene",
-                "description": "Enable Ambulance Staff to update their ambulance's status to 'at scene' upon arrival at the incident location via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "UpdateAmbulanceStatusToDepartingScene",
-                "description": "Enable Ambulance Staff to update their ambulance's status to 'departing scene' (e.g., with patient) via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "UpdateAmbulanceStatusToAtHospital",
-                "description": "Enable Ambulance Staff to update their ambulance's status to 'at hospital' upon arrival at the destination hospital via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "UpdateAmbulanceStatusToAvailable",
-                "description": "Enable Ambulance Staff to update their ambulance's status to 'available' for new assignments after completing a job via their mobile terminal.",
-                "high_level_associated": {
-                    "name": "Accurately communicate ambulance status and location",
-                    "description": "Ambulance Staff must provide precise and timely updates on their departure, destination, and current location to facilitate accurate tracking by the system and operators.",
-                    "actor": {
-                        "name": "Ambulance Staff",
-                        "description": "Follows routes and communicates departure and destination information for tracking purposes."
-                    }
-                }
-            },
-            {
-                "name": "LogAmbulanceDepartureTime",
-                "description": "Allow the Radio Operator to input and record the precise departure time communicated by ambulance staff for an assigned incident.",
-                "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Assess Incident Priority",
+                    "description": "Assess the severity and nature of the incident to determine the appropriate response and resource allocation.",
                     "actor": {
                         "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                     }
                 }
             },
             {
-                "name": "LogAmbulanceArrivalTimeAtScene",
-                "description": "Allow the Radio Operator to input and record the precise arrival time at the incident scene communicated by ambulance staff.",
+                "name": "Set Incident Priority Level",
+                "description": "The system updates the incident record with the final priority level and required resource types (e.g., ALS, BLS).",
                 "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Assess Incident Priority",
+                    "description": "Assess the severity and nature of the incident to determine the appropriate response and resource allocation.",
                     "actor": {
                         "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                     }
                 }
             },
             {
-                "name": "LogAmbulanceDepartureTimeFromScene",
-                "description": "Allow the Radio Operator to input and record the precise departure time from the incident scene communicated by ambulance staff.",
+                "name": "Query Available Ambulances",
+                "description": "The system queries the fleet database for ambulances that are available, within range, and equipped for the required priority level.",
                 "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Allocate Ambulance Within Time Limit",
+                    "description": "Allocate an available ambulance to the incident such that it can reach the scene within the 11-minute target time.",
                     "actor": {
                         "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                     }
                 }
             },
             {
-                "name": "LogAmbulanceArrivalTimeAtHospital",
-                "description": "Allow the Radio Operator to input and record the precise arrival time at the destination hospital communicated by ambulance staff.",
+                "name": "Calculate ETA for Candidates",
+                "description": "The system calculates the estimated time of arrival (ETA) for each candidate ambulance based on current traffic and distance.",
                 "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Allocate Ambulance Within Time Limit",
+                    "description": "Allocate an available ambulance to the incident such that it can reach the scene within the 11-minute target time.",
                     "actor": {
                         "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                     }
                 }
             },
             {
-                "name": "LogAmbulanceAvailabilityStatus",
-                "description": "Allow the Radio Operator to manually update an ambulance's operational status to 'available' based on verbal communication from staff.",
+                "name": "Assign Ambulance to Incident",
+                "description": "The system assigns the ambulance with the lowest ETA that meets the 11-minute target to the incident and updates its status to 'En Route'.",
                 "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Allocate Ambulance Within Time Limit",
+                    "description": "Allocate an available ambulance to the incident such that it can reach the scene within the 11-minute target time.",
                     "actor": {
                         "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "description": "Staff member who receives calls, assesses incidents, and coordinates dispatch."
                     }
                 }
             },
             {
-                "name": "UpdateAmbulanceDestination",
-                "description": "Allow the Radio Operator to input or confirm the designated destination (e.g., specific hospital) for an ambulance based on staff communication.",
+                "name": "Log Departure Event",
+                "description": "The system records the timestamp and location of the ambulance's departure from the station.",
                 "high_level_associated": {
-                    "name": "Accurately record ambulance movement data",
-                    "description": "The Radio Operator's goal is to precisely log all communicated departure, destination, and movement information from ambulance staff into the system.",
+                    "name": "Communicate Location Updates",
+                    "description": "Communicate departure and destination information accurately to allow the CAD system to record data and track the ambulance's location.",
                     "actor": {
-                        "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "name": "Ambulance Crew",
+                        "description": "Personnel in the ambulance who follow routes and communicate location updates."
                     }
                 }
             },
             {
-                "name": "DisplayRealTimeAmbulanceLocations",
-                "description": "Provide the Radio Operator with a graphical map interface showing the current, real-time GPS positions of all active ambulances.",
+                "name": "Update Destination Coordinates",
+                "description": "The system updates the incident record with the confirmed destination address and any en-route location changes.",
                 "high_level_associated": {
-                    "name": "Effectively monitor ambulance locations",
-                    "description": "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness.",
+                    "name": "Communicate Location Updates",
+                    "description": "Communicate departure and destination information accurately to allow the CAD system to record data and track the ambulance's location.",
                     "actor": {
-                        "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "name": "Ambulance Crew",
+                        "description": "Personnel in the ambulance who follow routes and communicate location updates."
                     }
                 }
             },
             {
-                "name": "ViewAmbulanceStatusDetails",
-                "description": "Enable the Radio Operator to select an ambulance on the map and view detailed information such as its current job, destination, speed, and last reported status.",
+                "name": "Retrieve Standard Route",
+                "description": "The system retrieves the pre-defined standard route for the assigned ambulance to ensure predictable travel times.",
                 "high_level_associated": {
-                    "name": "Effectively monitor ambulance locations",
-                    "description": "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness.",
+                    "name": "Follow Standard Routes",
+                    "description": "Follow standard routes to ensure predictable travel times and accurate location tracking by the dispatch system.",
                     "actor": {
-                        "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "name": "Ambulance Driver",
+                        "description": "Individual who operates the ambulance, follows standard routes, and tracks location for dispatch."
                     }
                 }
             },
             {
-                "name": "QueryAmbulanceLocationHistory",
-                "description": "Allow the Radio Operator to retrieve and visualize the historical movement path and timestamps for a specific ambulance over a defined period.",
+                "name": "Stream GPS Location Data",
+                "description": "The system continuously updates the ambulance's GPS location in the CAD system to maintain accurate tracking.",
                 "high_level_associated": {
-                    "name": "Effectively monitor ambulance locations",
-                    "description": "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness.",
+                    "name": "Follow Standard Routes",
+                    "description": "Follow standard routes to ensure predictable travel times and accurate location tracking by the dispatch system.",
                     "actor": {
-                        "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
-                    }
-                }
-            },
-            {
-                "name": "ReceiveAmbulanceStatusChangeNotifications",
-                "description": "Alert the Radio Operator with real-time notifications whenever an ambulance changes its operational status (e.g., from 'en route' to 'at scene').",
-                "high_level_associated": {
-                    "name": "Effectively monitor ambulance locations",
-                    "description": "The Radio Operator aims to continuously track and monitor the exact location and status of all moving ambulances to support dispatch and operational awareness.",
-                    "actor": {
-                        "name": "Radio Operator",
-                        "description": "Records and monitors ambulance movement data based on communication from ambulance staff."
+                        "name": "Ambulance Driver",
+                        "description": "Individual who operates the ambulance, follows standard routes, and tracks location for dispatch."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 10.0,
+        "actors": 7.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 8.5
+        "lowLevelGoals": 10.0
     },
     "baselineCritiques": {
-        "actors": "The identified actors are accurate and well-aligned with the system description. \"Emergency Caller\" represents the external trigger, \"Dispatcher\" (or CAD system user) handles the allocation logic, \"Ambulance Staff\" are the active entities on the ground providing data, and \"Radio Operator\" is explicitly mentioned as a role that records data. There are no obvious omissions or contradictions.",
-        "highLevelGoals": "The high-level goals are well-aligned with the description and actors. They correctly capture the strategic objectives: timely assistance for the caller, efficient allocation and time-bound dispatch for the dispatcher, and accurate communication/monitoring for the ambulance staff and radio operators. There are no contradictions or significant omissions. The goals are functional (focusing on the 'what' and 'why' of the system's operation) rather than technical implementation details (the 'how'), which is appropriate for high-level goals in GORE.",
-        "lowLevelGoals": "The low-level goals are well-structured and align well with the high-level goals and the software description. They correctly identify the functional actions for each actor (Emergency Caller, Dispatcher, Ambulance Staff, Radio Operator). However, there is a minor omission regarding the \"Computer Aided Despatch (CAD) system\" mentioned in the description. While the CAD's role is partially covered by the \"SuggestOptimalAmbulance\" goal under the Dispatcher branch, the description explicitly states that the CAD \"analyzes incident forms and assigns vehicles.\" The current low-level goals focus heavily on the Dispatcher's manual actions (selecting, confirming) and the CAD's suggestion. A more explicit low-level goal for the CAD system itself (or the Dispatcher interacting with the CAD's automated analysis) to \"AnalyzeIncidentForm\" or \"AutomaticallyAssignVehicleBasedOnCriteria\" would better reflect the system's capability described. Additionally, the goal \"DisplayRecommendedRoute\" for Ambulance Staff is slightly ambiguous; the description says staff must \"follow standard routes,\" implying the system might provide this or it's a protocol. If the system provides it, it's a valid functional goal. If not, it might be out of scope. Assuming the CAD provides route guidance, it is acceptable. The main issue is the lack of explicit goals for the CAD's automated analysis/assignment logic distinct from the Dispatcher's manual confirmation."
+        "actors": "The actors listed are mostly appropriate for the described system. However, there is a redundancy between \"Ambulance Crew\" and \"Ambulance Driver.\" Typically, an ambulance crew includes multiple roles (e.g., driver, paramedics), so specifying both as separate actors may not be necessary unless further differentiation is required. Additionally, the description of the system implies that the ambulance staff (crew) are responsible for following routes and communicating location, which is already covered by \"Ambulance Crew.\" Removing one of these redundant roles would improve clarity.",
+        "highLevelGoals": "The high-level goals are well-defined and align with the system's description, covering key aspects of emergency dispatch such as call initiation, incident assessment, ambulance allocation, location tracking, and route adherence. No contradictions or omissions are observed.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and accurately reflect the functional requirements of the London Ambulance Service system. Each goal corresponds to a specific action by an actor, ensuring completeness and adherence to the GORE framework. No contradictions or omissions were detected."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; configured Gemini/Qwen clients",
-        "generatorModel": "gemini-2.5-flash",
+        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+        "generatorModel": "qwen/qwen3.8-27b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
         "lowLevelGoalPromptingMode": "ZERO_SHOT",
         "highLevelGoalEvaluatorEnabled": true,
         "lowLevelGoalEvaluatorEnabled": true,
-        "goalEvaluatorModel": "qwen/qwen3.8-27b",
+        "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,

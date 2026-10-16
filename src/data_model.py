@@ -90,6 +90,15 @@ class ReconstructionRelationship(str, Enum):
     NOT_RECONSTRUCTABLE = "NOT_RECONSTRUCTABLE"
 
 
+class EvaluatorVoteRecord(BaseModel):
+    model: str
+    status: str
+    decision: str | None = None
+    raw_response: str | None = None
+    parsed_response: dict | None = None
+    error: str | None = None
+
+
 class HighLevelGoalEvaluation(BaseModel):
     rationale: str
     decision: HighLevelGoalDecision
@@ -104,6 +113,7 @@ class HighLevelGoalEvaluation(BaseModel):
     valid_vote_count: int = 1
     winning_vote_count: int = 1
     vote_distribution: dict[str, int] = Field(default_factory=dict)
+    evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def check_rewriting_focus(self):
@@ -212,6 +222,7 @@ class LowLevelGoalEvaluation(BaseModel):
     valid_vote_count: int = 1
     winning_vote_count: int = 1
     vote_distribution: dict[str, int] = Field(default_factory=dict)
+    evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
 
     @field_validator("unsupported_or_misleading_llg_ids", mode="before")
     @classmethod
@@ -275,6 +286,7 @@ class MissingHighLevelGoalEvaluation(BaseModel):
     valid_vote_count: int = 1
     winning_vote_count: int = 1
     vote_distribution: dict[str, int] = Field(default_factory=dict)
+    evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_requests(self):
@@ -313,6 +325,7 @@ class GlobalGoalEvaluationResult(BaseModel):
     high_level_evaluation: HighLevelGoalEvaluation
     replacement_request: HighLevelGoalReplacementRequest | None = None
     low_level_evaluation: LowLevelGoalEvaluation | None = None
+    critic_votes: dict[str, list[EvaluatorVoteRecord]] = Field(default_factory=dict)
 
 
 class HighLevelGoalGenerationAction(str, Enum):
@@ -359,6 +372,9 @@ class GlobalGoalCycleIteration(BaseModel):
     missing_hlg_decision: GlobalGoalEvaluationDecision | None = None
     llg_regeneration_counts: dict[str, int] = Field(default_factory=dict)
     warnings: list[str] = Field(default_factory=list)
+    checkpoint_complete: bool = True
+    completed_branch_count: int = 0
+    total_branch_count: int = 0
 
 
 class GlobalGoalCycleResult(BaseModel):

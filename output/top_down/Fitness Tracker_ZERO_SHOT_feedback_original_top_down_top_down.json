@@ -10,79 +10,71 @@
         "strategy": "groundtruth_description"
     },
     "actors": [
-        "Fitness User"
+        "Beginner Fitness User",
+        "Advanced Fitness User"
     ],
     "highLevelGoals": [
-        "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
-        "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
-        "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-        "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals."
+        "Provide guided workout plans, simplified progress tracking, and personalized workout recommendations to help new users build fitness habits and understand their initial progress without being overwhelmed by complex data.",
+        "Enable detailed performance analytics, advanced goal setting, complex workout customization, and personalized workout recommendations to support the complex training needs of experienced fitness enthusiasts.",
+        "Synchronize fitness data, workout logs, and progress metrics across multiple devices to ensure users have consistent and up-to-date access to their information regardless of the device used.",
+        "Integrate with wearable fitness trackers to automatically import real-time biometric and activity data, enhancing the accuracy of progress monitoring and personalized recommendations."
     ],
     "lowLevelGoals": [
-        "The Fitness User wants to start recording a new physical activity in real-time, specifying its type.",
-        "The Fitness User wants the system to automatically record specific metrics (e.g., distance, duration, heart rate) while an activity is ongoing.",
-        "The Fitness User wants to temporarily suspend the recording of an activity.",
-        "The Fitness User wants to continue recording an activity after it has been paused.",
-        "The Fitness User wants to finalize and save all recorded data for a completed activity.",
-        "The Fitness User wants to input details for an activity that was not tracked in real-time.",
-        "The Fitness User wants to modify information (e.g., type, duration, notes) for an activity already saved in their log.",
-        "The Fitness User wants to remove an activity entry from their historical log.",
-        "The Fitness User wants to view a summary of all activities and key metrics for a specific day.",
-        "The Fitness User wants to view an aggregated summary of activities and key metrics for a specific week.",
-        "The Fitness User wants to visualize the progression of a chosen fitness metric (e.g., distance, calories burned) over a selected time period.",
-        "The Fitness User wants to compare their performance for a specific activity type between two distinct timeframes (e.g., this month vs. last month).",
-        "The Fitness User wants to view their all-time best achievements for various activity types or metrics.",
-        "The Fitness User wants to define a new objective, specifying its type, target value, and target date.",
-        "The Fitness User wants to see all currently active goals they are working towards.",
-        "The Fitness User wants to manually or automatically update the current progress towards a specific goal.",
-        "The Fitness User wants to indicate that a specific fitness goal has been achieved.",
-        "The Fitness User wants to modify the details (e.g., target value, target date) of a previously created goal.",
-        "The Fitness User wants to remove a goal from their list of objectives.",
-        "The Fitness User wants to receive workout suggestions tailored to their current fitness level, preferences, and active goals.",
-        "The Fitness User wants to receive suggestions for activities to perform on a given day, based on their profile and schedule.",
-        "The Fitness User wants to provide input (e.g., like, dislike, too easy/hard) on a received workout or activity recommendation to improve future suggestions.",
-        "The Fitness User wants to modify their personal fitness data (e.g., weight, activity preferences, current fitness level) to ensure recommendations remain relevant."
+        "The system shall retrieve and return a list of pre-defined workout plans filtered by the user's selected fitness level (e.g., 'Beginner') and target muscle groups.",
+        "The system shall accept a workout completion record containing exercise type, duration, and perceived exertion, and update the user's progress log with a simplified status indicator (e.g., 'Completed', 'Streak Active').",
+        "The system shall generate and return a summary of the user's progress over the last 7 days, displaying only key metrics such as total workouts completed and average session duration, excluding complex biometric data.",
+        "The system shall accept a set of advanced performance metrics (e.g., VO2 max, lactate threshold, power output) and return a detailed analytics report including trend lines and percentile rankings against peer groups.",
+        "The system shall accept a complex goal definition including specific physiological targets (e.g., 'Increase max heart rate by 5% in 4 weeks') and save it to the user's profile for continuous monitoring.",
+        "The system shall accept a custom workout template with specific sets, reps, rest intervals, and intensity zones, and save it to the user's library for future execution.",
+        "The system shall accept a request to sync data from a specific device ID and return the latest synchronized state of workout logs and progress metrics for that device.",
+        "The system shall accept a conflict resolution instruction (e.g., 'Keep Latest', 'Merge') when duplicate workout entries are detected across devices and update the central database accordingly.",
+        "The system shall accept a wearable device pairing request including device type and authentication token, and establish a secure connection for data ingestion.",
+        "The system shall accept a stream of real-time biometric data (e.g., heart rate, cadence) from a paired wearable and process it to update the current session's live metrics."
     ],
     "structuredActors": {
         "actors": [
             {
-                "name": "Fitness User",
-                "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                "name": "Beginner Fitness User",
+                "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
+            },
+            {
+                "name": "Advanced Fitness User",
+                "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Enable effective activity tracking",
-                "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                "name": "Support Beginner Fitness Journey",
+                "description": "Provide guided workout plans, simplified progress tracking, and personalized workout recommendations to help new users build fitness habits and understand their initial progress without being overwhelmed by complex data.",
                 "actor": {
-                    "name": "Fitness User",
-                    "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                    "name": "Beginner Fitness User",
+                    "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                 }
             },
             {
-                "name": "Facilitate progress monitoring",
-                "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
+                "name": "Enable Advanced Training Optimization",
+                "description": "Enable detailed performance analytics, advanced goal setting, complex workout customization, and personalized workout recommendations to support the complex training needs of experienced fitness enthusiasts.",
                 "actor": {
-                    "name": "Fitness User",
-                    "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                    "name": "Advanced Fitness User",
+                    "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                 }
             },
             {
-                "name": "Support goal setting and achievement",
-                "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
+                "name": "Ensure Cross-Device Data Synchronization",
+                "description": "Synchronize fitness data, workout logs, and progress metrics across multiple devices to ensure users have consistent and up-to-date access to their information regardless of the device used.",
                 "actor": {
-                    "name": "Fitness User",
-                    "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                    "name": "Beginner Fitness User",
+                    "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                 }
             },
             {
-                "name": "Provide personalized fitness guidance",
-                "description": "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals.",
+                "name": "Integrate Wearable Fitness Trackers",
+                "description": "Integrate with wearable fitness trackers to automatically import real-time biometric and activity data, enhancing the accuracy of progress monitoring and personalized recommendations.",
                 "actor": {
-                    "name": "Fitness User",
-                    "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                    "name": "Advanced Fitness User",
+                    "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                 }
             }
         ]
@@ -90,303 +82,147 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Initiate real-time activity tracking",
-                "description": "The Fitness User wants to start recording a new physical activity in real-time, specifying its type.",
+                "name": "Retrieve Guided Workout Plans",
+                "description": "The system shall retrieve and return a list of pre-defined workout plans filtered by the user's selected fitness level (e.g., 'Beginner') and target muscle groups.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Support Beginner Fitness Journey",
+                    "description": "Provide guided workout plans, simplified progress tracking, and personalized workout recommendations to help new users build fitness habits and understand their initial progress without being overwhelmed by complex data.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Beginner Fitness User",
+                        "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                     }
                 }
             },
             {
-                "name": "Record activity metrics during tracking",
-                "description": "The Fitness User wants the system to automatically record specific metrics (e.g., distance, duration, heart rate) while an activity is ongoing.",
+                "name": "Log Simplified Workout Completion",
+                "description": "The system shall accept a workout completion record containing exercise type, duration, and perceived exertion, and update the user's progress log with a simplified status indicator (e.g., 'Completed', 'Streak Active').",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Support Beginner Fitness Journey",
+                    "description": "Provide guided workout plans, simplified progress tracking, and personalized workout recommendations to help new users build fitness habits and understand their initial progress without being overwhelmed by complex data.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Beginner Fitness User",
+                        "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                     }
                 }
             },
             {
-                "name": "Pause an ongoing activity tracking session",
-                "description": "The Fitness User wants to temporarily suspend the recording of an activity.",
+                "name": "Fetch Simplified Progress Summary",
+                "description": "The system shall generate and return a summary of the user's progress over the last 7 days, displaying only key metrics such as total workouts completed and average session duration, excluding complex biometric data.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Support Beginner Fitness Journey",
+                    "description": "Provide guided workout plans, simplified progress tracking, and personalized workout recommendations to help new users build fitness habits and understand their initial progress without being overwhelmed by complex data.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Beginner Fitness User",
+                        "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                     }
                 }
             },
             {
-                "name": "Resume a paused activity tracking session",
-                "description": "The Fitness User wants to continue recording an activity after it has been paused.",
+                "name": "Generate Detailed Performance Analytics",
+                "description": "The system shall accept a set of advanced performance metrics (e.g., VO2 max, lactate threshold, power output) and return a detailed analytics report including trend lines and percentile rankings against peer groups.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Enable Advanced Training Optimization",
+                    "description": "Enable detailed performance analytics, advanced goal setting, complex workout customization, and personalized workout recommendations to support the complex training needs of experienced fitness enthusiasts.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Advanced Fitness User",
+                        "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                     }
                 }
             },
             {
-                "name": "Stop and save an activity tracking session",
-                "description": "The Fitness User wants to finalize and save all recorded data for a completed activity.",
+                "name": "Set Advanced Physiological Goals",
+                "description": "The system shall accept a complex goal definition including specific physiological targets (e.g., 'Increase max heart rate by 5% in 4 weeks') and save it to the user's profile for continuous monitoring.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Enable Advanced Training Optimization",
+                    "description": "Enable detailed performance analytics, advanced goal setting, complex workout customization, and personalized workout recommendations to support the complex training needs of experienced fitness enthusiasts.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Advanced Fitness User",
+                        "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                     }
                 }
             },
             {
-                "name": "Manually log a past activity",
-                "description": "The Fitness User wants to input details for an activity that was not tracked in real-time.",
+                "name": "Create Custom Complex Workout",
+                "description": "The system shall accept a custom workout template with specific sets, reps, rest intervals, and intensity zones, and save it to the user's library for future execution.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Enable Advanced Training Optimization",
+                    "description": "Enable detailed performance analytics, advanced goal setting, complex workout customization, and personalized workout recommendations to support the complex training needs of experienced fitness enthusiasts.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Advanced Fitness User",
+                        "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                     }
                 }
             },
             {
-                "name": "Edit details of a logged activity",
-                "description": "The Fitness User wants to modify information (e.g., type, duration, notes) for an activity already saved in their log.",
+                "name": "Sync Device-Specific Data",
+                "description": "The system shall accept a request to sync data from a specific device ID and return the latest synchronized state of workout logs and progress metrics for that device.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Ensure Cross-Device Data Synchronization",
+                    "description": "Synchronize fitness data, workout logs, and progress metrics across multiple devices to ensure users have consistent and up-to-date access to their information regardless of the device used.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Beginner Fitness User",
+                        "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                     }
                 }
             },
             {
-                "name": "Delete a logged activity",
-                "description": "The Fitness User wants to remove an activity entry from their historical log.",
+                "name": "Resolve Cross-Device Data Conflicts",
+                "description": "The system shall accept a conflict resolution instruction (e.g., 'Keep Latest', 'Merge') when duplicate workout entries are detected across devices and update the central database accordingly.",
                 "high_level_associated": {
-                    "name": "Enable effective activity tracking",
-                    "description": "The Fitness User aims to accurately record and manage their various physical activities to maintain a comprehensive log of their efforts.",
+                    "name": "Ensure Cross-Device Data Synchronization",
+                    "description": "Synchronize fitness data, workout logs, and progress metrics across multiple devices to ensure users have consistent and up-to-date access to their information regardless of the device used.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Beginner Fitness User",
+                        "description": "A user new to fitness who requires guided workouts, basic tracking, and simplified progress insights."
                     }
                 }
             },
             {
-                "name": "Retrieve daily activity summary",
-                "description": "The Fitness User wants to view a summary of all activities and key metrics for a specific day.",
+                "name": "Pair Wearable Device",
+                "description": "The system shall accept a wearable device pairing request including device type and authentication token, and establish a secure connection for data ingestion.",
                 "high_level_associated": {
-                    "name": "Facilitate progress monitoring",
-                    "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
+                    "name": "Integrate Wearable Fitness Trackers",
+                    "description": "Integrate with wearable fitness trackers to automatically import real-time biometric and activity data, enhancing the accuracy of progress monitoring and personalized recommendations.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Advanced Fitness User",
+                        "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                     }
                 }
             },
             {
-                "name": "Retrieve weekly activity summary",
-                "description": "The Fitness User wants to view an aggregated summary of activities and key metrics for a specific week.",
+                "name": "Ingest Real-Time Biometric Data",
+                "description": "The system shall accept a stream of real-time biometric data (e.g., heart rate, cadence) from a paired wearable and process it to update the current session's live metrics.",
                 "high_level_associated": {
-                    "name": "Facilitate progress monitoring",
-                    "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
+                    "name": "Integrate Wearable Fitness Trackers",
+                    "description": "Integrate with wearable fitness trackers to automatically import real-time biometric and activity data, enhancing the accuracy of progress monitoring and personalized recommendations.",
                     "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Display trend graph for a specific metric",
-                "description": "The Fitness User wants to visualize the progression of a chosen fitness metric (e.g., distance, calories burned) over a selected time period.",
-                "high_level_associated": {
-                    "name": "Facilitate progress monitoring",
-                    "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Compare activity performance over different periods",
-                "description": "The Fitness User wants to compare their performance for a specific activity type between two distinct timeframes (e.g., this month vs. last month).",
-                "high_level_associated": {
-                    "name": "Facilitate progress monitoring",
-                    "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Display personal best records",
-                "description": "The Fitness User wants to view their all-time best achievements for various activity types or metrics.",
-                "high_level_associated": {
-                    "name": "Facilitate progress monitoring",
-                    "description": "The Fitness User seeks to visualize and understand their fitness journey over time, identifying trends and improvements to stay motivated.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Create a new fitness goal",
-                "description": "The Fitness User wants to define a new objective, specifying its type, target value, and target date.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "View a list of active fitness goals",
-                "description": "The Fitness User wants to see all currently active goals they are working towards.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Update progress for an existing goal",
-                "description": "The Fitness User wants to manually or automatically update the current progress towards a specific goal.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Mark a goal as completed",
-                "description": "The Fitness User wants to indicate that a specific fitness goal has been achieved.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Edit an existing fitness goal",
-                "description": "The Fitness User wants to modify the details (e.g., target value, target date) of a previously created goal.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Delete an existing fitness goal",
-                "description": "The Fitness User wants to remove a goal from their list of objectives.",
-                "high_level_associated": {
-                    "name": "Support goal setting and achievement",
-                    "description": "The Fitness User desires to define, manage, and work towards specific fitness objectives, ensuring a structured approach to their health and wellness.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Retrieve personalized workout recommendations",
-                "description": "The Fitness User wants to receive workout suggestions tailored to their current fitness level, preferences, and active goals.",
-                "high_level_associated": {
-                    "name": "Provide personalized fitness guidance",
-                    "description": "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Retrieve personalized daily activity suggestions",
-                "description": "The Fitness User wants to receive suggestions for activities to perform on a given day, based on their profile and schedule.",
-                "high_level_associated": {
-                    "name": "Provide personalized fitness guidance",
-                    "description": "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Submit feedback on a recommendation",
-                "description": "The Fitness User wants to provide input (e.g., like, dislike, too easy/hard) on a received workout or activity recommendation to improve future suggestions.",
-                "high_level_associated": {
-                    "name": "Provide personalized fitness guidance",
-                    "description": "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
-                    }
-                }
-            },
-            {
-                "name": "Update user fitness profile",
-                "description": "The Fitness User wants to modify their personal fitness data (e.g., weight, activity preferences, current fitness level) to ensure recommendations remain relevant.",
-                "high_level_associated": {
-                    "name": "Provide personalized fitness guidance",
-                    "description": "The Fitness User expects to receive tailored workout and activity suggestions that align with their individual fitness level, preferences, and goals.",
-                    "actor": {
-                        "name": "Fitness User",
-                        "description": "Individuals who use the application to track physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations."
+                        "name": "Advanced Fitness User",
+                        "description": "An experienced user who needs detailed analytics, advanced goal setting, and complex workout customization."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 9.0,
-        "highLevelGoals": 10.0,
-        "lowLevelGoals": 8.5
+        "actors": 7.0,
+        "highLevelGoals": 8.0,
+        "lowLevelGoals": 9.0
     },
     "baselineCritiques": {
-        "actors": "The identified actor \"Fitness User\" is appropriate and covers the primary user base described (both enthusiasts and beginners). However, the description mentions \"personalized workout recommendations,\" which implies a backend system or algorithm generating this content. While the system itself is not an actor in the GORE sense (actors are external entities), if the app allows for manual input of goals or if there is an admin role for managing content, those might be missing. Given the description focuses on the user's journey and the app's functionality for them, \"Fitness User\" is the main actor. The description is slightly truncated in the prompt (\"mon...\"), but assuming it means \"monitor progress,\" the actor is correct. There are no obvious contradictions. The only potential omission is if \"Fitness Coach\" or \"Administrator\" were implied, but the text says \"designed to cater to... users,\" implying a direct user-app relationship. Thus, the single actor is sufficient for the described scope.",
-        "highLevelGoals": "The provided high-level goals accurately reflect the core functionalities described in the software description (tracking activities, monitoring progress, setting goals, and receiving personalized recommendations). They are functional, aligned with the actor's needs, and do not contain contradictions or out-of-context elements. The goals are appropriately abstract for the high-level stage.",
-        "lowLevelGoals": "The low-level goals are well-structured, functional, and align closely with the high-level goals and the software description. They correctly decompose the high-level objectives into specific user actions (e.g., start/pause/stop tracking, create/edit goals, view summaries). There are no obvious contradictions or out-of-context items. However, there is a minor omission regarding the \"personalized\" aspect of the guidance: while there is a goal to \"Update user fitness profile,\" there is no explicit goal for the user to *view* or *manage* their profile settings (like age, weight, fitness level) which are critical inputs for personalization. Additionally, the description mentions \"monitoring progress,\" and while trends are covered, a goal to \"Export progress data\" or \"Share progress\" might be relevant for a fitness app, though not strictly required by the provided high-level goals. The most significant gap is the lack of a goal to *view* the current fitness profile, which is necessary to ensure the personalization inputs are correct."
+        "actors": "The actors \"Beginner Fitness User\" and \"Advanced Fitness User\" are well-defined and cover the spectrum of users described in the software. However, there is a missing actor that could be relevant given the description's mention of personalized workout recommendations. A potential omission is an actor representing fitness trainers or coaches who might use the app to create or recommend workouts for their clients.",
+        "highLevelGoals": "The high-level goals are well-defined and align with the software description, covering both beginner and advanced user needs. However, there is a minor omission regarding the importance of data security and privacy, which should be included as a cross-cutting goal for all users to ensure compliance with standards and protect sensitive fitness data.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering functional aspects such as guided workouts, progress tracking, advanced analytics, cross-device synchronization, and wearable integration. However, there is a minor omission in addressing real-time feedback or notifications for users (e.g., progress alerts, workout reminders), which could enhance user engagement but isn't explicitly required by the high-level goals."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; configured Gemini/Qwen clients",
-        "generatorModel": "gemini-2.5-flash",
+        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+        "generatorModel": "qwen/qwen3.8-27b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
         "lowLevelGoalPromptingMode": "ZERO_SHOT",
         "highLevelGoalEvaluatorEnabled": true,
         "lowLevelGoalEvaluatorEnabled": true,
-        "goalEvaluatorModel": "qwen/qwen3.8-27b",
+        "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,

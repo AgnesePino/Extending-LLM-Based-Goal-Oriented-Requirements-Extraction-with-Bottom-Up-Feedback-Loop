@@ -614,6 +614,27 @@ def run_global_goal_cycle(
             )
             for branch_id, reconstruction in raw_reconstructions.items()
         }
+
+        def save_branch_checkpoint(
+            completed_count: int,
+            total_count: int,
+            partial_evaluations: dict[str, GlobalGoalEvaluationResult],
+        ) -> None:
+            """Persist each completed branch decision before the next call."""
+            checkpoint = GlobalGoalCycleIteration(
+                iteration=iteration,
+                reconstructions=reconstructions,
+                evaluations=partial_evaluations,
+                high_level_goals=iteration_start_hlgs,
+                low_level_goals=iteration_start_llgs,
+                llg_regeneration_counts=dict(llg_regeneration_counts),
+                warnings=["IN_PROGRESS_BRANCH_CHECKPOINT"],
+                checkpoint_complete=False,
+                completed_branch_count=completed_count,
+                total_branch_count=total_count,
+            )
+            _save_iteration(evaluation_output_directory, checkpoint)
+
         raw_evaluations = evaluate_all_branches(
             project_description,
             active_branches,
@@ -621,6 +642,7 @@ def run_global_goal_cycle(
             current_hlgs,
             critic_conversation,
             branches,
+            on_evaluation=save_branch_checkpoint,
         )
         evaluations = {
             branch_id: _coerce_model(
@@ -1084,6 +1106,9 @@ def run_global_goal_cycle(
             ),
             llg_regeneration_counts=dict(llg_regeneration_counts),
             warnings=list(iteration_warnings),
+            checkpoint_complete=True,
+            completed_branch_count=len(evaluations),
+            total_branch_count=len(active_branches),
         )
         traces.append(trace)
         _save_iteration(evaluation_output_directory, trace)

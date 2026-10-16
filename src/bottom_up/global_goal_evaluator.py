@@ -1,15 +1,16 @@
 """Sequential branch and global bottom-up evaluations with deterministic aggregation."""
 
 from collections import Counter
-from concurrent.futures import ThreadPoolExecutor
 import json
 import os
 import re
+from typing import Callable
 
 from pydantic import BaseModel
 
 from src.data_model import (
     BottomUpHighLevelGoal,
+    EvaluatorVoteRecord,
     GlobalGoalEvaluationDecision,
     GlobalGoalEvaluationResult,
     GoalBranch,
@@ -25,33 +26,55 @@ from src.data_model import (
     MissingHighLevelGoalEvaluation,
     ReconstructionRelationship,
 )
-from src.llm_clients import EvaluatorConversation, generate_evaluator_response
+from src.llm_clients import (
+    EvaluatorConversation,
+    configured_bottom_up_critic_models,
+    generate_evaluator_response,
+    loaded_local_evaluator_model,
+)
 
 
 SYSTEM_PROMPT = (
     "You are an expert in Software Engineering, Requirements Engineering, "
     "and Goal-Oriented Requirements Engineering. Return exactly one valid "
     "JSON object without markdown or surrounding prose. Keep rationale under "
-    "200 words while preserving the required evidence."
+    "200 words while preserving the required evidence. KEEP/NO_MISSING is not "
+    "a default: use it only after every required audit passes. When concrete "
+    "evidence identifies a material defect, choose the applicable corrective "
+    "decision even if most of the artifact remains usable."
 )
 
-BOTTOM_UP_EVALUATOR_VOTERS = int(
-    os.getenv("BOTTOM_UP_EVALUATOR_VOTERS", "3")
-)
+BOTTOM_UP_EVALUATOR_MODELS = configured_bottom_up_critic_models()
+DISCOVERY_EVALUATOR_MODELS = BOTTOM_UP_EVALUATOR_MODELS
+if any(not model_id for model_id in BOTTOM_UP_EVALUATOR_MODELS):
+    raise ValueError("Every bottom-up critic model id must be non-empty.")
+if len(set(BOTTOM_UP_EVALUATOR_MODELS)) != 3:
+    raise ValueError("The bottom-up ensemble requires three different models.")
+BOTTOM_UP_EVALUATOR_VOTERS = len(BOTTOM_UP_EVALUATOR_MODELS)
 BOTTOM_UP_EVALUATOR_TEMPERATURE = float(
     os.getenv("BOTTOM_UP_EVALUATOR_TEMPERATURE", "0.2")
 )
 BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS = int(
     os.getenv("BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS", "3")
 )
-if BOTTOM_UP_EVALUATOR_VOTERS not in {3, 5}:
-    raise ValueError("BOTTOM_UP_EVALUATOR_VOTERS must be either 3 or 5.")
 if not 1 <= BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS <= 3:
     raise ValueError(
         "BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS must be between 1 and 3."
     )
 EVALUATOR_VOTING_QUORUM = BOTTOM_UP_EVALUATOR_VOTERS // 2 + 1
-BOTTOM_UP_QUALITY_THRESHOLD = 3
+BOTTOM_UP_QUALITY_THRESHOLD = 4
+BOTTOM_UP_EVALUATOR_PROMPTING_MODE = "FEW_SHOT"
+HLG_EVALUATOR_EXAMPLE_COUNT = 9
+LLG_EVALUATOR_EXAMPLE_COUNT = 7
+DISCOVERY_EVALUATOR_EXAMPLE_COUNT = 3
+
+
+class EvaluatorVotingError(ValueError):
+    """Voting failure that preserves every local model response for tracing."""
+
+    def __init__(self, message: str, vote_records: list[EvaluatorVoteRecord]):
+        super().__init__(message)
+        self.vote_records = vote_records
 
 
 def _key(value: str) -> str:
@@ -65,7 +88,7 @@ def _other_goal_branches(
     """Expose sibling semantics without repeating every embedded parent.
 
     ``LowLevelGoal.model_dump`` includes the complete parent HLG.  Repeating it
-    for every child made the HLG critic prompt exceed Groq's input-token limit
+    for every child made the HLG critic prompt exceed the model's input-token limit
     on realistic datasets.  The compact representation retains all evidence
     needed for the responsibility/redundancy audit.
     """
@@ -266,6 +289,11 @@ LLG_EVALUATOR_EXAMPLES = """Few-shot examples:
   order". llg_001 views the order, llg_002 cancels it, and llg_003 reassigns it
   to another customer. Reassignment is neither stated nor necessary.
   Output: {"rationale":"Viewing and cancellation are documented, while reassignment is an invented lifecycle operation that is not entailed by the broad verb manage.","decision":"REGENERATE_LOW_LEVEL_GOALS","quality_score":1,"regeneration_feedback":"Keep viewing and cancellation and remove customer reassignment.","unsupported_or_misleading_llg_ids":["llg_003"],"missing_essential_capabilities":[]}
+- Upstream mismatch must be resolved. Description: staff evaluate applications
+  and may accept, reject, or suspend them. Parent: "Evaluate applications".
+  The aggregated HLG critic reports PARTIAL_OVERLAP because the reconstruction
+  omits suspension. llg_001 accepts and llg_002 rejects applications.
+  Output: {"rationale":"The upstream material mismatch is present in the decomposition: neither LLG covers the documented suspension outcome.","decision":"REGENERATE_LOW_LEVEL_GOALS","quality_score":2,"regeneration_feedback":"Preserve acceptance and rejection, and add the documented suspension outcome.","unsupported_or_misleading_llg_ids":[],"missing_essential_capabilities":["Suspend an application during evaluation"]}
 """
 COVERAGE_EVALUATOR_EXAMPLES = """Few-shot examples:
 - Correct coverage. Description: customers browse menus and place orders.
@@ -286,7 +314,8 @@ QUALITY_SCORE_RUBRIC = """Quality-score rubric for the current artifact:
 - 3: acceptable and supported, with only minor non-material defects;
 - 4: good coverage and alignment, with negligible issues;
 - 5: complete, precise, supported, and internally consistent.
-Scores 3, 4, and 5 pass. Scores 0, 1, and 2 require a corrective decision.
+Only scores 4 and 5 pass. Scores 0, 1, 2, and 3 require a corrective
+decision: a merely acceptable artifact with a known minor defect is not final.
 The score evaluates the artifact, not confidence in your own answer."""
 
 
@@ -322,9 +351,21 @@ def _evaluate(
     model: type[BaseModel],
     conversation: EvaluatorConversation | None = None,
     memory_label: str | None = None,
+    evaluator_models: tuple[str, ...] | None = None,
+    manage_model_lifecycle: bool = True,
+    record_conversation: bool = True,
 ):
-    def request_vote():
+    voter_models = evaluator_models or BOTTOM_UP_EVALUATOR_MODELS
+    if not voter_models:
+        raise ValueError("At least one evaluator model is required.")
+    if len(set(voter_models)) != len(voter_models):
+        raise ValueError("Each evaluator voter must use a different model.")
+    voter_count = len(voter_models)
+    voting_quorum = voter_count // 2 + 1
+
+    def request_vote(evaluator_model: str):
         last_error = "unknown evaluator error"
+        last_response = None
         for _ in range(BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS):
             try:
                 response = generate_evaluator_response(
@@ -332,37 +373,65 @@ def _evaluate(
                     SYSTEM_PROMPT,
                     conversation=conversation,
                     temperature=BOTTOM_UP_EVALUATOR_TEMPERATURE,
+                    model=evaluator_model,
                 )
+                last_response = response
                 evaluation = model.model_validate(_json_object(response))
                 if not _score_matches_decision(evaluation):
                     raise ValueError(
                         "quality_score conflicts with the selected decision"
                     )
-                return evaluation, None
+                return evaluation, None, evaluator_model, response
             except Exception as exc:
                 last_error = f"{type(exc).__name__}: {exc}"
-        return None, last_error
+        return None, last_error, evaluator_model, last_response
 
-    with ThreadPoolExecutor(max_workers=BOTTOM_UP_EVALUATOR_VOTERS) as executor:
-        vote_results = list(
-            executor.map(
-                lambda _: request_vote(),
-                range(BOTTOM_UP_EVALUATOR_VOTERS),
-            )
-        )
+    # LM Studio evaluates one local model at a time. The completed response is
+    # retained in ``vote_results`` before the model instance is unloaded, then
+    # the next voter is loaded. This prevents the three GGUF models from
+    # occupying GPU/RAM simultaneously.
+    vote_results = []
+    for evaluator_model in voter_models:
+        try:
+            if manage_model_lifecycle:
+                with loaded_local_evaluator_model(evaluator_model):
+                    vote_result = request_vote(evaluator_model)
+            else:
+                vote_result = request_vote(evaluator_model)
+        except Exception as exc:
+            raise RuntimeError(
+                f"LM Studio lifecycle failed for evaluator {evaluator_model!r}. "
+                "Refusing to load the next voter until the current model has "
+                "been safely unloaded."
+            ) from exc
+        vote_results.append(vote_result)
 
-    valid_votes = [vote for vote, _ in vote_results if vote is not None]
+    valid_votes = [vote for vote, _, _, _ in vote_results if vote is not None]
     rejected_reasons = Counter(
-        error for vote, error in vote_results if vote is None and error
+        error for vote, error, _, _ in vote_results if vote is None and error
     )
     rejection_summary = "; ".join(
         f"{count}x {reason}" for reason, count in rejected_reasons.items()
     )
+    vote_records = [
+        EvaluatorVoteRecord(
+            model=evaluator_model,
+            status="VALID" if vote is not None else "INVALID",
+            decision=(vote.decision.value if vote is not None else None),
+            raw_response=raw_response,
+            parsed_response=(
+                vote.model_dump(mode="json") if vote is not None else None
+            ),
+            error=error,
+        )
+        for vote, error, evaluator_model, raw_response in vote_results
+    ]
     decision_counts = Counter(vote.decision for vote in valid_votes)
     if not decision_counts:
-        raise ValueError(
+        raise EvaluatorVotingError(
             f"No valid {model.__name__} votes were returned by the evaluator. "
-            f"Rejected votes: {rejection_summary or 'none recorded'}."
+            f"Rejected votes: {rejection_summary or 'none recorded'}.",
+            vote_records,
         )
     # Quorum is calculated on the action. Requiring agreement on the complete
     # HLG tuple made a 2/3 KEEP majority inconclusive whenever the two voters
@@ -370,12 +439,28 @@ def _evaluate(
     # vote remains internally coherent; for KEEP disagreements the stricter
     # valid route (Critic 2 enabled) wins.
     winning_decision, winning_count = decision_counts.most_common(1)[0]
-    if winning_count < EVALUATOR_VOTING_QUORUM:
-        raise ValueError(
+    aggregation_policy = "MAJORITY"
+    # A complete 5/5 LLG decomposition is required for KEEP. Consequently, a
+    # single valid REGENERATE vote with structured defect evidence must not be
+    # erased by two generic KEEP votes. Apply this repair veto only when all
+    # three configured critics returned valid votes; partial/failed panels stay
+    # inconclusive unless an ordinary quorum exists.
+    if (
+        model is LowLevelGoalEvaluation
+        and voter_count == BOTTOM_UP_EVALUATOR_VOTERS
+        and len(valid_votes) == voter_count
+        and decision_counts.get(LowLevelGoalDecision.REGENERATE, 0) > 0
+    ):
+        winning_decision = LowLevelGoalDecision.REGENERATE
+        winning_count = decision_counts[LowLevelGoalDecision.REGENERATE]
+        aggregation_policy = "EVIDENCE_BACKED_LLG_REPAIR_VETO"
+    if winning_count < voting_quorum and aggregation_policy == "MAJORITY":
+        raise EvaluatorVotingError(
             f"No {model.__name__} decision quorum: "
             f"{dict((decision.value, count) for decision, count in decision_counts.items())}; "
-            f"required {EVALUATOR_VOTING_QUORUM}/{BOTTOM_UP_EVALUATOR_VOTERS}. "
-            f"Rejected votes: {rejection_summary or 'none'}."
+            f"required {voting_quorum}/{voter_count}. "
+            f"Rejected votes: {rejection_summary or 'none'}.",
+            vote_records,
         )
 
     winning_votes = [
@@ -413,23 +498,124 @@ def _evaluate(
         winning_votes,
         key=representative_rank,
     )
+    model_votes = ", ".join(
+        f"{evaluator_model}="
+        f"{vote.decision.value if vote is not None else 'INVALID'}"
+        for vote, _, evaluator_model, _ in vote_results
+    )
     result = representative.model_copy(update={
         "rationale": (
-            f"Voting result {winning_count}/{BOTTOM_UP_EVALUATOR_VOTERS} "
-            f"for {winning_decision.value}. {representative.rationale}"
+            f"Voting result {winning_count}/{voter_count} "
+            f"for {winning_decision.value}. Model votes: {model_votes}. "
+            f"Aggregation policy: {aggregation_policy}. "
+            f"{representative.rationale}"
         ),
-        "voter_count": BOTTOM_UP_EVALUATOR_VOTERS,
+        "voter_count": voter_count,
         "valid_vote_count": len(valid_votes),
         "winning_vote_count": winning_count,
         "vote_distribution": {
             decision.value: count for decision, count in decision_counts.items()
         },
+        "evaluator_votes": vote_records,
     })
-    if conversation is not None:
+    if conversation is not None and record_conversation:
         conversation.record_exchange(
             memory_label or f"{model.__name__} evaluation",
             result.model_dump_json(),
         )
+    return result
+
+
+def _aggregate_saved_votes(
+    vote_records: list[EvaluatorVoteRecord],
+    model: type[BaseModel],
+    conversation: EvaluatorConversation | None,
+    memory_label: str,
+):
+    """Aggregate model-major votes after all voters have released the model."""
+    valid_votes = [
+        model.model_validate(record.parsed_response)
+        for record in vote_records
+        if record.status == "VALID" and record.parsed_response is not None
+    ]
+    voter_count = len(vote_records)
+    voting_quorum = voter_count // 2 + 1
+    decision_counts = Counter(vote.decision for vote in valid_votes)
+    if not decision_counts:
+        raise EvaluatorVotingError(
+            f"No valid {model.__name__} votes were returned by the evaluator.",
+            vote_records,
+        )
+    winning_decision, winning_count = decision_counts.most_common(1)[0]
+    aggregation_policy = "MAJORITY"
+    if (
+        model is LowLevelGoalEvaluation
+        and voter_count == BOTTOM_UP_EVALUATOR_VOTERS
+        and len(valid_votes) == voter_count
+        and decision_counts.get(LowLevelGoalDecision.REGENERATE, 0) > 0
+    ):
+        winning_decision = LowLevelGoalDecision.REGENERATE
+        winning_count = decision_counts[LowLevelGoalDecision.REGENERATE]
+        aggregation_policy = "EVIDENCE_BACKED_LLG_REPAIR_VETO"
+    if winning_count < voting_quorum and aggregation_policy == "MAJORITY":
+        raise EvaluatorVotingError(
+            f"No {model.__name__} decision quorum: "
+            f"{dict((decision.value, count) for decision, count in decision_counts.items())}; "
+            f"required {voting_quorum}/{voter_count}.",
+            vote_records,
+        )
+
+    winning_votes = [
+        vote for vote in valid_votes if vote.decision == winning_decision
+    ]
+    relationship_strictness = {
+        ReconstructionRelationship.EQUIVALENT: 0,
+        ReconstructionRelationship.PARTIAL_OVERLAP: 1,
+        ReconstructionRelationship.DIFFERENT: 2,
+        ReconstructionRelationship.MATCHES_SIBLING: 3,
+        ReconstructionRelationship.NOT_RECONSTRUCTABLE: 3,
+    }
+
+    def representative_rank(vote: BaseModel):
+        evidence_count = (
+            len(getattr(vote, "unsupported_or_misleading_llg_ids", []))
+            + len(getattr(vote, "missing_essential_capabilities", []))
+            + len(getattr(vote, "missing_goal_requests", []))
+        )
+        if (
+            isinstance(vote, HighLevelGoalEvaluation)
+            and vote.decision == HighLevelGoalDecision.KEEP
+        ):
+            return (
+                int(vote.requires_llg_evaluation),
+                relationship_strictness[vote.reconstruction_relationship],
+                -vote.quality_score,
+                evidence_count,
+            )
+        return (0, 0, 0, evidence_count)
+
+    representative = max(winning_votes, key=representative_rank)
+    model_votes = ", ".join(
+        f"{record.model}={record.decision or 'INVALID'}"
+        for record in vote_records
+    )
+    result = representative.model_copy(update={
+        "rationale": (
+            f"Voting result {winning_count}/{voter_count} for "
+            f"{winning_decision.value}. Model votes: {model_votes}. "
+            f"Aggregation policy: {aggregation_policy}. "
+            f"{representative.rationale}"
+        ),
+        "voter_count": voter_count,
+        "valid_vote_count": len(valid_votes),
+        "winning_vote_count": winning_count,
+        "vote_distribution": {
+            decision.value: count for decision, count in decision_counts.items()
+        },
+        "evaluator_votes": vote_records,
+    })
+    if conversation is not None:
+        conversation.record_exchange(memory_label, result.model_dump_json())
     return result
 
 
@@ -440,6 +626,10 @@ def evaluate_original_hlg(
     current_hlgs: HighLevelGoals | None = None,
     conversation: EvaluatorConversation | None = None,
     current_branches: list[GoalBranch] | None = None,
+    evaluator_models: tuple[str, ...] | None = None,
+    manage_model_lifecycle: bool = True,
+    record_conversation: bool = True,
+    apply_destructive_gate: bool = True,
 ) -> HighLevelGoalEvaluation:
     current_hlgs = current_hlgs or HighLevelGoals(goals=[branch.high_level_goal])
     if current_branches is None:
@@ -466,6 +656,12 @@ removed and explicitly diagnose whether any inconsistency belongs to the parent
 or to its LLG decomposition. The project description is always the source of
 truth. Use semantic functional intentions and entailment; never use name
 equality, string similarity, token overlap, or an arbitrary similarity score.
+KEEP is permitted only after the actor, documentary support, functional scope,
+independent stakeholder outcome, and sibling-overlap checks all pass. Do not
+use KEEP merely because the goal is plausible or partly correct. A score of 3
+means a real defect remains and therefore requires REWRITE or REMOVE at this
+level, or KEEP with score 4 followed by LLG repair when the parent itself is
+valid and the defect belongs exclusively to its decomposition.
 
 Before choosing a decision, independently validate the original parent's full
 description against the documentation: actor authority, essential outcomes,
@@ -500,6 +696,10 @@ If either side omits or adds an essential outcome while retaining meaningful
 overlap, use PARTIAL_OVERLAP. If there is no shared functional outcome, use
 DIFFERENT unless HLG' matches a sibling. Pure paraphrases remain EQUIVALENT;
 do not manufacture defects or demand changes merely to avoid an all-KEEP pass.
+For a valid parent, KEEP with any non-EQUIVALENT relationship records a
+material decomposition defect that Critic 2 must repair. Do not use
+PARTIAL_OVERLAP for a merely stylistic or non-material difference; classify
+such a genuinely lossless variation as EQUIVALENT.
 
 Apply the same granularity used by a curated ground truth: an HLG must state a
 recognizable actor-owned functional outcome, with a concise name and a precise
@@ -614,8 +814,11 @@ Other current HLG branches, including technical IDs and associated LLGs:
 
 Do not rewrite a supported HLG merely because its LLGs use API-like wording.
 For REWRITE or REMOVE always set requires_llg_evaluation=false: the old
-decomposition must not be evaluated. For KEEP, set it false only for an
-EQUIVALENT reconstruction; all other relationships require the LLG critic.
+decomposition must not be evaluated. For KEEP, this field records whether the
+HLG comparison itself found a decomposition mismatch: set it false only for an
+EQUIVALENT reconstruction and true for every other relationship. The pipeline
+still performs an independent LLG quality audit for every kept branch, even
+when this field is false.
 
 For REMOVE, set removal_basis to UNSUPPORTED or FULLY_REDUNDANT. A
 FULLY_REDUNDANT removal must identify exactly one surviving sibling using its
@@ -644,6 +847,9 @@ Output JSON:
             f"'{branch.high_level_goal.actor.name}', goal "
             f"'{branch.high_level_goal.name}'"
         ),
+        evaluator_models=evaluator_models,
+        manage_model_lifecycle=manage_model_lifecycle,
+        record_conversation=record_conversation,
     )
     expected_empty_relationship = not branch.low_level_goals
     if expected_empty_relationship != (
@@ -669,7 +875,7 @@ Output JSON:
             )
         )
     )
-    if evaluation.decision == HighLevelGoalDecision.REMOVE and (
+    if apply_destructive_gate and evaluation.decision == HighLevelGoalDecision.REMOVE and (
         evaluation.winning_vote_count < EVALUATOR_VOTING_QUORUM
         or not removal_is_supported
     ):
@@ -718,12 +924,107 @@ def build_replacement_request(
     )
 
 
+def _normalize_llg_evaluation(
+    branch: GoalBranch,
+    evaluation: LowLevelGoalEvaluation,
+) -> LowLevelGoalEvaluation:
+    """Discard unusable repair evidence without turning failures into KEEP."""
+    valid_ids = {
+        f"llg_{index:03d}"
+        for index, _ in enumerate(branch.low_level_goals, start=1)
+    }
+    supported_ids = [
+        item
+        for item in evaluation.unsupported_or_misleading_llg_ids
+        if item in valid_ids
+    ]
+    missing = [
+        item.strip()
+        for item in evaluation.missing_essential_capabilities
+        if item.strip()
+    ]
+    if (
+        evaluation.decision == LowLevelGoalDecision.REGENERATE
+        and not (supported_ids or missing)
+    ):
+        raise ValueError(
+            "REGENERATE_LOW_LEVEL_GOALS did not identify a valid current LLG "
+            "or a non-empty missing essential capability; refusing to convert "
+            "invalid repair evidence into KEEP_LOW_LEVEL_GOALS"
+        )
+    return evaluation.model_copy(update={
+        "unsupported_or_misleading_llg_ids": supported_ids,
+        "missing_essential_capabilities": missing,
+    })
+
+
+def _enforce_cross_level_consistency(
+    branch: GoalBranch,
+    hlg_evaluation: HighLevelGoalEvaluation,
+    llg_evaluation: LowLevelGoalEvaluation | None,
+) -> LowLevelGoalEvaluation | None:
+    """Prevent Critic 2 from silently cancelling a material Critic 1 finding."""
+    if (
+        llg_evaluation is None
+        or llg_evaluation.decision == LowLevelGoalDecision.REGENERATE
+        or hlg_evaluation.reconstruction_relationship
+        == ReconstructionRelationship.EQUIVALENT
+    ):
+        return llg_evaluation
+
+    relationship = hlg_evaluation.reconstruction_relationship
+    current_ids = [
+        f"llg_{index:03d}"
+        for index, _ in enumerate(branch.low_level_goals, start=1)
+    ]
+    unsupported_ids = (
+        current_ids
+        if relationship in {
+            ReconstructionRelationship.DIFFERENT,
+            ReconstructionRelationship.MATCHES_SIBLING,
+        }
+        else []
+    )
+    missing_capabilities = (
+        []
+        if unsupported_ids
+        else [
+            branch.high_level_goal.description.strip()
+            or branch.high_level_goal.name.strip()
+            or "Complete the documented parent outcome"
+        ]
+    )
+    gate_rationale = (
+        "Cross-level consistency gate: the aggregated HLG critic classified "
+        f"the reconstruction as {relationship.value}, so the unchanged LLG "
+        "set cannot be a complete 5/5 decomposition of this parent. "
+        f"Upstream finding: {hlg_evaluation.rationale}"
+    )
+    return llg_evaluation.model_copy(update={
+        "rationale": f"{llg_evaluation.rationale} {gate_rationale}",
+        "decision": LowLevelGoalDecision.REGENERATE,
+        "quality_score": min(llg_evaluation.quality_score, 2),
+        "regeneration_feedback": (
+            "Preserve individually supported LLGs, but regenerate the branch "
+            "so its aggregate meaning exactly matches the documented parent "
+            f"and resolves the {relationship.value} mismatch identified by "
+            "Critic 1."
+        ),
+        "unsupported_or_misleading_llg_ids": unsupported_ids,
+        "missing_essential_capabilities": missing_capabilities,
+    })
+
+
 def evaluate_llg_decomposition(
     project_description: str,
     branch: GoalBranch,
     reconstruction: BottomUpHighLevelGoal,
     current_hlgs: HighLevelGoals | None = None,
     conversation: EvaluatorConversation | None = None,
+    evaluator_models: tuple[str, ...] | None = None,
+    manage_model_lifecycle: bool = True,
+    record_conversation: bool = True,
+    upstream_hlg_evaluation: HighLevelGoalEvaluation | None = None,
 ) -> LowLevelGoalEvaluation:
     current_hlgs = current_hlgs or HighLevelGoals(goals=[branch.high_level_goal])
     llgs = [
@@ -731,8 +1032,19 @@ def evaluate_llg_decomposition(
         for index, goal in enumerate(branch.low_level_goals, start=1)
     ]
     sibling_hlgs = _other_high_level_goals(current_hlgs, branch)
-    prompt = f"""Evaluator rationale and calibration:
-{reconstruction.rationale}
+    upstream_hlg = (
+        {
+            "decision": upstream_hlg_evaluation.decision.value,
+            "quality_score": upstream_hlg_evaluation.quality_score,
+            "reconstruction_relationship": (
+                upstream_hlg_evaluation.reconstruction_relationship.value
+            ),
+            "rationale": upstream_hlg_evaluation.rationale,
+        }
+        if upstream_hlg_evaluation is not None
+        else None
+    )
+    prompt = f"""Few-shot calibration:
 {LLG_EVALUATOR_EXAMPLES}
 
 {QUALITY_SCORE_RUBRIC}
@@ -749,6 +1061,19 @@ defect when it expresses a documented stakeholder capability; pure UI actions,
 transport details, technical bookkeeping, and multiple fragments of one action
 are defects when the documentation does not establish them as distinct goals.
 Do not change the HLG.
+
+When supplied, Critic 1's aggregated HLG evaluation is an upstream constraint,
+not optional context. If its relationship is PARTIAL_OVERLAP, DIFFERENT, MATCHES_SIBLING,
+or NOT_RECONSTRUCTABLE, the quorum has identified a material mismatch between
+the parent and the aggregate meaning of its children. In that case
+KEEP_LOW_LEVEL_GOALS is invalid: locate how the current LLG set causes that
+mismatch and choose REGENERATE_LOW_LEVEL_GOALS. Preserve supported LLGs in the
+feedback while removing out-of-parent responsibilities or adding the essential
+parent capability that is absent. A sibling's coverage never excuses this
+decomposition from matching its own parent. With a supplied upstream verdict,
+only EQUIVALENT permits KEEP, and it still requires the complete independent
+5/5 audit below. If the upstream value is null, perform the independent audit
+without inventing an upstream mismatch.
 
 Audit every current LLG individually. Its capability must be explicitly stated
 or necessarily entailed by the project description and the parent HLG. Being
@@ -794,6 +1119,12 @@ Sibling HLGs whose responsibilities must not be duplicated:
 Reconstructed HLG:
 {reconstruction.reconstructed_high_level_goal}
 
+Reconstructor rationale (untrusted hypothesis, not calibration):
+{reconstruction.rationale}
+
+Aggregated upstream HLG evaluation:
+{json.dumps(upstream_hlg, ensure_ascii=False)}
+
 Use only the supplied llg_NNN identifiers in
 unsupported_or_misleading_llg_ids. List concise, explicitly documented parent
 capabilities in missing_essential_capabilities. A REGENERATE decision must
@@ -811,32 +1142,19 @@ Output JSON:
             "LLG decomposition evaluation for parent "
             f"'{branch.high_level_goal.name}'"
         ),
+        evaluator_models=evaluator_models,
+        manage_model_lifecycle=manage_model_lifecycle,
+        record_conversation=record_conversation,
     )
 
-    valid_ids = {item["id"] for item in llgs}
-    supported_ids = [
-        item for item in evaluation.unsupported_or_misleading_llg_ids
-        if item in valid_ids
-    ]
-    missing = [
-        item.strip()
-        for item in evaluation.missing_essential_capabilities
-        if item.strip()
-    ]
-    material_issue = bool(supported_ids or missing)
-    if (
-        evaluation.decision == LowLevelGoalDecision.REGENERATE
-        and not material_issue
-    ):
-        raise ValueError(
-            "REGENERATE_LOW_LEVEL_GOALS did not identify a valid current LLG "
-            "or a non-empty missing essential capability; refusing to convert "
-            "invalid repair evidence into KEEP_LOW_LEVEL_GOALS"
+    evaluation = _normalize_llg_evaluation(branch, evaluation)
+    if upstream_hlg_evaluation is not None:
+        evaluation = _enforce_cross_level_consistency(
+            branch,
+            upstream_hlg_evaluation,
+            evaluation,
         )
-    return evaluation.model_copy(update={
-        "unsupported_or_misleading_llg_ids": supported_ids,
-        "missing_essential_capabilities": missing,
-    })
+    return evaluation
 
 
 def evaluate_missing_high_level_goals(
@@ -853,11 +1171,22 @@ def evaluate_missing_high_level_goals(
 
 {QUALITY_SCORE_RUBRIC}
 
+Discovery condition is enabled for this evaluation. Unlike branch validation,
+this task must inspect the complete project description and determine whether
+at least one documented actor-level functional intention is absent from the
+current HLG set. Apply this condition in addition to the normal evidence,
+actor-authority, functional-scope, and non-hallucination requirements.
+
 Perform a fresh requirement-by-requirement coverage audit. Check whether the
 project description contains functional, actor-level High-Level Goals that are
 missing from the current HLG list. Previous conversation conclusions are
 context only, not evidence; reassess coverage from the supplied description and
 current HLGs on every call.
+
+NO_MISSING_HIGH_LEVEL_GOALS is permitted only after every extracted actor
+capability has been mapped to a current HLG that actually entails it. Topic
+similarity, a broad label, or partial workflow overlap is not coverage. A score
+of 3 indicates an unresolved coverage defect and cannot pass.
 
 Do not generate final HLG objects. Return only focused requests for the normal
 top-down HLG generator. Do not propose goals already covered by current HLGs,
@@ -931,6 +1260,7 @@ Output only valid JSON:
                 "Project-wide HLG coverage evaluation with "
                 f"{len(current_hlgs.goals)} current HLGs"
             ),
+            evaluator_models=DISCOVERY_EVALUATOR_MODELS,
         )
     except (ValueError, TypeError) as exc:
         return MissingHighLevelGoalEvaluation(
@@ -938,10 +1268,11 @@ Output only valid JSON:
             rationale=f"Coverage voting failed: {exc}",
             quality_score=0,
             missing_goal_requests=[],
-            voter_count=BOTTOM_UP_EVALUATOR_VOTERS,
+            voter_count=len(DISCOVERY_EVALUATOR_MODELS),
             valid_vote_count=0,
             winning_vote_count=0,
             vote_distribution={},
+            evaluator_votes=getattr(exc, "vote_records", []),
         )
     return _restrict_missing_goals_to_existing_actors(evaluation, actors)
 
@@ -1005,7 +1336,11 @@ def evaluate_branch(
             current_branches,
         )
     except (ValueError, TypeError) as exc:
-        return _inconclusive_result(branch, f"HLG evaluation failed: {exc}")
+        return _inconclusive_result(
+            branch,
+            f"HLG evaluation failed: {exc}",
+            critic_votes={"hlg": getattr(exc, "vote_records", [])},
+        )
     replacement = None
     llg = None
 
@@ -1022,16 +1357,15 @@ def evaluate_branch(
                     branch,
                     f"HLG replacement request failed: {exc}",
                     hlg=hlg,
+                    critic_votes={"hlg": hlg.evaluator_votes},
                 )
 
         if hlg.decision == HighLevelGoalDecision.REWRITE:
             decision = GlobalGoalEvaluationDecision.REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
-        elif not hlg.requires_llg_evaluation:
-            # An equivalent, documented reconstruction confirms the branch at
-            # the HLG level. The decision matrix intentionally skips the LLG
-            # critic for this case.
-            decision = GlobalGoalEvaluationDecision.CONFIRM_BRANCH
         else:
+            # HLG equivalence validates the parent/aggregate relationship, not
+            # every individual child. Always audit the LLG decomposition before
+            # confirming a kept branch.
             try:
                 llg = evaluate_llg_decomposition(
                     project_description,
@@ -1039,12 +1373,17 @@ def evaluate_branch(
                     reconstruction,
                     current_hlgs,
                     conversation,
+                    upstream_hlg_evaluation=hlg,
                 )
             except (ValueError, TypeError) as exc:
                 return _inconclusive_result(
                     branch,
                     f"LLG evaluation failed: {exc}",
                     hlg=hlg,
+                    critic_votes={
+                        "hlg": hlg.evaluator_votes,
+                        "llg": getattr(exc, "vote_records", []),
+                    },
                 )
             decision = (
                 GlobalGoalEvaluationDecision.REGENERATE_LOW_LEVEL_GOALS
@@ -1081,6 +1420,10 @@ def evaluate_branch(
         high_level_evaluation=hlg,
         replacement_request=replacement,
         low_level_evaluation=llg,
+        critic_votes={
+            "hlg": hlg.evaluator_votes,
+            **({"llg": llg.evaluator_votes} if llg is not None else {}),
+        },
     )
 
 
@@ -1090,6 +1433,7 @@ def _inconclusive_result(
     *,
     hlg: HighLevelGoalEvaluation | None = None,
     llg: LowLevelGoalEvaluation | None = None,
+    critic_votes: dict[str, list[EvaluatorVoteRecord]] | None = None,
 ) -> GlobalGoalEvaluationResult:
     hlg = hlg or HighLevelGoalEvaluation(
         rationale=rationale,
@@ -1101,6 +1445,7 @@ def _inconclusive_result(
         valid_vote_count=0,
         winning_vote_count=0,
         vote_distribution={},
+        evaluator_votes=(critic_votes or {}).get("hlg", []),
     )
     return GlobalGoalEvaluationResult(
         branch_id=branch.branch_id,
@@ -1108,7 +1453,57 @@ def _inconclusive_result(
         final_decision=GlobalGoalEvaluationDecision.EVALUATION_INCONCLUSIVE,
         high_level_evaluation=hlg,
         low_level_evaluation=llg,
+        critic_votes=critic_votes or {
+            "hlg": hlg.evaluator_votes,
+            **({"llg": llg.evaluator_votes} if llg is not None else {}),
+        },
     )
+
+
+def _apply_batched_hlg_removal_gate(
+    evaluation: HighLevelGoalEvaluation,
+    branch: GoalBranch,
+    all_branches: list[GoalBranch],
+) -> HighLevelGoalEvaluation:
+    if evaluation.decision != HighLevelGoalDecision.REMOVE:
+        return evaluation
+    sibling_branches = _other_goal_branches(all_branches, branch)
+    removal_is_supported = (
+        evaluation.removal_basis == HighLevelGoalRemovalBasis.UNSUPPORTED
+        or (
+            evaluation.removal_basis == HighLevelGoalRemovalBasis.FULLY_REDUNDANT
+            and any(
+                sibling["branch_id"] == evaluation.covered_by_branch_id
+                and _key(sibling["high_level_goal"].get("name", ""))
+                == _key(evaluation.covered_by_high_level_goal_name or "")
+                and _key(sibling["high_level_goal"].get("actor", ""))
+                == _key(branch.high_level_goal.actor.name)
+                for sibling in sibling_branches
+            )
+        )
+    )
+    if (
+        evaluation.winning_vote_count >= EVALUATOR_VOTING_QUORUM
+        and removal_is_supported
+    ):
+        return evaluation
+    return evaluation.model_copy(update={
+        "rationale": (
+            f"{evaluation.rationale} Destructive-action gate: the REMOVE "
+            "decision lacked quorum or an exact supported removal basis; "
+            "the HLG is retained."
+        ),
+        "decision": HighLevelGoalDecision.KEEP,
+        "quality_score": BOTTOM_UP_QUALITY_THRESHOLD,
+        "requires_llg_evaluation": (
+            evaluation.reconstruction_relationship
+            != ReconstructionRelationship.EQUIVALENT
+        ),
+        "rewriting_focus": None,
+        "removal_basis": None,
+        "covered_by_branch_id": None,
+        "covered_by_high_level_goal_name": None,
+    })
 
 
 def evaluate_all_branches(
@@ -1118,26 +1513,226 @@ def evaluate_all_branches(
     current_hlgs: HighLevelGoals,
     conversation: EvaluatorConversation | None = None,
     all_branches: list[GoalBranch] | None = None,
+    on_evaluation: Callable[
+        [int, int, dict[str, GlobalGoalEvaluationResult]], None
+    ] | None = None,
 ):
     all_branches = all_branches or branches
-    evaluations = {}
     total = len(branches)
-    for index, branch in enumerate(branches, start=1):
+    hlg_vote_records = {branch.branch_id: [] for branch in branches}
+
+    # Stage 1: one model load evaluates every HLG branch before switching to
+    # the next voter. All calls use the same conversation snapshot; memory is
+    # updated only after the three votes have been aggregated.
+    for evaluator_model in BOTTOM_UP_EVALUATOR_MODELS:
         print(
-            f"[bottom-up] branch {index}/{total}: "
-            f"{branch.high_level_goal.actor.name}::"
-            f"{branch.high_level_goal.name}",
+            f"[bottom-up] loading HLG voter: {evaluator_model}",
             flush=True,
         )
-        evaluation = evaluate_branch(
-            project_description,
-            branch,
-            reconstructions[branch.branch_id],
-            current_hlgs,
-            conversation,
-            all_branches,
+        with loaded_local_evaluator_model(evaluator_model):
+            for index, branch in enumerate(branches, start=1):
+                print(
+                    f"[bottom-up] HLG voter {evaluator_model} branch "
+                    f"{index}/{total}: {branch.high_level_goal.actor.name}::"
+                    f"{branch.high_level_goal.name}",
+                    flush=True,
+                )
+                try:
+                    single = evaluate_original_hlg(
+                        project_description,
+                        branch,
+                        reconstructions[branch.branch_id],
+                        current_hlgs,
+                        conversation,
+                        all_branches,
+                        evaluator_models=(evaluator_model,),
+                        manage_model_lifecycle=False,
+                        record_conversation=False,
+                        apply_destructive_gate=False,
+                    )
+                    hlg_vote_records[branch.branch_id].extend(
+                        single.evaluator_votes
+                    )
+                except (ValueError, TypeError) as exc:
+                    records = getattr(exc, "vote_records", None)
+                    hlg_vote_records[branch.branch_id].extend(
+                        records
+                        or [EvaluatorVoteRecord(
+                            model=evaluator_model,
+                            status="INVALID",
+                            error=f"{type(exc).__name__}: {exc}",
+                        )]
+                    )
+        print(
+            f"[bottom-up] unloaded HLG voter: {evaluator_model}",
+            flush=True,
         )
-        evaluations[branch.branch_id] = evaluation
+
+    hlg_evaluations: dict[str, HighLevelGoalEvaluation] = {}
+    evaluations: dict[str, GlobalGoalEvaluationResult] = {}
+    llg_branches: list[GoalBranch] = []
+    for branch in branches:
+        try:
+            hlg = _aggregate_saved_votes(
+                hlg_vote_records[branch.branch_id],
+                HighLevelGoalEvaluation,
+                conversation,
+                f"HLG evaluation for actor '{branch.high_level_goal.actor.name}', "
+                f"goal '{branch.high_level_goal.name}'",
+            )
+            hlg = _apply_batched_hlg_removal_gate(hlg, branch, all_branches)
+            hlg_evaluations[branch.branch_id] = hlg
+            if hlg.decision == HighLevelGoalDecision.KEEP:
+                llg_branches.append(branch)
+        except (ValueError, TypeError) as exc:
+            evaluations[branch.branch_id] = _inconclusive_result(
+                branch,
+                f"HLG evaluation failed: {exc}",
+                critic_votes={
+                    "hlg": getattr(
+                        exc, "vote_records", hlg_vote_records[branch.branch_id]
+                    )
+                },
+            )
+
+    # Stage 2: every branch retained by the aggregated HLG decision is sent to
+    # the LLG critic. HLG equivalence alone cannot certify each individual LLG.
+    # Models are again loaded once for the complete stage.
+    llg_vote_records = {branch.branch_id: [] for branch in llg_branches}
+    for evaluator_model in BOTTOM_UP_EVALUATOR_MODELS:
+        if not llg_branches:
+            break
+        print(
+            f"[bottom-up] loading LLG voter: {evaluator_model}", flush=True
+        )
+        with loaded_local_evaluator_model(evaluator_model):
+            for index, branch in enumerate(llg_branches, start=1):
+                print(
+                    f"[bottom-up] LLG voter {evaluator_model} branch "
+                    f"{index}/{len(llg_branches)}: "
+                    f"{branch.high_level_goal.actor.name}::"
+                    f"{branch.high_level_goal.name}",
+                    flush=True,
+                )
+                try:
+                    single = evaluate_llg_decomposition(
+                        project_description,
+                        branch,
+                        reconstructions[branch.branch_id],
+                        current_hlgs,
+                        conversation,
+                        upstream_hlg_evaluation=(
+                            hlg_evaluations[branch.branch_id]
+                        ),
+                        evaluator_models=(evaluator_model,),
+                        manage_model_lifecycle=False,
+                        record_conversation=False,
+                    )
+                    llg_vote_records[branch.branch_id].extend(
+                        single.evaluator_votes
+                    )
+                except (ValueError, TypeError) as exc:
+                    records = getattr(exc, "vote_records", None)
+                    llg_vote_records[branch.branch_id].extend(
+                        records
+                        or [EvaluatorVoteRecord(
+                            model=evaluator_model,
+                            status="INVALID",
+                            error=f"{type(exc).__name__}: {exc}",
+                        )]
+                    )
+        print(
+            f"[bottom-up] unloaded LLG voter: {evaluator_model}", flush=True
+        )
+
+    for branch in branches:
+        if branch.branch_id in evaluations:
+            continue
+        hlg = hlg_evaluations[branch.branch_id]
+        llg = None
+        if branch in llg_branches:
+            try:
+                llg = _aggregate_saved_votes(
+                    llg_vote_records[branch.branch_id],
+                    LowLevelGoalEvaluation,
+                    conversation,
+                    f"LLG decomposition evaluation for parent "
+                    f"'{branch.high_level_goal.name}'",
+                )
+                llg = _normalize_llg_evaluation(branch, llg)
+                llg = _enforce_cross_level_consistency(branch, hlg, llg)
+            except (ValueError, TypeError) as exc:
+                evaluations[branch.branch_id] = _inconclusive_result(
+                    branch,
+                    f"LLG evaluation failed: {exc}",
+                    hlg=hlg,
+                    critic_votes={
+                        "hlg": hlg.evaluator_votes,
+                        "llg": getattr(
+                            exc,
+                            "vote_records",
+                            llg_vote_records[branch.branch_id],
+                        ),
+                    },
+                )
+                continue
+
+        replacement = None
+        if hlg.decision == HighLevelGoalDecision.REMOVE:
+            decision = GlobalGoalEvaluationDecision.REMOVE_ORIGINAL_HIGH_LEVEL_GOAL
+        elif hlg.decision == HighLevelGoalDecision.REWRITE:
+            replacement = build_replacement_request(
+                project_description, branch, hlg
+            )
+            decision = GlobalGoalEvaluationDecision.REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
+        elif llg is None:
+            decision = GlobalGoalEvaluationDecision.CONFIRM_BRANCH
+        else:
+            decision = (
+                GlobalGoalEvaluationDecision.REGENERATE_LOW_LEVEL_GOALS
+                if llg.decision == LowLevelGoalDecision.REGENERATE
+                else GlobalGoalEvaluationDecision.CONFIRM_BRANCH
+            )
+            if not branch.low_level_goals and decision == GlobalGoalEvaluationDecision.CONFIRM_BRANCH:
+                llg = llg.model_copy(update={
+                    "rationale": (
+                        f"{llg.rationale} Empty-branch invariant: a valid HLG "
+                        "cannot be confirmed without an LLG decomposition."
+                    ),
+                    "decision": LowLevelGoalDecision.REGENERATE,
+                    "quality_score": min(llg.quality_score, 2),
+                    "regeneration_feedback": (
+                        "Generate a complete, non-redundant decomposition of "
+                        "the documented parent HLG into atomic functional interactions."
+                    ),
+                    "missing_essential_capabilities": [
+                        branch.high_level_goal.description
+                    ],
+                })
+                decision = GlobalGoalEvaluationDecision.REGENERATE_LOW_LEVEL_GOALS
+
+        rationale_parts = [hlg.rationale]
+        if llg is not None:
+            rationale_parts.append(llg.rationale)
+        evaluations[branch.branch_id] = GlobalGoalEvaluationResult(
+            branch_id=branch.branch_id,
+            rationale=" ".join(rationale_parts),
+            final_decision=decision,
+            high_level_evaluation=hlg,
+            replacement_request=replacement,
+            low_level_evaluation=llg,
+            critic_votes={
+                "hlg": hlg.evaluator_votes,
+                **({"llg": llg.evaluator_votes} if llg is not None else {}),
+            },
+        )
+
+    ordered_evaluations = {}
+    for index, branch in enumerate(branches, start=1):
+        evaluation = evaluations[branch.branch_id]
+        ordered_evaluations[branch.branch_id] = evaluation
+        if on_evaluation is not None:
+            on_evaluation(index, total, dict(ordered_evaluations))
         llg_route = (
             evaluation.low_level_evaluation.decision.value
             if evaluation.low_level_evaluation is not None
@@ -1148,4 +1743,4 @@ def evaluate_all_branches(
             f"{evaluation.final_decision.value}; LLG critic={llg_route}",
             flush=True,
         )
-    return evaluations
+    return ordered_evaluations
