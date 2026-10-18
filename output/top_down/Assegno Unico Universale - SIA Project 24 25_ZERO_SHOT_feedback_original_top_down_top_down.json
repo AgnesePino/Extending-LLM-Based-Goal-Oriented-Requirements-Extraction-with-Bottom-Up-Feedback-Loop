@@ -7,139 +7,154 @@
         "chunkCount": 1,
         "originalChars": 4526,
         "processedChars": 4526,
-        "strategy": "groundtruth_description"
+        "strategy": "groundtruth_description_links_ignored",
+        "linksIgnored": true,
+        "sourceTruncated": false
     },
     "actors": [
         "Applicant",
         "Other Parent",
-        "INPS Operator"
+        "INPS Operator",
+        "Citizen"
     ],
     "highLevelGoals": [
-        "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
-        "Allow the applicant to save, resume, or discard application drafts to facilitate flexible and uninterrupted application completion.",
-        "Enable the applicant to add new dependent children to an already submitted application, with real-time validation of fiscal codes.",
-        "Allow the applicant to upload required documentation and reconfirm application data when an application is suspended by INPS.",
-        "Provide the applicant with the ability to view the status, details, and history of previously submitted applications.",
-        "Enable the applicant to estimate the expected monthly allowance based on their economic situation and family composition.",
-        "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
-        "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
-        "Allow INPS operators to suspend an application and specify the additional documents required from the applicant for further evaluation."
+        "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "Allow the second parent to complete, modify, or confirm the allowance distribution and payment details of an application initiated by the first parent.",
+        "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "Detect and prevent duplicate fiscal codes for children and block applications when a child is already associated with another active application.",
+        "Allow the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
+        "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+        "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+        "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments."
     ],
     "lowLevelGoals": [
-        "The applicant initiates the creation of a new AUU application by providing the applicant's fiscal code and selecting the application type.",
-        "The applicant inputs personal and family composition data, including the fiscal codes of the co-parent and dependent children, triggering real-time validation against the ANPR database.",
-        "The applicant provides banking details (IBAN) and selects the preferred payment method (bank transfer or postal payment) for the allowance disbursement.",
-        "The applicant reviews the summary of the application data and explicitly confirms the submission, generating a unique application ID and status 'Submitted'.",
-        "The applicant saves the current state of the application as a draft, storing all entered fields in the database with a status of 'Draft'.",
-        "The applicant retrieves a list of existing drafts and selects one to load its data into the application form for continued editing.",
-        "The applicant permanently deletes a specific draft from the system, removing all associated data.",
-        "The applicant inputs the fiscal code of a new child to be added to an existing submitted application, triggering a validation check for dependency status.",
-        "The applicant confirms the addition of the validated child to the application, updating the application record and triggering a recalculation of the allowance amount.",
-        "The applicant uploads a digital document (PDF/JPG) in response to a specific documentation request issued by INPS, associating the file with the suspended application.",
-        "The applicant reconfirms the accuracy of the application data after uploading documents, changing the application status from 'Suspended' to 'Under Review'.",
-        "The applicant requests a list of all applications associated with their fiscal code, returning application IDs, dates, and current statuses.",
-        "The applicant requests detailed information for a specific application ID, including status history, allowance amounts, and payment records.",
-        "The applicant inputs economic indicators (ISEE value, income) and family composition parameters to calculate an estimated monthly allowance amount.",
-        "The applicant retrieves the calculated simulation result, displaying the estimated monthly amount and breakdown based on the provided parameters.",
-        "The other parent reviews the application data and allowance distribution proposed by the primary applicant.",
-        "The other parent modifies the percentage distribution of the allowance between the two parents, ensuring the total equals 100%.",
-        "The other parent provides their own banking details (IBAN) for the portion of the allowance allocated to them.",
-        "The other parent explicitly confirms the application, finalizing the shared application status and enabling INPS processing.",
-        "The INPS operator retrieves a list of applications pending evaluation, filtered by status 'Submitted' or 'Under Review'.",
-        "The INPS operator reviews the application details and associated documents to assess eligibility criteria.",
-        "The INPS operator updates the application status to 'Accepted', triggering the allowance calculation and payment scheduling.",
-        "The INPS operator updates the application status to 'Rejected' and provides a mandatory reason code for the rejection.",
-        "The INPS operator updates the application status to 'Suspended' and specifies the list of missing or invalid documents required for further evaluation.",
-        "The INPS operator sends a notification to the applicant detailing the specific documents required and the deadline for submission."
+        "The applicant submits an AUU application and receives real-time validation feedback for each field.",
+        "The system displays mandatory declarations and error messages if required fields are missing or invalid.",
+        "The system notifies the applicant via email or in-app message when the application status changes (e.g., submitted, suspended, accepted).",
+        "The INPS operator evaluates the application by reviewing submitted data and validating compliance with regulations.",
+        "The INPS operator suspends the application for further review or due to missing documentation.",
+        "The INPS operator accepts the application and triggers the allowance distribution process.",
+        "The INPS operator uploads required documentation (e.g., birth certificates, ISEE) to the application record.",
+        "The citizen accesses their past AUU applications and associated statuses via the public portal.",
+        "The citizen inputs their data (e.g., ISEE, number of children) to simulate the expected monthly allowance amount.",
+        "The system detects if a child’s fiscal code is already associated with another active AUU application.",
+        "The system blocks the application submission if a child’s fiscal code is already linked to another active application.",
+        "The system automatically recalculates the allowance amount when a valid ISEE is uploaded or updated.",
+        "The applicant saves the current state of the application as a draft for later completion.",
+        "The applicant resumes an application from a previously saved draft state.",
+        "The applicant discards the current application and starts a new one from scratch.",
+        "The applicant adds a new child to an existing application with real-time fiscal code validation.",
+        "The applicant modifies payment or declaration data for a newly added child after validation.",
+        "The system displays a GDPR-compliant privacy notice before application submission.",
+        "The applicant must explicitly accept a responsibility declaration before proceeding with submission.",
+        "The applicant selects SEPA IBAN as the payment method for allowance distribution.",
+        "The applicant selects post office domiciliation as the payment method for allowance distribution.",
+        "The applicant selects an eligible prepaid card as the payment method for allowance distribution.",
+        "The applicant configures joint payment settings for both parents when selecting payment methods.",
+        "The second parent completes or modifies the allowance distribution and payment details of an application initiated by the first parent."
     ],
     "structuredActors": {
         "actors": [
             {
                 "name": "Applicant",
-                "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                "description": "Parent, foster parent, or legal guardian submitting an AUU application."
             },
             {
                 "name": "Other Parent",
-                "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
+                "description": "Second parent completing or modifying an application initiated by the first parent."
             },
             {
                 "name": "INPS Operator",
-                "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
+                "description": "INPS staff evaluating and managing submitted applications."
+            },
+            {
+                "name": "Citizen",
+                "description": "General public member consulting applications or simulating allowance amounts."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Submit AUU Application",
-                "description": "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
+                "name": "Ensure accurate and compliant AUU application submissions",
+                "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
                 "actor": {
                     "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                 }
             },
             {
-                "name": "Manage Application Drafts",
-                "description": "Allow the applicant to save, resume, or discard application drafts to facilitate flexible and uninterrupted application completion.",
-                "actor": {
-                    "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
-                }
-            },
-            {
-                "name": "Add Children to Existing Application",
-                "description": "Enable the applicant to add new dependent children to an already submitted application, with real-time validation of fiscal codes.",
-                "actor": {
-                    "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
-                }
-            },
-            {
-                "name": "Respond to Suspension Requests",
-                "description": "Allow the applicant to upload required documentation and reconfirm application data when an application is suspended by INPS.",
-                "actor": {
-                    "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
-                }
-            },
-            {
-                "name": "Consult Application Status and History",
-                "description": "Provide the applicant with the ability to view the status, details, and history of previously submitted applications.",
-                "actor": {
-                    "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
-                }
-            },
-            {
-                "name": "Simulate Allowance Amount",
-                "description": "Enable the applicant to estimate the expected monthly allowance based on their economic situation and family composition.",
-                "actor": {
-                    "name": "Applicant",
-                    "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
-                }
-            },
-            {
-                "name": "Complete and Confirm Application",
-                "description": "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
+                "name": "Support collaborative application completion between parents",
+                "description": "Allow the second parent to complete, modify, or confirm the allowance distribution and payment details of an application initiated by the first parent.",
                 "actor": {
                     "name": "Other Parent",
-                    "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
+                    "description": "Second parent completing or modifying an application initiated by the first parent."
                 }
             },
             {
-                "name": "Evaluate and Process Applications",
-                "description": "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
+                "name": "Enable efficient and transparent application evaluation and management",
+                "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                 "actor": {
                     "name": "INPS Operator",
-                    "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
+                    "description": "INPS staff evaluating and managing submitted applications."
                 }
             },
             {
-                "name": "Request Additional Documentation",
-                "description": "Allow INPS operators to suspend an application and specify the additional documents required from the applicant for further evaluation.",
+                "name": "Provide public access to application status and allowance simulation",
+                "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
                 "actor": {
-                    "name": "INPS Operator",
-                    "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
+                    "name": "Citizen",
+                    "description": "General public member consulting applications or simulating allowance amounts."
+                }
+            },
+            {
+                "name": "Ensure data integrity and prevent duplicate applications",
+                "description": "Detect and prevent duplicate fiscal codes for children and block applications when a child is already associated with another active application.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+            },
+            {
+                "name": "Automatically adjust allowance based on updated economic data",
+                "description": "Allow the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+            },
+            {
+                "name": "Support flexible application workflows including drafts and resumptions",
+                "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+            },
+            {
+                "name": "Enable dynamic addition of children to existing applications",
+                "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+            },
+            {
+                "name": "Provide secure and compliant data handling and privacy notices",
+                "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+            },
+            {
+                "name": "Support multiple payment methods for allowance distribution",
+                "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+                "actor": {
+                    "name": "Applicant",
+                    "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                 }
             }
         ]
@@ -147,320 +162,309 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Initiate New Application",
-                "description": "The applicant initiates the creation of a new AUU application by providing the applicant's fiscal code and selecting the application type.",
+                "name": "Submit AUU application with real-time validation",
+                "description": "The applicant submits an AUU application and receives real-time validation feedback for each field.",
                 "high_level_associated": {
-                    "name": "Submit AUU Application",
-                    "description": "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
+                    "name": "Ensure accurate and compliant AUU application submissions",
+                    "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Input Family Composition Data",
-                "description": "The applicant inputs personal and family composition data, including the fiscal codes of the co-parent and dependent children, triggering real-time validation against the ANPR database.",
+                "name": "Display mandatory declarations and error messages",
+                "description": "The system displays mandatory declarations and error messages if required fields are missing or invalid.",
                 "high_level_associated": {
-                    "name": "Submit AUU Application",
-                    "description": "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
+                    "name": "Ensure accurate and compliant AUU application submissions",
+                    "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Configure Payment Details",
-                "description": "The applicant provides banking details (IBAN) and selects the preferred payment method (bank transfer or postal payment) for the allowance disbursement.",
+                "name": "Notify applicant of application status changes",
+                "description": "The system notifies the applicant via email or in-app message when the application status changes (e.g., submitted, suspended, accepted).",
                 "high_level_associated": {
-                    "name": "Submit AUU Application",
-                    "description": "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
+                    "name": "Enable efficient and transparent application evaluation and management",
+                    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "INPS Operator",
+                        "description": "INPS staff evaluating and managing submitted applications."
                     }
                 }
             },
             {
-                "name": "Confirm and Submit Application",
-                "description": "The applicant reviews the summary of the application data and explicitly confirms the submission, generating a unique application ID and status 'Submitted'.",
+                "name": "Allow INPS operator to evaluate application",
+                "description": "The INPS operator evaluates the application by reviewing submitted data and validating compliance with regulations.",
                 "high_level_associated": {
-                    "name": "Submit AUU Application",
-                    "description": "Enable the applicant to submit a complete and valid application for the Assegno Unico Universale, including child details, family composition, and payment information.",
+                    "name": "Enable efficient and transparent application evaluation and management",
+                    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "INPS Operator",
+                        "description": "INPS staff evaluating and managing submitted applications."
                     }
                 }
             },
             {
-                "name": "Save Application Draft",
-                "description": "The applicant saves the current state of the application as a draft, storing all entered fields in the database with a status of 'Draft'.",
+                "name": "Allow INPS operator to suspend application",
+                "description": "The INPS operator suspends the application for further review or due to missing documentation.",
                 "high_level_associated": {
-                    "name": "Manage Application Drafts",
-                    "description": "Allow the applicant to save, resume, or discard application drafts to facilitate flexible and uninterrupted application completion.",
+                    "name": "Enable efficient and transparent application evaluation and management",
+                    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "INPS Operator",
+                        "description": "INPS staff evaluating and managing submitted applications."
                     }
                 }
             },
             {
-                "name": "Resume Application Draft",
-                "description": "The applicant retrieves a list of existing drafts and selects one to load its data into the application form for continued editing.",
+                "name": "Allow INPS operator to accept application",
+                "description": "The INPS operator accepts the application and triggers the allowance distribution process.",
                 "high_level_associated": {
-                    "name": "Manage Application Drafts",
-                    "description": "Allow the applicant to save, resume, or discard application drafts to facilitate flexible and uninterrupted application completion.",
+                    "name": "Enable efficient and transparent application evaluation and management",
+                    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "INPS Operator",
+                        "description": "INPS staff evaluating and managing submitted applications."
                     }
                 }
             },
             {
-                "name": "Discard Application Draft",
-                "description": "The applicant permanently deletes a specific draft from the system, removing all associated data.",
+                "name": "Allow INPS operator to upload required documentation",
+                "description": "The INPS operator uploads required documentation (e.g., birth certificates, ISEE) to the application record.",
                 "high_level_associated": {
-                    "name": "Manage Application Drafts",
-                    "description": "Allow the applicant to save, resume, or discard application drafts to facilitate flexible and uninterrupted application completion.",
+                    "name": "Enable efficient and transparent application evaluation and management",
+                    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "INPS Operator",
+                        "description": "INPS staff evaluating and managing submitted applications."
                     }
                 }
             },
             {
-                "name": "Validate New Child Fiscal Code",
-                "description": "The applicant inputs the fiscal code of a new child to be added to an existing submitted application, triggering a validation check for dependency status.",
+                "name": "Allow citizen to view past applications",
+                "description": "The citizen accesses their past AUU applications and associated statuses via the public portal.",
                 "high_level_associated": {
-                    "name": "Add Children to Existing Application",
-                    "description": "Enable the applicant to add new dependent children to an already submitted application, with real-time validation of fiscal codes.",
+                    "name": "Provide public access to application status and allowance simulation",
+                    "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "Citizen",
+                        "description": "General public member consulting applications or simulating allowance amounts."
                     }
                 }
             },
             {
-                "name": "Confirm Child Addition",
-                "description": "The applicant confirms the addition of the validated child to the application, updating the application record and triggering a recalculation of the allowance amount.",
+                "name": "Allow citizen to simulate allowance amount",
+                "description": "The citizen inputs their data (e.g., ISEE, number of children) to simulate the expected monthly allowance amount.",
                 "high_level_associated": {
-                    "name": "Add Children to Existing Application",
-                    "description": "Enable the applicant to add new dependent children to an already submitted application, with real-time validation of fiscal codes.",
+                    "name": "Provide public access to application status and allowance simulation",
+                    "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
                     "actor": {
-                        "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "name": "Citizen",
+                        "description": "General public member consulting applications or simulating allowance amounts."
                     }
                 }
             },
             {
-                "name": "Upload Required Documentation",
-                "description": "The applicant uploads a digital document (PDF/JPG) in response to a specific documentation request issued by INPS, associating the file with the suspended application.",
+                "name": "Detect duplicate fiscal code for child",
+                "description": "The system detects if a child’s fiscal code is already associated with another active AUU application.",
                 "high_level_associated": {
-                    "name": "Respond to Suspension Requests",
-                    "description": "Allow the applicant to upload required documentation and reconfirm application data when an application is suspended by INPS.",
+                    "name": "Ensure data integrity and prevent duplicate applications",
+                    "description": "Detect and prevent duplicate fiscal codes for children and block applications when a child is already associated with another active application.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Reconfirm Application Data",
-                "description": "The applicant reconfirms the accuracy of the application data after uploading documents, changing the application status from 'Suspended' to 'Under Review'.",
+                "name": "Block application on duplicate fiscal code",
+                "description": "The system blocks the application submission if a child’s fiscal code is already linked to another active application.",
                 "high_level_associated": {
-                    "name": "Respond to Suspension Requests",
-                    "description": "Allow the applicant to upload required documentation and reconfirm application data when an application is suspended by INPS.",
+                    "name": "Ensure data integrity and prevent duplicate applications",
+                    "description": "Detect and prevent duplicate fiscal codes for children and block applications when a child is already associated with another active application.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Retrieve Application List",
-                "description": "The applicant requests a list of all applications associated with their fiscal code, returning application IDs, dates, and current statuses.",
+                "name": "Trigger automatic allowance recalculation on ISEE update",
+                "description": "The system automatically recalculates the allowance amount when a valid ISEE is uploaded or updated.",
                 "high_level_associated": {
-                    "name": "Consult Application Status and History",
-                    "description": "Provide the applicant with the ability to view the status, details, and history of previously submitted applications.",
+                    "name": "Automatically adjust allowance based on updated economic data",
+                    "description": "Allow the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "View Application Details",
-                "description": "The applicant requests detailed information for a specific application ID, including status history, allowance amounts, and payment records.",
+                "name": "Save application draft",
+                "description": "The applicant saves the current state of the application as a draft for later completion.",
                 "high_level_associated": {
-                    "name": "Consult Application Status and History",
-                    "description": "Provide the applicant with the ability to view the status, details, and history of previously submitted applications.",
+                    "name": "Support flexible application workflows including drafts and resumptions",
+                    "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Input Simulation Parameters",
-                "description": "The applicant inputs economic indicators (ISEE value, income) and family composition parameters to calculate an estimated monthly allowance amount.",
+                "name": "Resume application from draft",
+                "description": "The applicant resumes an application from a previously saved draft state.",
                 "high_level_associated": {
-                    "name": "Simulate Allowance Amount",
-                    "description": "Enable the applicant to estimate the expected monthly allowance based on their economic situation and family composition.",
+                    "name": "Support flexible application workflows including drafts and resumptions",
+                    "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Retrieve Simulation Result",
-                "description": "The applicant retrieves the calculated simulation result, displaying the estimated monthly amount and breakdown based on the provided parameters.",
+                "name": "Discard and restart application",
+                "description": "The applicant discards the current application and starts a new one from scratch.",
                 "high_level_associated": {
-                    "name": "Simulate Allowance Amount",
-                    "description": "Enable the applicant to estimate the expected monthly allowance based on their economic situation and family composition.",
+                    "name": "Support flexible application workflows including drafts and resumptions",
+                    "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
                     "actor": {
                         "name": "Applicant",
-                        "description": "Parent, foster parent, or legal guardian submitting and managing AUU applications."
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
                     }
                 }
             },
             {
-                "name": "Review Application Data",
-                "description": "The other parent reviews the application data and allowance distribution proposed by the primary applicant.",
+                "name": "Add new child to existing application",
+                "description": "The applicant adds a new child to an existing application with real-time fiscal code validation.",
                 "high_level_associated": {
-                    "name": "Complete and Confirm Application",
-                    "description": "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
+                    "name": "Enable dynamic addition of children to existing applications",
+                    "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Modify payment or declaration data for added child",
+                "description": "The applicant modifies payment or declaration data for a newly added child after validation.",
+                "high_level_associated": {
+                    "name": "Enable dynamic addition of children to existing applications",
+                    "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Display GDPR-compliant privacy notice",
+                "description": "The system displays a GDPR-compliant privacy notice before application submission.",
+                "high_level_associated": {
+                    "name": "Provide secure and compliant data handling and privacy notices",
+                    "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Require acceptance of responsibility declaration",
+                "description": "The applicant must explicitly accept a responsibility declaration before proceeding with submission.",
+                "high_level_associated": {
+                    "name": "Provide secure and compliant data handling and privacy notices",
+                    "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Allow selection of SEPA IBAN payment method",
+                "description": "The applicant selects SEPA IBAN as the payment method for allowance distribution.",
+                "high_level_associated": {
+                    "name": "Support multiple payment methods for allowance distribution",
+                    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Allow selection of post office domiciliation payment method",
+                "description": "The applicant selects post office domiciliation as the payment method for allowance distribution.",
+                "high_level_associated": {
+                    "name": "Support multiple payment methods for allowance distribution",
+                    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Allow selection of prepaid card payment method",
+                "description": "The applicant selects an eligible prepaid card as the payment method for allowance distribution.",
+                "high_level_associated": {
+                    "name": "Support multiple payment methods for allowance distribution",
+                    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Allow joint parent payment configuration",
+                "description": "The applicant configures joint payment settings for both parents when selecting payment methods.",
+                "high_level_associated": {
+                    "name": "Support multiple payment methods for allowance distribution",
+                    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+                    "actor": {
+                        "name": "Applicant",
+                        "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                    }
+                }
+            },
+            {
+                "name": "Allow second parent to complete application",
+                "description": "The second parent completes or modifies the allowance distribution and payment details of an application initiated by the first parent.",
+                "high_level_associated": {
+                    "name": "Support collaborative application completion between parents",
+                    "description": "Allow the second parent to complete, modify, or confirm the allowance distribution and payment details of an application initiated by the first parent.",
                     "actor": {
                         "name": "Other Parent",
-                        "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
-                    }
-                }
-            },
-            {
-                "name": "Modify Allowance Distribution",
-                "description": "The other parent modifies the percentage distribution of the allowance between the two parents, ensuring the total equals 100%.",
-                "high_level_associated": {
-                    "name": "Complete and Confirm Application",
-                    "description": "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
-                    "actor": {
-                        "name": "Other Parent",
-                        "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
-                    }
-                }
-            },
-            {
-                "name": "Provide Co-Parent Payment Details",
-                "description": "The other parent provides their own banking details (IBAN) for the portion of the allowance allocated to them.",
-                "high_level_associated": {
-                    "name": "Complete and Confirm Application",
-                    "description": "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
-                    "actor": {
-                        "name": "Other Parent",
-                        "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
-                    }
-                }
-            },
-            {
-                "name": "Confirm Shared Application",
-                "description": "The other parent explicitly confirms the application, finalizing the shared application status and enabling INPS processing.",
-                "high_level_associated": {
-                    "name": "Complete and Confirm Application",
-                    "description": "Allow the other parent to review, confirm, or modify the allowance distribution and provide their own payment details for a shared application.",
-                    "actor": {
-                        "name": "Other Parent",
-                        "description": "Co-parent who can complete, confirm, or modify an application and provide payment details."
-                    }
-                }
-            },
-            {
-                "name": "Retrieve Pending Applications",
-                "description": "The INPS operator retrieves a list of applications pending evaluation, filtered by status 'Submitted' or 'Under Review'.",
-                "high_level_associated": {
-                    "name": "Evaluate and Process Applications",
-                    "description": "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
-                    }
-                }
-            },
-            {
-                "name": "Review Application Eligibility",
-                "description": "The INPS operator reviews the application details and associated documents to assess eligibility criteria.",
-                "high_level_associated": {
-                    "name": "Evaluate and Process Applications",
-                    "description": "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
-                    }
-                }
-            },
-            {
-                "name": "Accept Application",
-                "description": "The INPS operator updates the application status to 'Accepted', triggering the allowance calculation and payment scheduling.",
-                "high_level_associated": {
-                    "name": "Evaluate and Process Applications",
-                    "description": "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
-                    }
-                }
-            },
-            {
-                "name": "Reject Application",
-                "description": "The INPS operator updates the application status to 'Rejected' and provides a mandatory reason code for the rejection.",
-                "high_level_associated": {
-                    "name": "Evaluate and Process Applications",
-                    "description": "Enable INPS operators to review submitted applications and determine their eligibility, leading to acceptance, rejection, or suspension.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
-                    }
-                }
-            },
-            {
-                "name": "Suspend Application for Documentation",
-                "description": "The INPS operator updates the application status to 'Suspended' and specifies the list of missing or invalid documents required for further evaluation.",
-                "high_level_associated": {
-                    "name": "Request Additional Documentation",
-                    "description": "Allow INPS operators to suspend an application and specify the additional documents required from the applicant for further evaluation.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
-                    }
-                }
-            },
-            {
-                "name": "Notify Applicant of Documentation Request",
-                "description": "The INPS operator sends a notification to the applicant detailing the specific documents required and the deadline for submission.",
-                "high_level_associated": {
-                    "name": "Request Additional Documentation",
-                    "description": "Allow INPS operators to suspend an application and specify the additional documents required from the applicant for further evaluation.",
-                    "actor": {
-                        "name": "INPS Operator",
-                        "description": "Authorized staff member who evaluates applications, manages statuses, and requests additional documentation."
+                        "description": "Second parent completing or modifying an application initiated by the first parent."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 7.0,
+        "actors": 5.0,
         "highLevelGoals": 10.0,
         "lowLevelGoals": 10.0
     },
     "baselineCritiques": {
-        "actors": "The actors \"Applicant\" and \"Other Parent\" are correctly identified based on the description. However, the actor \"INPS Operator\" is not explicitly mentioned in the software description as an end-user role interacting with the system for online management of AUU applications. While INPS staff may be involved in evaluating applications, their role is more administrative and less focused on direct user interaction compared to applicants or co-parents.",
-        "highLevelGoals": "The high-level goals are well-defined, functional, and representative of the software system's description. They cover all key functionalities mentioned in the description, including application submission, management, status consultation, simulation, co-parent involvement, and INPS operator tasks. No contradictions or omissions were detected.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and the software description. They cover all necessary functional aspects for each actor, including application submission, draft management, child addition, suspension responses, status consultation, allowance simulation, co-parent actions, and INPS operator tasks. No contradictions or omissions were found."
+        "actors": "The extracted actors are mostly accurate but lack specificity for some roles. \"Applicant\" is too broad and should be split into more distinct roles (e.g., \"Parent Applicant,\" \"Foster Parent Applicant,\" \"Legal Guardian Applicant\") to reflect the different types of applicants mentioned in the description. Additionally, \"Citizen\" is redundant with \"Applicant\" since it refers to general public members who may also be applicants. The role \"INPS Operator\" is correctly identified but could be more precisely named (e.g., \"INPS Evaluation Officer\"). The omission of a role for adult dependent children (who contribute to household composition) is notable, as they are mentioned in the description.",
+        "highLevelGoals": "The high-level goals are comprehensive and well-aligned with the software description. They cover all functional aspects of the system, including application submission, validation, collaboration between parents, operator management, public access, data integrity, automatic recalculations, flexible workflows, dynamic child addition, secure data handling, and payment methods. No contradictions or omissions are detected.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and the software description. They cover all necessary functional aspects, including real-time validation, draft management, payment methods, collaborative parent completion, and INPS operator workflows. No contradictions or omissions were found."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
-        "generatorModel": "qwen/qwen3.8-27b",
+        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
@@ -472,8 +476,9 @@
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
         "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "evaluatorMaxInputChars": 24000,
-        "evaluatorDescriptionMaxChars": 1800
+        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
+        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
+        "maxOutputTokens": 32768
     },
     "pipelineConfiguration": {
         "actors": {

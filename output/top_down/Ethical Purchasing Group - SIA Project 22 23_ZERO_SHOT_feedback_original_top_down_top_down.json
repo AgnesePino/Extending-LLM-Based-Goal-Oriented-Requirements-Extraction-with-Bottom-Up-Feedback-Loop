@@ -7,128 +7,162 @@
         "chunkCount": 1,
         "originalChars": 4602,
         "processedChars": 4602,
-        "strategy": "groundtruth_description"
+        "strategy": "groundtruth_description_links_ignored",
+        "linksIgnored": true,
+        "sourceTruncated": false
     },
     "actors": [
-        "Customer Representative",
+        "Customer",
+        "Store Employee",
         "Farmer",
-        "Store Employee"
+        "Purchasing Group Representative"
     ],
     "highLevelGoals": [
-        "Enable the customer to view the weekly offers provided by local farmers, including product details, prices, and availability, to make informed purchasing decisions.",
-        "Allow the customer to select products and specify quantities to create a purchase order, ensuring that minimum order constraints are respected before submission.",
-        "Allow the customer to select a specific time slot for collecting their ordered products from the store to ensure efficient pickup logistics.",
-        "Enable the farmer to input weekly estimates of available products, including type, quantity, price, and specific crop characteristics, to inform the purchasing group.",
-        "Allow the farmer to confirm the actual quantities of products available for sale, triggering the order confirmation or modification process based on supply constraints.",
-        "Enable the store employee to maintain the product catalogue with descriptions, images, units of measurement, and order constraints to support accurate ordering and ensure that farmer availability estimates are correctly linked to catalogue items.",
-        "Allow the store employee to enter orders on behalf of customers who do not use the web system, ensuring equal access to the purchasing process.",
-        "Enable the store employee to confirm the receipt of products delivered by farmers, updating the system status and triggering any necessary compensation for late deliveries.",
-        "Allow the store employee to view the pickup schedule and confirm the collection of orders by customers, updating the order status to completed."
+        "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
+        "Use a fair-play score system to prioritize customers during product shortages, ensuring equitable treatment based on historical reliability.",
+        "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity."
     ],
     "lowLevelGoals": [
-        "Retrieve a list of all active weekly offers, including product details, prices, and availability, for the current week.",
-        "Retrieve detailed information for a specific product offer, including description, unit price, minimum order quantity, and current stock availability.",
-        "Create a new purchase order by submitting a list of selected products with their respective quantities.",
-        "Validate the submitted purchase order against system constraints, such as minimum order quantities and total stock availability, before finalizing it.",
-        "Retrieve a list of available time slots for product collection for the current week.",
-        "Assign a specific time slot to a confirmed purchase order to reserve the collection time.",
-        "Submit a weekly availability estimate for a specific product, including the estimated quantity, price, and crop characteristics.",
-        "Update the actual available quantity of a product for the current week, potentially triggering order adjustments if the actual quantity is less than the estimated quantity.",
-        "Create a new product entry in the catalogue with details such as name, description, image URL, unit of measurement, and minimum order quantity.",
-        "Update an existing product entry in the catalogue to modify details such as description, image, or order constraints.",
-        "Create a purchase order on behalf of a specific customer by submitting a list of products and quantities.",
-        "Confirm the receipt of a product delivery from a farmer, updating the delivery status and recording the actual delivered quantity.",
-        "Retrieve the list of orders scheduled for collection within a specific time slot.",
-        "Mark a specific order as collected, updating its status to completed and releasing the reserved time slot."
+        "Customer accesses a product page to view its origin, quality certifications, and availability status.",
+        "Customer submits an order ensuring it meets the minimum quantity requirement for the product.",
+        "Customer modifies an order by changing quantities or adding/removing items before confirmation.",
+        "Customer confirms the final order, triggering system validation and allocation.",
+        "Customer views their virtual wallet balance and payment history to ensure sufficient funds for order.",
+        "Customer receives real-time notification when payment is processed or pending.",
+        "Customer is notified of insufficient balance and given a grace period to top up before order cancellation.",
+        "Customer selects an available time slot for product pickup based on store availability.",
+        "Customer receives a notification before the pickup time to confirm attendance.",
+        "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+        "Farmer submits an estimate of product availability to the system for dynamic allocation.",
+        "Farmer updates product availability in real-time to reflect changes in stock or delivery status via a dedicated API endpoint.",
+        "Farmer confirms actual quantities available for order by Monday morning via the system.",
+        "System automatically prioritizes customer orders during shortages based on their fair-play score.",
+        "Customer views their fair-play score to understand their priority level during shortages.",
+        "Store employee views and manages pending orders for fulfillment.",
+        "Store employee coordinates pickup logistics for customers, including time and location.",
+        "Store employee processes customer payments and updates wallet balances via system API.",
+        "Store employee confirms delivery status and updates system records.",
+        "System notifies farmer of delivery delays and triggers automatic credit-back bonus with 20% bonus via API.",
+        "System notifies customer of delivery delays and provides estimated resolution time via API.",
+        "System automatically credits back the missing amount to the customer’s wallet with a 20% bonus via API.",
+        "System records transaction details and enforces payment rules for all purchases via API.",
+        "System enforces forfeit policy if customer misses pickup, deducting from wallet or marking as forfeited via API.",
+        "Purchasing Group Representative is authorized to submit orders on behalf of the group via unique credentials or group ID.",
+        "System verifies the identity of the purchasing group representative before allowing order submission via two-factor authentication or group approval workflow.",
+        "System calculates and updates fair-play score based on completed orders, reminders, or penalties via API.",
+        "System notifies customer of order modifications due to insufficient availability and allows acceptance/rejection via API.",
+        "System cancels orders and credits wallets with 20% bonus if deliveries are late via API.",
+        "Customer recharges wallet via in-store terminal using payment methods supported by the system.",
+        "Customer recharges wallet via online transfer using supported payment methods.",
+        "System supports partial payments for orders, allowing customers to pay in installments or partial amounts."
     ],
     "structuredActors": {
         "actors": [
             {
-                "name": "Customer Representative",
-                "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
-            },
-            {
-                "name": "Farmer",
-                "description": "Provides weekly product availability estimates and delivers products to the store."
+                "name": "Customer",
+                "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
             },
             {
                 "name": "Store Employee",
-                "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+            },
+            {
+                "name": "Farmer",
+                "description": "Local producer who supplies products and confirms availability to the system."
+            },
+            {
+                "name": "Purchasing Group Representative",
+                "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Browse Weekly Product Offers",
-                "description": "Enable the customer to view the weekly offers provided by local farmers, including product details, prices, and availability, to make informed purchasing decisions.",
+                "name": "Ensure transparent and traceable product sourcing",
+                "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
                 "actor": {
-                    "name": "Customer Representative",
-                    "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                 }
             },
             {
-                "name": "Place and Validate Purchase Orders",
-                "description": "Allow the customer to select products and specify quantities to create a purchase order, ensuring that minimum order constraints are respected before submission.",
+                "name": "Support efficient order management and allocation",
+                "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
                 "actor": {
-                    "name": "Customer Representative",
-                    "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                 }
             },
             {
-                "name": "Reserve Product Collection Time Slot",
-                "description": "Allow the customer to select a specific time slot for collecting their ordered products from the store to ensure efficient pickup logistics.",
+                "name": "Enable seamless payment and wallet management",
+                "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
                 "actor": {
-                    "name": "Customer Representative",
-                    "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                 }
             },
             {
-                "name": "Submit Weekly Product Availability Estimates",
-                "description": "Enable the farmer to input weekly estimates of available products, including type, quantity, price, and specific crop characteristics, to inform the purchasing group.",
+                "name": "Optimize product pickup scheduling and collection",
+                "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+                "actor": {
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                }
+            },
+            {
+                "name": "Maintain accurate inventory and availability tracking",
+                "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
                 "actor": {
                     "name": "Farmer",
-                    "description": "Provides weekly product availability estimates and delivers products to the store."
+                    "description": "Local producer who supplies products and confirms availability to the system."
                 }
             },
             {
-                "name": "Confirm Actual Product Availability",
-                "description": "Allow the farmer to confirm the actual quantities of products available for sale, triggering the order confirmation or modification process based on supply constraints.",
+                "name": "Support fair and transparent allocation during shortages",
+                "description": "Use a fair-play score system to prioritize customers during product shortages, ensuring equitable treatment based on historical reliability.",
+                "actor": {
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                }
+            },
+            {
+                "name": "Enable efficient store operations and order fulfillment",
+                "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+                "actor": {
+                    "name": "Store Employee",
+                    "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+                }
+            },
+            {
+                "name": "Provide timely delivery and customer notification",
+                "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
                 "actor": {
                     "name": "Farmer",
-                    "description": "Provides weekly product availability estimates and delivers products to the store."
+                    "description": "Local producer who supplies products and confirms availability to the system."
                 }
             },
             {
-                "name": "Manage Product Catalogue",
-                "description": "Enable the store employee to maintain the product catalogue with descriptions, images, units of measurement, and order constraints to support accurate ordering and ensure that farmer availability estimates are correctly linked to catalogue items.",
+                "name": "Maintain system integrity and customer trust",
+                "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
                 "actor": {
-                    "name": "Store Employee",
-                    "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                    "name": "Customer",
+                    "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                 }
             },
             {
-                "name": "Enter Orders on Behalf of Customers",
-                "description": "Allow the store employee to enter orders on behalf of customers who do not use the web system, ensuring equal access to the purchasing process.",
+                "name": "Support group-based purchasing and representative authorization",
+                "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
                 "actor": {
-                    "name": "Store Employee",
-                    "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
-                }
-            },
-            {
-                "name": "Confirm Product Deliveries",
-                "description": "Enable the store employee to confirm the receipt of products delivered by farmers, updating the system status and triggering any necessary compensation for late deliveries.",
-                "actor": {
-                    "name": "Store Employee",
-                    "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
-                }
-            },
-            {
-                "name": "Manage Product Collection Schedule",
-                "description": "Allow the store employee to view the pickup schedule and confirm the collection of orders by customers, updating the order status to completed.",
-                "actor": {
-                    "name": "Store Employee",
-                    "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                    "name": "Purchasing Group Representative",
+                    "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
                 }
             }
         ]
@@ -136,188 +170,405 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Fetch Weekly Offers List",
-                "description": "Retrieve a list of all active weekly offers, including product details, prices, and availability, for the current week.",
+                "name": "View product origin details",
+                "description": "Customer accesses a product page to view its origin, quality certifications, and availability status.",
                 "high_level_associated": {
-                    "name": "Browse Weekly Product Offers",
-                    "description": "Enable the customer to view the weekly offers provided by local farmers, including product details, prices, and availability, to make informed purchasing decisions.",
+                    "name": "Ensure transparent and traceable product sourcing",
+                    "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Get Product Offer Details",
-                "description": "Retrieve detailed information for a specific product offer, including description, unit price, minimum order quantity, and current stock availability.",
+                "name": "Submit an order with minimum quantity",
+                "description": "Customer submits an order ensuring it meets the minimum quantity requirement for the product.",
                 "high_level_associated": {
-                    "name": "Browse Weekly Product Offers",
-                    "description": "Enable the customer to view the weekly offers provided by local farmers, including product details, prices, and availability, to make informed purchasing decisions.",
+                    "name": "Support efficient order management and allocation",
+                    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Create Purchase Order",
-                "description": "Create a new purchase order by submitting a list of selected products with their respective quantities.",
+                "name": "Modify an existing order",
+                "description": "Customer modifies an order by changing quantities or adding/removing items before confirmation.",
                 "high_level_associated": {
-                    "name": "Place and Validate Purchase Orders",
-                    "description": "Allow the customer to select products and specify quantities to create a purchase order, ensuring that minimum order constraints are respected before submission.",
+                    "name": "Support efficient order management and allocation",
+                    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Validate Order Constraints",
-                "description": "Validate the submitted purchase order against system constraints, such as minimum order quantities and total stock availability, before finalizing it.",
+                "name": "Confirm order submission",
+                "description": "Customer confirms the final order, triggering system validation and allocation.",
                 "high_level_associated": {
-                    "name": "Place and Validate Purchase Orders",
-                    "description": "Allow the customer to select products and specify quantities to create a purchase order, ensuring that minimum order constraints are respected before submission.",
+                    "name": "Support efficient order management and allocation",
+                    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Fetch Available Collection Slots",
-                "description": "Retrieve a list of available time slots for product collection for the current week.",
+                "name": "Check wallet balance and payment status",
+                "description": "Customer views their virtual wallet balance and payment history to ensure sufficient funds for order.",
                 "high_level_associated": {
-                    "name": "Reserve Product Collection Time Slot",
-                    "description": "Allow the customer to select a specific time slot for collecting their ordered products from the store to ensure efficient pickup logistics.",
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Reserve Collection Slot",
-                "description": "Assign a specific time slot to a confirmed purchase order to reserve the collection time.",
+                "name": "Receive payment notification",
+                "description": "Customer receives real-time notification when payment is processed or pending.",
                 "high_level_associated": {
-                    "name": "Reserve Product Collection Time Slot",
-                    "description": "Allow the customer to select a specific time slot for collecting their ordered products from the store to ensure efficient pickup logistics.",
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
                     "actor": {
-                        "name": "Customer Representative",
-                        "description": "Represents a purchasing group, browses offers, places orders, manages wallet, and collects products."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Submit Product Estimate",
-                "description": "Submit a weekly availability estimate for a specific product, including the estimated quantity, price, and crop characteristics.",
+                "name": "Handle insufficient balance with grace period",
+                "description": "Customer is notified of insufficient balance and given a grace period to top up before order cancellation.",
                 "high_level_associated": {
-                    "name": "Submit Weekly Product Availability Estimates",
-                    "description": "Enable the farmer to input weekly estimates of available products, including type, quantity, price, and specific crop characteristics, to inform the purchasing group.",
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Select pickup time slot",
+                "description": "Customer selects an available time slot for product pickup based on store availability.",
+                "high_level_associated": {
+                    "name": "Optimize product pickup scheduling and collection",
+                    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Receive pickup reminder notification",
+                "description": "Customer receives a notification before the pickup time to confirm attendance.",
+                "high_level_associated": {
+                    "name": "Optimize product pickup scheduling and collection",
+                    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Receive missed pickup notification",
+                "description": "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+                "high_level_associated": {
+                    "name": "Optimize product pickup scheduling and collection",
+                    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Submit product availability estimate",
+                "description": "Farmer submits an estimate of product availability to the system for dynamic allocation.",
+                "high_level_associated": {
+                    "name": "Maintain accurate inventory and availability tracking",
+                    "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
                     "actor": {
                         "name": "Farmer",
-                        "description": "Provides weekly product availability estimates and delivers products to the store."
+                        "description": "Local producer who supplies products and confirms availability to the system."
                     }
                 }
             },
             {
-                "name": "Confirm Actual Availability",
-                "description": "Update the actual available quantity of a product for the current week, potentially triggering order adjustments if the actual quantity is less than the estimated quantity.",
+                "name": "Update availability in real-time",
+                "description": "Farmer updates product availability in real-time to reflect changes in stock or delivery status via a dedicated API endpoint.",
                 "high_level_associated": {
-                    "name": "Confirm Actual Product Availability",
-                    "description": "Allow the farmer to confirm the actual quantities of products available for sale, triggering the order confirmation or modification process based on supply constraints.",
+                    "name": "Maintain accurate inventory and availability tracking",
+                    "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
                     "actor": {
                         "name": "Farmer",
-                        "description": "Provides weekly product availability estimates and delivers products to the store."
+                        "description": "Local producer who supplies products and confirms availability to the system."
                     }
                 }
             },
             {
-                "name": "Create Catalogue Item",
-                "description": "Create a new product entry in the catalogue with details such as name, description, image URL, unit of measurement, and minimum order quantity.",
+                "name": "Confirm final product quantities available for order",
+                "description": "Farmer confirms actual quantities available for order by Monday morning via the system.",
                 "high_level_associated": {
-                    "name": "Manage Product Catalogue",
-                    "description": "Enable the store employee to maintain the product catalogue with descriptions, images, units of measurement, and order constraints to support accurate ordering and ensure that farmer availability estimates are correctly linked to catalogue items.",
+                    "name": "Maintain accurate inventory and availability tracking",
+                    "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
                     "actor": {
-                        "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "name": "Farmer",
+                        "description": "Local producer who supplies products and confirms availability to the system."
                     }
                 }
             },
             {
-                "name": "Update Catalogue Item",
-                "description": "Update an existing product entry in the catalogue to modify details such as description, image, or order constraints.",
+                "name": "Prioritize customer based on fair-play score",
+                "description": "System automatically prioritizes customer orders during shortages based on their fair-play score.",
                 "high_level_associated": {
-                    "name": "Manage Product Catalogue",
-                    "description": "Enable the store employee to maintain the product catalogue with descriptions, images, units of measurement, and order constraints to support accurate ordering and ensure that farmer availability estimates are correctly linked to catalogue items.",
+                    "name": "Support fair and transparent allocation during shortages",
+                    "description": "Use a fair-play score system to prioritize customers during product shortages, ensuring equitable treatment based on historical reliability.",
                     "actor": {
-                        "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Create Proxy Order",
-                "description": "Create a purchase order on behalf of a specific customer by submitting a list of products and quantities.",
+                "name": "View fair-play score",
+                "description": "Customer views their fair-play score to understand their priority level during shortages.",
                 "high_level_associated": {
-                    "name": "Enter Orders on Behalf of Customers",
-                    "description": "Allow the store employee to enter orders on behalf of customers who do not use the web system, ensuring equal access to the purchasing process.",
+                    "name": "Support fair and transparent allocation during shortages",
+                    "description": "Use a fair-play score system to prioritize customers during product shortages, ensuring equitable treatment based on historical reliability.",
                     "actor": {
-                        "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             },
             {
-                "name": "Confirm Delivery Receipt",
-                "description": "Confirm the receipt of a product delivery from a farmer, updating the delivery status and recording the actual delivered quantity.",
+                "name": "Manage order fulfillment for store",
+                "description": "Store employee views and manages pending orders for fulfillment.",
                 "high_level_associated": {
-                    "name": "Confirm Product Deliveries",
-                    "description": "Enable the store employee to confirm the receipt of products delivered by farmers, updating the system status and triggering any necessary compensation for late deliveries.",
+                    "name": "Enable efficient store operations and order fulfillment",
+                    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
                     "actor": {
                         "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
                     }
                 }
             },
             {
-                "name": "Fetch Collection Schedule",
-                "description": "Retrieve the list of orders scheduled for collection within a specific time slot.",
+                "name": "Coordinate product pickup",
+                "description": "Store employee coordinates pickup logistics for customers, including time and location.",
                 "high_level_associated": {
-                    "name": "Manage Product Collection Schedule",
-                    "description": "Allow the store employee to view the pickup schedule and confirm the collection of orders by customers, updating the order status to completed.",
+                    "name": "Enable efficient store operations and order fulfillment",
+                    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
                     "actor": {
                         "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
                     }
                 }
             },
             {
-                "name": "Confirm Order Collection",
-                "description": "Mark a specific order as collected, updating its status to completed and releasing the reserved time slot.",
+                "name": "Process customer payments",
+                "description": "Store employee processes customer payments and updates wallet balances via system API.",
                 "high_level_associated": {
-                    "name": "Manage Product Collection Schedule",
-                    "description": "Allow the store employee to view the pickup schedule and confirm the collection of orders by customers, updating the order status to completed.",
+                    "name": "Enable efficient store operations and order fulfillment",
+                    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
                     "actor": {
                         "name": "Store Employee",
-                        "description": "Manages product catalogue, enters orders on behalf of customers, confirms deliveries, and handles product collection."
+                        "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+                    }
+                }
+            },
+            {
+                "name": "Confirm delivery status",
+                "description": "Store employee confirms delivery status and updates system records.",
+                "high_level_associated": {
+                    "name": "Enable efficient store operations and order fulfillment",
+                    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+                    "actor": {
+                        "name": "Store Employee",
+                        "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+                    }
+                }
+            },
+            {
+                "name": "Notify farmer of delivery delay",
+                "description": "System notifies farmer of delivery delays and triggers automatic credit-back bonus with 20% bonus via API.",
+                "high_level_associated": {
+                    "name": "Provide timely delivery and customer notification",
+                    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+                    "actor": {
+                        "name": "Farmer",
+                        "description": "Local producer who supplies products and confirms availability to the system."
+                    }
+                }
+            },
+            {
+                "name": "Notify customer of delivery delay",
+                "description": "System notifies customer of delivery delays and provides estimated resolution time via API.",
+                "high_level_associated": {
+                    "name": "Provide timely delivery and customer notification",
+                    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+                    "actor": {
+                        "name": "Farmer",
+                        "description": "Local producer who supplies products and confirms availability to the system."
+                    }
+                }
+            },
+            {
+                "name": "Automatically credit back missing amount with bonus",
+                "description": "System automatically credits back the missing amount to the customer’s wallet with a 20% bonus via API.",
+                "high_level_associated": {
+                    "name": "Provide timely delivery and customer notification",
+                    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+                    "actor": {
+                        "name": "Farmer",
+                        "description": "Local producer who supplies products and confirms availability to the system."
+                    }
+                }
+            },
+            {
+                "name": "Record transaction and enforce payment",
+                "description": "System records transaction details and enforces payment rules for all purchases via API.",
+                "high_level_associated": {
+                    "name": "Maintain system integrity and customer trust",
+                    "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Enforce pickup forfeit policy",
+                "description": "System enforces forfeit policy if customer misses pickup, deducting from wallet or marking as forfeited via API.",
+                "high_level_associated": {
+                    "name": "Maintain system integrity and customer trust",
+                    "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Authorize group representative to submit orders",
+                "description": "Purchasing Group Representative is authorized to submit orders on behalf of the group via unique credentials or group ID.",
+                "high_level_associated": {
+                    "name": "Support group-based purchasing and representative authorization",
+                    "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
+                    "actor": {
+                        "name": "Purchasing Group Representative",
+                        "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
+                    }
+                }
+            },
+            {
+                "name": "Verify group representative identity",
+                "description": "System verifies the identity of the purchasing group representative before allowing order submission via two-factor authentication or group approval workflow.",
+                "high_level_associated": {
+                    "name": "Support group-based purchasing and representative authorization",
+                    "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
+                    "actor": {
+                        "name": "Purchasing Group Representative",
+                        "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
+                    }
+                }
+            },
+            {
+                "name": "Calculate and update fair-play score",
+                "description": "System calculates and updates fair-play score based on completed orders, reminders, or penalties via API.",
+                "high_level_associated": {
+                    "name": "Support fair and transparent allocation during shortages",
+                    "description": "Use a fair-play score system to prioritize customers during product shortages, ensuring equitable treatment based on historical reliability.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Notify customer of order changes due to insufficient availability",
+                "description": "System notifies customer of order modifications due to insufficient availability and allows acceptance/rejection via API.",
+                "high_level_associated": {
+                    "name": "Support efficient order management and allocation",
+                    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Cancel orders and credit wallets with 20% bonus if deliveries are late",
+                "description": "System cancels orders and credits wallets with 20% bonus if deliveries are late via API.",
+                "high_level_associated": {
+                    "name": "Provide timely delivery and customer notification",
+                    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+                    "actor": {
+                        "name": "Farmer",
+                        "description": "Local producer who supplies products and confirms availability to the system."
+                    }
+                }
+            },
+            {
+                "name": "Recharge wallet via in-store terminal",
+                "description": "Customer recharges wallet via in-store terminal using payment methods supported by the system.",
+                "high_level_associated": {
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Recharge wallet via online transfer",
+                "description": "Customer recharges wallet via online transfer using supported payment methods.",
+                "high_level_associated": {
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+                    }
+                }
+            },
+            {
+                "name": "Support partial payments for orders",
+                "description": "System supports partial payments for orders, allowing customers to pay in installments or partial amounts.",
+                "high_level_associated": {
+                    "name": "Enable seamless payment and wallet management",
+                    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+                    "actor": {
+                        "name": "Customer",
+                        "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 7.0,
+        "actors": 8.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 10.0
+        "lowLevelGoals": 7.0
     },
     "baselineCritiques": {
-        "actors": "The actors \"Customer Representative,\" \"Farmer,\" and \"Store Employee\" are correctly identified based on the software description. However, there is a missing actor that plays a crucial role in the system's operation cycle: the Purchasing Group Administrator. This role would be responsible for managing the purchasing group's settings, monitoring fair-play scores, and ensuring the smooth operation of the group. Additionally, the description mentions \"families\" as potential customers, but this is already covered under \"Customer Representative.\" The provided actors are mostly accurate, but the omission of a more administrative or oversight role slightly weakens the completeness.",
-        "highLevelGoals": "The high-level goals are well-defined and align with the system's description, covering all key functionalities for each actor. No contradictions or omissions were detected.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors. They cover all necessary functional aspects of the system, including browsing offers, placing orders, reserving collection slots, submitting product estimates, confirming deliveries, managing the catalogue, and handling proxy orders. No contradictions or omissions were detected."
+        "actors": "The actors defined are mostly appropriate, but there is redundancy between \"Customer\" and \"Purchasing Group Representative.\" A customer is already described as a representative of a purchasing group, so having both roles separately is unnecessary. Additionally, while the description covers all key entities involved in the system (customers, store employees, farmers), it could be more precise to distinguish between different types of customers (e.g., individual customers vs. representatives) if needed for clarity. However, no critical omissions or contradictions are present.",
+        "highLevelGoals": "The high-level goals are comprehensive and well-aligned with the system's description. They cover all functional aspects of the Ethical Purchasing Group (EPS) management, including product sourcing, order management, payment processing, pickup scheduling, inventory tracking, fair allocation, store operations, delivery management, system integrity, and group-based purchasing. No contradictions or omissions are detected.",
+        "lowLevelGoals": "The low-level goals are generally well-aligned with the high-level goals and the system description. However, there are a few minor issues that could be addressed for better completeness and accuracy: 1. Missing Low-Level Goal for Farmer's Initial Availability Submission: - The high-level goal \"[Farmer] Maintain accurate inventory and availability tracking\" implies that farmers should initially submit their product availability estimates (between Friday noon and Saturday morning). While this is partially covered under \"Submit product availability estimate,\" it lacks specificity about the timing or process constraints (e.g., deadline for submission). 2. Overlap in Low-Level Goals: - Some low-level goals, such as those related to notifications (e.g., \"Notify customer of order changes due to insufficient availability\"), are duplicated across branches (e.g., also under \"[Customer] Optimize product pickup scheduling and collection\"). This redundancy could be streamlined. 3. Missing Clarity on API Endpoints: - Several low-level goals mention API interactions (e.g., \"via API\" or \"via dedicated API endpoint\") without specifying whether these are RESTful, GraphQL, or other types of APIs. While this is a technical detail, it could be clarified for completeness. 4. Inconsistency in Payment Handling: - The high-level goal \"[Customer] Enable seamless payment and wallet management\" includes support for partial payments, but the low-level goal \"Support partial payments for orders\" seems out of scope given the system description (payments are automatic upon confirmation). This could be removed or clarified. 5. Missing Low-Level Goal for Store Employee's Order Validation: - The high-level goal \"[Store Employee] Enable efficient store operations and order fulfillment\" does not explicitly cover the employee's role in validating orders before confirmation (e.g., checking for errors or completeness). 6. Fair-Play Score Calculation: - While the fair-play score is mentioned, there is no low-level goal specifying how it is calculated (e.g., weightings for completed orders, reminders, etc.). This could be added for clarity. 7. Missing Low-Level Goal for Customer's Order Cancellation Due to Late Delivery: - The high-level goal \"[Farmer] Provide timely delivery and customer notification\" includes automatic cancellation of orders if deliveries are late, but this is not explicitly covered in the low-level goals under \"[Customer] Optimize product pickup scheduling and collection.\" 8. Missing Low-Level Goal for Farmer's Delivery Confirmation: - The high-level goal \"[Farmer] Provide timely delivery and customer notification\" implies that farmers should confirm receipt of delivered products, but this is not explicitly covered in the low-level goals. 9. Inconsistency in Order State Management: - The system description mentions orders being placed in \"entered,\" \"modified,\" or \"cancelled\" states, but these transitions are not clearly reflected in the low-level goals (e.g., no explicit goal for transitioning from \"entered\" to \"confirmed\"). 10. Missing Low-Level Goal for Customer's Order Summary Email: - The system description mentions sending an order summary email after submission, but this is not covered in the low-level goals. ### Suggested Improvements: - Add a low-level goal for farmers to submit initial product availability estimates by Saturday morning. - Remove or clarify the \"Support partial payments for orders\" goal if it is out of scope. - Specify API types (e.g., RESTful) where mentioned. - Add clarity on fair-play score calculation and order state transitions. - Include low-level goals for store employees to validate orders and confirm delivery receipt by farmers. - Add a low-level goal for sending order summary emails post-submission."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
-        "generatorModel": "qwen/qwen3.8-27b",
+        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
@@ -329,8 +580,9 @@
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
         "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "evaluatorMaxInputChars": 24000,
-        "evaluatorDescriptionMaxChars": 1800
+        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
+        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
+        "maxOutputTokens": 32768
     },
     "pipelineConfiguration": {
         "actors": {

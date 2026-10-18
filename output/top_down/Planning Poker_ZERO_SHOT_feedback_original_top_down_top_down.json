@@ -7,100 +7,72 @@
         "chunkCount": 1,
         "originalChars": 314,
         "processedChars": 314,
-        "strategy": "groundtruth_description"
+        "strategy": "groundtruth_description_links_ignored",
+        "linksIgnored": true,
+        "sourceTruncated": false
     },
     "actors": [
-        "Team Member",
         "Scrum Master",
-        "Product Owner"
+        "Product Owner",
+        "Development Team Member"
     ],
     "highLevelGoals": [
-        "Enable team members to privately and anonymously submit their estimates for user stories to prevent anchoring bias and encourage independent thinking.",
-        "Facilitate the disclosure of differing estimates to trigger discussions, allowing the team to share knowledge and reach a consensus on the effort required for sprint goals.",
-        "Allow the Scrum Master to control the flow of the estimation session, including revealing estimates, managing rounds, and ensuring all participants have submitted their votes.",
-        "Provide the Scrum Master with a clear view of the team's estimation distribution to identify outliers and guide the team towards a shared understanding of the work.",
-        "Enable the Product Owner to present user stories and clarify requirements during the estimation process to ensure the team has sufficient context for accurate planning.",
-        "Allow the Product Owner to observe the team's estimation process and final agreed-upon values to validate that the sprint goals align with product priorities and business value."
+        "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
+        "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+        "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories."
     ],
     "lowLevelGoals": [
-        "The system accepts a numeric value representing the effort estimate for a specific user story from the authenticated Team Member, storing it without revealing it to other participants.",
-        "The system allows the authenticated Team Member to modify their previously submitted estimate for the current user story before the Scrum Master reveals the results.",
-        "The system retrieves and displays the list of all submitted estimates for the current user story to the authenticated Team Member, showing only the values and not the identities of the submitters.",
-        "The system allows the authenticated Team Member to post a text comment or justification regarding their estimate or the discussion for the current user story.",
-        "The system allows the authenticated Scrum Master to trigger the reveal of all submitted estimates for the current user story to all connected Team Members.",
-        "The system allows the authenticated Scrum Master to mark the current user story as having reached a consensus, locking the final agreed-upon value and moving the session to the next item.",
-        "The system allows the authenticated Scrum Master to initiate a new estimation round for the current user story, resetting the submission status for all Team Members if consensus was not reached.",
-        "The system provides the authenticated Scrum Master with a real-time status view indicating which Team Members have submitted their estimates and which have not for the current user story.",
-        "The system provides the authenticated Scrum Master with a statistical summary of the submitted estimates, including the minimum, maximum, and median values, to identify outliers.",
-        "The system allows the authenticated Product Owner to add or update the description, acceptance criteria, or context notes for the current user story being estimated.",
-        "The system allows the authenticated Product Owner to post a clarification or answer to a question raised by the Team during the estimation discussion.",
-        "The system provides the authenticated Product Owner with a read-only view of the final agreed-upon estimate and the discussion history for the current user story.",
-        "The system allows the authenticated Product Owner to flag a user story for re-estimation or removal from the sprint if the final estimate does not align with product priorities."
+        "Enable the Scrum Master to set up estimation parameters such as story point scales, estimation methods, and bias mitigation strategies.",
+        "Allow the Scrum Master to trigger estimation sessions with pre-configured rules and user story sets.",
+        "Enable Development Team Members to submit estimates anonymously to prevent social bias during estimation sessions.",
+        "Enable each team member to submit their individual estimate for a user story using the configured estimation method.",
+        "Enable the team to vote or agree on final estimates after anonymous submission to ensure consensus.",
+        "Allow the Product Owner to create and define sprint goals for the upcoming sprint.",
+        "Allow the Product Owner to map user stories to sprint goals and enforce goal alignment during estimation.",
+        "Enable the team to review estimation outcomes and collaboratively refine estimates through discussion or voting mechanisms.",
+        "Allow the team to engage in post-estimation discussions to clarify ambiguities and adjust estimates based on collective knowledge.",
+        "Allow the Scrum Master to verify that user stories being estimated are mapped to defined sprint goals and to flag mismatches for discussion."
     ],
     "structuredActors": {
         "actors": [
             {
-                "name": "Team Member",
-                "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-            },
-            {
                 "name": "Scrum Master",
-                "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
+                "description": "Facilitates the agile process and guides the team during planning sessions."
             },
             {
                 "name": "Product Owner",
-                "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                "description": "Defines the sprint goals and prioritizes the backlog for the team."
+            },
+            {
+                "name": "Development Team Member",
+                "description": "Contributes to estimating user stories and collaborates on sprint planning."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Provide Anonymous Estimation Capability",
-                "description": "Enable team members to privately and anonymously submit their estimates for user stories to prevent anchoring bias and encourage independent thinking.",
-                "actor": {
-                    "name": "Team Member",
-                    "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                }
-            },
-            {
-                "name": "Facilitate Consensus Building Through Discussion",
-                "description": "Facilitate the disclosure of differing estimates to trigger discussions, allowing the team to share knowledge and reach a consensus on the effort required for sprint goals.",
-                "actor": {
-                    "name": "Team Member",
-                    "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                }
-            },
-            {
-                "name": "Manage Estimation Session Flow",
-                "description": "Allow the Scrum Master to control the flow of the estimation session, including revealing estimates, managing rounds, and ensuring all participants have submitted their votes.",
+                "name": "Enable Transparent and Consensus-Based Estimation",
+                "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
                 "actor": {
                     "name": "Scrum Master",
-                    "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
+                    "description": "Facilitates the agile process and guides the team during planning sessions."
                 }
             },
             {
-                "name": "Monitor Team Estimation Consensus",
-                "description": "Provide the Scrum Master with a clear view of the team's estimation distribution to identify outliers and guide the team towards a shared understanding of the work.",
-                "actor": {
-                    "name": "Scrum Master",
-                    "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
-                }
-            },
-            {
-                "name": "Present and Clarify Sprint Backlog Items",
-                "description": "Enable the Product Owner to present user stories and clarify requirements during the estimation process to ensure the team has sufficient context for accurate planning.",
+                "name": "Support Prioritized Sprint Goal Alignment",
+                "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
                 "actor": {
                     "name": "Product Owner",
-                    "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                    "description": "Defines the sprint goals and prioritizes the backlog for the team."
                 }
             },
             {
-                "name": "Observe Estimation Outcomes for Prioritization",
-                "description": "Allow the Product Owner to observe the team's estimation process and final agreed-upon values to validate that the sprint goals align with product priorities and business value.",
+                "name": "Foster Collaborative Estimation and Knowledge Sharing",
+                "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
                 "actor": {
-                    "name": "Product Owner",
-                    "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                    "name": "Development Team Member",
+                    "description": "Contributes to estimating user stories and collaborates on sprint planning."
                 }
             }
         ]
@@ -108,176 +80,141 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Submit Private Estimate",
-                "description": "The system accepts a numeric value representing the effort estimate for a specific user story from the authenticated Team Member, storing it without revealing it to other participants.",
+                "name": "Allow Scrum Master to configure estimation rules",
+                "description": "Enable the Scrum Master to set up estimation parameters such as story point scales, estimation methods, and bias mitigation strategies.",
                 "high_level_associated": {
-                    "name": "Provide Anonymous Estimation Capability",
-                    "description": "Enable team members to privately and anonymously submit their estimates for user stories to prevent anchoring bias and encourage independent thinking.",
-                    "actor": {
-                        "name": "Team Member",
-                        "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                    }
-                }
-            },
-            {
-                "name": "Update Private Estimate",
-                "description": "The system allows the authenticated Team Member to modify their previously submitted estimate for the current user story before the Scrum Master reveals the results.",
-                "high_level_associated": {
-                    "name": "Provide Anonymous Estimation Capability",
-                    "description": "Enable team members to privately and anonymously submit their estimates for user stories to prevent anchoring bias and encourage independent thinking.",
-                    "actor": {
-                        "name": "Team Member",
-                        "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                    }
-                }
-            },
-            {
-                "name": "View Revealed Estimates",
-                "description": "The system retrieves and displays the list of all submitted estimates for the current user story to the authenticated Team Member, showing only the values and not the identities of the submitters.",
-                "high_level_associated": {
-                    "name": "Facilitate Consensus Building Through Discussion",
-                    "description": "Facilitate the disclosure of differing estimates to trigger discussions, allowing the team to share knowledge and reach a consensus on the effort required for sprint goals.",
-                    "actor": {
-                        "name": "Team Member",
-                        "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                    }
-                }
-            },
-            {
-                "name": "Post Discussion Comment",
-                "description": "The system allows the authenticated Team Member to post a text comment or justification regarding their estimate or the discussion for the current user story.",
-                "high_level_associated": {
-                    "name": "Facilitate Consensus Building Through Discussion",
-                    "description": "Facilitate the disclosure of differing estimates to trigger discussions, allowing the team to share knowledge and reach a consensus on the effort required for sprint goals.",
-                    "actor": {
-                        "name": "Team Member",
-                        "description": "A member of the agile development team who participates in the game to estimate sprint goals."
-                    }
-                }
-            },
-            {
-                "name": "Reveal Estimates",
-                "description": "The system allows the authenticated Scrum Master to trigger the reveal of all submitted estimates for the current user story to all connected Team Members.",
-                "high_level_associated": {
-                    "name": "Manage Estimation Session Flow",
-                    "description": "Allow the Scrum Master to control the flow of the estimation session, including revealing estimates, managing rounds, and ensuring all participants have submitted their votes.",
+                    "name": "Enable Transparent and Consensus-Based Estimation",
+                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
                     "actor": {
                         "name": "Scrum Master",
-                        "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
+                        "description": "Facilitates the agile process and guides the team during planning sessions."
                     }
                 }
             },
             {
-                "name": "Confirm Consensus and Advance",
-                "description": "The system allows the authenticated Scrum Master to mark the current user story as having reached a consensus, locking the final agreed-upon value and moving the session to the next item.",
+                "name": "Enable Scrum Master to initiate estimation sessions",
+                "description": "Allow the Scrum Master to trigger estimation sessions with pre-configured rules and user story sets.",
                 "high_level_associated": {
-                    "name": "Manage Estimation Session Flow",
-                    "description": "Allow the Scrum Master to control the flow of the estimation session, including revealing estimates, managing rounds, and ensuring all participants have submitted their votes.",
+                    "name": "Enable Transparent and Consensus-Based Estimation",
+                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
                     "actor": {
                         "name": "Scrum Master",
-                        "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
+                        "description": "Facilitates the agile process and guides the team during planning sessions."
                     }
                 }
             },
             {
-                "name": "Start New Estimation Round",
-                "description": "The system allows the authenticated Scrum Master to initiate a new estimation round for the current user story, resetting the submission status for all Team Members if consensus was not reached.",
+                "name": "Provide anonymous estimation mode for team members",
+                "description": "Enable Development Team Members to submit estimates anonymously to prevent social bias during estimation sessions.",
                 "high_level_associated": {
-                    "name": "Manage Estimation Session Flow",
-                    "description": "Allow the Scrum Master to control the flow of the estimation session, including revealing estimates, managing rounds, and ensuring all participants have submitted their votes.",
+                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
+                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
+                    "actor": {
+                        "name": "Development Team Member",
+                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                    }
+                }
+            },
+            {
+                "name": "Allow team members to submit individual estimates",
+                "description": "Enable each team member to submit their individual estimate for a user story using the configured estimation method.",
+                "high_level_associated": {
+                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
+                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
+                    "actor": {
+                        "name": "Development Team Member",
+                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                    }
+                }
+            },
+            {
+                "name": "Allow team to vote on final estimates",
+                "description": "Enable the team to vote or agree on final estimates after anonymous submission to ensure consensus.",
+                "high_level_associated": {
+                    "name": "Enable Transparent and Consensus-Based Estimation",
+                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
                     "actor": {
                         "name": "Scrum Master",
-                        "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
+                        "description": "Facilitates the agile process and guides the team during planning sessions."
                     }
                 }
             },
             {
-                "name": "View Submission Status",
-                "description": "The system provides the authenticated Scrum Master with a real-time status view indicating which Team Members have submitted their estimates and which have not for the current user story.",
+                "name": "Enable Product Owner to define sprint goals",
+                "description": "Allow the Product Owner to create and define sprint goals for the upcoming sprint.",
                 "high_level_associated": {
-                    "name": "Monitor Team Estimation Consensus",
-                    "description": "Provide the Scrum Master with a clear view of the team's estimation distribution to identify outliers and guide the team towards a shared understanding of the work.",
-                    "actor": {
-                        "name": "Scrum Master",
-                        "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
-                    }
-                }
-            },
-            {
-                "name": "View Estimate Distribution Statistics",
-                "description": "The system provides the authenticated Scrum Master with a statistical summary of the submitted estimates, including the minimum, maximum, and median values, to identify outliers.",
-                "high_level_associated": {
-                    "name": "Monitor Team Estimation Consensus",
-                    "description": "Provide the Scrum Master with a clear view of the team's estimation distribution to identify outliers and guide the team towards a shared understanding of the work.",
-                    "actor": {
-                        "name": "Scrum Master",
-                        "description": "The person who facilitates the Planning Poker session and manages the sprint planning process."
-                    }
-                }
-            },
-            {
-                "name": "Update User Story Details",
-                "description": "The system allows the authenticated Product Owner to add or update the description, acceptance criteria, or context notes for the current user story being estimated.",
-                "high_level_associated": {
-                    "name": "Present and Clarify Sprint Backlog Items",
-                    "description": "Enable the Product Owner to present user stories and clarify requirements during the estimation process to ensure the team has sufficient context for accurate planning.",
+                    "name": "Support Prioritized Sprint Goal Alignment",
+                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
                     "actor": {
                         "name": "Product Owner",
-                        "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                        "description": "Defines the sprint goals and prioritizes the backlog for the team."
                     }
                 }
             },
             {
-                "name": "Post Clarification",
-                "description": "The system allows the authenticated Product Owner to post a clarification or answer to a question raised by the Team during the estimation discussion.",
+                "name": "Enable Product Owner to assign user stories to sprint goals",
+                "description": "Allow the Product Owner to map user stories to sprint goals and enforce goal alignment during estimation.",
                 "high_level_associated": {
-                    "name": "Present and Clarify Sprint Backlog Items",
-                    "description": "Enable the Product Owner to present user stories and clarify requirements during the estimation process to ensure the team has sufficient context for accurate planning.",
+                    "name": "Support Prioritized Sprint Goal Alignment",
+                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
                     "actor": {
                         "name": "Product Owner",
-                        "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                        "description": "Defines the sprint goals and prioritizes the backlog for the team."
                     }
                 }
             },
             {
-                "name": "View Final Estimate and Discussion",
-                "description": "The system provides the authenticated Product Owner with a read-only view of the final agreed-upon estimate and the discussion history for the current user story.",
+                "name": "Allow team to view and discuss estimation results",
+                "description": "Enable the team to review estimation outcomes and collaboratively refine estimates through discussion or voting mechanisms.",
                 "high_level_associated": {
-                    "name": "Observe Estimation Outcomes for Prioritization",
-                    "description": "Allow the Product Owner to observe the team's estimation process and final agreed-upon values to validate that the sprint goals align with product priorities and business value.",
+                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
+                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
                     "actor": {
-                        "name": "Product Owner",
-                        "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                        "name": "Development Team Member",
+                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
                     }
                 }
             },
             {
-                "name": "Flag Story for Re-evaluation",
-                "description": "The system allows the authenticated Product Owner to flag a user story for re-estimation or removal from the sprint if the final estimate does not align with product priorities.",
+                "name": "Enable team to refine estimates through discussion",
+                "description": "Allow the team to engage in post-estimation discussions to clarify ambiguities and adjust estimates based on collective knowledge.",
                 "high_level_associated": {
-                    "name": "Observe Estimation Outcomes for Prioritization",
-                    "description": "Allow the Product Owner to observe the team's estimation process and final agreed-upon values to validate that the sprint goals align with product priorities and business value.",
+                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
+                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
                     "actor": {
-                        "name": "Product Owner",
-                        "description": "The stakeholder who defines the product backlog and prioritizes sprint goals, often participating in or observing the estimation process."
+                        "name": "Development Team Member",
+                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                    }
+                }
+            },
+            {
+                "name": "Enable Scrum Master to enforce sprint goal alignment during estimation",
+                "description": "Allow the Scrum Master to verify that user stories being estimated are mapped to defined sprint goals and to flag mismatches for discussion.",
+                "high_level_associated": {
+                    "name": "Support Prioritized Sprint Goal Alignment",
+                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+                    "actor": {
+                        "name": "Scrum Master",
+                        "description": "Facilitates the agile process and guides the team during planning sessions."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 7.0,
+        "actors": 10.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 10.0
+        "lowLevelGoals": 8.0
     },
     "baselineCritiques": {
-        "actors": "The actors defined are appropriate for a Planning Poker system, as they align with typical roles in agile/scrum teams. However, the description of \"Team Member\" is incomplete (cut off), which may indicate missing details or potential omissions.",
-        "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the software description. They cover all key aspects of Planning Poker, including anonymous estimation, consensus building, session management, monitoring, backlog presentation, and prioritization. No contradictions or omissions were found.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and accurately reflect the functional requirements of the Planning Poker system. Each goal corresponds to a specific action an actor can perform, ensuring clarity and completeness. No contradictions or omissions were detected."
+        "actors": "The actors defined are appropriate for a Planning Poker system, as they align with typical roles in agile/scrum teams. No contradictions or omissions are observed.",
+        "highLevelGoals": "The high-level goals are well-defined and align with the description of Planning Poker. They focus on functional aspects such as transparent estimation, prioritized sprint goal alignment, and collaborative knowledge sharing. No contradictions or omissions are observed.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of Planning Poker. However, there is a minor omission regarding the Product Owner's ability to prioritize the backlog before sprint planning, which is implied in the high-level goal \"Support Prioritized Sprint Goal Alignment.\" Additionally, while the low-level goals are comprehensive, they could benefit from explicitly mentioning the system's support for different estimation methods (e.g., Fibonacci sequence, T-shirt sizing) and the ability to export or save session results for future reference."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
-        "generatorModel": "qwen/qwen3.8-27b",
+        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
@@ -289,8 +226,9 @@
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
         "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "evaluatorMaxInputChars": 24000,
-        "evaluatorDescriptionMaxChars": 1800
+        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
+        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
+        "maxOutputTokens": 32768
     },
     "pipelineConfiguration": {
         "actors": {
