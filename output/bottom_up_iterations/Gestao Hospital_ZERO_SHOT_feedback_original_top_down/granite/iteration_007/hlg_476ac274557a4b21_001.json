@@ -1,0 +1,84 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_476ac274557a4b21_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support Clinical Documentation",
+    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+    "actor": {
+      "name": "Hospital Staff",
+      "description": "Registers patients, manages medical notes, and handles check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register New Patient",
+      "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Create Medical Note",
+      "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Manage Patient Check-In",
+      "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of hospital entities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects centralizing administration.\",\n    \"outcome_justification\": \"Centralizes hospital administration by managing data, resources, and operations within the system.\"\n  },\n  {\n    \"branch_id\": \"hlg_e01285a371937460_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects real-time monitoring and historical data export.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects operational visibility.\",\n    \"outcome_justification\": \"Improves operational visibility by enabling hospital managers to monitor real-time data and export historical data for analysis and compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers patient appointment management, medical record updates, and check-in processes.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects patient care coordination.\",\n    \"outcome_justification\": \"Enhances patient care coordination by supporting healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.\"\n  },\n  {\n    \"branch_id\": \"hlg_046276afce6da8f8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects patient search and location-based recommendations.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects patient self-service.\",\n    \"outcome_justification\": \"Enables patients to search for hospitals and receive location-based recommendations to improve access to care.\"\n  },\n  {\n    \"branch_id\": \"hlg_476ac274557a4b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of clinical documentation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is broader and should be revised to accurately reflect hospital staff responsibilities.\",\n    \"outcome_justification\": \"Enables hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.\"\n  },\n  {\n    \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects logistics staff responsibilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects resource management.\",\n    \"outcome_justification\": \"Optimizes resource management by allowing logistics staff to manage inventory, blood samples, and product requests.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_476ac274557a4b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits some aspects of clinical documentation."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The original parent's description is broader and should be revised to accurately reflect hospital staff responsibilities.",
+      "outcome_justification": "Enables hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of hospital entities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects centralizing administration.\",\n    \"outcome_justification\": \"Centralizes hospital administration by managing data, resources, and operations within the system.\"\n  },\n  {\n    \"branch_id\": \"hlg_e01285a371937460_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects real-time monitoring and historical data export.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects operational visibility.\",\n    \"outcome_justification\": \"Improves operational visibility by enabling hospital managers to monitor real-time data and export historical data for analysis and compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers patient appointment management, medical record updates, and check-in processes.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects patient care coordination.\",\n    \"outcome_justification\": \"Enhances patient care coordination by supporting healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.\"\n  },\n  {\n    \"branch_id\": \"hlg_046276afce6da8f8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects patient search and location-based recommendations.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects patient self-service.\",\n    \"outcome_justification\": \"Enables patients to search for hospitals and receive location-based recommendations to improve access to care.\"\n  },\n  {\n    \"branch_id\": \"hlg_476ac274557a4b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of clinical documentation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is broader and should be revised to accurately reflect hospital staff responsibilities.\",\n    \"outcome_justification\": \"Enables hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.\"\n  },\n  {\n    \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects logistics staff responsibilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's description is more concise and accurately reflects resource management.\",\n    \"outcome_justification\": \"Optimizes resource management by allowing logistics staff to manage inventory, blood samples, and product requests.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits some aspects of clinical documentation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

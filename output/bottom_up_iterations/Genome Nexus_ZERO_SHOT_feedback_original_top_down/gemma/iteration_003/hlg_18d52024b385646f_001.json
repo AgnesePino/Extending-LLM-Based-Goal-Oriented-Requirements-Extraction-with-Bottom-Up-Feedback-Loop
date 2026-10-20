@@ -1,0 +1,78 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_18d52024b385646f_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+    "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+    "actor": {
+      "name": "Researcher",
+      "description": "Scientist studying genetic variants and their biological implications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Map variants to reference genome assemblies (GRCh38, hg38)",
+      "description": "Provide an API to convert variant coordinates from raw DNA sequences to mapped positions in standard reference genome assemblies.",
+      "high_level_associated": {
+        "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+        "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Translate DNA mutations into protein-level functional impacts",
+      "description": "Allow the system to convert DNA-level variants into protein-level effects (e.g., missense, frameshift, splice site) using protein annotation tools.",
+      "high_level_associated": {
+        "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+        "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the core intent of rapid, comprehensive variant annotation from multiple sources.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a primary, independently documented goal for researchers; the reconstruction confirms its core scope.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes specific technical actions like mapping and prediction not explicitly in the parent's clinical focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the clinical interpretation goal; the reconstruction's technical details are valid child-level details.\",\"outcome_justification\":\"Clinicians interpret clinical significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on specific API endpoints and databases, while the parent is a broader biological goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific goal of cancer-related mutation analysis; the reconstruction identifies specific implementation paths.\",\"outcome_justification\":\"Researchers and clinicians analyze mutations specifically relevant to cancer biology.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the scalable processing of large-scale datasets.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, high-level requirement for scalability and high-throughput processing.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and translation capabilities described in the parent.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"These specific mapping and translation capabilities are internal components of the broader variant annotation and interpretation goals.\",\"outcome_justification\":\"The containing outcome is variant annotation and interpretation; these are specific technical steps.\",\"removal_basis\":\"OVER_SPECIFIC\"},{\"branch_id\":\"hlg_50214718e1e0e929_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the functional prediction capability for protein impact.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Functional prediction is a specific capability that falls under the broader goal of variant interpretation.\",\"outcome_justification\":\"The containing outcome is variant interpretation; functional prediction is a specific method to achieve it.\",\"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_18d52024b385646f_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "These specific mapping and translation capabilities are internal components of the broader variant annotation and interpretation goals.",
+      "outcome_justification": "The containing outcome is variant annotation and interpretation; these are specific technical steps.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "OVER_SPECIFIC",
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the core intent of rapid, comprehensive variant annotation from multiple sources.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a primary, independently documented goal for researchers; the reconstruction confirms its core scope.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes specific technical actions like mapping and prediction not explicitly in the parent's clinical focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the clinical interpretation goal; the reconstruction's technical details are valid child-level details.\",\"outcome_justification\":\"Clinicians interpret clinical significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on specific API endpoints and databases, while the parent is a broader biological goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific goal of cancer-related mutation analysis; the reconstruction identifies specific implementation paths.\",\"outcome_justification\":\"Researchers and clinicians analyze mutations specifically relevant to cancer biology.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the scalable processing of large-scale datasets.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, high-level requirement for scalability and high-throughput processing.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and translation capabilities described in the parent.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"These specific mapping and translation capabilities are internal components of the broader variant annotation and interpretation goals.\",\"outcome_justification\":\"The containing outcome is variant annotation and interpretation; these are specific technical steps.\",\"removal_basis\":\"OVER_SPECIFIC\"},{\"branch_id\":\"hlg_50214718e1e0e929_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the functional prediction capability for protein impact.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Functional prediction is a specific capability that falls under the broader goal of variant interpretation.\",\"outcome_justification\":\"The containing outcome is variant interpretation; functional prediction is a specific method to achieve it.\",\"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction matches the mapping and translation capabilities described in the parent.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

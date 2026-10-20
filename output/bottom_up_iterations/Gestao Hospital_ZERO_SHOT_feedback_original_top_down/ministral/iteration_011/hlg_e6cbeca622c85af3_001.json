@@ -1,0 +1,90 @@
+{
+  "iteration": 11,
+  "branch_id": "hlg_e6cbeca622c85af3_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Optimize Resource Management",
+    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+    "actor": {
+      "name": "Logistics Staff",
+      "description": "Manages products, blood samples, and inventory requests."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Place Inventory Request",
+      "description": "The Logistics Staff submits a request to replenish medical supplies or equipment in the inventory system.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Track Blood Sample Inventory",
+      "description": "The Logistics Staff views and updates the status of blood samples in inventory, including expiration and usage.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Approve Product Request",
+      "description": "The Logistics Staff approves or rejects a product request based on availability and clinical need.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data, resources, and operations.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches operational visibility metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time monitoring; no redundancy.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance and data.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient patient management; no redundancy.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-in.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports patient search and recommendations; no redundancy.\",\n      \"outcome_justification\": \"Patient searches for hospitals and receives recommendations.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with hlg_a9ff40162305bff8_001; no independent outcome.\",\n      \"outcome_justification\": \"Clinical documentation is part of patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports logistics efficiency; no redundancy.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and requests.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_e6cbeca622c85af3_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports logistics efficiency; no redundancy.",
+      "outcome_justification": "Logistics Staff manages inventory, blood samples, and requests.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data, resources, and operations.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches operational visibility metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time monitoring; no redundancy.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance and data.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient patient management; no redundancy.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-in.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports patient search and recommendations; no redundancy.\",\n      \"outcome_justification\": \"Patient searches for hospitals and receives recommendations.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with hlg_a9ff40162305bff8_001; no independent outcome.\",\n      \"outcome_justification\": \"Clinical documentation is part of patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports logistics efficiency; no redundancy.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and requests.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches resource management.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,84 @@
+{
+  "iteration": 23,
+  "branch_id": "hlg_a60576d246cc19fd_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support data-driven business decision-making",
+    "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator generates sales performance report",
+      "description": "The administrator retrieves and exports a report on sales performance over a defined period.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates inventory turnover report",
+      "description": "The administrator retrieves and exports a report on inventory turnover rates by product category.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates customer support response time report",
+      "description": "The administrator retrieves and exports a report on average ticket resolution time and agent performance.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on proposal submission and evaluation, omitting supplier registration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports supplier registration; reconstructed HLG covers part of the original parent's scope.\",\"outcome_justification\":\"Enables efficient supplier onboarding including registration, proposal management, and timely feedback.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits automatic rejection after 10 days; focuses on evaluation tools and notifications.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source reserves automatic rejection to ten working days; correct the parent's responsibility.\",\"outcome_justification\":\"Ensures timely evaluation with defined outcomes, including automated rejection for delays.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits manual replenishment and administrator override; focuses on automatic triggers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual inventory management; correct the parent's scope.\",\"outcome_justification\":\"Supports accurate and timely product inventory management, including both automated and manual replenishment options.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits system suggestions for store assignments; focuses on defect flagging.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes system-driven location assignments; correct the parent's scope.\",\"outcome_justification\":\"Facilitates seamless goods receiving and store placement, including automated product assignment suggestions.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits staff-initiated payment triggers and partial delivery handling; focuses on automated proposal management.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual order fulfillment and payment processes; correct the parent's scope.\",\"outcome_justification\":\"Manages order fulfillment and supplier payments accurately, including both automated and staff-initiated processes.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits mobile notifications for delivery updates; focuses on email tracking.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes mobile delivery notifications; correct the parent's scope.\",\"outcome_justification\":\"Provides seamless online shopping and payment experience, including real-time delivery tracking via multiple channels.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits performance statistics and agent reassignment rules; focuses on ticket assignment.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes performance tracking and reassignment rules; correct the parent's scope.\",\"outcome_justification\":\"Delivers responsive and efficient customer support, including agent performance monitoring and automated reassignment.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits predefined report generation; focuses on data collection.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes predefined reporting capabilities; correct the parent's scope.\",\"outcome_justification\":\"Supports data-driven business decision-making, including automated performance report generation and analysis.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_a60576d246cc19fd_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "Reconstruction omits predefined report generation; focuses on data collection."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source includes predefined reporting capabilities; correct the parent's scope.",
+      "outcome_justification": "Supports data-driven business decision-making, including automated performance report generation and analysis."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on proposal submission and evaluation, omitting supplier registration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports supplier registration; reconstructed HLG covers part of the original parent's scope.\",\"outcome_justification\":\"Enables efficient supplier onboarding including registration, proposal management, and timely feedback.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits automatic rejection after 10 days; focuses on evaluation tools and notifications.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source reserves automatic rejection to ten working days; correct the parent's responsibility.\",\"outcome_justification\":\"Ensures timely evaluation with defined outcomes, including automated rejection for delays.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits manual replenishment and administrator override; focuses on automatic triggers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual inventory management; correct the parent's scope.\",\"outcome_justification\":\"Supports accurate and timely product inventory management, including both automated and manual replenishment options.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits system suggestions for store assignments; focuses on defect flagging.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes system-driven location assignments; correct the parent's scope.\",\"outcome_justification\":\"Facilitates seamless goods receiving and store placement, including automated product assignment suggestions.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits staff-initiated payment triggers and partial delivery handling; focuses on automated proposal management.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual order fulfillment and payment processes; correct the parent's scope.\",\"outcome_justification\":\"Manages order fulfillment and supplier payments accurately, including both automated and staff-initiated processes.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits mobile notifications for delivery updates; focuses on email tracking.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes mobile delivery notifications; correct the parent's scope.\",\"outcome_justification\":\"Provides seamless online shopping and payment experience, including real-time delivery tracking via multiple channels.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits performance statistics and agent reassignment rules; focuses on ticket assignment.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes performance tracking and reassignment rules; correct the parent's scope.\",\"outcome_justification\":\"Delivers responsive and efficient customer support, including agent performance monitoring and automated reassignment.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits predefined report generation; focuses on data collection.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes predefined reporting capabilities; correct the parent's scope.\",\"outcome_justification\":\"Supports data-driven business decision-making, including automated performance report generation and analysis.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits predefined report generation; focuses on data collection.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

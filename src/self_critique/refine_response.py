@@ -470,8 +470,13 @@ def generate_response_with_reflection(target_type, call_function, define_args, e
 # prompts, thresholds and parsing rules cannot alter the baseline route.
 # =============================================================================
 
-BOTTOM_UP_MAX_ATTEMPTS = 5
-BOTTOM_UP_QUALITY_THRESHOLD = 8.0
+# Paper-aligned generation reflection: initial candidate plus two refinements.
+BOTTOM_UP_MAX_ATTEMPTS = 3
+BOTTOM_UP_QUALITY_THRESHOLD = 8.5
+
+
+class RepairCandidateRejected(RuntimeError):
+    """The semantic generation budget was exhausted; the cycle may retry later."""
 BOTTOM_UP_EVALUATOR_FEW_SHOT_EXAMPLE_COUNT = None
 
 
@@ -510,7 +515,7 @@ def _bottom_up_few_shot_examples(eval_mode: BottomUpEvalMode) -> list[str]:
     }
     example_count = BOTTOM_UP_EVALUATOR_FEW_SHOT_EXAMPLE_COUNT
     if example_count is None:
-        example_count = int(os.getenv("EVALUATOR_FEW_SHOT_EXAMPLE_COUNT", "2"))
+        example_count = int(os.getenv("EVALUATOR_FEW_SHOT_EXAMPLE_COUNT", "4"))
     if not 1 <= example_count <= 4:
         raise ValueError(
             "EVALUATOR_FEW_SHOT_EXAMPLE_COUNT must be between 1 and 4"
@@ -525,6 +530,7 @@ def get_bottom_up_evaluation(
     high_level_goals=None,
     low_level_goals=None,
     focused_scope: str | None = None,
+    format_feedback: str | None = None,
 ):
     if not isinstance(eval_mode, BottomUpEvalMode):
         raise TypeError(
@@ -551,6 +557,15 @@ def get_bottom_up_evaluation(
         _bottom_up_few_shot_examples(eval_mode)
     )
     sys_prompt += "\n\n---\n"
+    sys_prompt += (
+        "\nFor this bottom-up repair, the parent actor is the source-grounded "
+        "stakeholder responsible for or benefiting from the outcome. Documented "
+        "automatic notifications or system operations do not require a manual "
+        "trigger by that actor. Judge documentary support and responsibility; "
+        "do not invent UI actions or reject automation solely for lacking one. "
+        "For a consolidation, assess the complete requested functional outcome "
+        "and preserve supported capabilities of every supplied member.\n"
+    )
 
     assume_this_is_ok = ""
     additional_prompt = ""
@@ -649,6 +664,8 @@ def get_bottom_up_evaluation(
 
             Feedback:
         """
+    if format_feedback:
+        prompt += "\nFORMAT CORRECTION FOR THIS SAME CANDIDATE:\n" + format_feedback
     critic_model = configured_critic_model()
     with loaded_local_evaluator_model(critic_model):
         return generate_evaluator_response(
@@ -659,97 +676,52 @@ def get_bottom_up_evaluation(
 
 
 def parse_bottom_up_evaluation(evaluation: str | Critique):
-    if type(evaluation) == str:
-        text = evaluation.strip()
-        score_match = re.search(
-            r"(?:^|\n)\s*Score\s*:\s*([-+]?(?:\d+(?:\.\d*)?|\.\d+))\s*$",
-            text,
-            flags=re.IGNORECASE,
-        )
-        feedback_match = re.search(
-            r"^\s*Feedback\s*:\s*(.*?)\s*(?=\n\s*Score\s*:|$)",
-            text,
-            flags=re.IGNORECASE | re.DOTALL,
-        )
-        if not score_match or not feedback_match:
-            raise ValueError(
-                "Input text must contain Feedback: ... and a final Score: line."
-            )
-        score = float(score_match.group(1))
-        if not 0 <= score <= 10:
-            raise ValueError("Evaluation score must be between 0 and 10.")
-        feedback = feedback_match.group(1).strip()
-    elif type(evaluation) == Critique:
-        score = evaluation.score
-        feedback = evaluation.comment
-    else:
-        raise ValueError("Input evaluation is not in the expected format.")
+    """Accept explicit Feedback/Score or JSON without inventing a missing score."""
+    score, feedback = parse_evaluation(evaluation)
+    if not 0 <= score <= 10:
+        raise ValueError("Evaluation score must be between 0 and 10.")
     return score, feedback
 
 
 def generate_bottom_up_response_with_reflection(
-    target_type,
-    call_function,
-    define_args,
-    eval_mode,
-    eval_args,
+    target_type, call_function, define_args, eval_mode, eval_args,
     shotPromptingMode=ShotPromptingMode.ZERO_SHOT,
-    max_attempts=BOTTOM_UP_MAX_ATTEMPTS,
-    llama_ablation=False,
+    max_attempts=BOTTOM_UP_MAX_ATTEMPTS, llama_ablation=False,
     focused_scope: str | None = None,
 ):
-    if max_attempts < 1:
-        raise ValueError("max_attempts must be at least 1")
+    if max_attempts < 1 or TOP_DOWN_EVALUATION_PARSE_ATTEMPTS < 1:
+        raise ValueError("Generation and format attempt budgets must be positive")
     feedback = None
-    score = None
-    critique = None
-    parse_error = None
+    score = critique = None
     for attempt in range(1, max_attempts + 1):
         print(f"{target_type} STARTING... (attempt {attempt})")
-        result = call_function(
-            *define_args,
-            feedback=feedback,
-            mode=shotPromptingMode,
-        )
+        result = call_function(*define_args, feedback=feedback, mode=shotPromptingMode)
         print(f"{target_type} DONE...")
         print(_compact_result_summary(result))
         if llama_ablation:
             return result, 10, None
-        print(f"Evaluation for {target_type} STARTING...")
-        evaluation = get_bottom_up_evaluation(
-            eval_mode,
-            *eval_args,
-            result,
-            focused_scope=focused_scope,
-        )
-        print(f"Evaluation for {target_type} DONE...")
-        try:
-            score, critique = parse_bottom_up_evaluation(evaluation)
-            print(f"Score: {score}")
-            print(f"Critique: {critique}")
-            if score >= BOTTOM_UP_QUALITY_THRESHOLD:
-                print("Satisfactory score achieved! Breaking out of the loop.")
-                return result, score, critique
-            print("Unsatisfactory score. Retrying...")
-            feedback = BottomUpFeedback(
-                previous_output=result,
-                critique=critique,
-            )
-        except ValueError as exc:
-            print(f"Error while parsing evaluation: {exc}")
-            parse_error = exc
-            feedback = BottomUpFeedback(
-                previous_output=result,
-                critique=(
-                    "The evaluator response was malformed. Return exactly "
-                    "'Feedback: ...' followed by 'Score: 0-10'."
-                ),
-            )
-            critique = str(exc)
-    if score is None and parse_error is not None:
-        raise RuntimeError(
-            "Evaluator returned malformed output after "
-            f"{max_attempts} attempts: {parse_error}"
-        ) from parse_error
-    print("Failed to achieve a satisfactory score within the maximum number of attempts.")
-    return result, score, critique
+        score = None
+        format_feedback = None
+        last_parse_error = None
+        # A formatting problem belongs to the critic, not to Qwen. Retry the
+        # identical candidate while Ministral stays loaded for the format loop.
+        with loaded_local_evaluator_model(configured_critic_model()):
+            for format_attempt in range(1, TOP_DOWN_EVALUATION_PARSE_ATTEMPTS + 1):
+                print(f"Evaluation for {target_type} STARTING... (format attempt {format_attempt})")
+                evaluation = get_bottom_up_evaluation(eval_mode, *eval_args, result,
+                    focused_scope=focused_scope, format_feedback=format_feedback)
+                try:
+                    score, critique = parse_bottom_up_evaluation(evaluation)
+                    break
+                except ValueError as exc:
+                    last_parse_error = exc
+                    format_feedback = (f"Your previous response could not be parsed: {exc}. "
+                        "Evaluate the SAME candidate. Return Feedback: ... and Score: 0-10. "
+                        "Do not change a score merely to pass parsing.\nPrevious response:\n" + str(evaluation))
+        if score is None:
+            raise RuntimeError(f"Evaluator returned malformed output after {TOP_DOWN_EVALUATION_PARSE_ATTEMPTS} format attempts for the same candidate: {last_parse_error}") from last_parse_error
+        print(f"Score: {score}\nCritique: {critique}")
+        if score >= BOTTOM_UP_QUALITY_THRESHOLD:
+            return result, score, critique
+        feedback = BottomUpFeedback(previous_output=result, critique=critique)
+    raise RepairCandidateRejected(f"Top-down repair critic did not approve the candidate after {max_attempts} generation attempts (score={score}): {critique}")

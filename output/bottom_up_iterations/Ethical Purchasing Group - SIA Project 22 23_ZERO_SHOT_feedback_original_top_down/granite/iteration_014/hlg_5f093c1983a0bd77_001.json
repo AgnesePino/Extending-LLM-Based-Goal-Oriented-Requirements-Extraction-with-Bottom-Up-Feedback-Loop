@@ -1,0 +1,134 @@
+{
+  "iteration": 14,
+  "branch_id": "hlg_5f093c1983a0bd77_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Ensure transparent and traceable product sourcing",
+    "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View product origin details",
+      "description": "Customer accesses a product page to view its origin, quality certifications, and availability status.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Browse and compare farmer offers",
+      "description": "Customer navigates through available products from different farmers, comparing prices, quantities, and characteristics to inform purchasing decisions.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Place an order for selected products",
+      "description": "Customer submits an order specifying desired quantities for selected products, respecting minimum order constraints defined for each product.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Modify order due to availability constraints",
+      "description": "Customer adjusts order quantities or removes items when product availability is insufficient, based on precedence rules and fair-play score.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Review and accept modified order",
+      "description": "Customer reviews changes made to their order due to availability issues and explicitly accepts the updated order to proceed.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Cancel order due to complete unavailability",
+      "description": "Customer’s order is automatically cancelled if all products become unavailable, and the customer is notified of the cancellation.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer places orders with quantity constraints and modified due to availability using fair-play precedence rules; reconstruction omits these crucial aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated order cancellation for insufficient funds.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellations; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with real-time notifications and automated order cancellation for insufficient funds; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play score updates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer pickup scheduling includes automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits farmer confirmation of final quantities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Dynamic allocation of limited product quantities based on real-time availability and fair-play precedence scoring with farmer confirmation; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of store employee order management are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordination of product pickup, processing customer payments, and confirming delivery status; no overlap or missing aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the 20% bonus for delivery failures.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the 20% bonus; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Delivery delay notification and compensation system includes an SMS alert, order record updates, and a 20% bonus for delivery failures; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of group-based purchasing and representative authorization are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders with identity verification and group membership validation; no overlap or missing aspects.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_5f093c1983a0bd77_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.",
+      "outcome_justification": "Customer places orders with quantity constraints and modified due to availability using fair-play precedence rules; reconstruction omits these crucial aspects."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer places orders with quantity constraints and modified due to availability using fair-play precedence rules; reconstruction omits these crucial aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated order cancellation for insufficient funds.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellations; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with real-time notifications and automated order cancellation for insufficient funds; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play score updates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer pickup scheduling includes automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits farmer confirmation of final quantities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Dynamic allocation of limited product quantities based on real-time availability and fair-play precedence scoring with farmer confirmation; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of store employee order management are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordination of product pickup, processing customer payments, and confirming delivery status; no overlap or missing aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the 20% bonus for delivery failures.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the 20% bonus; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Delivery delay notification and compensation system includes an SMS alert, order record updates, and a 20% bonus for delivery failures; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of group-based purchasing and representative authorization are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders with identity verification and group membership validation; no overlap or missing aspects.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Ensure transparent and traceable product sourcing'. Each LLG is directly supported by documentary evidence from the project description. The LLGs accurately represent the system's functionalities, including viewing product details, browsing offers, placing orders with constraints, modifying orders based on availability, reviewing modifications, and cancelling orders when all products are unavailable. No essential capability is missing or misrepresented.\\n\\nThe LLG' provided is a concise summary of the parent HLG but does not serve as a basis for evaluation. The actual children (LLGs) are complete, supported, and non-redundant, aligning with the KEEP_LOW_LEVEL_GOALS criteria.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Ensure transparent and traceable product sourcing'. Each LLG is directly supported by documentary evidence from the project description. The LLGs accurately represent the system's functionalities, including viewing product details, browsing offers, placing orders with constraints, modifying orders based on availability, reviewing modifications, and cancelling orders when all products are unavailable. No essential capability is missing or misrepresented.\n\nThe LLG' provided is a concise summary of the parent HLG but does not serve as a basis for evaluation. The actual children (LLGs) are complete, supported, and non-redundant, aligning with the KEEP_LOW_LEVEL_GOALS criteria.\n\nDecision: KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": []
+    },
+    "error": "ValidationError: 1 validation error for LowLevelGoalEvaluation\ndecision\n  Field required [type=missing, input_value={'rationale': \"The curren...ntial_capabilities': []}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing"
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

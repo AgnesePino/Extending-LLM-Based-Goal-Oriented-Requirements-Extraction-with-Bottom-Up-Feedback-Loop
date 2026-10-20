@@ -1,0 +1,71 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_1bf3e45578a286a9_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide public access to application status and allowance simulation",
+    "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+    "actor": {
+      "name": "Citizen",
+      "description": "General public member consulting applications or simulating allowance amounts."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow citizen to view past applications",
+      "description": "The citizen accesses their past AUU applications and associated statuses via the public portal, including application outcomes (accepted, rejected, suspended) and payment details.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    },
+    {
+      "name": "Allow citizen to consult general AUU information",
+      "description": "The citizen accesses publicly available information about the Assegno Unico Universale (AUU), including eligibility criteria, benefit amounts, and application procedures.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    },
+    {
+      "name": "Allow citizen to simulate expected monthly allowance amount",
+      "description": "The citizen inputs personal data (e.g., number of children, ISEE, dependency status) to simulate the expected monthly allowance amount based on current regulations and available data.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time fiscal code validation and mandatory declaration enforcement.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, not preventing duplicate fiscal codes.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires detecting and preventing duplicates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits application interruption and resumption options.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions by enabling applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction omits GDPR-compliant privacy notices and responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices by ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time fiscal code validation and mandatory declaration enforcement.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, not preventing duplicate fiscal codes.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires detecting and preventing duplicates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits application interruption and resumption options.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions by enabling applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction omits GDPR-compliant privacy notices and responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices by ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

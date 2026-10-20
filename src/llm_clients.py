@@ -1,9 +1,8 @@
 """LLM clients shared by the goal-extraction pipelines.
 
-Qwen on Groq produces generator outputs. Local models served through LM
-Studio's OpenAI-compatible API evaluate them: Ministral handles top-down and
-repair reflection, while Ministral, Bonsai and Gemma form the bottom-up
-HLG/LLG/discovery ensemble.
+Qwen served locally by LM Studio generates and reconstructs goals. Ministral
+evaluates top-down and repair candidates; Ministral, Granite and Gemma form
+the bottom-up HLG/LLG/completeness-analysis ensemble.
 """
 
 from __future__ import annotations
@@ -11,9 +10,8 @@ from __future__ import annotations
 import json
 import os
 import re
-import time
 from contextlib import contextmanager
-from importlib import import_module
+from threading import RLock
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -21,15 +19,13 @@ from urllib.request import Request, urlopen
 from pydantic import BaseModel
 
 
-QWEN_GENERATOR_MODEL = os.getenv("QWEN_GENERATOR_MODEL", "qwen/qwen3.8-27b")
+QWEN_GENERATOR_MODEL = os.getenv("QWEN_GENERATOR_MODEL", "qwen/qwen3-vl-8b")
 QWEN_GENERATOR_MAX_TOKENS = int(os.getenv("QWEN_GENERATOR_MAX_TOKENS", "4000"))
-QWEN_GENERATOR_ATTEMPTS_PER_KEY = int(
-    os.getenv("QWEN_GENERATOR_ATTEMPTS_PER_KEY", "2")
-)
-QWEN_RATE_LIMIT_CYCLES = int(os.getenv("QWEN_RATE_LIMIT_CYCLES", "3"))
-QWEN_RATE_LIMIT_WAIT_SECONDS = float(
-    os.getenv("QWEN_RATE_LIMIT_WAIT_SECONDS", "60")
-)
+LM_STUDIO_GENERATOR_ATTEMPTS = int(os.getenv("LM_STUDIO_GENERATOR_ATTEMPTS", "3"))
+REQUEST_TIMEOUT_SECONDS = float(os.getenv("REQUEST_TIMEOUT_SECONDS", "600"))
+API_MAX_RETRIES = int(os.getenv("API_MAX_RETRIES", "1"))
+if not QWEN_GENERATOR_MODEL.strip() or LM_STUDIO_GENERATOR_ATTEMPTS < 1:
+    raise ValueError("A local Qwen model and a positive attempt budget are required")
 
 LM_STUDIO_BASE_URL = os.getenv(
     "LM_STUDIO_BASE_URL", "http://127.0.0.1:1234/v1"
@@ -48,17 +44,17 @@ LM_STUDIO_EVALUATOR_CONTEXT_LENGTH = int(
 MINISTRAL_CRITIC_MODEL = os.getenv(
     "MINISTRAL_CRITIC_MODEL", "mistralai/ministral-3-14b-reasoning"
 ).strip()
-BONSAI_CRITIC_MODEL = os.getenv(
-    "BONSAI_CRITIC_MODEL", "prism-ml/bonsai-27b"
+GRANITE_CRITIC_MODEL = os.getenv(
+    "GRANITE_CRITIC_MODEL", "ibm/granite-3.2-8b"
 ).strip()
 GEMMA_CRITIC_MODEL = os.getenv(
     "GEMMA_CRITIC_MODEL", "google/gemma-4-12b-qat"
 ).strip()
 MINISTRAL_CRITIC_MAX_TOKENS = int(
-    os.getenv("MINISTRAL_CRITIC_MAX_TOKENS", "700")
+    os.getenv("MINISTRAL_CRITIC_MAX_TOKENS", "4096")
 )
 BOTTOM_UP_CRITIC_MAX_TOKENS = int(
-    os.getenv("BOTTOM_UP_CRITIC_MAX_TOKENS", "1600")
+    os.getenv("BOTTOM_UP_CRITIC_MAX_TOKENS", "4096")
 )
 MINISTRAL_CRITIC_HISTORY_MAX_CHARS = int(
     os.getenv("MINISTRAL_CRITIC_HISTORY_MAX_CHARS", "1000")
@@ -131,65 +127,22 @@ class EvaluatorConversation:
         return len(self._exchanges)
 
 
-def _key_helpers():
-    """Load the existing Groq key helpers only when Qwen is requested."""
-    module = import_module("key")
-    return module.get_key_llama, module.count_Llama_keys
-
-
 def _qwen_client():
     global qwen_client
     if qwen_client is None:
         from openai import OpenAI
-
-        get_key, _ = _key_helpers()
-        qwen_client = OpenAI(
-            api_key=get_key(),
-            base_url="https://api.groq.com/openai/v1",
-        )
+        qwen_client = OpenAI(api_key=LM_STUDIO_API_KEY, base_url=LM_STUDIO_BASE_URL,
+                             timeout=REQUEST_TIMEOUT_SECONDS, max_retries=API_MAX_RETRIES)
     return qwen_client
 
 
-def _rotate_qwen_key() -> None:
-    global qwen_client
-    from openai import OpenAI
-
-    get_key, _ = _key_helpers()
-    qwen_client = OpenAI(
-        api_key=get_key(increment_counter=True),
-        base_url="https://api.groq.com/openai/v1",
-    )
-
-
-def _is_groq_spend_limit_error(exc: Exception) -> bool:
-    """Return whether Groq rejected a key because its spend alert was met."""
-    code = str(getattr(exc, "code", "") or "").lower()
-    body = getattr(exc, "body", None)
-    if isinstance(body, dict):
-        error = body.get("error", body)
-        if isinstance(error, dict):
-            code = f"{code} {error.get('code', '')}".lower()
-    return "spend_limit_reached" in code or "spend alert threshold" in str(exc).lower()
-
-
-def _is_groq_json_generation_error(exc: Exception) -> bool:
-    """Return whether Groq could not satisfy the requested JSON format."""
-    code = str(getattr(exc, "code", "") or "").lower()
-    body = getattr(exc, "body", None)
-    if isinstance(body, dict):
-        error = body.get("error", body)
-        if isinstance(error, dict):
-            code = f"{code} {error.get('code', '')} {error.get('message', '')}".lower()
-    message = f"{code} {exc}".lower()
-    return any(
-        marker in message
-        for marker in (
-            "failed_generation",
-            "failed to generate json",
-            "json_validate_failed",
-            "json validation failed",
-        )
-    )
+def reset_model_clients():
+    """Close local connections; creation remains lazy and never requires Groq keys."""
+    global qwen_client, ministral_client
+    for client in (qwen_client, ministral_client):
+        if client is not None:
+            client.close()
+    qwen_client = ministral_client = None
 
 
 def _extract_json(text: str) -> Any:
@@ -209,134 +162,38 @@ def _extract_json(text: str) -> Any:
 
 
 def generate_response(
-    prompt: str,
-    sys_prompt: str,
-    response_format: type[BaseModel] | None = None,
+    prompt: str, sys_prompt: str, response_format: type[BaseModel] | None = None,
 ) -> str | BaseModel:
-    """Generate text or a validated Pydantic object with Qwen on Groq."""
-    from openai import APIStatusError, RateLimitError
-
+    """Generate with local Qwen, validating complete JSON without remote fallbacks."""
     system_content = sys_prompt
     if response_format is not None:
-        schema = json.dumps(response_format.model_json_schema(), ensure_ascii=False)
-        system_content += (
-            "\n\nReturn only one valid JSON object, without Markdown fences or "
-            "commentary. It must conform exactly to this JSON Schema:\n"
-            f"{schema}"
-        )
-
-    _, count_keys = _key_helpers()
-    key_count = max(1, count_keys())
-    attempts = max(
-        key_count * QWEN_GENERATOR_ATTEMPTS_PER_KEY,
-        key_count * QWEN_RATE_LIMIT_CYCLES,
-    )
-    last_exception: Exception | None = None
-    validation_feedback = ""
-    spend_limited_keys = 0
-    rate_limited_requests = 0
-    structured_output_mode = "json_schema" if response_format is not None else "text"
-
-    for _ in range(attempts):
-        try:
-            request: dict[str, Any] = {
-                "model": QWEN_GENERATOR_MODEL,
-                "messages": [
-                    {"role": "system", "content": system_content},
-                    {"role": "user", "content": prompt + validation_feedback},
-                ],
-                "temperature": 0,
-                "max_completion_tokens": QWEN_GENERATOR_MAX_TOKENS,
-                "extra_body": {
-                    "reasoning_effort": "none",
-                    "reasoning_format": "hidden",
-                },
-            }
-            if structured_output_mode == "json_schema":
-                request["response_format"] = {
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": response_format.__name__,
-                        "schema": response_format.model_json_schema(),
-                        "strict": False,
-                    },
-                }
-            elif structured_output_mode == "json_object":
-                request["response_format"] = {"type": "json_object"}
-
-            response = _qwen_client().chat.completions.create(
-                **request,
-            )
-            content = response.choices[0].message.content
+        system_content += ("\nReturn only one JSON object matching this schema:\n"
+                           + json.dumps(response_format.model_json_schema(), ensure_ascii=False))
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": prompt}]
+    last_exception = None
+    with loaded_local_model(QWEN_GENERATOR_MODEL):
+        for _ in range(LM_STUDIO_GENERATOR_ATTEMPTS):
+            try:
+                response = _qwen_client().chat.completions.create(
+                    model=QWEN_GENERATOR_MODEL, messages=messages, temperature=0,
+                    max_tokens=QWEN_GENERATOR_MAX_TOKENS)
+            except Exception as exc:
+                raise RuntimeError(f"Qwen locale {QWEN_GENERATOR_MODEL!r} su {LM_STUDIO_BASE_URL}: {exc}") from exc
+            choice = response.choices[0]
+            content = choice.message.content
+            if choice.finish_reason == "length":
+                raise RuntimeError("Qwen reached its output-token budget; no incomplete result was accepted. Increase QWEN_GENERATOR_MAX_TOKENS and the loaded context.")
             if not content:
-                raise RuntimeError("Qwen returned an empty response.")
+                raise RuntimeError("Local Qwen returned no final response; verify reasoning and output-token budgets.")
             if response_format is None:
                 return content
             try:
                 return response_format.model_validate(_extract_json(content))
             except ValueError as exc:
                 last_exception = exc
-                validation_feedback = (
-                    "\n\nYour previous response was not valid for the requested "
-                    f"schema ({exc}). Return a corrected JSON object only."
-                )
-        except RateLimitError as exc:
-            last_exception = exc
-            rate_limited_requests += 1
-            print(
-                "Groq rate limit reached for the current Qwen key; "
-                "trying the next configured key."
-            )
-            _rotate_qwen_key()
-            if rate_limited_requests % key_count == 0:
-                wait_seconds = max(0.0, QWEN_RATE_LIMIT_WAIT_SECONDS)
-                if wait_seconds:
-                    print(
-                        "All configured Qwen keys were rate-limited during "
-                        f"this request; waiting {wait_seconds:g} seconds "
-                        "before the next rotation cycle."
-                    )
-                    time.sleep(wait_seconds)
-        except APIStatusError as exc:
-            last_exception = exc
-            if exc.status_code == 400 and _is_groq_spend_limit_error(exc):
-                spend_limited_keys += 1
-                print(
-                    "Groq spend limit reached for the current Qwen key; "
-                    "trying the next configured key."
-                )
-                _rotate_qwen_key()
-                continue
-            if exc.status_code == 400 and _is_groq_json_generation_error(exc):
-                if structured_output_mode == "json_schema":
-                    structured_output_mode = "json_object"
-                    print(
-                        "Qwen could not satisfy JSON Schema mode; retrying "
-                        "with JSON Object mode."
-                    )
-                elif structured_output_mode == "json_object":
-                    structured_output_mode = "prompt_only"
-                    print(
-                        "Qwen could not satisfy JSON Object mode; retrying "
-                        "with prompt-only JSON and local validation."
-                    )
-                else:
-                    raise
-                continue
-            if exc.status_code in {429, 500, 502, 503, 504}:
-                _rotate_qwen_key()
-                continue
-            raise
-
-    if last_exception is not None:
-        if spend_limited_keys == attempts:
-            raise RuntimeError(
-                "All configured Groq keys are blocked by a spend alert. "
-                "Increase or reset the spend threshold in the Groq console, "
-                "or configure a key from an organization with available budget."
-            ) from last_exception
-        raise last_exception
-    raise RuntimeError("No Qwen generator request could be completed.")
+                messages.extend([{"role": "assistant", "content": content},
+                                 {"role": "user", "content": f"Correct the complete JSON to match the schema. Validation error: {exc}"}])
+    raise ValueError(f"Local Qwen produced invalid structured output after {LM_STUDIO_GENERATOR_ATTEMPTS} attempts") from last_exception
 
 
 def _ministral_client():
@@ -347,6 +204,7 @@ def _ministral_client():
         ministral_client = OpenAI(
             api_key=LM_STUDIO_API_KEY,
             base_url=LM_STUDIO_BASE_URL,
+            timeout=REQUEST_TIMEOUT_SECONDS, max_retries=API_MAX_RETRIES,
         )
     return ministral_client
 
@@ -382,7 +240,7 @@ def configured_bottom_up_critic_models() -> tuple[str, str, str]:
     """Return the heterogeneous three-model bottom-up critic ensemble."""
     return (
         configured_critic_model(),
-        BONSAI_CRITIC_MODEL,
+        GRANITE_CRITIC_MODEL,
         GEMMA_CRITIC_MODEL,
     )
 
@@ -441,7 +299,7 @@ def _unload_lm_studio_instance(instance_id: str) -> None:
 
 
 def _unload_other_bottom_up_critics(selected_model: str) -> None:
-    ensemble = set(configured_bottom_up_critic_models())
+    ensemble = {*configured_bottom_up_critic_models(), QWEN_GENERATOR_MODEL}
     for model_id, instance_ids in _loaded_lm_studio_instances().items():
         if model_id not in ensemble or model_id == selected_model:
             continue
@@ -450,8 +308,8 @@ def _unload_other_bottom_up_critics(selected_model: str) -> None:
 
 
 @contextmanager
-def loaded_local_evaluator_model(model_id: str):
-    """Keep exactly one bottom-up critic loaded for one saved vote."""
+def _loaded_local_model_instance(model_id: str):
+    """Load one local pipeline model and unload it at the end of the lease."""
     selected_model = model_id.strip()
     if not selected_model:
         raise ValueError("The LM Studio evaluator model id cannot be empty.")
@@ -490,7 +348,32 @@ def loaded_local_evaluator_model(model_id: str):
         _unload_lm_studio_instance(instance_id)
 
 
-def generate_evaluator_response(
+_model_lock = RLock()
+_active_local_model = None
+
+
+@contextmanager
+def loaded_local_model(model_id: str):
+    """One GPU model per process; nested leases of the same model reuse it."""
+    global _active_local_model
+    with _model_lock:
+        if _active_local_model is not None:
+            if _active_local_model != model_id:
+                raise RuntimeError(f"Cannot load {model_id} while {_active_local_model} has an active lease")
+            yield model_id
+            return
+        with _loaded_local_model_instance(model_id) as selected:
+            _active_local_model = selected
+            try:
+                yield selected
+            finally:
+                _active_local_model = None
+
+
+loaded_local_evaluator_model = loaded_local_model
+
+
+def _generate_evaluator_response(
     prompt: str,
     sys_prompt: str,
     conversation: EvaluatorConversation | None = None,
@@ -514,11 +397,8 @@ def generate_evaluator_response(
     if not selected_model:
         raise ValueError("The LM Studio evaluator model id cannot be empty.")
 
-    # Bottom-up voters use LM Studio's native endpoint because it exposes an
-    # explicit reasoning switch. Bonsai and Gemma otherwise spend the short
-    # completion budget in hidden reasoning and frequently return no final
-    # JSON in ``message.content``. Ministral is a reasoning-only model, so its
-    # reasoning remains enabled.
+    # Preserve the existing native reasoning settings for Ministral and Gemma.
+    # Granite receives no reasoning override; its server defaults apply.
     if model is not None:
         native_input = "\n\n".join(
             f"{message['role'].upper()}: {message['content']}"
@@ -533,9 +413,8 @@ def generate_evaluator_response(
                 "system_prompt": sys_prompt,
                 "temperature": temperature,
                 "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
-                "reasoning": (
-                    "on" if selected_model == configured_critic_model() else "off"
-                ),
+                **({"reasoning": "on" if selected_model == configured_critic_model() else "off"}
+                   if selected_model != GRANITE_CRITIC_MODEL else {}),
                 "store": False,
                 "stream": False,
             },
@@ -567,7 +446,7 @@ def generate_evaluator_response(
             f"Impossibile interrogare il critic locale {selected_model!r} "
             "tramite LM Studio su "
             f"{LM_STUDIO_BASE_URL}. Verifica che il server locale sia attivo e "
-            "che il modello richiesto sia caricato."
+            f"che il modello richiesto sia caricato. Dettaglio: {exc}"
         ) from exc
 
     content = response.choices[0].message.content
@@ -576,6 +455,15 @@ def generate_evaluator_response(
             f"The local critic {selected_model!r} returned an empty response."
         )
     return content
+
+
+
+def generate_evaluator_response(prompt: str, sys_prompt: str,
+    conversation: EvaluatorConversation | None = None, temperature: float = 0,
+    model: str | None = None) -> str:
+    selected = model.strip() if model else _ministral_model()
+    with loaded_local_model(selected):
+        return _generate_evaluator_response(prompt, sys_prompt, conversation, temperature, model)
 
 
 # Compatibility alias for the existing reflection module.

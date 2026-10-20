@@ -1,0 +1,83 @@
+{
+  "iteration": 11,
+  "branch_id": "hlg_e9e13b94ecf41196_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support multiple payment methods for allowance distribution",
+    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow selection of SEPA IBAN payment method",
+      "description": "The applicant selects SEPA IBAN as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of post office domiciliation payment method",
+      "description": "The applicant selects post office domiciliation as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of prepaid card payment method",
+      "description": "The applicant selects an eligible prepaid card as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow joint parent payment configuration",
+      "description": "The applicant configures joint payment settings for both parents when selecting payment methods.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits mandatory declarations and error handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source emphasizes real-time validation, mandatory declarations, and error handling.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions involve more than just submission; it includes validation, declarations, and error management.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"Reconstruction focuses on adding children, omitting real-time validation and data modification.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source emphasizes real-time fiscal code validation and optional data modification for added children.\",\n    \"outcome_justification\": \"Enable dynamic addition of children to existing applications involves more than just adding children; it includes real-time validation and potential data adjustments.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"Reconstruction omits GDPR-compliant responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source mandates GDPR-compliant responsibility acknowledgment prior to submission.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices involve more than just consent; they include responsibility declarations.\"\n  }\n]\n```\n\nRationale:\n1. hlg_139f4cc118f2e6b4_001 (Ensure accurate and compliant AUU application submissions): The reconstruction omits mandatory declarations and error handling, which are crucial aspects of the original HLG. The source emphasizes real-time validation, mandatory declarations, and error handling, necessitating a rewrite to capture these essential elements.\n2. hlg_00df6ca09ca87b63_001 (Enable dynamic addition of children to existing applications): The reconstruction focuses on adding children, omitting real-time fiscal code validation and data modification. The source emphasizes real-time fiscal code validation and optional data modification for added children, requiring a rewrite to encompass these critical aspects.\n3. hlg_00ca9651daa07755_001 (Provide secure and compliant data handling and privacy notices): The reconstruction omits GDPR-compliant responsibility declarations. The source mandates GDPR-compliant responsibility acknowledgment prior to submission, necessitating a rewrite to incorporate this vital element.",
+    "parsed_response": null,
+    "error": "JSONDecodeError: Extra data: line 33 column 1 (char 1766)"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits mandatory declarations and error handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source emphasizes real-time validation, mandatory declarations, and error handling.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions involve more than just submission; it includes validation, declarations, and error management.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"Reconstruction focuses on adding children, omitting real-time validation and data modification.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source emphasizes real-time fiscal code validation and optional data modification for added children.\",\n    \"outcome_justification\": \"Enable dynamic addition of children to existing applications involves more than just adding children; it includes real-time validation and potential data adjustments.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"Reconstruction omits GDPR-compliant responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source mandates GDPR-compliant responsibility acknowledgment prior to submission.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices involve more than just consent; they include responsibility declarations.\"\n  }\n]\n```\n\nRationale:\n1. hlg_139f4cc118f2e6b4_001 (Ensure accurate and compliant AUU application submissions): The reconstruction omits mandatory declarations and error handling, which are crucial aspects of the original HLG. The source emphasizes real-time validation, mandatory declarations, and error handling, necessitating a rewrite to capture these essential elements.\n2. hlg_00df6ca09ca87b63_001 (Enable dynamic addition of children to existing applications): The reconstruction focuses on adding children, omitting real-time fiscal code validation and data modification. The source emphasizes real-time fiscal code validation and optional data modification for added children, requiring a rewrite to encompass these critical aspects.\n3. hlg_00ca9651daa07755_001 (Provide secure and compliant data handling and privacy notices): The reconstruction omits GDPR-compliant responsibility declarations. The source mandates GDPR-compliant responsibility acknowledgment prior to submission, necessitating a rewrite to incorporate this vital element.",
+    "parsed_response": null,
+    "error": "JSONDecodeError: Extra data: line 33 column 1 (char 1766)"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

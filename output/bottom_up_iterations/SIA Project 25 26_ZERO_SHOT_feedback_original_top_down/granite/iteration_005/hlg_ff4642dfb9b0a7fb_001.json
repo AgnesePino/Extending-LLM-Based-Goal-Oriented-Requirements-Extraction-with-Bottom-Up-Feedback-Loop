@@ -1,0 +1,147 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Facilitate Report Assignment and Management Based on Category",
+    "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+    "actor": {
+      "name": "Technical Office Staff",
+      "description": "Staff responsible for assigning and managing reports based on category."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Assign report to appropriate department or external company",
+      "description": "Technical Office Staff assigns a report to a department or external company based on its category.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to In Progress after assignment",
+      "description": "Technical Office Staff updates the report status to 'In Progress' after assigning it to a responsible department or external company.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Work in Progress after intervention start",
+      "description": "Technical Office Staff updates the report status to 'Work in Progress' when the intervention has officially begun.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Suspended for organizational or technical reasons",
+      "description": "Technical Office Staff updates the report status to 'Suspended' when the report is paused due to organizational or technical constraints.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Rejected with mandatory explanation",
+      "description": "Technical Office Staff updates the report status to 'Rejected' and provides a mandatory written explanation for rejection.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Resolved after external company completion",
+      "description": "External maintenance personnel (for Case 1) or Technical Office Staff (for Case 2) updates the report status to 'Resolved' after the issue is resolved.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Manually update report status for external companies without system access",
+      "description": "Technical Office Staff manually updates the report status to 'Resolved' for reports assigned to external companies without Participium access (Case 2).",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to submission.\",\n    \"outcome_justification\": \"Enable Citizen Participation in Urban Management includes report tracking and interaction.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Transparent and Accessible Reporting System includes report visibility and filtering.\",\n    \"outcome_justification\": \"This parent covers dual-view access, geolocation markers, and dynamic sorting/filtering.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time communication features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Real-Time Communication Between Citizens and Municipal Staff includes real-time communication.\",\n    \"outcome_justification\": \"This parent covers multi-channel notifications, direct messages, and follow functionality.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and management features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Ensure Efficient Review and Approval of Citizen Reports should cover workflow aspects.\",\n    \"outcome_justification\": \"This parent covers report review, approval, rejection, assignment, tracking, and state transitions.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle management features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Facilitate Report Assignment and Management Based on Category should cover workflow aspects.\",\n    \"outcome_justification\": \"This parent covers report assignment, tracking, and status transitions by category.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits report lifecycle management features."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Facilitate Report Assignment and Management Based on Category should cover workflow aspects.",
+      "outcome_justification": "This parent covers report assignment, tracking, and status transitions by category."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to submission.\",\n    \"outcome_justification\": \"Enable Citizen Participation in Urban Management includes report tracking and interaction.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Transparent and Accessible Reporting System includes report visibility and filtering.\",\n    \"outcome_justification\": \"This parent covers dual-view access, geolocation markers, and dynamic sorting/filtering.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time communication features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Real-Time Communication Between Citizens and Municipal Staff includes real-time communication.\",\n    \"outcome_justification\": \"This parent covers multi-channel notifications, direct messages, and follow functionality.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and management features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Ensure Efficient Review and Approval of Citizen Reports should cover workflow aspects.\",\n    \"outcome_justification\": \"This parent covers report review, approval, rejection, assignment, tracking, and state transitions.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle management features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Facilitate Report Assignment and Management Based on Category should cover workflow aspects.\",\n    \"outcome_justification\": \"This parent covers report assignment, tracking, and status transitions by category.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits report lifecycle management features.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Facilitate Report Assignment and Management Based on Category'. Each LLG represents a distinct, documented functional interaction or effect that realizes the HLG. The LLGs include assigning reports to departments or external companies, updating report statuses at various stages, and handling rejections or resolutions by either Technical Office Staff or external personnel. No essential capability is missing from the decomposition.\\n\\nHowever, a minor regeneration is suggested for clarity and completeness:\\n1. LLG_001: 'Assign report to appropriate department or external company' - KEEP\\n2. LLG_002: 'Update report status to In Progress after assignment' - KEEP\\n3. LLG_003: 'Update report status to Work in Progress after intervention start' - KEEP\\n4. LLG_004: 'Update report status to Suspended for organizational or technical reasons' - KEEP\\n5. LLG_005: 'Update report status to Rejected with mandatory explanation' - KEEP\\n6. LLG_006: 'Update report status to Resolved after external company completion' - KEEP (Note: This could be further refined to distinguish between cases where the external company has system access and when they do not.)\\n7. LLG_007: 'Manually update report status for external companies without system access' - REGENERATE (This LLG should be split into two separate LLGs, one for each case: with system access and without system access.)\\n\\nThe regeneration feedback suggests adding distinct LLGs for the two cases involving external companies to better reflect the parent HLG's requirements.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS for LLG_001 to LLG_006, REGENERATE_LOW_LEVEL_GOALS for LLG_007. Quality score: 4 (one minor regeneration required).\", \"decision\":\"KEEP_LOW_LEVEL_GOALS | REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":4,\"regeneration_feedback\":\"Add distinct LLGs for the two cases involving external companies: one for system access and one for no system access.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Facilitate Report Assignment and Management Based on Category'. Each LLG represents a distinct, documented functional interaction or effect that realizes the HLG. The LLGs include assigning reports to departments or external companies, updating report statuses at various stages, and handling rejections or resolutions by either Technical Office Staff or external personnel. No essential capability is missing from the decomposition.\n\nHowever, a minor regeneration is suggested for clarity and completeness:\n1. LLG_001: 'Assign report to appropriate department or external company' - KEEP\n2. LLG_002: 'Update report status to In Progress after assignment' - KEEP\n3. LLG_003: 'Update report status to Work in Progress after intervention start' - KEEP\n4. LLG_004: 'Update report status to Suspended for organizational or technical reasons' - KEEP\n5. LLG_005: 'Update report status to Rejected with mandatory explanation' - KEEP\n6. LLG_006: 'Update report status to Resolved after external company completion' - KEEP (Note: This could be further refined to distinguish between cases where the external company has system access and when they do not.)\n7. LLG_007: 'Manually update report status for external companies without system access' - REGENERATE (This LLG should be split into two separate LLGs, one for each case: with system access and without system access.)\n\nThe regeneration feedback suggests adding distinct LLGs for the two cases involving external companies to better reflect the parent HLG's requirements.\n\nDecision: KEEP_LOW_LEVEL_GOALS for LLG_001 to LLG_006, REGENERATE_LOW_LEVEL_GOALS for LLG_007. Quality score: 4 (one minor regeneration required).",
+      "decision": "KEEP_LOW_LEVEL_GOALS | REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 4,
+      "regeneration_feedback": "Add distinct LLGs for the two cases involving external companies: one for system access and one for no system access.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": []
+    },
+    "error": "ValidationError: 1 validation error for LowLevelGoalEvaluation\ndecision\n  Input should be 'KEEP_LOW_LEVEL_GOALS' or 'REGENERATE_LOW_LEVEL_GOALS' [type=enum, input_value='KEEP_LOW_LEVEL_GOALS | R...ENERATE_LOW_LEVEL_GOALS', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/enum"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

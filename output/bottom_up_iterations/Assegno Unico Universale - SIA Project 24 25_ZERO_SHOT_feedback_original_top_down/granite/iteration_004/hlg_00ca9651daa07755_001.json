@@ -1,0 +1,72 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_00ca9651daa07755_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide secure and compliant data handling and privacy notices",
+    "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Display GDPR-compliant privacy notice",
+      "description": "The system displays a GDPR-compliant privacy notice before application submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Require acceptance of responsibility declaration",
+      "description": "The applicant must explicitly accept a responsibility declaration before proceeding with submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive application submission, including real-time validation and mandatory declarations. The reconstruction misses these crucial elements.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully capture the original parent's flexibility in application workflows.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights the need for flexible application workflows, including drafts and resumptions. The reconstruction lacks this nuance.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source underscores the importance of secure and compliant data handling. The reconstruction does not adequately reflect this aspect.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_00ca9651daa07755_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source underscores the importance of secure and compliant data handling. The reconstruction does not adequately reflect this aspect.",
+      "outcome_justification": "Provide secure and compliant data handling and privacy notices"
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive application submission, including real-time validation and mandatory declarations. The reconstruction misses these crucial elements.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully capture the original parent's flexibility in application workflows.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights the need for flexible application workflows, including drafts and resumptions. The reconstruction lacks this nuance.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source underscores the importance of secure and compliant data handling. The reconstruction does not adequately reflect this aspect.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

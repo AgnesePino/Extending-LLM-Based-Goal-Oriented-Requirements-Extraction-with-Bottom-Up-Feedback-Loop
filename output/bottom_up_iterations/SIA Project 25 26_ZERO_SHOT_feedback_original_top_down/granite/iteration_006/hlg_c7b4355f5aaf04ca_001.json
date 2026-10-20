@@ -1,0 +1,122 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_c7b4355f5aaf04ca_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable Citizen Participation in Urban Management",
+    "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Submit a new urban issue report",
+      "description": "Citizen submits a report with location, description, category, and optional photos or attachments.",
+      "high_level_associated": {
+        "name": "Enable Citizen Participation in Urban Management",
+        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive automated notifications for report state changes",
+      "description": "Citizen receives platform notifications and emails (configurable) whenever their report’s state changes (e.g., approved, in progress, resolved).",
+      "high_level_associated": {
+        "name": "Enable Citizen Participation in Urban Management",
+        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive direct messages from municipal operators",
+      "description": "Citizen receives and replies to messages sent by municipal operators through the platform, including support from external chatbots.",
+      "high_level_associated": {
+        "name": "Enable Citizen Participation in Urban Management",
+        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "View public report map and summary table",
+      "description": "Citizen views geolocated reports on an interactive map and a sortable/filterable summary table, including their own reports (anonymous if chosen).",
+      "high_level_associated": {
+        "name": "Enable Citizen Participation in Urban Management",
+        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Follow other citizens’ reports and receive updates",
+      "description": "Citizen follows open reports submitted by other users and receives notifications for state changes or messages, following the same rules as for their own reports.",
+      "high_level_associated": {
+        "name": "Enable Citizen Participation in Urban Management",
+        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on report submission, tracking, and interaction; omits initial registration requirement.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for registration issues.\",\n    \"outcome_justification\": \"Enable citizen participation in urban management, including registration process.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report visibility but omits dual-view access and dynamic filtering.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for visualization enhancements.\",\n    \"outcome_justification\": \"Provide transparent and accessible reporting system, including dual-view and filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on notifications; omits direct messaging and report following.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for communication enhancements.\",\n    \"outcome_justification\": \"Support real-time communication between citizens and municipal staff, including direct messaging and report following.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report review and assignment; omits automatic assignment to external companies.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for automated assignment enhancements.\",\n    \"outcome_justification\": \"Ensure efficient review and approval of citizen reports, including automatic assignment to external companies when configured.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report lifecycle management; omits manual updates for external entities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for manual update enhancements.\",\n    \"outcome_justification\": \"Facilitate report assignment and management based on category, including manual updates for external entities without system access.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers statistical insights; omits private analytics for administrators.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for private analytics enhancements.\",\n    \"outcome_justification\": \"Provide public and private statistical insights, including private analytics for administrators.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction and original parent cover open-source availability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; no need for redundancy.\",\n    \"outcome_justification\": \"Make Participium open-source and available to all Italian public administrations, including configuring system settings for release.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction and original parent cover automated report assignment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; no need for redundancy.\",\n    \"outcome_justification\": \"Enable automatic assignment of reports to external companies based on preconfigured rules, including access compliance and auditability.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_c7b4355f5aaf04ca_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports complete parent; inspect children for registration issues.",
+      "outcome_justification": "Enable citizen participation in urban management, including registration process.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on report submission, tracking, and interaction; omits initial registration requirement.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for registration issues.\",\n    \"outcome_justification\": \"Enable citizen participation in urban management, including registration process.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report visibility but omits dual-view access and dynamic filtering.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for visualization enhancements.\",\n    \"outcome_justification\": \"Provide transparent and accessible reporting system, including dual-view and filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on notifications; omits direct messaging and report following.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for communication enhancements.\",\n    \"outcome_justification\": \"Support real-time communication between citizens and municipal staff, including direct messaging and report following.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report review and assignment; omits automatic assignment to external companies.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for automated assignment enhancements.\",\n    \"outcome_justification\": \"Ensure efficient review and approval of citizen reports, including automatic assignment to external companies when configured.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers report lifecycle management; omits manual updates for external entities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for manual update enhancements.\",\n    \"outcome_justification\": \"Facilitate report assignment and management based on category, including manual updates for external entities without system access.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction covers statistical insights; omits private analytics for administrators.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; inspect children for private analytics enhancements.\",\n    \"outcome_justification\": \"Provide public and private statistical insights, including private analytics for administrators.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction and original parent cover open-source availability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; no need for redundancy.\",\n    \"outcome_justification\": \"Make Participium open-source and available to all Italian public administrations, including configuring system settings for release.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction and original parent cover automated report assignment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parent; no need for redundancy.\",\n    \"outcome_justification\": \"Enable automatic assignment of reports to external companies based on preconfigured rules, including access compliance and auditability.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction focuses on report submission, tracking, and interaction; omits initial registration requirement.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) cover the essential aspects of the parent high-level goal (HLG), 'Enable Citizen Participation in Urban Management'. They include report submission, automated notifications, direct messaging with municipal operators, and viewing public reports. However, there are a few areas that could be improved for completeness and clarity:\\n\\n1. The LLG 'Receive automated notifications for report state changes' (llg_002) is somewhat redundant with the parent HLG description, which already implies tracking report status changes. This could be consolidated or clarified.\\n2. The LLG 'View public report map and summary table' (llg_004) does not explicitly mention that reports are geolocated based on the citizen's selected point. This detail is crucial for understanding the system's functionality and should be included.\\n3. The parent HLG description mentions 'receiving updates regarding their own reports through various channels', but this is not directly addressed by any LLG. A new LLG could be added to cover this aspect comprehensively, ensuring all update channels (platform notifications, emails) are documented.\\n\\nDespite these points, the current LLGs generally align with the parent HLG and cover the necessary functionalities. Therefore, a regeneration is not strictly required, but some refinement could enhance clarity and completeness.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS | REGENERATE_LOW_LEVEL_GOALS\\nquality_score: 4\\nregeneration_feedback: Consolidate or clarify 'Receive automated notifications for report state changes' (llg_002), include geolocation detail in 'View public report map and summary table' (llg_004), and add a new LLG to cover all update channels.\\nunsupported_or_misleading_llg_ids: []\\nmissing_essential_capabilities: ['Geolocation detail in public report views', 'Comprehensive update channel documentation']\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS | REGENERATE_LOW_LEVEL_GOALS\",\n\"quality_score\":4,\n\"regeneration_feedback\":\"Consolidate or clarify 'Receive automated notifications for report state changes' (llg_002), include geolocation detail in 'View public report map and summary table' (llg_004), and add a new LLG to cover all update channels.\",\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[\"Geolocation detail in public report views\",\"Comprehensive update channel documentation\"]",
+    "parsed_response": null,
+    "error": "ValueError: Evaluator response does not contain a JSON object."
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

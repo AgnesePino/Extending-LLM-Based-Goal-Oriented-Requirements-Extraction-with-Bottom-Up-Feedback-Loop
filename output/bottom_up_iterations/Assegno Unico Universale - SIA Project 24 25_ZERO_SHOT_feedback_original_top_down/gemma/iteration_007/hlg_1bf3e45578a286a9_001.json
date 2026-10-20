@@ -1,0 +1,90 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_1bf3e45578a286a9_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide public access to application status and allowance simulation",
+    "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+    "actor": {
+      "name": "Citizen",
+      "description": "General public member consulting applications or simulating allowance amounts."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow citizen to view past applications",
+      "description": "The citizen accesses their past AUU applications and associated statuses via the public portal, including application outcomes (accepted, rejected, suspended) and payment details.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    },
+    {
+      "name": "Allow citizen to consult general AUU information",
+      "description": "The citizen accesses publicly available information about the Assegno Unico Universale (AUU), including eligibility criteria, benefit amounts, and application procedures.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    },
+    {
+      "name": "Allow citizen to simulate expected monthly allowance amount",
+      "description": "The citizen inputs personal data (e.g., number of children, ISEE, dependency status) to simulate the expected monthly allowance amount based on current regulations and available data.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_139f4cc118f2e6b4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes draft management and receipts, which are separate capabilities in the source.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant submits complete, valid, and legally compliant AUU applications.\"},{\"branch_id\":\"hlg_e331cbf7082b6f22_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the second parent's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for a different actor (Other Parent).\",\"outcome_justification\":\"Other Parent completes or modifies an application initiated by the first parent.\"},{\"branch_id\":\"hlg_900809a7ef8b8375_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the operator's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the INPS Operator actor.\",\"outcome_justification\":\"INPS Operator evaluates, suspends, and manages applications efficiently.\"},{\"branch_id\":\"hlg_1bf3e45578a286a9_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the citizen's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Citizen actor.\",\"outcome_justification\":\"Citizen consults past applications and simulates allowance amounts.\"},{\"branch_id\":\"hlg_80e9bccdebd7256c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the integrity checks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"System prevents duplicate applications and ensures data integrity.\"},{\"branch_id\":\"hlg_f10d30aaf7989bdf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the automatic adjustment.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"System automatically recalculates allowances based on updated ISEE data.\"},{\"branch_id\":\"hlg_f20dd2688cbe70ce_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on state management, while the parent is broader.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant manages application progress via drafts and resumptions.\"},{\"branch_id\":\"hlg_00df6ca09ca87b63_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the dynamic addition of children.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"Applicant adds children to existing applications with validation.\"},{\"branch_id\":\"hlg_00ca9651daa07755_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on consent, omitting the broader data handling aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant ensures compliant data handling and privacy consent.\"},{\"branch_id\":\"hlg_e9e13b94ecf41196_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the payment method selection.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"Applicant selects and configures various payment methods.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_1bf3e45578a286a9_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The goal represents a distinct, documented outcome for the Citizen actor.",
+      "outcome_justification": "Citizen consults past applications and simulates allowance amounts.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_139f4cc118f2e6b4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes draft management and receipts, which are separate capabilities in the source.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant submits complete, valid, and legally compliant AUU applications.\"},{\"branch_id\":\"hlg_e331cbf7082b6f22_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the second parent's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for a different actor (Other Parent).\",\"outcome_justification\":\"Other Parent completes or modifies an application initiated by the first parent.\"},{\"branch_id\":\"hlg_900809a7ef8b8375_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the operator's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the INPS Operator actor.\",\"outcome_justification\":\"INPS Operator evaluates, suspends, and manages applications efficiently.\"},{\"branch_id\":\"hlg_1bf3e45578a286a9_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the citizen's capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Citizen actor.\",\"outcome_justification\":\"Citizen consults past applications and simulates allowance amounts.\"},{\"branch_id\":\"hlg_80e9bccdebd7256c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the integrity checks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"System prevents duplicate applications and ensures data integrity.\"},{\"branch_id\":\"hlg_f10d30aaf7989bdf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the automatic adjustment.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"System automatically recalculates allowances based on updated ISEE data.\"},{\"branch_id\":\"hlg_f20dd2688cbe70ce_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on state management, while the parent is broader.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant manages application progress via drafts and resumptions.\"},{\"branch_id\":\"hlg_00df6ca09ca87b63_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the dynamic addition of children.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"Applicant adds children to existing applications with validation.\"},{\"branch_id\":\"hlg_00ca9651daa07755_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on consent, omitting the broader data handling aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to creation.\",\"outcome_justification\":\"Applicant ensures compliant data handling and privacy consent.\"},{\"branch_id\":\"hlg_e9e13b94ecf41196_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the payment method selection.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented outcome for the Applicant actor.\",\"outcome_justification\":\"Applicant selects and configures various payment methods.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately reflects the citizen's capabilities.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

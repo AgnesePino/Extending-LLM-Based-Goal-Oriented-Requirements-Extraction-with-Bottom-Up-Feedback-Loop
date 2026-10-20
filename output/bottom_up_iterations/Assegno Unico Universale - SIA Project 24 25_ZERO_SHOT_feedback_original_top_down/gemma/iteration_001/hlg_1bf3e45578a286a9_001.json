@@ -1,0 +1,100 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_1bf3e45578a286a9_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide public access to application status and allowance simulation",
+    "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+    "actor": {
+      "name": "Citizen",
+      "description": "General public member consulting applications or simulating allowance amounts."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow citizen to view past applications",
+      "description": "The citizen accesses their past AUU applications and associated statuses via the public portal.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    },
+    {
+      "name": "Allow citizen to simulate allowance amount",
+      "description": "The citizen inputs their data (e.g., ISEE, number of children) to simulate the expected monthly allowance amount.",
+      "high_level_associated": {
+        "name": "Provide public access to application status and allowance simulation",
+        "description": "Allow citizens to consult past applications, view general AUU information, and simulate expected monthly allowance amounts without submitting new applications.",
+        "actor": {
+          "name": "Citizen",
+          "description": "General public member consulting applications or simulating allowance amounts."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_139f4cc118f2e6b4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the submission, validation, and declaration requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is source-grounded and represents a distinct, necessary outcome for the Applicant.\",\"outcome_justification\":\"Applicants submit valid, compliant applications through real-time validation and mandatory declarations.\"},{\"branch_id\":\"hlg_e331cbf7082b6f22_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the collaborative completion and modification capabilities for the second parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, documented outcome for the 'Other Parent' actor.\",\"outcome_justification\":\"The second parent can complete or modify an application initiated by the first parent.\"},{\"branch_id\":\"hlg_900809a7ef8b8375_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers evaluation, suspension, notification, and documentation management.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the core functional outcome for the INPS Operator actor.\",\"outcome_justification\":\"Operators manage the lifecycle of submitted applications, including evaluation and notifications.\"},{\"branch_id\":\"hlg_1bf3e45578a286a9_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers historical consultation and allowance simulation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct public-facing outcome for the Citizen actor.\",\"outcome_justification\":\"Citizens can consult past records and simulate future allowance amounts.\"},{\"branch_id\":\"hlg_80e9bccdebd7256c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the detection and blocking of duplicate fiscal codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific, source-grounded integrity requirement for the Applicant.\",\"outcome_justification\":\"The system prevents duplicate applications by validating child fiscal codes in real time.\"},{\"branch_id\":\"hlg_f10d30aaf7989bdf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the automatic recalculation based on ISEE updates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a documented automated system effect for the Applicant.\",\"outcome_justification\":\"The system automatically updates allowances when new ISEE data becomes available.\"},{\"branch_id\":\"hlg_f20dd2688cbe70ce_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers saving, resuming, and restarting application states.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct workflow capability for the Applicant.\",\"outcome_justification\":\"Applicants can manage their progress by saving or resuming application drafts.\"},{\"branch_id\":\"hlg_00df6ca09ca87b63_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the addition of children and subsequent data modification.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific, source-grounded capability for updating existing applications.\",\"outcome_justification\":\"Applicants can add children to existing applications and update related payment data.\"},{\"branch_id\":\"hlg_00ca9651daa07755_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the consent and acknowledgment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a mandatory compliance outcome for the Applicant.\",\"outcome_justification\":\"Applicants must accept privacy notices and responsibility declarations before submission.\"},{\"branch_id\":\"hlg_e9e13b94ecf41196_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers payment method selection and joint configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding payment configuration for the Applicant.\",\"outcome_justification\":\"Applicants choose payment methods and configure joint parent payment details.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_1bf3e45578a286a9_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents a distinct public-facing outcome for the Citizen actor.",
+      "outcome_justification": "Citizens can consult past records and simulate future allowance amounts.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_139f4cc118f2e6b4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the submission, validation, and declaration requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is source-grounded and represents a distinct, necessary outcome for the Applicant.\",\"outcome_justification\":\"Applicants submit valid, compliant applications through real-time validation and mandatory declarations.\"},{\"branch_id\":\"hlg_e331cbf7082b6f22_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the collaborative completion and modification capabilities for the second parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, documented outcome for the 'Other Parent' actor.\",\"outcome_justification\":\"The second parent can complete or modify an application initiated by the first parent.\"},{\"branch_id\":\"hlg_900809a7ef8b8375_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers evaluation, suspension, notification, and documentation management.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the core functional outcome for the INPS Operator actor.\",\"outcome_justification\":\"Operators manage the lifecycle of submitted applications, including evaluation and notifications.\"},{\"branch_id\":\"hlg_1bf3e45578a286a9_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers historical consultation and allowance simulation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct public-facing outcome for the Citizen actor.\",\"outcome_justification\":\"Citizens can consult past records and simulate future allowance amounts.\"},{\"branch_id\":\"hlg_80e9bccdebd7256c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the detection and blocking of duplicate fiscal codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific, source-grounded integrity requirement for the Applicant.\",\"outcome_justification\":\"The system prevents duplicate applications by validating child fiscal codes in real time.\"},{\"branch_id\":\"hlg_f10d30aaf7989bdf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the automatic recalculation based on ISEE updates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a documented automated system effect for the Applicant.\",\"outcome_justification\":\"The system automatically updates allowances when new ISEE data becomes available.\"},{\"branch_id\":\"hlg_f20dd2688cbe70ce_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers saving, resuming, and restarting application states.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct workflow capability for the Applicant.\",\"outcome_justification\":\"Applicants can manage their progress by saving or resuming application drafts.\"},{\"branch_id\":\"hlg_00df6ca09ca87b63_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the addition of children and subsequent data modification.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific, source-grounded capability for updating existing applications.\",\"outcome_justification\":\"Applicants can add children to existing applications and update related payment data.\"},{\"branch_id\":\"hlg_00ca9651daa07755_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the consent and acknowledgment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a mandatory compliance outcome for the Applicant.\",\"outcome_justification\":\"Applicants must accept privacy notices and responsibility declarations before submission.\"},{\"branch_id\":\"hlg_e9e13b94ecf41196_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers payment method selection and joint configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding payment configuration for the Applicant.\",\"outcome_justification\":\"Applicants choose payment methods and configure joint parent payment details.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers historical consultation and allowance simulation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\"rationale\":\"The parent goal requires three distinct capabilities: consulting past applications, viewing general AUU information, and simulating allowance amounts. The current children cover the first and third but completely omit the 'consult general information' capability.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":3,\"regeneration_feedback\":\"Preserve llg_001 and llg_002; ADD a new goal to allow citizens to consult general information about the Assegno Unico Universale; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[\"Consult general information about the Assegno Unico Universale\"]}\n```",
+    "parsed_response": {
+      "rationale": "The parent goal requires three distinct capabilities: consulting past applications, viewing general AUU information, and simulating allowance amounts. The current children cover the first and third but completely omit the 'consult general information' capability.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 3,
+      "regeneration_feedback": "Preserve llg_001 and llg_002; ADD a new goal to allow citizens to consult general information about the Assegno Unico Universale; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Consult general information about the Assegno Unico Universale"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

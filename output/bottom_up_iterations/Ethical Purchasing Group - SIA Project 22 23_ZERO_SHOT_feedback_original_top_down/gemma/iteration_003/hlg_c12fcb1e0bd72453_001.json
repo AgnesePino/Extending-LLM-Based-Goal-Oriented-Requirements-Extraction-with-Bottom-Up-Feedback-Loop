@@ -1,0 +1,102 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_c12fcb1e0bd72453_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide timely delivery and customer notification",
+    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+    "actor": {
+      "name": "Farmer",
+      "description": "Local producer who supplies products and confirms availability to the system."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Notify farmer of delivery delay",
+      "description": "System notifies farmer of delivery delays and triggers automatic credit-back bonus with 20% bonus via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Notify customer of delivery delay",
+      "description": "System notifies customer of delivery delays and provides estimated resolution time via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Automatically credit back missing amount with bonus",
+      "description": "System automatically credits back the missing amount to the customer’s wallet with a 20% bonus via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Cancel orders and credit wallets with 20% bonus if deliveries are late",
+      "description": "System cancels orders and credits wallets with 20% bonus if deliveries are late via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order actions, while the parent focuses on sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the independent outcome of providing product information for informed decisions.\",\"outcome_justification\":\"Customers make informed choices based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the order management and allocation lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct, high-level outcome for order lifecycle management.\",\"outcome_justification\":\"Customers manage the lifecycle of orders while respecting constraints and priorities.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers wallet management, notifications, and payment processing.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a complete and independent financial interaction for the customer.\",\"outcome_justification\":\"Customers manage funds and complete payments for their purchases.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, notifications, and forfeit policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct logistical outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate the final step of receiving their ordered products.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent outcome for the Farmer actor.\",\"outcome_justification\":\"Farmers provide the necessary supply data for the system to function.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the employee's role in fulfillment and coordination.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the operational requirements of the store staff.\",\"outcome_justification\":\"Employees ensure the physical and administrative fulfillment of customer orders.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery alerts and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a specific, documented outcome regarding delivery failures.\",\"outcome_justification\":\"The system maintains transparency and compensates customers for delivery issues.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on recording actions, while the parent emphasizes trust and integrity.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level integrity goal supported by the source.\",\"outcome_justification\":\"The system enforces rules to maintain trust and reliability.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct authorization and accountability requirement.\",\"outcome_justification\":\"Only authorized representatives can act on behalf of purchasing groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_c12fcb1e0bd72453_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal represents a specific, documented outcome regarding delivery failures.",
+      "outcome_justification": "The system maintains transparency and compensates customers for delivery issues.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order actions, while the parent focuses on sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the independent outcome of providing product information for informed decisions.\",\"outcome_justification\":\"Customers make informed choices based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the order management and allocation lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct, high-level outcome for order lifecycle management.\",\"outcome_justification\":\"Customers manage the lifecycle of orders while respecting constraints and priorities.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers wallet management, notifications, and payment processing.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a complete and independent financial interaction for the customer.\",\"outcome_justification\":\"Customers manage funds and complete payments for their purchases.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, notifications, and forfeit policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct logistical outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate the final step of receiving their ordered products.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent outcome for the Farmer actor.\",\"outcome_justification\":\"Farmers provide the necessary supply data for the system to function.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the employee's role in fulfillment and coordination.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the operational requirements of the store staff.\",\"outcome_justification\":\"Employees ensure the physical and administrative fulfillment of customer orders.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery alerts and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a specific, documented outcome regarding delivery failures.\",\"outcome_justification\":\"The system maintains transparency and compensates customers for delivery issues.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on recording actions, while the parent emphasizes trust and integrity.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level integrity goal supported by the source.\",\"outcome_justification\":\"The system enforces rules to maintain trust and reliability.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct authorization and accountability requirement.\",\"outcome_justification\":\"Only authorized representatives can act on behalf of purchasing groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers delivery alerts and automatic credits.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

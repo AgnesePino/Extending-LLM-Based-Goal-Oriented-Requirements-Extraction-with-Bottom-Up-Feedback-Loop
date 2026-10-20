@@ -1,0 +1,116 @@
+{
+  "iteration": 12,
+  "branch_id": "hlg_d714bbf6da86e761_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable efficient store operations and order fulfillment",
+    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+    "actor": {
+      "name": "Store Employee",
+      "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Manage order fulfillment for store",
+      "description": "Store employee views and manages pending orders for fulfillment.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Coordinate product pickup",
+      "description": "Store employee coordinates pickup logistics for customers, including time and location.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Process customer payments",
+      "description": "Store employee processes customer payments and updates wallet balances via system API.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Confirm delivery status",
+      "description": "Store employee confirms delivery status and updates system records.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing information.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders with constraints; clarify the original's focus on detailed product information for informed decisions.\",\n    \"outcome_justification\": \"Customer makes informed purchasing decisions by accessing detailed product sourcing information, not just browsing offers.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands wallet management beyond balance monitoring to include resolution of issues and automated cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes secure wallet management and timely notifications; refine the original's focus on balance management and grace periods.\",\n    \"outcome_justification\": \"Customer manages virtual wallets, receives payment notifications, and handles insufficient balances with grace periods, not automated cancellations.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes scheduling and collection reminders; clarify the original's focus on pickup compliance and fair-play scoring.\",\n    \"outcome_justification\": \"Customer schedules product collections with automated reminders, not forfeiture handling or fair-play updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands inventory tracking to include rule-governed allocation and farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on availability estimates and dynamic adjustments; refine the original's emphasis on accurate tracking and real-time adjustments.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates, enabling system to dynamically adjust order fulfillment based on real-time availability.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens store operations to include payment processing and delivery confirmations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes order fulfillment coordination; clarify the original's focus on daily operations management.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment, including product pickup coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands delivery notifications to include compensation and order record updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on alerting farmers and customers of delays; refine the original's emphasis on transparency and status updates.\",\n    \"outcome_justification\": \"System alerts farmers and customers of delivery delays, maintaining transparency about status and crediting missing amounts with a 20% bonus.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands authorization to include identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes group-based purchasing integrity; clarify the original's focus on representative authorization.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d714bbf6da86e761_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction broadens store operations to include payment processing and delivery confirmations."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source prioritizes order fulfillment coordination; clarify the original's focus on daily operations management.",
+      "outcome_justification": "Store employee manages end-to-end order fulfillment, including product pickup coordination and payment processing."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing information.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders with constraints; clarify the original's focus on detailed product information for informed decisions.\",\n    \"outcome_justification\": \"Customer makes informed purchasing decisions by accessing detailed product sourcing information, not just browsing offers.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands wallet management beyond balance monitoring to include resolution of issues and automated cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes secure wallet management and timely notifications; refine the original's focus on balance management and grace periods.\",\n    \"outcome_justification\": \"Customer manages virtual wallets, receives payment notifications, and handles insufficient balances with grace periods, not automated cancellations.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes scheduling and collection reminders; clarify the original's focus on pickup compliance and fair-play scoring.\",\n    \"outcome_justification\": \"Customer schedules product collections with automated reminders, not forfeiture handling or fair-play updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands inventory tracking to include rule-governed allocation and farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on availability estimates and dynamic adjustments; refine the original's emphasis on accurate tracking and real-time adjustments.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates, enabling system to dynamically adjust order fulfillment based on real-time availability.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens store operations to include payment processing and delivery confirmations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes order fulfillment coordination; clarify the original's focus on daily operations management.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment, including product pickup coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands delivery notifications to include compensation and order record updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on alerting farmers and customers of delays; refine the original's emphasis on transparency and status updates.\",\n    \"outcome_justification\": \"System alerts farmers and customers of delivery delays, maintaining transparency about status and crediting missing amounts with a 20% bonus.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands authorization to include identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes group-based purchasing integrity; clarify the original's focus on representative authorization.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction broadens store operations to include payment processing and delivery confirmations.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Enable efficient store operations and order fulfillment' through documented functional interactions or effects.\\n\\nllg_001: Manage order fulfillment for store - This LLG is supported by the source, as it involves a store employee viewing and managing pending orders for fulfillment. This action directly contributes to the parent goal by ensuring that orders are processed efficiently.\\n\\nllg_002: Coordinate product pickup - This LLG is also supported by the source, as it describes the store employee coordinating pickup logistics for customers, including time and location. This action is essential for fulfilling customer orders accurately and on time.\\n\\nllg_003: Process customer payments - This LLG is supported by the source, as it involves a store employee processing customer payments and updating wallet balances via system API. This action ensures that financial transactions are handled correctly and efficiently.\\n\\nllg_004: Confirm delivery status - This LLG is supported by the source, as it describes the store employee confirming delivery status and updating system records. This action is crucial for maintaining accurate order tracking and ensuring smooth operations.\\n\\nAll LLGs are distinct, non-redundant, and cover essential aspects of the parent goal without any overlap or missing capabilities.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nQuality Score: 5\\nRegeneration Feedback: null\\nUnsupported or Misleading llg_NNN IDs: []\\nMissing Essential Capabilities: []\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Enable efficient store operations and order fulfillment' through documented functional interactions or effects.\n\nllg_001: Manage order fulfillment for store - This LLG is supported by the source, as it involves a store employee viewing and managing pending orders for fulfillment. This action directly contributes to the parent goal by ensuring that orders are processed efficiently.\n\nllg_002: Coordinate product pickup - This LLG is also supported by the source, as it describes the store employee coordinating pickup logistics for customers, including time and location. This action is essential for fulfilling customer orders accurately and on time.\n\nllg_003: Process customer payments - This LLG is supported by the source, as it involves a store employee processing customer payments and updating wallet balances via system API. This action ensures that financial transactions are handled correctly and efficiently.\n\nllg_004: Confirm delivery status - This LLG is supported by the source, as it describes the store employee confirming delivery status and updating system records. This action is crucial for maintaining accurate order tracking and ensuring smooth operations.\n\nAll LLGs are distinct, non-redundant, and cover essential aspects of the parent goal without any overlap or missing capabilities.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nQuality Score: 5\nRegeneration Feedback: null\nUnsupported or Misleading llg_NNN IDs: []\nMissing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,87 @@
+{
+  "iteration": 17,
+  "branch_id": "hlg_476ac274557a4b21_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support Clinical Documentation",
+    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+    "actor": {
+      "name": "Hospital Staff",
+      "description": "Registers patients, manages medical notes, and handles check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register New Patient",
+      "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Create Medical Note",
+      "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Manage Patient Check-In",
+      "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children for granularity.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and operations, distinct from visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time operational metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from administration.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance, separate from data centralization.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from other staff goals.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins, separate from clinical documentation.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from staff goals.\",\n      \"outcome_justification\": \"Patient searches for hospitals, separate from clinical or logistical tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with HLG a9ff40162305bff8_001; no independent outcome.\",\n      \"outcome_justification\": \"Clinical documentation is internal to patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from other logistical tasks.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and requests, separate from administration or patient care.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_476ac274557a4b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "EQUIVALENT",
+        "rationale": "Reconstruction matches clinical documentation."
+      },
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Overlaps with HLG a9ff40162305bff8_001; no independent outcome.",
+      "outcome_justification": "Clinical documentation is internal to patient care coordination.",
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_a9ff40162305bff8_001",
+      "covered_by_high_level_goal_name": "Enhance Patient Care Coordination"
+    },
+    "error": "Redundancy requires the exact ID/name of another same-actor branch"
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children for granularity.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and operations, distinct from visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time operational metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from administration.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance, separate from data centralization.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from other staff goals.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins, separate from clinical documentation.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from staff goals.\",\n      \"outcome_justification\": \"Patient searches for hospitals, separate from clinical or logistical tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with HLG a9ff40162305bff8_001; no independent outcome.\",\n      \"outcome_justification\": \"Clinical documentation is internal to patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented and distinct from other logistical tasks.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and requests, separate from administration or patient care.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches clinical documentation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

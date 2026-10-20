@@ -1,0 +1,90 @@
+{
+  "iteration": 13,
+  "branch_id": "hlg_e6cbeca622c85af3_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Optimize Resource Management",
+    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+    "actor": {
+      "name": "Logistics Staff",
+      "description": "Manages products, blood samples, and inventory requests."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Place Inventory Request",
+      "description": "The Logistics Staff submits a request to replenish medical supplies or equipment in the inventory system.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Track Blood Sample Inventory",
+      "description": "The Logistics Staff views and updates the status of blood samples in inventory, including expiration and usage.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Approve Product Request",
+      "description": "The Logistics Staff approves or rejects a product request based on availability and clinical need.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of hospital entities and operations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a unique, high-level administrative outcome supported by the source description.\",\"outcome_justification\":\"Administrator obtains a unified platform for managing hospital data and system-wide configurations.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the manager's need for real-time performance metrics.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This provides a distinct outcome for managers regarding decision-making visibility.\",\"outcome_justification\":\"Hospital Manager monitors real-time data and performance metrics to support operational decisions.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with managing appointments, records, and check-ins.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a core functional goal for healthcare staff regarding patient care.\",\"outcome_justification\":\"Healthcare Staff manages patient appointments, medical records, and check-in processes efficiently.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the patient's search and recommendation needs.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct self-service outcome for the Patient actor.\",\"outcome_justification\":\"Patient searches for hospitals and receives location-based recommendations to improve access.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_a9ff40162305bff8_001\",\"rationale\":\"The reconstruction describes patient onboarding and clinical documentation, similar to healthcare staff tasks.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source describes these tasks as healthcare staff responsibilities, already covered by hlg_a9ff40162305bff8_001.\",\"outcome_justification\":\"Patient registration and clinical documentation are already covered by the Healthcare Staff goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_a9ff40162305bff8_001\",\"covered_by_high_level_goal_name\":\"Enhance Patient Care Coordination\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the lifecycle of inventory and blood samples.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct logistical outcome for the Logistics Staff.\",\"outcome_justification\":\"Logistics Staff manages inventory, blood samples, and product requests for clinical efficiency.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_e6cbeca622c85af3_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents a distinct logistical outcome for the Logistics Staff.",
+      "outcome_justification": "Logistics Staff manages inventory, blood samples, and product requests for clinical efficiency.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of hospital entities and operations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a unique, high-level administrative outcome supported by the source description.\",\"outcome_justification\":\"Administrator obtains a unified platform for managing hospital data and system-wide configurations.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the manager's need for real-time performance metrics.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This provides a distinct outcome for managers regarding decision-making visibility.\",\"outcome_justification\":\"Hospital Manager monitors real-time data and performance metrics to support operational decisions.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with managing appointments, records, and check-ins.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a core functional goal for healthcare staff regarding patient care.\",\"outcome_justification\":\"Healthcare Staff manages patient appointments, medical records, and check-in processes efficiently.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the patient's search and recommendation needs.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct self-service outcome for the Patient actor.\",\"outcome_justification\":\"Patient searches for hospitals and receives location-based recommendations to improve access.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_a9ff40162305bff8_001\",\"rationale\":\"The reconstruction describes patient onboarding and clinical documentation, similar to healthcare staff tasks.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source describes these tasks as healthcare staff responsibilities, already covered by hlg_a9ff40162305bff8_001.\",\"outcome_justification\":\"Patient registration and clinical documentation are already covered by the Healthcare Staff goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_a9ff40162305bff8_001\",\"covered_by_high_level_goal_name\":\"Enhance Patient Care Coordination\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the lifecycle of inventory and blood samples.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct logistical outcome for the Logistics Staff.\",\"outcome_justification\":\"Logistics Staff manages inventory, blood samples, and product requests for clinical efficiency.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction captures the lifecycle of inventory and blood samples.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,162 @@
+{
+  "iteration": 8,
+  "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Facilitate Report Assignment and Management Based on Category",
+    "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+    "actor": {
+      "name": "Technical Office Staff",
+      "description": "Staff responsible for assigning and managing reports based on category."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Assign report to appropriate department or external company",
+      "description": "Technical Office Staff assigns a report to a department or external company based on its category.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to In Progress after assignment",
+      "description": "Technical Office Staff updates the report status to 'In Progress' after assigning it to a responsible department or external company.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Work in Progress after intervention start",
+      "description": "Technical Office Staff updates the report status to 'Work in Progress' when the intervention has officially begun.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Suspended for organizational or technical reasons",
+      "description": "Technical Office Staff updates the report status to 'Suspended' when the report is paused due to organizational or technical constraints.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Rejected with mandatory explanation",
+      "description": "Technical Office Staff updates the report status to 'Rejected' and provides a mandatory written explanation for rejection.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Resolved after external company completion",
+      "description": "External maintenance personnel (for Case 1) or Technical Office Staff (for Case 2) updates the report status to 'Resolved' after the issue is resolved.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Manually update report status for external companies without system access",
+      "description": "Technical Office Staff manually updates the report status to 'Resolved' for reports assigned to external companies without Participium access (Case 2).",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map display, adding multi-channel notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Citizen participation spans reporting, tracking, and public visibility; other goals cover specific channels.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's dual-view access and metadata filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome for public transparency.\",\n      \"outcome_justification\": \"Citizen visibility of reports is independent from participation or communication goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's communication and notification channels.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome for real-time interaction.\",\n      \"outcome_justification\": \"Citizen-staff communication is independent from reporting or visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public, anonymous access to statistics and map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for non-registered users.\",\n      \"outcome_justification\": \"Non-registered user access is independent from citizen participation or staff communication.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's review, approval, and assignment workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for staff accountability.\",\n      \"outcome_justification\": \"Staff review and approval is independent from citizen reporting or public visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits manual updates for external entities without system access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Technical office management spans lifecycle tracking and external coordination; other goals cover specific assignment rules.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for administrator oversight.\",\n      \"outcome_justification\": \"Administrator analytics is independent from citizen reporting or staff workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's open-source publication and configuration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for administrator release.\",\n      \"outcome_justification\": \"Open-source publication is independent from citizen reporting or staff workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's automated assignment rules.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This is a specific internal workflow step covered by broader technical office management.\",\n      \"outcome_justification\": \"Automated assignment adds no independent outcome beyond managing reports.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"covered_by_high_level_goal_name\": \"Ensure Efficient Review and Approval of Citizen Reports\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it.",
+      "outcome_justification": "Technical office management spans lifecycle tracking and external coordination; other goals cover specific assignment rules.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map display, adding multi-channel notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Citizen participation spans reporting, tracking, and public visibility; other goals cover specific channels.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's dual-view access and metadata filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome for public transparency.\",\n      \"outcome_justification\": \"Citizen visibility of reports is independent from participation or communication goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's communication and notification channels.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome for real-time interaction.\",\n      \"outcome_justification\": \"Citizen-staff communication is independent from reporting or visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public, anonymous access to statistics and map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for non-registered users.\",\n      \"outcome_justification\": \"Non-registered user access is independent from citizen participation or staff communication.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's review, approval, and assignment workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for staff accountability.\",\n      \"outcome_justification\": \"Staff review and approval is independent from citizen reporting or public visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits manual updates for external entities without system access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Technical office management spans lifecycle tracking and external coordination; other goals cover specific assignment rules.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for administrator oversight.\",\n      \"outcome_justification\": \"Administrator analytics is independent from citizen reporting or staff workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's open-source publication and configuration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct outcome for administrator release.\",\n      \"outcome_justification\": \"Open-source publication is independent from citizen reporting or staff workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's automated assignment rules.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This is a specific internal workflow step covered by broader technical office management.\",\n      \"outcome_justification\": \"Automated assignment adds no independent outcome beyond managing reports.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"covered_by_high_level_goal_name\": \"Ensure Efficient Review and Approval of Citizen Reports\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits manual updates for external entities without system access.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The parent goal focuses on 'Facilitate Report Assignment and Management Based on Category' for Technical Office Staff, specifically concerning assigning reports to departments or external companies based on category. The children cover a broader scope of report status updates, including rejection with explanations and handling external companies without system access, which are not explicitly mentioned in the parent goal. Additionally, some children (llg_006) involve actors other than Technical Office Staff (e.g., External maintenance personnel), which deviates from the parent's actor criterion. The reconstructed HLG' also broadens the scope to include lifecycle management beyond assignment and category-based handling.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Preserve only the children that directly support report assignment based on category by Technical Office Staff. Remove or correct children involving other actors (e.g., External maintenance personnel) and those related to broader lifecycle management not explicitly tied to category-based assignment. Return the full decomposition with a focus on documented functional interactions for Technical Office Staff.\",\n  \"unsupported_or_misleading_llg_ids\": [\"llg_005\", \"llg_006\", \"llg_007\"],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The parent goal focuses on 'Facilitate Report Assignment and Management Based on Category' for Technical Office Staff, specifically concerning assigning reports to departments or external companies based on category. The children cover a broader scope of report status updates, including rejection with explanations and handling external companies without system access, which are not explicitly mentioned in the parent goal. Additionally, some children (llg_006) involve actors other than Technical Office Staff (e.g., External maintenance personnel), which deviates from the parent's actor criterion. The reconstructed HLG' also broadens the scope to include lifecycle management beyond assignment and category-based handling.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve only the children that directly support report assignment based on category by Technical Office Staff. Remove or correct children involving other actors (e.g., External maintenance personnel) and those related to broader lifecycle management not explicitly tied to category-based assignment. Return the full decomposition with a focus on documented functional interactions for Technical Office Staff.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_005",
+        "llg_006",
+        "llg_007"
+      ],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

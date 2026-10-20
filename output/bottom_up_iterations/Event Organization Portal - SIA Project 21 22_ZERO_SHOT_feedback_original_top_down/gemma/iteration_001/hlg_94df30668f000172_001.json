@@ -1,0 +1,90 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_94df30668f000172_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support service providers in managing appointments and quotations",
+    "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+    "actor": {
+      "name": "Service Provider",
+      "description": "Business or individual offering event-related services for booking."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Respond to appointment requests",
+      "description": "The service provider accepts or declines appointment requests from event organizers via the platform.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    },
+    {
+      "name": "Generate and send quotations",
+      "description": "The service provider creates and sends a quotation to the event organizer with pricing and terms.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    },
+    {
+      "name": "Confirm payment receipt for completed services",
+      "description": "The service provider marks a service as completed and confirms receipt of payment from the event organizer.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction only covers event creation and guest invitations, omitting budget tracking and service bookings.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad planning and coordination outcome; children are currently incomplete but the parent is valid.\",\"outcome_justification\":\"Event organizers need a comprehensive way to manage all event aspects, including guests, bookings, and budget.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the discovery and booking capabilities for organizers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independently useful outcome focused specifically on the service marketplace aspect.\",\"outcome_justification\":\"Organizers need a dedicated way to find and select specific services from various providers.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on booking/payment options but omits the 'secure' and 'traceable' aspects.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complex payment lifecycle; the reconstruction mismatch suggests a need for more secure/traceable children.\",\"outcome_justification\":\"Organizers and providers require a secure, flexible system for handling various payment types.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the provider's ability to publish and categorize services.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the Service Provider actor, independent of the organizer's goals.\",\"outcome_justification\":\"Service providers need to manage their public presence and service details on the platform.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction attributes the 'service lifecycle' to the organizer, but the parent is for the provider.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction incorrectly assigns the service lifecycle to the organizer; the source confirms these are provider actions.\",\"outcome_justification\":\"Service providers need to manage the lifecycle of appointments, quotations, and payment confirmations.\",\"rewriting_focus\":\"Ensure the goal clearly attributes appointment response, quotation generation, and payment confirmation to the Service Provider.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the Invited Guest actor, separate from content creation.\",\"outcome_justification\":\"Invited guests need a secure way to access event-related content using unique codes.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the collaborative content contribution capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for content contribution, which is separate from simple access.\",\"outcome_justification\":\"Both organizers and guests need to interactively contribute to the event blog.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the history and budget monitoring.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independently useful outcome for financial oversight and history tracking.\",\"outcome_justification\":\"Organizers need to monitor their remaining budget and review past contract details.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_94df30668f000172_001",
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The reconstruction incorrectly assigns the service lifecycle to the organizer; the source confirms these are provider actions.",
+      "outcome_justification": "Service providers need to manage the lifecycle of appointments, quotations, and payment confirmations.",
+      "rewriting_focus": "Ensure the goal clearly attributes appointment response, quotation generation, and payment confirmation to the Service Provider.",
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction only covers event creation and guest invitations, omitting budget tracking and service bookings.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad planning and coordination outcome; children are currently incomplete but the parent is valid.\",\"outcome_justification\":\"Event organizers need a comprehensive way to manage all event aspects, including guests, bookings, and budget.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the discovery and booking capabilities for organizers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independently useful outcome focused specifically on the service marketplace aspect.\",\"outcome_justification\":\"Organizers need a dedicated way to find and select specific services from various providers.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on booking/payment options but omits the 'secure' and 'traceable' aspects.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complex payment lifecycle; the reconstruction mismatch suggests a need for more secure/traceable children.\",\"outcome_justification\":\"Organizers and providers require a secure, flexible system for handling various payment types.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the provider's ability to publish and categorize services.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the Service Provider actor, independent of the organizer's goals.\",\"outcome_justification\":\"Service providers need to manage their public presence and service details on the platform.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction attributes the 'service lifecycle' to the organizer, but the parent is for the provider.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction incorrectly assigns the service lifecycle to the organizer; the source confirms these are provider actions.\",\"outcome_justification\":\"Service providers need to manage the lifecycle of appointments, quotations, and payment confirmations.\",\"rewriting_focus\":\"Ensure the goal clearly attributes appointment response, quotation generation, and payment confirmation to the Service Provider.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the Invited Guest actor, separate from content creation.\",\"outcome_justification\":\"Invited guests need a secure way to access event-related content using unique codes.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the collaborative content contribution capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for content contribution, which is separate from simple access.\",\"outcome_justification\":\"Both organizers and guests need to interactively contribute to the event blog.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the history and budget monitoring.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independently useful outcome for financial oversight and history tracking.\",\"outcome_justification\":\"Organizers need to monitor their remaining budget and review past contract details.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction attributes the 'service lifecycle' to the organizer, but the parent is for the provider.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

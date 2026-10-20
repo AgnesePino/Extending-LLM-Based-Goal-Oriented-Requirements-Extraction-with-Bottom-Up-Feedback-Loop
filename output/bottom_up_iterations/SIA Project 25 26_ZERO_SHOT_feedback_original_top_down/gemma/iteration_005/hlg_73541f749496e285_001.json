@@ -1,0 +1,102 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_73541f749496e285_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules",
+    "description": "Allow the Municipal Administrator to configure automatic assignment rules that assign reports in specific categories directly to external maintenance companies, bypassing manual review, to streamline workflow and ensure timely interventions.",
+    "actor": {
+      "name": "Municipal Administrator",
+      "description": "Administrator who configures system settings and manages access for external companies."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Configure Automatic Assignment Rule for Report Category",
+      "description": "The Municipal Administrator configures a rule that automatically assigns reports of a specific category to an external maintenance company, bypassing manual review.",
+      "high_level_associated": {
+        "name": "Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules",
+        "description": "Allow the Municipal Administrator to configure automatic assignment rules that assign reports in specific categories directly to external maintenance companies, bypassing manual review, to streamline workflow and ensure timely interventions.",
+        "actor": {
+          "name": "Municipal Administrator",
+          "description": "Administrator who configures system settings and manages access for external companies."
+        }
+      }
+    },
+    {
+      "name": "Validate External Company Access for Automatic Assignment",
+      "description": "The system validates that the external company has been granted access to Participium before allowing automatic assignment rules to be applied to its reports.",
+      "high_level_associated": {
+        "name": "Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules",
+        "description": "Allow the Municipal Administrator to configure automatic assignment rules that assign reports in specific categories directly to external maintenance companies, bypassing manual review, to streamline workflow and ensure timely interventions.",
+        "actor": {
+          "name": "Municipal Administrator",
+          "description": "Administrator who configures system settings and manages access for external companies."
+        }
+      }
+    },
+    {
+      "name": "Trigger Automatic Assignment on Report Submission",
+      "description": "When a citizen submits a report matching a preconfigured category, the system automatically assigns it to the designated external company without requiring manual intervention.",
+      "high_level_associated": {
+        "name": "Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules",
+        "description": "Allow the Municipal Administrator to configure automatic assignment rules that assign reports in specific categories directly to external maintenance companies, bypassing manual review, to streamline workflow and ensure timely interventions.",
+        "actor": {
+          "name": "Municipal Administrator",
+          "description": "Administrator who configures system settings and manages access for external companies."
+        }
+      }
+    },
+    {
+      "name": "Log Automatic Assignment Rule Configuration",
+      "description": "The system logs the configuration of each automatic assignment rule, including category, target company, and effective date, for audit and administrative review.",
+      "high_level_associated": {
+        "name": "Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules",
+        "description": "Allow the Municipal Administrator to configure automatic assignment rules that assign reports in specific categories directly to external maintenance companies, bypassing manual review, to streamline workflow and ensure timely interventions.",
+        "actor": {
+          "name": "Municipal Administrator",
+          "description": "Administrator who configures system settings and manages access for external companies."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate goals in the registry.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad goal of citizen participation; children are just specific capabilities of that participation.\",\"outcome_justification\":\"Citizen engages in urban management by reporting issues and interacting with the system.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported outcome regarding transparency and public visibility.\",\"outcome_justification\":\"Citizen gains awareness of urban issues through accessible, filtered public data.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and chatbot interactions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal focuses on the communication channel and trust-building, distinct from general participation.\",\"outcome_justification\":\"Citizen maintains a two-way communication loop with the municipality for report updates.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the anonymous access to stats and maps.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific requirement for non-registered users to promote awareness.\",\"outcome_justification\":\"Non-registered users can view public data without the friction of registration.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment and lifecycle tracking, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the review/approval outcome; children are just the workflow steps.\",\"outcome_justification\":\"Organization Office ensures quality control and accountability through the approval process.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes lifecycle tracking and manual updates for external entities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the assignment and management outcome; children are the operational details.\",\"outcome_justification\":\"Technical Office ensures timely resolution by managing report assignments and statuses.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for administrative oversight and performance monitoring.\",\"outcome_justification\":\"Administrator monitors system health and resource allocation via analytics.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the open-source publication and configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, source-supported goal regarding the software's distribution and availability.\",\"outcome_justification\":\"The system promotes interoperability by being available as open-source software.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the configuration and triggering of automated rules.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific administrative capability for streamlining workflows via automation.\",\"outcome_justification\":\"Administrator streamlines operations by automating report assignments to external companies.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_73541f749496e285_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This is a specific administrative capability for streamlining workflows via automation.",
+      "outcome_justification": "Administrator streamlines operations by automating report assignments to external companies.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate goals in the registry.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad goal of citizen participation; children are just specific capabilities of that participation.\",\"outcome_justification\":\"Citizen engages in urban management by reporting issues and interacting with the system.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported outcome regarding transparency and public visibility.\",\"outcome_justification\":\"Citizen gains awareness of urban issues through accessible, filtered public data.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and chatbot interactions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal focuses on the communication channel and trust-building, distinct from general participation.\",\"outcome_justification\":\"Citizen maintains a two-way communication loop with the municipality for report updates.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the anonymous access to stats and maps.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific requirement for non-registered users to promote awareness.\",\"outcome_justification\":\"Non-registered users can view public data without the friction of registration.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment and lifecycle tracking, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the review/approval outcome; children are just the workflow steps.\",\"outcome_justification\":\"Organization Office ensures quality control and accountability through the approval process.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes lifecycle tracking and manual updates for external entities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the assignment and management outcome; children are the operational details.\",\"outcome_justification\":\"Technical Office ensures timely resolution by managing report assignments and statuses.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for administrative oversight and performance monitoring.\",\"outcome_justification\":\"Administrator monitors system health and resource allocation via analytics.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the open-source publication and configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, source-supported goal regarding the software's distribution and availability.\",\"outcome_justification\":\"The system promotes interoperability by being available as open-source software.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the configuration and triggering of automated rules.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific administrative capability for streamlining workflows via automation.\",\"outcome_justification\":\"Administrator streamlines operations by automating report assignments to external companies.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction matches the configuration and triggering of automated rules.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

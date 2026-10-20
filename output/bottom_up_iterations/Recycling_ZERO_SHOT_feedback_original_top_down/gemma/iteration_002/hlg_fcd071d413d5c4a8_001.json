@@ -1,0 +1,98 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_fcd071d413d5c4a8_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Facilitate user engagement through event notifications and map-based navigation",
+    "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+    "actor": {
+      "name": "User",
+      "description": "End user searching for and managing recycling facilities."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Receive push notifications for upcoming recycling events",
+      "description": "User subscribes to event notifications and receives alerts via push notification when events occur near their location.",
+      "high_level_associated": {
+        "name": "Facilitate user engagement through event notifications and map-based navigation",
+        "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+        "actor": {
+          "name": "User",
+          "description": "End user searching for and managing recycling facilities."
+        }
+      }
+    },
+    {
+      "name": "Navigate to facility using integrated map interface",
+      "description": "User opens the map view for a selected facility and uses built-in navigation to get directions to the location.",
+      "high_level_associated": {
+        "name": "Facilitate user engagement through event notifications and map-based navigation",
+        "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+        "actor": {
+          "name": "User",
+          "description": "End user searching for and managing recycling facilities."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_a0c7e03bc4bc52e6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes planning and notifications, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to location search.\",\"outcome_justification\":\"User obtains and locates nearby recycling facilities based on location.\"},{\"branch_id\":\"hlg_d834c838712b4c4c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes maps and notifications, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to operational info.\",\"outcome_justification\":\"User plans visits using accurate operational hours and contact details.\"},{\"branch_id\":\"hlg_fcd071d413d5c4a8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes navigation and planning, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to notifications.\",\"outcome_justification\":\"User engages with events and uses maps for navigation.\"},{\"branch_id\":\"hlg_e805346d2be00aaa_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the administrative oversight of facility data.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct administrative outcome for data integrity.\",\"outcome_justification\":\"Administrator maintains accurate and up-to-date facility information.\"},{\"branch_id\":\"hlg_3a28120d4c6451fa_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes user submission, which is not in the parent description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to feedback handling.\",\"outcome_justification\":\"Administrator handles user feedback to improve service quality.\"},{\"branch_id\":\"hlg_f6ffc344401c4271_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the communication channel between representatives and admins.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct communication outcome for facility representatives.\",\"outcome_justification\":\"Facility Representative collaborates with admins to enhance operations.\"},{\"branch_id\":\"hlg_7a8f3b0c33b97d2e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the security and compliance requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct security outcome for the system.\",\"outcome_justification\":\"Administrator ensures data security and privacy compliance.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_fcd071d413d5c4a8_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it to notifications.",
+      "outcome_justification": "User engages with events and uses maps for navigation.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_a0c7e03bc4bc52e6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes planning and notifications, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to location search.\",\"outcome_justification\":\"User obtains and locates nearby recycling facilities based on location.\"},{\"branch_id\":\"hlg_d834c838712b4c4c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes maps and notifications, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to operational info.\",\"outcome_justification\":\"User plans visits using accurate operational hours and contact details.\"},{\"branch_id\":\"hlg_fcd071d413d5c4a8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes navigation and planning, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to notifications.\",\"outcome_justification\":\"User engages with events and uses maps for navigation.\"},{\"branch_id\":\"hlg_e805346d2be00aaa_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the administrative oversight of facility data.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct administrative outcome for data integrity.\",\"outcome_justification\":\"Administrator maintains accurate and up-to-date facility information.\"},{\"branch_id\":\"hlg_3a28120d4c6451fa_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes user submission, which is not in the parent description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to feedback handling.\",\"outcome_justification\":\"Administrator handles user feedback to improve service quality.\"},{\"branch_id\":\"hlg_f6ffc344401c4271_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the communication channel between representatives and admins.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct communication outcome for facility representatives.\",\"outcome_justification\":\"Facility Representative collaborates with admins to enhance operations.\"},{\"branch_id\":\"hlg_7a8f3b0c33b97d2e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct the security and compliance requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct security outcome for the system.\",\"outcome_justification\":\"Administrator ensures data security and privacy compliance.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes navigation and planning, which are separate goals.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly map to the parent and source. llg_001 covers the 'notifications about events' and 'timely notifications' requirements. llg_002 covers 'accessing maps of recycling locations' and 'map-based navigation'. Both are documented in the source and represent the core capabilities of the parent without UI fragmentation.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly map to the parent and source. llg_001 covers the 'notifications about events' and 'timely notifications' requirements. llg_002 covers 'accessing maps of recycling locations' and 'map-based navigation'. Both are documented in the source and represent the core capabilities of the parent without UI fragmentation.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

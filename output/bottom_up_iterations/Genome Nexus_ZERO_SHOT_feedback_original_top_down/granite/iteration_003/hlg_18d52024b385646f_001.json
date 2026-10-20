@@ -1,0 +1,72 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_18d52024b385646f_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+    "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+    "actor": {
+      "name": "Researcher",
+      "description": "Scientist studying genetic variants and their biological implications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Map variants to reference genome assemblies (GRCh38, hg38)",
+      "description": "Provide an API to convert variant coordinates from raw DNA sequences to mapped positions in standard reference genome assemblies.",
+      "high_level_associated": {
+        "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+        "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Translate DNA mutations into protein-level functional impacts",
+      "description": "Allow the system to convert DNA-level variants into protein-level effects (e.g., missense, frameshift, splice site) using protein annotation tools.",
+      "high_level_associated": {
+        "name": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes",
+        "description": "Enable accurate mapping of genetic variants to reference genome assemblies and translate DNA-level mutations into corresponding protein-level functional impacts for biological and clinical interpretation.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction includes clinical significance and disease associations, but lacks mention of population frequencies and gene-level functional context.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all mentioned aspects.\",\n    \"outcome_justification\": \"Enable rapid variant annotation for research purposes includes aggregating and contextualizing genomic and clinical data, including population frequencies and gene-level functional context.\"\n  },\n  {\n    \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on accurate variant interpretation for clinical decision-making.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should emphasize accurate variant interpretation for clinical purposes.\",\n    \"outcome_justification\": \"Support clinical decision-making through accurate variant interpretation includes generating protein-level functional predictions and clinical significance scores.\"\n  },\n  {\n    \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on cancer-specific mutations, while the original parent covers all types of cancer-related mutations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all cancer-related mutations.\",\n    \"outcome_justification\": \"Facilitate analysis of cancer-related mutations includes supporting researchers and clinicians in analyzing and interpreting all types of cancer-related mutations.\"\n  },\n  {\n    \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes parallelized batch processing, while the original parent covers handling high-throughput genomic datasets more broadly.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of handling high-throughput genomic datasets.\",\n    \"outcome_justification\": \"Handle high-throughput genomic datasets efficiently includes scalable processing and annotation of large-scale genomic datasets for both research and clinical applications.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d52024b385646f_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on mapping variant coordinates and translating DNA mutations, while the original parent covers both mapping and converting DNA-level changes into protein-level changes.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of mapping variants to reference genome assemblies and translating DNA-level mutations into protein-level functional impacts.\",\n    \"outcome_justification\": \"Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes includes accurate mapping of genetic variants to reference genome assemblies and translating DNA-level mutations into corresponding protein-level functional impacts.\"\n  },\n  {\n    \"branch_id\": \"hlg_50214718e1e0e929_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on predicting functional impacts using specific computational tools, while the original parent covers providing functional predictions about mutations' impact on proteins more broadly.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of providing functional predictions about mutations' impact on proteins.\",\n    \"outcome_justification\": \"Provide functional predictions about the impact of mutations on proteins includes supporting users in predicting the functional consequences of genetic mutations on protein structure and function using established computational tools.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_18d52024b385646f_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction focuses on mapping variant coordinates and translating DNA mutations, while the original parent covers both mapping and converting DNA-level changes into protein-level changes."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The original parent's scope is broader than the reconstruction; it should encompass all aspects of mapping variants to reference genome assemblies and translating DNA-level mutations into protein-level functional impacts.",
+      "outcome_justification": "Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes includes accurate mapping of genetic variants to reference genome assemblies and translating DNA-level mutations into corresponding protein-level functional impacts."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction includes clinical significance and disease associations, but lacks mention of population frequencies and gene-level functional context.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all mentioned aspects.\",\n    \"outcome_justification\": \"Enable rapid variant annotation for research purposes includes aggregating and contextualizing genomic and clinical data, including population frequencies and gene-level functional context.\"\n  },\n  {\n    \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on accurate variant interpretation for clinical decision-making.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should emphasize accurate variant interpretation for clinical purposes.\",\n    \"outcome_justification\": \"Support clinical decision-making through accurate variant interpretation includes generating protein-level functional predictions and clinical significance scores.\"\n  },\n  {\n    \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on cancer-specific mutations, while the original parent covers all types of cancer-related mutations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all cancer-related mutations.\",\n    \"outcome_justification\": \"Facilitate analysis of cancer-related mutations includes supporting researchers and clinicians in analyzing and interpreting all types of cancer-related mutations.\"\n  },\n  {\n    \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes parallelized batch processing, while the original parent covers handling high-throughput genomic datasets more broadly.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of handling high-throughput genomic datasets.\",\n    \"outcome_justification\": \"Handle high-throughput genomic datasets efficiently includes scalable processing and annotation of large-scale genomic datasets for both research and clinical applications.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d52024b385646f_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on mapping variant coordinates and translating DNA mutations, while the original parent covers both mapping and converting DNA-level changes into protein-level changes.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of mapping variants to reference genome assemblies and translating DNA-level mutations into protein-level functional impacts.\",\n    \"outcome_justification\": \"Map variants to reference genome assemblies and convert DNA-level changes into protein-level changes includes accurate mapping of genetic variants to reference genome assemblies and translating DNA-level mutations into corresponding protein-level functional impacts.\"\n  },\n  {\n    \"branch_id\": \"hlg_50214718e1e0e929_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on predicting functional impacts using specific computational tools, while the original parent covers providing functional predictions about mutations' impact on proteins more broadly.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent's scope is broader than the reconstruction; it should encompass all aspects of providing functional predictions about mutations' impact on proteins.\",\n    \"outcome_justification\": \"Provide functional predictions about the impact of mutations on proteins includes supporting users in predicting the functional consequences of genetic mutations on protein structure and function using established computational tools.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction focuses on mapping variant coordinates and translating DNA mutations, while the original parent covers both mapping and converting DNA-level changes into protein-level changes.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

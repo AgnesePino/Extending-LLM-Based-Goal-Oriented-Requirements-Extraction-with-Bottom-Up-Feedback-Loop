@@ -1,0 +1,134 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_fb3acba7a1cf161c_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable rapid variant annotation for research purposes",
+    "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+    "actor": {
+      "name": "Researcher",
+      "description": "Scientist studying genetic variants and their biological implications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Query variant annotations from multiple genomic databases",
+      "description": "Allow the researcher to submit a variant identifier and retrieve aggregated annotations from public genomic databases such as ClinVar, dbSNP, and gnomAD.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Retrieve mutation annotations and clinical significance",
+      "description": "Provide the researcher with detailed mutation annotations and clinical significance scores from integrated clinical knowledge sources.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Fetch disease associations for queried variants",
+      "description": "Return disease-related associations for the queried variant, including phenotypic and genetic links from public disease databases.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Obtain mutation frequency data across populations",
+      "description": "Provide population-level mutation frequency data for the queried variant, sourced from large-scale genomic datasets such as gnomAD.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Retrieve gene-related information for variant context",
+      "description": "Return gene-level information including function, pathway involvement, and associated diseases for the gene containing the queried variant.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the aggregation of annotations from multiple databases for researchers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent goal of rapid annotation for research discovery.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are broader system capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific clinical interpretation outcome for clinicians.\",\"outcome_justification\":\"Clinicians interpret clinical significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on specific oncology databases not explicitly named in the source.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific goal of analyzing cancer-related mutations.\",\"outcome_justification\":\"Users analyze mutations specifically relevant to cancer biology and patient outcomes.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes specific interpretation and mapping steps beyond just high-throughput processing.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific requirement for scalable processing of large-scale datasets.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and DNA-to-protein conversion capabilities.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"These capabilities are internal steps for interpretation and are covered by the broader high-throughput and annotation goals.\",\"outcome_justification\":\"The containing outcomes are high-throughput processing and variant annotation.\", \"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_fb3acba7a1cf161c_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports this independent goal of rapid annotation for research discovery.",
+      "outcome_justification": "Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the aggregation of annotations from multiple databases for researchers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent goal of rapid annotation for research discovery.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are broader system capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific clinical interpretation outcome for clinicians.\",\"outcome_justification\":\"Clinicians interpret clinical significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on specific oncology databases not explicitly named in the source.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific goal of analyzing cancer-related mutations.\",\"outcome_justification\":\"Users analyze mutations specifically relevant to cancer biology and patient outcomes.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes specific interpretation and mapping steps beyond just high-throughput processing.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific requirement for scalable processing of large-scale datasets.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and DNA-to-protein conversion capabilities.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"These capabilities are internal steps for interpretation and are covered by the broader high-throughput and annotation goals.\",\"outcome_justification\":\"The containing outcomes are high-throughput processing and variant annotation.\", \"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately captures the aggregation of annotations from multiple databases for researchers.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly and completely decompose the parent goal. They cover all essential capabilities mentioned in the source: mutation annotations (llg_002), clinical significance (llg_002), disease associations (llg_003), mutation frequencies (llg_004), and gene-related information (llg_005). The inclusion of multiple genomic databases (llg_001) aligns with the source's requirement for a centralized resource. All children are documented, non-redundant, and correctly scoped to the Researcher actor.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly and completely decompose the parent goal. They cover all essential capabilities mentioned in the source: mutation annotations (llg_002), clinical significance (llg_002), disease associations (llg_003), mutation frequencies (llg_004), and gene-related information (llg_005). The inclusion of multiple genomic databases (llg_001) aligns with the source's requirement for a centralized resource. All children are documented, non-redundant, and correctly scoped to the Researcher actor.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

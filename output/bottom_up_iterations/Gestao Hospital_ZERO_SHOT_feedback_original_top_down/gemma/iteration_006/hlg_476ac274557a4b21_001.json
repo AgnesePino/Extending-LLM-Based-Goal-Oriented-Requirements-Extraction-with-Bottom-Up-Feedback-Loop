@@ -1,0 +1,88 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_476ac274557a4b21_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support Clinical Documentation",
+    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+    "actor": {
+      "name": "Hospital Staff",
+      "description": "Registers patients, manages medical notes, and handles check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register New Patient",
+      "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Create Medical Note",
+      "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Manage Patient Check-In",
+      "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes real-time monitoring, which is not in the original description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a child-level decomposition issue.\",\"outcome_justification\":\"Administrator manages hospital data and configurations to streamline administrative tasks.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects monitoring and performance metrics for managers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a distinct outcome for managers compared to the administrator's general tasks.\",\"outcome_justification\":\"Hospital Manager monitors real-time data and performance metrics for decision-making.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers appointments, records, and check-in workflows.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary functional goal for healthcare staff distinct from logistics or admin.\",\"outcome_justification\":\"Healthcare Staff manages patient appointments, records, and check-in processes.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the search and recommendation capabilities for patients.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, independent outcome for the Patient actor.\",\"outcome_justification\":\"Patients search for hospitals and receive location-based recommendations.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_a9ff40162305bff8_001\",\"rationale\":\"The reconstruction describes patient onboarding and check-in, similar to healthcare staff goals.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source describes these as healthcare staff tasks, which are already covered by hlg_a9ff40162305bff8_001.\",\"outcome_justification\":\"Patient onboarding and check-in are covered by the Healthcare Staff goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_a9ff40162305bff8_001\",\"covered_by_high_level_goal_name\":\"Enhance Patient Care Coordination\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the inventory and blood sample management lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct logistical outcome for the Logistics Staff actor.\",\"outcome_justification\":\"Logistics Staff manages inventory, blood samples, and product requests.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_476ac274557a4b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "MATCHES_SIBLING",
+        "matches_branch_id": "hlg_a9ff40162305bff8_001",
+        "rationale": "The reconstruction describes patient onboarding and check-in, similar to healthcare staff goals."
+      },
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source describes these as healthcare staff tasks, which are already covered by hlg_a9ff40162305bff8_001.",
+      "outcome_justification": "Patient onboarding and check-in are covered by the Healthcare Staff goal.",
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_a9ff40162305bff8_001",
+      "covered_by_high_level_goal_name": "Enhance Patient Care Coordination"
+    },
+    "error": "Redundancy requires the exact ID/name of another same-actor branch"
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes real-time monitoring, which is not in the original description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a child-level decomposition issue.\",\"outcome_justification\":\"Administrator manages hospital data and configurations to streamline administrative tasks.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects monitoring and performance metrics for managers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a distinct outcome for managers compared to the administrator's general tasks.\",\"outcome_justification\":\"Hospital Manager monitors real-time data and performance metrics for decision-making.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers appointments, records, and check-in workflows.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary functional goal for healthcare staff distinct from logistics or admin.\",\"outcome_justification\":\"Healthcare Staff manages patient appointments, records, and check-in processes.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the search and recommendation capabilities for patients.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a unique, independent outcome for the Patient actor.\",\"outcome_justification\":\"Patients search for hospitals and receive location-based recommendations.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_a9ff40162305bff8_001\",\"rationale\":\"The reconstruction describes patient onboarding and check-in, similar to healthcare staff goals.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source describes these as healthcare staff tasks, which are already covered by hlg_a9ff40162305bff8_001.\",\"outcome_justification\":\"Patient onboarding and check-in are covered by the Healthcare Staff goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_a9ff40162305bff8_001\",\"covered_by_high_level_goal_name\":\"Enhance Patient Care Coordination\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the inventory and blood sample management lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct logistical outcome for the Logistics Staff actor.\",\"outcome_justification\":\"Logistics Staff manages inventory, blood samples, and product requests.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "MATCHES_SIBLING",
+      "matches_branch_id": "hlg_a9ff40162305bff8_001",
+      "rationale": "The reconstruction describes patient onboarding and check-in, similar to healthcare staff goals."
+    },
+    "error": "MATCHES_SIBLING requires another existing same-actor branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

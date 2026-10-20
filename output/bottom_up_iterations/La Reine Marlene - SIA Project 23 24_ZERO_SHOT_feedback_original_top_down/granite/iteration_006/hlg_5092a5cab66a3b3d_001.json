@@ -1,0 +1,128 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_5092a5cab66a3b3d_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support accurate and timely product inventory management",
+    "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator sets reorder threshold for product",
+      "description": "The administrator configures the minimum stock level that triggers an automatic reorder request, and configures automatic replenishment rules.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System updates inventory in real-time upon product receipt",
+      "description": "The system automatically adjusts inventory counts when goods are received and verified by the goods-receiving staff.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator initiates manual replenishment for product",
+      "description": "The administrator manually triggers a replenishment request for a product when real-time inventory falls below a desired level or when automatic triggers are disabled.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System triggers automatic reorder when inventory reaches threshold",
+      "description": "The system automatically initiates a reorder request to a predefined supplier when the inventory level for a product falls below the configured reorder threshold.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System sends automatic reorder request to supplier with 2-working-day confirmation deadline",
+      "description": "The system sends an automatic reorder request to a predefined supplier, with a 2-working-day deadline for supplier confirmation, and logs the request status.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and detailed proposal submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration, detailed proposal submission, and administrative evaluation; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive product proposal management.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's administrative evaluation with automated rejection.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to evaluation.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals, including automated rejection for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports both automatic and manual inventory replenishment, as well as administrator override; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with hybrid replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits defect flagging and logged reasons.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports defect flagging with logged reasons; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement, including defect detection and logging.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports order fulfillment with partial deliveries and staff-initiated payments; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately, including partial deliveries and staff-initiated payment triggers.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's online shopping and payment features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to shopping and payment.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience, including real-time tracking and delivery notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits agent performance tracking and ticket reassignment after 24 hours.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports agent performance tracking and automatic reassignment; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support, including performance tracking and automated reassignment.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation rather than data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source does not explicitly mention report generation; the parent describes data collection for strategic decisions.\",\n    \"outcome_justification\": \"Support data-driven business decision-making through operational data collection and analysis, without focusing on predefined reports.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_5092a5cab66a3b3d_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits manual replenishment and administrator override capabilities."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports both automatic and manual inventory replenishment, as well as administrator override; correct the parent's responsibility to encompass these aspects.",
+      "outcome_justification": "Support accurate and timely product inventory management with hybrid replenishment options."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and detailed proposal submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration, detailed proposal submission, and administrative evaluation; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive product proposal management.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's administrative evaluation with automated rejection.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to evaluation.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals, including automated rejection for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports both automatic and manual inventory replenishment, as well as administrator override; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with hybrid replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits defect flagging and logged reasons.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports defect flagging with logged reasons; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement, including defect detection and logging.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports order fulfillment with partial deliveries and staff-initiated payments; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately, including partial deliveries and staff-initiated payment triggers.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's online shopping and payment features.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to shopping and payment.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience, including real-time tracking and delivery notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits agent performance tracking and ticket reassignment after 24 hours.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports agent performance tracking and automatic reassignment; correct the parent's responsibility to encompass these aspects.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support, including performance tracking and automated reassignment.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation rather than data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source does not explicitly mention report generation; the parent describes data collection for strategic decisions.\",\n    \"outcome_justification\": \"Support data-driven business decision-making through operational data collection and analysis, without focusing on predefined reports.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits manual replenishment and administrator override capabilities.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Support accurate and timely product inventory management'. Each LLG is documentably supported, non-redundant, and correctly scoped. They accurately represent the system's functionalities for real-time inventory tracking, automatic reorder triggers, manual replenishment, and supplier communication. No essential capabilities are missing or misrepresented.\\n\\nThe 'Administrator sets reorder threshold for product' (llg_001) is supported by the administrator's role in configuring minimum stock levels. The 'System updates inventory in real-time upon product receipt' (llg_002) aligns with the system's automatic adjustment of inventory counts post-verification.\\n\\nThe 'Administrator initiates manual replenishment for product' (llg_003) is correctly described as an administrator-driven action when automatic triggers are not in effect. The 'System triggers automatic reorder when inventory reaches threshold' (llg_004) accurately reflects the system's automated response to low stock levels.\\n\\nThe 'System sends automatic reorder request to supplier with 2-working-day confirmation deadline' (llg_005) is supported by the system's communication protocol with predefined suppliers, including a confirmation timeline.\\n\\nThere are no unsupported or misleading LLGs, and all essential capabilities of the parent HLG are present. The decomposition is complete and correctly realized through documented functional interactions or effects, without duplication or omission.\", \"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Support accurate and timely product inventory management'. Each LLG is documentably supported, non-redundant, and correctly scoped. They accurately represent the system's functionalities for real-time inventory tracking, automatic reorder triggers, manual replenishment, and supplier communication. No essential capabilities are missing or misrepresented.\n\nThe 'Administrator sets reorder threshold for product' (llg_001) is supported by the administrator's role in configuring minimum stock levels. The 'System updates inventory in real-time upon product receipt' (llg_002) aligns with the system's automatic adjustment of inventory counts post-verification.\n\nThe 'Administrator initiates manual replenishment for product' (llg_003) is correctly described as an administrator-driven action when automatic triggers are not in effect. The 'System triggers automatic reorder when inventory reaches threshold' (llg_004) accurately reflects the system's automated response to low stock levels.\n\nThe 'System sends automatic reorder request to supplier with 2-working-day confirmation deadline' (llg_005) is supported by the system's communication protocol with predefined suppliers, including a confirmation timeline.\n\nThere are no unsupported or misleading LLGs, and all essential capabilities of the parent HLG are present. The decomposition is complete and correctly realized through documented functional interactions or effects, without duplication or omission.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

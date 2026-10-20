@@ -1,0 +1,114 @@
+{
+  "iteration": 21,
+  "branch_id": "hlg_2860d7ffd5986170_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Manage order fulfillment and supplier payments accurately",
+    "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+    "actor": {
+      "name": "Order Department Staff",
+      "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Order Department Staff processes completed order and triggers payment",
+      "description": "The staff confirms the order as complete and initiates payment to the supplier based on delivery status.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "Order Department Staff handles partial delivery and updates order status",
+      "description": "The staff updates the order status to reflect partial delivery and adjusts inventory accordingly.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System automatically triggers supplier payment upon confirmed complete delivery",
+      "description": "The system automatically initiates payment to the supplier when all products in an order are confirmed as received and accepted.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System sends automatic 48-hour reminder for pending proposal evaluations",
+      "description": "The system automatically sends a notification to the administration department every 48 hours for proposals still awaiting evaluation.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System automatically rejects un-evaluated proposals after ten working days",
+      "description": "The system automatically rejects any proposal not evaluated within ten working days and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Suppliers manage their registration and product proposals to improve availability and streamline procurement.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the administrator's evaluation tasks and automated rejection logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently documented and provides a distinct outcome for the Administrator actor.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals and managing automated rejections.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid automatic and manual replenishment system.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct, source-supported outcome for inventory management and replenishment.\",\"outcome_justification\":\"The system ensures product availability and prevents overstocking through real-time tracking and reordering.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the verification, location assignment, and defect flagging tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a standalone functional outcome for the goods-receiving staff.\",\"outcome_justification\":\"Staff ensure accurate product presentation by verifying deliveries and assigning store locations.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal evaluation and rejection, which are already covered by other goals.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction mixes order fulfillment with proposal management; the parent should focus solely on order processing and payments.\",\"outcome_justification\":\"Order department staff ensure financial accuracy by processing completed orders and managing supplier payments.\",\"rewriting_focus\":\"Focus on order fulfillment, partial delivery status updates, and supplier payment processing; remove proposal evaluation and rejection logic.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers browsing, checkout, tracking, and notifications.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary, independent outcome for the Customer actor.\",\"outcome_justification\":\"Customers purchase products online with a seamless payment and real-time tracking experience.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently documented and provides a distinct outcome for the support agent.\",\"outcome_justification\":\"Customer-service agents manage support tickets to ensure high customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data collection and analysis.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the broader strategic outcome; the reconstruction is a specific way to realize it.\",\"outcome_justification\":\"Management uses operational data to analyze performance and support strategic decision-making.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_2860d7ffd5986170_001",
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The reconstruction mixes order fulfillment with proposal management; the parent should focus solely on order processing and payments.",
+      "outcome_justification": "Order department staff ensure financial accuracy by processing completed orders and managing supplier payments.",
+      "rewriting_focus": "Focus on order fulfillment, partial delivery status updates, and supplier payment processing; remove proposal evaluation and rejection logic.",
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Suppliers manage their registration and product proposals to improve availability and streamline procurement.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the administrator's evaluation tasks and automated rejection logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently documented and provides a distinct outcome for the Administrator actor.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals and managing automated rejections.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid automatic and manual replenishment system.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct, source-supported outcome for inventory management and replenishment.\",\"outcome_justification\":\"The system ensures product availability and prevents overstocking through real-time tracking and reordering.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the verification, location assignment, and defect flagging tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a standalone functional outcome for the goods-receiving staff.\",\"outcome_justification\":\"Staff ensure accurate product presentation by verifying deliveries and assigning store locations.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal evaluation and rejection, which are already covered by other goals.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction mixes order fulfillment with proposal management; the parent should focus solely on order processing and payments.\",\"outcome_justification\":\"Order department staff ensure financial accuracy by processing completed orders and managing supplier payments.\",\"rewriting_focus\":\"Focus on order fulfillment, partial delivery status updates, and supplier payment processing; remove proposal evaluation and rejection logic.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers browsing, checkout, tracking, and notifications.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary, independent outcome for the Customer actor.\",\"outcome_justification\":\"Customers purchase products online with a seamless payment and real-time tracking experience.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently documented and provides a distinct outcome for the support agent.\",\"outcome_justification\":\"Customer-service agents manage support tickets to ensure high customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data collection and analysis.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the broader strategic outcome; the reconstruction is a specific way to realize it.\",\"outcome_justification\":\"Management uses operational data to analyze performance and support strategic decision-making.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes proposal evaluation and rejection, which are already covered by other goals.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

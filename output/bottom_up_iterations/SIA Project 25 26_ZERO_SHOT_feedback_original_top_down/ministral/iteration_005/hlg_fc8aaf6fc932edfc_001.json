@@ -1,0 +1,122 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_fc8aaf6fc932edfc_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Ensure Efficient Review and Approval of Citizen Reports",
+    "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+    "actor": {
+      "name": "Organization Office Staff",
+      "description": "Staff responsible for reviewing and approving citizen reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Review citizen report for approval or rejection",
+      "description": "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Assign approved report to technical office based on category",
+      "description": "After approval, the system automatically assigns the report to the appropriate technical office based on the problem category, transitioning the report to the 'In Progress' state.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Track review status and update report state",
+      "description": "The system records and updates the report’s state (e.g., Pending Approval → In Progress → Work in Progress → Suspended → Rejected) based on review decisions and subsequent actions.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Log mandatory rejection explanation for rejected reports",
+      "description": "When a report is rejected, the system captures and stores the written explanation provided by the Organization Office Staff, ensuring accountability and traceability.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map/summary views, covered by other goals.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports citizen reporting as an independent outcome; reconstruction mismatch concerns scope, not legitimacy.\",\n      \"outcome_justification\": \"Citizen participation is distinct from public visibility (hlg_b9167a622cc75e91_001) and communication (hlg_853e84d06ed9fe58_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects map and summary views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source explicitly documents public visibility as a standalone outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Transparent reporting is distinct from citizen participation (hlg_c7b4355f5aaf04ca_001) and communication (hlg_853e84d06ed9fe58_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects multi-channel notifications and messaging.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Communication is distinct from participation (hlg_c7b4355f5aaf04ca_001) and public visibility (hlg_b9167a622cc75e91_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects anonymous public access to statistics and map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports non-registered user access as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Non-registered access is distinct from citizen participation (hlg_c7b4355f5aaf04ca_001) and public visibility (hlg_b9167a622cc75e91_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects review, approval, and state transitions.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Organization Office's review as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Review is distinct from Technical Office management (hlg_ff4642dfb9b0a7fb_001) and Administrator configuration (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects assignment and lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Technical Office's management as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Management is distinct from Organization Office review (hlg_fc8aaf6fc932edfc_001) and Administrator configuration (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's analytics as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Analytics are distinct from review (hlg_fc8aaf6fc932edfc_001), management (hlg_ff4642dfb9b0a7fb_001), and open-source release (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects open-source publication and configuration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's release as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Open-source release is distinct from review (hlg_fc8aaf6fc932edfc_001), management (hlg_ff4642dfb9b0a7fb_001), and analytics (hlg_ff99f6f5d954d8db_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects automated assignment rules and compliance.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's configuration as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Automated assignment is distinct from open-source release (hlg_bf787da4fb4e0b50_001) and analytics (hlg_ff99f6f5d954d8db_001).\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_fc8aaf6fc932edfc_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports Organization Office's review as an independent outcome; coherence confirms its autonomy.",
+      "outcome_justification": "Review is distinct from Technical Office management (hlg_ff4642dfb9b0a7fb_001) and Administrator configuration (hlg_bf787da4fb4e0b50_001).",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map/summary views, covered by other goals.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports citizen reporting as an independent outcome; reconstruction mismatch concerns scope, not legitimacy.\",\n      \"outcome_justification\": \"Citizen participation is distinct from public visibility (hlg_b9167a622cc75e91_001) and communication (hlg_853e84d06ed9fe58_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects map and summary views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source explicitly documents public visibility as a standalone outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Transparent reporting is distinct from citizen participation (hlg_c7b4355f5aaf04ca_001) and communication (hlg_853e84d06ed9fe58_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects multi-channel notifications and messaging.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Communication is distinct from participation (hlg_c7b4355f5aaf04ca_001) and public visibility (hlg_b9167a622cc75e91_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects anonymous public access to statistics and map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports non-registered user access as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Non-registered access is distinct from citizen participation (hlg_c7b4355f5aaf04ca_001) and public visibility (hlg_b9167a622cc75e91_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects review, approval, and state transitions.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Organization Office's review as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Review is distinct from Technical Office management (hlg_ff4642dfb9b0a7fb_001) and Administrator configuration (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects assignment and lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Technical Office's management as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Management is distinct from Organization Office review (hlg_fc8aaf6fc932edfc_001) and Administrator configuration (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's analytics as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Analytics are distinct from review (hlg_fc8aaf6fc932edfc_001), management (hlg_ff4642dfb9b0a7fb_001), and open-source release (hlg_bf787da4fb4e0b50_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects open-source publication and configuration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's release as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Open-source release is distinct from review (hlg_fc8aaf6fc932edfc_001), management (hlg_ff4642dfb9b0a7fb_001), and analytics (hlg_ff99f6f5d954d8db_001).\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects automated assignment rules and compliance.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Administrator's configuration as an independent outcome; coherence confirms its autonomy.\",\n      \"outcome_justification\": \"Automated assignment is distinct from open-source release (hlg_bf787da4fb4e0b50_001) and analytics (hlg_ff99f6f5d954d8db_001).\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction accurately reflects review, approval, and state transitions.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent goal. llg_001 covers the review and decision-making process, including mandatory explanations for rejections (llg_004). llg_002 addresses automatic assignment to technical offices based on category, which is a documented system effect. llg_003 ensures tracking and updating of report states throughout the lifecycle, as described in the source. All children are supported by the project description, non-redundant, and cover essential capabilities without introducing unsupported features.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent goal. llg_001 covers the review and decision-making process, including mandatory explanations for rejections (llg_004). llg_002 addresses automatic assignment to technical offices based on category, which is a documented system effect. llg_003 ensures tracking and updating of report states throughout the lifecycle, as described in the source. All children are supported by the project description, non-redundant, and cover essential capabilities without introducing unsupported features.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

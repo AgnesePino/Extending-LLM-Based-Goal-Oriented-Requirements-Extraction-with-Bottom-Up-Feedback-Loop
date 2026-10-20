@@ -1,0 +1,108 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_45d7b64c9eb54357_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Optimize product pickup scheduling and collection",
+    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Select pickup time slot",
+      "description": "Customer selects an available time slot for product pickup based on store availability.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive pickup reminder notification",
+      "description": "Customer receives a notification before the pickup time to confirm attendance.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive missed pickup notification",
+      "description": "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Automatically mark order as forfeited if not collected by Friday",
+      "description": "System automatically marks an uncollected order as forfeited if not collected by Friday, triggering score updates.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score upon forfeit or missed pickup",
+      "description": "System updates the customer’s fair-play score based on forfeited or missed pickups, affecting future order precedence.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders; correct the parent's responsibility to reflect transparent sourcing.\",\n    \"outcome_justification\": \"Customer obtains detailed product information for informed decisions; rewritten parent focuses on transparent sourcing.\"\n  },\n  {\n    \"branch_id\": \"hlg_91b57471207e9b44_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on efficient order management and allocation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes wallet-based payment enforcement; correct the parent's responsibility to reflect efficient order management.\",\n    \"outcome_justification\": \"Customer manages orders with fair-play scoring and precedence rules; rewritten parent focuses on efficient allocation.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on enabling seamless payment and wallet management.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes wallet balance management; correct the parent's responsibility to reflect seamless payment.\",\n    \"outcome_justification\": \"Customer manages virtual wallets with real-time notifications and grace periods; rewritten parent focuses on seamless payments.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on optimizing product pickup scheduling and collection.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes automated reminders and forfeiture handling; correct the parent's responsibility to reflect optimized scheduling.\",\n    \"outcome_justification\": \"Customer schedules pickups with automated reminders; rewritten parent focuses on optimized collection.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on maintaining accurate inventory and availability tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports accurate tracking; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates for dynamic allocation and order fulfillment.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on enabling efficient store operations and order fulfillment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports efficient operations; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment with coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on providing timely delivery and customer notification.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes crediting back missing amounts; correct the parent's responsibility to reflect timely notifications.\",\n    \"outcome_justification\": \"Farmer and customer receive delivery status updates with SMS reminders; rewritten parent focuses on timely notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on maintaining system integrity and customer trust.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes transaction recording; correct the parent's responsibility to reflect system integrity.\",\n    \"outcome_justification\": \"System records transactions, enforces policies, and updates fair-play scores; rewritten parent focuses on maintaining integrity.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on supporting group-based purchasing and representative authorization.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports authorized representatives; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Purchasing Group Representative submits orders with identity verification.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_45d7b64c9eb54357_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits the original parent's focus on optimizing product pickup scheduling and collection."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes automated reminders and forfeiture handling; correct the parent's responsibility to reflect optimized scheduling.",
+      "outcome_justification": "Customer schedules pickups with automated reminders; rewritten parent focuses on optimized collection."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders; correct the parent's responsibility to reflect transparent sourcing.\",\n    \"outcome_justification\": \"Customer obtains detailed product information for informed decisions; rewritten parent focuses on transparent sourcing.\"\n  },\n  {\n    \"branch_id\": \"hlg_91b57471207e9b44_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on efficient order management and allocation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes wallet-based payment enforcement; correct the parent's responsibility to reflect efficient order management.\",\n    \"outcome_justification\": \"Customer manages orders with fair-play scoring and precedence rules; rewritten parent focuses on efficient allocation.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on enabling seamless payment and wallet management.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes wallet balance management; correct the parent's responsibility to reflect seamless payment.\",\n    \"outcome_justification\": \"Customer manages virtual wallets with real-time notifications and grace periods; rewritten parent focuses on seamless payments.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on optimizing product pickup scheduling and collection.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes automated reminders and forfeiture handling; correct the parent's responsibility to reflect optimized scheduling.\",\n    \"outcome_justification\": \"Customer schedules pickups with automated reminders; rewritten parent focuses on optimized collection.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on maintaining accurate inventory and availability tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports accurate tracking; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates for dynamic allocation and order fulfillment.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on enabling efficient store operations and order fulfillment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports efficient operations; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment with coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on providing timely delivery and customer notification.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes crediting back missing amounts; correct the parent's responsibility to reflect timely notifications.\",\n    \"outcome_justification\": \"Farmer and customer receive delivery status updates with SMS reminders; rewritten parent focuses on timely notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on maintaining system integrity and customer trust.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes transaction recording; correct the parent's responsibility to reflect system integrity.\",\n    \"outcome_justification\": \"System records transactions, enforces policies, and updates fair-play scores; rewritten parent focuses on maintaining integrity.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's focus on supporting group-based purchasing and representative authorization.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports authorized representatives; no need to rewrite a well-defined, independent outcome.\",\n    \"outcome_justification\": \"Purchasing Group Representative submits orders with identity verification.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits the original parent's focus on optimizing product pickup scheduling and collection.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

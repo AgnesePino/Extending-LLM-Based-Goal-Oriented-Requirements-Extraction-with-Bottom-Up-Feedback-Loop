@@ -5,7 +5,7 @@ from src.data_model import (
     BottomUpHighLevelGoalLLMOutput,
     GoalBranch,
 )
-from src.llm_clients import generate_response
+from src.llm_clients import generate_response, loaded_local_model, QWEN_GENERATOR_MODEL
 
 
 SYSTEM_PROMPT = """You are an expert in Goal-Oriented Requirements Engineering.
@@ -34,10 +34,11 @@ def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
                 "the branch is empty."
             ),
             source_low_level_goal_ids=[],
+            source_low_level_goal_map={},
         )
 
     lines = [
-        f"- llg_{index:03d}: {goal.description}"
+        f"- llg_{index:03d}: {goal.name}\n  Description: {goal.description}"
         for index, goal in enumerate(branch.low_level_goals, start=1)
     ]
     prompt = """Given these Low-Level Goals, reconstruct the single High-Level
@@ -73,4 +74,7 @@ Output only valid JSON:
 
 
 def reconstruct_all_branches(branches: list[GoalBranch]):
-    return {branch.branch_id: reconstruct_high_level_goal(branch) for branch in branches}
+    if not branches:
+        return {}
+    with loaded_local_model(QWEN_GENERATOR_MODEL):
+        return {branch.branch_id: reconstruct_high_level_goal(branch) for branch in branches}

@@ -1,0 +1,110 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_dc05a6a00e807452_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Facilitate service discovery and booking for event organizers",
+    "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+    "actor": {
+      "name": "Event Organizer",
+      "description": "Person creating and managing an event, coordinating services and payments."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Browse and select event services",
+      "description": "The event organizer searches and filters services by category, price, and availability, then selects one for booking.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Request an appointment with a service provider",
+      "description": "The event organizer selects a compatible time slot and submits appointment details and special requests to the provider.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Confirm appointment with provider",
+      "description": "The provider approves the appointment request, and the system automatically updates the event’s calendar with the confirmed appointment.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_15ab31703493776e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete event planning and coordination outcome.\",\n      \"outcome_justification\": \"Organizer plans, manages services, guests, and budget; other goals are more specific steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits guest invitations and budget tracking.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_15ab31703493776e_001 fully covers service discovery.\",\n      \"outcome_justification\": \"Service booking is a subset of broader event planning; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_15ab31703493776e_001\",\n      \"covered_by_high_level_goal_name\": \"Enable seamless event planning and coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_175cb69663176b35_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports secure and flexible payment processing independently.\",\n      \"outcome_justification\": \"Organizer processes payments securely; other goals focus on broader coordination or service management.\"\n    },\n    {\n      \"branch_id\": \"hlg_bba1d36093273738_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits service management and availability configuration.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source describes publishing, categorizing, managing services with details and availability.\",\n      \"outcome_justification\": \"Provider publishes, manages, and configures services; the original omits management aspects.\",\n      \"rewriting_focus\": \"Expand to include service management, pricing, and availability configuration.\"\n    },\n    {\n      \"branch_id\": \"hlg_94df30668f000172_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports provider appointment and quotation management independently.\",\n      \"outcome_justification\": \"Provider manages appointments, quotations, and payments; other goals focus on broader service publishing.\"\n    },\n    {\n      \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guest access to event content independently.\",\n      \"outcome_justification\": \"Guest accesses and views event content; another goal covers contribution.\"\n    },\n    {\n      \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports collaborative content creation independently.\",\n      \"outcome_justification\": \"Guest contributes to event blogs; another goal covers viewing content.\"\n    },\n    {\n      \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports contract history and budget tracking independently.\",\n      \"outcome_justification\": \"Organizer tracks contracts and budget; other goals focus on broader planning or service management.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_dc05a6a00e807452_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The same actor's parent hlg_15ab31703493776e_001 fully covers service discovery.",
+      "outcome_justification": "Service booking is a subset of broader event planning; no independent outcome exists.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_15ab31703493776e_001",
+      "covered_by_high_level_goal_name": "Enable seamless event planning and coordination",
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_15ab31703493776e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete event planning and coordination outcome.\",\n      \"outcome_justification\": \"Organizer plans, manages services, guests, and budget; other goals are more specific steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits guest invitations and budget tracking.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_15ab31703493776e_001 fully covers service discovery.\",\n      \"outcome_justification\": \"Service booking is a subset of broader event planning; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_15ab31703493776e_001\",\n      \"covered_by_high_level_goal_name\": \"Enable seamless event planning and coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_175cb69663176b35_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports secure and flexible payment processing independently.\",\n      \"outcome_justification\": \"Organizer processes payments securely; other goals focus on broader coordination or service management.\"\n    },\n    {\n      \"branch_id\": \"hlg_bba1d36093273738_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits service management and availability configuration.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source describes publishing, categorizing, managing services with details and availability.\",\n      \"outcome_justification\": \"Provider publishes, manages, and configures services; the original omits management aspects.\",\n      \"rewriting_focus\": \"Expand to include service management, pricing, and availability configuration.\"\n    },\n    {\n      \"branch_id\": \"hlg_94df30668f000172_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports provider appointment and quotation management independently.\",\n      \"outcome_justification\": \"Provider manages appointments, quotations, and payments; other goals focus on broader service publishing.\"\n    },\n    {\n      \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guest access to event content independently.\",\n      \"outcome_justification\": \"Guest accesses and views event content; another goal covers contribution.\"\n    },\n    {\n      \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports collaborative content creation independently.\",\n      \"outcome_justification\": \"Guest contributes to event blogs; another goal covers viewing content.\"\n    },\n    {\n      \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original parent's outcome.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports contract history and budget tracking independently.\",\n      \"outcome_justification\": \"Organizer tracks contracts and budget; other goals focus on broader planning or service management.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits guest invitations and budget tracking.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent's goal of facilitating service discovery and booking. llg_001 covers browsing and selecting services, which is essential for discovery. llg_002 addresses requesting appointments with providers, including submitting details. llg_003 handles the confirmation process from the provider's side and ensures automatic synchronization to the event calendar, fulfilling the requirement for confirmed appointments. No additional capabilities are missing, and there is no redundancy or unsupported functionality.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent's goal of facilitating service discovery and booking. llg_001 covers browsing and selecting services, which is essential for discovery. llg_002 addresses requesting appointments with providers, including submitting details. llg_003 handles the confirmation process from the provider's side and ensures automatic synchronization to the event calendar, fulfilling the requirement for confirmed appointments. No additional capabilities are missing, and there is no redundancy or unsupported functionality.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

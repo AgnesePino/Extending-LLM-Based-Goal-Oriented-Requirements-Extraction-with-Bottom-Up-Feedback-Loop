@@ -1,0 +1,90 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_175cb69663176b35_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Ensure transparent and secure payment processing",
+    "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+    "actor": {
+      "name": "Event Organizer",
+      "description": "Person creating and managing an event, coordinating services and payments."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Book selected services with payment options",
+      "description": "The event organizer confirms booking and selects payment method (e.g., one-time, installment, on-site) for the service.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_15ab31703493776e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with planning, coordination, and budget tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent is source-supported and represents a distinct outcome.\",\n      \"outcome_justification\": \"Organizer plans, manages, and coordinates all event aspects; other goals focus on narrower services or payments.\"\n    },\n    {\n      \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits broader coordination aspects present in the original.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_15ab31703493776e_001 fully covers service discovery and booking.\",\n      \"outcome_justification\": \"Service discovery is a subset of seamless event planning; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_15ab31703493776e_001\",\n      \"covered_by_high_level_goal_name\": \"Enable seamless event planning and coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_175cb69663176b35_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction focuses on booking and payment, omitting broader financial oversight.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Payment processing is internal to contract management; the original lacks autonomy.\",\n      \"outcome_justification\": \"The containing outcome is tracking contracts and budget (hlg_e2c0b7b29ea3a654_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_bba1d36093273738_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects service publishing and categorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from other provider goals.\",\n      \"outcome_justification\": \"Provider showcases services; managing appointments (hlg_94df30668f000172_001) serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_94df30668f000172_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches appointment and quotation management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original represents a distinct provider outcome not covered by hlg_bba1d36093273738_001.\",\n      \"outcome_justification\": \"Provider manages appointments and quotations; showcasing services (hlg_bba1d36093273738_001) is separate.\"\n    },\n    {\n      \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with guest access to event content.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from collaborative content (hlg_d4bd8d89225ca214_001).\",\n      \"outcome_justification\": \"Guest accesses content; contributing content (hlg_d4bd8d89225ca214_001) is a separate outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches guest content contribution.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_57dbb1d19d575603_001 fully covers guest participation.\",\n      \"outcome_justification\": \"Content contribution is a subset of guest access; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"covered_by_high_level_goal_name\": \"Enable invited guests to participate in event activities\"\n    },\n    {\n      \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with contract and budget tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from payment processing (hlg_175cb69663176b35_001).\",\n      \"outcome_justification\": \"Organizer tracks contracts and budget; payment processing is internal to this outcome.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_175cb69663176b35_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Payment processing is internal to contract management; the original lacks autonomy.",
+      "outcome_justification": "The containing outcome is tracking contracts and budget (hlg_e2c0b7b29ea3a654_001).",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "OVER_SPECIFIC",
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_15ab31703493776e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with planning, coordination, and budget tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent is source-supported and represents a distinct outcome.\",\n      \"outcome_justification\": \"Organizer plans, manages, and coordinates all event aspects; other goals focus on narrower services or payments.\"\n    },\n    {\n      \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits broader coordination aspects present in the original.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_15ab31703493776e_001 fully covers service discovery and booking.\",\n      \"outcome_justification\": \"Service discovery is a subset of seamless event planning; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_15ab31703493776e_001\",\n      \"covered_by_high_level_goal_name\": \"Enable seamless event planning and coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_175cb69663176b35_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction focuses on booking and payment, omitting broader financial oversight.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Payment processing is internal to contract management; the original lacks autonomy.\",\n      \"outcome_justification\": \"The containing outcome is tracking contracts and budget (hlg_e2c0b7b29ea3a654_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_bba1d36093273738_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects service publishing and categorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from other provider goals.\",\n      \"outcome_justification\": \"Provider showcases services; managing appointments (hlg_94df30668f000172_001) serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_94df30668f000172_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches appointment and quotation management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original represents a distinct provider outcome not covered by hlg_bba1d36093273738_001.\",\n      \"outcome_justification\": \"Provider manages appointments and quotations; showcasing services (hlg_bba1d36093273738_001) is separate.\"\n    },\n    {\n      \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with guest access to event content.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from collaborative content (hlg_d4bd8d89225ca214_001).\",\n      \"outcome_justification\": \"Guest accesses content; contributing content (hlg_d4bd8d89225ca214_001) is a separate outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches guest content contribution.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent hlg_57dbb1d19d575603_001 fully covers guest participation.\",\n      \"outcome_justification\": \"Content contribution is a subset of guest access; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_57dbb1d19d575603_001\",\n      \"covered_by_high_level_goal_name\": \"Enable invited guests to participate in event activities\"\n    },\n    {\n      \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction aligns with contract and budget tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original is source-supported and distinct from payment processing (hlg_175cb69663176b35_001).\",\n      \"outcome_justification\": \"Organizer tracks contracts and budget; payment processing is internal to this outcome.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction focuses on booking and payment, omitting broader financial oversight.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current child llg_001 only covers the booking and payment method selection but does not address the essential capabilities of secure, flexible, and traceable payment transactions, including installment payments and on-site confirmations. The parent goal requires support for these specific aspects, which are missing in the provided children.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 1,\n  \"regeneration_feedback\": \"Preserve the booking capability but add explicit support for installment payments and on-site confirmations; return the full decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": [\n    \"Support secure payment transactions with traceability\",\n    \"Handle installment payments (deposit plus final balance, multiple installments)\",\n    \"Process on-site payment confirmations by service providers\"\n  ]\n}\n```",
+    "parsed_response": {
+      "rationale": "The current child llg_001 only covers the booking and payment method selection but does not address the essential capabilities of secure, flexible, and traceable payment transactions, including installment payments and on-site confirmations. The parent goal requires support for these specific aspects, which are missing in the provided children.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 1,
+      "regeneration_feedback": "Preserve the booking capability but add explicit support for installment payments and on-site confirmations; return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Support secure payment transactions with traceability",
+        "Handle installment payments (deposit plus final balance, multiple installments)",
+        "Process on-site payment confirmations by service providers"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

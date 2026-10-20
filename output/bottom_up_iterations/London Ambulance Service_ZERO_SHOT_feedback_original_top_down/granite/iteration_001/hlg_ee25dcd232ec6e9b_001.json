@@ -1,0 +1,78 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_ee25dcd232ec6e9b_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support rapid emergency initiation",
+    "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+    "actor": {
+      "name": "Emergency Caller",
+      "description": "Initiates the process by reporting an emergency."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Initiate emergency call via phone interface",
+      "description": "The Emergency Caller dials the emergency number and triggers the system to log the incident details.",
+      "high_level_associated": {
+        "name": "Support rapid emergency initiation",
+        "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+        "actor": {
+          "name": "Emergency Caller",
+          "description": "Initiates the process by reporting an emergency."
+        }
+      }
+    },
+    {
+      "name": "Submit incident details to dispatch system",
+      "description": "The Emergency Caller submits location, nature of emergency, and contact information via the system interface.",
+      "high_level_associated": {
+        "name": "Support rapid emergency initiation",
+        "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+        "actor": {
+          "name": "Emergency Caller",
+          "description": "Initiates the process by reporting an emergency."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of timely ambulance response.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to assignment alone.\",\"outcome_justification\":\"Dispatcher ensures every emergency call is reached within 11 minutes, allocating available ambulances.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on accurate dispatch data recording.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes accurate data logging; correct the parent's responsibility, independently of the reconstruction mismatch.\",\"outcome_justification\":\"Radio Operator records precise ambulance departure and arrival times for efficient resource allocation; remove focus on data logging as a standalone goal.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of real-time location tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to tracking alone.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS-based tracking for optimized routing and response.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of rapid emergency initiation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to initiation alone.\",\"outcome_justification\":\"Emergency Caller quickly reports incidents and initiates dispatch for coordinated action.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_ee25dcd232ec6e9b_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it to initiation alone.",
+      "outcome_justification": "Emergency Caller quickly reports incidents and initiates dispatch for coordinated action.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of timely ambulance response.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to assignment alone.\",\"outcome_justification\":\"Dispatcher ensures every emergency call is reached within 11 minutes, allocating available ambulances.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on accurate dispatch data recording.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes accurate data logging; correct the parent's responsibility, independently of the reconstruction mismatch.\",\"outcome_justification\":\"Radio Operator records precise ambulance departure and arrival times for efficient resource allocation; remove focus on data logging as a standalone goal.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of real-time location tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to tracking alone.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS-based tracking for optimized routing and response.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG matches the original parent's description of rapid emergency initiation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to initiation alone.\",\"outcome_justification\":\"Emergency Caller quickly reports incidents and initiates dispatch for coordinated action.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstructed HLG matches the original parent's description of rapid emergency initiation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

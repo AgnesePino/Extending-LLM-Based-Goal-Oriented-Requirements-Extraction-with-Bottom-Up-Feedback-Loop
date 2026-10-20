@@ -1,0 +1,72 @@
+{
+  "iteration": 10,
+  "branch_id": "hlg_00ca9651daa07755_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide secure and compliant data handling and privacy notices",
+    "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Display GDPR-compliant privacy notice",
+      "description": "The system displays a GDPR-compliant privacy notice before application submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Require acceptance of responsibility declaration",
+      "description": "The applicant must explicitly accept a responsibility declaration before proceeding with submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes real-time validation and mandatory declarations; correct these aspects in the parent's responsibility.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to prevent duplicate applications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent is source-grounded and independently useful; the reconstruction mismatch does not justify removal.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and blocking applications with duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic recalculation based on updated economic data.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves automatic recalculation to system action; correct this aspect in the parent's responsibility.\",\n    \"outcome_justification\": \"Automatically adjust allowance based on updated economic data without requiring applicant intervention.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on user consent and responsibility acknowledgment, omitting the original parent's broader data handling and privacy aspects.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive data handling and privacy; correct these aspects in the parent's responsibility.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices, ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_00ca9651daa07755_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "DIFFERENT",
+        "rationale": "The reconstruction focuses on user consent and responsibility acknowledgment, omitting the original parent's broader data handling and privacy aspects."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes comprehensive data handling and privacy; correct these aspects in the parent's responsibility.",
+      "outcome_justification": "Provide secure and compliant data handling and privacy notices, ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "DIFFERENT",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes real-time validation and mandatory declarations; correct these aspects in the parent's responsibility.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to prevent duplicate applications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent is source-grounded and independently useful; the reconstruction mismatch does not justify removal.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and blocking applications with duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic recalculation based on updated economic data.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves automatic recalculation to system action; correct this aspect in the parent's responsibility.\",\n    \"outcome_justification\": \"Automatically adjust allowance based on updated economic data without requiring applicant intervention.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on user consent and responsibility acknowledgment, omitting the original parent's broader data handling and privacy aspects.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive data handling and privacy; correct these aspects in the parent's responsibility.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices, ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "DIFFERENT",
+      "rationale": "The reconstruction focuses on user consent and responsibility acknowledgment, omitting the original parent's broader data handling and privacy aspects.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

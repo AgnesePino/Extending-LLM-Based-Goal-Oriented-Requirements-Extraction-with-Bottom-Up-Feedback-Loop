@@ -1,0 +1,164 @@
+{
+  "iteration": 11,
+  "branch_id": "hlg_1c190ea7f86685cf_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable seamless payment and wallet management",
+    "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Check wallet balance and payment status",
+      "description": "Customer views their virtual wallet balance and payment history to ensure sufficient funds for order.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive payment notification",
+      "description": "Customer receives real-time notification when payment is processed or pending.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Handle insufficient balance with grace period",
+      "description": "Customer is notified of insufficient balance and given a grace period to top up before order cancellation.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Recharge wallet via in-store terminal",
+      "description": "Customer recharges wallet via in-store terminal using payment methods supported by the system.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Recharge wallet via online transfer",
+      "description": "Customer recharges wallet via online transfer using supported payment methods.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Trigger email warning for insufficient balance at order placement",
+      "description": "System automatically sends an email to the customer immediately after order placement if the wallet balance is insufficient.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Trigger SMS reminder for insufficient balance before Monday evening",
+      "description": "System sends an SMS to the customer if the wallet balance remains insufficient at the time of automatic payment execution, with a deadline until Monday evening to recharge.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Automatically cancel order if wallet balance remains insufficient after Monday evening",
+      "description": "System automatically cancels the order and notifies the customer if the wallet balance is still insufficient after Monday evening.",
+      "high_level_associated": {
+        "name": "Enable seamless payment and wallet management",
+        "description": "Allow customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer ensures informed purchasing decisions with quantity constraints and fair-play precedence.\",\n    \"rewriting_focus\": \"Express browsing, ordering with constraints, modifying due to availability, reviewing modified orders, and canceling when all products are unavailable.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated cancellation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with timely notifications, grace periods, and automated resolution if insufficient funds persist.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play scoring; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer schedules pickups with reminders, handles forfeited orders, and updates fair-play scores based on compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits fair-play precedence scoring and final farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports fair-play scoring and final farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"System dynamically allocates limited quantities between competing orders based on real-time availability and fair-play precedence, with final farmer confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits payment processing and delivery confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports payment processing and delivery confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordinating pickups, handling payments, and confirming deliveries.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits delivery delay compensation and customer bonus.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports delivery delay compensation and customer bonuses; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"System implements a delivery delay notification system with compensation for affected customers.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports identity verification and group membership validation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Authorized representatives submit purchase orders after verifying their identity and group membership.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_1c190ea7f86685cf_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits real-time notifications and automated cancellation."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports real-time notifications and automated cancellation; correct the parent's responsibility, independently of the reconstruction mismatch.",
+      "outcome_justification": "Customer manages wallet balance with timely notifications, grace periods, and automated resolution if insufficient funds persist."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer ensures informed purchasing decisions with quantity constraints and fair-play precedence.\",\n    \"rewriting_focus\": \"Express browsing, ordering with constraints, modifying due to availability, reviewing modified orders, and canceling when all products are unavailable.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated cancellation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with timely notifications, grace periods, and automated resolution if insufficient funds persist.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play scoring; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer schedules pickups with reminders, handles forfeited orders, and updates fair-play scores based on compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits fair-play precedence scoring and final farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports fair-play scoring and final farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"System dynamically allocates limited quantities between competing orders based on real-time availability and fair-play precedence, with final farmer confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits payment processing and delivery confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports payment processing and delivery confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordinating pickups, handling payments, and confirming deliveries.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits delivery delay compensation and customer bonus.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports delivery delay compensation and customer bonuses; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"System implements a delivery delay notification system with compensation for affected customers.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports identity verification and group membership validation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Authorized representatives submit purchase orders after verifying their identity and group membership.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits real-time notifications and automated cancellation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Enable seamless payment and wallet management'. They document functional interactions and effects without requiring manual triggers by the customer actor, aligning with the GORE criteria. Each LLG represents a distinct aspect of managing virtual wallets, receiving notifications, handling insufficient balances, and recharging wallets through various methods.\\n\\nThe LLGs 'Check wallet balance and payment status' (llg_001), 'Receive payment notification' (llg_002), 'Handle insufficient balance with grace period' (llg_003), 'Recharge wallet via in-store terminal' (llg_004), 'Recharge wallet via online transfer' (llg_005), 'Trigger email warning for insufficient balance at order placement' (llg_006), 'Trigger SMS reminder for insufficient balance before Monday evening' (llg_007), and 'Automatically cancel order if wallet balance remains insufficient after Monday evening' (llg_008) all contribute to the parent HLG without redundancy or omission.\\n\\nThe reconstructed HLG' accurately summarizes the parent HLG, emphasizing real-time monitoring, management of wallet issues, and automated processes. There are no unsupported or misleading LLGs, and all essential capabilities of the parent HLG are present and correctly scoped.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported/Misleading llg_NNN IDs: []; Missing Essential Capabilities: []\", \"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Enable seamless payment and wallet management'. They document functional interactions and effects without requiring manual triggers by the customer actor, aligning with the GORE criteria. Each LLG represents a distinct aspect of managing virtual wallets, receiving notifications, handling insufficient balances, and recharging wallets through various methods.\n\nThe LLGs 'Check wallet balance and payment status' (llg_001), 'Receive payment notification' (llg_002), 'Handle insufficient balance with grace period' (llg_003), 'Recharge wallet via in-store terminal' (llg_004), 'Recharge wallet via online transfer' (llg_005), 'Trigger email warning for insufficient balance at order placement' (llg_006), 'Trigger SMS reminder for insufficient balance before Monday evening' (llg_007), and 'Automatically cancel order if wallet balance remains insufficient after Monday evening' (llg_008) all contribute to the parent HLG without redundancy or omission.\n\nThe reconstructed HLG' accurately summarizes the parent HLG, emphasizing real-time monitoring, management of wallet issues, and automated processes. There are no unsupported or misleading LLGs, and all essential capabilities of the parent HLG are present and correctly scoped.\n\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported/Misleading llg_NNN IDs: []; Missing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

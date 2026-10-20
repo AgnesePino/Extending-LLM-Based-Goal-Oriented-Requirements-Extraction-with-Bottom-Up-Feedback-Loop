@@ -1,0 +1,96 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_7a7c9f5728034832_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable users to track and analyze their physical activities",
+    "description": "Provide a comprehensive activity tracking system to help users monitor their workouts and performance over time.",
+    "actor": {
+      "name": "Fitness Enthusiast",
+      "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Record workout session data",
+      "description": "Allow the user to log details of a completed workout including duration, intensity, and equipment used.",
+      "high_level_associated": {
+        "name": "Enable users to track and analyze their physical activities",
+        "description": "Provide a comprehensive activity tracking system to help users monitor their workouts and performance over time.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Visualize activity trends over time",
+      "description": "Display graphs and charts showing progress metrics such as calories burned, distance covered, or workout frequency.",
+      "high_level_associated": {
+        "name": "Enable users to track and analyze their physical activities",
+        "description": "Provide a comprehensive activity tracking system to help users monitor their workouts and performance over time.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Set personalized fitness goals",
+      "description": "Enable the user to define specific, measurable fitness objectives such as weight loss targets, strength milestones, or endurance benchmarks.",
+      "high_level_associated": {
+        "name": "Enable users to track and analyze their physical activities",
+        "description": "Provide a comprehensive activity tracking system to help users monitor their workouts and performance over time.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Generate personalized workout recommendations",
+      "description": "Provide tailored workout suggestions based on user’s fitness level, goals, and historical performance data to enhance engagement and effectiveness.",
+      "high_level_associated": {
+        "name": "Enable users to track and analyze their physical activities",
+        "description": "Provide a comprehensive activity tracking system to help users monitor their workouts and performance over time.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_7a7c9f5728034832_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.",
+      "outcome_justification": "Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE",
+  "llg_status": "SKIPPED"
+}

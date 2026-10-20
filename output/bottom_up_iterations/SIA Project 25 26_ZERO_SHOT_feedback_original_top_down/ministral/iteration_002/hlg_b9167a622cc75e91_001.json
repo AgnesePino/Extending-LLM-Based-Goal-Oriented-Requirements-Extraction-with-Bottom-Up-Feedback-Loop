@@ -1,0 +1,122 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_b9167a622cc75e91_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Provide Transparent and Accessible Reporting System",
+    "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Display public reports on interactive map with geolocation",
+      "description": "Citizen views an interactive map displaying all public reports, each marked with latitude and longitude based on citizen-selected location.",
+      "high_level_associated": {
+        "name": "Provide Transparent and Accessible Reporting System",
+        "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Display public reports in summary table with metadata",
+      "description": "Citizen views a summary table listing all public reports with metadata including category, status, title, and reporter name (or 'anonymous'), sortable and filterable by criteria.",
+      "high_level_associated": {
+        "name": "Provide Transparent and Accessible Reporting System",
+        "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Apply filters to reports by category, status, or date",
+      "description": "Citizen applies dynamic filters to narrow reports displayed on the interactive map or summary table based on category, status, or date range.",
+      "high_level_associated": {
+        "name": "Provide Transparent and Accessible Reporting System",
+        "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Sort reports by category, status, or date",
+      "description": "Citizen sorts reports displayed on the interactive map or summary table using predefined sorting criteria such as category, status, or date.",
+      "high_level_associated": {
+        "name": "Provide Transparent and Accessible Reporting System",
+        "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and interaction, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broad participation; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Citizen submits reports and engages with the system beyond visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches map and table views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms transparent reporting as a distinct outcome.\",\n      \"outcome_justification\": \"Citizen accesses public reports for awareness; other goals cover updates or submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits messaging and following other reports.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as a distinct capability.\",\n      \"outcome_justification\": \"Citizen communicates with staff; other goals cover submission or visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches anonymous public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms non-registered user access as a distinct outcome.\",\n      \"outcome_justification\": \"Non-registered users view data; other goals cover registered citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches review and rejection with justification.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient review as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff reviews reports; other goals cover assignment or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches category-based assignment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports management as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff assigns reports; other goals cover review or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports analytics as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator monitors trends; other goals cover citizen or staff actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches open-source publication.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms open-source release as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator publishes system; other goals cover citizen or staff actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_b9167a622cc75e91_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source confirms transparent reporting as a distinct outcome.",
+      "outcome_justification": "Citizen accesses public reports for awareness; other goals cover updates or submissions.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and interaction, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broad participation; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Citizen submits reports and engages with the system beyond visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches map and table views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms transparent reporting as a distinct outcome.\",\n      \"outcome_justification\": \"Citizen accesses public reports for awareness; other goals cover updates or submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits messaging and following other reports.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as a distinct capability.\",\n      \"outcome_justification\": \"Citizen communicates with staff; other goals cover submission or visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches anonymous public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms non-registered user access as a distinct outcome.\",\n      \"outcome_justification\": \"Non-registered users view data; other goals cover registered citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches review and rejection with justification.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient review as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff reviews reports; other goals cover assignment or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches category-based assignment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports management as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff assigns reports; other goals cover review or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports analytics as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator monitors trends; other goals cover citizen or staff actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches open-source publication.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms open-source release as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator publishes system; other goals cover citizen or staff actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches map and table views with filtering.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children llg_001, llg_002, llg_003, and llg_004 correctly and completely realize the parent goal. They cover all documented functional interactions: displaying reports on an interactive map with geolocation (llg_001), displaying reports in a summary table with metadata (llg_002), applying dynamic filters (llg_003), and sorting reports by predefined criteria (llg_004). All children are supported by the project description, particularly section C. CITIZEN UPDATES, which explicitly states that accepted reports become visible on an interactive map and summary table with filtering and sorting options. No essential capabilities are missing, and there is no duplication or out-of-scope content.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children llg_001, llg_002, llg_003, and llg_004 correctly and completely realize the parent goal. They cover all documented functional interactions: displaying reports on an interactive map with geolocation (llg_001), displaying reports in a summary table with metadata (llg_002), applying dynamic filters (llg_003), and sorting reports by predefined criteria (llg_004). All children are supported by the project description, particularly section C. CITIZEN UPDATES, which explicitly states that accepted reports become visible on an interactive map and summary table with filtering and sorting options. No essential capabilities are missing, and there is no duplication or out-of-scope content.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

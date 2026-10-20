@@ -1,0 +1,90 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_45d7b64c9eb54357_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Optimize product pickup scheduling and collection",
+    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Select pickup time slot",
+      "description": "Customer selects an available time slot for product pickup based on store availability.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive pickup reminder notification",
+      "description": "Customer receives a notification before the pickup time to confirm attendance.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive missed pickup notification",
+      "description": "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the 'transparent sourcing' and 'product information' aspect of the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the original goal of providing product information for informed decisions; children are currently misassociated with order management.\",\"outcome_justification\":\"Customers make informed purchasing decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_d714bbf6da86e761_001\",\"rationale\":\"The reconstruction describes broad fulfillment and payment tasks already covered by the store employee goal.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction describes a workflow already covered by the store employee goal and other specific customer actions.\",\"outcome_justification\":\"Order management and allocation are handled by store employees and specific payment/pickup goals.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_d714bbf6da86e761_001\",\"covered_by_high_level_goal_name\":\"Enable efficient store operations and order fulfillment\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment notification capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payment notifications and balances.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the pickup scheduling and forfeit consequences.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct physical logistics outcome for the customer.\",\"outcome_justification\":\"Customers manage the physical collection of products and associated penalties.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the farmer's role in availability estimation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary documented goal for the Farmer actor.\",\"outcome_justification\":\"Farmers provide availability estimates to enable order fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the store employee's end-to-end fulfillment tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a well-supported, independent goal for the store employee actor.\",\"outcome_justification\":\"Store employees manage the operational flow of orders and pickups.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the delivery delay notifications and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding delivery failures and automated compensation.\",\"outcome_justification\":\"The system ensures transparency and compensation for delivery issues.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on technical enforcement rather than the broader trust and reliability outcome.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broader goal of trust and reliability through score-based mechanisms.\",\"outcome_justification\":\"The system maintains trust by enforcing reliability through a fair-play score.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the authorization and identity verification for representatives.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct security and authorization goal for the representative actor.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_45d7b64c9eb54357_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents a distinct physical logistics outcome for the customer.",
+      "outcome_justification": "Customers manage the physical collection of products and associated penalties.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the 'transparent sourcing' and 'product information' aspect of the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the original goal of providing product information for informed decisions; children are currently misassociated with order management.\",\"outcome_justification\":\"Customers make informed purchasing decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_d714bbf6da86e761_001\",\"rationale\":\"The reconstruction describes broad fulfillment and payment tasks already covered by the store employee goal.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction describes a workflow already covered by the store employee goal and other specific customer actions.\",\"outcome_justification\":\"Order management and allocation are handled by store employees and specific payment/pickup goals.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_d714bbf6da86e761_001\",\"covered_by_high_level_goal_name\":\"Enable efficient store operations and order fulfillment\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment notification capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payment notifications and balances.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the pickup scheduling and forfeit consequences.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct physical logistics outcome for the customer.\",\"outcome_justification\":\"Customers manage the physical collection of products and associated penalties.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the farmer's role in availability estimation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary documented goal for the Farmer actor.\",\"outcome_justification\":\"Farmers provide availability estimates to enable order fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the store employee's end-to-end fulfillment tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a well-supported, independent goal for the store employee actor.\",\"outcome_justification\":\"Store employees manage the operational flow of orders and pickups.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the delivery delay notifications and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding delivery failures and automated compensation.\",\"outcome_justification\":\"The system ensures transparency and compensation for delivery issues.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on technical enforcement rather than the broader trust and reliability outcome.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broader goal of trust and reliability through score-based mechanisms.\",\"outcome_justification\":\"The system maintains trust by enforcing reliability through a fair-play score.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the authorization and identity verification for representatives.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct security and authorization goal for the representative actor.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction correctly captures the pickup scheduling and forfeit consequences.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

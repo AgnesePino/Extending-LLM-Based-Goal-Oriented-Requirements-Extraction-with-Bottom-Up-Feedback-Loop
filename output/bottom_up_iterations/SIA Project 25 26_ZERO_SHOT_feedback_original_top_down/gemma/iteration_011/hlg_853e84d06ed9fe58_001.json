@@ -1,0 +1,146 @@
+{
+  "iteration": 11,
+  "branch_id": "hlg_853e84d06ed9fe58_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+    "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View submitted report status and updates",
+      "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive platform notifications for report state changes",
+      "description": "Citizen receives real-time notifications on the platform whenever the status of their report changes.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive email notifications for report state changes",
+      "description": "Citizen receives email notifications for every state change of their report, with option to disable in user settings.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive direct messages from municipal staff via platform",
+      "description": "Citizen receives direct messages from municipal staff through the platform regarding their report, with option to reply.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Interact with chatbot for report updates",
+      "description": "Citizen can interact with external chatbots to receive updates or send messages regarding their report.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Follow other citizens' reports and receive notifications",
+      "description": "Citizen can follow open reports submitted by other citizens and receive notifications for updates on those reports.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate goals in the registry.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the primary goal of reporting issues; children issues are handled by other goals.\",\"outcome_justification\":\"Citizen submits reports to foster civic engagement; other actions are distinct goals.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a specific, independent outcome for transparency and awareness.\",\"outcome_justification\":\"Citizen views reports on a map and table to increase transparency.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and chatbot interactions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal focuses on the communication and trust aspect of the system.\",\"outcome_justification\":\"Citizen receives updates and messages to build trust with institutions.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the anonymous access to stats and maps.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal serves a specific actor (Non-Registered User) with a distinct purpose.\",\"outcome_justification\":\"Non-registered users access public info to promote awareness without registration.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment and lifecycle tracking, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the review/approval goal; lifecycle and assignment are separate.\",\"outcome_justification\":\"Organization Office Staff ensures quality control through review and approval.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes lifecycle tracking, which is a separate goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the assignment goal; lifecycle management is a separate responsibility.\",\"outcome_justification\":\"Technical Office Staff assigns reports to ensure timely resolution.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides specific analytics for a specific actor (Administrator).\",\"outcome_justification\":\"Administrator monitors performance and trends via public and private stats.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the open-source publication and configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the specific outcome of making the system open-source.\",\"outcome_justification\":\"Administrator ensures the system is open-source and available to others.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the automated assignment rules for external companies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a specific automation capability for the administrator.\",\"outcome_justification\":\"Administrator configures rules to streamline workflow for external companies.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_853e84d06ed9fe58_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal focuses on the communication and trust aspect of the system.",
+      "outcome_justification": "Citizen receives updates and messages to build trust with institutions.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate goals in the registry.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the primary goal of reporting issues; children issues are handled by other goals.\",\"outcome_justification\":\"Citizen submits reports to foster civic engagement; other actions are distinct goals.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a specific, independent outcome for transparency and awareness.\",\"outcome_justification\":\"Citizen views reports on a map and table to increase transparency.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and chatbot interactions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal focuses on the communication and trust aspect of the system.\",\"outcome_justification\":\"Citizen receives updates and messages to build trust with institutions.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the anonymous access to stats and maps.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal serves a specific actor (Non-Registered User) with a distinct purpose.\",\"outcome_justification\":\"Non-registered users access public info to promote awareness without registration.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment and lifecycle tracking, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the review/approval goal; lifecycle and assignment are separate.\",\"outcome_justification\":\"Organization Office Staff ensures quality control through review and approval.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes lifecycle tracking, which is a separate goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the assignment goal; lifecycle management is a separate responsibility.\",\"outcome_justification\":\"Technical Office Staff assigns reports to ensure timely resolution.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides specific analytics for a specific actor (Administrator).\",\"outcome_justification\":\"Administrator monitors performance and trends via public and private stats.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the open-source publication and configuration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the specific outcome of making the system open-source.\",\"outcome_justification\":\"Administrator ensures the system is open-source and available to others.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the automated assignment rules for external companies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal provides a specific automation capability for the administrator.\",\"outcome_justification\":\"Administrator configures rules to streamline workflow for external companies.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers notifications, messages, and chatbot interactions.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The decomposition correctly captures all documented capabilities in the source. llg_001 is a high-level summary of the notification/status view, while llg_002, llg_003, llg_004, llg_005, and llg_006 represent the specific documented channels (platform notifications, emails, direct messages, chatbot access, and following others). All are supported by Section C of the source.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The decomposition correctly captures all documented capabilities in the source. llg_001 is a high-level summary of the notification/status view, while llg_002, llg_003, llg_004, llg_005, and llg_006 represent the specific documented channels (platform notifications, emails, direct messages, chatbot access, and following others). All are supported by Section C of the source.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

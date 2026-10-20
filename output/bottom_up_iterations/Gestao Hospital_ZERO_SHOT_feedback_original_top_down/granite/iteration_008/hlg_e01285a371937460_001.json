@@ -1,0 +1,116 @@
+{
+  "iteration": 8,
+  "branch_id": "hlg_e01285a371937460_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Improve Operational Visibility",
+    "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+    "actor": {
+      "name": "Hospital Manager",
+      "description": "Oversees hospital operations and monitors system data."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View Real-Time Operational Dashboard",
+      "description": "The Hospital Manager accesses a dashboard displaying real-time metrics such as patient throughput, staff availability, and resource utilization.",
+      "high_level_associated": {
+        "name": "Improve Operational Visibility",
+        "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+        "actor": {
+          "name": "Hospital Manager",
+          "description": "Oversees hospital operations and monitors system data."
+        }
+      }
+    },
+    {
+      "name": "Monitor Real-Time Bed Utilization",
+      "description": "The Hospital Manager views real-time occupancy and availability of hospital beds across departments.",
+      "high_level_associated": {
+        "name": "Improve Operational Visibility",
+        "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+        "actor": {
+          "name": "Hospital Manager",
+          "description": "Oversees hospital operations and monitors system data."
+        }
+      }
+    },
+    {
+      "name": "Monitor Real-Time Product Inventory",
+      "description": "The Hospital Manager views real-time stock levels and usage trends of medical products.",
+      "high_level_associated": {
+        "name": "Improve Operational Visibility",
+        "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+        "actor": {
+          "name": "Hospital Manager",
+          "description": "Oversees hospital operations and monitors system data."
+        }
+      }
+    },
+    {
+      "name": "Monitor Real-Time Blood Bank Resources",
+      "description": "The Hospital Manager views real-time blood sample availability, expiration alerts, and transfusion requests.",
+      "high_level_associated": {
+        "name": "Improve Operational Visibility",
+        "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+        "actor": {
+          "name": "Hospital Manager",
+          "description": "Oversees hospital operations and monitors system data."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG aligns with the original's centralized administration focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent covers a broad, essential outcome; its reconstruction accurately reflects this scope.\",\"outcome_justification\":\"Centralize Hospital Administration encompasses system-wide management and real-time monitoring, distinct from operational visibility or patient care coordination.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits some aspects of operational visibility, such as staff availability and bed utilization.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's description lacks specificity; the reconstruction better outlines real-time metrics.\",\"outcome_justification\":\"Improve Operational Visibility should detail patient throughput, staff availability, bed utilization, and inventory management.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both express comprehensive patient care coordination, including appointment management and medical record updates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope aligns with the reconstructed HLG; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Enhance Patient Care Coordination involves managing appointments, updating records, and handling check-ins, distinct from resource management.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both reconstructed and original HLGs cover personalized hospital recommendations based on geographic proximity.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope is accurately represented; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Enable Patient Self-Service involves searching for hospitals and receiving location-based recommendations, distinct from centralized administration.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits some aspects of clinical documentation, such as managing medical notes and check-in information.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's description lacks specificity; the reconstruction better outlines clinical documentation tasks.\",\"outcome_justification\":\"Support Clinical Documentation should detail patient registration, medical note management, and check-in procedures.\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both reconstructed and original HLGs cover managing medical inventory lifecycle through requests, tracking, and approvals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope aligns with the reconstructed HLG; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Optimize Resource Management involves managing inventory, blood samples, and product requests, distinct from patient care coordination.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_e01285a371937460_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits some aspects of operational visibility, such as staff availability and bed utilization."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The original parent's description lacks specificity; the reconstruction better outlines real-time metrics.",
+      "outcome_justification": "Improve Operational Visibility should detail patient throughput, staff availability, bed utilization, and inventory management."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_eb3bb1fabb8a91b6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstructed HLG aligns with the original's centralized administration focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent covers a broad, essential outcome; its reconstruction accurately reflects this scope.\",\"outcome_justification\":\"Centralize Hospital Administration encompasses system-wide management and real-time monitoring, distinct from operational visibility or patient care coordination.\"},{\"branch_id\":\"hlg_e01285a371937460_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits some aspects of operational visibility, such as staff availability and bed utilization.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's description lacks specificity; the reconstruction better outlines real-time metrics.\",\"outcome_justification\":\"Improve Operational Visibility should detail patient throughput, staff availability, bed utilization, and inventory management.\"},{\"branch_id\":\"hlg_a9ff40162305bff8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both express comprehensive patient care coordination, including appointment management and medical record updates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope aligns with the reconstructed HLG; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Enhance Patient Care Coordination involves managing appointments, updating records, and handling check-ins, distinct from resource management.\"},{\"branch_id\":\"hlg_046276afce6da8f8_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both reconstructed and original HLGs cover personalized hospital recommendations based on geographic proximity.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope is accurately represented; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Enable Patient Self-Service involves searching for hospitals and receiving location-based recommendations, distinct from centralized administration.\"},{\"branch_id\":\"hlg_476ac274557a4b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits some aspects of clinical documentation, such as managing medical notes and check-in information.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's description lacks specificity; the reconstruction better outlines clinical documentation tasks.\",\"outcome_justification\":\"Support Clinical Documentation should detail patient registration, medical note management, and check-in procedures.\"},{\"branch_id\":\"hlg_e6cbeca622c85af3_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"Both reconstructed and original HLGs cover managing medical inventory lifecycle through requests, tracking, and approvals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original parent's scope aligns with the reconstructed HLG; no redundancy or over-specificity is evident.\",\"outcome_justification\":\"Optimize Resource Management involves managing inventory, blood samples, and product requests, distinct from patient care coordination.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits some aspects of operational visibility, such as staff availability and bed utilization.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Improve Operational Visibility' for the Hospital Manager. Each LLG represents a distinct real-time monitoring capability, aligning with the source description and HLG'. The system allows the Hospital Manager to view various operational metrics without requiring manual triggers, adhering to the GORE criteria. No unsupported or misleading LLGs are identified, nor are there any essential capabilities missing from the decomposition.\\n\\nThe LLGs 'View Real-Time Operational Dashboard' (llg_001), 'Monitor Real-Time Bed Utilization' (llg_002), 'Monitor Real-Time Product Inventory' (llg_003), and 'Monitor Real-Time Blood Bank Resources' (llg_004) each document automatic, documentary effects that the Hospital Manager can utilize for decision-making. These capabilities are non-redundant, supported by the system operations they describe, and do not require manual triggers from the actor.\\n\\nWhile the reconstructed HLG' provides a concise summary of the parent goal, it does not replace the detailed evaluation of individual LLGs against the source description. Nonetheless, the current LLG decomposition is complete, supported, and non-redundant, meeting the KEEP_LOW_LEVEL_GOALS criteria.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nQuality Score: 5\\nRegeneration Feedback: null\\nUnsupported or Misleading llg_NNN IDs: []\\nMissing Essential Capabilities: []\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Improve Operational Visibility' for the Hospital Manager. Each LLG represents a distinct real-time monitoring capability, aligning with the source description and HLG'. The system allows the Hospital Manager to view various operational metrics without requiring manual triggers, adhering to the GORE criteria. No unsupported or misleading LLGs are identified, nor are there any essential capabilities missing from the decomposition.\n\nThe LLGs 'View Real-Time Operational Dashboard' (llg_001), 'Monitor Real-Time Bed Utilization' (llg_002), 'Monitor Real-Time Product Inventory' (llg_003), and 'Monitor Real-Time Blood Bank Resources' (llg_004) each document automatic, documentary effects that the Hospital Manager can utilize for decision-making. These capabilities are non-redundant, supported by the system operations they describe, and do not require manual triggers from the actor.\n\nWhile the reconstructed HLG' provides a concise summary of the parent goal, it does not replace the detailed evaluation of individual LLGs against the source description. Nonetheless, the current LLG decomposition is complete, supported, and non-redundant, meeting the KEEP_LOW_LEVEL_GOALS criteria.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nQuality Score: 5\nRegeneration Feedback: null\nUnsupported or Misleading llg_NNN IDs: []\nMissing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

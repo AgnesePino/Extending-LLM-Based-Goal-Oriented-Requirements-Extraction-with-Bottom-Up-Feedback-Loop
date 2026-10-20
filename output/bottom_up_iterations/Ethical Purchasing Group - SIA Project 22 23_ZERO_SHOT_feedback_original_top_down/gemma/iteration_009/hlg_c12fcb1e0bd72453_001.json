@@ -1,0 +1,100 @@
+{
+  "iteration": 9,
+  "branch_id": "hlg_c12fcb1e0bd72453_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide timely delivery and customer notification",
+    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+    "actor": {
+      "name": "Farmer",
+      "description": "Local producer who supplies products and confirms availability to the system."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Update customer orders and inform them of delivery problem",
+      "description": "System updates customer orders to reflect delivery delays and sends notification to customers via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Automatically credit back missing amount with bonus",
+      "description": "System automatically credits back the missing amount to the customer’s wallet with a 20% bonus via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the sourcing/transparency aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch indicates children are focused on the ordering workflow.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, reminders, and forfeiture policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate pickup times and follow forfeiture rules.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer estimates and dynamic allocation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the farmer's primary interaction with the supply side of the system.\",\"outcome_justification\":\"Farmers provide availability estimates and manage product supply.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order fulfillment, payments, and delivery confirmations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal captures the operational responsibilities of the store staff.\",\"outcome_justification\":\"Store employees manage the logistics of order fulfillment and store operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery failures, notifications, and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific automated outcome for handling delivery issues and transparency.\",\"outcome_justification\":\"Farmers and customers are notified of and compensated for delivery failures.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal ensures the integrity of the group-based purchasing model.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_c12fcb1e0bd72453_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents a specific automated outcome for handling delivery issues and transparency.",
+      "outcome_justification": "Farmers and customers are notified of and compensated for delivery failures.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the sourcing/transparency aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch indicates children are focused on the ordering workflow.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, reminders, and forfeiture policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate pickup times and follow forfeiture rules.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer estimates and dynamic allocation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the farmer's primary interaction with the supply side of the system.\",\"outcome_justification\":\"Farmers provide availability estimates and manage product supply.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order fulfillment, payments, and delivery confirmations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal captures the operational responsibilities of the store staff.\",\"outcome_justification\":\"Store employees manage the logistics of order fulfillment and store operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery failures, notifications, and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific automated outcome for handling delivery issues and transparency.\",\"outcome_justification\":\"Farmers and customers are notified of and compensated for delivery failures.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal ensures the integrity of the group-based purchasing model.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers delivery failures, notifications, and automatic credits.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The parent goal specifies three distinct capabilities: alerting farmers of delays, automatically crediting back missing amounts with a bonus, and maintaining transparency about delivery status. The current children cover the customer notification and the credit/bonus logic (llg_001, llg_002), but they completely omit the requirement to alert farmers of delivery delays. Additionally, the parent actor is 'Farmer', but the children focus almost exclusively on customer-facing actions; however, the source specifically requires the system to alert farmers if goods haven't arrived by 4 p.m. on Tuesday.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":2,\"regeneration_feedback\":\"Preserve llg_001 and llg_002; ADD a child to notify farmers of delivery delays if goods have not arrived by 4 p.m. on Tuesday; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[\"Alert farmers of delivery delays if goods have not arrived by 4 p.m. on Tuesday\"]}",
+    "parsed_response": {
+      "rationale": "The parent goal specifies three distinct capabilities: alerting farmers of delays, automatically crediting back missing amounts with a bonus, and maintaining transparency about delivery status. The current children cover the customer notification and the credit/bonus logic (llg_001, llg_002), but they completely omit the requirement to alert farmers of delivery delays. Additionally, the parent actor is 'Farmer', but the children focus almost exclusively on customer-facing actions; however, the source specifically requires the system to alert farmers if goods haven't arrived by 4 p.m. on Tuesday.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve llg_001 and llg_002; ADD a child to notify farmers of delivery delays if goods have not arrived by 4 p.m. on Tuesday; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Alert farmers of delivery delays if goods have not arrived by 4 p.m. on Tuesday"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

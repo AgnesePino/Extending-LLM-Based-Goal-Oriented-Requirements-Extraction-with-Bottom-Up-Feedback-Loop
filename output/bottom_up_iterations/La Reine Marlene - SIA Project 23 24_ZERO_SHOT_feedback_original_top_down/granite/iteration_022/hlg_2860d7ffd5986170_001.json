@@ -1,0 +1,108 @@
+{
+  "iteration": 22,
+  "branch_id": "hlg_2860d7ffd5986170_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Manage order fulfillment and supplier payments accurately",
+    "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+    "actor": {
+      "name": "Order Department Staff",
+      "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Order Department Staff processes completed order and triggers payment",
+      "description": "The staff confirms the order as complete and initiates payment to the supplier based on delivery status.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "Order Department Staff handles partial delivery and updates order status",
+      "description": "The staff updates the order status to reflect partial delivery and adjusts inventory accordingly.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System automatically triggers supplier payment upon confirmed complete delivery",
+      "description": "The system automatically initiates payment to the supplier when all products in an order are confirmed as received and accepted.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System sends automatic 48-hour reminder for pending proposal evaluations",
+      "description": "The system automatically sends a notification to the administration department every 48 hours for proposals still awaiting evaluation.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    },
+    {
+      "name": "System automatically rejects un-evaluated proposals after ten working days",
+      "description": "The system automatically rejects any proposal not evaluated within ten working days and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Manage order fulfillment and supplier payments accurately",
+        "description": "Enable the order department to process completed orders, handle partial deliveries, and manage supplier payments based on delivery status to ensure financial accuracy and customer satisfaction.",
+        "actor": {
+          "name": "Order Department Staff",
+          "description": "Staff managing order processing, payments, and handling incomplete or updated orders."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and detailed proposal submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration, detailed proposal submission, and administrative evaluation. Correct the parent's responsibility to include these aspects.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive proposal management for improved procurement.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automated rejection for overdue proposals and reminders for pending evaluations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes automated rejection and reminders. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals with automated enforcement of deadlines.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time inventory updates and manual replenishment capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes real-time inventory tracking and manual replenishment. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with real-time updates and flexible restocking options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits defect reporting and system-suggested store location assignments.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes defect reporting and system suggestions. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with automated defect flagging and optimized product assignment.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and automated supplier payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes partial delivery management and automated payments. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with flexible delivery processing and automated financial actions.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits mobile notifications for delivery status updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mobile notifications. Correct the parent's responsibility to reflect this aspect.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with real-time tracking, multiple payment options, and mobile delivery updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic ticket reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these features. Correct the parent's responsibility to reflect them.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated agent assignment, real-time performance tracking, and system-enforced response times.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits data-driven insights and strategic decision support.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects. Correct the parent's responsibility to reflect them.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational analytics and actionable insights.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_2860d7ffd5986170_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits partial delivery handling and automated supplier payment triggers."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source includes partial delivery management and automated payments. Correct the parent's responsibility to reflect these aspects.",
+      "outcome_justification": "Manage order fulfillment and supplier payments accurately with flexible delivery processing and automated financial actions."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and detailed proposal submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration, detailed proposal submission, and administrative evaluation. Correct the parent's responsibility to include these aspects.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive proposal management for improved procurement.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automated rejection for overdue proposals and reminders for pending evaluations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes automated rejection and reminders. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals with automated enforcement of deadlines.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time inventory updates and manual replenishment capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes real-time inventory tracking and manual replenishment. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with real-time updates and flexible restocking options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits defect reporting and system-suggested store location assignments.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes defect reporting and system suggestions. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with automated defect flagging and optimized product assignment.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and automated supplier payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes partial delivery management and automated payments. Correct the parent's responsibility to reflect these aspects.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with flexible delivery processing and automated financial actions.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits mobile notifications for delivery status updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mobile notifications. Correct the parent's responsibility to reflect this aspect.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with real-time tracking, multiple payment options, and mobile delivery updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic ticket reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these features. Correct the parent's responsibility to reflect them.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated agent assignment, real-time performance tracking, and system-enforced response times.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits data-driven insights and strategic decision support.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects. Correct the parent's responsibility to reflect them.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational analytics and actionable insights.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits partial delivery handling and automated supplier payment triggers.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

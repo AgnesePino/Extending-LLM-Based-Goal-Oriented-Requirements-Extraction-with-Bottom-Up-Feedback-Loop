@@ -2,7 +2,7 @@
 
 from enum import Enum
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
 
 class DocumentDescription(BaseModel):
@@ -69,6 +69,7 @@ class BottomUpHighLevelGoalLLMOutput(BaseModel):
 class BottomUpHighLevelGoal(BottomUpHighLevelGoalLLMOutput):
     branch_id: str
     source_low_level_goal_ids: list[str]
+    source_low_level_goal_map: dict[str, str] | None = None
 
 
 class HighLevelGoalDecision(str, Enum):
@@ -80,6 +81,8 @@ class HighLevelGoalDecision(str, Enum):
 class HighLevelGoalRemovalBasis(str, Enum):
     UNSUPPORTED = "UNSUPPORTED"
     FULLY_REDUNDANT = "FULLY_REDUNDANT"
+    NON_FUNCTIONAL = "NON_FUNCTIONAL"
+    OVER_SPECIFIC = "OVER_SPECIFIC"
 
 
 class ReconstructionRelationship(str, Enum):
@@ -103,9 +106,14 @@ class HighLevelGoalEvaluation(BaseModel):
     rationale: str
     decision: HighLevelGoalDecision
     quality_score: int = Field(ge=0, le=5)
-    reconstruction_relationship: ReconstructionRelationship
+    quality_score_origin: str = "critic"
+    reconstruction_relationship: ReconstructionRelationship | None = None
+    structural_decision: dict | None = None
     requires_llg_evaluation: bool
+    rewrite_limit_reached: bool = False
+    post_repair_llg_audit_required: bool = False
     rewriting_focus: str | None = None
+    consolidate_with_branch_ids: list[str] = Field(default_factory=list)
     removal_basis: HighLevelGoalRemovalBasis | None = None
     covered_by_branch_id: str | None = None
     covered_by_high_level_goal_name: str | None = None
@@ -113,10 +121,29 @@ class HighLevelGoalEvaluation(BaseModel):
     valid_vote_count: int = 1
     winning_vote_count: int = 1
     vote_distribution: dict[str, int] = Field(default_factory=dict)
+    operation_vote_distribution: dict[str, int] = Field(default_factory=dict)
     evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def check_rewriting_focus(self):
+        if self.consolidate_with_branch_ids:
+            if self.decision != HighLevelGoalDecision.REWRITE:
+                raise ValueError("Only REWRITE may request consolidation")
+            if (len(set(self.consolidate_with_branch_ids)) != len(self.consolidate_with_branch_ids)
+                    or any(not item.strip() for item in self.consolidate_with_branch_ids)):
+                raise ValueError("Consolidation IDs must be distinct non-empty references")
+        if self.rewrite_limit_reached and (
+            self.decision != HighLevelGoalDecision.KEEP
+            or self.quality_score != 4
+            or not self.requires_llg_evaluation
+        ):
+            raise ValueError("Rewrite limit requires operational KEEP, score 4 and LLG evaluation")
+        if self.post_repair_llg_audit_required and (
+            self.decision != HighLevelGoalDecision.KEEP
+            or self.quality_score != 4
+            or not self.requires_llg_evaluation
+        ):
+            raise ValueError("Post-repair audit requires operational KEEP, score 4 and LLG evaluation")
         if self.decision == HighLevelGoalDecision.REWRITE and not self.rewriting_focus:
             raise ValueError("REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus")
         if self.decision != HighLevelGoalDecision.REWRITE and self.rewriting_focus:
@@ -141,18 +168,26 @@ class HighLevelGoalEvaluation(BaseModel):
             )
         if (
             self.removal_basis == HighLevelGoalRemovalBasis.FULLY_REDUNDANT
+            and self.reconstruction_relationship is not None
             and self.reconstruction_relationship
-            != ReconstructionRelationship.MATCHES_SIBLING
+            not in {
+                ReconstructionRelationship.MATCHES_SIBLING,
+                ReconstructionRelationship.NOT_RECONSTRUCTABLE,
+            }
         ):
             raise ValueError(
-                "FULLY_REDUNDANT removal requires MATCHES_SIBLING"
+                "FULLY_REDUNDANT removal requires MATCHES_SIBLING or NOT_RECONSTRUCTABLE"
             )
         if (
-            self.removal_basis == HighLevelGoalRemovalBasis.UNSUPPORTED
+            self.removal_basis in {
+                HighLevelGoalRemovalBasis.UNSUPPORTED,
+                HighLevelGoalRemovalBasis.NON_FUNCTIONAL,
+                HighLevelGoalRemovalBasis.OVER_SPECIFIC,
+            }
             and (self.covered_by_branch_id or self.covered_by_high_level_goal_name)
         ):
             raise ValueError(
-                "UNSUPPORTED removal cannot define a covering branch"
+                "UNSUPPORTED/NON_FUNCTIONAL/OVER_SPECIFIC removal cannot define a covering branch"
             )
         if self.decision != HighLevelGoalDecision.REMOVE and (
             self.removal_basis is not None
@@ -174,6 +209,8 @@ class HighLevelGoalEvaluation(BaseModel):
             and self.reconstruction_relationship
             == ReconstructionRelationship.EQUIVALENT
             and self.requires_llg_evaluation
+            and not self.rewrite_limit_reached
+            and not self.post_repair_llg_audit_required
         ):
             raise ValueError(
                 "An equivalent reconstruction must not trigger LLG evaluation"
@@ -183,6 +220,8 @@ class HighLevelGoalEvaluation(BaseModel):
             and self.reconstruction_relationship
             == ReconstructionRelationship.EQUIVALENT
             and self.quality_score != 5
+            and not self.rewrite_limit_reached
+            and not self.post_repair_llg_audit_required
         ):
             raise ValueError(
                 "KEEP with EQUIVALENT requires quality_score 5"
@@ -198,6 +237,65 @@ class HighLevelGoalEvaluation(BaseModel):
                 "trigger LLG evaluation"
             )
         return self
+
+
+class HlgStructuralDecision(BaseModel):
+    """Critic 1's decision on one original parent, independent of reconstruction."""
+
+    branch_id: str = Field(min_length=1)
+    decision: HighLevelGoalDecision
+    rationale: str = Field(min_length=1)
+    outcome_justification: str = Field(min_length=1)
+    rewriting_focus: str | None = None
+    consolidate_with_branch_ids: list[str] = Field(default_factory=list)
+    removal_basis: HighLevelGoalRemovalBasis | None = None
+    covered_by_branch_id: str | None = None
+    covered_by_high_level_goal_name: str | None = None
+    voter_count: int = 1
+    valid_vote_count: int = 1
+    winning_vote_count: int = 1
+    vote_distribution: dict[str, int] = Field(default_factory=dict)
+    evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
+
+    @field_validator("branch_id", "rationale", "outcome_justification")
+    @classmethod
+    def require_structural_text(cls, value):
+        if not value.strip():
+            raise ValueError("Structural decisions require non-empty evidence")
+        return value.strip()
+
+    @model_validator(mode="after")
+    def validate_action_fields(self):
+        HighLevelGoalEvaluation(
+            decision=self.decision, rationale=self.rationale,
+            quality_score=4 if self.decision == HighLevelGoalDecision.KEEP else 2,
+            requires_llg_evaluation=self.decision == HighLevelGoalDecision.KEEP,
+            rewriting_focus=self.rewriting_focus,
+            consolidate_with_branch_ids=self.consolidate_with_branch_ids,
+            removal_basis=self.removal_basis,
+            covered_by_branch_id=self.covered_by_branch_id,
+            covered_by_high_level_goal_name=self.covered_by_high_level_goal_name,
+        )
+        return self
+
+
+class GlobalHlgReviewResponse(BaseModel):
+    # Individual entries are validated separately: one faulty decision must not
+    # discard other well-formed decisions from the same complete-list response.
+    decisions: list[dict]
+
+
+class HlgReconstructionDiagnosis(BaseModel):
+    reconstruction_relationship: ReconstructionRelationship
+    rationale: str = Field(min_length=1)
+    matches_branch_id: str | None = None
+
+    @field_validator("rationale")
+    @classmethod
+    def require_diagnostic_evidence(cls, value):
+        if not value.strip():
+            raise ValueError("Reconstruction diagnosis requires evidence")
+        return value.strip()
 
 
 class HighLevelGoalReplacementRequest(BaseModel):
@@ -274,6 +372,13 @@ class MissingHighLevelGoalRequest(BaseModel):
     actor: str
     generation_project_description: str
 
+    @field_validator("generation_project_description")
+    @classmethod
+    def require_missing_outcome_description(cls, value):
+        if not value.strip():
+            raise ValueError("A missing HLG request must describe the missing outcome")
+        return value.strip()
+
 
 class MissingHighLevelGoalEvaluation(BaseModel):
     decision: MissingHighLevelGoalDecision
@@ -287,6 +392,13 @@ class MissingHighLevelGoalEvaluation(BaseModel):
     winning_vote_count: int = 1
     vote_distribution: dict[str, int] = Field(default_factory=dict)
     evaluator_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
+
+    @field_validator("rationale")
+    @classmethod
+    def require_completeness_reason(cls, value):
+        if not value.strip():
+            raise ValueError("Completeness analysis requires a non-empty rationale")
+        return value.strip()
 
     @model_validator(mode="after")
     def validate_requests(self):
@@ -326,6 +438,7 @@ class GlobalGoalEvaluationResult(BaseModel):
     replacement_request: HighLevelGoalReplacementRequest | None = None
     low_level_evaluation: LowLevelGoalEvaluation | None = None
     critic_votes: dict[str, list[EvaluatorVoteRecord]] = Field(default_factory=dict)
+    evaluation_status: str | None = None
 
 
 class HighLevelGoalGenerationAction(str, Enum):
@@ -345,14 +458,35 @@ class HighLevelGoalGenerationRequest(BaseModel):
     rationale: str
     generator_guidance: str | None = None
     target_branch_id: str | None = None
+    original_high_level_goal: HighLevelGoal | None = None
+    consolidated_high_level_goals: HighLevelGoals = Field(default_factory=lambda: HighLevelGoals(goals=[]))
+    existing_high_level_goals: HighLevelGoals = Field(default_factory=lambda: HighLevelGoals(goals=[]))
+    existing_low_level_goals: LowLevelGoals = Field(default_factory=lambda: LowLevelGoals(low_level_goals=[]))
+
+    @field_validator("rationale")
+    @classmethod
+    def require_generation_reason(cls, value):
+        if not value.strip():
+            raise ValueError("HLG generation requires a non-empty rationale")
+        return value.strip()
 
 
 class LowLevelGoalRegenerationRequest(BaseModel):
     high_level_goals: HighLevelGoals
+    rationale: str
+    project_description: str = ""
+    sibling_high_level_goals: HighLevelGoals = Field(default_factory=lambda: HighLevelGoals(goals=[]))
     guidance_by_parent_name: dict[str, str] = Field(default_factory=dict)
     existing_low_level_goals: LowLevelGoals = Field(
         default_factory=lambda: LowLevelGoals(low_level_goals=[])
     )
+
+    @field_validator("rationale")
+    @classmethod
+    def require_regeneration_reason(cls, value):
+        if not value.strip():
+            raise ValueError("LLG generation requires a non-empty rationale")
+        return value.strip()
 
 
 class GlobalGoalCycleStopReason(str, Enum):
@@ -366,11 +500,25 @@ class GlobalGoalCycleIteration(BaseModel):
     iteration: int
     reconstructions: dict[str, BottomUpHighLevelGoal]
     evaluations: dict[str, GlobalGoalEvaluationResult]
+    critic1_global_votes: list[EvaluatorVoteRecord] = Field(default_factory=list)
+    hlg_structure_summary: dict = Field(default_factory=dict)
+    structural_action_outcomes: dict[str, str] = Field(default_factory=dict)
     high_level_goals: HighLevelGoals
     low_level_goals: LowLevelGoals
+    input_hierarchy: dict | None = None
+    output_hierarchy: dict | None = None
+    hlg_consolidations: dict[str, list[str]] = Field(default_factory=dict)
     missing_hlg_evaluation: MissingHighLevelGoalEvaluation | None = None
     missing_hlg_decision: GlobalGoalEvaluationDecision | None = None
     llg_regeneration_counts: dict[str, int] = Field(default_factory=dict)
+    pending_llg_audit_ids: list[str] = Field(default_factory=list)
+    hlg_rewrite_counts: dict[str, int] = Field(default_factory=dict)
+    confirmed_branch_ids: list[str] = Field(default_factory=list)
+    repair_rejection_counts: dict[str, int] = Field(default_factory=dict)
+    forced_confirmed_branch_ids: list[str] = Field(default_factory=list)
+    completeness_rejection_counts: dict[str, int] = Field(
+        default_factory=dict, validation_alias=AliasChoices("completeness_rejection_counts", "discovery_rejection_counts")
+    )
     warnings: list[str] = Field(default_factory=list)
     checkpoint_complete: bool = True
     completed_branch_count: int = 0
@@ -385,6 +533,14 @@ class GlobalGoalCycleResult(BaseModel):
     final_low_level_goals: LowLevelGoals
     iterations: list[GlobalGoalCycleIteration] = Field(default_factory=list)
     llg_regeneration_counts: dict[str, int] = Field(default_factory=dict)
+    pending_llg_audit_ids: list[str] = Field(default_factory=list)
+    hlg_rewrite_counts: dict[str, int] = Field(default_factory=dict)
+    confirmed_branch_ids: list[str] = Field(default_factory=list)
+    repair_rejection_counts: dict[str, int] = Field(default_factory=dict)
+    forced_confirmed_branch_ids: list[str] = Field(default_factory=list)
+    completeness_rejection_counts: dict[str, int] = Field(
+        default_factory=dict, validation_alias=AliasChoices("completeness_rejection_counts", "discovery_rejection_counts")
+    )
     warnings: list[str] = Field(default_factory=list)
 
     @property

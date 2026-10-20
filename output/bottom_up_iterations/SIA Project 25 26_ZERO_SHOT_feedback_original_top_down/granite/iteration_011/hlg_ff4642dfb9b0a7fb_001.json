@@ -1,0 +1,158 @@
+{
+  "iteration": 11,
+  "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Facilitate Report Assignment and Management Based on Category",
+    "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+    "actor": {
+      "name": "Technical Office Staff",
+      "description": "Staff responsible for assigning and managing reports based on category."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Assign report to appropriate department or external company",
+      "description": "Technical Office Staff assigns a report to a department or external company based on its category.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to In Progress after assignment",
+      "description": "Technical Office Staff updates the report status to 'In Progress' after assigning it to a responsible department or external company.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Work in Progress after intervention start",
+      "description": "Technical Office Staff updates the report status to 'Work in Progress' when the intervention has officially begun.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Suspended for organizational or technical reasons",
+      "description": "Technical Office Staff updates the report status to 'Suspended' when the report is paused due to organizational or technical constraints.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Rejected with mandatory explanation",
+      "description": "Technical Office Staff updates the report status to 'Rejected' and provides a mandatory written explanation for rejection.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Update report status to Resolved after external company completion",
+      "description": "External maintenance personnel (for Case 1) or Technical Office Staff (for Case 2) updates the report status to 'Resolved' after the issue is resolved.",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    },
+    {
+      "name": "Manually update report status for external companies without system access",
+      "description": "Technical Office Staff manually updates the report status to 'Resolved' for reports assigned to external companies without Participium access (Case 2).",
+      "high_level_associated": {
+        "name": "Facilitate Report Assignment and Management Based on Category",
+        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+        "actor": {
+          "name": "Technical Office Staff",
+          "description": "Staff responsible for assigning and managing reports based on category."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction capabilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to submission.\",\n    \"outcome_justification\": \"Enable Citizen Participation in Urban Management includes report tracking and interaction.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering capabilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Transparent and Accessible Reporting System includes report visibility and filtering.\",\n    \"outcome_justification\": \"Citizens need to view reports on an interactive map and summary table with filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time communication with municipal operators.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Real-Time Communication Between Citizens and Municipal Staff includes real-time communication.\",\n    \"outcome_justification\": \"Citizens require direct messaging with municipal operators regarding their reports.\"\n  },\n  {\n    \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report submission capability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Allow Non-Registered Users to Access Public Information includes report submission.\",\n    \"outcome_justification\": \"Non-registered users need to submit reports anonymously without logging in.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and management based on category.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Ensure Efficient Review and Approval of Citizen Reports includes report assignment and management.\",\n    \"outcome_justification\": \"Technical Office Staff need to assign reports to appropriate departments or external companies based on category.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle tracking and status updates.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Facilitate Report Assignment and Management Based on Category includes report lifecycle tracking.\",\n    \"outcome_justification\": \"Technical Office Staff require tracking report state transitions throughout the lifecycle.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits private statistical insights.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Public and Private Statistical Insights includes private statistical insights.\",\n    \"outcome_justification\": \"Municipal Administrators need comprehensive oversight of report trends and infrastructure health.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's description.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Make Participium Open-Source and Available to All Italian Public Administrations includes preparing and publishing as open-source software.\",\n    \"outcome_justification\": \"The system needs to be released as open-source software and made available through https://developers.italia.it/.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual review for external company assignments.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules includes manual review option.\",\n    \"outcome_justification\": \"Municipal Administrators require configuring automatic assignment rules that allow bypassing manual review for specific categories.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_ff4642dfb9b0a7fb_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Facilitate Report Assignment and Management Based on Category includes report lifecycle tracking.",
+      "outcome_justification": "Technical Office Staff require tracking report state transitions throughout the lifecycle.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction capabilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to submission.\",\n    \"outcome_justification\": \"Enable Citizen Participation in Urban Management includes report tracking and interaction.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering capabilities.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Transparent and Accessible Reporting System includes report visibility and filtering.\",\n    \"outcome_justification\": \"Citizens need to view reports on an interactive map and summary table with filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time communication with municipal operators.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Real-Time Communication Between Citizens and Municipal Staff includes real-time communication.\",\n    \"outcome_justification\": \"Citizens require direct messaging with municipal operators regarding their reports.\"\n  },\n  {\n    \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report submission capability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Allow Non-Registered Users to Access Public Information includes report submission.\",\n    \"outcome_justification\": \"Non-registered users need to submit reports anonymously without logging in.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and management based on category.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Ensure Efficient Review and Approval of Citizen Reports includes report assignment and management.\",\n    \"outcome_justification\": \"Technical Office Staff need to assign reports to appropriate departments or external companies based on category.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle tracking and status updates.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Facilitate Report Assignment and Management Based on Category includes report lifecycle tracking.\",\n    \"outcome_justification\": \"Technical Office Staff require tracking report state transitions throughout the lifecycle.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits private statistical insights.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Provide Public and Private Statistical Insights includes private statistical insights.\",\n    \"outcome_justification\": \"Municipal Administrators need comprehensive oversight of report trends and infrastructure health.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's description.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Make Participium Open-Source and Available to All Italian Public Administrations includes preparing and publishing as open-source software.\",\n    \"outcome_justification\": \"The system needs to be released as open-source software and made available through https://developers.italia.it/.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual review for external company assignments.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enable Automatic Assignment of Reports to External Companies Based on Preconfigured Rules includes manual review option.\",\n    \"outcome_justification\": \"Municipal Administrators require configuring automatic assignment rules that allow bypassing manual review for specific categories.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits report lifecycle tracking and status updates.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal of 'Facilitate Report Assignment and Management Based on Category'. Each LLG represents a distinct, documented functional interaction or effect that realizes the parent goal. The LLGs include assigning reports to departments or external companies, updating report statuses at various stages, and handling rejections or resolutions by either Technical Office Staff or external personnel. No essential capability is missing from the decomposition.\\n\\nHowever, there are a few points to consider for potential improvement:\\n1. The LLG 'Update report status to Resolved after external company completion' (llg_006) could be more precisely defined to distinguish between Case 1 and Case 2 scenarios, where external companies have or lack access to Participium.\\n2. The LLG 'Manually update report status for external companies without system access' (llg_007) might benefit from further clarification regarding the specific conditions under which this manual update is necessary.\\n\\nDespite these minor suggestions, all essential documented capabilities of the parent goal are present, supported, and distinct. Therefore, the decision is to KEEP the low-level goals with the understanding that refinements could be made for clarity and precision.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal of 'Facilitate Report Assignment and Management Based on Category'. Each LLG represents a distinct, documented functional interaction or effect that realizes the parent goal. The LLGs include assigning reports to departments or external companies, updating report statuses at various stages, and handling rejections or resolutions by either Technical Office Staff or external personnel. No essential capability is missing from the decomposition.\n\nHowever, there are a few points to consider for potential improvement:\n1. The LLG 'Update report status to Resolved after external company completion' (llg_006) could be more precisely defined to distinguish between Case 1 and Case 2 scenarios, where external companies have or lack access to Participium.\n2. The LLG 'Manually update report status for external companies without system access' (llg_007) might benefit from further clarification regarding the specific conditions under which this manual update is necessary.\n\nDespite these minor suggestions, all essential documented capabilities of the parent goal are present, supported, and distinct. Therefore, the decision is to KEEP the low-level goals with the understanding that refinements could be made for clarity and precision.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "LLG_REGENERATION_LIMIT_REACHED"
+}

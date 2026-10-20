@@ -1,0 +1,90 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_f10d30aaf7989bdf_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Automatically adjust allowance based on updated economic data",
+    "description": "Allow the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Trigger automatic allowance recalculation on ISEE update",
+      "description": "The system automatically recalculates the allowance amount when a valid ISEE is uploaded or updated.",
+      "high_level_associated": {
+        "name": "Automatically adjust allowance based on updated economic data",
+        "description": "Allow the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on submission, omitting validation and declaration handling.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive application submission, including real-time validation and mandatory declarations.\",\n    \"outcome_justification\": \"Ensures accurate, compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects collaborative completion between parents.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parental collaboration, including allowance distribution and payment details.\",\n    \"outcome_justification\": \"Enables second parent to complete or modify application initiated by the first parent.\"\n  },\n  {\n    \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits specific documentation management and applicant notification aspects.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive INPS operator evaluation, suspension, acceptance, and applicant notification.\",\n    \"outcome_justification\": \"Enables efficient and transparent application evaluation and management by INPS operators.\"\n  },\n  {\n    \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on application consultation, omitting allowance simulation.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive public access to application status and allowance simulation.\",\n    \"outcome_justification\": \"Provides citizens with the ability to consult past applications, view general AUU information, and simulate expected monthly allowance amounts.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects duplicate fiscal code prevention for children.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports accurate and compliant AUU application submissions by preventing duplicate applications.\",\n    \"outcome_justification\": \"Ensures data integrity and prevents duplicate applications for the same child.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits automatic allowance recalculation upon ISEE update.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports automatic allowance adjustments based on updated economic data.\",\n    \"outcome_justification\": \"Allows the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects application workflow flexibility.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports flexible application workflows, including drafts and resumptions.\",\n    \"outcome_justification\": \"Enables applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits real-time fiscal code validation for new children.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports dynamic addition of children to existing applications with real-time fiscal code validation.\",\n    \"outcome_justification\": \"Enables applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects GDPR-compliant data handling and privacy notices.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports secure and compliant data handling and privacy notices.\",\n    \"outcome_justification\": \"Ensures applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintains data confidentiality throughout the process.\"\n  },\n  {\n    \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits joint parent payment configuration.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports multiple payment methods for allowance distribution, including joint parent payments.\",\n    \"outcome_justification\": \"Enables applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_f10d30aaf7989bdf_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports automatic allowance adjustments based on updated economic data.",
+      "outcome_justification": "Allows the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on submission, omitting validation and declaration handling.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive application submission, including real-time validation and mandatory declarations.\",\n    \"outcome_justification\": \"Ensures accurate, compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects collaborative completion between parents.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports complete parental collaboration, including allowance distribution and payment details.\",\n    \"outcome_justification\": \"Enables second parent to complete or modify application initiated by the first parent.\"\n  },\n  {\n    \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits specific documentation management and applicant notification aspects.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive INPS operator evaluation, suspension, acceptance, and applicant notification.\",\n    \"outcome_justification\": \"Enables efficient and transparent application evaluation and management by INPS operators.\"\n  },\n  {\n    \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction focuses on application consultation, omitting allowance simulation.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports comprehensive public access to application status and allowance simulation.\",\n    \"outcome_justification\": \"Provides citizens with the ability to consult past applications, view general AUU information, and simulate expected monthly allowance amounts.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects duplicate fiscal code prevention for children.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports accurate and compliant AUU application submissions by preventing duplicate applications.\",\n    \"outcome_justification\": \"Ensures data integrity and prevents duplicate applications for the same child.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits automatic allowance recalculation upon ISEE update.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports automatic allowance adjustments based on updated economic data.\",\n    \"outcome_justification\": \"Allows the system to automatically recalculate the allowance when a valid ISEE becomes available, without requiring applicant intervention.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects application workflow flexibility.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports flexible application workflows, including drafts and resumptions.\",\n    \"outcome_justification\": \"Enables applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits real-time fiscal code validation for new children.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports dynamic addition of children to existing applications with real-time fiscal code validation.\",\n    \"outcome_justification\": \"Enables applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Reconstruction accurately reflects GDPR-compliant data handling and privacy notices.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports secure and compliant data handling and privacy notices.\",\n    \"outcome_justification\": \"Ensures applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintains data confidentiality throughout the process.\"\n  },\n  {\n    \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"Reconstruction omits joint parent payment configuration.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Source supports multiple payment methods for allowance distribution, including joint parent payments.\",\n    \"outcome_justification\": \"Enables applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits automatic allowance recalculation upon ISEE update.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goal (llg_001) only covers the automatic recalculation of allowances when a valid ISEE is uploaded or updated. However, the parent description also mentions ensuring system integrity during lifecycle events involving allowance and ISEE data. This broader scope is not fully represented in the current child. While llg_001 is supported and non-redundant, it does not cover all aspects of the parent requirement, making a regeneration necessary to ensure completeness.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":2,\"regeneration_feedback\":\"Preserve the automatic allowance recalculation (llg_001) and add a child that addresses system integrity during lifecycle events involving allowance and ISEE data; return the full decomposition.\",\"unsupported_or_misleading_llg_ids\":[\"llg_001\"],\"missing_essential_capabilities\": [\"Ensure system integrity during lifecycle events involving allowance and ISEE data\"]}",
+    "parsed_response": {
+      "rationale": "The current low-level goal (llg_001) only covers the automatic recalculation of allowances when a valid ISEE is uploaded or updated. However, the parent description also mentions ensuring system integrity during lifecycle events involving allowance and ISEE data. This broader scope is not fully represented in the current child. While llg_001 is supported and non-redundant, it does not cover all aspects of the parent requirement, making a regeneration necessary to ensure completeness.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve the automatic allowance recalculation (llg_001) and add a child that addresses system integrity during lifecycle events involving allowance and ISEE data; return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_001"
+      ],
+      "missing_essential_capabilities": [
+        "Ensure system integrity during lifecycle events involving allowance and ISEE data"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

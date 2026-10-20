@@ -1,0 +1,125 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_d714bbf6da86e761_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable efficient store operations and order fulfillment",
+    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+    "actor": {
+      "name": "Store Employee",
+      "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Manage order fulfillment for store",
+      "description": "Store employee views and manages pending orders for fulfillment.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Coordinate product pickup",
+      "description": "Store employee coordinates pickup logistics for customers, including time and location.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Process customer payments",
+      "description": "Store employee processes customer payments and updates wallet balances via system API.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Confirm delivery status",
+      "description": "Store employee confirms delivery status and updates system records.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order actions, while the parent emphasizes sourcing transparency.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch suggests children are misassociated or incomplete.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"rationale\":\"The reconstruction describes a broad system integrity and fulfillment scope.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a valid independent goal; the reconstruction is simply too broad for its specific scope.\",\"outcome_justification\":\"Customers manage order submission, modification, and confirmation under constraints.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct wallet management and payment flows.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payment notifications/balances.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Customers manage pickup slots and are notified of missed collections.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Farmers provide and confirm product availability estimates for the system.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the employee's fulfillment and coordination tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Employees manage orders, coordinate pickups, and handle payments.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery delay and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"The system alerts stakeholders of delays and manages credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction is extremely broad, covering almost all system functionalities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful; the reconstruction is simply very comprehensive.\",\"outcome_justification\":\"The system ensures transaction integrity and rewards/penalizes customer reliability.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative's authorization and submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Only registered representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_d714bbf6da86e761_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The goal is independently useful and correctly supported by the source description.",
+      "outcome_justification": "Employees manage orders, coordinate pickups, and handle payments.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order actions, while the parent emphasizes sourcing transparency.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch suggests children are misassociated or incomplete.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"rationale\":\"The reconstruction describes a broad system integrity and fulfillment scope.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a valid independent goal; the reconstruction is simply too broad for its specific scope.\",\"outcome_justification\":\"Customers manage order submission, modification, and confirmation under constraints.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct wallet management and payment flows.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payment notifications/balances.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Customers manage pickup slots and are notified of missed collections.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Farmers provide and confirm product availability estimates for the system.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the employee's fulfillment and coordination tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Employees manage orders, coordinate pickups, and handle payments.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery delay and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"The system alerts stakeholders of delays and manages credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction is extremely broad, covering almost all system functionalities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful; the reconstruction is simply very comprehensive.\",\"outcome_justification\":\"The system ensures transaction integrity and rewards/penalizes customer reliability.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative's authorization and submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly supported by the source description.\",\"outcome_justification\":\"Only registered representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The children correctly reconstruct the employee's fulfillment and coordination tasks.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current children cover the core capabilities of the parent (order management, pickup coordination, payment processing, and delivery confirmation). However, the source description specifies that store employees also 'prepare the packages corresponding to customer orders' and 'confirm the collection of the order' upon arrival. The current decomposition lacks the specific action of preparing packages and the final collection confirmation, which are essential for 'smooth daily operations' as described in the parent. Additionally, llg_003 mentions 'updating wallet balances via system API', but the source states customers recharge wallets at the store; the employee's role is to facilitate this, but the specific action of 'preparing packages' is a distinct documented task.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":3,\"regeneration_feedback\":\"Preserve llg_001, llg_002, llg_003, and llg_004; ADD actions for 'Prepare customer order packages' and 'Confirm order collection upon customer arrival'; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[\"Prepare customer order packages\",\"Confirm order collection upon customer arrival\"]}",
+    "parsed_response": {
+      "rationale": "The current children cover the core capabilities of the parent (order management, pickup coordination, payment processing, and delivery confirmation). However, the source description specifies that store employees also 'prepare the packages corresponding to customer orders' and 'confirm the collection of the order' upon arrival. The current decomposition lacks the specific action of preparing packages and the final collection confirmation, which are essential for 'smooth daily operations' as described in the parent. Additionally, llg_003 mentions 'updating wallet balances via system API', but the source states customers recharge wallets at the store; the employee's role is to facilitate this, but the specific action of 'preparing packages' is a distinct documented task.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 3,
+      "regeneration_feedback": "Preserve llg_001, llg_002, llg_003, and llg_004; ADD actions for 'Prepare customer order packages' and 'Confirm order collection upon customer arrival'; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Prepare customer order packages",
+        "Confirm order collection upon customer arrival"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

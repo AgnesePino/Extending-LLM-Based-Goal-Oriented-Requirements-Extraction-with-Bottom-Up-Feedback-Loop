@@ -1,0 +1,114 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_fb3acba7a1cf161c_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Enable rapid variant annotation for research purposes",
+    "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+    "actor": {
+      "name": "Researcher",
+      "description": "Scientist studying genetic variants and their biological implications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Query variant annotations from multiple genomic databases",
+      "description": "Allow the researcher to submit a variant identifier and retrieve aggregated annotations from public genomic databases such as ClinVar, dbSNP, and gnomAD.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Retrieve mutation annotations and clinical significance",
+      "description": "Provide the researcher with detailed mutation annotations and clinical significance scores from integrated clinical knowledge sources.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Fetch disease associations for queried variants",
+      "description": "Return disease-related associations for the queried variant, including phenotypic and genetic links from public disease databases.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Obtain mutation frequency data across populations",
+      "description": "Provide population-level mutation frequency data for the queried variant, sourced from large-scale genomic datasets such as gnomAD.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Retrieve gene-related information for variant context",
+      "description": "Return gene-level information including function, pathway involvement, and associated diseases for the gene containing the queried variant.",
+      "high_level_associated": {
+        "name": "Enable rapid variant annotation for research purposes",
+        "description": "Provide researchers with fast access to comprehensive variant annotations from multiple genomic and clinical databases to accelerate discovery and understanding of genetic variants.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits research-specific acceleration and focuses on broader interpretation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports rapid annotation for research; reconstruction mismatch concerns its children.\",\n      \"outcome_justification\": \"Researcher accelerates discovery through fast, comprehensive variant access.\"\n    },\n    {\n      \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds protein-level predictions and clinical scores beyond original scope.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports clinical interpretation; reconstruction mismatch concerns its children.\",\n      \"outcome_justification\": \"Clinician informs diagnosis, prognosis, and treatment strategies independently.\"\n    },\n    {\n      \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches cancer-specific annotation focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports specialized cancer analysis; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher and clinician analyze mutations relevant to cancer biology.\"\n    },\n    {\n      \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches high-throughput processing focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports scalable dataset handling; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher processes large-scale genomic datasets efficiently.\"\n    },\n    {\n      \"branch_id\": \"hlg_18d851b60a2a744e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches database integration focus.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Database aggregation is internal to clinical interpretation; equivalence establishes coherence but not autonomy.\",\n      \"outcome_justification\": \"The containing outcome is supporting clinical decision-making through accurate variant interpretation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_18d52024b385646f_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches mapping and conversion focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports core variant mapping; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher maps variants to reference genomes and translates mutations.\"\n    },\n    {\n      \"branch_id\": \"hlg_50214718e1e0e929_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches functional prediction focus.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Functional predictions are internal to clinical interpretation; equivalence establishes coherence but not autonomy.\",\n      \"outcome_justification\": \"The containing outcome is supporting clinical decision-making through accurate variant interpretation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_fb3acba7a1cf161c_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports rapid annotation for research; reconstruction mismatch concerns its children.",
+      "outcome_justification": "Researcher accelerates discovery through fast, comprehensive variant access.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits research-specific acceleration and focuses on broader interpretation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports rapid annotation for research; reconstruction mismatch concerns its children.\",\n      \"outcome_justification\": \"Researcher accelerates discovery through fast, comprehensive variant access.\"\n    },\n    {\n      \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds protein-level predictions and clinical scores beyond original scope.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports clinical interpretation; reconstruction mismatch concerns its children.\",\n      \"outcome_justification\": \"Clinician informs diagnosis, prognosis, and treatment strategies independently.\"\n    },\n    {\n      \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches cancer-specific annotation focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports specialized cancer analysis; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher and clinician analyze mutations relevant to cancer biology.\"\n    },\n    {\n      \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches high-throughput processing focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports scalable dataset handling; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher processes large-scale genomic datasets efficiently.\"\n    },\n    {\n      \"branch_id\": \"hlg_18d851b60a2a744e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches database integration focus.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Database aggregation is internal to clinical interpretation; equivalence establishes coherence but not autonomy.\",\n      \"outcome_justification\": \"The containing outcome is supporting clinical decision-making through accurate variant interpretation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_18d52024b385646f_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches mapping and conversion focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports core variant mapping; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher maps variants to reference genomes and translates mutations.\"\n    },\n    {\n      \"branch_id\": \"hlg_50214718e1e0e929_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches functional prediction focus.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Functional predictions are internal to clinical interpretation; equivalence establishes coherence but not autonomy.\",\n      \"outcome_justification\": \"The containing outcome is supporting clinical decision-making through accurate variant interpretation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits research-specific acceleration and focuses on broader interpretation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE",
+  "llg_status": "SKIPPED"
+}

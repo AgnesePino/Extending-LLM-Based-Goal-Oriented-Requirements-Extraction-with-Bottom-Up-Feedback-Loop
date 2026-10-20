@@ -1,0 +1,52 @@
+{
+  "iteration": 6,
+  "model": "ibm/granite-3.2-8b",
+  "status": "VALID",
+  "decision": null,
+  "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_173e70b446c0ce36_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes monitoring and strict time constraints, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to dispatch alone.\",\"outcome_justification\":\"Dispatcher ensures every emergency call is assigned an available ambulance within 11 minutes, without monitoring or time constraints in the original HLG.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes logging and geographic trace, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to data logging alone.\",\"outcome_justification\":\"Radio Operator records precise departure and destination information for efficient resource allocation, without logging or geographic trace in the original HLG.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express real-time tracking and route compliance.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of enabling real-time location tracking, without over-specifying ambulance movements.\",\"outcome_justification\":\"Ambulance Driver operates the ambulance and follows standard routes for real-time tracking, with route compliance in the original HLG description.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express emergency initiation by reporting incidents.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of supporting rapid emergency initiation, without specifying dialing or submission details.\",\"outcome_justification\":\"Emergency Caller initiates an emergency response by reporting incidents, with initiation in the original HLG.\"}]}",
+  "parsed_response": {
+    "decisions": [
+      {
+        "branch_id": "hlg_173e70b446c0ce36_001",
+        "reconstruction_diagnosis": {
+          "reconstruction_relationship": "PARTIAL_OVERLAP",
+          "rationale": "The reconstruction includes monitoring and strict time constraints, which are not part of the original HLG."
+        },
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "rationale": "The source supports the complete parent; inspect children rather than narrowing it to dispatch alone.",
+        "outcome_justification": "Dispatcher ensures every emergency call is assigned an available ambulance within 11 minutes, without monitoring or time constraints in the original HLG."
+      },
+      {
+        "branch_id": "hlg_6ba20cb10b0d20a0_001",
+        "reconstruction_diagnosis": {
+          "reconstruction_relationship": "PARTIAL_OVERLAP",
+          "rationale": "The reconstruction includes logging and geographic trace, which are not part of the original HLG."
+        },
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "rationale": "The source supports the complete parent; inspect children rather than narrowing it to data logging alone.",
+        "outcome_justification": "Radio Operator records precise departure and destination information for efficient resource allocation, without logging or geographic trace in the original HLG."
+      },
+      {
+        "branch_id": "hlg_be971399c23d5fec_001",
+        "reconstruction_diagnosis": {
+          "reconstruction_relationship": "EQUIVALENT",
+          "rationale": "The reconstruction and original HLG express real-time tracking and route compliance."
+        },
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "rationale": "The parent represents the complete documented outcome of enabling real-time location tracking, without over-specifying ambulance movements.",
+        "outcome_justification": "Ambulance Driver operates the ambulance and follows standard routes for real-time tracking, with route compliance in the original HLG description."
+      },
+      {
+        "branch_id": "hlg_ee25dcd232ec6e9b_001",
+        "reconstruction_diagnosis": {
+          "reconstruction_relationship": "EQUIVALENT",
+          "rationale": "The reconstruction and original HLG express emergency initiation by reporting incidents."
+        },
+        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+        "rationale": "The parent represents the complete documented outcome of supporting rapid emergency initiation, without specifying dialing or submission details.",
+        "outcome_justification": "Emergency Caller initiates an emergency response by reporting incidents, with initiation in the original HLG."
+      }
+    ]
+  },
+  "error": null
+}

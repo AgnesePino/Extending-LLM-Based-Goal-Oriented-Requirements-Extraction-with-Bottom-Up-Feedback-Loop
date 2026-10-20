@@ -1,0 +1,116 @@
+{
+  "iteration": 12,
+  "branch_id": "hlg_fc8aaf6fc932edfc_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Ensure Efficient Review and Approval of Citizen Reports",
+    "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+    "actor": {
+      "name": "Organization Office Staff",
+      "description": "Staff responsible for reviewing and approving citizen reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Review citizen report for approval or rejection",
+      "description": "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Assign approved report to technical office based on category",
+      "description": "After approval, the system automatically assigns the report to the appropriate technical office based on the problem category, transitioning the report to the 'In Progress' state.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Track review status and update report state",
+      "description": "The system records and updates the report’s state (e.g., Pending Approval → In Progress → Work in Progress → Suspended → Rejected) based on review decisions and subsequent actions.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Log mandatory rejection explanation for rejected reports",
+      "description": "When a report is rejected, the system captures and stores the written explanation provided by the Organization Office Staff, ensuring accountability and traceability.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports citizen-municipal interaction; correct the parent's scope to include tracking and interaction.\",\n    \"outcome_justification\": \"Citizens submit, track, and interact with reports while receiving real-time notifications and public visibility.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering options.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports public report access; correct the parent's scope to include dynamic filtering.\",\n    \"outcome_justification\": \"Citizens view public reports on an interactive map and summary table with filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits direct messaging and report following features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time communication; correct the parent's scope to include direct messaging and report following.\",\n    \"outcome_justification\": \"Citizens receive multi-channel notifications and direct interactions regarding their reports.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports report workflow management; correct the parent's scope to include assignment and manual updates.\",\n    \"outcome_justification\": \"Organization Office Staff review, approve or reject reports, assign approved reports to technical offices, and handle manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle management and manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports technical report management; correct the parent's scope to include lifecycle management and manual updates.\",\n    \"outcome_justification\": \"Technical Office Staff manage report assignments, track status transitions, and handle manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits private system performance analytics.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports administrator oversight; correct the parent's scope to include private analytics.\",\n    \"outcome_justification\": \"Municipal Administrator views public and private statistical insights for comprehensive system oversight.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the open-source publication process.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Municipal Administrator releases Participium as open-source software for Italian public administrations.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports automated assignment; correct the parent's scope to include manual updates.\",\n    \"outcome_justification\": \"Municipal Administrator configures automatic report assignment rules and handles manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_f584efee9b2f7fee_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits API-based manual updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports manual updates; correct the parent's scope to include API-based updates.\",\n    \"outcome_justification\": \"Technical Office Staff manually update report status via API when external resolution occurs.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_fc8aaf6fc932edfc_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits report assignment and manual updates for external companies."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports report workflow management; correct the parent's scope to include assignment and manual updates.",
+      "outcome_justification": "Organization Office Staff review, approve or reject reports, assign approved reports to technical offices, and handle manual updates for external companies."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports citizen-municipal interaction; correct the parent's scope to include tracking and interaction.\",\n    \"outcome_justification\": \"Citizens submit, track, and interact with reports while receiving real-time notifications and public visibility.\"\n  },\n  {\n    \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report visibility and filtering options.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports public report access; correct the parent's scope to include dynamic filtering.\",\n    \"outcome_justification\": \"Citizens view public reports on an interactive map and summary table with filtering options.\"\n  },\n  {\n    \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits direct messaging and report following features.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time communication; correct the parent's scope to include direct messaging and report following.\",\n    \"outcome_justification\": \"Citizens receive multi-channel notifications and direct interactions regarding their reports.\"\n  },\n  {\n    \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report assignment and manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports report workflow management; correct the parent's scope to include assignment and manual updates.\",\n    \"outcome_justification\": \"Organization Office Staff review, approve or reject reports, assign approved reports to technical offices, and handle manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits report lifecycle management and manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports technical report management; correct the parent's scope to include lifecycle management and manual updates.\",\n    \"outcome_justification\": \"Technical Office Staff manage report assignments, track status transitions, and handle manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits private system performance analytics.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports administrator oversight; correct the parent's scope to include private analytics.\",\n    \"outcome_justification\": \"Municipal Administrator views public and private statistical insights for comprehensive system oversight.\"\n  },\n  {\n    \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the open-source publication process.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Municipal Administrator releases Participium as open-source software for Italian public administrations.\"\n  },\n  {\n    \"branch_id\": \"hlg_73541f749496e285_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual updates for external companies.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports automated assignment; correct the parent's scope to include manual updates.\",\n    \"outcome_justification\": \"Municipal Administrator configures automatic report assignment rules and handles manual updates for external companies.\"\n  },\n  {\n    \"branch_id\": \"hlg_f584efee9b2f7fee_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits API-based manual updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports manual updates; correct the parent's scope to include API-based updates.\",\n    \"outcome_justification\": \"Technical Office Staff manually update report status via API when external resolution occurs.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits report assignment and manual updates for external companies.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Ensure Efficient Review and Approval of Citizen Reports' by detailing the specific actions required for the Organization Office Staff to review, approve, or reject citizen reports with mandatory explanations for rejections. The LLGs cover all essential aspects of the parent goal, including report review (llg_001), assignment to technical offices (llg_002), tracking state transitions (llg_003), and logging rejection explanations (llg_004). There are no unsupported or misleading LLGs, nor any missing essential capabilities.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Ensure Efficient Review and Approval of Citizen Reports' by detailing the specific actions required for the Organization Office Staff to review, approve, or reject citizen reports with mandatory explanations for rejections. The LLGs cover all essential aspects of the parent goal, including report review (llg_001), assignment to technical offices (llg_002), tracking state transitions (llg_003), and logging rejection explanations (llg_004). There are no unsupported or misleading LLGs, nor any missing essential capabilities.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -7,9 +7,7 @@
         "chunkCount": 1,
         "originalChars": 314,
         "processedChars": 314,
-        "strategy": "groundtruth_description_links_ignored",
-        "linksIgnored": true,
-        "sourceTruncated": false
+        "strategy": "groundtruth_description"
     },
     "actors": [
         "Scrum Master",
@@ -17,21 +15,17 @@
         "Development Team Member"
     ],
     "highLevelGoals": [
-        "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
-        "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
-        "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories."
+        "Support the team in collectively defining sprint goals through an engaging, anonymous estimation process to foster shared ownership and alignment.",
+        "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+        "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity."
     ],
     "lowLevelGoals": [
-        "Enable the Scrum Master to set up estimation parameters such as story point scales, estimation methods, and bias mitigation strategies.",
-        "Allow the Scrum Master to trigger estimation sessions with pre-configured rules and user story sets.",
-        "Enable Development Team Members to submit estimates anonymously to prevent social bias during estimation sessions.",
-        "Enable each team member to submit their individual estimate for a user story using the configured estimation method.",
-        "Enable the team to vote or agree on final estimates after anonymous submission to ensure consensus.",
-        "Allow the Product Owner to create and define sprint goals for the upcoming sprint.",
-        "Allow the Product Owner to map user stories to sprint goals and enforce goal alignment during estimation.",
-        "Enable the team to review estimation outcomes and collaboratively refine estimates through discussion or voting mechanisms.",
-        "Allow the team to engage in post-estimation discussions to clarify ambiguities and adjust estimates based on collective knowledge.",
-        "Allow the Scrum Master to verify that user stories being estimated are mapped to defined sprint goals and to flag mismatches for discussion."
+        "Render a user interface where team members can input estimates without revealing their identities, with session tokens to ensure anonymity.",
+        "Enable a team member to submit a numerical or relative estimate for a task via an API call, with validation and anonymized storage.",
+        "Collect submitted estimates and display a visual summary (e.g., histogram, median, or range) via an API to promote consensus and transparency.",
+        "Provide immediate visual feedback to users as they submit estimates, such as updating the consensus view via an API call.",
+        "Enable a team member to view the anonymized estimates submitted by others without revealing identities via an API call.",
+        "Provide an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations."
     ],
     "structuredActors": {
         "actors": [
@@ -41,38 +35,38 @@
             },
             {
                 "name": "Product Owner",
-                "description": "Defines the sprint goals and prioritizes the backlog for the team."
+                "description": "Defines and prioritizes sprint goals and user stories."
             },
             {
                 "name": "Development Team Member",
-                "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Enable Transparent and Consensus-Based Estimation",
-                "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
+                "name": "Enable Collaborative Sprint Goal Setting",
+                "description": "Support the team in collectively defining sprint goals through an engaging, anonymous estimation process to foster shared ownership and alignment.",
                 "actor": {
                     "name": "Scrum Master",
                     "description": "Facilitates the agile process and guides the team during planning sessions."
                 }
             },
             {
-                "name": "Support Prioritized Sprint Goal Alignment",
-                "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+                "name": "Ensure Transparent and Consensus-Based Estimation",
+                "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
                 "actor": {
                     "name": "Product Owner",
-                    "description": "Defines the sprint goals and prioritizes the backlog for the team."
+                    "description": "Defines and prioritizes sprint goals and user stories."
                 }
             },
             {
-                "name": "Foster Collaborative Estimation and Knowledge Sharing",
-                "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
+                "name": "Promote Knowledge Sharing and Team Alignment",
+                "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
                 "actor": {
                     "name": "Development Team Member",
-                    "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                    "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
                 }
             }
         ]
@@ -80,11 +74,11 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Allow Scrum Master to configure estimation rules",
-                "description": "Enable the Scrum Master to set up estimation parameters such as story point scales, estimation methods, and bias mitigation strategies.",
+                "name": "Display Anonymous Estimation Interface",
+                "description": "Render a user interface where team members can input estimates without revealing their identities, with session tokens to ensure anonymity.",
                 "high_level_associated": {
-                    "name": "Enable Transparent and Consensus-Based Estimation",
-                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
+                    "name": "Enable Collaborative Sprint Goal Setting",
+                    "description": "Support the team in collectively defining sprint goals through an engaging, anonymous estimation process to foster shared ownership and alignment.",
                     "actor": {
                         "name": "Scrum Master",
                         "description": "Facilitates the agile process and guides the team during planning sessions."
@@ -92,128 +86,79 @@
                 }
             },
             {
-                "name": "Enable Scrum Master to initiate estimation sessions",
-                "description": "Allow the Scrum Master to trigger estimation sessions with pre-configured rules and user story sets.",
+                "name": "Allow Team Member to Submit Estimate",
+                "description": "Enable a team member to submit a numerical or relative estimate for a task via an API call, with validation and anonymized storage.",
                 "high_level_associated": {
-                    "name": "Enable Transparent and Consensus-Based Estimation",
-                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
-                    "actor": {
-                        "name": "Scrum Master",
-                        "description": "Facilitates the agile process and guides the team during planning sessions."
-                    }
-                }
-            },
-            {
-                "name": "Provide anonymous estimation mode for team members",
-                "description": "Enable Development Team Members to submit estimates anonymously to prevent social bias during estimation sessions.",
-                "high_level_associated": {
-                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
-                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
-                    "actor": {
-                        "name": "Development Team Member",
-                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
-                    }
-                }
-            },
-            {
-                "name": "Allow team members to submit individual estimates",
-                "description": "Enable each team member to submit their individual estimate for a user story using the configured estimation method.",
-                "high_level_associated": {
-                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
-                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
-                    "actor": {
-                        "name": "Development Team Member",
-                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
-                    }
-                }
-            },
-            {
-                "name": "Allow team to vote on final estimates",
-                "description": "Enable the team to vote or agree on final estimates after anonymous submission to ensure consensus.",
-                "high_level_associated": {
-                    "name": "Enable Transparent and Consensus-Based Estimation",
-                    "description": "Ensure that all team members can contribute equally to estimating user stories without bias, fostering shared ownership and alignment on sprint goals.",
-                    "actor": {
-                        "name": "Scrum Master",
-                        "description": "Facilitates the agile process and guides the team during planning sessions."
-                    }
-                }
-            },
-            {
-                "name": "Enable Product Owner to define sprint goals",
-                "description": "Allow the Product Owner to create and define sprint goals for the upcoming sprint.",
-                "high_level_associated": {
-                    "name": "Support Prioritized Sprint Goal Alignment",
-                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+                    "name": "Ensure Transparent and Consensus-Based Estimation",
+                    "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
                     "actor": {
                         "name": "Product Owner",
-                        "description": "Defines the sprint goals and prioritizes the backlog for the team."
+                        "description": "Defines and prioritizes sprint goals and user stories."
                     }
                 }
             },
             {
-                "name": "Enable Product Owner to assign user stories to sprint goals",
-                "description": "Allow the Product Owner to map user stories to sprint goals and enforce goal alignment during estimation.",
+                "name": "Aggregate Estimates into Consensus View",
+                "description": "Collect submitted estimates and display a visual summary (e.g., histogram, median, or range) via an API to promote consensus and transparency.",
                 "high_level_associated": {
-                    "name": "Support Prioritized Sprint Goal Alignment",
-                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+                    "name": "Ensure Transparent and Consensus-Based Estimation",
+                    "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
                     "actor": {
                         "name": "Product Owner",
-                        "description": "Defines the sprint goals and prioritizes the backlog for the team."
+                        "description": "Defines and prioritizes sprint goals and user stories."
                     }
                 }
             },
             {
-                "name": "Allow team to view and discuss estimation results",
-                "description": "Enable the team to review estimation outcomes and collaboratively refine estimates through discussion or voting mechanisms.",
+                "name": "Enable Real-Time Feedback on Estimation",
+                "description": "Provide immediate visual feedback to users as they submit estimates, such as updating the consensus view via an API call.",
                 "high_level_associated": {
-                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
-                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
+                    "name": "Promote Knowledge Sharing and Team Alignment",
+                    "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
                     "actor": {
                         "name": "Development Team Member",
-                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                        "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
                     }
                 }
             },
             {
-                "name": "Enable team to refine estimates through discussion",
-                "description": "Allow the team to engage in post-estimation discussions to clarify ambiguities and adjust estimates based on collective knowledge.",
+                "name": "Allow Team Member to View Others' Estimates",
+                "description": "Enable a team member to view the anonymized estimates submitted by others without revealing identities via an API call.",
                 "high_level_associated": {
-                    "name": "Foster Collaborative Estimation and Knowledge Sharing",
-                    "description": "Enable Development Team Members to engage in anonymous, structured estimation to reduce estimation bias and promote collective understanding of user stories.",
+                    "name": "Promote Knowledge Sharing and Team Alignment",
+                    "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
                     "actor": {
                         "name": "Development Team Member",
-                        "description": "Contributes to estimating user stories and collaborates on sprint planning."
+                        "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
                     }
                 }
             },
             {
-                "name": "Enable Scrum Master to enforce sprint goal alignment during estimation",
-                "description": "Allow the Scrum Master to verify that user stories being estimated are mapped to defined sprint goals and to flag mismatches for discussion.",
+                "name": "Support Discussion Thread for Estimation",
+                "description": "Provide an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations.",
                 "high_level_associated": {
-                    "name": "Support Prioritized Sprint Goal Alignment",
-                    "description": "Allow the Product Owner to define and enforce sprint goals while ensuring the team understands and commits to them through collaborative estimation.",
+                    "name": "Promote Knowledge Sharing and Team Alignment",
+                    "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
                     "actor": {
-                        "name": "Scrum Master",
-                        "description": "Facilitates the agile process and guides the team during planning sessions."
+                        "name": "Development Team Member",
+                        "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 10.0,
+        "actors": 8.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 8.0
+        "lowLevelGoals": 7.0
     },
     "baselineCritiques": {
-        "actors": "The actors defined are appropriate for a Planning Poker system, as they align with typical roles in agile/scrum teams. No contradictions or omissions are observed.",
-        "highLevelGoals": "The high-level goals are well-defined and align with the description of Planning Poker. They focus on functional aspects such as transparent estimation, prioritized sprint goal alignment, and collaborative knowledge sharing. No contradictions or omissions are observed.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of Planning Poker. However, there is a minor omission regarding the Product Owner's ability to prioritize the backlog before sprint planning, which is implied in the high-level goal \"Support Prioritized Sprint Goal Alignment.\" Additionally, while the low-level goals are comprehensive, they could benefit from explicitly mentioning the system's support for different estimation methods (e.g., Fibonacci sequence, T-shirt sizing) and the ability to export or save session results for future reference."
+        "actors": "The actors listed are appropriate for a Planning Poker application, as they align with typical roles in agile/scrum teams. However, there is a missing actor that could be relevant: \"Anonymous User\" or \"Observer,\" who might participate in the planning session without being part of the core team (e.g., stakeholders or external observers). While not strictly necessary, including such an actor would make the system more comprehensive.",
+        "highLevelGoals": "The high-level goals are well-defined and align with the description of Planning Poker. They focus on functional aspects such as collaborative sprint goal setting, transparent estimation, and knowledge sharing, which are core functionalities of the system. No contradictions or omissions are observed.",
+        "lowLevelGoals": "The low-level goals are mostly aligned with the high-level goals and the software description, but there is a minor omission. While the high-level goal for the Development Team Member mentions \"Promote Knowledge Sharing and Team Alignment,\" the corresponding low-level goal only includes an API for discussion threads without specifying how this feature will facilitate knowledge sharing or team alignment in practice (e.g., notifications, collaborative annotations, or integration with other tools). Additionally, the low-level goals for the Scrum Master and Product Owner are well-defined but could benefit from clearer functional specifications, such as how the system ensures anonymity or handles consensus logic."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
-        "generatorProvider": "LM Studio (local)",
+        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
         "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
@@ -226,9 +171,8 @@
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
         "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
-        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
-        "maxOutputTokens": 32768
+        "evaluatorMaxInputChars": 24000,
+        "evaluatorDescriptionMaxChars": 1800
     },
     "pipelineConfiguration": {
         "actors": {
@@ -246,5 +190,263 @@
             "evaluationStrategy": "single_global_call_with_original_prompt"
         },
         "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "hierarchyAudit": {
+        "schema_version": 1,
+        "provenance": {
+            "dataset": "Planning Poker",
+            "baseline_sha256": "2a7b936bab0a96ca0e4c228517bb7d9f39431c065db51c0e14d52f7f7d668c54",
+            "hash_policy": "canonical_json_without_hierarchyAudit",
+            "baseline_source_file": "Planning Poker_ZERO_SHOT_feedback_original_top_down_top_down.json",
+            "baseline_configuration": {
+                "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+                "generatorModel": "qwen/qwen3-vl-8b",
+                "actorPromptingMode": "ZERO_SHOT",
+                "actorEvaluatorEnabled": true,
+                "highLevelGoalPromptingMode": "ZERO_SHOT",
+                "lowLevelGoalPromptingMode": "ZERO_SHOT",
+                "highLevelGoalEvaluatorEnabled": true,
+                "lowLevelGoalEvaluatorEnabled": true,
+                "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+                "qualityThreshold": 8.5,
+                "maxReflectionAttempts": 3,
+                "evaluatorFewShotExampleCount": 4,
+                "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
+                "evaluatorMaxInputChars": 24000,
+                "evaluatorDescriptionMaxChars": 1800
+            },
+            "pipeline_configuration": {
+                "actors": {
+                    "promptingMode": "ZERO_SHOT",
+                    "evaluator": true
+                },
+                "highLevelGoals": {
+                    "promptingMode": "ZERO_SHOT",
+                    "evaluator": true
+                },
+                "lowLevelGoals": {
+                    "promptingMode": "ZERO_SHOT",
+                    "evaluator": true,
+                    "generationStrategy": "all_hlgs_in_one_call",
+                    "evaluationStrategy": "single_global_call_with_original_prompt"
+                },
+                "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+            }
+        },
+        "baseline": {
+            "schema_version": 1,
+            "stage": "baseline",
+            "iteration": null,
+            "provenance": {
+                "dataset": "Planning Poker",
+                "baseline_sha256": "2a7b936bab0a96ca0e4c228517bb7d9f39431c065db51c0e14d52f7f7d668c54",
+                "hash_policy": "canonical_json_without_hierarchyAudit",
+                "baseline_source_file": "Planning Poker_ZERO_SHOT_feedback_original_top_down_top_down.json",
+                "baseline_configuration": {
+                    "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+                    "generatorModel": "qwen/qwen3-vl-8b",
+                    "actorPromptingMode": "ZERO_SHOT",
+                    "actorEvaluatorEnabled": true,
+                    "highLevelGoalPromptingMode": "ZERO_SHOT",
+                    "lowLevelGoalPromptingMode": "ZERO_SHOT",
+                    "highLevelGoalEvaluatorEnabled": true,
+                    "lowLevelGoalEvaluatorEnabled": true,
+                    "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+                    "qualityThreshold": 8.5,
+                    "maxReflectionAttempts": 3,
+                    "evaluatorFewShotExampleCount": 4,
+                    "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
+                    "evaluatorMaxInputChars": 24000,
+                    "evaluatorDescriptionMaxChars": 1800
+                },
+                "pipeline_configuration": {
+                    "actors": {
+                        "promptingMode": "ZERO_SHOT",
+                        "evaluator": true
+                    },
+                    "highLevelGoals": {
+                        "promptingMode": "ZERO_SHOT",
+                        "evaluator": true
+                    },
+                    "lowLevelGoals": {
+                        "promptingMode": "ZERO_SHOT",
+                        "evaluator": true,
+                        "generationStrategy": "all_hlgs_in_one_call",
+                        "evaluationStrategy": "single_global_call_with_original_prompt"
+                    },
+                    "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+                }
+            },
+            "missing_data": [],
+            "parents": [
+                {
+                    "id": "hlg_58bd0caca4f4bc30_001",
+                    "goal": {
+                        "name": "Enable Collaborative Sprint Goal Setting",
+                        "description": "Support the team in collectively defining sprint goals through an engaging, anonymous estimation process to foster shared ownership and alignment.",
+                        "actor": {
+                            "name": "Scrum Master",
+                            "description": "Facilitates the agile process and guides the team during planning sessions."
+                        }
+                    },
+                    "llg_ids": [
+                        "llg_d59291a7fcc867b0_001"
+                    ]
+                },
+                {
+                    "id": "hlg_eca1ad8fec0452f0_001",
+                    "goal": {
+                        "name": "Ensure Transparent and Consensus-Based Estimation",
+                        "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+                        "actor": {
+                            "name": "Product Owner",
+                            "description": "Defines and prioritizes sprint goals and user stories."
+                        }
+                    },
+                    "llg_ids": [
+                        "llg_6fe245429d186588_001",
+                        "llg_e4cc3bcbb6ac49f3_001"
+                    ]
+                },
+                {
+                    "id": "hlg_00d6a1e8ce60813c_001",
+                    "goal": {
+                        "name": "Promote Knowledge Sharing and Team Alignment",
+                        "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+                        "actor": {
+                            "name": "Development Team Member",
+                            "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+                        }
+                    },
+                    "llg_ids": [
+                        "llg_9f9fc67488410aba_001",
+                        "llg_7fe470e9fc2107ab_001",
+                        "llg_af63ebab6cb6a3b4_001"
+                    ]
+                }
+            ],
+            "children": [
+                {
+                    "id": "llg_d59291a7fcc867b0_001",
+                    "goal": {
+                        "name": "Display Anonymous Estimation Interface",
+                        "description": "Render a user interface where team members can input estimates without revealing their identities, with session tokens to ensure anonymity.",
+                        "high_level_associated": {
+                            "name": "Enable Collaborative Sprint Goal Setting",
+                            "description": "Support the team in collectively defining sprint goals through an engaging, anonymous estimation process to foster shared ownership and alignment.",
+                            "actor": {
+                                "name": "Scrum Master",
+                                "description": "Facilitates the agile process and guides the team during planning sessions."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_58bd0caca4f4bc30_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_58bd0caca4f4bc30_001"
+                    ]
+                },
+                {
+                    "id": "llg_6fe245429d186588_001",
+                    "goal": {
+                        "name": "Allow Team Member to Submit Estimate",
+                        "description": "Enable a team member to submit a numerical or relative estimate for a task via an API call, with validation and anonymized storage.",
+                        "high_level_associated": {
+                            "name": "Ensure Transparent and Consensus-Based Estimation",
+                            "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+                            "actor": {
+                                "name": "Product Owner",
+                                "description": "Defines and prioritizes sprint goals and user stories."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_eca1ad8fec0452f0_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_eca1ad8fec0452f0_001"
+                    ]
+                },
+                {
+                    "id": "llg_e4cc3bcbb6ac49f3_001",
+                    "goal": {
+                        "name": "Aggregate Estimates into Consensus View",
+                        "description": "Collect submitted estimates and display a visual summary (e.g., histogram, median, or range) via an API to promote consensus and transparency.",
+                        "high_level_associated": {
+                            "name": "Ensure Transparent and Consensus-Based Estimation",
+                            "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+                            "actor": {
+                                "name": "Product Owner",
+                                "description": "Defines and prioritizes sprint goals and user stories."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_eca1ad8fec0452f0_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_eca1ad8fec0452f0_001"
+                    ]
+                },
+                {
+                    "id": "llg_9f9fc67488410aba_001",
+                    "goal": {
+                        "name": "Enable Real-Time Feedback on Estimation",
+                        "description": "Provide immediate visual feedback to users as they submit estimates, such as updating the consensus view via an API call.",
+                        "high_level_associated": {
+                            "name": "Promote Knowledge Sharing and Team Alignment",
+                            "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+                            "actor": {
+                                "name": "Development Team Member",
+                                "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_00d6a1e8ce60813c_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_00d6a1e8ce60813c_001"
+                    ]
+                },
+                {
+                    "id": "llg_7fe470e9fc2107ab_001",
+                    "goal": {
+                        "name": "Allow Team Member to View Others' Estimates",
+                        "description": "Enable a team member to view the anonymized estimates submitted by others without revealing identities via an API call.",
+                        "high_level_associated": {
+                            "name": "Promote Knowledge Sharing and Team Alignment",
+                            "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+                            "actor": {
+                                "name": "Development Team Member",
+                                "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_00d6a1e8ce60813c_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_00d6a1e8ce60813c_001"
+                    ]
+                },
+                {
+                    "id": "llg_af63ebab6cb6a3b4_001",
+                    "goal": {
+                        "name": "Support Discussion Thread for Estimation",
+                        "description": "Provide an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations.",
+                        "high_level_associated": {
+                            "name": "Promote Knowledge Sharing and Team Alignment",
+                            "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+                            "actor": {
+                                "name": "Development Team Member",
+                                "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+                            }
+                        }
+                    },
+                    "parent_id": "hlg_00d6a1e8ce60813c_001",
+                    "reference_status": "valid",
+                    "candidate_parent_ids": [
+                        "hlg_00d6a1e8ce60813c_001"
+                    ]
+                }
+            ]
+        }
     }
 }

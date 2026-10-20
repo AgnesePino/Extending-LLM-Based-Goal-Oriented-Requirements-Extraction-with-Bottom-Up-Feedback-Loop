@@ -1,0 +1,91 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_18d851b60a2a744e_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Integrate public databases, prediction tools, and clinical knowledge sources",
+    "description": "Aggregate and harmonize variant data from diverse public databases, computational prediction tools, and clinical knowledge bases to provide comprehensive interpretation.",
+    "actor": {
+      "name": "Clinician",
+      "description": "Medical professional using variant data for patient diagnosis and treatment."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Aggregate variant data from public databases and prediction tools",
+      "description": "Integrate API calls to fetch and harmonize data from ClinVar, dbSNP, gnomAD, CADD, and other prediction tools into a unified response.",
+      "high_level_associated": {
+        "name": "Integrate public databases, prediction tools, and clinical knowledge sources",
+        "description": "Aggregate and harmonize variant data from diverse public databases, computational prediction tools, and clinical knowledge bases to provide comprehensive interpretation.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on variant retrieval, omitting the original's broader research purpose.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports rapid variant annotation for research purposes; inspect children for specifics.\",\n    \"outcome_justification\": \"Researcher needs fast access to comprehensive annotations for genetic variants' discovery and understanding.\"\n  },\n  {\n    \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes clinical significance scores, neglecting the original's broader interpretation support.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician requires accurate variant interpretation for patient diagnosis and treatment; examine children for specifics.\",\n    \"outcome_justification\": \"Clinician needs to interpret clinical significance of genetic variants to inform patient care.\"\n  },\n  {\n    \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction centers on cancer-specific mutations, ignoring the original's broader analysis support.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher and clinician need to analyze cancer-related mutations; inspect children for specifics.\",\n    \"outcome_justification\": \"Support researchers and clinicians in analyzing and interpreting cancer-specific mutations.\"\n  },\n  {\n    \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on parallel processing, omitting the original's broader high-throughput handling.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher requires efficient handling of large-scale genomic datasets; examine children for specifics.\",\n    \"outcome_justification\": \"Handle high-throughput genomic datasets efficiently for research and clinical applications.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d851b60a2a744e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes data aggregation, neglecting the original's broader integration scope.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician and researcher need comprehensive variant interpretation; inspect children for specifics.\",\n    \"outcome_justification\": \"Integrate public databases, prediction tools, and clinical knowledge sources for comprehensive interpretation.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d52024b385646f_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on DNA-to-protein conversion, omitting the original's broader mapping and functional prediction aspects.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher needs accurate mapping and functional predictions; examine children for specifics.\",\n    \"outcome_justification\": \"Map variants to reference genome assemblies and convert DNA-level changes into protein-level functional impacts.\"\n  },\n  {\n    \"branch_id\": \"hlg_50214718e1e0e929_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction centers on functional prediction, neglecting the original's broader impact assessment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician and researcher need to understand mutation impacts; inspect children for specifics.\",\n    \"outcome_justification\": \"Provide functional predictions about the impact of mutations on proteins for biological and clinical interpretation.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_18d851b60a2a744e_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Clinician and researcher need comprehensive variant interpretation; inspect children for specifics.",
+      "outcome_justification": "Integrate public databases, prediction tools, and clinical knowledge sources for comprehensive interpretation.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on variant retrieval, omitting the original's broader research purpose.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports rapid variant annotation for research purposes; inspect children for specifics.\",\n    \"outcome_justification\": \"Researcher needs fast access to comprehensive annotations for genetic variants' discovery and understanding.\"\n  },\n  {\n    \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes clinical significance scores, neglecting the original's broader interpretation support.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician requires accurate variant interpretation for patient diagnosis and treatment; examine children for specifics.\",\n    \"outcome_justification\": \"Clinician needs to interpret clinical significance of genetic variants to inform patient care.\"\n  },\n  {\n    \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction centers on cancer-specific mutations, ignoring the original's broader analysis support.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher and clinician need to analyze cancer-related mutations; inspect children for specifics.\",\n    \"outcome_justification\": \"Support researchers and clinicians in analyzing and interpreting cancer-specific mutations.\"\n  },\n  {\n    \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on parallel processing, omitting the original's broader high-throughput handling.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher requires efficient handling of large-scale genomic datasets; examine children for specifics.\",\n    \"outcome_justification\": \"Handle high-throughput genomic datasets efficiently for research and clinical applications.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d851b60a2a744e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes data aggregation, neglecting the original's broader integration scope.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician and researcher need comprehensive variant interpretation; inspect children for specifics.\",\n    \"outcome_justification\": \"Integrate public databases, prediction tools, and clinical knowledge sources for comprehensive interpretation.\"\n  },\n  {\n    \"branch_id\": \"hlg_18d52024b385646f_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on DNA-to-protein conversion, omitting the original's broader mapping and functional prediction aspects.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Researcher needs accurate mapping and functional predictions; examine children for specifics.\",\n    \"outcome_justification\": \"Map variants to reference genome assemblies and convert DNA-level changes into protein-level functional impacts.\"\n  },\n  {\n    \"branch_id\": \"hlg_50214718e1e0e929_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction centers on functional prediction, neglecting the original's broader impact assessment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Clinician and researcher need to understand mutation impacts; inspect children for specifics.\",\n    \"outcome_justification\": \"Provide functional predictions about the impact of mutations on proteins for biological and clinical interpretation.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction emphasizes data aggregation, neglecting the original's broader integration scope.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goal (llg_001) focuses on aggregating variant data from public databases and prediction tools, but it does not explicitly mention harmonizing the data into a unified response or supporting integration with external APIs. The reconstructed HLG' emphasizes these aspects, which are essential for comprehensive interpretation. Therefore, the current child is incomplete and requires regeneration to fully realize the parent goal.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":3,\"regeneration_feedback\":\"Preserve data aggregation from public databases and prediction tools; add harmonization into a unified response and support for integration with external APIs; return the full decomposition.\",\"unsupported_or_misleading_llg_ids\":[\"llg_001\"],\"missing_essential_capabilities\":[\"Harmonize variant data into a unified response\",\"Support integration with external APIs\"]}",
+    "parsed_response": {
+      "rationale": "The current low-level goal (llg_001) focuses on aggregating variant data from public databases and prediction tools, but it does not explicitly mention harmonizing the data into a unified response or supporting integration with external APIs. The reconstructed HLG' emphasizes these aspects, which are essential for comprehensive interpretation. Therefore, the current child is incomplete and requires regeneration to fully realize the parent goal.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 3,
+      "regeneration_feedback": "Preserve data aggregation from public databases and prediction tools; add harmonization into a unified response and support for integration with external APIs; return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_001"
+      ],
+      "missing_essential_capabilities": [
+        "Harmonize variant data into a unified response",
+        "Support integration with external APIs"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

@@ -7,42 +7,39 @@
         "chunkCount": 1,
         "originalChars": 228,
         "processedChars": 228,
-        "strategy": "groundtruth_description"
+        "strategy": "groundtruth_description_links_ignored",
+        "linksIgnored": true,
+        "sourceTruncated": false
     },
     "actors": [
-        "App User"
+        "User"
     ],
     "highLevelGoals": [
-        "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app."
+        "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division."
     ],
     "lowLevelGoals": [
-        "The App User wants to input a digit for the first number into the calculator display.",
-        "The App User wants to input a decimal point to create a non-integer number for an operand.",
-        "The App User wants to select the addition operator to specify an addition calculation.",
-        "The App User wants to select the subtraction operator to specify a subtraction calculation.",
-        "The App User wants to select the multiplication operator to specify a multiplication calculation.",
-        "The App User wants to select the division operator to specify a division calculation.",
-        "The App User wants to input a digit for the second number into the calculator display after an operator has been selected.",
-        "The App User wants to trigger the calculation to display the result of the entered expression.",
-        "The App User wants to clear the last entered digit or the current operand being typed.",
-        "The App User wants to clear all operands, operators, and the displayed result to start a new calculation."
+        "The user enters the first operand for the calculation.",
+        "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+        "The user enters the second operand for the calculation.",
+        "The user presses the equals button to execute the selected operation on the two operands.",
+        "The system displays the computed result of the operation on the screen."
     ],
     "structuredActors": {
         "actors": [
             {
-                "name": "App User",
-                "description": "Performs basic calculations using the smartphone app."
+                "name": "User",
+                "description": "A person using the calculator app on their smartphone."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Perform Basic Arithmetic Operations",
-                "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
+                "name": "Perform Basic Calculations",
+                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                 "actor": {
-                    "name": "App User",
-                    "description": "Performs basic calculations using the smartphone app."
+                    "name": "User",
+                    "description": "A person using the calculator app on their smartphone."
                 }
             }
         ]
@@ -50,153 +47,95 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Enter First Operand Digit",
-                "description": "The App User wants to input a digit for the first number into the calculator display.",
+                "name": "Input First Number",
+                "description": "The user enters the first operand for the calculation.",
                 "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                     "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
                     }
                 }
             },
             {
-                "name": "Enter Decimal Point for Operand",
-                "description": "The App User wants to input a decimal point to create a non-integer number for an operand.",
+                "name": "Select Operation",
+                "description": "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
                 "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                     "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
                     }
                 }
             },
             {
-                "name": "Select Addition Operator",
-                "description": "The App User wants to select the addition operator to specify an addition calculation.",
+                "name": "Input Second Number",
+                "description": "The user enters the second operand for the calculation.",
                 "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                     "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
                     }
                 }
             },
             {
-                "name": "Select Subtraction Operator",
-                "description": "The App User wants to select the subtraction operator to specify a subtraction calculation.",
+                "name": "Trigger Calculation",
+                "description": "The user presses the equals button to execute the selected operation on the two operands.",
                 "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                     "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
                     }
                 }
             },
             {
-                "name": "Select Multiplication Operator",
-                "description": "The App User wants to select the multiplication operator to specify a multiplication calculation.",
+                "name": "Display Result",
+                "description": "The system displays the computed result of the operation on the screen.",
                 "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations suchs as addition, subtraction, multiplication, and division using the app.",
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
                     "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
-                    }
-                }
-            },
-            {
-                "name": "Select Division Operator",
-                "description": "The App User wants to select the division operator to specify a division calculation.",
-                "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
-                    "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
-                    }
-                }
-            },
-            {
-                "name": "Enter Second Operand Digit",
-                "description": "The App User wants to input a digit for the second number into the calculator display after an operator has been selected.",
-                "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
-                    "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
-                    }
-                }
-            },
-            {
-                "name": "Execute Calculation",
-                "description": "The App User wants to trigger the calculation to display the result of the entered expression.",
-                "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
-                    "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
-                    }
-                }
-            },
-            {
-                "name": "Clear Current Input",
-                "description": "The App User wants to clear the last entered digit or the current operand being typed.",
-                "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
-                    "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
-                    }
-                }
-            },
-            {
-                "name": "Clear All Inputs and Result",
-                "description": "The App User wants to clear all operands, operators, and the displayed result to start a new calculation.",
-                "high_level_associated": {
-                    "name": "Perform Basic Arithmetic Operations",
-                    "description": "The App User wants to accurately and efficiently perform fundamental mathematical calculations such as addition, subtraction, multiplication, and division using the app.",
-                    "actor": {
-                        "name": "App User",
-                        "description": "Performs basic calculations using the smartphone app."
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
                     }
                 }
             }
         ]
     },
     "baselineScores": {
-        "actors": 10.0,
+        "actors": 7.0,
         "highLevelGoals": 10.0,
         "lowLevelGoals": 10.0
     },
     "baselineCritiques": {
-        "actors": "The identified actor \"App User\" is accurate and complete for the described system. The software is a simple calculator app, and the primary (and only) active entity interacting with it to achieve the goal of performing calculations is the user. There are no other stakeholders or external systems mentioned that would constitute additional actors in this context.",
-        "highLevelGoals": "The provided high-level goal is accurate and consistent with the description, which explicitly limits the initial version to \"basic calculations.\" The goal correctly identifies the actor and the functional intent. There are no contradictions or significant omissions relative to the specific scope defined in the text (initial version).",
-        "lowLevelGoals": "The low-level goals are well-defined, functional, and directly support the high-level goal of performing basic arithmetic operations. They cover the necessary actions for input (digits, decimals), operator selection (add, sub, mul, div), execution, and clearing. There are no contradictions, out-of-context goals, or major omissions relative to the description of a \"simple calculator\" for \"basic calculations.\" The granularity is appropriate for user actions."
+        "actors": "The actor \"User\" is correctly identified as the primary end user of the calculator app. However, there may be additional actors to consider, such as a \"Developer\" (for future iterations or maintenance) or an \"Administrator\" (if the app requires system-level management). While the current description focuses on the initial version, these roles could become relevant in later stages.",
+        "highLevelGoals": "The high-level goals are correctly aligned with the software description, focusing solely on functional requirements for a basic calculator app. No contradictions or omissions are present, and the goals are clear and representative of the system's purpose.",
+        "lowLevelGoals": "The low-level goals are well-defined, functional, and directly correspond to the user's actions for performing basic calculations. They cover all necessary steps from inputting numbers to displaying the result, aligning perfectly with the high-level goal of enabling fundamental arithmetic operations."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; configured Gemini/Qwen clients",
-        "generatorModel": "gemini-2.5-flash",
+        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
         "highLevelGoalPromptingMode": "ZERO_SHOT",
         "lowLevelGoalPromptingMode": "ZERO_SHOT",
         "highLevelGoalEvaluatorEnabled": true,
         "lowLevelGoalEvaluatorEnabled": true,
-        "goalEvaluatorModel": "qwen/qwen3.8-27b",
+        "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
         "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "evaluatorMaxInputChars": 24000,
-        "evaluatorDescriptionMaxChars": 1800
+        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
+        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
+        "maxOutputTokens": 32768
     },
     "pipelineConfiguration": {
         "actors": {
@@ -216,37 +155,981 @@
         "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
     },
     "baselineSourceFile": "Calculator_ZERO_SHOT_feedback_original_top_down_top_down.json",
+    "bottomUpRunProfile": "with_completeness",
     "bottomUpInputSource": "structured baseline fields",
     "bottomUpModelConfiguration": {
-        "generatorProvider": "Google Gemini",
-        "generatorModel": "gemini-2.5-flash",
-        "evaluatorProvider": "Groq",
-        "evaluatorModel": "qwen/qwen3.8-27b",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
+        "evaluatorProvider": "LM Studio (local)",
+        "evaluatorModels": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+        ],
+        "evaluatorPromptingMode": "FEW_SHOT",
+        "hlgEvaluatorFewShotExamples": 4,
+        "llgEvaluatorFewShotExamples": 4,
+        "completenessEvaluatorModels": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+        ],
+        "completenessPromptingMode": "FEW_SHOT",
+        "completenessFewShotExamples": 4,
+        "generationReflectionEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
         "evaluatorVoters": 3,
         "evaluatorVotingQuorum": 2,
+        "evaluatorArtifactQualityThreshold": 4,
+        "hlgVotingPolicy": "MAJORITY_2_OF_3",
+        "hlgConsolidationPolicy": "SAME_ACTIVE_ACTOR_GROUP_QUORUM_ATOMIC_REWRITE",
+        "hlgDuplicateAuditPolicy": "FULL_REGISTRY_BEFORE_KEEP_STABLE_SURVIVOR_V1",
+        "hlgResponsePolicy": "ONE_GLOBAL_RESPONSE_STRUCTURAL_DECISIONS_AND_SEPARATE_DIAGNOSES",
+        "hlgOperationalFieldsSource": "PYTHON_DERIVED",
+        "critic1Scope": "ONE_COMPLETE_LIST_REVIEW_PER_MODEL_PER_ITERATION",
+        "reconstructionDiagnosisPolicy": "INDEPENDENT_OF_STRUCTURAL_ACTION_AT_LEAST_TWO_VALID_DIAGNOSES",
+        "structuralChangesBeforeNormalLlgRepair": true,
+        "maxOverSpecificHlgRemovalsPerIteration": null,
+        "hlgCurrentBranchExplicit": true,
+        "hlgRemovalReferencesValidatedBeforeVoting": true,
+        "llgVotingPolicy": "MAJORITY_2_OF_3",
+        "crossLevelPolicy": "MODEL_AUDIT_NO_LLG_VERDICT_OVERRIDE",
+        "llgPolicyVersion": "majority_no_override_v1",
+        "repairFailurePolicy": "RETRY_NEXT_ITERATION_THEN_CONFIRM_AFTER_TWO_REJECTIONS_V1",
+        "repairRejectedCycleLimit": 2,
+        "parentReferencePolicy": "EXACT_PARENT_REFERENCE_NO_REPAIR",
+        "repairFormatRetriesReuseCandidate": true,
+        "auditLlgForEveryKeptHlg": false,
+        "evaluatorExecution": "RECONSTRUCT_THEN_GLOBAL_CRITIC1_THEN_CONDITIONAL_LLG_THEN_COMPLETENESS",
+        "branchConfirmationPolicy": "REEVALUATE_ALL_BRANCHES_EVERY_ITERATION",
+        "confirmedRedundancyPolicy": "REEVALUATE_CONFIRMED_SOURCES_AND_PRESERVE_SURVIVING_COVER",
+        "maxHlgRewritesPerLineage": 3,
+        "hlgRewriteLimitPolicy": "KEEP_SCORE_4_AND_REQUIRE_LLG_AUDIT",
+        "llgAuditBeforeHlgAggregation": false,
+        "completenessComputedPerCritic": true,
+        "completenessApplicationGate": "ALL_BRANCHES_CONFIRMED",
+        "completenessEvaluationGate": "ALL_BRANCHES_CONFIRMED",
+        "completenessPreliminaryVotesEnabled": false,
+        "completenessInputPolicy": "FULL_SOURCE_ALL_CURRENT_HLGS_KNOWN_ACTORS",
+        "completenessVotingPolicy": "MAJORITY_2_OF_3_MERGE_POSITIVE_REQUESTS_BY_ACTOR",
+        "reconstructionExecution": "ONE_QWEN_LEASE_PER_BRANCH_BATCH",
+        "evaluatorContextLength": 8192,
         "evaluatorVotingTemperature": 0.2,
         "evaluatorVoteAttempts": 3,
+        "datasetBatchSize": 3,
+        "interDatasetDelaySeconds": 0,
+        "interBatchDelaySeconds": 0,
         "hlgGenerationPromptingMode": "ZERO_SHOT",
         "llgGenerationPromptingMode": "ZERO_SHOT",
         "hlgGenerationEvaluatorEnabled": true,
         "llgGenerationEvaluatorEnabled": true,
         "generationCriticFewShotExamples": 4,
         "maxIterations": 25,
-        "qualityThreshold": 8.0,
-        "maxReflectionAttempts": 5,
-        "criticConversationScope": "PER_PROJECT_BOTTOM_UP_ONLY",
-        "criticMemoryTurns": 4,
-        "criticStateUpdates": 2,
-        "criticHistoryMaxChars": 1000,
-        "evaluatorMaxCompletionTokens": 700,
-        "previousIterationStateIncluded": true,
-        "hlgDiscoveryEnabled": false,
-        "missingHlgActorPolicy": null,
+        "qualityThreshold": 8.5,
+        "maxReflectionAttempts": 3,
+        "pipelinePolicyVersion": "reconstruction_first_critic1_v31",
+        "criticConversationScope": "STATELESS_CURRENT_FACTS_ONLY",
+        "hlgCriticInputPolicy": "FULL_SOURCE_ALL_ORIGINAL_HLGS_ALL_RECONSTRUCTIONS_NO_CHILDREN",
+        "llgCriticUpstreamVerdictIncluded": false,
+        "llgCriticRoutingPolicy": "KEEP_AND_NON_EQUIVALENT_OR_EMPTY",
+        "llgCriticReconstructionIncluded": true,
+        "llgReplacementPolicy": "ENTIRE_DECOMPOSITION",
+        "repairContextPolicy": "FULL_SOURCE_TARGET_CHILDREN_BOUNDARIES",
+        "repairRationaleRequired": true,
+        "criticDecisionOutputLayout": "PER_MODEL_PER_ITERATION_PER_BRANCH",
+        "criticMemoryTurns": 0,
+        "criticStateUpdates": 0,
+        "criticHistoryMaxChars": 0,
+        "evaluatorMaxCompletionTokens": 4096,
+        "previousIterationStateIncluded": false,
+        "completenessAnalysisRequired": true,
+        "missingHlgActorPolicy": "EXISTING_ACTORS_ONLY",
         "maxHlgRewritesPerIteration": 2,
         "maxHlgRemovalsPerIteration": 2,
+        "maxDuplicateHlgRemovalsPerIteration": null,
         "maxLlgRegenerationsPerIteration": 2,
-        "missingHlgDiscoveryLimit": null
+        "missingHlgCompletenessLimit": 3
     },
     "evaluationOutputDirectory": "C:\\Users\\agnes\\Desktop\\tesi originale\\LLM_MultiAgentChain_GoalOrientedAPIAlignement\\output\\bottom_up_iterations\\Calculator_ZERO_SHOT_feedback_original_top_down",
-    "bottomUpError": "ValueError: The top-down baseline is inconsistent: these embedded LLG parents are absent from structuredHighLevelGoals: App User::Perform Basic Arithmetic Operations. Regenerate the top-down baseline before running bottom-up."
+    "globalGoalCycle": {
+        "converged": true,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED",
+        "completed_iterations": 1,
+        "final_high_level_goals": {
+            "goals": [
+                {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            ]
+        },
+        "final_low_level_goals": {
+            "low_level_goals": [
+                {
+                    "name": "Input First Number",
+                    "description": "The user enters the first operand for the calculation.",
+                    "high_level_associated": {
+                        "name": "Perform Basic Calculations",
+                        "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                        "actor": {
+                            "name": "User",
+                            "description": "A person using the calculator app on their smartphone."
+                        }
+                    }
+                },
+                {
+                    "name": "Select Operation",
+                    "description": "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+                    "high_level_associated": {
+                        "name": "Perform Basic Calculations",
+                        "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                        "actor": {
+                            "name": "User",
+                            "description": "A person using the calculator app on their smartphone."
+                        }
+                    }
+                },
+                {
+                    "name": "Input Second Number",
+                    "description": "The user enters the second operand for the calculation.",
+                    "high_level_associated": {
+                        "name": "Perform Basic Calculations",
+                        "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                        "actor": {
+                            "name": "User",
+                            "description": "A person using the calculator app on their smartphone."
+                        }
+                    }
+                },
+                {
+                    "name": "Trigger Calculation",
+                    "description": "The user presses the equals button to execute the selected operation on the two operands.",
+                    "high_level_associated": {
+                        "name": "Perform Basic Calculations",
+                        "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                        "actor": {
+                            "name": "User",
+                            "description": "A person using the calculator app on their smartphone."
+                        }
+                    }
+                },
+                {
+                    "name": "Display Result",
+                    "description": "The system displays the computed result of the operation on the screen.",
+                    "high_level_associated": {
+                        "name": "Perform Basic Calculations",
+                        "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                        "actor": {
+                            "name": "User",
+                            "description": "A person using the calculator app on their smartphone."
+                        }
+                    }
+                }
+            ]
+        },
+        "iterations": [
+            {
+                "iteration": 1,
+                "reconstructions": {
+                    "hlg_342521cf6fdd0795_001": {
+                        "reconstructed_high_level_goal": "Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.",
+                        "rationale": "llg_001 enables user input of the first operand; llg_002 enables selection of an arithmetic operation (addition, subtraction, multiplication, or division); llg_003 enables user input of the second operand; llg_004 triggers the calculation based on the selected operation and operands; llg_005 displays the computed result. Together, these form a complete sequence for performing and displaying a single arithmetic operation on two operands, with no inferred or omitted functionality.",
+                        "branch_id": "hlg_342521cf6fdd0795_001",
+                        "source_low_level_goal_ids": [
+                            "Input First Number",
+                            "Select Operation",
+                            "Input Second Number",
+                            "Trigger Calculation",
+                            "Display Result"
+                        ],
+                        "source_low_level_goal_map": null
+                    }
+                },
+                "evaluations": {
+                    "hlg_342521cf6fdd0795_001": {
+                        "branch_id": "hlg_342521cf6fdd0795_001",
+                        "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Model votes: mistralai/ministral-3-14b-reasoning=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, ibm/granite-3.2-8b=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, google/gemma-4-12b-qat=KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Aggregation policy: MAJORITY. The original parent expresses a user outcome, not an internal capability. Outcome: User performs basic calculations; reconstruction describes system behavior. Reconstruction: Reconstruction omits the 'enable' aspect and focuses on implementation details. Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. Model votes: mistralai/ministral-3-14b-reasoning=KEEP_LOW_LEVEL_GOALS, ibm/granite-3.2-8b=KEEP_LOW_LEVEL_GOALS, google/gemma-4-12b-qat=REGENERATE_LOW_LEVEL_GOALS. Aggregation policy: MAJORITY. The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.",
+                        "final_decision": "CONFIRM_BRANCH",
+                        "high_level_evaluation": {
+                            "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Model votes: mistralai/ministral-3-14b-reasoning=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, ibm/granite-3.2-8b=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, google/gemma-4-12b-qat=KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Aggregation policy: MAJORITY. The original parent expresses a user outcome, not an internal capability. Outcome: User performs basic calculations; reconstruction describes system behavior. Reconstruction: Reconstruction omits the 'enable' aspect and focuses on implementation details.",
+                            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                            "quality_score": 4,
+                            "quality_score_origin": "structural_decision_policy",
+                            "reconstruction_relationship": "PARTIAL_OVERLAP",
+                            "structural_decision": {
+                                "branch_id": "hlg_342521cf6fdd0795_001",
+                                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                "rationale": "Voting result 3/3 for KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Model votes: mistralai/ministral-3-14b-reasoning=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, ibm/granite-3.2-8b=KEEP_ORIGINAL_HIGH_LEVEL_GOAL, google/gemma-4-12b-qat=KEEP_ORIGINAL_HIGH_LEVEL_GOAL. Aggregation policy: MAJORITY. The original parent expresses a user outcome, not an internal capability.",
+                                "outcome_justification": "User performs basic calculations; reconstruction describes system behavior.",
+                                "rewriting_focus": null,
+                                "consolidate_with_branch_ids": [],
+                                "removal_basis": null,
+                                "covered_by_branch_id": null,
+                                "covered_by_high_level_goal_name": null,
+                                "voter_count": 3,
+                                "valid_vote_count": 3,
+                                "winning_vote_count": 3,
+                                "vote_distribution": {
+                                    "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+                                },
+                                "evaluator_votes": [
+                                    {
+                                        "model": "mistralai/ministral-3-14b-reasoning",
+                                        "status": "VALID",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 'enable' aspect and focuses on implementation details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent expresses a user outcome, not an internal capability.\",\n      \"outcome_justification\": \"User performs basic calculations; reconstruction describes system behavior.\"\n    }\n  ]\n}\n```",
+                                        "parsed_response": {
+                                            "branch_id": "hlg_342521cf6fdd0795_001",
+                                            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                            "rationale": "The original parent expresses a user outcome, not an internal capability.",
+                                            "outcome_justification": "User performs basic calculations; reconstruction describes system behavior.",
+                                            "rewriting_focus": null,
+                                            "consolidate_with_branch_ids": [],
+                                            "removal_basis": null,
+                                            "covered_by_branch_id": null,
+                                            "covered_by_high_level_goal_name": null,
+                                            "voter_count": 1,
+                                            "valid_vote_count": 1,
+                                            "winning_vote_count": 1,
+                                            "vote_distribution": {},
+                                            "evaluator_votes": []
+                                        },
+                                        "error": null
+                                    },
+                                    {
+                                        "model": "ibm/granite-3.2-8b",
+                                        "status": "VALID",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the original parent's intent to perform basic calculations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no narrowing or inference is needed.\",\n      \"outcome_justification\": \"User performs fundamental arithmetic operations using the calculator app.\"\n    }\n  ]\n}\n\nRationale: The reconstructed HLG matches the original parent's name and description, expressing the same essential outcome. There are no discrepancies in capabilities or actor responsibilities. The original HLG is independently useful and distinct from other parents, focusing on basic calculations without overlap or redundancy.",
+                                        "parsed_response": {
+                                            "branch_id": "hlg_342521cf6fdd0795_001",
+                                            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                            "rationale": "The source supports the complete parent; no narrowing or inference is needed.",
+                                            "outcome_justification": "User performs fundamental arithmetic operations using the calculator app.",
+                                            "rewriting_focus": null,
+                                            "consolidate_with_branch_ids": [],
+                                            "removal_basis": null,
+                                            "covered_by_branch_id": null,
+                                            "covered_by_high_level_goal_name": null,
+                                            "voter_count": 1,
+                                            "valid_vote_count": 1,
+                                            "winning_vote_count": 1,
+                                            "vote_distribution": {},
+                                            "evaluator_votes": []
+                                        },
+                                        "error": null
+                                    },
+                                    {
+                                        "model": "google/gemma-4-12b-qat",
+                                        "status": "VALID",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_342521cf6fdd0795_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures all fundamental arithmetic operations described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a source-grounded, independent goal that is not redundant or over-specific.\",\"outcome_justification\":\"User performs fundamental arithmetic operations; this is the primary functional core of the app.\"}]}",
+                                        "parsed_response": {
+                                            "branch_id": "hlg_342521cf6fdd0795_001",
+                                            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                            "rationale": "The parent is a source-grounded, independent goal that is not redundant or over-specific.",
+                                            "outcome_justification": "User performs fundamental arithmetic operations; this is the primary functional core of the app.",
+                                            "rewriting_focus": null,
+                                            "consolidate_with_branch_ids": [],
+                                            "removal_basis": null,
+                                            "covered_by_branch_id": null,
+                                            "covered_by_high_level_goal_name": null,
+                                            "voter_count": 1,
+                                            "valid_vote_count": 1,
+                                            "winning_vote_count": 1,
+                                            "vote_distribution": {},
+                                            "evaluator_votes": []
+                                        },
+                                        "error": null
+                                    }
+                                ]
+                            },
+                            "requires_llg_evaluation": true,
+                            "rewrite_limit_reached": false,
+                            "post_repair_llg_audit_required": false,
+                            "rewriting_focus": null,
+                            "consolidate_with_branch_ids": [],
+                            "removal_basis": null,
+                            "covered_by_branch_id": null,
+                            "covered_by_high_level_goal_name": null,
+                            "voter_count": 3,
+                            "valid_vote_count": 3,
+                            "winning_vote_count": 3,
+                            "vote_distribution": {
+                                "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 3
+                            },
+                            "operation_vote_distribution": {},
+                            "evaluator_votes": [
+                                {
+                                    "model": "mistralai/ministral-3-14b-reasoning",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 'enable' aspect and focuses on implementation details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent expresses a user outcome, not an internal capability.\",\n      \"outcome_justification\": \"User performs basic calculations; reconstruction describes system behavior.\"\n    }\n  ]\n}\n```",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The original parent expresses a user outcome, not an internal capability.",
+                                        "outcome_justification": "User performs basic calculations; reconstruction describes system behavior.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "ibm/granite-3.2-8b",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the original parent's intent to perform basic calculations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no narrowing or inference is needed.\",\n      \"outcome_justification\": \"User performs fundamental arithmetic operations using the calculator app.\"\n    }\n  ]\n}\n\nRationale: The reconstructed HLG matches the original parent's name and description, expressing the same essential outcome. There are no discrepancies in capabilities or actor responsibilities. The original HLG is independently useful and distinct from other parents, focusing on basic calculations without overlap or redundancy.",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The source supports the complete parent; no narrowing or inference is needed.",
+                                        "outcome_justification": "User performs fundamental arithmetic operations using the calculator app.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "google/gemma-4-12b-qat",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_342521cf6fdd0795_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures all fundamental arithmetic operations described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a source-grounded, independent goal that is not redundant or over-specific.\",\"outcome_justification\":\"User performs fundamental arithmetic operations; this is the primary functional core of the app.\"}]}",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The parent is a source-grounded, independent goal that is not redundant or over-specific.",
+                                        "outcome_justification": "User performs fundamental arithmetic operations; this is the primary functional core of the app.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                }
+                            ]
+                        },
+                        "replacement_request": null,
+                        "low_level_evaluation": {
+                            "rationale": "Voting result 2/3 for KEEP_LOW_LEVEL_GOALS. Model votes: mistralai/ministral-3-14b-reasoning=KEEP_LOW_LEVEL_GOALS, ibm/granite-3.2-8b=KEEP_LOW_LEVEL_GOALS, google/gemma-4-12b-qat=REGENERATE_LOW_LEVEL_GOALS. Aggregation policy: MAJORITY. The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.",
+                            "decision": "KEEP_LOW_LEVEL_GOALS",
+                            "quality_score": 5,
+                            "regeneration_feedback": null,
+                            "unsupported_or_misleading_llg_ids": [],
+                            "missing_essential_capabilities": [],
+                            "voter_count": 3,
+                            "valid_vote_count": 3,
+                            "winning_vote_count": 2,
+                            "vote_distribution": {
+                                "KEEP_LOW_LEVEL_GOALS": 2,
+                                "REGENERATE_LOW_LEVEL_GOALS": 1
+                            },
+                            "evaluator_votes": [
+                                {
+                                    "model": "mistralai/ministral-3-14b-reasoning",
+                                    "status": "VALID",
+                                    "decision": "KEEP_LOW_LEVEL_GOALS",
+                                    "raw_response": "```json\n{\n  \"rationale\": \"The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+                                    "parsed_response": {
+                                        "rationale": "The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.",
+                                        "decision": "KEEP_LOW_LEVEL_GOALS",
+                                        "quality_score": 5,
+                                        "regeneration_feedback": null,
+                                        "unsupported_or_misleading_llg_ids": [],
+                                        "missing_essential_capabilities": [],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "ibm/granite-3.2-8b",
+                                    "status": "VALID",
+                                    "decision": "KEEP_LOW_LEVEL_GOALS",
+                                    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Perform Basic Calculations'. Each LLG corresponds to a distinct, documented functional interaction or effect required for the user to perform basic calculations. The LLGs include inputting operands (llg_001 and llg_003), selecting an operation (llg_002), triggering calculation (llg_004), and displaying results (llg_005). These actions align with the source description of a smartphone calculator app enabling fundamental arithmetic operations. No essential capability is missing, and there are no redundancies or misleading LLGs. The reconstructed HLG' accurately summarizes the parent HLG without introducing new requirements or omissions.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nquality_score: 5\\nregeneration_feedback: null\\nunsupported_or_misleading_llg_ids: []\\nmissing_essential_capabilities: []\", \"decision\": \"KEEP_LOW_LEVEL_GOALS\", \"quality_score\": 5, \"regeneration_feedback\": null, \"unsupported_or_misleading_llg_ids\": [], \"missing_essential_capabilities\": []}",
+                                    "parsed_response": {
+                                        "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Perform Basic Calculations'. Each LLG corresponds to a distinct, documented functional interaction or effect required for the user to perform basic calculations. The LLGs include inputting operands (llg_001 and llg_003), selecting an operation (llg_002), triggering calculation (llg_004), and displaying results (llg_005). These actions align with the source description of a smartphone calculator app enabling fundamental arithmetic operations. No essential capability is missing, and there are no redundancies or misleading LLGs. The reconstructed HLG' accurately summarizes the parent HLG without introducing new requirements or omissions.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nquality_score: 5\nregeneration_feedback: null\nunsupported_or_misleading_llg_ids: []\nmissing_essential_capabilities: []",
+                                        "decision": "KEEP_LOW_LEVEL_GOALS",
+                                        "quality_score": 5,
+                                        "regeneration_feedback": null,
+                                        "unsupported_or_misleading_llg_ids": [],
+                                        "missing_essential_capabilities": [],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "google/gemma-4-12b-qat",
+                                    "status": "VALID",
+                                    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+                                    "raw_response": "```json\n{\n  \"rationale\": \"The children decompose the parent goal into UI-centric steps (inputting numbers, selecting operation, pressing a button) rather than the functional capabilities described in the source and parent. The source specifies the app allows users to 'do basic calculations' (addition, subtraction, multiplication, division). The current decomposition fragments the single capability of performing a calculation into multiple UI interactions (llg_001, llg_002, llg_003, llg_004), which is a violation of the requirement to avoid UI mechanics and focus on functional effects.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Remove the UI-fragmented steps (llg_001, llg_002, llg_003, llg_004) and replace them with a single functional goal for performing the arithmetic operations; preserve the display of the result (llg_005); return the entire corrected decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [\n    \"llg_001\",\n    \"llg_002\",\n    \"llg_003\",\n    \"llg_004\"\n  ],\n  \"missing_essential_capabilities\": [\n    \"Perform addition, subtraction, multiplication, and division operations\"\n  ]\n}\n```",
+                                    "parsed_response": {
+                                        "rationale": "The children decompose the parent goal into UI-centric steps (inputting numbers, selecting operation, pressing a button) rather than the functional capabilities described in the source and parent. The source specifies the app allows users to 'do basic calculations' (addition, subtraction, multiplication, division). The current decomposition fragments the single capability of performing a calculation into multiple UI interactions (llg_001, llg_002, llg_003, llg_004), which is a violation of the requirement to avoid UI mechanics and focus on functional effects.",
+                                        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+                                        "quality_score": 2,
+                                        "regeneration_feedback": "Remove the UI-fragmented steps (llg_001, llg_002, llg_003, llg_004) and replace them with a single functional goal for performing the arithmetic operations; preserve the display of the result (llg_005); return the entire corrected decomposition.",
+                                        "unsupported_or_misleading_llg_ids": [
+                                            "llg_001",
+                                            "llg_002",
+                                            "llg_003",
+                                            "llg_004"
+                                        ],
+                                        "missing_essential_capabilities": [
+                                            "Perform addition, subtraction, multiplication, and division operations"
+                                        ],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                }
+                            ]
+                        },
+                        "critic_votes": {
+                            "hlg": [
+                                {
+                                    "model": "mistralai/ministral-3-14b-reasoning",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 'enable' aspect and focuses on implementation details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent expresses a user outcome, not an internal capability.\",\n      \"outcome_justification\": \"User performs basic calculations; reconstruction describes system behavior.\"\n    }\n  ]\n}\n```",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The original parent expresses a user outcome, not an internal capability.",
+                                        "outcome_justification": "User performs basic calculations; reconstruction describes system behavior.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "ibm/granite-3.2-8b",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the original parent's intent to perform basic calculations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no narrowing or inference is needed.\",\n      \"outcome_justification\": \"User performs fundamental arithmetic operations using the calculator app.\"\n    }\n  ]\n}\n\nRationale: The reconstructed HLG matches the original parent's name and description, expressing the same essential outcome. There are no discrepancies in capabilities or actor responsibilities. The original HLG is independently useful and distinct from other parents, focusing on basic calculations without overlap or redundancy.",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The source supports the complete parent; no narrowing or inference is needed.",
+                                        "outcome_justification": "User performs fundamental arithmetic operations using the calculator app.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "google/gemma-4-12b-qat",
+                                    "status": "VALID",
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_342521cf6fdd0795_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures all fundamental arithmetic operations described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a source-grounded, independent goal that is not redundant or over-specific.\",\"outcome_justification\":\"User performs fundamental arithmetic operations; this is the primary functional core of the app.\"}]}",
+                                    "parsed_response": {
+                                        "branch_id": "hlg_342521cf6fdd0795_001",
+                                        "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                        "rationale": "The parent is a source-grounded, independent goal that is not redundant or over-specific.",
+                                        "outcome_justification": "User performs fundamental arithmetic operations; this is the primary functional core of the app.",
+                                        "rewriting_focus": null,
+                                        "consolidate_with_branch_ids": [],
+                                        "removal_basis": null,
+                                        "covered_by_branch_id": null,
+                                        "covered_by_high_level_goal_name": null,
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                }
+                            ],
+                            "reconstruction": [
+                                {
+                                    "model": "mistralai/ministral-3-14b-reasoning",
+                                    "status": "VALID",
+                                    "decision": "PARTIAL_OVERLAP",
+                                    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 'enable' aspect and focuses on implementation details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent expresses a user outcome, not an internal capability.\",\n      \"outcome_justification\": \"User performs basic calculations; reconstruction describes system behavior.\"\n    }\n  ]\n}\n```",
+                                    "parsed_response": {
+                                        "reconstruction_relationship": "PARTIAL_OVERLAP",
+                                        "rationale": "Reconstruction omits the 'enable' aspect and focuses on implementation details.",
+                                        "matches_branch_id": null
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "ibm/granite-3.2-8b",
+                                    "status": "VALID",
+                                    "decision": "EQUIVALENT",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the original parent's intent to perform basic calculations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no narrowing or inference is needed.\",\n      \"outcome_justification\": \"User performs fundamental arithmetic operations using the calculator app.\"\n    }\n  ]\n}\n\nRationale: The reconstructed HLG matches the original parent's name and description, expressing the same essential outcome. There are no discrepancies in capabilities or actor responsibilities. The original HLG is independently useful and distinct from other parents, focusing on basic calculations without overlap or redundancy.",
+                                    "parsed_response": {
+                                        "reconstruction_relationship": "EQUIVALENT",
+                                        "rationale": "The reconstruction accurately captures the original parent's intent to perform basic calculations.",
+                                        "matches_branch_id": null
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "google/gemma-4-12b-qat",
+                                    "status": "VALID",
+                                    "decision": "EQUIVALENT",
+                                    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_342521cf6fdd0795_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures all fundamental arithmetic operations described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a source-grounded, independent goal that is not redundant or over-specific.\",\"outcome_justification\":\"User performs fundamental arithmetic operations; this is the primary functional core of the app.\"}]}",
+                                    "parsed_response": {
+                                        "reconstruction_relationship": "EQUIVALENT",
+                                        "rationale": "The reconstruction captures all fundamental arithmetic operations described in the parent.",
+                                        "matches_branch_id": null
+                                    },
+                                    "error": null
+                                }
+                            ],
+                            "llg": [
+                                {
+                                    "model": "mistralai/ministral-3-14b-reasoning",
+                                    "status": "VALID",
+                                    "decision": "KEEP_LOW_LEVEL_GOALS",
+                                    "raw_response": "```json\n{\n  \"rationale\": \"The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+                                    "parsed_response": {
+                                        "rationale": "The provided low-level goals (llg_001 to llg_005) correctly and completely realize the parent goal 'Perform Basic Calculations'. Each child corresponds to a documented functional interaction or effect required for basic arithmetic operations: inputting operands, selecting an operation, triggering computation, and displaying the result. There is no duplication, and all essential capabilities are covered without introducing undocumented features.",
+                                        "decision": "KEEP_LOW_LEVEL_GOALS",
+                                        "quality_score": 5,
+                                        "regeneration_feedback": null,
+                                        "unsupported_or_misleading_llg_ids": [],
+                                        "missing_essential_capabilities": [],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "ibm/granite-3.2-8b",
+                                    "status": "VALID",
+                                    "decision": "KEEP_LOW_LEVEL_GOALS",
+                                    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Perform Basic Calculations'. Each LLG corresponds to a distinct, documented functional interaction or effect required for the user to perform basic calculations. The LLGs include inputting operands (llg_001 and llg_003), selecting an operation (llg_002), triggering calculation (llg_004), and displaying results (llg_005). These actions align with the source description of a smartphone calculator app enabling fundamental arithmetic operations. No essential capability is missing, and there are no redundancies or misleading LLGs. The reconstructed HLG' accurately summarizes the parent HLG without introducing new requirements or omissions.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nquality_score: 5\\nregeneration_feedback: null\\nunsupported_or_misleading_llg_ids: []\\nmissing_essential_capabilities: []\", \"decision\": \"KEEP_LOW_LEVEL_GOALS\", \"quality_score\": 5, \"regeneration_feedback\": null, \"unsupported_or_misleading_llg_ids\": [], \"missing_essential_capabilities\": []}",
+                                    "parsed_response": {
+                                        "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of 'Perform Basic Calculations'. Each LLG corresponds to a distinct, documented functional interaction or effect required for the user to perform basic calculations. The LLGs include inputting operands (llg_001 and llg_003), selecting an operation (llg_002), triggering calculation (llg_004), and displaying results (llg_005). These actions align with the source description of a smartphone calculator app enabling fundamental arithmetic operations. No essential capability is missing, and there are no redundancies or misleading LLGs. The reconstructed HLG' accurately summarizes the parent HLG without introducing new requirements or omissions.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nquality_score: 5\nregeneration_feedback: null\nunsupported_or_misleading_llg_ids: []\nmissing_essential_capabilities: []",
+                                        "decision": "KEEP_LOW_LEVEL_GOALS",
+                                        "quality_score": 5,
+                                        "regeneration_feedback": null,
+                                        "unsupported_or_misleading_llg_ids": [],
+                                        "missing_essential_capabilities": [],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                },
+                                {
+                                    "model": "google/gemma-4-12b-qat",
+                                    "status": "VALID",
+                                    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+                                    "raw_response": "```json\n{\n  \"rationale\": \"The children decompose the parent goal into UI-centric steps (inputting numbers, selecting operation, pressing a button) rather than the functional capabilities described in the source and parent. The source specifies the app allows users to 'do basic calculations' (addition, subtraction, multiplication, division). The current decomposition fragments the single capability of performing a calculation into multiple UI interactions (llg_001, llg_002, llg_003, llg_004), which is a violation of the requirement to avoid UI mechanics and focus on functional effects.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Remove the UI-fragmented steps (llg_001, llg_002, llg_003, llg_004) and replace them with a single functional goal for performing the arithmetic operations; preserve the display of the result (llg_005); return the entire corrected decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [\n    \"llg_001\",\n    \"llg_002\",\n    \"llg_003\",\n    \"llg_004\"\n  ],\n  \"missing_essential_capabilities\": [\n    \"Perform addition, subtraction, multiplication, and division operations\"\n  ]\n}\n```",
+                                    "parsed_response": {
+                                        "rationale": "The children decompose the parent goal into UI-centric steps (inputting numbers, selecting operation, pressing a button) rather than the functional capabilities described in the source and parent. The source specifies the app allows users to 'do basic calculations' (addition, subtraction, multiplication, division). The current decomposition fragments the single capability of performing a calculation into multiple UI interactions (llg_001, llg_002, llg_003, llg_004), which is a violation of the requirement to avoid UI mechanics and focus on functional effects.",
+                                        "decision": "REGENERATE_LOW_LEVEL_GOALS",
+                                        "quality_score": 2,
+                                        "regeneration_feedback": "Remove the UI-fragmented steps (llg_001, llg_002, llg_003, llg_004) and replace them with a single functional goal for performing the arithmetic operations; preserve the display of the result (llg_005); return the entire corrected decomposition.",
+                                        "unsupported_or_misleading_llg_ids": [
+                                            "llg_001",
+                                            "llg_002",
+                                            "llg_003",
+                                            "llg_004"
+                                        ],
+                                        "missing_essential_capabilities": [
+                                            "Perform addition, subtraction, multiplication, and division operations"
+                                        ],
+                                        "voter_count": 1,
+                                        "valid_vote_count": 1,
+                                        "winning_vote_count": 1,
+                                        "vote_distribution": {},
+                                        "evaluator_votes": []
+                                    },
+                                    "error": null
+                                }
+                            ]
+                        },
+                        "evaluation_status": "DECIDED"
+                    }
+                },
+                "critic1_global_votes": [
+                    {
+                        "model": "mistralai/ministral-3-14b-reasoning",
+                        "status": "VALID",
+                        "decision": null,
+                        "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 'enable' aspect and focuses on implementation details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent expresses a user outcome, not an internal capability.\",\n      \"outcome_justification\": \"User performs basic calculations; reconstruction describes system behavior.\"\n    }\n  ]\n}\n```",
+                        "parsed_response": {
+                            "decisions": [
+                                {
+                                    "branch_id": "hlg_342521cf6fdd0795_001",
+                                    "reconstruction_diagnosis": {
+                                        "reconstruction_relationship": "PARTIAL_OVERLAP",
+                                        "rationale": "Reconstruction omits the 'enable' aspect and focuses on implementation details."
+                                    },
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "rationale": "The original parent expresses a user outcome, not an internal capability.",
+                                    "outcome_justification": "User performs basic calculations; reconstruction describes system behavior."
+                                }
+                            ]
+                        },
+                        "error": null
+                    },
+                    {
+                        "model": "ibm/granite-3.2-8b",
+                        "status": "VALID",
+                        "decision": null,
+                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the original parent's intent to perform basic calculations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no narrowing or inference is needed.\",\n      \"outcome_justification\": \"User performs fundamental arithmetic operations using the calculator app.\"\n    }\n  ]\n}\n\nRationale: The reconstructed HLG matches the original parent's name and description, expressing the same essential outcome. There are no discrepancies in capabilities or actor responsibilities. The original HLG is independently useful and distinct from other parents, focusing on basic calculations without overlap or redundancy.",
+                        "parsed_response": {
+                            "decisions": [
+                                {
+                                    "branch_id": "hlg_342521cf6fdd0795_001",
+                                    "reconstruction_diagnosis": {
+                                        "reconstruction_relationship": "EQUIVALENT",
+                                        "rationale": "The reconstruction accurately captures the original parent's intent to perform basic calculations."
+                                    },
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "rationale": "The source supports the complete parent; no narrowing or inference is needed.",
+                                    "outcome_justification": "User performs fundamental arithmetic operations using the calculator app."
+                                }
+                            ]
+                        },
+                        "error": null
+                    },
+                    {
+                        "model": "google/gemma-4-12b-qat",
+                        "status": "VALID",
+                        "decision": null,
+                        "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_342521cf6fdd0795_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures all fundamental arithmetic operations described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a source-grounded, independent goal that is not redundant or over-specific.\",\"outcome_justification\":\"User performs fundamental arithmetic operations; this is the primary functional core of the app.\"}]}",
+                        "parsed_response": {
+                            "decisions": [
+                                {
+                                    "branch_id": "hlg_342521cf6fdd0795_001",
+                                    "reconstruction_diagnosis": {
+                                        "reconstruction_relationship": "EQUIVALENT",
+                                        "rationale": "The reconstruction captures all fundamental arithmetic operations described in the parent."
+                                    },
+                                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                                    "rationale": "The parent is a source-grounded, independent goal that is not redundant or over-specific.",
+                                    "outcome_justification": "User performs fundamental arithmetic operations; this is the primary functional core of the app."
+                                }
+                            ]
+                        },
+                        "error": null
+                    }
+                ],
+                "hlg_structure_summary": {
+                    "proposed_actions": {
+                        "KEEP_ORIGINAL_HIGH_LEVEL_GOAL": 1
+                    },
+                    "proposed_removal_bases": {},
+                    "applied_removals": 0,
+                    "applied_rewrites": 0
+                },
+                "structural_action_outcomes": {
+                    "hlg_342521cf6fdd0795_001": "CONFIRM_BRANCH"
+                },
+                "high_level_goals": {
+                    "goals": [
+                        {
+                            "name": "Perform Basic Calculations",
+                            "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                            "actor": {
+                                "name": "User",
+                                "description": "A person using the calculator app on their smartphone."
+                            }
+                        }
+                    ]
+                },
+                "low_level_goals": {
+                    "low_level_goals": [
+                        {
+                            "name": "Input First Number",
+                            "description": "The user enters the first operand for the calculation.",
+                            "high_level_associated": {
+                                "name": "Perform Basic Calculations",
+                                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "actor": {
+                                    "name": "User",
+                                    "description": "A person using the calculator app on their smartphone."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Select Operation",
+                            "description": "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+                            "high_level_associated": {
+                                "name": "Perform Basic Calculations",
+                                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "actor": {
+                                    "name": "User",
+                                    "description": "A person using the calculator app on their smartphone."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Input Second Number",
+                            "description": "The user enters the second operand for the calculation.",
+                            "high_level_associated": {
+                                "name": "Perform Basic Calculations",
+                                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "actor": {
+                                    "name": "User",
+                                    "description": "A person using the calculator app on their smartphone."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Trigger Calculation",
+                            "description": "The user presses the equals button to execute the selected operation on the two operands.",
+                            "high_level_associated": {
+                                "name": "Perform Basic Calculations",
+                                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "actor": {
+                                    "name": "User",
+                                    "description": "A person using the calculator app on their smartphone."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Display Result",
+                            "description": "The system displays the computed result of the operation on the screen.",
+                            "high_level_associated": {
+                                "name": "Perform Basic Calculations",
+                                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "actor": {
+                                    "name": "User",
+                                    "description": "A person using the calculator app on their smartphone."
+                                }
+                            }
+                        }
+                    ]
+                },
+                "input_hierarchy": null,
+                "output_hierarchy": null,
+                "hlg_consolidations": {},
+                "missing_hlg_evaluation": {
+                    "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                    "rationale": "Voting result 3/3 for NO_MISSING_HIGH_LEVEL_GOALS. Model votes: mistralai/ministral-3-14b-reasoning=NO_MISSING_HIGH_LEVEL_GOALS, ibm/granite-3.2-8b=NO_MISSING_HIGH_LEVEL_GOALS, google/gemma-4-12b-qat=NO_MISSING_HIGH_LEVEL_GOALS. Aggregation policy: MAJORITY. The project description explicitly states that the initial version allows users to perform basic calculations. The current HLG 'Perform Basic Calculations' covers this outcome comprehensively, including addition, subtraction, multiplication, and division. No independent functional outcomes are missing for the User actor.",
+                    "quality_score": 5,
+                    "missing_goal_requests": [],
+                    "voter_count": 3,
+                    "valid_vote_count": 3,
+                    "winning_vote_count": 3,
+                    "vote_distribution": {
+                        "NO_MISSING_HIGH_LEVEL_GOALS": 3
+                    },
+                    "evaluator_votes": [
+                        {
+                            "model": "mistralai/ministral-3-14b-reasoning",
+                            "status": "VALID",
+                            "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                            "raw_response": "```json\n{\n  \"decision\": \"NO_MISSING_HIGH_LEVEL_GOALS\",\n  \"rationale\": \"The project description explicitly states that the initial version allows users to perform basic calculations. The current HLG 'Perform Basic Calculations' covers this outcome comprehensively, including addition, subtraction, multiplication, and division. No independent functional outcomes are missing for the User actor.\",\n  \"quality_score\": 5,\n  \"missing_goal_requests\": []\n}\n```",
+                            "parsed_response": {
+                                "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                                "rationale": "The project description explicitly states that the initial version allows users to perform basic calculations. The current HLG 'Perform Basic Calculations' covers this outcome comprehensively, including addition, subtraction, multiplication, and division. No independent functional outcomes are missing for the User actor.",
+                                "quality_score": 5,
+                                "missing_goal_requests": [],
+                                "voter_count": 1,
+                                "valid_vote_count": 1,
+                                "winning_vote_count": 1,
+                                "vote_distribution": {},
+                                "evaluator_votes": []
+                            },
+                            "error": null
+                        },
+                        {
+                            "model": "ibm/granite-3.2-8b",
+                            "status": "VALID",
+                            "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                            "raw_response": "{\"decision\":\"NO_MISSING_HIGH_LEVEL_GOALS\",\"rationale\":\"The current high-level goal 'Perform Basic Calculations' covers all independently documented outcomes for the User actor. This goal explicitly addresses the user's ability to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.\",\"quality_score\":5,\"missing_goal_requests\":[]}",
+                            "parsed_response": {
+                                "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                                "rationale": "The current high-level goal 'Perform Basic Calculations' covers all independently documented outcomes for the User actor. This goal explicitly addresses the user's ability to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                                "quality_score": 5,
+                                "missing_goal_requests": [],
+                                "voter_count": 1,
+                                "valid_vote_count": 1,
+                                "winning_vote_count": 1,
+                                "vote_distribution": {},
+                                "evaluator_votes": []
+                            },
+                            "error": null
+                        },
+                        {
+                            "model": "google/gemma-4-12b-qat",
+                            "status": "VALID",
+                            "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                            "raw_response": "{\"decision\":\"NO_MISSING_HIGH_LEVEL_GOALS\",\"rationale\":\"The source description specifies that the app allows the user to perform basic calculations. The current HLG 'Perform Basic Calculations' explicitly covers these arithmetic operations. No other independent functional outcomes are documented in the source for the User actor.\",\"quality_score\":5,\"missing_goal_requests\":[]}",
+                            "parsed_response": {
+                                "decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                                "rationale": "The source description specifies that the app allows the user to perform basic calculations. The current HLG 'Perform Basic Calculations' explicitly covers these arithmetic operations. No other independent functional outcomes are documented in the source for the User actor.",
+                                "quality_score": 5,
+                                "missing_goal_requests": [],
+                                "voter_count": 1,
+                                "valid_vote_count": 1,
+                                "winning_vote_count": 1,
+                                "vote_distribution": {},
+                                "evaluator_votes": []
+                            },
+                            "error": null
+                        }
+                    ]
+                },
+                "missing_hlg_decision": "NO_MISSING_HIGH_LEVEL_GOALS",
+                "llg_regeneration_counts": {},
+                "pending_llg_audit_ids": [],
+                "hlg_rewrite_counts": {
+                    "hlg_342521cf6fdd0795_001": 0
+                },
+                "confirmed_branch_ids": [
+                    "hlg_342521cf6fdd0795_001"
+                ],
+                "repair_rejection_counts": {},
+                "forced_confirmed_branch_ids": [],
+                "completeness_rejection_counts": {},
+                "warnings": [],
+                "checkpoint_complete": true,
+                "completed_branch_count": 1,
+                "total_branch_count": 1
+            }
+        ],
+        "llg_regeneration_counts": {},
+        "pending_llg_audit_ids": [],
+        "hlg_rewrite_counts": {
+            "hlg_342521cf6fdd0795_001": 0
+        },
+        "confirmed_branch_ids": [
+            "hlg_342521cf6fdd0795_001"
+        ],
+        "repair_rejection_counts": {},
+        "forced_confirmed_branch_ids": [],
+        "completeness_rejection_counts": {},
+        "warnings": []
+    },
+    "finalHighLevelGoals": {
+        "goals": [
+            {
+                "name": "Perform Basic Calculations",
+                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                    "name": "User",
+                    "description": "A person using the calculator app on their smartphone."
+                }
+            }
+        ]
+    },
+    "finalLowLevelGoals": {
+        "low_level_goals": [
+            {
+                "name": "Input First Number",
+                "description": "The user enters the first operand for the calculation.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Select Operation",
+                "description": "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Input Second Number",
+                "description": "The user enters the second operand for the calculation.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Trigger Calculation",
+                "description": "The user presses the equals button to execute the selected operation on the two operands.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Display Result",
+                "description": "The system displays the computed result of the operation on the screen.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            }
+        ]
+    }
 }

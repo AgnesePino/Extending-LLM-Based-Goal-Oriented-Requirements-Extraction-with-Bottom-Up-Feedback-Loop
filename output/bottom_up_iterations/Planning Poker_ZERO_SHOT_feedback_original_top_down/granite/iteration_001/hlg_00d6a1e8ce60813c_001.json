@@ -1,0 +1,104 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_00d6a1e8ce60813c_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Promote Knowledge Sharing and Team Alignment",
+    "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+    "actor": {
+      "name": "Development Team Member",
+      "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Enable Real-Time Feedback on Estimation",
+      "description": "Provide immediate visual feedback to users as they submit estimates, such as updating the consensus view via an API call.",
+      "high_level_associated": {
+        "name": "Promote Knowledge Sharing and Team Alignment",
+        "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+        "actor": {
+          "name": "Development Team Member",
+          "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+        }
+      }
+    },
+    {
+      "name": "Allow Team Member to View Others' Estimates",
+      "description": "Enable a team member to view the anonymized estimates submitted by others without revealing identities via an API call.",
+      "high_level_associated": {
+        "name": "Promote Knowledge Sharing and Team Alignment",
+        "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+        "actor": {
+          "name": "Development Team Member",
+          "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+        }
+      }
+    },
+    {
+      "name": "Support Discussion Thread for Estimation",
+      "description": "Provide an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations.",
+      "high_level_associated": {
+        "name": "Promote Knowledge Sharing and Team Alignment",
+        "description": "Facilitate productive conversations during estimation to build team understanding and shared knowledge around sprint goals and task complexity.",
+        "actor": {
+          "name": "Development Team Member",
+          "description": "Contributes to estimating tasks and collaboratively setting sprint goals."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_58bd0caca4f4bc30_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on UI for anonymous estimation, omitting the collaborative and shared ownership aspects.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes collective goal setting; correct the parent's scope to include UI and collaboration.\",\"outcome_justification\":\"Scrum Master enables collaborative sprint goal setting via an anonymous estimation interface; the reconstruction misses shared ownership aspects.\"},{\"branch_id\":\"hlg_eca1ad8fec0452f0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits consensus-building and bias reduction from the original parent.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source highlights consensus-based estimation; correct the parent's responsibility to include these aspects.\",\"outcome_justification\":\"Product Owner ensures transparent, consensus-driven estimation via an interface that reduces bias and encourages shared decision-making.\"},{\"branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction focuses on real-time collaboration, omitting knowledge sharing and team alignment aspects.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes shared understanding and knowledge; correct the parent's scope to include these aspects.\",\"outcome_justification\":\"Development Team Member promotes collaborative estimation fostering shared ownership, understanding, and alignment around sprint goals.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_00d6a1e8ce60813c_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "DIFFERENT",
+        "rationale": "The reconstruction focuses on real-time collaboration, omitting knowledge sharing and team alignment aspects."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes shared understanding and knowledge; correct the parent's scope to include these aspects.",
+      "outcome_justification": "Development Team Member promotes collaborative estimation fostering shared ownership, understanding, and alignment around sprint goals."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "DIFFERENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_58bd0caca4f4bc30_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on UI for anonymous estimation, omitting the collaborative and shared ownership aspects.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes collective goal setting; correct the parent's scope to include UI and collaboration.\",\"outcome_justification\":\"Scrum Master enables collaborative sprint goal setting via an anonymous estimation interface; the reconstruction misses shared ownership aspects.\"},{\"branch_id\":\"hlg_eca1ad8fec0452f0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits consensus-building and bias reduction from the original parent.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source highlights consensus-based estimation; correct the parent's responsibility to include these aspects.\",\"outcome_justification\":\"Product Owner ensures transparent, consensus-driven estimation via an interface that reduces bias and encourages shared decision-making.\"},{\"branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction focuses on real-time collaboration, omitting knowledge sharing and team alignment aspects.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes shared understanding and knowledge; correct the parent's scope to include these aspects.\",\"outcome_justification\":\"Development Team Member promotes collaborative estimation fostering shared ownership, understanding, and alignment around sprint goals.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "DIFFERENT",
+      "rationale": "The reconstruction focuses on real-time collaboration, omitting knowledge sharing and team alignment aspects.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Promote Knowledge Sharing and Team Alignment' by facilitating productive conversations during estimation through real-time feedback, anonymized peer visibility, and discussion threads via API calls. Each LLG is distinct and essential for achieving the parent goal.\\n\\nThe LLGs are: \\n1. Enable Real-Time Feedback on Estimation (llg_001): This goal provides immediate visual feedback to users as they submit estimates, which aligns with the parent's emphasis on real-time collaboration and shared understanding.\\n2. Allow Team Member to View Others' Estimates (llg_002): This goal enables anonymized peer visibility, fostering a collaborative environment where team members can learn from each other without revealing identities, which supports the parent's focus on knowledge sharing and team alignment.\\n3. Support Discussion Thread for Estimation (llg_003): This goal provides an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations. It encourages productive conversations around sprint goals and task complexity, directly addressing the parent's objective of facilitating shared ownership and understanding.\\n\\nAll LLGs are document-supported automatic effects that do not require a manual trigger by the actor (Development Team Member). They cover all essential documented capabilities of the parent goal without redundancy or omission.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS, Quality Score: 5, Regeneration Feedback: null, Unsupported or Misleading llg_IDs: [], Missing Essential Capabilities: []\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Promote Knowledge Sharing and Team Alignment' by facilitating productive conversations during estimation through real-time feedback, anonymized peer visibility, and discussion threads via API calls. Each LLG is distinct and essential for achieving the parent goal.\n\nThe LLGs are: \n1. Enable Real-Time Feedback on Estimation (llg_001): This goal provides immediate visual feedback to users as they submit estimates, which aligns with the parent's emphasis on real-time collaboration and shared understanding.\n2. Allow Team Member to View Others' Estimates (llg_002): This goal enables anonymized peer visibility, fostering a collaborative environment where team members can learn from each other without revealing identities, which supports the parent's focus on knowledge sharing and team alignment.\n3. Support Discussion Thread for Estimation (llg_003): This goal provides an API to create and manage discussion threads tied to specific estimates or tasks, including notifications and collaborative annotations. It encourages productive conversations around sprint goals and task complexity, directly addressing the parent's objective of facilitating shared ownership and understanding.\n\nAll LLGs are document-supported automatic effects that do not require a manual trigger by the actor (Development Team Member). They cover all essential documented capabilities of the parent goal without redundancy or omission.\n\nDecision: KEEP_LOW_LEVEL_GOALS, Quality Score: 5, Regeneration Feedback: null, Unsupported or Misleading llg_IDs: [], Missing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

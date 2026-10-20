@@ -1,0 +1,90 @@
+{
+  "iteration": 9,
+  "branch_id": "hlg_a9ff40162305bff8_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Enhance Patient Care Coordination",
+    "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
+    "actor": {
+      "name": "Healthcare Staff",
+      "description": "Manages patient appointments, medical records, and check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Schedule Patient Appointment",
+      "description": "The Healthcare Staff schedules a patient appointment with a specific doctor and time slot.",
+      "high_level_associated": {
+        "name": "Enhance Patient Care Coordination",
+        "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
+        "actor": {
+          "name": "Healthcare Staff",
+          "description": "Manages patient appointments, medical records, and check-in."
+        }
+      }
+    },
+    {
+      "name": "Update Patient Medical Record",
+      "description": "The Healthcare Staff updates a patient’s medical record with new diagnosis, treatment, or notes.",
+      "high_level_associated": {
+        "name": "Enhance Patient Care Coordination",
+        "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
+        "actor": {
+          "name": "Healthcare Staff",
+          "description": "Manages patient appointments, medical records, and check-in."
+        }
+      }
+    },
+    {
+      "name": "Check In Patient at Facility",
+      "description": "The Healthcare Staff checks in a patient at the facility, recording arrival time and assigning a room or queue.",
+      "high_level_associated": {
+        "name": "Enhance Patient Care Coordination",
+        "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
+        "actor": {
+          "name": "Healthcare Staff",
+          "description": "Manages patient appointments, medical records, and check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes operational monitoring, not just administration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports unified platform for hospital data management.\",\n      \"outcome_justification\": \"Administrator manages hospital entities; visibility is a separate outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time operational metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Hospital Manager's decision-making visibility.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Healthcare Staff's patient management tasks.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service functionality.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Patient's hospital search and recommendations.\",\n      \"outcome_justification\": \"Patient searches for hospitals; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation tasks.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Clinical documentation is internal to patient care coordination.\",\n      \"outcome_justification\": \"The containing outcome is Enhance Patient Care Coordination.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management lifecycle.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Logistics Staff's inventory and sample management.\",\n      \"outcome_justification\": \"Logistics Staff manages resources; no broader peer exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_a9ff40162305bff8_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports Healthcare Staff's patient management tasks.",
+      "outcome_justification": "Healthcare Staff manages appointments, records; no broader peer exists.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes operational monitoring, not just administration.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports unified platform for hospital data management.\",\n      \"outcome_justification\": \"Administrator manages hospital entities; visibility is a separate outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time operational metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Hospital Manager's decision-making visibility.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Healthcare Staff's patient management tasks.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient self-service functionality.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Patient's hospital search and recommendations.\",\n      \"outcome_justification\": \"Patient searches for hospitals; no broader peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation tasks.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Clinical documentation is internal to patient care coordination.\",\n      \"outcome_justification\": \"The containing outcome is Enhance Patient Care Coordination.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches resource management lifecycle.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Logistics Staff's inventory and sample management.\",\n      \"outcome_justification\": \"Logistics Staff manages resources; no broader peer exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches patient care coordination workflows.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

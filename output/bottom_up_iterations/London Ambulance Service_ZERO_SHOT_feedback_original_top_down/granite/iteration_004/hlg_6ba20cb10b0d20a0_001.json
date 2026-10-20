@@ -1,0 +1,78 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_6ba20cb10b0d20a0_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Maintain accurate dispatch data",
+    "description": "Record precise departure and destination information to support efficient resource allocation.",
+    "actor": {
+      "name": "Radio Operator",
+      "description": "Communicates with ambulance staff and records dispatch data."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Record departure time and location",
+      "description": "The Radio Operator logs the exact departure time and GPS coordinates of the assigned ambulance.",
+      "high_level_associated": {
+        "name": "Maintain accurate dispatch data",
+        "description": "Record precise departure and destination information to support efficient resource allocation.",
+        "actor": {
+          "name": "Radio Operator",
+          "description": "Communicates with ambulance staff and records dispatch data."
+        }
+      }
+    },
+    {
+      "name": "Record destination and arrival time",
+      "description": "The Radio Operator logs the destination address and arrival time of the ambulance at the scene.",
+      "high_level_associated": {
+        "name": "Maintain accurate dispatch data",
+        "description": "Record precise departure and destination information to support efficient resource allocation.",
+        "actor": {
+          "name": "Radio Operator",
+          "description": "Communicates with ambulance staff and records dispatch data."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on timely response within 11 minutes.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes minimizing response time; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Dispatcher ensures ambulances reach emergencies within 11 minutes while assigning vehicles and recording data.\",\"rewriting_focus\":\"Express 'Dispatch and monitor emergency ambulance responses by assigning vehicles to calls within strict time constraints, recording standardized operational data, and tracking real-time vehicle locations along predefined routes using a Computer Aided Despatch system.'\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on accurate dispatch data recording.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes precise data logging; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Radio Operator logs complete operational timelines and geographic traces of ambulances, ensuring accurate resource allocation.\",\"rewriting_focus\":\"Express 'Log the complete operational timeline and geographic trace of each assigned ambulance from departure to arrival at the scene.'\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct real-time location tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented tracking outcome and is not covered by narrower peers.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS-based tracking of ambulances during active response missions, with mandatory periodic updates every 30 seconds from the driver.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on rapid emergency initiation.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes quick incident reporting; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Emergency Caller initiates an emergency response by dialing a phone number and submitting incident details for immediate action, ensuring rapid initiation.\",\"rewriting_focus\":\"Express 'Enable an Emergency Caller to initiate an emergency response by dialing a phone number and submitting incident details to a dispatch system for immediate action.'\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_6ba20cb10b0d20a0_001",
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes precise data logging; correct the parent's responsibility to include this critical aspect.",
+      "outcome_justification": "Radio Operator logs complete operational timelines and geographic traces of ambulances, ensuring accurate resource allocation.",
+      "rewriting_focus": "Express 'Log the complete operational timeline and geographic trace of each assigned ambulance from departure to arrival at the scene.'",
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on timely response within 11 minutes.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes minimizing response time; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Dispatcher ensures ambulances reach emergencies within 11 minutes while assigning vehicles and recording data.\",\"rewriting_focus\":\"Express 'Dispatch and monitor emergency ambulance responses by assigning vehicles to calls within strict time constraints, recording standardized operational data, and tracking real-time vehicle locations along predefined routes using a Computer Aided Despatch system.'\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on accurate dispatch data recording.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes precise data logging; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Radio Operator logs complete operational timelines and geographic traces of ambulances, ensuring accurate resource allocation.\",\"rewriting_focus\":\"Express 'Log the complete operational timeline and geographic trace of each assigned ambulance from departure to arrival at the scene.'\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children reconstruct real-time location tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented tracking outcome and is not covered by narrower peers.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS-based tracking of ambulances during active response missions, with mandatory periodic updates every 30 seconds from the driver.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the original parent's focus on rapid emergency initiation.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source emphasizes quick incident reporting; correct the parent's responsibility to include this critical aspect.\",\"outcome_justification\":\"Emergency Caller initiates an emergency response by dialing a phone number and submitting incident details for immediate action, ensuring rapid initiation.\",\"rewriting_focus\":\"Express 'Enable an Emergency Caller to initiate an emergency response by dialing a phone number and submitting incident details to a dispatch system for immediate action.'\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits the original parent's focus on accurate dispatch data recording.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

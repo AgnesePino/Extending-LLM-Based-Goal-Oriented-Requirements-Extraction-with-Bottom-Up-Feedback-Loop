@@ -1,0 +1,106 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_d7244e97af16dbad_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Facilitate seamless goods receiving and store placement",
+    "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+    "actor": {
+      "name": "Goods-Receiving Staff",
+      "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Goods-Receiving Staff scans delivery and assigns to store location",
+      "description": "The goods-receiving staff scans the delivery barcode and assigns the items to a specific store location.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    },
+    {
+      "name": "Goods-Receiving Staff flags defective items for exclusion",
+      "description": "The staff marks defective items as excluded from inventory and logs the reason for exclusion.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    },
+    {
+      "name": "Goods-Receiving Staff system suggests store locations based on inventory needs",
+      "description": "The system suggests possible store locations for product assignment based on inventory needs and product category.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and the possibility of multiple revisions.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Supplier onboarding includes registration and potential for multiple revisions based on feedback.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original, including automatic rejection for delays.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Administrators evaluate proposals within defined timeframes, including automatic rejection for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and separate processes for products without automatic reorder rules.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports manual replenishment and separate processes; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Administrators configure reorder thresholds, automatically update inventory upon receipt, and trigger supplier reorder requests with a 2-working-day confirmation deadline.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits flagging defective items for exclusion with logged reasons.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports flagging defective items; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Goods-Receiving Staff scans deliveries, assigns items to store locations based on system suggestions, and flags defective items for exclusion with logged reasons.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits handling partial deliveries and adjusting inventory upon partial delivery.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports handling partial deliveries; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Order Department Staff manages order completion and delivery status by initiating payment upon full delivery, updating status and adjusting inventory upon partial delivery, and ensuring supplier payment is triggered only when delivery is confirmed complete.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits browsing the product catalog and selecting a payment method.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports browsing the product catalog; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer navigates a product catalog to select items, adds them to a shopping cart, selects a payment method, and completes the checkout process to finalize an order.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports automatic reassignment; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer-Service Agent creates, assigns, updates, and logs resolution of support tickets.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits operational performance reports covering sales, inventory turnover, and customer support response metrics.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports generating and exporting predefined operational performance reports; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Administrator generates and exports predefined operational performance reports covering sales, inventory turnover, and customer support response metrics.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d7244e97af16dbad_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits flagging defective items for exclusion with logged reasons."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports flagging defective items; correct the parent's responsibility, independently of the reconstruction mismatch.",
+      "outcome_justification": "Goods-Receiving Staff scans deliveries, assigns items to store locations based on system suggestions, and flags defective items for exclusion with logged reasons."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and the possibility of multiple revisions.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Supplier onboarding includes registration and potential for multiple revisions based on feedback.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original, including automatic rejection for delays.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Administrators evaluate proposals within defined timeframes, including automatic rejection for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and separate processes for products without automatic reorder rules.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports manual replenishment and separate processes; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Administrators configure reorder thresholds, automatically update inventory upon receipt, and trigger supplier reorder requests with a 2-working-day confirmation deadline.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits flagging defective items for exclusion with logged reasons.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports flagging defective items; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Goods-Receiving Staff scans deliveries, assigns items to store locations based on system suggestions, and flags defective items for exclusion with logged reasons.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits handling partial deliveries and adjusting inventory upon partial delivery.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports handling partial deliveries; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Order Department Staff manages order completion and delivery status by initiating payment upon full delivery, updating status and adjusting inventory upon partial delivery, and ensuring supplier payment is triggered only when delivery is confirmed complete.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits browsing the product catalog and selecting a payment method.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports browsing the product catalog; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer navigates a product catalog to select items, adds them to a shopping cart, selects a payment method, and completes the checkout process to finalize an order.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports automatic reassignment; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer-Service Agent creates, assigns, updates, and logs resolution of support tickets.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits operational performance reports covering sales, inventory turnover, and customer support response metrics.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports generating and exporting predefined operational performance reports; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Administrator generates and exports predefined operational performance reports covering sales, inventory turnover, and customer support response metrics.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits flagging defective items for exclusion with logged reasons.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The reconstructed HLG' is accurate and complete, covering all essential capabilities of the parent goal. However, the low-level goals (LLGs) could be more concise and better aligned with documentary evidence. The current description of 'Goods-Receiving Staff scans delivery and assigns to store location' (llg_001) is redundant as it's implied by the parent goal. The LLG 'Goods-Receiving Staff flags defective items for exclusion' (llg_002) could be more precise, specifying that this action logs the reason for exclusion. The LLG 'Goods-Receiving Staff system suggests store locations based on inventory needs' (llg_003) is not directly supported by the source evidence; it should be removed or rephrased to reflect actual documented interactions.\\n\\nDecision: REGENERATE_LOW_LEVEL_GOALS. The current decomposition contains redundant and misleading elements, and one LLG is unsupported by the source evidence.\\n\\nquality_score: 2\\nregeneration_feedback: 'Preserve scanning and assignment of store locations; remove or rephrase unsupported system suggestions; specify reason for exclusion in flagging defective items; return the full decomposition.'\\nunsupported_or_misleading_llg_ids: ['llg_003']\\nmissing_essential_capabilities: []\",\n\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\n\"quality_score\":2,\n\"regeneration_feedback\":\"Preserve scanning and assignment of store locations; remove or rephrase unsupported system suggestions; specify reason for exclusion in flagging defective items; return the full decomposition.\",\n\"unsupported_or_misleading_llg_ids\":[\"llg_003\"],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The reconstructed HLG' is accurate and complete, covering all essential capabilities of the parent goal. However, the low-level goals (LLGs) could be more concise and better aligned with documentary evidence. The current description of 'Goods-Receiving Staff scans delivery and assigns to store location' (llg_001) is redundant as it's implied by the parent goal. The LLG 'Goods-Receiving Staff flags defective items for exclusion' (llg_002) could be more precise, specifying that this action logs the reason for exclusion. The LLG 'Goods-Receiving Staff system suggests store locations based on inventory needs' (llg_003) is not directly supported by the source evidence; it should be removed or rephrased to reflect actual documented interactions.\n\nDecision: REGENERATE_LOW_LEVEL_GOALS. The current decomposition contains redundant and misleading elements, and one LLG is unsupported by the source evidence.\n\nquality_score: 2\nregeneration_feedback: 'Preserve scanning and assignment of store locations; remove or rephrase unsupported system suggestions; specify reason for exclusion in flagging defective items; return the full decomposition.'\nunsupported_or_misleading_llg_ids: ['llg_003']\nmissing_essential_capabilities: []",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve scanning and assignment of store locations; remove or rephrase unsupported system suggestions; specify reason for exclusion in flagging defective items; return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_003"
+      ],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

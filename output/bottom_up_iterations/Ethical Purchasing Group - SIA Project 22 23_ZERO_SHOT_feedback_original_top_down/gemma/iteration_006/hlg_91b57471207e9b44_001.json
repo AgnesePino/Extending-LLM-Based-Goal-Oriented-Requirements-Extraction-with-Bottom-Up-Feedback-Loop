@@ -1,0 +1,210 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_91b57471207e9b44_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support efficient order management and allocation",
+    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Submit an order with minimum quantity",
+      "description": "Customer submits an order ensuring it meets the minimum quantity requirement for the product.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Modify an existing order",
+      "description": "Customer modifies an order by changing quantities or adding/removing items before confirmation.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Confirm order submission",
+      "description": "Customer confirms the final order, triggering system validation and allocation.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Notify customer of order changes due to insufficient availability",
+      "description": "System notifies customer of order modifications due to insufficient availability and allows acceptance/rejection via API.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Check customer wallet balance at order submission",
+      "description": "System checks customer’s wallet balance at the time of order submission and triggers warning if insufficient.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder for wallet recharge if balance insufficient at payment time",
+      "description": "System sends SMS to customer if wallet balance is insufficient at the time of automatic payment execution, allowing until Monday evening to recharge.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Cancel order if wallet balance remains insufficient after Monday evening",
+      "description": "System automatically cancels the order if the customer’s wallet balance remains insufficient after Monday evening.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score when order is forfeited due to missed pickup",
+      "description": "System updates the customer’s fair-play score when an order is forfeited due to missed pickup, reducing the score based on the forfeiture policy.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score when order is modified due to availability constraints",
+      "description": "System updates the customer’s fair-play score when an order is modified due to availability constraints, adjusting the score based on the modification policy.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Store employee confirms order collection",
+      "description": "Store employee confirms the collection of an order when the customer arrives, updating the order status to collected.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Store employee confirms receipt of delivered quantities",
+      "description": "Store employee confirms receipt of delivered quantities from farmers, updating the system inventory and order fulfillment status.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder if goods not delivered by 4 p.m. Tuesday",
+      "description": "System sends SMS to farmer and customer if goods have not been delivered by 4 p.m. on Tuesday.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Credit back missing amount with 20% bonus if goods not delivered by 8 p.m. Tuesday",
+      "description": "System credits back the missing amount to the affected customer with a 20% bonus if goods have not been delivered by 8 p.m. on Tuesday.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement/modification rather than just providing sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the original goal of providing product information for informed decisions; children are currently misassociated with order actions.\",\"outcome_justification\":\"Customers make informed purchasing decisions based on product origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"rationale\":\"The reconstruction describes a broad system of enforcement and scoring, matching the integrity goal.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction shows this goal is being used to cover broad system integrity and scoring, which is already captured by hlg_2cf58a471a47b2bf_001.\",\"outcome_justification\":\"Order management and allocation are covered by the broader integrity and enforcement goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"covered_by_high_level_goal_name\":\"Maintain system integrity and customer trust\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the wallet management and payment notification requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly describes the customer's wallet and payment experience.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods and notifications.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the pickup scheduling and forfeiture logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is distinct from order management and focuses specifically on the collection phase.\",\"outcome_justification\":\"Customers reserve time slots and are notified of missed pickups or forfeitures.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the farmer's responsibility for availability estimates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a core, independent outcome for the Farmer actor.\",\"outcome_justification\":\"Farmers provide and confirm product availability estimates for the system.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the store employee's end-to-end fulfillment tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct, source-supported outcome for the Store Employee actor.\",\"outcome_justification\":\"Store employees manage orders, coordinate pickups, and handle payments.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes API details and order cancellation not in the original description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently documented as a delivery and notification outcome for farmers.\",\"outcome_justification\":\"Farmers and customers are alerted to delays and receive credits for missing goods.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the broad enforcement, scoring, and notification logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal correctly encompasses the system's integrity, scoring, and automated enforcement mechanisms.\",\"outcome_justification\":\"The system enforces rules, rewards reliability, and maintains transaction integrity.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the authorization and identity verification requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a specific, independent outcome regarding group representative authorization.\",\"outcome_justification\":\"Only authorized representatives can submit orders, ensuring group-based purchasing integrity.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_91b57471207e9b44_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The reconstruction shows this goal is being used to cover broad system integrity and scoring, which is already captured by hlg_2cf58a471a47b2bf_001.",
+      "outcome_justification": "Order management and allocation are covered by the broader integrity and enforcement goal.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_2cf58a471a47b2bf_001",
+      "covered_by_high_level_goal_name": "Maintain system integrity and customer trust",
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "MATCHES_SIBLING",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement/modification rather than just providing sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the original goal of providing product information for informed decisions; children are currently misassociated with order actions.\",\"outcome_justification\":\"Customers make informed purchasing decisions based on product origin, quality, and availability.\"},{\"branch_id\":\"hlg_91b57471207e9b44_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"MATCHES_SIBLING\",\"matches_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"rationale\":\"The reconstruction describes a broad system of enforcement and scoring, matching the integrity goal.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction shows this goal is being used to cover broad system integrity and scoring, which is already captured by hlg_2cf58a471a47b2bf_001.\",\"outcome_justification\":\"Order management and allocation are covered by the broader integrity and enforcement goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"covered_by_high_level_goal_name\":\"Maintain system integrity and customer trust\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the wallet management and payment notification requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently useful and correctly describes the customer's wallet and payment experience.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods and notifications.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the pickup scheduling and forfeiture logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is distinct from order management and focuses specifically on the collection phase.\",\"outcome_justification\":\"Customers reserve time slots and are notified of missed pickups or forfeitures.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the farmer's responsibility for availability estimates.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a core, independent outcome for the Farmer actor.\",\"outcome_justification\":\"Farmers provide and confirm product availability estimates for the system.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the store employee's end-to-end fulfillment tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct, source-supported outcome for the Store Employee actor.\",\"outcome_justification\":\"Store employees manage orders, coordinate pickups, and handle payments.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes API details and order cancellation not in the original description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently documented as a delivery and notification outcome for farmers.\",\"outcome_justification\":\"Farmers and customers are alerted to delays and receive credits for missing goods.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the broad enforcement, scoring, and notification logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal correctly encompasses the system's integrity, scoring, and automated enforcement mechanisms.\",\"outcome_justification\":\"The system enforces rules, rewards reliability, and maintains transaction integrity.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the authorization and identity verification requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a specific, independent outcome regarding group representative authorization.\",\"outcome_justification\":\"Only authorized representatives can submit orders, ensuring group-based purchasing integrity.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "MATCHES_SIBLING",
+      "rationale": "The reconstruction describes a broad system of enforcement and scoring, matching the integrity goal.",
+      "matches_branch_id": "hlg_2cf58a471a47b2bf_001"
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL"
+}

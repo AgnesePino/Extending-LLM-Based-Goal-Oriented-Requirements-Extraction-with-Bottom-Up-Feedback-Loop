@@ -1,0 +1,92 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_ee25dcd232ec6e9b_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support rapid emergency initiation",
+    "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+    "actor": {
+      "name": "Emergency Caller",
+      "description": "Initiates the process by reporting an emergency."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Initiate emergency call via phone interface",
+      "description": "The Emergency Caller dials the emergency number and triggers the system to log the incident details.",
+      "high_level_associated": {
+        "name": "Support rapid emergency initiation",
+        "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+        "actor": {
+          "name": "Emergency Caller",
+          "description": "Initiates the process by reporting an emergency."
+        }
+      }
+    },
+    {
+      "name": "Submit incident details to dispatch system",
+      "description": "The Emergency Caller submits location, nature of emergency, and contact information via the system interface.",
+      "high_level_associated": {
+        "name": "Support rapid emergency initiation",
+        "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+        "actor": {
+          "name": "Emergency Caller",
+          "description": "Initiates the process by reporting an emergency."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the original parent's intent: assigning an available ambulance within 11 minutes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG is source-grounded and independently useful, focusing on timely response. It does not overlap with other parents.\",\"outcome_justification\":\"Dispatcher ensures timely ambulance allocation; the reconstruction accurately captures this responsibility.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking but omits data logging for resource allocation.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG lacks documentation on data recording; the source emphasizes accurate dispatch data. Rewrite to reflect this requirement.\",\"outcome_justification\":\"Radio Operator records precise ambulance data for efficient allocation; the reconstruction should include this aspect.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the original parent's tracking focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG is source-grounded and independently useful, focusing on real-time location tracking.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS tracking; the reconstruction accurately reflects this responsibility.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes initiation but omits simultaneous incident detail submission.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG lacks documentation on incident details; the source emphasizes their submission. Rewrite to reflect this requirement.\",\"outcome_justification\":\"Emergency Caller initiates response and submits incident details; the reconstruction should include this aspect.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_ee25dcd232ec6e9b_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction includes initiation but omits simultaneous incident detail submission."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The original HLG lacks documentation on incident details; the source emphasizes their submission. Rewrite to reflect this requirement.",
+      "outcome_justification": "Emergency Caller initiates response and submits incident details; the reconstruction should include this aspect."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the original parent's intent: assigning an available ambulance within 11 minutes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG is source-grounded and independently useful, focusing on timely response. It does not overlap with other parents.\",\"outcome_justification\":\"Dispatcher ensures timely ambulance allocation; the reconstruction accurately captures this responsibility.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking but omits data logging for resource allocation.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG lacks documentation on data recording; the source emphasizes accurate dispatch data. Rewrite to reflect this requirement.\",\"outcome_justification\":\"Radio Operator records precise ambulance data for efficient allocation; the reconstruction should include this aspect.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the original parent's tracking focus.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG is source-grounded and independently useful, focusing on real-time location tracking.\",\"outcome_justification\":\"Ambulance Driver maintains continuous GPS tracking; the reconstruction accurately reflects this responsibility.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes initiation but omits simultaneous incident detail submission.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The original HLG lacks documentation on incident details; the source emphasizes their submission. Rewrite to reflect this requirement.\",\"outcome_justification\":\"Emergency Caller initiates response and submits incident details; the reconstruction should include this aspect.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes initiation but omits simultaneous incident detail submission.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (llg_001 and llg_002) accurately represent the parent's description. Both children document the Emergency Caller's actions to initiate an emergency call and submit incident details, which aligns with the reconstructed HLG'. The phone interface for initiating a call is supported by 'llg_001', while submitting incident details is covered by 'llg_002'. No essential capability is missing or misrepresented. However, to improve clarity and completeness, it would be beneficial to explicitly mention the simultaneous nature of these actions in the descriptions.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (llg_001 and llg_002) accurately represent the parent's description. Both children document the Emergency Caller's actions to initiate an emergency call and submit incident details, which aligns with the reconstructed HLG'. The phone interface for initiating a call is supported by 'llg_001', while submitting incident details is covered by 'llg_002'. No essential capability is missing or misrepresented. However, to improve clarity and completeness, it would be beneficial to explicitly mention the simultaneous nature of these actions in the descriptions.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

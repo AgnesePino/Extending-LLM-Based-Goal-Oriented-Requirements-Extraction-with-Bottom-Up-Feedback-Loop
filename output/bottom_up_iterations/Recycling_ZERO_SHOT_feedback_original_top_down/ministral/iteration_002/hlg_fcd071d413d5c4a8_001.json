@@ -1,0 +1,98 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_fcd071d413d5c4a8_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Facilitate user engagement through event notifications and map-based navigation",
+    "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+    "actor": {
+      "name": "User",
+      "description": "End user searching for and managing recycling facilities."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Receive push notifications for upcoming recycling events",
+      "description": "User subscribes to event notifications and receives alerts via push notification when events occur near their location.",
+      "high_level_associated": {
+        "name": "Facilitate user engagement through event notifications and map-based navigation",
+        "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+        "actor": {
+          "name": "User",
+          "description": "End user searching for and managing recycling facilities."
+        }
+      }
+    },
+    {
+      "name": "Navigate to facility using integrated map interface",
+      "description": "User opens the map view for a selected facility and uses built-in navigation to get directions to the location.",
+      "high_level_associated": {
+        "name": "Facilitate user engagement through event notifications and map-based navigation",
+        "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+        "actor": {
+          "name": "User",
+          "description": "End user searching for and managing recycling facilities."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_a0c7e03bc4bc52e6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds visualization, planning, and notifications beyond original location focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects broader children scope.\",\n      \"outcome_justification\": \"User locates facilities; other goals cover planning, events, and notifications separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_d834c838712b4c4c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes map navigation and notifications not in original planning focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects broader children scope.\",\n      \"outcome_justification\": \"User plans visits with operational info; other goals cover location, events, and notifications separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_fcd071d413d5c4a8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches event notifications and map navigation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"User engages via events and maps; other goals cover location, planning separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_e805346d2be00aaa_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches data review and updates.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"Admin manages facility data; other goals cover feedback, communication, security separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_3a28120d4c6451fa_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds user feedback submission beyond original admin handling.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is over-specific; reconstruction exposes its internal workflow nature.\",\n      \"outcome_justification\": \"The containing outcome is managing facility data (hlg_e805346d2be00aaa_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_f6ffc344401c4271_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches secure communication scope.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"Facility reps communicate with admins; other goals cover data management, security separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_7a8f3b0c33b97d2e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches security configuration and enforcement.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is a pure constraint with no functional core; reconstruction confirms its non-functional nature.\",\n      \"outcome_justification\": \"The containing outcome is managing facility data (hlg_e805346d2be00aaa_001).\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_fcd071d413d5c4a8_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Parent is previously confirmed; reconstruction confirms its scope without redundancy.",
+      "outcome_justification": "User engages via events and maps; other goals cover location, planning separately.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_a0c7e03bc4bc52e6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds visualization, planning, and notifications beyond original location focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects broader children scope.\",\n      \"outcome_justification\": \"User locates facilities; other goals cover planning, events, and notifications separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_d834c838712b4c4c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes map navigation and notifications not in original planning focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects broader children scope.\",\n      \"outcome_justification\": \"User plans visits with operational info; other goals cover location, events, and notifications separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_fcd071d413d5c4a8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches event notifications and map navigation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"User engages via events and maps; other goals cover location, planning separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_e805346d2be00aaa_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches data review and updates.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"Admin manages facility data; other goals cover feedback, communication, security separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_3a28120d4c6451fa_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds user feedback submission beyond original admin handling.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is over-specific; reconstruction exposes its internal workflow nature.\",\n      \"outcome_justification\": \"The containing outcome is managing facility data (hlg_e805346d2be00aaa_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_f6ffc344401c4271_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches secure communication scope.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is previously confirmed; reconstruction confirms its scope without redundancy.\",\n      \"outcome_justification\": \"Facility reps communicate with admins; other goals cover data management, security separately.\"\n    },\n    {\n      \"branch_id\": \"hlg_7a8f3b0c33b97d2e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches security configuration and enforcement.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is a pure constraint with no functional core; reconstruction confirms its non-functional nature.\",\n      \"outcome_justification\": \"The containing outcome is managing facility data (hlg_e805346d2be00aaa_001).\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches event notifications and map navigation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The parent goal requires delivering timely notifications about recycling events and providing interactive maps for navigation. The children llg_001 covers receiving push notifications, which is directly supported by the project description's mention of 'receiving notifications about events.' llg_002 addresses navigating to facilities using an integrated map interface, which aligns with the requirement for 'accessing maps of recycling locations' and 'interactive maps to enhance user participation.' Both children are documented, within scope, and non-redundant. No essential capabilities are missing.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The parent goal requires delivering timely notifications about recycling events and providing interactive maps for navigation. The children llg_001 covers receiving push notifications, which is directly supported by the project description's mention of 'receiving notifications about events.' llg_002 addresses navigating to facilities using an integrated map interface, which aligns with the requirement for 'accessing maps of recycling locations' and 'interactive maps to enhance user participation.' Both children are documented, within scope, and non-redundant. No essential capabilities are missing.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

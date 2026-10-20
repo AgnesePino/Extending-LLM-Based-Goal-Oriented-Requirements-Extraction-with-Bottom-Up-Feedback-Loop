@@ -1,0 +1,132 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_15ab31703493776e_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable seamless event planning and coordination",
+    "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+    "actor": {
+      "name": "Event Organizer",
+      "description": "Person creating and managing an event, coordinating services and payments."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Create and configure event details",
+      "description": "The event organizer inputs event name, date, location, and budget via a form interface.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Invite guests using invitation codes",
+      "description": "The event organizer generates and distributes unique invitation codes to guests via email or messaging.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Browse and select service showcases",
+      "description": "The event organizer browses service showcases published by providers for selected service categories and selects a provider’s service.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Request and manage service appointments",
+      "description": "The event organizer requests an appointment with a provider by selecting a compatible time slot and specifying appointment details and special requests.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Review and accept quotations",
+      "description": "The event organizer reviews uploaded quotations for approved appointments and accepts or rejects them.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Configure payment schedule and method",
+      "description": "The event organizer selects payment schedule (installments, deposit + final, full) and payment method (online or on-site) for accepted quotations.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Track contract history and remaining budget",
+      "description": "The event organizer consults the history of contracts associated with the event, including status and cost, and views the remaining event budget.",
+      "high_level_associated": {
+        "name": "Enable seamless event planning and coordination",
+        "description": "Allow event organizers to efficiently plan, manage, and coordinate all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_15ab31703493776e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports broader event management, including guest invitations and budget tracking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Enable seamless event planning and coordination for organizers, encompassing guest invitations, service bookings, and budget management.\"\n  },\n  {\n    \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service discovery and booking for organizers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a centralized platform for service discovery and booking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Facilitate service discovery and booking for event organizers, enabling them to select and book services from verified providers.\"\n  },\n  {\n    \"branch_id\": \"hlg_175cb69663176b35_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure payment processing.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on transparent and secure payment processing.\",\n    \"outcome_justification\": \"Ensure transparent and secure payment processing for event service bookings, supporting multiple payment methods and real-time confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_bba1d36093273738_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service management details like updating availability and adjusting pricing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports comprehensive service management. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Allow service providers to showcase and manage offerings, including publishing, categorizing, updating availability, deactivating, adjusting pricing, and updating showcase media.\"\n  },\n  {\n    \"branch_id\": \"hlg_94df30668f000172_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits appointment response and payment confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a complete service lifecycle for organizers. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support service providers in managing appointments and quotations, allowing them to respond to appointment requests, generate quotations, and confirm payment receipt for completed services.\"\n  },\n  {\n    \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure guest access.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on invited guest participation.\",\n    \"outcome_justification\": \"Enable invited guests to participate in event activities by securely accessing event-related content using invitation codes.\"\n  },\n  {\n    \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits guest feedback and commenting.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports collaborative content creation. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support collaborative event content creation, enabling both organizers and invited guests to contribute to event blogs by posting, uploading media, and commenting on event-related content.\"\n  },\n  {\n    \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover contract history and budget monitoring.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on event organizer tracking capabilities.\",\n    \"outcome_justification\": \"Allow event organizers to track contract history and remaining budget, ensuring financial accountability and operational oversight.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_15ab31703493776e_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports broader event management, including guest invitations and budget tracking. Correct the parent's scope to align with the source.",
+      "outcome_justification": "Enable seamless event planning and coordination for organizers, encompassing guest invitations, service bookings, and budget management."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_15ab31703493776e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports broader event management, including guest invitations and budget tracking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Enable seamless event planning and coordination for organizers, encompassing guest invitations, service bookings, and budget management.\"\n  },\n  {\n    \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service discovery and booking for organizers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a centralized platform for service discovery and booking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Facilitate service discovery and booking for event organizers, enabling them to select and book services from verified providers.\"\n  },\n  {\n    \"branch_id\": \"hlg_175cb69663176b35_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure payment processing.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on transparent and secure payment processing.\",\n    \"outcome_justification\": \"Ensure transparent and secure payment processing for event service bookings, supporting multiple payment methods and real-time confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_bba1d36093273738_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service management details like updating availability and adjusting pricing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports comprehensive service management. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Allow service providers to showcase and manage offerings, including publishing, categorizing, updating availability, deactivating, adjusting pricing, and updating showcase media.\"\n  },\n  {\n    \"branch_id\": \"hlg_94df30668f000172_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits appointment response and payment confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a complete service lifecycle for organizers. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support service providers in managing appointments and quotations, allowing them to respond to appointment requests, generate quotations, and confirm payment receipt for completed services.\"\n  },\n  {\n    \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure guest access.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on invited guest participation.\",\n    \"outcome_justification\": \"Enable invited guests to participate in event activities by securely accessing event-related content using invitation codes.\"\n  },\n  {\n    \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits guest feedback and commenting.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports collaborative content creation. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support collaborative event content creation, enabling both organizers and invited guests to contribute to event blogs by posting, uploading media, and commenting on event-related content.\"\n  },\n  {\n    \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover contract history and budget monitoring.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on event organizer tracking capabilities.\",\n    \"outcome_justification\": \"Allow event organizers to track contract history and remaining budget, ensuring financial accountability and operational oversight.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE",
+  "llg_status": "SKIPPED"
+}

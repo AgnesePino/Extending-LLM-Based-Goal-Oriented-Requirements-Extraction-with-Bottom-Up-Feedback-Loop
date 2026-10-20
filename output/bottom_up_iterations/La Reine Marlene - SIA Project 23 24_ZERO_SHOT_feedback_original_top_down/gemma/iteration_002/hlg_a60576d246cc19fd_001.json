@@ -1,0 +1,110 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_a60576d246cc19fd_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support data-driven business decision-making",
+    "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator generates sales performance report",
+      "description": "The administrator retrieves and exports a report on sales performance over a defined period.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates inventory turnover report",
+      "description": "The administrator retrieves and exports a report on inventory turnover rates by product category.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates customer support response time report",
+      "description": "The administrator retrieves and exports a report on average ticket resolution time and agent performance.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is due to children being assigned to other goals.\",\"outcome_justification\":\"Supplier manages registration and product proposals to improve availability and streamline procurement.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the evaluation and automatic rejection capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Administrator regarding proposal evaluation.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals within defined timeframes.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the real-time tracking and automated reorder triggers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from proposal evaluation.\",\"outcome_justification\":\"The system ensures product availability and prevents overstocking through inventory management.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the verification, location assignment, and defect flagging.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Goods-Receiving Staff.\",\"outcome_justification\":\"Staff ensure accurate product presentation by verifying and placing goods in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order completion, partial delivery handling, and payments.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from other processes.\",\"outcome_justification\":\"Order department ensures financial accuracy and customer satisfaction through accurate fulfillment.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the payment methods and real-time tracking mentioned in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction is simply a subset of the workflow.\",\"outcome_justification\":\"Customers purchase products online with multiple payment options and real-time tracking.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the ticket management lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Customer-Service Agent.\",\"outcome_justification\":\"Agents ensure customer satisfaction by managing and resolving support tickets.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the generation of performance reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from other admin tasks.\",\"outcome_justification\":\"Management uses operational data to inform strategic decisions and optimize performance.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_a60576d246cc19fd_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The goal is independently supported by the source and distinct from other admin tasks.",
+      "outcome_justification": "Management uses operational data to inform strategic decisions and optimize performance.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is due to children being assigned to other goals.\",\"outcome_justification\":\"Supplier manages registration and product proposals to improve availability and streamline procurement.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the evaluation and automatic rejection capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Administrator regarding proposal evaluation.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals within defined timeframes.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the real-time tracking and automated reorder triggers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from proposal evaluation.\",\"outcome_justification\":\"The system ensures product availability and prevents overstocking through inventory management.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the verification, location assignment, and defect flagging.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Goods-Receiving Staff.\",\"outcome_justification\":\"Staff ensure accurate product presentation by verifying and placing goods in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order completion, partial delivery handling, and payments.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from other processes.\",\"outcome_justification\":\"Order department ensures financial accuracy and customer satisfaction through accurate fulfillment.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction omits the payment methods and real-time tracking mentioned in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction is simply a subset of the workflow.\",\"outcome_justification\":\"Customers purchase products online with multiple payment options and real-time tracking.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the ticket management lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, source-supported goal for the Customer-Service Agent.\",\"outcome_justification\":\"Agents ensure customer satisfaction by managing and resolving support tickets.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the generation of performance reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is independently supported by the source and distinct from other admin tasks.\",\"outcome_justification\":\"Management uses operational data to inform strategic decisions and optimize performance.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction captures the generation of performance reports.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The source description explicitly states that the system collects data regarding orders, sales, inventory, and customer support for management to analyze business performance and support strategic decision-making. The current children (llg_001, llg_002, llg_003) represent specific reports that fulfill these requirements. However, the parent goal also mentions 'orders' and 'optimizing processes' as data points. While the current children are well-grounded, the decomposition is slightly incomplete as it doesn't explicitly cover 'order' data analysis or 'process optimization' metrics which are part of the parent's scope. However, since the children are supported and non-redundant, they are acceptable, but a more complete set would include order-specific data.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The source description explicitly states that the system collects data regarding orders, sales, inventory, and customer support for management to analyze business performance and support strategic decision-making. The current children (llg_001, llg_002, llg_003) represent specific reports that fulfill these requirements. However, the parent goal also mentions 'orders' and 'optimizing processes' as data points. While the current children are well-grounded, the decomposition is slightly incomplete as it doesn't explicitly cover 'order' data analysis or 'process optimization' metrics which are part of the parent's scope. However, since the children are supported and non-redundant, they are acceptable, but a more complete set would include order-specific data.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,146 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_853e84d06ed9fe58_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+    "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View submitted report status and updates",
+      "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive platform notifications for report state changes",
+      "description": "Citizen receives real-time notifications on the platform whenever the status of their report changes.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive email notifications for report state changes",
+      "description": "Citizen receives email notifications for every state change of their report, with option to disable in user settings.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Receive direct messages from municipal staff via platform",
+      "description": "Citizen receives direct messages from municipal staff through the platform regarding their report, with option to reply.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Interact with chatbot for report updates",
+      "description": "Citizen can interact with external chatbots to receive updates or send messages regarding their report.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    },
+    {
+      "name": "Follow other citizens' reports and receive notifications",
+      "description": "Citizen can follow open reports submitted by other citizens and receive notifications for updates on those reports.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map display.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Citizen participation encompasses reporting, tracking, and interaction.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's dual-view access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome.\",\n      \"outcome_justification\": \"Transparent reporting system is independent of participation.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's communication capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Real-time communication is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Communication builds trust; participation does not cover it fully.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Non-registered user access is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Public information access serves anonymous users; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's review and approval.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Review and approval is a distinct, staff-focused outcome.\",\n      \"outcome_justification\": \"Efficient review ensures accountability; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits assignment based on category.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Assignment is internal to the documented review and approval workflow.\",\n      \"outcome_justification\": \"The containing outcome is efficient review and approval of citizen reports.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's statistical insights.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Public and private statistics are a distinct, documented outcome.\",\n      \"outcome_justification\": \"Statistical insights serve administrators; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's open-source release.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Open-source availability is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Open-source release promotes interoperability; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits manual review bypassing.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Automatic assignment is internal to the documented configuration workflow.\",\n      \"outcome_justification\": \"The containing outcome is making Participium open-source and available.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_853e84d06ed9fe58_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Real-time communication is a distinct, documented outcome.",
+      "outcome_justification": "Communication builds trust; participation does not cover it fully.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits public visibility and map display.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the complete parent; inspect children rather than narrowing it.\",\n      \"outcome_justification\": \"Citizen participation encompasses reporting, tracking, and interaction.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's dual-view access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents a distinct, user-visible outcome.\",\n      \"outcome_justification\": \"Transparent reporting system is independent of participation.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's communication capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Real-time communication is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Communication builds trust; participation does not cover it fully.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Non-registered user access is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Public information access serves anonymous users; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's review and approval.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Review and approval is a distinct, staff-focused outcome.\",\n      \"outcome_justification\": \"Efficient review ensures accountability; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits assignment based on category.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Assignment is internal to the documented review and approval workflow.\",\n      \"outcome_justification\": \"The containing outcome is efficient review and approval of citizen reports.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's statistical insights.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Public and private statistics are a distinct, documented outcome.\",\n      \"outcome_justification\": \"Statistical insights serve administrators; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches the original's open-source release.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Open-source availability is a distinct, documented outcome.\",\n      \"outcome_justification\": \"Open-source release promotes interoperability; participation does not cover it.\"\n    },\n    {\n      \"branch_id\": \"hlg_73541f749496e285_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits manual review bypassing.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Automatic assignment is internal to the documented configuration workflow.\",\n      \"outcome_justification\": \"The containing outcome is making Participium open-source and available.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches the original's communication capabilities.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent goal. All documented capabilities are supported, non-redundant, and within scope. The parent requires enabling real-time communication between citizens and municipal staff, which includes notifications (platform and email), direct messages, chatbot interactions, and following other reports. Each child corresponds to a distinct, documented interaction or effect without introducing unsupported features.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent goal. All documented capabilities are supported, non-redundant, and within scope. The parent requires enabling real-time communication between citizens and municipal staff, which includes notifications (platform and email), direct messages, chatbot interactions, and following other reports. Each child corresponds to a distinct, documented interaction or effect without introducing unsupported features.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

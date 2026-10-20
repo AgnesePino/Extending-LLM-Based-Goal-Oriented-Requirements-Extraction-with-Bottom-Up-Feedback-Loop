@@ -1,0 +1,146 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_07bd7d8412bc378e_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Handle high-throughput genomic datasets efficiently",
+    "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+    "actor": {
+      "name": "Researcher",
+      "description": "Scientist studying genetic variants and their biological implications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Process large-scale genomic datasets in parallel",
+      "description": "Allow batch processing of genomic datasets with parallelized annotation pipelines to handle high-throughput data efficiently.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Integrate variant data from public genomic databases",
+      "description": "Automatically retrieve and merge variant annotations from public databases such as ClinVar, dbSNP, and gnomAD to enrich variant interpretation.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Apply functional prediction tools to assess variant impact",
+      "description": "Invoke prediction algorithms (e.g., CADD, REVEL, SIFT, PolyPhen) to compute functional scores for each variant and annotate their predicted impact on protein structure and function.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Incorporate clinical knowledge sources for variant interpretation",
+      "description": "Integrate curated clinical knowledge from sources such as OMIM, HGMD, and ClinGen to annotate variants with disease associations, clinical significance, and therapeutic implications.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Map variants to reference genome assemblies",
+      "description": "Automatically align and map submitted variants to standard reference genome assemblies (e.g., GRCh38) to ensure accurate genomic context.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    },
+    {
+      "name": "Convert DNA-level variants into protein-level functional changes",
+      "description": "Translate DNA-level mutations into corresponding amino acid changes or protein domain alterations using standard genomic annotation pipelines.",
+      "high_level_associated": {
+        "name": "Handle high-throughput genomic datasets efficiently",
+        "description": "Enable scalable processing and annotation of large-scale genomic datasets to support both research and clinical applications.",
+        "actor": {
+          "name": "Researcher",
+          "description": "Scientist studying genetic variants and their biological implications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the core intent of rapid annotation from multiple databases.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent goal for researchers; it is not redundant with other specific goals.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this distinct clinical outcome; the reconstruction mismatch is a child decomposition issue.\",\"outcome_justification\":\"Clinicians interpret variant significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this specific cancer-related analysis; it is not redundant with general annotation.\",\"outcome_justification\":\"Researchers and clinicians analyze mutations specifically relevant to cancer biology.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific requirement for high-throughput scalability; it is not redundant.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and conversion capabilities.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Mapping and conversion are internal capabilities of the broader annotation and interpretation goals.\",\"outcome_justification\":\"The containing outcomes are variant annotation and interpretation; mapping is a sub-step.\",\"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_07bd7d8412bc378e_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the specific requirement for high-throughput scalability; it is not redundant.",
+      "outcome_justification": "The system enables scalable processing of large-scale genomic datasets.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_fb3acba7a1cf161c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the core intent of rapid annotation from multiple databases.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this independent goal for researchers; it is not redundant with other specific goals.\",\"outcome_justification\":\"Researchers obtain fast access to comprehensive variant annotations to accelerate discovery.\"},{\"branch_id\":\"hlg_44f4380b2d74bcb7_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this distinct clinical outcome; the reconstruction mismatch is a child decomposition issue.\",\"outcome_justification\":\"Clinicians interpret variant significance to inform patient diagnosis and treatment.\"},{\"branch_id\":\"hlg_9fa1df9845374ecf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this specific cancer-related analysis; it is not redundant with general annotation.\",\"outcome_justification\":\"Researchers and clinicians analyze mutations specifically relevant to cancer biology.\"},{\"branch_id\":\"hlg_07bd7d8412bc378e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes mapping and protein conversion, which are also in other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the specific requirement for high-throughput scalability; it is not redundant.\",\"outcome_justification\":\"The system enables scalable processing of large-scale genomic datasets.\"},{\"branch_id\":\"hlg_18d52024b385646f_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the mapping and conversion capabilities.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Mapping and conversion are internal capabilities of the broader annotation and interpretation goals.\",\"outcome_justification\":\"The containing outcomes are variant annotation and interpretation; mapping is a sub-step.\",\"removal_basis\":\"OVER_SPECIFIC\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes mapping and protein conversion, which are also in other goals.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly decompose the parent goal by covering all essential capabilities mentioned in the source description: parallel processing (llg_001), database integration (llg_002), functional prediction (llg_003), clinical knowledge integration (llg_004), reference mapping (llg_005), and DNA-to-protein conversion (llg_006). All actions are documented in the source and correctly scoped to the Researcher actor's needs for high-throughput analysis.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly decompose the parent goal by covering all essential capabilities mentioned in the source description: parallel processing (llg_001), database integration (llg_002), functional prediction (llg_003), clinical knowledge integration (llg_004), reference mapping (llg_005), and DNA-to-protein conversion (llg_006). All actions are documented in the source and correctly scoped to the Researcher actor's needs for high-throughput analysis.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

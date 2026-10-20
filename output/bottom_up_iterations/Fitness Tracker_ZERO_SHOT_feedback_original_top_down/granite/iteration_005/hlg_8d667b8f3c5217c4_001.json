@@ -1,0 +1,78 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_8d667b8f3c5217c4_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Deliver personalized workout recommendations",
+    "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+    "actor": {
+      "name": "Fitness Enthusiast",
+      "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Generate personalized workout plan",
+      "description": "Create a customized workout schedule based on user’s fitness level, preferences, and past performance.",
+      "high_level_associated": {
+        "name": "Deliver personalized workout recommendations",
+        "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Recommend workouts based on progress",
+      "description": "Suggest new exercises or adjust existing plans as the user’s fitness level improves or plateaus.",
+      "high_level_associated": {
+        "name": "Deliver personalized workout recommendations",
+        "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes logging and visualization, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports comprehensive activity tracking, including goal setting and progress monitoring. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Enable users to track and analyze their physical activities, including setting and monitoring fitness goals.\",\n      \"rewriting_focus\": \"Express comprehensive activity tracking, including goal setting and progress monitoring for Fitness Enthusiast.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time alerts.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with real-time alerts. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Support goal setting and progress monitoring, providing real-time feedback and motivation for Fitness Enthusiast.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Both the original and reconstructed HLGs describe personalized workout recommendations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent is source-grounded and independently useful, distinguishing it from other parents by focusing on tailored recommendations based on user preferences, fitness level, and progress.\",\n      \"outcome_justification\": \"Deliver personalized workout recommendations for Fitness Enthusiast, enhancing engagement and effectiveness.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through their fitness journey with interactive tutorials and personalized suggestions. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Guide new users through their fitness journey, providing step-by-step onboarding, beginner-friendly workout suggestions, and interactive tutorials for Beginner.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_8d667b8f3c5217c4_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The original parent is source-grounded and independently useful, distinguishing it from other parents by focusing on tailored recommendations based on user preferences, fitness level, and progress.",
+      "outcome_justification": "Deliver personalized workout recommendations for Fitness Enthusiast, enhancing engagement and effectiveness.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes logging and visualization, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports comprehensive activity tracking, including goal setting and progress monitoring. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Enable users to track and analyze their physical activities, including setting and monitoring fitness goals.\",\n      \"rewriting_focus\": \"Express comprehensive activity tracking, including goal setting and progress monitoring for Fitness Enthusiast.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time alerts.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with real-time alerts. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Support goal setting and progress monitoring, providing real-time feedback and motivation for Fitness Enthusiast.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Both the original and reconstructed HLGs describe personalized workout recommendations.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The original parent is source-grounded and independently useful, distinguishing it from other parents by focusing on tailored recommendations based on user preferences, fitness level, and progress.\",\n      \"outcome_justification\": \"Deliver personalized workout recommendations for Fitness Enthusiast, enhancing engagement and effectiveness.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through their fitness journey with interactive tutorials and personalized suggestions. Correct the original parent's scope to align with the source.\",\n      \"outcome_justification\": \"Guide new users through their fitness journey, providing step-by-step onboarding, beginner-friendly workout suggestions, and interactive tutorials for Beginner.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Both the original and reconstructed HLGs describe personalized workout recommendations.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

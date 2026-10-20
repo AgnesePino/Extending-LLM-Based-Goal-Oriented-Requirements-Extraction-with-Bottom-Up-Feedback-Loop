@@ -1,0 +1,84 @@
+{
+  "iteration": 16,
+  "branch_id": "hlg_a60576d246cc19fd_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support data-driven business decision-making",
+    "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator generates sales performance report",
+      "description": "The administrator retrieves and exports a report on sales performance over a defined period.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates inventory turnover report",
+      "description": "The administrator retrieves and exports a report on inventory turnover rates by product category.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates customer support response time report",
+      "description": "The administrator retrieves and exports a report on average ticket resolution time and agent performance.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits supplier registration and VAT number submission.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires supplier registration details; correct the parent's scope, independently of the reconstruction mismatch.\",\n      \"outcome_justification\": \"Enable efficient supplier onboarding with complete credentials and VAT number submission for accurate taxation.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits automatic rejection after ten working days.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source mandates automatic rejection for overdue proposals; correct the parent's evaluation timeline.\",\n      \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals with defined deadlines and automated rejections.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports both automated and manual inventory management; correct the parent's replenishment scope.\",\n      \"outcome_justification\": \"Support accurate and timely product inventory management with configurable automatic and manual restocking options.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The children reconstruct delivery assignment and defect flagging.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented goods-receiving outcome; equivalence establishes coherence but not parent autonomy.\",\n      \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with accurate product assignment and defect exclusion.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires comprehensive order management, including partial deliveries; correct the parent's workflow scope.\",\n      \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with support for incomplete orders and staff-initiated payment triggers.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The children reconstruct online shopping and payment capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented online shopping outcome; equivalence establishes coherence but not parent autonomy.\",\n      \"outcome_justification\": \"Provide seamless online shopping and payment experience with multiple supported methods and real-time tracking.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits agent performance tracking and automatic ticket reassignment.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source mandates comprehensive support ticket management; correct the parent's agent oversight scope.\",\n      \"outcome_justification\": \"Deliver responsive and efficient customer support with automated performance tracking and reassignment for high satisfaction.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits strategic decision-making support.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires data-driven business insights; correct the parent's reporting scope.\",\n      \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational performance reports and analytics.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_a60576d246cc19fd_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits strategic decision-making support."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source requires data-driven business insights; correct the parent's reporting scope.",
+      "outcome_justification": "Support data-driven business decision-making with comprehensive operational performance reports and analytics."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits supplier registration and VAT number submission.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires supplier registration details; correct the parent's scope, independently of the reconstruction mismatch.\",\n      \"outcome_justification\": \"Enable efficient supplier onboarding with complete credentials and VAT number submission for accurate taxation.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits automatic rejection after ten working days.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source mandates automatic rejection for overdue proposals; correct the parent's evaluation timeline.\",\n      \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals with defined deadlines and automated rejections.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports both automated and manual inventory management; correct the parent's replenishment scope.\",\n      \"outcome_justification\": \"Support accurate and timely product inventory management with configurable automatic and manual restocking options.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The children reconstruct delivery assignment and defect flagging.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented goods-receiving outcome; equivalence establishes coherence but not parent autonomy.\",\n      \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with accurate product assignment and defect exclusion.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires comprehensive order management, including partial deliveries; correct the parent's workflow scope.\",\n      \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with support for incomplete orders and staff-initiated payment triggers.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The children reconstruct online shopping and payment capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented online shopping outcome; equivalence establishes coherence but not parent autonomy.\",\n      \"outcome_justification\": \"Provide seamless online shopping and payment experience with multiple supported methods and real-time tracking.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits agent performance tracking and automatic ticket reassignment.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source mandates comprehensive support ticket management; correct the parent's agent oversight scope.\",\n      \"outcome_justification\": \"Deliver responsive and efficient customer support with automated performance tracking and reassignment for high satisfaction.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits strategic decision-making support.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source requires data-driven business insights; correct the parent's reporting scope.\",\n      \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational performance reports and analytics.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits strategic decision-making support.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

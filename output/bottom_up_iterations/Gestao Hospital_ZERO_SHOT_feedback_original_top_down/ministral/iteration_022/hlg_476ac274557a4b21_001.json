@@ -1,0 +1,87 @@
+{
+  "iteration": 22,
+  "branch_id": "hlg_476ac274557a4b21_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support Clinical Documentation",
+    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+    "actor": {
+      "name": "Hospital Staff",
+      "description": "Registers patients, manages medical notes, and handles check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register New Patient",
+      "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Create Medical Note",
+      "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Manage Patient Check-In",
+      "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits 'unified platform' and adds lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the original parent's broader scope; inspect children for granularity issues.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data, resources, and operations; reconstruction focuses on lifecycle management.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects real-time operational visibility.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents an independent outcome for Hospital Manager; equivalence confirms its legitimacy.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance metrics; no broader or redundant peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is independently documented and supported; equivalence does not imply redundancy.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins; no covering peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects patient self-service capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is independently documented and supported; equivalence does not imply redundancy.\",\n      \"outcome_justification\": \"Patient searches for hospitals and receives recommendations; no covering peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation workflows.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent 'Enhance Patient Care Coordination' wholly covers this outcome.\",\n      \"outcome_justification\": \"Clinical documentation is internal to managing patient care; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects resource management workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents an independent outcome for Logistics Staff; equivalence confirms its legitimacy.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and product requests; no broader or redundant peer exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_476ac274557a4b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "EQUIVALENT",
+        "rationale": "Reconstruction matches clinical documentation workflows."
+      },
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The same actor's parent 'Enhance Patient Care Coordination' wholly covers this outcome.",
+      "outcome_justification": "Clinical documentation is internal to managing patient care; no independent outcome exists.",
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_a9ff40162305bff8_001",
+      "covered_by_high_level_goal_name": "Enhance Patient Care Coordination"
+    },
+    "error": "Redundancy requires the exact ID/name of another same-actor branch"
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits 'unified platform' and adds lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the original parent's broader scope; inspect children for granularity issues.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data, resources, and operations; reconstruction focuses on lifecycle management.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects real-time operational visibility.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents an independent outcome for Hospital Manager; equivalence confirms its legitimacy.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance metrics; no broader or redundant peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient care coordination workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is independently documented and supported; equivalence does not imply redundancy.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins; no covering peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects patient self-service capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is independently documented and supported; equivalence does not imply redundancy.\",\n      \"outcome_justification\": \"Patient searches for hospitals and receives recommendations; no covering peer exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches clinical documentation workflows.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The same actor's parent 'Enhance Patient Care Coordination' wholly covers this outcome.\",\n      \"outcome_justification\": \"Clinical documentation is internal to managing patient care; no independent outcome exists.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects resource management workflows.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents an independent outcome for Logistics Staff; equivalence confirms its legitimacy.\",\n      \"outcome_justification\": \"Logistics Staff manages inventory, blood samples, and product requests; no broader or redundant peer exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches clinical documentation workflows.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

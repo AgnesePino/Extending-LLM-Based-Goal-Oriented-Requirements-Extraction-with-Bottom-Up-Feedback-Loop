@@ -1,0 +1,128 @@
+{
+  "iteration": 12,
+  "branch_id": "hlg_45d7b64c9eb54357_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Optimize product pickup scheduling and collection",
+    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Select pickup time slot",
+      "description": "Customer selects an available time slot for product pickup based on store availability.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive pickup reminder notification",
+      "description": "Customer receives a notification before the pickup time to confirm attendance.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive missed pickup notification",
+      "description": "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Automatically mark order as forfeited if not collected by Friday",
+      "description": "System automatically marks an uncollected order as forfeited if not collected by Friday, triggering score updates.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score upon forfeit or missed pickup",
+      "description": "System updates the customer’s fair-play score based on forfeited or missed pickups, affecting future order precedence.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing information.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders with constraints; clarify the original's focus on detailed product information for informed decisions.\",\n    \"outcome_justification\": \"Customer makes informed purchasing decisions by accessing detailed product sourcing information, not just browsing offers.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands wallet management beyond balance monitoring to include resolution of issues and automated cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes secure wallet management and timely notifications; refine the original's focus on balance management and grace periods.\",\n    \"outcome_justification\": \"Customer manages virtual wallets, receives payment notifications, and handles insufficient balances with grace periods, not automated cancellations.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes scheduling and collection reminders; clarify the original's focus on pickup compliance and fair-play scoring.\",\n    \"outcome_justification\": \"Customer schedules product collections with automated reminders, not forfeiture handling or fair-play updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands inventory tracking to include rule-governed allocation and farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on availability estimates and dynamic adjustments; refine the original's emphasis on accurate tracking and real-time adjustments.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates, enabling system to dynamically adjust order fulfillment based on real-time availability.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens store operations to include payment processing and delivery confirmations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes order fulfillment coordination; clarify the original's focus on daily operations management.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment, including product pickup coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands delivery notifications to include compensation and order record updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on alerting farmers and customers of delays; refine the original's emphasis on transparency and status updates.\",\n    \"outcome_justification\": \"System alerts farmers and customers of delivery delays, maintaining transparency about status and crediting missing amounts with a 20% bonus.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands authorization to include identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes group-based purchasing integrity; clarify the original's focus on representative authorization.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_45d7b64c9eb54357_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes scheduling and collection reminders; clarify the original's focus on pickup compliance and fair-play scoring.",
+      "outcome_justification": "Customer schedules product collections with automated reminders, not forfeiture handling or fair-play updates."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's focus on transparent and traceable product sourcing information.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes browsing, comparing, and placing orders with constraints; clarify the original's focus on detailed product information for informed decisions.\",\n    \"outcome_justification\": \"Customer makes informed purchasing decisions by accessing detailed product sourcing information, not just browsing offers.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands wallet management beyond balance monitoring to include resolution of issues and automated cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes secure wallet management and timely notifications; refine the original's focus on balance management and grace periods.\",\n    \"outcome_justification\": \"Customer manages virtual wallets, receives payment notifications, and handles insufficient balances with grace periods, not automated cancellations.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes scheduling and collection reminders; clarify the original's focus on pickup compliance and fair-play scoring.\",\n    \"outcome_justification\": \"Customer schedules product collections with automated reminders, not forfeiture handling or fair-play updates.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands inventory tracking to include rule-governed allocation and farmer confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on availability estimates and dynamic adjustments; refine the original's emphasis on accurate tracking and real-time adjustments.\",\n    \"outcome_justification\": \"Farmer submits product availability estimates, enabling system to dynamically adjust order fulfillment based on real-time availability.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction broadens store operations to include payment processing and delivery confirmations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes order fulfillment coordination; clarify the original's focus on daily operations management.\",\n    \"outcome_justification\": \"Store employee manages end-to-end order fulfillment, including product pickup coordination and payment processing.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands delivery notifications to include compensation and order record updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source focuses on alerting farmers and customers of delays; refine the original's emphasis on transparency and status updates.\",\n    \"outcome_justification\": \"System alerts farmers and customers of delivery delays, maintaining transparency about status and crediting missing amounts with a 20% bonus.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction expands authorization to include identity verification and group membership validation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source prioritizes group-based purchasing integrity; clarify the original's focus on representative authorization.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction broadens pickup scheduling to include automated reminders, forfeiture handling, and fair-play score updates.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) cover the essential aspects of the parent high-level goal (HLG). The LLGs 'Select pickup time slot' (llg_001), 'Receive pickup reminder notification' (llg_002), and 'Receive missed pickup notification' (llg_003) directly address customer interactions with the system for scheduling and being reminded of their pickups. The LLG 'Automatically mark order as forfeited if not collected by Friday' (llg_004) ensures that uncollected orders are handled appropriately, while 'Update fair-play score upon forfeit or missed pickup' (llg_005) maintains the system's reliability by updating customer scores based on their compliance. All LLGs are supported and non-redundant, fulfilling the parent HLG without any missing essential capabilities.\\n\\nHowever, a minor regeneration is suggested to improve clarity and completeness:\\n1. The description of 'Select pickup time slot' (llg_001) could be more specific about the criteria for selecting a time slot (e.g., based on store availability). This would better reflect the system's functionality.\\n2. Although not missing, adding a brief mention in the descriptions that these actions are document-supported automatic effects would align with the given actor criterion, emphasizing that no manual trigger by the customer is required for these interactions.\\n\\nDespite these minor suggestions, all essential aspects of the parent HLG are covered, and there are no unsupported or misleading LLGs. The quality score reflects a complete and supported decomposition.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) cover the essential aspects of the parent high-level goal (HLG). The LLGs 'Select pickup time slot' (llg_001), 'Receive pickup reminder notification' (llg_002), and 'Receive missed pickup notification' (llg_003) directly address customer interactions with the system for scheduling and being reminded of their pickups. The LLG 'Automatically mark order as forfeited if not collected by Friday' (llg_004) ensures that uncollected orders are handled appropriately, while 'Update fair-play score upon forfeit or missed pickup' (llg_005) maintains the system's reliability by updating customer scores based on their compliance. All LLGs are supported and non-redundant, fulfilling the parent HLG without any missing essential capabilities.\n\nHowever, a minor regeneration is suggested to improve clarity and completeness:\n1. The description of 'Select pickup time slot' (llg_001) could be more specific about the criteria for selecting a time slot (e.g., based on store availability). This would better reflect the system's functionality.\n2. Although not missing, adding a brief mention in the descriptions that these actions are document-supported automatic effects would align with the given actor criterion, emphasizing that no manual trigger by the customer is required for these interactions.\n\nDespite these minor suggestions, all essential aspects of the parent HLG are covered, and there are no unsupported or misleading LLGs. The quality score reflects a complete and supported decomposition.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

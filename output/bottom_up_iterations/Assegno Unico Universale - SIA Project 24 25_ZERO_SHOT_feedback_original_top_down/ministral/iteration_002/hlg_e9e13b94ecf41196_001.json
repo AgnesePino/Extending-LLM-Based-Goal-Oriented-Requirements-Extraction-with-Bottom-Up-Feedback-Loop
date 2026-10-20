@@ -1,0 +1,122 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_e9e13b94ecf41196_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support multiple payment methods for allowance distribution",
+    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow selection of SEPA IBAN payment method",
+      "description": "The applicant selects SEPA IBAN as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of post office domiciliation payment method",
+      "description": "The applicant selects post office domiciliation as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of prepaid card payment method",
+      "description": "The applicant selects an eligible prepaid card as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow joint parent payment configuration",
+      "description": "The applicant configures joint payment settings for both parents when selecting payment methods.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits mandatory declarations and compliance aspects.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broader compliance scope; reconstruction mismatch is child-related.\",\n      \"outcome_justification\": \"Applicant submits legally compliant applications; other goals cover specific workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct collaborative completion and payment details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent outcome for second parent; no redundancy with other parents.\",\n      \"outcome_justification\": \"Second parent modifies allowance distribution; applicant goals cover submission workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct evaluation, suspension, and notification processes.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent operator workflow; no overlap with applicant or citizen goals.\",\n      \"outcome_justification\": \"INPS evaluates applications; applicants only view outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct historical records and allowance simulation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent citizen access; no overlap with applicant submission goals.\",\n      \"outcome_justification\": \"Citizen consults past applications; applicants focus on new submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct duplicate fiscal code detection and blocking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent data integrity outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant avoids duplicates; other goals cover submission workflows or payment.\"\n    },\n    {\n      \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct ISEE-based recalculation and system integrity.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent automatic adjustment; no overlap with manual workflows.\",\n      \"outcome_justification\": \"System adjusts allowance automatically; applicants manage submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct draft saving, resumption, and discarding.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent flexible workflow; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant manages drafts; other goals cover submission or payment details.\"\n    },\n    {\n      \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct adding children and modifying data.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent dynamic addition; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant adds children; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_00ca9651daa07755_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct GDPR consent and responsibility acknowledgment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent compliance outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant accepts notices; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct payment method selection and joint settings.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent payment configuration; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant chooses payment methods; other goals cover submission or compliance.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_e9e13b94ecf41196_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Independent payment configuration; no redundancy with other applicant goals.",
+      "outcome_justification": "Applicant chooses payment methods; other goals cover submission or compliance.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits mandatory declarations and compliance aspects.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broader compliance scope; reconstruction mismatch is child-related.\",\n      \"outcome_justification\": \"Applicant submits legally compliant applications; other goals cover specific workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct collaborative completion and payment details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent outcome for second parent; no redundancy with other parents.\",\n      \"outcome_justification\": \"Second parent modifies allowance distribution; applicant goals cover submission workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct evaluation, suspension, and notification processes.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent operator workflow; no overlap with applicant or citizen goals.\",\n      \"outcome_justification\": \"INPS evaluates applications; applicants only view outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct historical records and allowance simulation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent citizen access; no overlap with applicant submission goals.\",\n      \"outcome_justification\": \"Citizen consults past applications; applicants focus on new submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct duplicate fiscal code detection and blocking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent data integrity outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant avoids duplicates; other goals cover submission workflows or payment.\"\n    },\n    {\n      \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct ISEE-based recalculation and system integrity.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent automatic adjustment; no overlap with manual workflows.\",\n      \"outcome_justification\": \"System adjusts allowance automatically; applicants manage submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct draft saving, resumption, and discarding.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent flexible workflow; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant manages drafts; other goals cover submission or payment details.\"\n    },\n    {\n      \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct adding children and modifying data.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent dynamic addition; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant adds children; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_00ca9651daa07755_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct GDPR consent and responsibility acknowledgment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent compliance outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant accepts notices; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct payment method selection and joint settings.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent payment configuration; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant chooses payment methods; other goals cover submission or compliance.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Children reconstruct payment method selection and joint settings.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The provided low-level goals (llg_001, llg_002, llg_003, llg_004) correctly and completely realize the parent goal. Each child corresponds to a documented functional interaction or effect described in the software description: SEPA IBAN selection (llg_001), post office domiciliation selection (llg_002), prepaid card selection (llg_003), and joint parent payment configuration (llg_004). No essential capabilities are missing, and there is no duplication or unsupported addition. The scope of each child aligns with the parent's requirement for multiple payment methods and joint parent payments.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The provided low-level goals (llg_001, llg_002, llg_003, llg_004) correctly and completely realize the parent goal. Each child corresponds to a documented functional interaction or effect described in the software description: SEPA IBAN selection (llg_001), post office domiciliation selection (llg_002), prepaid card selection (llg_003), and joint parent payment configuration (llg_004). No essential capabilities are missing, and there is no duplication or unsupported addition. The scope of each child aligns with the parent's requirement for multiple payment methods and joint parent payments.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,110 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_e6cbeca622c85af3_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Optimize Resource Management",
+    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+    "actor": {
+      "name": "Logistics Staff",
+      "description": "Manages products, blood samples, and inventory requests."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Place Inventory Request",
+      "description": "The Logistics Staff submits a request to replenish medical supplies or equipment in the inventory system.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Track Blood Sample Inventory",
+      "description": "The Logistics Staff views and updates the status of blood samples in inventory, including expiration and usage.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    },
+    {
+      "name": "Approve Product Request",
+      "description": "The Logistics Staff approves or rejects a product request based on availability and clinical need.",
+      "high_level_associated": {
+        "name": "Optimize Resource Management",
+        "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+        "actor": {
+          "name": "Logistics Staff",
+          "description": "Manages products, blood samples, and inventory requests."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children for missing capability.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and operations, distinct from visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct real-time monitoring and data export.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance, distinct from administrative tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct patient appointment and medical record management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Healthcare Staff coordinates patient care, distinct from administrative or logistics goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct hospital search and recommendation features.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Patient self-service is distinct from staff or administrative goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct patient onboarding and clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with 'Enhance Patient Care Coordination' (hlg_a9ff40162305bff8_001).\",\n      \"outcome_justification\": \"Clinical documentation is a step within broader patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct inventory and blood sample management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Logistics Staff manages resources, distinct from clinical or administrative goals.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_e6cbeca622c85af3_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Parent is independently documented; reconstruction confirms its scope.",
+      "outcome_justification": "Logistics Staff manages resources, distinct from clinical or administrative goals.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits real-time operational monitoring.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports full lifecycle management; inspect children for missing capability.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and operations, distinct from visibility goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct real-time monitoring and data export.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Hospital Manager monitors performance, distinct from administrative tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct patient appointment and medical record management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Healthcare Staff coordinates patient care, distinct from administrative or logistics goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct hospital search and recommendation features.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Patient self-service is distinct from staff or administrative goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct patient onboarding and clinical documentation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with 'Enhance Patient Care Coordination' (hlg_a9ff40162305bff8_001).\",\n      \"outcome_justification\": \"Clinical documentation is a step within broader patient care coordination.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct inventory and blood sample management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Logistics Staff manages resources, distinct from clinical or administrative goals.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Children reconstruct inventory and blood sample management.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children (llg_001, llg_002, llg_003) correctly and completely realize the parent goal 'Optimize Resource Management'. The source description explicitly mentions managing inventory, blood samples, product requests, and ensuring clinical/logistical efficiency. All three low-level goals are supported by the project description: placing inventory requests (llg_001), tracking blood sample inventory with expiration/usage updates (llg_002), and approving/rejecting product requests based on availability/clinical need (llg_003). No essential capabilities are missing, no children are out-of-scope or redundant, and all are grounded in documented system interactions.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children (llg_001, llg_002, llg_003) correctly and completely realize the parent goal 'Optimize Resource Management'. The source description explicitly mentions managing inventory, blood samples, product requests, and ensuring clinical/logistical efficiency. All three low-level goals are supported by the project description: placing inventory requests (llg_001), tracking blood sample inventory with expiration/usage updates (llg_002), and approving/rejecting product requests based on availability/clinical need (llg_003). No essential capabilities are missing, no children are out-of-scope or redundant, and all are grounded in documented system interactions.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

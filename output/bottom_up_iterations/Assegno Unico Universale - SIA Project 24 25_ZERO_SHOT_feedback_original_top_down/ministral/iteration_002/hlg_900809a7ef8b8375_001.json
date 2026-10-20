@@ -1,0 +1,134 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_900809a7ef8b8375_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Enable efficient and transparent application evaluation and management",
+    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+    "actor": {
+      "name": "INPS Operator",
+      "description": "INPS staff evaluating and managing submitted applications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Notify applicant of application status changes",
+      "description": "The system notifies the applicant via email or in-app message when the application status changes (e.g., submitted, suspended, accepted).",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to evaluate application",
+      "description": "The INPS operator evaluates the application by reviewing submitted data and validating compliance with regulations.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to suspend application",
+      "description": "The INPS operator suspends the application for further review or due to missing documentation.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to accept application",
+      "description": "The INPS operator accepts the application and triggers the allowance distribution process.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to specify required documentation for suspended applications",
+      "description": "The INPS operator specifies which additional documents are required when an application is suspended, triggering a notification to the applicant.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits mandatory declarations and compliance aspects.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broader compliance scope; reconstruction mismatch is child-related.\",\n      \"outcome_justification\": \"Applicant submits legally compliant applications; other goals cover specific workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct collaborative completion and payment details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent outcome for second parent; no redundancy with other parents.\",\n      \"outcome_justification\": \"Second parent modifies allowance distribution; applicant goals cover submission workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct evaluation, suspension, and notification processes.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent operator workflow; no overlap with applicant or citizen goals.\",\n      \"outcome_justification\": \"INPS evaluates applications; applicants only view outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct historical records and allowance simulation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent citizen access; no overlap with applicant submission goals.\",\n      \"outcome_justification\": \"Citizen consults past applications; applicants focus on new submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct duplicate fiscal code detection and blocking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent data integrity outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant avoids duplicates; other goals cover submission workflows or payment.\"\n    },\n    {\n      \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct ISEE-based recalculation and system integrity.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent automatic adjustment; no overlap with manual workflows.\",\n      \"outcome_justification\": \"System adjusts allowance automatically; applicants manage submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct draft saving, resumption, and discarding.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent flexible workflow; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant manages drafts; other goals cover submission or payment details.\"\n    },\n    {\n      \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct adding children and modifying data.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent dynamic addition; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant adds children; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_00ca9651daa07755_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct GDPR consent and responsibility acknowledgment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent compliance outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant accepts notices; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct payment method selection and joint settings.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent payment configuration; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant chooses payment methods; other goals cover submission or compliance.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_900809a7ef8b8375_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Independent operator workflow; no overlap with applicant or citizen goals.",
+      "outcome_justification": "INPS evaluates applications; applicants only view outcomes.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits mandatory declarations and compliance aspects.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broader compliance scope; reconstruction mismatch is child-related.\",\n      \"outcome_justification\": \"Applicant submits legally compliant applications; other goals cover specific workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct collaborative completion and payment details.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent outcome for second parent; no redundancy with other parents.\",\n      \"outcome_justification\": \"Second parent modifies allowance distribution; applicant goals cover submission workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct evaluation, suspension, and notification processes.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent operator workflow; no overlap with applicant or citizen goals.\",\n      \"outcome_justification\": \"INPS evaluates applications; applicants only view outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct historical records and allowance simulation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent citizen access; no overlap with applicant submission goals.\",\n      \"outcome_justification\": \"Citizen consults past applications; applicants focus on new submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct duplicate fiscal code detection and blocking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent data integrity outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant avoids duplicates; other goals cover submission workflows or payment.\"\n    },\n    {\n      \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct ISEE-based recalculation and system integrity.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent automatic adjustment; no overlap with manual workflows.\",\n      \"outcome_justification\": \"System adjusts allowance automatically; applicants manage submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct draft saving, resumption, and discarding.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent flexible workflow; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant manages drafts; other goals cover submission or payment details.\"\n    },\n    {\n      \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct adding children and modifying data.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent dynamic addition; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant adds children; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_00ca9651daa07755_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct GDPR consent and responsibility acknowledgment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent compliance outcome; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant accepts notices; other goals cover submission or payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Children reconstruct payment method selection and joint settings.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Independent payment configuration; no redundancy with other applicant goals.\",\n      \"outcome_justification\": \"Applicant chooses payment methods; other goals cover submission or compliance.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Children reconstruct evaluation, suspension, and notification processes.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent's capabilities. All documented functional interactions or effects are present, supported by the project description. The children cover evaluating applications (llg_002), suspending them (llg_003), accepting them (llg_004), specifying required documentation for suspended applications (llg_005), and notifying applicants of status changes (llg_001). No essential capability is missing, and there are no unsupported or out-of-scope children. The scope aligns with the parent's description, which includes evaluating, suspending, accepting applications, managing documentation, and notifying applicants.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent's capabilities. All documented functional interactions or effects are present, supported by the project description. The children cover evaluating applications (llg_002), suspending them (llg_003), accepting them (llg_004), specifying required documentation for suspended applications (llg_005), and notifying applicants of status changes (llg_001). No essential capability is missing, and there are no unsupported or out-of-scope children. The scope aligns with the parent's description, which includes evaluating, suspending, accepting applications, managing documentation, and notifying applicants.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

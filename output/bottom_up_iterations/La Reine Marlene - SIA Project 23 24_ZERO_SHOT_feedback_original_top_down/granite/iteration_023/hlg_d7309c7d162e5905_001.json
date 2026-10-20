@@ -1,0 +1,128 @@
+{
+  "iteration": 23,
+  "branch_id": "hlg_d7309c7d162e5905_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide seamless online shopping and payment experience",
+    "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+    "actor": {
+      "name": "Customer",
+      "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Customer browses product catalog and adds items to cart",
+      "description": "The customer views products, selects items, and adds them to their shopping cart.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System automatically calculates order total including taxes and shipping",
+      "description": "The system computes the final order amount based on selected items, applicable taxes, and shipping costs in real time.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "Customer selects payment method and completes checkout",
+      "description": "The customer chooses a payment method and submits the order for processing.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System generates and sends real-time delivery tracking link via email",
+      "description": "After order confirmation, the system automatically generates a unique tracking link and sends it to the customer via email.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System sends mobile notifications for delivery updates",
+      "description": "When delivery status changes (e.g., shipped, in transit, delivered), the system automatically sends push notifications to customers who have consented to receive them via mobile.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on proposal submission and evaluation, omitting supplier registration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports supplier registration; reconstructed HLG covers part of the original parent's scope.\",\"outcome_justification\":\"Enables efficient supplier onboarding including registration, proposal management, and timely feedback.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits automatic rejection after 10 days; focuses on evaluation tools and notifications.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source reserves automatic rejection to ten working days; correct the parent's responsibility.\",\"outcome_justification\":\"Ensures timely evaluation with defined outcomes, including automated rejection for delays.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits manual replenishment and administrator override; focuses on automatic triggers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual inventory management; correct the parent's scope.\",\"outcome_justification\":\"Supports accurate and timely product inventory management, including both automated and manual replenishment options.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits system suggestions for store assignments; focuses on defect flagging.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes system-driven location assignments; correct the parent's scope.\",\"outcome_justification\":\"Facilitates seamless goods receiving and store placement, including automated product assignment suggestions.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits staff-initiated payment triggers and partial delivery handling; focuses on automated proposal management.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual order fulfillment and payment processes; correct the parent's scope.\",\"outcome_justification\":\"Manages order fulfillment and supplier payments accurately, including both automated and staff-initiated processes.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits mobile notifications for delivery updates; focuses on email tracking.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes mobile delivery notifications; correct the parent's scope.\",\"outcome_justification\":\"Provides seamless online shopping and payment experience, including real-time delivery tracking via multiple channels.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits performance statistics and agent reassignment rules; focuses on ticket assignment.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes performance tracking and reassignment rules; correct the parent's scope.\",\"outcome_justification\":\"Delivers responsive and efficient customer support, including agent performance monitoring and automated reassignment.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits predefined report generation; focuses on data collection.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes predefined reporting capabilities; correct the parent's scope.\",\"outcome_justification\":\"Supports data-driven business decision-making, including automated performance report generation and analysis.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_d7309c7d162e5905_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "Reconstruction omits mobile notifications for delivery updates; focuses on email tracking."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source includes mobile delivery notifications; correct the parent's scope.",
+      "outcome_justification": "Provides seamless online shopping and payment experience, including real-time delivery tracking via multiple channels."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on proposal submission and evaluation, omitting supplier registration.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports supplier registration; reconstructed HLG covers part of the original parent's scope.\",\"outcome_justification\":\"Enables efficient supplier onboarding including registration, proposal management, and timely feedback.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits automatic rejection after 10 days; focuses on evaluation tools and notifications.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source reserves automatic rejection to ten working days; correct the parent's responsibility.\",\"outcome_justification\":\"Ensures timely evaluation with defined outcomes, including automated rejection for delays.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits manual replenishment and administrator override; focuses on automatic triggers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual inventory management; correct the parent's scope.\",\"outcome_justification\":\"Supports accurate and timely product inventory management, including both automated and manual replenishment options.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits system suggestions for store assignments; focuses on defect flagging.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes system-driven location assignments; correct the parent's scope.\",\"outcome_justification\":\"Facilitates seamless goods receiving and store placement, including automated product assignment suggestions.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits staff-initiated payment triggers and partial delivery handling; focuses on automated proposal management.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source supports manual order fulfillment and payment processes; correct the parent's scope.\",\"outcome_justification\":\"Manages order fulfillment and supplier payments accurately, including both automated and staff-initiated processes.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits mobile notifications for delivery updates; focuses on email tracking.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes mobile delivery notifications; correct the parent's scope.\",\"outcome_justification\":\"Provides seamless online shopping and payment experience, including real-time delivery tracking via multiple channels.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits performance statistics and agent reassignment rules; focuses on ticket assignment.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes performance tracking and reassignment rules; correct the parent's scope.\",\"outcome_justification\":\"Delivers responsive and efficient customer support, including agent performance monitoring and automated reassignment.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction omits predefined report generation; focuses on data collection.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Source includes predefined reporting capabilities; correct the parent's scope.\",\"outcome_justification\":\"Supports data-driven business decision-making, including automated performance report generation and analysis.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits mobile notifications for delivery updates; focuses on email tracking.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of providing a seamless online shopping and payment experience. Each LLG accurately represents a documented functional interaction or effect that realizes the HLG. The LLGs include browsing the product catalog, adding items to the cart, automatic calculation of order totals, selecting and completing a payment method, generating and sending delivery tracking links via email, and sending mobile notifications for delivery updates. These actions are all document-supported automatic effects that do not require manual triggers by the customer actor.\\n\\nThe LLGs are non-redundant, with each representing a distinct aspect of the online shopping process. There are no missing essential capabilities or unsupported/misleading LLG IDs in this decomposition.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal (HLG) of providing a seamless online shopping and payment experience. Each LLG accurately represents a documented functional interaction or effect that realizes the HLG. The LLGs include browsing the product catalog, adding items to the cart, automatic calculation of order totals, selecting and completing a payment method, generating and sending delivery tracking links via email, and sending mobile notifications for delivery updates. These actions are all document-supported automatic effects that do not require manual triggers by the customer actor.\n\nThe LLGs are non-redundant, with each representing a distinct aspect of the online shopping process. There are no missing essential capabilities or unsupported/misleading LLG IDs in this decomposition.\n\nDecision: KEEP_LOW_LEVEL_GOALS",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

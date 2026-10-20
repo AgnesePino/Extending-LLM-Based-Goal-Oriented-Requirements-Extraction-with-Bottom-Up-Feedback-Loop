@@ -1,0 +1,100 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_0fb0dc543542f24e_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support goal setting and progress monitoring",
+    "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+    "actor": {
+      "name": "Fitness Enthusiast",
+      "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Set personalized fitness goals",
+      "description": "Enable users to define specific, measurable goals such as weight loss targets or weekly workout frequency.",
+      "high_level_associated": {
+        "name": "Support goal setting and progress monitoring",
+        "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Track goal progress with alerts",
+      "description": "Provide real-time updates and notifications when users approach or exceed their goal thresholds.",
+      "high_level_associated": {
+        "name": "Support goal setting and progress monitoring",
+        "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_7a7c9f5728034832_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures activity logging and trend visualization.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, source-supported outcome for tracking and analyzing physical activities.\",\"outcome_justification\":\"Fitness Enthusiasts need to monitor and analyze their workout performance over time.\"},{\"branch_id\":\"hlg_0fb0dc543542f24e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers goal definition and progress tracking with alerts.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal from activity tracking, focusing on specific targets and progress.\",\"outcome_justification\":\"Users need to define and monitor progress toward specific fitness goals.\"},{\"branch_id\":\"hlg_8d667b8f3c5217c4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with generating and adapting personalized workout plans.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this as a distinct capability for personalized recommendations.\",\"outcome_justification\":\"Users require tailored workout plans based on their specific fitness levels.\"},{\"branch_id\":\"hlg_3b3cb63beecf40e0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers onboarding and beginner-friendly guidance.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal specifically targets the Beginner actor's needs for onboarding and motivation.\",\"outcome_justification\":\"Beginners need guided onboarding and beginner-friendly suggestions to start their journey.\"},{\"branch_id\":\"hlg_b2b4ce58b73e128a_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the dual-mode interface for different user types.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The interface accessibility is a distinct requirement for both user types.\",\"outcome_justification\":\"Users need an intuitive interface that accommodates different experience levels.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_0fb0dc543542f24e_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This is a distinct goal from activity tracking, focusing on specific targets and progress.",
+      "outcome_justification": "Users need to define and monitor progress toward specific fitness goals.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_7a7c9f5728034832_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures activity logging and trend visualization.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, source-supported outcome for tracking and analyzing physical activities.\",\"outcome_justification\":\"Fitness Enthusiasts need to monitor and analyze their workout performance over time.\"},{\"branch_id\":\"hlg_0fb0dc543542f24e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers goal definition and progress tracking with alerts.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal from activity tracking, focusing on specific targets and progress.\",\"outcome_justification\":\"Users need to define and monitor progress toward specific fitness goals.\"},{\"branch_id\":\"hlg_8d667b8f3c5217c4_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with generating and adapting personalized workout plans.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports this as a distinct capability for personalized recommendations.\",\"outcome_justification\":\"Users require tailored workout plans based on their specific fitness levels.\"},{\"branch_id\":\"hlg_3b3cb63beecf40e0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers onboarding and beginner-friendly guidance.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal specifically targets the Beginner actor's needs for onboarding and motivation.\",\"outcome_justification\":\"Beginners need guided onboarding and beginner-friendly suggestions to start their journey.\"},{\"branch_id\":\"hlg_b2b4ce58b73e128a_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the dual-mode interface for different user types.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The interface accessibility is a distinct requirement for both user types.\",\"outcome_justification\":\"Users need an intuitive interface that accommodates different experience levels.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers goal definition and progress tracking with alerts.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The parent goal requires users to 'track their progress toward achieving them'. While llg_002 mentions tracking progress, it focuses specifically on 'alerts' and 'notifications'. The source description mentions 'monitor progress' and 'track their physical activities', but the current decomposition lacks a core functionality for viewing/logging the actual progress data (e.g., a dashboard or history) independent of the alert system.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":3,\"regeneration_feedback\":\"Preserve goal setting and alerts; add a child for viewing/logging progress data to fully realize the 'track their progress' capability; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[\"View and log progress data toward fitness goals\"]}",
+    "parsed_response": {
+      "rationale": "The parent goal requires users to 'track their progress toward achieving them'. While llg_002 mentions tracking progress, it focuses specifically on 'alerts' and 'notifications'. The source description mentions 'monitor progress' and 'track their physical activities', but the current decomposition lacks a core functionality for viewing/logging the actual progress data (e.g., a dashboard or history) independent of the alert system.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 3,
+      "regeneration_feedback": "Preserve goal setting and alerts; add a child for viewing/logging progress data to fully realize the 'track their progress' capability; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "View and log progress data toward fitness goals"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

@@ -1,0 +1,102 @@
+{
+  "iteration": 10,
+  "branch_id": "hlg_3ce73c4fcbf6e912_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Ensure timely evaluation and decision-making on supplier proposals",
+    "description": "Provide administrators with tools to evaluate supplier proposals within defined timeframes, including automatic rejection for delays, to maintain operational efficiency and product quality.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator reviews supplier proposal and assigns status",
+      "description": "The administrator evaluates the proposal and assigns one of three statuses: accepted, revisions requested with a comment, or rejected.",
+      "high_level_associated": {
+        "name": "Ensure timely evaluation and decision-making on supplier proposals",
+        "description": "Provide administrators with tools to evaluate supplier proposals within defined timeframes, including automatic rejection for delays, to maintain operational efficiency and product quality.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System auto-rejects proposal if evaluation deadline is exceeded",
+      "description": "The system automatically marks and rejects proposals that exceed the ten-working-day evaluation deadline, and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Ensure timely evaluation and decision-making on supplier proposals",
+        "description": "Provide administrators with tools to evaluate supplier proposals within defined timeframes, including automatic rejection for delays, to maintain operational efficiency and product quality.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System notifies supplier of evaluation outcome",
+      "description": "The system sends a notification to the supplier informing them of the evaluation result (accepted, revisions requested, or rejected) after the administrator assigns a status.",
+      "high_level_associated": {
+        "name": "Ensure timely evaluation and decision-making on supplier proposals",
+        "description": "Provide administrators with tools to evaluate supplier proposals within defined timeframes, including automatic rejection for delays, to maintain operational efficiency and product quality.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System sends reminder to administrator for pending proposals every 48 hours",
+      "description": "The system automatically sends a reminder notification to the administrator for any proposal that has not yet been evaluated, every 48 hours.",
+      "high_level_associated": {
+        "name": "Ensure timely evaluation and decision-making on supplier proposals",
+        "description": "Provide administrators with tools to evaluate supplier proposals within defined timeframes, including automatic rejection for delays, to maintain operational efficiency and product quality.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are separate goals.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation and automation tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct administrative responsibility for proposal oversight and efficiency.\",\"outcome_justification\":\"Administrators maintain operational flow by evaluating and managing proposal statuses.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid inventory and replenishment logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct functional area from proposal management, focusing on stock availability.\",\"outcome_justification\":\"Administrators ensure products are available and stock levels are maintained.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a specific operational task for store-level staff.\",\"outcome_justification\":\"Goods-receiving staff ensure products are correctly verified and placed in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management tasks which belong to the Administrator's goal.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction mixes order fulfillment with proposal management; the parent should focus solely on order/payment processing.\",\"outcome_justification\":\"Order department manages the completion of orders and payment of suppliers.\",\"rewriting_focus\":\"Focus on order completion, partial delivery handling, and supplier payments; remove proposal evaluation and rejection logic.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the online shopping and tracking capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary customer-facing goal for online sales.\",\"outcome_justification\":\"Customers purchase products online and track their delivery status.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the support ticket lifecycle and agent tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal for customer service operations.\",\"outcome_justification\":\"Agents manage support tickets to ensure customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on reporting, while the parent describes broader analysis and strategic decision-making.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the high-level business intelligence goal; reporting is a means to that end.\",\"outcome_justification\":\"Management uses data to make strategic business decisions.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_3ce73c4fcbf6e912_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal represents a distinct administrative responsibility for proposal oversight and efficiency.",
+      "outcome_justification": "Administrators maintain operational flow by evaluating and managing proposal statuses.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are separate goals.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation and automation tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct administrative responsibility for proposal oversight and efficiency.\",\"outcome_justification\":\"Administrators maintain operational flow by evaluating and managing proposal statuses.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid inventory and replenishment logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct functional area from proposal management, focusing on stock availability.\",\"outcome_justification\":\"Administrators ensure products are available and stock levels are maintained.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a specific operational task for store-level staff.\",\"outcome_justification\":\"Goods-receiving staff ensure products are correctly verified and placed in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management tasks which belong to the Administrator's goal.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction mixes order fulfillment with proposal management; the parent should focus solely on order/payment processing.\",\"outcome_justification\":\"Order department manages the completion of orders and payment of suppliers.\",\"rewriting_focus\":\"Focus on order completion, partial delivery handling, and supplier payments; remove proposal evaluation and rejection logic.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the online shopping and tracking capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary customer-facing goal for online sales.\",\"outcome_justification\":\"Customers purchase products online and track their delivery status.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the support ticket lifecycle and agent tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal for customer service operations.\",\"outcome_justification\":\"Agents manage support tickets to ensure customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on reporting, while the parent describes broader analysis and strategic decision-making.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the high-level business intelligence goal; reporting is a means to that end.\",\"outcome_justification\":\"Management uses data to make strategic business decisions.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately captures the administrator's evaluation and automation tasks.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

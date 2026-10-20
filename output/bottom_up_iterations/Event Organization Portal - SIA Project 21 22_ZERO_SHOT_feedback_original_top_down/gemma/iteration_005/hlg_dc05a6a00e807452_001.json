@@ -1,0 +1,90 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_dc05a6a00e807452_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Facilitate service discovery and booking for event organizers",
+    "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+    "actor": {
+      "name": "Event Organizer",
+      "description": "Person creating and managing an event, coordinating services and payments."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Browse and select event services",
+      "description": "The event organizer searches and filters services by category, price, and availability, then selects one for booking.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Request an appointment with a service provider",
+      "description": "The event organizer selects a compatible time slot and submits appointment details and special requests to the provider.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Confirm appointment with provider",
+      "description": "The provider approves the appointment request, and the system automatically updates the event’s calendar with the confirmed appointment.",
+      "high_level_associated": {
+        "name": "Facilitate service discovery and booking for event organizers",
+        "description": "Provide a centralized platform where event organizers can discover, select, and book event-related services from verified providers.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary overarching goal for the organizer, encompassing all major functional areas of the platform.\",\"outcome_justification\":\"Organizer manages the entire event lifecycle, from planning and guest management to service procurement and budget tracking.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the discovery and booking process for organizers.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a subset of the broader planning goal and is fully covered by the primary organizer goal.\",\"outcome_justification\":\"Service discovery and booking are components of the broader event planning and coordination outcome.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with the secure, flexible, and traceable payment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Payment processing is a distinct, critical financial outcome with specific security and multi-method requirements.\",\"outcome_justification\":\"Organizer ensures secure, traceable transactions and manages complex payment schedules like installments.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Service Provider actor, distinct from the Organizer's goals.\",\"outcome_justification\":\"Service Provider manages their business presence, including offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction incorrectly attributes the service lifecycle (quotations/payments) to the organizer instead of the provider.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source attributes quotation generation and payment confirmation to the provider, not the organizer.\",\"outcome_justification\":\"Service Provider manages the post-booking lifecycle, including quotes and payment confirmations.\",\"rewriting_focus\":\"Correct the actor to Service Provider and focus on responding to requests, generating quotations, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Invited Guest actor regarding platform access.\",\"outcome_justification\":\"Invited Guest accesses event content securely using a unique invitation code.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the collaborative content contribution capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct collaborative outcome for guests beyond simple access.\",\"outcome_justification\":\"Invited Guest contributes to the event's social content through posts and media.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the description of viewing history and budget.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader planning and coordination goal.\",\"outcome_justification\":\"Budget and contract tracking are specific components of the overall event planning and coordination.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_dc05a6a00e807452_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal is a subset of the broader planning goal and is fully covered by the primary organizer goal.",
+      "outcome_justification": "Service discovery and booking are components of the broader event planning and coordination outcome.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_15ab31703493776e_001",
+      "covered_by_high_level_goal_name": "Enable seamless event planning and coordination",
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary overarching goal for the organizer, encompassing all major functional areas of the platform.\",\"outcome_justification\":\"Organizer manages the entire event lifecycle, from planning and guest management to service procurement and budget tracking.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the discovery and booking process for organizers.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a subset of the broader planning goal and is fully covered by the primary organizer goal.\",\"outcome_justification\":\"Service discovery and booking are components of the broader event planning and coordination outcome.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with the secure, flexible, and traceable payment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Payment processing is a distinct, critical financial outcome with specific security and multi-method requirements.\",\"outcome_justification\":\"Organizer ensures secure, traceable transactions and manages complex payment schedules like installments.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Service Provider actor, distinct from the Organizer's goals.\",\"outcome_justification\":\"Service Provider manages their business presence, including offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction incorrectly attributes the service lifecycle (quotations/payments) to the organizer instead of the provider.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source attributes quotation generation and payment confirmation to the provider, not the organizer.\",\"outcome_justification\":\"Service Provider manages the post-booking lifecycle, including quotes and payment confirmations.\",\"rewriting_focus\":\"Correct the actor to Service Provider and focus on responding to requests, generating quotations, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Invited Guest actor regarding platform access.\",\"outcome_justification\":\"Invited Guest accesses event content securely using a unique invitation code.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the collaborative content contribution capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct collaborative outcome for guests beyond simple access.\",\"outcome_justification\":\"Invited Guest contributes to the event's social content through posts and media.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the description of viewing history and budget.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader planning and coordination goal.\",\"outcome_justification\":\"Budget and contract tracking are specific components of the overall event planning and coordination.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately reflects the discovery and booking process for organizers.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL"
+}

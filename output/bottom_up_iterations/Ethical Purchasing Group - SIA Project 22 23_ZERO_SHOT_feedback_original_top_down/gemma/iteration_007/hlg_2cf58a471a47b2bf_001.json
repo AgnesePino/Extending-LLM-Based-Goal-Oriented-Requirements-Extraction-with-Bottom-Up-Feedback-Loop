@@ -1,0 +1,170 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_2cf58a471a47b2bf_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Maintain system integrity and customer trust",
+    "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Record transaction and enforce payment",
+      "description": "System records transaction details and enforces payment rules for all purchases via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Enforce pickup forfeit policy",
+      "description": "System enforces forfeit policy if customer misses pickup, deducting from wallet or marking as forfeited via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Check wallet balance before payment",
+      "description": "System checks customer wallet balance before executing payment and triggers warnings if insufficient via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder for missed pickup",
+      "description": "System sends SMS reminder to customer if pickup is missed and order is not collected by Friday via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder for undelivered goods",
+      "description": "System sends SMS reminder to customer if goods are not delivered by 4 p.m. on Tuesday via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Credit customer with bonus for undelivered goods",
+      "description": "System credits affected customer with 20% bonus and updates wallet when goods are not delivered by 8 p.m. via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Compute and update fair-play score",
+      "description": "System computes fair-play score based on completed orders, reminders, forfeits, and modifications and updates customer profile via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update customer status on order forfeit",
+      "description": "System updates customer status to forfeited and adjusts fair-play score when pickup is missed and not collected by Friday via API.",
+      "high_level_associated": {
+        "name": "Maintain system integrity and customer trust",
+        "description": "Ensure that all transactions, payments, and pickups are accurately recorded and enforced, with mechanisms to penalize or reward customer behavior based on reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on order placement/modification, not just sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to sourcing.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the wallet and payment management capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments securely.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage collection times and system reliability via forfeit policies.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers provide estimates and confirm product availability for fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the store employee's operational tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for store employees.\",\"outcome_justification\":\"Employees manage orders, pickups, and payments for smooth operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery notification and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers and customers are notified of delays and credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction includes many specific mechanics like SMS and API calls.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level outcome of trust and integrity.\",\"outcome_justification\":\"The system enforces rules to reward reliability and penalize non-compliance.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative authorization logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the representative.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_2cf58a471a47b2bf_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The parent represents a high-level outcome of trust and integrity.",
+      "outcome_justification": "The system enforces rules to reward reliability and penalize non-compliance.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on order placement/modification, not just sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to sourcing.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the wallet and payment management capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments securely.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage collection times and system reliability via forfeit policies.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers provide estimates and confirm product availability for fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the store employee's operational tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for store employees.\",\"outcome_justification\":\"Employees manage orders, pickups, and payments for smooth operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery notification and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers and customers are notified of delays and credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction includes many specific mechanics like SMS and API calls.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level outcome of trust and integrity.\",\"outcome_justification\":\"The system enforces rules to reward reliability and penalize non-compliance.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative authorization logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the representative.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction includes many specific mechanics like SMS and API calls.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly decompose the parent goal by covering all documented system behaviors: payment enforcement (llg_001, llg_003, llg_006), pickup/forfeit policies (llg_002, llg_004, llg_008), and the fair-play score calculation (llg_007). The inclusion of SMS reminders (llg_004, llg_005) is supported by the source description as automatic system effects. All actions are distinct and map directly to the source requirements without introducing UI-specific mechanics or unsupported features.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly decompose the parent goal by covering all documented system behaviors: payment enforcement (llg_001, llg_003, llg_006), pickup/forfeit policies (llg_002, llg_004, llg_008), and the fair-play score calculation (llg_007). The inclusion of SMS reminders (llg_004, llg_005) is supported by the source description as automatic system effects. All actions are distinct and map directly to the source requirements without introducing UI-specific mechanics or unsupported features.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

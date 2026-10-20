@@ -1,0 +1,95 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_900809a7ef8b8375_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable efficient and transparent application evaluation and management",
+    "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+    "actor": {
+      "name": "INPS Operator",
+      "description": "INPS staff evaluating and managing submitted applications."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Notify applicant of application status changes",
+      "description": "The system notifies the applicant via email or in-app message when the application status changes (e.g., submitted, suspended, accepted).",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to evaluate application",
+      "description": "The INPS operator evaluates the application by reviewing submitted data and validating compliance with regulations.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to suspend application",
+      "description": "The INPS operator suspends the application for further review or due to missing documentation.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to accept application",
+      "description": "The INPS operator accepts the application and triggers the allowance distribution process.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    },
+    {
+      "name": "Allow INPS operator to specify required documentation for suspended applications",
+      "description": "The INPS operator specifies which additional documents are required when an application is suspended, triggering a notification to the applicant.",
+      "high_level_associated": {
+        "name": "Enable efficient and transparent application evaluation and management",
+        "description": "Allow INPS operators to evaluate, suspend, or accept applications, notify applicants of outcomes, and manage required documentation without manual intervention.",
+        "actor": {
+          "name": "INPS Operator",
+          "description": "INPS staff evaluating and managing submitted applications."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application for AUU; INPS decides on approval, not the applicant.\",\n    \"rewriting_focus\": \"Express submission and tracking for Applicant; remove automatic approval, reserved for INPS staff.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"This undocumented intent is inherently part of the application submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Prevent duplicate applications by blocking submission when a child's fiscal code is already associated with another active AUU application.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's draft saving and resumption capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Draft management is integral to application workflows; separate it from the broader application submission goal.\",\n    \"outcome_justification\": \"Applicant can save, resume, or discard incomplete applications without affecting the core submission process.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Adding children to applications is inherently part of the submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Applicants can add new children to existing applications with real-time fiscal code validation and subsequent modification of payment or declaration data.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application for AUU; INPS decides on approval, not the applicant.\",\n    \"rewriting_focus\": \"Express submission and tracking for Applicant; remove automatic approval, reserved for INPS staff.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"This undocumented intent is inherently part of the application submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Prevent duplicate applications by blocking submission when a child's fiscal code is already associated with another active AUU application.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's draft saving and resumption capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Draft management is integral to application workflows; separate it from the broader application submission goal.\",\n    \"outcome_justification\": \"Applicant can save, resume, or discard incomplete applications without affecting the core submission process.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Adding children to applications is inherently part of the submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Applicants can add new children to existing applications with real-time fiscal code validation and subsequent modification of payment or declaration data.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

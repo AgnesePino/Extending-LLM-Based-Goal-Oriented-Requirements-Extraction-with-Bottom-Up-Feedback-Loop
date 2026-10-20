@@ -1,0 +1,59 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_00df6ca09ca87b63_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable dynamic addition of children to existing applications",
+    "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Add new child to existing application",
+      "description": "The applicant adds a new child to an existing application with real-time fiscal code validation.",
+      "high_level_associated": {
+        "name": "Enable dynamic addition of children to existing applications",
+        "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Modify payment or declaration data for added child",
+      "description": "The applicant modifies payment or declaration data for a newly added child after validation.",
+      "high_level_associated": {
+        "name": "Enable dynamic addition of children to existing applications",
+        "description": "Allow applicants to add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time validation, mandatory declarations, and error handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes these aspects; correct the parent's responsibility to encompass them.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, while the original emphasizes data integrity and preventing duplicates.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Data integrity and prevention of duplicate applications are subsumed by other parents; this parent focuses solely on blocking.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children and blocking applications when a child is already associated with another active application.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits GDPR-compliant privacy notices and responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights these aspects; correct the parent's responsibility to include them.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices by ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time validation, mandatory declarations, and error handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes these aspects; correct the parent's responsibility to encompass them.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, while the original emphasizes data integrity and preventing duplicates.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Data integrity and prevention of duplicate applications are subsumed by other parents; this parent focuses solely on blocking.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children and blocking applications when a child is already associated with another active application.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits GDPR-compliant privacy notices and responsibility declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights these aspects; correct the parent's responsibility to include them.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices by ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

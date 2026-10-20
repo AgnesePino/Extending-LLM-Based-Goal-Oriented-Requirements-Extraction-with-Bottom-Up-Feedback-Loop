@@ -1,0 +1,116 @@
+{
+  "iteration": 18,
+  "branch_id": "hlg_ad3295180f971b21_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Deliver responsive and efficient customer support",
+    "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+    "actor": {
+      "name": "Customer-Service Agent",
+      "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "System automatically assigns support ticket to customer-service agent",
+      "description": "The system assigns a newly created support ticket to a customer-service agent based on predefined rules or availability.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System notifies customer-service agent of new support ticket",
+      "description": "The system sends a notification to the assigned customer-service agent when a new support ticket is created.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System automatically reassigns support ticket after 24 hours of inactivity",
+      "description": "If no response is provided within 24 hours, the system automatically reassigns the ticket to another agent.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System updates performance statistics for customer-service agents",
+      "description": "The system automatically updates performance metrics (e.g., response time, ticket resolution rate) for agents based on ticket activity.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires supplier registration with VAT, address, and IBAN; correct the parent's responsibility.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive details for accurate procurement.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic rejection after 10 days and pending evaluation reminders.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source mandates these automated features for operational efficiency.\",\n    \"outcome_justification\": \"Ensure timely evaluation with defined consequences for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports both automated and manual inventory management.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with flexible replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct the narrow parent accurately.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents a complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with comprehensive verification and assignment processes.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and automated supplier payments.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these features for accurate order management.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with comprehensive handling of various scenarios.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct the narrow parent accurately.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents a complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with comprehensive features.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic ticket reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source mandates these features for efficient customer support.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated management of support tickets.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits data-driven business decision support.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires comprehensive data collection and analysis for strategic insights.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with extensive operational data collection and analysis.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_ad3295180f971b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits automatic ticket reassignment and performance tracking."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source mandates these features for efficient customer support.",
+      "outcome_justification": "Deliver responsive and efficient customer support with automated management of support tickets."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires supplier registration with VAT, address, and IBAN; correct the parent's responsibility.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive details for accurate procurement.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic rejection after 10 days and pending evaluation reminders.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source mandates these automated features for operational efficiency.\",\n    \"outcome_justification\": \"Ensure timely evaluation with defined consequences for delays.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports both automated and manual inventory management.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with flexible replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct the narrow parent accurately.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents a complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with comprehensive verification and assignment processes.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and automated supplier payments.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these features for accurate order management.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with comprehensive handling of various scenarios.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct the narrow parent accurately.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents a complete documented outcome and is not covered by a narrower peer.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with comprehensive features.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic ticket reassignment and performance tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source mandates these features for efficient customer support.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated management of support tickets.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits data-driven business decision support.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires comprehensive data collection and analysis for strategic insights.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with extensive operational data collection and analysis.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits automatic ticket reassignment and performance tracking.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Deliver responsive and efficient customer support' by documenting functional interactions or effects. Each LLG corresponds to a distinct aspect of managing support tickets: assignment, notification, reassignment, and performance tracking. There is no missing essential capability or misleading information.\\n\\nThe system automatically assigns support tickets (llg_001), notifies agents (llg_002), reassigns inactive tickets after 24 hours (llg_003), and updates agent performance statistics based on ticket activity (llg_004). These actions align with the parent goal's description of enabling customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking.\\n\\nThere are no unsupported or misleading LLGs. The scope is correct, and there is no duplication. Each LLG represents a unique aspect of the support ticket management process, contributing to the overall goal of delivering responsive and efficient customer support.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported or Misleading LLG IDs: []; Missing Essential Capabilities: []\", \"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Deliver responsive and efficient customer support' by documenting functional interactions or effects. Each LLG corresponds to a distinct aspect of managing support tickets: assignment, notification, reassignment, and performance tracking. There is no missing essential capability or misleading information.\n\nThe system automatically assigns support tickets (llg_001), notifies agents (llg_002), reassigns inactive tickets after 24 hours (llg_003), and updates agent performance statistics based on ticket activity (llg_004). These actions align with the parent goal's description of enabling customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking.\n\nThere are no unsupported or misleading LLGs. The scope is correct, and there is no duplication. Each LLG represents a unique aspect of the support ticket management process, contributing to the overall goal of delivering responsive and efficient customer support.\n\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported or Misleading LLG IDs: []; Missing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

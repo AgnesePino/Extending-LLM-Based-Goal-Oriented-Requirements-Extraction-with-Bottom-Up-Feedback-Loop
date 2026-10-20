@@ -1,0 +1,87 @@
+{
+  "iteration": 15,
+  "branch_id": "hlg_476ac274557a4b21_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support Clinical Documentation",
+    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+    "actor": {
+      "name": "Hospital Staff",
+      "description": "Registers patients, manages medical notes, and handles check-in."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register New Patient",
+      "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Create Medical Note",
+      "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    },
+    {
+      "name": "Manage Patient Check-In",
+      "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
+      "high_level_associated": {
+        "name": "Support Clinical Documentation",
+        "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+        "actor": {
+          "name": "Hospital Staff",
+          "description": "Registers patients, manages medical notes, and handles check-in."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits 'unified platform' and adds 'real-time operational monitoring'.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the original parent's broader scope; reconstruction mismatch is due to child association.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and resources, distinct from other management goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects real-time monitoring and metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms the parent's legitimacy; reconstruction coherence validates its independence.\",\n      \"outcome_justification\": \"Hospital Manager monitors operations, separate from Administrator or Logistics Staff goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient appointment and medical record management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Healthcare Staff's core coordination role; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins, distinct from Hospital Staff's documentation.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects hospital search and recommendation capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms Patient's self-service role; reconstruction validates its independence.\",\n      \"outcome_justification\": \"Patient searches for hospitals, distinct from Healthcare Staff or Hospital Manager goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient registration, medical notes, and check-in management.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with 'Enhance Patient Care Coordination' (hlg_a9ff40162305bff8_001); same actor, redundant outcome.\",\n      \"outcome_justification\": \"Hospital Staff's documentation is internal to Healthcare Staff's broader coordination goal.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects inventory, blood sample, and product request management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms Logistics Staff's distinct role; reconstruction validates its independence.\",\n      \"outcome_justification\": \"Logistics Staff manages resources, separate from Healthcare or Hospital Manager goals.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_476ac274557a4b21_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "EQUIVALENT",
+        "rationale": "Reconstruction matches patient registration, medical notes, and check-in management."
+      },
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Overlaps with 'Enhance Patient Care Coordination' (hlg_a9ff40162305bff8_001); same actor, redundant outcome.",
+      "outcome_justification": "Hospital Staff's documentation is internal to Healthcare Staff's broader coordination goal.",
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_a9ff40162305bff8_001",
+      "covered_by_high_level_goal_name": "Enhance Patient Care Coordination"
+    },
+    "error": "Redundancy requires the exact ID/name of another same-actor branch"
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits 'unified platform' and adds 'real-time operational monitoring'.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports the original parent's broader scope; reconstruction mismatch is due to child association.\",\n      \"outcome_justification\": \"Administrator centralizes hospital data and resources, distinct from other management goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_e01285a371937460_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects real-time monitoring and metrics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms the parent's legitimacy; reconstruction coherence validates its independence.\",\n      \"outcome_justification\": \"Hospital Manager monitors operations, separate from Administrator or Logistics Staff goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient appointment and medical record management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports Healthcare Staff's core coordination role; reconstruction confirms its scope.\",\n      \"outcome_justification\": \"Healthcare Staff manages appointments, records, and check-ins, distinct from Hospital Staff's documentation.\"\n    },\n    {\n      \"branch_id\": \"hlg_046276afce6da8f8_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects hospital search and recommendation capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms Patient's self-service role; reconstruction validates its independence.\",\n      \"outcome_justification\": \"Patient searches for hospitals, distinct from Healthcare Staff or Hospital Manager goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_476ac274557a4b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches patient registration, medical notes, and check-in management.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Overlaps with 'Enhance Patient Care Coordination' (hlg_a9ff40162305bff8_001); same actor, redundant outcome.\",\n      \"outcome_justification\": \"Hospital Staff's documentation is internal to Healthcare Staff's broader coordination goal.\",\n      \"removal_basis\": \"FULLY_REDUNDANT\",\n      \"covered_by_branch_id\": \"hlg_a9ff40162305bff8_001\",\n      \"covered_by_high_level_goal_name\": \"Enhance Patient Care Coordination\"\n    },\n    {\n      \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects inventory, blood sample, and product request management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms Logistics Staff's distinct role; reconstruction validates its independence.\",\n      \"outcome_justification\": \"Logistics Staff manages resources, separate from Healthcare or Hospital Manager goals.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches patient registration, medical notes, and check-in management.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

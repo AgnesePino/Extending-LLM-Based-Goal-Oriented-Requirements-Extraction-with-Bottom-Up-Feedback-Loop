@@ -1,0 +1,210 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_91b57471207e9b44_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support efficient order management and allocation",
+    "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Submit an order with minimum quantity",
+      "description": "Customer submits an order ensuring it meets the minimum quantity requirement for the product.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Modify an existing order",
+      "description": "Customer modifies an order by changing quantities or adding/removing items before confirmation.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Confirm order submission",
+      "description": "Customer confirms the final order, triggering system validation and allocation.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Notify customer of order changes due to insufficient availability",
+      "description": "System notifies customer of order modifications due to insufficient availability and allows acceptance/rejection via API.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Check customer wallet balance at order submission",
+      "description": "System checks customer’s wallet balance at the time of order submission and triggers warning if insufficient.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder for wallet recharge if balance insufficient at payment time",
+      "description": "System sends SMS to customer if wallet balance is insufficient at the time of automatic payment execution, allowing until Monday evening to recharge.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Cancel order if wallet balance remains insufficient after Monday evening",
+      "description": "System automatically cancels the order if the customer’s wallet balance remains insufficient after Monday evening.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score when order is forfeited due to missed pickup",
+      "description": "System updates the customer’s fair-play score when an order is forfeited due to missed pickup, reducing the score based on the forfeiture policy.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Update fair-play score when order is modified due to availability constraints",
+      "description": "System updates the customer’s fair-play score when an order is modified due to availability constraints, adjusting the score based on the modification policy.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Store employee confirms order collection",
+      "description": "Store employee confirms the collection of an order when the customer arrives, updating the order status to collected.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Store employee confirms receipt of delivered quantities",
+      "description": "Store employee confirms receipt of delivered quantities from farmers, updating the system inventory and order fulfillment status.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Send SMS reminder if goods not delivered by 4 p.m. Tuesday",
+      "description": "System sends SMS to farmer and customer if goods have not been delivered by 4 p.m. on Tuesday.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Credit back missing amount with 20% bonus if goods not delivered by 8 p.m. Tuesday",
+      "description": "System credits back the missing amount to the affected customer with a 20% bonus if goods have not been delivered by 8 p.m. on Tuesday.",
+      "high_level_associated": {
+        "name": "Support efficient order management and allocation",
+        "description": "Facilitate the submission, modification, and confirmation of customer orders while respecting minimum quantity constraints and prioritizing high-fair-play-score customers during shortages.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality transparency.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent sourcing; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Customer gains insight into product details; other goals focus on order flow.\"\n    },\n    {\n      \"branch_id\": \"hlg_91b57471207e9b44_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches order submission, modification, and allocation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Order management is internal to broader payment and pickup goals.\",\n      \"outcome_justification\": \"The containing outcome is seamless payment (hlg_1c190ea7f86685cf_001) and pickup scheduling (hlg_45d7b64c9eb54357_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches wallet management and payment enforcement.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous payment outcome; reconstruction is coherent.\",\n      \"outcome_justification\": \"Customer manages payments independently of order or pickup steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, reminders, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous pickup outcome; reconstruction is coherent.\",\n      \"outcome_justification\": \"Customer schedules pickups independently of order or payment steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches farmer availability submission and confirmation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous inventory tracking; reconstruction is coherent.\",\n      \"outcome_justification\": \"Farmer manages product availability independently of store or customer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches store employee order and fulfillment tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous store operations; reconstruction is coherent.\",\n      \"outcome_justification\": \"Store Employee manages fulfillment independently of customer or farmer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer-specific delivery coordination.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Delivery notification is internal to broader inventory and store goals.\",\n      \"outcome_justification\": \"The containing outcome is accurate inventory (hlg_d7aace6841b88a6b_001) and efficient store operations (hlg_d714bbf6da86e761_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches transaction recording, policy enforcement, and fair-play scoring.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"System integrity is internal to payment (hlg_1c190ea7f86685cf_001) and pickup (hlg_45d7b64c9eb54357_001) goals.\",\n      \"outcome_justification\": \"The containing outcomes are seamless payment and pickup scheduling, which inherently enforce integrity.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous group-based purchasing; reconstruction is coherent.\",\n      \"outcome_justification\": \"Purchasing Group Representative submits orders independently of customer or store actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_91b57471207e9b44_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Order management is internal to broader payment and pickup goals.",
+      "outcome_justification": "The containing outcome is seamless payment (hlg_1c190ea7f86685cf_001) and pickup scheduling (hlg_45d7b64c9eb54357_001).",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "OVER_SPECIFIC",
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality transparency.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent sourcing; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Customer gains insight into product details; other goals focus on order flow.\"\n    },\n    {\n      \"branch_id\": \"hlg_91b57471207e9b44_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches order submission, modification, and allocation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Order management is internal to broader payment and pickup goals.\",\n      \"outcome_justification\": \"The containing outcome is seamless payment (hlg_1c190ea7f86685cf_001) and pickup scheduling (hlg_45d7b64c9eb54357_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches wallet management and payment enforcement.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous payment outcome; reconstruction is coherent.\",\n      \"outcome_justification\": \"Customer manages payments independently of order or pickup steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, reminders, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous pickup outcome; reconstruction is coherent.\",\n      \"outcome_justification\": \"Customer schedules pickups independently of order or payment steps.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches farmer availability submission and confirmation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous inventory tracking; reconstruction is coherent.\",\n      \"outcome_justification\": \"Farmer manages product availability independently of store or customer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches store employee order and fulfillment tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous store operations; reconstruction is coherent.\",\n      \"outcome_justification\": \"Store Employee manages fulfillment independently of customer or farmer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer-specific delivery coordination.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Delivery notification is internal to broader inventory and store goals.\",\n      \"outcome_justification\": \"The containing outcome is accurate inventory (hlg_d7aace6841b88a6b_001) and efficient store operations (hlg_d714bbf6da86e761_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches transaction recording, policy enforcement, and fair-play scoring.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"System integrity is internal to payment (hlg_1c190ea7f86685cf_001) and pickup (hlg_45d7b64c9eb54357_001) goals.\",\n      \"outcome_justification\": \"The containing outcomes are seamless payment and pickup scheduling, which inherently enforce integrity.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports autonomous group-based purchasing; reconstruction is coherent.\",\n      \"outcome_justification\": \"Purchasing Group Representative submits orders independently of customer or store actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches order submission, modification, and allocation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL"
+}

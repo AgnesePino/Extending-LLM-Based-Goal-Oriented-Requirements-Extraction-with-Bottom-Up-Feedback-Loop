@@ -1,0 +1,128 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_c12fcb1e0bd72453_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide timely delivery and customer notification",
+    "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+    "actor": {
+      "name": "Farmer",
+      "description": "Local producer who supplies products and confirms availability to the system."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Notify farmer of delivery delay",
+      "description": "System notifies farmer of delivery delays and triggers automatic credit-back bonus with 20% bonus via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Notify customer of delivery delay",
+      "description": "System notifies customer of delivery delays and provides estimated resolution time via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Automatically credit back missing amount with bonus",
+      "description": "System automatically credits back the missing amount to the customer’s wallet with a 20% bonus via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Cancel orders and credit wallets with 20% bonus if deliveries are late",
+      "description": "System cancels orders and credits wallets with 20% bonus if deliveries are late via API.",
+      "high_level_associated": {
+        "name": "Provide timely delivery and customer notification",
+        "description": "Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on order placement/modification, not just sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to sourcing.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the wallet and payment management capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments securely.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage collection times and system reliability via forfeit policies.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers provide estimates and confirm product availability for fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the store employee's operational tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for store employees.\",\"outcome_justification\":\"Employees manage orders, pickups, and payments for smooth operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery notification and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers and customers are notified of delays and credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction includes many specific mechanics like SMS and API calls.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level outcome of trust and integrity.\",\"outcome_justification\":\"The system enforces rules to reward reliability and penalize non-compliance.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative authorization logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the representative.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_c12fcb1e0bd72453_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The parent represents a distinct, independently useful outcome for the farmer.",
+      "outcome_justification": "Farmers and customers are notified of delays and credits.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction focuses on order placement/modification, not just sourcing information.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to sourcing.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the wallet and payment management capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments securely.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the pickup scheduling and forfeit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the customer.\",\"outcome_justification\":\"Customers manage collection times and system reliability via forfeit policies.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the farmer's availability submission and confirmation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers provide estimates and confirm product availability for fulfillment.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the store employee's operational tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for store employees.\",\"outcome_justification\":\"Employees manage orders, pickups, and payments for smooth operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the delivery notification and credit logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the farmer.\",\"outcome_justification\":\"Farmers and customers are notified of delays and credits.\"},{\"branch_id\":\"hlg_2cf58a471a47b2bf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"Reconstruction includes many specific mechanics like SMS and API calls.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a high-level outcome of trust and integrity.\",\"outcome_justification\":\"The system enforces rules to reward reliability and penalize non-compliance.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The children correctly reconstruct the representative authorization logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents a distinct, independently useful outcome for the representative.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The children correctly reconstruct the delivery notification and credit logic.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The source description specifies that if goods are not delivered by 8 p.m. on Tuesday, the system updates the orders, credits the missing amount with a 20% bonus, and informs the customers. The children include 'Notify farmer of delivery delay' (llg_001) and 'Notify customer of delivery delay' (llg_002), but the source does not mention notifying the farmer of delays, only the customer. Furthermore, llg_004 (Cancel orders) is not supported by the source; the source states orders are updated and credited, not cancelled. llg_002 includes 'estimated resolution time' which is not in the source.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":2,\"regeneration_feedback\":\"Preserve llg_003; remove llg_001 as the source does not mention notifying farmers of delays; remove llg_004 as the source specifies updating and crediting rather than cancelling; remove 'estimated resolution time' from llg_002; add an action to update customer orders and inform them of the delivery problem as specified in the source; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[\"llg_001\",\"llg_002\",\"llg_004\"],\"missing_essential_capabilities\":[\"Update customer orders and inform them of delivery problems\"]}",
+    "parsed_response": {
+      "rationale": "The source description specifies that if goods are not delivered by 8 p.m. on Tuesday, the system updates the orders, credits the missing amount with a 20% bonus, and informs the customers. The children include 'Notify farmer of delivery delay' (llg_001) and 'Notify customer of delivery delay' (llg_002), but the source does not mention notifying the farmer of delays, only the customer. Furthermore, llg_004 (Cancel orders) is not supported by the source; the source states orders are updated and credited, not cancelled. llg_002 includes 'estimated resolution time' which is not in the source.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve llg_003; remove llg_001 as the source does not mention notifying farmers of delays; remove llg_004 as the source specifies updating and crediting rather than cancelling; remove 'estimated resolution time' from llg_002; add an action to update customer orders and inform them of the delivery problem as specified in the source; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_001",
+        "llg_002",
+        "llg_004"
+      ],
+      "missing_essential_capabilities": [
+        "Update customer orders and inform them of delivery problems"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

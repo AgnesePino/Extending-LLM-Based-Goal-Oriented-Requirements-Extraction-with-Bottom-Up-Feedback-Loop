@@ -1,0 +1,84 @@
+{
+  "iteration": 14,
+  "branch_id": "hlg_d7aace6841b88a6b_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Maintain accurate inventory and availability tracking",
+    "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
+    "actor": {
+      "name": "Farmer",
+      "description": "Local producer who supplies products and confirms availability to the system."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Submit product availability estimate",
+      "description": "Farmer submits an estimate of product availability to the system for dynamic allocation between Friday at noon and Saturday morning.",
+      "high_level_associated": {
+        "name": "Maintain accurate inventory and availability tracking",
+        "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Confirm final product quantities available for order",
+      "description": "Farmer confirms actual quantities available for order by Monday morning via the system, triggering order fulfillment adjustments.",
+      "high_level_associated": {
+        "name": "Maintain accurate inventory and availability tracking",
+        "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    },
+    {
+      "name": "Apply precedence rules to allocate limited product quantities",
+      "description": "System automatically applies customer precedence rules based on fair-play scores to allocate limited product quantities among competing orders when availability is insufficient.",
+      "high_level_associated": {
+        "name": "Maintain accurate inventory and availability tracking",
+        "description": "Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.",
+        "actor": {
+          "name": "Farmer",
+          "description": "Local producer who supplies products and confirms availability to the system."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer places orders with quantity constraints and modified due to availability using fair-play precedence rules; reconstruction omits these crucial aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated order cancellation for insufficient funds.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellations; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with real-time notifications and automated order cancellation for insufficient funds; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play score updates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer pickup scheduling includes automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits farmer confirmation of final quantities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Dynamic allocation of limited product quantities based on real-time availability and fair-play precedence scoring with farmer confirmation; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of store employee order management are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordination of product pickup, processing customer payments, and confirming delivery status; no overlap or missing aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the 20% bonus for delivery failures.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the 20% bonus; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Delivery delay notification and compensation system includes an SMS alert, order record updates, and a 20% bonus for delivery failures; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of group-based purchasing and representative authorization are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders with identity verification and group membership validation; no overlap or missing aspects.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d7aace6841b88a6b_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits farmer confirmation of final quantities."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.",
+      "outcome_justification": "Dynamic allocation of limited product quantities based on real-time availability and fair-play precedence scoring with farmer confirmation; reconstruction omits this aspect."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the minimum quantity constraints and fair-play rules for order modifications.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports minimum quantities and fair-play rules; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer places orders with quantity constraints and modified due to availability using fair-play precedence rules; reconstruction omits these crucial aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time notifications and automated order cancellation for insufficient funds.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports real-time notifications and automated cancellations; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer manages wallet balance with real-time notifications and automated order cancellation for insufficient funds; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits forfeiture handling and fair-play score updates.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports forfeiture handling and fair-play score updates; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Customer pickup scheduling includes automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance; reconstruction omits these aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits farmer confirmation of final quantities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports farmer confirmation; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Dynamic allocation of limited product quantities based on real-time availability and fair-play precedence scoring with farmer confirmation; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of store employee order management are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Store employees manage end-to-end order fulfillment, including coordination of product pickup, processing customer payments, and confirming delivery status; no overlap or missing aspects.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the 20% bonus for delivery failures.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the 20% bonus; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Delivery delay notification and compensation system includes an SMS alert, order record updates, and a 20% bonus for delivery failures; reconstruction omits this aspect.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All aspects of group-based purchasing and representative authorization are covered.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by narrower peers.\",\n    \"outcome_justification\": \"Authorized group representatives submit purchase orders with identity verification and group membership validation; no overlap or missing aspects.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits farmer confirmation of final quantities.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

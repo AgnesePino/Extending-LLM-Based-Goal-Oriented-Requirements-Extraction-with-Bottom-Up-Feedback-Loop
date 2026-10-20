@@ -1,0 +1,112 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_45d7b64c9eb54357_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Optimize product pickup scheduling and collection",
+    "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Select pickup time slot",
+      "description": "Customer selects an available time slot for product pickup based on store availability.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive pickup reminder notification",
+      "description": "Customer receives a notification before the pickup time to confirm attendance.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Receive missed pickup notification",
+      "description": "Customer is notified if they miss their pickup time and is informed of forfeit policy consequences.",
+      "high_level_associated": {
+        "name": "Optimize product pickup scheduling and collection",
+        "description": "Provide customers with time slots for product collection, notify them of missed pickups, and enforce forfeit policies to maintain system reliability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality transparency.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source emphasizes transparent sourcing; reconstruction focuses on order placement.\",\n      \"outcome_justification\": \"Customer needs traceable product information beyond order management.\",\n      \"rewriting_focus\": \"Clarify product origin, quality, and availability transparency as the core outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_91b57471207e9b44_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects order submission, modification, and confirmation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported and distinct from other order-related goals.\",\n      \"outcome_justification\": \"Customer manages orders with precedence rules; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers wallet management, notifications, and payment handling.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer secures payments via wallets; no broader parent covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, notifications, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer collects products via scheduled slots; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects farmer availability submissions.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported and distinct from store/customer goals.\",\n      \"outcome_justification\": \"Farmer provides product estimates; no broader parent covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches store employee order fulfillment tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Store employees manage orders, pickups, and payments; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer notifications; focuses on customer credits.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source includes farmer alerts; reconstruction narrows to customer actions.\",\n      \"outcome_justification\": \"Farmers and customers need delivery transparency; no broader parent exists.\",\n      \"rewriting_focus\": \"Include both farmer and customer notifications for delivery delays.\"\n    },\n    {\n      \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches transactional enforcement and fair-play policies.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer trust relies on enforced transactions and fair-play scoring.\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Group representatives submit orders; no broader parent covers this.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_45d7b64c9eb54357_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Parent is source-supported; no redundancy with other goals.",
+      "outcome_justification": "Customer collects products via scheduled slots; no broader parent exists.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality transparency.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source emphasizes transparent sourcing; reconstruction focuses on order placement.\",\n      \"outcome_justification\": \"Customer needs traceable product information beyond order management.\",\n      \"rewriting_focus\": \"Clarify product origin, quality, and availability transparency as the core outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_91b57471207e9b44_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects order submission, modification, and confirmation.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported and distinct from other order-related goals.\",\n      \"outcome_justification\": \"Customer manages orders with precedence rules; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers wallet management, notifications, and payment handling.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer secures payments via wallets; no broader parent covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, notifications, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer collects products via scheduled slots; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects farmer availability submissions.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported and distinct from store/customer goals.\",\n      \"outcome_justification\": \"Farmer provides product estimates; no broader parent covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches store employee order fulfillment tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Store employees manage orders, pickups, and payments; no broader parent exists.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer notifications; focuses on customer credits.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source includes farmer alerts; reconstruction narrows to customer actions.\",\n      \"outcome_justification\": \"Farmers and customers need delivery transparency; no broader parent exists.\",\n      \"rewriting_focus\": \"Include both farmer and customer notifications for delivery delays.\"\n    },\n    {\n      \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches transactional enforcement and fair-play policies.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Customer trust relies on enforced transactions and fair-play scoring.\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is source-supported; no redundancy with other goals.\",\n      \"outcome_justification\": \"Group representatives submit orders; no broader parent covers this.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches pickup scheduling, notifications, and forfeits.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The parent goal requires handling missed pickups, forfeiture policies, and time slot selection. The children llg_001 (select pickup time slot) and llg_002 (receive pickup reminder notification) are supported by the source description but do not cover the enforcement of forfeit policies or the update of fair-play scores after missed pickups. The child llg_003 (receive missed pickup notification) partially addresses this but lacks the enforcement aspect, which is essential according to the parent goal.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Preserve time slot selection and reminder notifications; add explicit handling of forfeit policies (e.g., updating fair-play scores) when customers miss their pickup times. Return the full decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": [\"Enforce forfeit policies by updating customer's fair-play score after missed pickups\"]\n}\n```",
+    "parsed_response": {
+      "rationale": "The parent goal requires handling missed pickups, forfeiture policies, and time slot selection. The children llg_001 (select pickup time slot) and llg_002 (receive pickup reminder notification) are supported by the source description but do not cover the enforcement of forfeit policies or the update of fair-play scores after missed pickups. The child llg_003 (receive missed pickup notification) partially addresses this but lacks the enforcement aspect, which is essential according to the parent goal.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve time slot selection and reminder notifications; add explicit handling of forfeit policies (e.g., updating fair-play scores) when customers miss their pickup times. Return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Enforce forfeit policies by updating customer's fair-play score after missed pickups"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

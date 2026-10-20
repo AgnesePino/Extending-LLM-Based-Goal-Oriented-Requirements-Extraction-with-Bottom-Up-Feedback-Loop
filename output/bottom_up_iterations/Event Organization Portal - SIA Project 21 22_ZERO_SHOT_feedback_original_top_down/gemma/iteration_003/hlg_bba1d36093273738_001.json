@@ -1,0 +1,102 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_bba1d36093273738_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Allow service providers to showcase and manage offerings",
+    "description": "Enable service providers to publish, categorize, and manage their services with detailed information, pricing, and availability.",
+    "actor": {
+      "name": "Service Provider",
+      "description": "Business or individual offering event-related services for booking."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Publish service offerings",
+      "description": "The service provider uploads service details, including description, pricing, and availability, to the platform.",
+      "high_level_associated": {
+        "name": "Allow service providers to showcase and manage offerings",
+        "description": "Enable service providers to publish, categorize, and manage their services with detailed information, pricing, and availability.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    },
+    {
+      "name": "Categorize and tag services",
+      "description": "The service provider assigns categories and tags to their services for better discoverability by event organizers.",
+      "high_level_associated": {
+        "name": "Allow service providers to showcase and manage offerings",
+        "description": "Enable service providers to publish, categorize, and manage their services with detailed information, pricing, and availability.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary, overarching goal for the organizer, encompassing all other specific sub-tasks.\",\"outcome_justification\":\"Organizer manages the entire event lifecycle, including guests, services, and budget.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on the booking workflow, which is a subset of the broader planning goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It represents a distinct, high-level functional area (discovery and booking) for the organizer.\",\"outcome_justification\":\"Organizer discovers and selects specific services from the provider marketplace.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, multi-method payment system described.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Payment processing is a critical, independent functional requirement with specific rules (installments, on-site).\",\"outcome_justification\":\"Organizer and provider complete secure, traceable financial transactions.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the provider's ability to publish and categorize services.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the service provider actor.\",\"outcome_justification\":\"Provider manages their public-facing service offerings and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction describes the provider's side of the lifecycle, while the parent is broader.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It captures the provider's specific operational workflow for appointments and quotes.\",\"outcome_justification\":\"Provider manages the fulfillment and billing side of service requests.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the invited guest actor.\",\"outcome_justification\":\"Guest accesses private event content securely.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the collaborative content creation description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It represents a distinct social/collaborative feature for guests and organizers.\",\"outcome_justification\":\"Guests and organizers interact via blog posts and media.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the budget and contract history tracking.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"Budget and contract tracking are components of the overall event planning goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_bba1d36093273738_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This is the primary goal for the service provider actor.",
+      "outcome_justification": "Provider manages their public-facing service offerings and availability.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary, overarching goal for the organizer, encompassing all other specific sub-tasks.\",\"outcome_justification\":\"Organizer manages the entire event lifecycle, including guests, services, and budget.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on the booking workflow, which is a subset of the broader planning goal.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It represents a distinct, high-level functional area (discovery and booking) for the organizer.\",\"outcome_justification\":\"Organizer discovers and selects specific services from the provider marketplace.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, multi-method payment system described.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"Payment processing is a critical, independent functional requirement with specific rules (installments, on-site).\",\"outcome_justification\":\"Organizer and provider complete secure, traceable financial transactions.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the provider's ability to publish and categorize services.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the service provider actor.\",\"outcome_justification\":\"Provider manages their public-facing service offerings and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction describes the provider's side of the lifecycle, while the parent is broader.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It captures the provider's specific operational workflow for appointments and quotes.\",\"outcome_justification\":\"Provider manages the fulfillment and billing side of service requests.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the guest's access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the invited guest actor.\",\"outcome_justification\":\"Guest accesses private event content securely.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the collaborative content creation description.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"It represents a distinct social/collaborative feature for guests and organizers.\",\"outcome_justification\":\"Guests and organizers interact via blog posts and media.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the budget and contract history tracking.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"Budget and contract tracking are components of the overall event planning goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction matches the provider's ability to publish and categorize services.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The parent goal requires the ability to manage services with 'detailed information, pricing, and availability'. While llg_001 covers publishing these details, the source description specifically mentions that providers can configure a 'virtual showcase' containing 'demonstration photos'. This specific capability is missing from the children. Additionally, llg_002 mentions 'tags', which are not mentioned in the source description (only categories are specified).\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Preserve llg_001; remove 'tags' from llg_002; add a child for configuring the virtual showcase including demonstration photos; return the entire corrected decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [\n    \"llg_002\"\n  ],\n  \"missing_essential_capabilities\": [\n    \"Configure virtual showcase with demonstration photos\"\n  ]\n}\n```",
+    "parsed_response": {
+      "rationale": "The parent goal requires the ability to manage services with 'detailed information, pricing, and availability'. While llg_001 covers publishing these details, the source description specifically mentions that providers can configure a 'virtual showcase' containing 'demonstration photos'. This specific capability is missing from the children. Additionally, llg_002 mentions 'tags', which are not mentioned in the source description (only categories are specified).",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve llg_001; remove 'tags' from llg_002; add a child for configuring the virtual showcase including demonstration photos; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_002"
+      ],
+      "missing_essential_capabilities": [
+        "Configure virtual showcase with demonstration photos"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

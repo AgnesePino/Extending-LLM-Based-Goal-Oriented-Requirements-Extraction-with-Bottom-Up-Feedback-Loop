@@ -1,0 +1,98 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_0fb0dc543542f24e_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support goal setting and progress monitoring",
+    "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+    "actor": {
+      "name": "Fitness Enthusiast",
+      "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Set personalized fitness goals",
+      "description": "Enable users to define specific, measurable goals such as weight loss targets or weekly workout frequency.",
+      "high_level_associated": {
+        "name": "Support goal setting and progress monitoring",
+        "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Track goal progress with real-time alerts",
+      "description": "Deliver immediate notifications to users when they approach or exceed their goal thresholds, ensuring timely feedback and motivation.",
+      "high_level_associated": {
+        "name": "Support goal setting and progress monitoring",
+        "description": "Allow users to define personalized fitness goals and track their progress toward achieving them.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes recommendations, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Tracking and analyzing activities is distinct from goal-driven progression.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds real-time alerts, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Goal setting and progress monitoring is distinct from immediate feedback.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches personalized workout plans.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported and confirmed; reconstruction is coherent.\",\n      \"outcome_justification\": \"Personalized recommendations are a distinct, independently useful outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches onboarding and beginner guidance.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction is coherent.\",\n      \"outcome_justification\": \"Guiding beginners is distinct from tracking or recommendations.\"\n    },\n    {\n      \"branch_id\": \"hlg_b2b4ce58b73e128a_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches dual-mode interface.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Interface design is non-functional; no functional core.\",\n      \"outcome_justification\": \"The containing outcome is guiding beginners or tracking activities.\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_0fb0dc543542f24e_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Original is source-supported; reconstruction mismatch concerns children.",
+      "outcome_justification": "Goal setting and progress monitoring is distinct from immediate feedback.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes recommendations, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Tracking and analyzing activities is distinct from goal-driven progression.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds real-time alerts, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction mismatch concerns children.\",\n      \"outcome_justification\": \"Goal setting and progress monitoring is distinct from immediate feedback.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches personalized workout plans.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported and confirmed; reconstruction is coherent.\",\n      \"outcome_justification\": \"Personalized recommendations are a distinct, independently useful outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches onboarding and beginner guidance.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original is source-supported; reconstruction is coherent.\",\n      \"outcome_justification\": \"Guiding beginners is distinct from tracking or recommendations.\"\n    },\n    {\n      \"branch_id\": \"hlg_b2b4ce58b73e128a_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches dual-mode interface.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Interface design is non-functional; no functional core.\",\n      \"outcome_justification\": \"The containing outcome is guiding beginners or tracking activities.\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction adds real-time alerts, not in original.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children llg_001 and llg_002 correctly address the parent's requirements for setting personalized fitness goals and tracking progress with real-time alerts. Both are supported by the project description, which emphasizes defining goals and monitoring progress with timely feedback. No essential capabilities are missing, and there is no duplication or unsupported addition.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children llg_001 and llg_002 correctly address the parent's requirements for setting personalized fitness goals and tracking progress with real-time alerts. Both are supported by the project description, which emphasizes defining goals and monitoring progress with timely feedback. No essential capabilities are missing, and there is no duplication or unsupported addition.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

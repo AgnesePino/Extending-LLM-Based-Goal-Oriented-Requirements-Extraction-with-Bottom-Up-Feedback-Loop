@@ -1,0 +1,83 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_d714bbf6da86e761_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable efficient store operations and order fulfillment",
+    "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+    "actor": {
+      "name": "Store Employee",
+      "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Manage order fulfillment for store",
+      "description": "Store employee views and manages pending orders for fulfillment.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Coordinate product pickup",
+      "description": "Store employee coordinates pickup logistics for customers, including time and location.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Process customer payments",
+      "description": "Store employee processes customer payments and updates wallet balances via system API.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    },
+    {
+      "name": "Confirm delivery status",
+      "description": "Store employee confirms delivery status and updates system records.",
+      "high_level_associated": {
+        "name": "Enable efficient store operations and order fulfillment",
+        "description": "Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.",
+        "actor": {
+          "name": "Store Employee",
+          "description": "Staff member who manages orders, handles payments, and coordinates product pickups."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on viewing details, omitting the broader goal of transparent and traceable sourcing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a more comprehensive outcome encompassing transparency and traceability.\",\n    \"outcome_justification\": \"Enable customers to make informed decisions by providing detailed product origin, quality, and availability information.\"\n  },\n  {\n    \"branch_id\": \"hlg_91b57471207e9b44_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in prioritizing high-fair-play-score customers during shortages.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes fair-play score-based prioritization, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Support efficient order management and allocation, including prioritizing high-fair-play-score customers during shortages.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in handling insufficient balances and automatic cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mechanisms for handling insufficient wallet balances, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Enable seamless payment and wallet management, including handling insufficient balances with grace periods and automatic cancellations if necessary.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in enforcing forfeit policies upon missed pickups.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes forfeit policies, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Optimize product pickup scheduling and collection, including enforcement of forfeit policies upon missed pickups.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the parent's focus on availability tracking and dynamic allocation.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent goal is independently useful and distinct from other parents, focusing on accurate inventory and availability tracking.\",\n    \"outcome_justification\": \"Maintain accurate inventory and availability tracking, allowing the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.\"\n  },\n  {\n    \"branch_id\": \"hlg_5c82e14395e9d14b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in calculating and displaying fair-play scores.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes fair-play score calculation, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Support fair and transparent allocation during shortages, including calculating and displaying fair-play scores to determine order priority.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in coordinating product pickups and confirming delivery status.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes coordination of product pickups and confirmation of delivery status, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Enable efficient store operations and order fulfillment, including coordination of product pickups and handling payments.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in crediting back missing amounts with a bonus and informing customers of delivery problems.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mechanisms for handling delivery delays, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Provide timely delivery and customer notification, including crediting back missing amounts with a bonus and informing customers of delivery problems.\"\n  },\n  {\n    \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n    \"reconstruction_diagnosis",
+    "parsed_response": null,
+    "error": "JSONDecodeError: Unterminated string starting at: line 84 column 5 (char 5067)"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on viewing details, omitting the broader goal of transparent and traceable sourcing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a more comprehensive outcome encompassing transparency and traceability.\",\n    \"outcome_justification\": \"Enable customers to make informed decisions by providing detailed product origin, quality, and availability information.\"\n  },\n  {\n    \"branch_id\": \"hlg_91b57471207e9b44_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in prioritizing high-fair-play-score customers during shortages.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes fair-play score-based prioritization, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Support efficient order management and allocation, including prioritizing high-fair-play-score customers during shortages.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in handling insufficient balances and automatic cancellations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mechanisms for handling insufficient wallet balances, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Enable seamless payment and wallet management, including handling insufficient balances with grace periods and automatic cancellations if necessary.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in enforcing forfeit policies upon missed pickups.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes forfeit policies, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Optimize product pickup scheduling and collection, including enforcement of forfeit policies upon missed pickups.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the parent's focus on availability tracking and dynamic allocation.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent goal is independently useful and distinct from other parents, focusing on accurate inventory and availability tracking.\",\n    \"outcome_justification\": \"Maintain accurate inventory and availability tracking, allowing the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.\"\n  },\n  {\n    \"branch_id\": \"hlg_5c82e14395e9d14b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in calculating and displaying fair-play scores.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes fair-play score calculation, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Support fair and transparent allocation during shortages, including calculating and displaying fair-play scores to determine order priority.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in coordinating product pickups and confirming delivery status.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes coordination of product pickups and confirmation of delivery status, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Enable efficient store operations and order fulfillment, including coordination of product pickups and handling payments.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the system's role in crediting back missing amounts with a bonus and informing customers of delivery problems.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes mechanisms for handling delivery delays, which should be reflected in the parent goal.\",\n    \"outcome_justification\": \"Provide timely delivery and customer notification, including crediting back missing amounts with a bonus and informing customers of delivery problems.\"\n  },\n  {\n    \"branch_id\": \"hlg_2cf58a471a47b2bf_001\",\n    \"reconstruction_diagnosis",
+    "parsed_response": null,
+    "error": "JSONDecodeError: Unterminated string starting at: line 84 column 5 (char 5067)"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

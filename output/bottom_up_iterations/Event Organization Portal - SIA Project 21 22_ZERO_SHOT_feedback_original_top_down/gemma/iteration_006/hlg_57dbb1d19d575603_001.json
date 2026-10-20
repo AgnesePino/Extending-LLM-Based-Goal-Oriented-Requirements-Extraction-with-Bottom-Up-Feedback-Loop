@@ -1,0 +1,78 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_57dbb1d19d575603_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable invited guests to participate in event activities",
+    "description": "Allow invited guests to access event-related content, such as blogs and photos, using invitation codes for secure access.",
+    "actor": {
+      "name": "Invited Guest",
+      "description": "Person invited to the event, who accesses the platform via an invitation code."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Access event content using invitation code",
+      "description": "The invited guest enters an invitation code to gain secure access to event-related content.",
+      "high_level_associated": {
+        "name": "Enable invited guests to participate in event activities",
+        "description": "Allow invited guests to access event-related content, such as blogs and photos, using invitation codes for secure access.",
+        "actor": {
+          "name": "Invited Guest",
+          "description": "Person invited to the event, who accesses the platform via an invitation code."
+        }
+      }
+    },
+    {
+      "name": "View event blogs and photos",
+      "description": "The invited guest browses and views event-related blogs and photos after successful authentication via invitation code.",
+      "high_level_associated": {
+        "name": "Enable invited guests to participate in event activities",
+        "description": "Allow invited guests to access event-related content, such as blogs and photos, using invitation codes for secure access.",
+        "actor": {
+          "name": "Invited Guest",
+          "description": "Person invited to the event, who accesses the platform via an invitation code."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the primary, overarching goal for the organizer as documented in the source.\",\"outcome_justification\":\"Organizers can coordinate all event aspects, including guests, services, and budgets, in one place.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, flexible, and traceable payment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal covers a distinct, critical financial outcome separate from general planning.\",\"outcome_justification\":\"Organizers and providers can execute secure, multi-method payments with clear audit trails.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary documented outcome for the service provider actor.\",\"outcome_justification\":\"Service providers can manage their public-facing offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction incorrectly attributes the service lifecycle to organizers instead of providers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source specifies that providers respond to requests and generate quotations, not organizers.\",\"outcome_justification\":\"Service providers manage the fulfillment of service requests and payment confirmations.\",\"rewriting_focus\":\"Correct the actor responsibility to Service Provider; ensure it covers responding to requests, generating quotations, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the secure access and content viewing for guests.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents the primary access and consumption goal for the guest actor.\",\"outcome_justification\":\"Invited guests can securely view event content using unique invitation codes.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the collaborative content creation aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct collaborative outcome from the guest's passive viewing goal.\",\"outcome_justification\":\"Both organizers and guests can actively contribute to the event blog.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with the source's description of budget and contract tracking.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a subset of the broader planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"Budget and contract tracking are components of the overall event planning and coordination.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_57dbb1d19d575603_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents the primary access and consumption goal for the guest actor.",
+      "outcome_justification": "Invited guests can securely view event content using unique invitation codes.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the full scope of planning, procurement, and monitoring described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the primary, overarching goal for the organizer as documented in the source.\",\"outcome_justification\":\"Organizers can coordinate all event aspects, including guests, services, and budgets, in one place.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, flexible, and traceable payment requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal covers a distinct, critical financial outcome separate from general planning.\",\"outcome_justification\":\"Organizers and providers can execute secure, multi-method payments with clear audit trails.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary documented outcome for the service provider actor.\",\"outcome_justification\":\"Service providers can manage their public-facing offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction incorrectly attributes the service lifecycle to organizers instead of providers.\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source specifies that providers respond to requests and generate quotations, not organizers.\",\"outcome_justification\":\"Service providers manage the fulfillment of service requests and payment confirmations.\",\"rewriting_focus\":\"Correct the actor responsibility to Service Provider; ensure it covers responding to requests, generating quotations, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the secure access and content viewing for guests.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents the primary access and consumption goal for the guest actor.\",\"outcome_justification\":\"Invited guests can securely view event content using unique invitation codes.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the collaborative content creation aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct collaborative outcome from the guest's passive viewing goal.\",\"outcome_justification\":\"Both organizers and guests can actively contribute to the event blog.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction aligns with the source's description of budget and contract tracking.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a subset of the broader planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"Budget and contract tracking are components of the overall event planning and coordination.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction matches the secure access and content viewing for guests.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,144 @@
+{
+  "iteration": 12,
+  "branch_id": "hlg_98d6ce34de840fb6_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Enable efficient supplier onboarding and proposal management",
+    "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+    "actor": {
+      "name": "Supplier",
+      "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Supplier registers account with basic company details",
+      "description": "The supplier submits their company name, contact information, and tax identification to create an account.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Supplier uploads product proposal with specifications",
+      "description": "The supplier submits a product proposal including SKU, description, pricing, and images.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator evaluates proposal and selects outcome",
+      "description": "The administrator reviews the submitted proposal and selects one of three outcomes: accepted, revisions requested, or rejected.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator notifies supplier of proposal outcome with comment",
+      "description": "The system automatically notifies the supplier of the proposal outcome (accepted, revisions requested, or rejected) and includes any administrative comments for revisions.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Supplier resubmits revised proposal within 5-day deadline",
+      "description": "The supplier updates and resubmits the product proposal within 5 working days in response to feedback or revisions requested by the administrator.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "System automatically removes proposal if deadline not met",
+      "description": "If the supplier does not resubmit the proposal within the 5-day deadline, the system automatically removes the proposal and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator receives 48-hour reminder for pending evaluations",
+      "description": "The system sends a reminder to the administrator every 48 hours for proposals that are still awaiting evaluation.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "System automatically rejects proposal after 10-day evaluation window",
+      "description": "If a proposal is not evaluated within ten working days, the system automatically rejects it and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes supplier registration; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive details and system-driven proposal management.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All evaluation aspects match, including automated rejection and reminders.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented evaluation outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Ensure timely assessment of supplier proposals with automated feedback and reminders.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes manual intervention; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with hybrid replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All goods-receiving aspects match, including defect flagging and system suggestions.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented goods receiving outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with system-driven assignments and defect handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with comprehensive tracking and payment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All online shopping aspects match, including real-time tracking and delivery notifications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented online shopping outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with comprehensive features.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All support ticket aspects match, including automatic reassignment and performance tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented customer support outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated management and performance tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction omits data-driven business decision support and strategic analysis.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational data collection and analysis.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_98d6ce34de840fb6_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits supplier registration and company information submission."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source includes supplier registration; correct the parent's scope, independently of the reconstruction mismatch.",
+      "outcome_justification": "Enable efficient supplier onboarding with comprehensive details and system-driven proposal management."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes supplier registration; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding with comprehensive details and system-driven proposal management.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All evaluation aspects match, including automated rejection and reminders.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented evaluation outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Ensure timely assessment of supplier proposals with automated feedback and reminders.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes manual intervention; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management with hybrid replenishment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All goods-receiving aspects match, including defect flagging and system suggestions.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented goods receiving outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement with system-driven assignments and defect handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately with comprehensive tracking and payment options.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All online shopping aspects match, including real-time tracking and delivery notifications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented online shopping outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience with comprehensive features.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All support ticket aspects match, including automatic reassignment and performance tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented customer support outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support with automated management and performance tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction omits data-driven business decision support and strategic analysis.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes these aspects; correct the parent's scope, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support data-driven business decision-making with comprehensive operational data collection and analysis.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits supplier registration and company information submission.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE",
+  "llg_status": "SKIPPED"
+}

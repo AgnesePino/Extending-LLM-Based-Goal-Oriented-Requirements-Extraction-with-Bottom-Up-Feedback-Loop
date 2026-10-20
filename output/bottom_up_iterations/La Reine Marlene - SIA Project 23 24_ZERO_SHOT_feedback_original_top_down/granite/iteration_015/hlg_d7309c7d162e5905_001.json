@@ -1,0 +1,95 @@
+{
+  "iteration": 15,
+  "branch_id": "hlg_d7309c7d162e5905_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide seamless online shopping and payment experience",
+    "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+    "actor": {
+      "name": "Customer",
+      "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Customer browses product catalog and adds items to cart",
+      "description": "The customer views products, selects items, and adds them to their shopping cart.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System automatically calculates order total including taxes and shipping",
+      "description": "The system computes the final order amount based on selected items, applicable taxes, and shipping costs in real time.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "Customer selects payment method and completes checkout",
+      "description": "The customer chooses a payment method and submits the order for processing.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System generates and sends real-time delivery tracking link via email",
+      "description": "After order confirmation, the system automatically generates a unique tracking link and sends it to the customer via email.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System sends mobile notifications for delivery updates",
+      "description": "When delivery status changes (e.g., shipped, in transit, delivered), the system automatically sends push notifications to customers who have consented to receive them via mobile.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and the possibility of proposal modifications after initial submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration and modification; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding and proposal management includes registration, submission with detailed information, and potential modifications based on feedback.\",\n    \"rewriting_focus\": \"Express supplier registration, product proposal submission with details, and potential modifications following administrative feedback or revisions.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic rejection for overdue proposals and the 10-day evaluation window.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes automatic rejection after a 10-day delay; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals includes automated rejection for overdue evaluations within a defined timeframe.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and the possibility of administrator override.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes manual replenishment options and potential administrator overrides; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management includes both automated and manual restocking methods with administrator override capabilities.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers for complete orders.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes partial deliveries and staff-initiated payment triggers; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately includes handling partial deliveries and enabling staff-initiated payment triggers for complete orders.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation rather than data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent describes a broader data analysis purpose; the reconstruction focuses on reporting, indicating a different outcome.\",\n    \"outcome_justification\": \"Support data-driven business decision-making involves collecting and analyzing operational data for strategic insights, not just generating predefined reports.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and the possibility of proposal modifications after initial submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports supplier registration and modification; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding and proposal management includes registration, submission with detailed information, and potential modifications based on feedback.\",\n    \"rewriting_focus\": \"Express supplier registration, product proposal submission with details, and potential modifications following administrative feedback or revisions.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits automatic rejection for overdue proposals and the 10-day evaluation window.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes automatic rejection after a 10-day delay; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals includes automated rejection for overdue evaluations within a defined timeframe.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and the possibility of administrator override.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes manual replenishment options and potential administrator overrides; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management includes both automated and manual restocking methods with administrator override capabilities.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits partial delivery handling and staff-initiated payment triggers for complete orders.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source includes partial deliveries and staff-initiated payment triggers; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately includes handling partial deliveries and enabling staff-initiated payment triggers for complete orders.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation rather than data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original parent describes a broader data analysis purpose; the reconstruction focuses on reporting, indicating a different outcome.\",\n    \"outcome_justification\": \"Support data-driven business decision-making involves collecting and analyzing operational data for strategic insights, not just generating predefined reports.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

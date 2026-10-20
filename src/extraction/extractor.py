@@ -272,7 +272,7 @@ def generate_bottom_up_low_level_goals(
         {(example1_ll if mode == ShotPromptingMode.ONE_SHOT else f"{example1_ll}, {example2_ll}" if mode == ShotPromptingMode.FEW_SHOT else "")}\n
          \nYour task: based on your understanding of the typical tasks that compose the following sequence of high-level goals,
         provide if possible a decomposition of goals into sub-goals. 
-        Each low-level goal should theoretically correspond to a single action of the actor with the software.
+        Each low-level goal should represent one documented interaction or automatic system effect within the parent scope. The parent actor is the responsible or benefiting stakeholder; a documented automatic effect does not require a manual trigger.
         **High-level goals:**\n\n
         {highLevelGoals}\n
 

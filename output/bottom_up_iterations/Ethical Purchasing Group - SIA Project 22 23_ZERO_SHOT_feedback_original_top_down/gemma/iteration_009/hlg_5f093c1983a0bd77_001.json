@@ -1,0 +1,146 @@
+{
+  "iteration": 9,
+  "branch_id": "hlg_5f093c1983a0bd77_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Ensure transparent and traceable product sourcing",
+    "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View product origin details",
+      "description": "Customer accesses a product page to view its origin, quality certifications, and availability status.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Browse and compare farmer offers",
+      "description": "Customer navigates through available products from different farmers, comparing prices, quantities, and characteristics to inform purchasing decisions.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Place an order for selected products",
+      "description": "Customer submits an order specifying desired quantities for selected products, respecting minimum order constraints defined for each product.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Modify order due to availability constraints",
+      "description": "Customer adjusts order quantities or removes items when product availability is insufficient, based on precedence rules and fair-play score.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Review and accept modified order",
+      "description": "Customer reviews changes made to their order due to availability issues and explicitly accepts the updated order to proceed.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Cancel order due to complete unavailability",
+      "description": "Customer’s order is automatically cancelled if all products become unavailable, and the customer is notified of the cancellation.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the sourcing/transparency aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch indicates children are focused on the ordering workflow.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, reminders, and forfeiture policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate pickup times and follow forfeiture rules.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer estimates and dynamic allocation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the farmer's primary interaction with the supply side of the system.\",\"outcome_justification\":\"Farmers provide availability estimates and manage product supply.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order fulfillment, payments, and delivery confirmations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal captures the operational responsibilities of the store staff.\",\"outcome_justification\":\"Store employees manage the logistics of order fulfillment and store operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery failures, notifications, and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific automated outcome for handling delivery issues and transparency.\",\"outcome_justification\":\"Farmers and customers are notified of and compensated for delivery failures.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal ensures the integrity of the group-based purchasing model.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_5f093c1983a0bd77_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the transparency goal; the reconstruction mismatch indicates children are focused on the ordering workflow.",
+      "outcome_justification": "Customers make informed decisions based on origin, quality, and availability.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_5f093c1983a0bd77_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on order placement and modification, omitting the sourcing/transparency aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the transparency goal; the reconstruction mismatch indicates children are focused on the ordering workflow.\",\"outcome_justification\":\"Customers make informed decisions based on origin, quality, and availability.\"},{\"branch_id\":\"hlg_1c190ea7f86685cf_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the wallet management and payment lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, independent outcome for the customer regarding financial transactions.\",\"outcome_justification\":\"Customers manage virtual wallets and handle payments with grace periods.\"},{\"branch_id\":\"hlg_45d7b64c9eb54357_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers scheduling, reminders, and forfeiture policies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome regarding the physical collection of goods.\",\"outcome_justification\":\"Customers coordinate pickup times and follow forfeiture rules.\"},{\"branch_id\":\"hlg_d7aace6841b88a6b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers farmer estimates and dynamic allocation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the farmer's primary interaction with the supply side of the system.\",\"outcome_justification\":\"Farmers provide availability estimates and manage product supply.\"},{\"branch_id\":\"hlg_d714bbf6da86e761_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers order fulfillment, payments, and delivery confirmations.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal captures the operational responsibilities of the store staff.\",\"outcome_justification\":\"Store employees manage the logistics of order fulfillment and store operations.\"},{\"branch_id\":\"hlg_c12fcb1e0bd72453_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers delivery failures, notifications, and automatic credits.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific automated outcome for handling delivery issues and transparency.\",\"outcome_justification\":\"Farmers and customers are notified of and compensated for delivery failures.\"},{\"branch_id\":\"hlg_8cc6881ea295c041_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers representative authorization and order submission.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal ensures the integrity of the group-based purchasing model.\",\"outcome_justification\":\"Only authorized representatives can submit orders for their groups.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction focuses on order placement and modification, omitting the sourcing/transparency aspect.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly decompose the parent goal based on the source description. llg_001 and llg_002 cover the information/browsing requirements. llg_003, llg_004, llg_005, and llg_006 cover the order lifecycle (placement, modification, acceptance, and cancellation) which are essential for the 'informed purchasing decisions' and 'traceable sourcing' outcomes described in the parent. All actions are documented in the source.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly decompose the parent goal based on the source description. llg_001 and llg_002 cover the information/browsing requirements. llg_003, llg_004, llg_005, and llg_006 cover the order lifecycle (placement, modification, acceptance, and cancellation) which are essential for the 'informed purchasing decisions' and 'traceable sourcing' outcomes described in the parent. All actions are documented in the source.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

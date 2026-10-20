@@ -1,0 +1,78 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_6ba20cb10b0d20a0_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Maintain accurate dispatch data",
+    "description": "Record precise departure and destination information to support efficient resource allocation.",
+    "actor": {
+      "name": "Radio Operator",
+      "description": "Communicates with ambulance staff and records dispatch data."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Record departure time and location",
+      "description": "The Radio Operator logs the exact departure time and GPS coordinates of the assigned ambulance.",
+      "high_level_associated": {
+        "name": "Maintain accurate dispatch data",
+        "description": "Record precise departure and destination information to support efficient resource allocation.",
+        "actor": {
+          "name": "Radio Operator",
+          "description": "Communicates with ambulance staff and records dispatch data."
+        }
+      }
+    },
+    {
+      "name": "Record destination and arrival time",
+      "description": "The Radio Operator logs the destination address and arrival time of the ambulance at the scene.",
+      "high_level_associated": {
+        "name": "Maintain accurate dispatch data",
+        "description": "Record precise departure and destination information to support efficient resource allocation.",
+        "actor": {
+          "name": "Radio Operator",
+          "description": "Communicates with ambulance staff and records dispatch data."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_0863246461b51d6d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes data recording and tracking beyond original's focus on timely response.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent conflates response time with broader dispatch operations; source separates these concerns.\",\n      \"outcome_justification\": \"Dispatcher ensures calls are reached within 11 minutes, distinct from data recording or tracking.\",\n      \"rewriting_focus\": \"Isolate 'timely response' outcome and remove conflated operational details.\"\n    },\n    {\n      \"branch_id\": \"hlg_6ba20cb10b0d20a0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects operational timeline and geographic trace.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Data logging is an internal workflow step within broader dispatch operations, not a standalone outcome.\",\n      \"outcome_justification\": \"The containing outcome is maintaining accurate dispatch data for efficient allocation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_be971399c23d5fec_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction precisely matches real-time location tracking with periodic updates.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms this as a distinct, independently useful outcome for ambulance drivers.\",\n      \"outcome_justification\": \"Ambulance Driver tracks location to optimize routing; no other HLG covers this driver-specific capability.\"\n    },\n    {\n      \"branch_id\": \"hlg_ee25dcd232ec6e9b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects emergency initiation process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports this as a distinct, user-visible outcome for Emergency Callers.\",\n      \"outcome_justification\": \"Emergency Caller initiates the dispatch process; no other HLG covers caller actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_6ba20cb10b0d20a0_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Data logging is an internal workflow step within broader dispatch operations, not a standalone outcome.",
+      "outcome_justification": "The containing outcome is maintaining accurate dispatch data for efficient allocation.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "OVER_SPECIFIC",
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_0863246461b51d6d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes data recording and tracking beyond original's focus on timely response.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent conflates response time with broader dispatch operations; source separates these concerns.\",\n      \"outcome_justification\": \"Dispatcher ensures calls are reached within 11 minutes, distinct from data recording or tracking.\",\n      \"rewriting_focus\": \"Isolate 'timely response' outcome and remove conflated operational details.\"\n    },\n    {\n      \"branch_id\": \"hlg_6ba20cb10b0d20a0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects operational timeline and geographic trace.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Data logging is an internal workflow step within broader dispatch operations, not a standalone outcome.\",\n      \"outcome_justification\": \"The containing outcome is maintaining accurate dispatch data for efficient allocation.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_be971399c23d5fec_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction precisely matches real-time location tracking with periodic updates.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms this as a distinct, independently useful outcome for ambulance drivers.\",\n      \"outcome_justification\": \"Ambulance Driver tracks location to optimize routing; no other HLG covers this driver-specific capability.\"\n    },\n    {\n      \"branch_id\": \"hlg_ee25dcd232ec6e9b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects emergency initiation process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports this as a distinct, user-visible outcome for Emergency Callers.\",\n      \"outcome_justification\": \"Emergency Caller initiates the dispatch process; no other HLG covers caller actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction accurately reflects operational timeline and geographic trace.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

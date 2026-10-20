@@ -1,0 +1,66 @@
+{
+  "iteration": 3,
+  "branch_id": "hlg_be971399c23d5fec_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable real-time location tracking",
+    "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+    "actor": {
+      "name": "Ambulance Driver",
+      "description": "Operates the ambulance and follows standard routes."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Update ambulance location in real-time",
+      "description": "The Ambulance Driver sends GPS coordinates to the system every 30 seconds while en route.",
+      "high_level_associated": {
+        "name": "Enable real-time location tracking",
+        "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+        "actor": {
+          "name": "Ambulance Driver",
+          "description": "Operates the ambulance and follows standard routes."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the 11-minute response goal and ambulance assignment.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a primary, source-grounded goal for the Dispatcher that is not redundant.\",\"outcome_justification\":\"Dispatcher ensures emergency calls are reached within the 11-minute target.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on logging timelines, while the parent emphasizes recording departure/destination info.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the need for accurate data recording for resource allocation.\",\"outcome_justification\":\"Radio Operator ensures data accuracy for efficient resource management.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction reflects the real-time location tracking and routing optimization.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source explicitly identifies tracking moving ambulances as a vital requirement.\",\"outcome_justification\":\"Ambulance Driver enables real-time location tracking to optimize routing.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the caller's ability to report incidents and initiate dispatch.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the initiation of the dispatch process by the caller.\",\"outcome_justification\":\"Emergency Caller initiates the dispatch process by reporting incidents.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_be971399c23d5fec_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source explicitly identifies tracking moving ambulances as a vital requirement.",
+      "outcome_justification": "Ambulance Driver enables real-time location tracking to optimize routing.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_0863246461b51d6d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the 11-minute response goal and ambulance assignment.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent is a primary, source-grounded goal for the Dispatcher that is not redundant.\",\"outcome_justification\":\"Dispatcher ensures emergency calls are reached within the 11-minute target.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on logging timelines, while the parent emphasizes recording departure/destination info.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the need for accurate data recording for resource allocation.\",\"outcome_justification\":\"Radio Operator ensures data accuracy for efficient resource management.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction reflects the real-time location tracking and routing optimization.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source explicitly identifies tracking moving ambulances as a vital requirement.\",\"outcome_justification\":\"Ambulance Driver enables real-time location tracking to optimize routing.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the caller's ability to report incidents and initiate dispatch.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the initiation of the dispatch process by the caller.\",\"outcome_justification\":\"Emergency Caller initiates the dispatch process by reporting incidents.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction reflects the real-time location tracking and routing optimization.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

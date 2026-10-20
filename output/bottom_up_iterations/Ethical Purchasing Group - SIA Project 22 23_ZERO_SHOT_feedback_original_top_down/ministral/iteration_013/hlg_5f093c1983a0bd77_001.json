@@ -1,0 +1,146 @@
+{
+  "iteration": 13,
+  "branch_id": "hlg_5f093c1983a0bd77_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Ensure transparent and traceable product sourcing",
+    "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+    "actor": {
+      "name": "Customer",
+      "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View product origin details",
+      "description": "Customer accesses a product page to view its origin, quality certifications, and availability status.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Browse and compare farmer offers",
+      "description": "Customer navigates through available products from different farmers, comparing prices, quantities, and characteristics to inform purchasing decisions.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Place an order for selected products",
+      "description": "Customer submits an order specifying desired quantities for selected products, respecting minimum order constraints defined for each product.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Modify order due to availability constraints",
+      "description": "Customer adjusts order quantities or removes items when product availability is insufficient, based on precedence rules and fair-play score.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Review and accept modified order",
+      "description": "Customer reviews changes made to their order due to availability issues and explicitly accepts the updated order to proceed.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    },
+    {
+      "name": "Cancel order due to complete unavailability",
+      "description": "Customer’s order is automatically cancelled if all products become unavailable, and the customer is notified of the cancellation.",
+      "high_level_associated": {
+        "name": "Ensure transparent and traceable product sourcing",
+        "description": "Enable customers to make informed purchasing decisions by providing detailed information about product origin, quality, and availability.",
+        "actor": {
+          "name": "Customer",
+          "description": "Individual who purchases products through the system, acting as a representative of a purchasing group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality details from the original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent sourcing; reconstruction mismatch is due to missing children.\",\n      \"outcome_justification\": \"Customer needs traceability for informed decisions, distinct from order placement.\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction fully covers wallet management and payment notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms seamless payment as an independent outcome.\",\n      \"outcome_justification\": \"Customer manages payments securely, separate from order or pickup processes.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, reminders, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports distinct pickup scheduling as a standalone outcome.\",\n      \"outcome_justification\": \"Customer reserves and collects products; unrelated to payment or sourcing.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer's availability submission and focuses on allocation.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source assigns availability tracking to farmers; correct parent responsibility.\",\n      \"outcome_justification\": \"Farmer submits estimates and confirms quantities; system allocates based on rules.\",\n      \"rewriting_focus\": \"Express farmer's role in submitting and confirming product availability, not just allocation.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers store employee's order, pickup, payment, and delivery coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms distinct store operations outcome for employees.\",\n      \"outcome_justification\": \"Store employee fulfills orders end-to-end; unrelated to customer or farmer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches delivery delays, notifications, and compensation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Delivery notification is internal to documented farmer-customer interaction.\",\n      \"outcome_justification\": \"The containing outcome is maintaining accurate inventory and availability tracking (hlg_d7aace6841b88a6b_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization and order submission.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports distinct group-based purchasing integrity.\",\n      \"outcome_justification\": \"Representative submits orders; unrelated to customer, farmer, or store operations.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_5f093c1983a0bd77_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports transparent sourcing; reconstruction mismatch is due to missing children.",
+      "outcome_justification": "Customer needs traceability for informed decisions, distinct from order placement.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits product origin and quality details from the original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent sourcing; reconstruction mismatch is due to missing children.\",\n      \"outcome_justification\": \"Customer needs traceability for informed decisions, distinct from order placement.\"\n    },\n    {\n      \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction fully covers wallet management and payment notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms seamless payment as an independent outcome.\",\n      \"outcome_justification\": \"Customer manages payments securely, separate from order or pickup processes.\"\n    },\n    {\n      \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches pickup scheduling, reminders, and forfeits.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports distinct pickup scheduling as a standalone outcome.\",\n      \"outcome_justification\": \"Customer reserves and collects products; unrelated to payment or sourcing.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits farmer's availability submission and focuses on allocation.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source assigns availability tracking to farmers; correct parent responsibility.\",\n      \"outcome_justification\": \"Farmer submits estimates and confirms quantities; system allocates based on rules.\",\n      \"rewriting_focus\": \"Express farmer's role in submitting and confirming product availability, not just allocation.\"\n    },\n    {\n      \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers store employee's order, pickup, payment, and delivery coordination.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms distinct store operations outcome for employees.\",\n      \"outcome_justification\": \"Store employee fulfills orders end-to-end; unrelated to customer or farmer actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches delivery delays, notifications, and compensation.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Delivery notification is internal to documented farmer-customer interaction.\",\n      \"outcome_justification\": \"The containing outcome is maintaining accurate inventory and availability tracking (hlg_d7aace6841b88a6b_001).\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches group representative authorization and order submission.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports distinct group-based purchasing integrity.\",\n      \"outcome_justification\": \"Representative submits orders; unrelated to customer, farmer, or store operations.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits product origin and quality details from the original.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent goal. All documented functional interactions or effects related to transparent and traceable product sourcing are covered: viewing product origin details (llg_001), browsing and comparing farmer offers (llg_002), placing orders with minimum quantity constraints (llg_003), modifying orders due to availability constraints (llg_004), reviewing and accepting modified orders (llg_005), and canceling orders when all products are unavailable (llg_006). No essential capabilities are missing, and there is no duplication or out-of-scope content. The children align perfectly with the source description.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent goal. All documented functional interactions or effects related to transparent and traceable product sourcing are covered: viewing product origin details (llg_001), browsing and comparing farmer offers (llg_002), placing orders with minimum quantity constraints (llg_003), modifying orders due to availability constraints (llg_004), reviewing and accepting modified orders (llg_005), and canceling orders when all products are unavailable (llg_006). No essential capabilities are missing, and there is no duplication or out-of-scope content. The children align perfectly with the source description.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

@@ -1,0 +1,126 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_175cb69663176b35_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Ensure transparent and secure payment processing",
+    "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+    "actor": {
+      "name": "Event Organizer",
+      "description": "Person creating and managing an event, coordinating services and payments."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Select payment method for service booking",
+      "description": "The event organizer selects a payment method (one-time, installment, or on-site) during service booking.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Confirm on-site payment receipt by service provider",
+      "description": "The service provider confirms receipt of on-site payment through the portal after service completion.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Confirm installment payments individually by service provider",
+      "description": "The service provider confirms each installment payment separately through the portal for services with installment payment schedules.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Generate payment transaction record for each service",
+      "description": "The system automatically generates a transaction record for each payment, including amount, method, and timestamp, for audit and traceability.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Enable secure payment processing via encrypted channels",
+      "description": "The system ensures all payment transactions are processed through encrypted channels and comply with PCI-DSS standards for security.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    },
+    {
+      "name": "Allow organizer to view payment history and status",
+      "description": "The event organizer can view the payment history for each service, including status (e.g., pending, paid, refunded), amount, and payment method used.",
+      "high_level_associated": {
+        "name": "Ensure transparent and secure payment processing",
+        "description": "Support secure, flexible, and traceable payment transactions between organizers and service providers, including installment payments and on-site confirmations.",
+        "actor": {
+          "name": "Event Organizer",
+          "description": "Person creating and managing an event, coordinating services and payments."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the comprehensive planning and coordination scope described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary, overarching goal for the organizer, encompassing all other specific sub-tasks.\",\"outcome_justification\":\"Organizer achieves comprehensive event management, including planning, procurement, and financial tracking.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses heavily on the booking/scheduling flow, omitting the broader discovery aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports a distinct discovery and selection outcome that is not fully captured by the booking-centric reconstruction.\",\"outcome_justification\":\"Organizer discovers and selects appropriate services from a centralized platform.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, multi-method payment and confirmation requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal covers the specific financial transaction logic and security requirements independently of planning.\",\"outcome_justification\":\"Organizer ensures secure, flexible, and traceable payments for all services.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Service Provider actor, distinct from the Organizer's goals.\",\"outcome_justification\":\"Service Provider manages their business offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction incorrectly attributes the 'organizer' as the actor for these provider-led actions.\", \"matches_branch_id\":\"hlg_dc05a6a00e807452_001\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction incorrectly assigns organizer actions to the provider; the source confirms these are provider responsibilities.\",\"outcome_justification\":\"Service Provider manages the fulfillment side of the service lifecycle, including quotes and payments.\",\"rewriting_focus\":\"Correct the actor to Service Provider and ensure it describes responding to requests, generating quotes, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the secure access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal for the Guest actor regarding platform access.\",\"outcome_justification\":\"Invited Guest accesses event content securely using a unique code.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately describes the content contribution capabilities for guests.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific collaborative outcome for guests, distinct from simple access.\",\"outcome_justification\":\"Invited Guest contributes to the event's social and media content.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goal of monitoring budget and history.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader event planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"The outcome is already covered by the overarching event planning and coordination goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_175cb69663176b35_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal covers the specific financial transaction logic and security requirements independently of planning.",
+      "outcome_justification": "Organizer ensures secure, flexible, and traceable payments for all services.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_15ab31703493776e_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction captures the comprehensive planning and coordination scope described in the parent.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary, overarching goal for the organizer, encompassing all other specific sub-tasks.\",\"outcome_justification\":\"Organizer achieves comprehensive event management, including planning, procurement, and financial tracking.\"},{\"branch_id\":\"hlg_dc05a6a00e807452_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses heavily on the booking/scheduling flow, omitting the broader discovery aspect.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports a distinct discovery and selection outcome that is not fully captured by the booking-centric reconstruction.\",\"outcome_justification\":\"Organizer discovers and selects appropriate services from a centralized platform.\"},{\"branch_id\":\"hlg_175cb69663176b35_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the secure, multi-method payment and confirmation requirements.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal covers the specific financial transaction logic and security requirements independently of planning.\",\"outcome_justification\":\"Organizer ensures secure, flexible, and traceable payments for all services.\"},{\"branch_id\":\"hlg_bba1d36093273738_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full lifecycle of service management for providers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is the primary goal for the Service Provider actor, distinct from the Organizer's goals.\",\"outcome_justification\":\"Service Provider manages their business offerings, pricing, and availability.\"},{\"branch_id\":\"hlg_94df30668f000172_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"DIFFERENT\",\"rationale\":\"The reconstruction incorrectly attributes the 'organizer' as the actor for these provider-led actions.\", \"matches_branch_id\":\"hlg_dc05a6a00e807452_001\"},\"decision\":\"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The reconstruction incorrectly assigns organizer actions to the provider; the source confirms these are provider responsibilities.\",\"outcome_justification\":\"Service Provider manages the fulfillment side of the service lifecycle, including quotes and payments.\",\"rewriting_focus\":\"Correct the actor to Service Provider and ensure it describes responding to requests, generating quotes, and confirming payments.\"},{\"branch_id\":\"hlg_57dbb1d19d575603_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly identifies the secure access via invitation codes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct goal for the Guest actor regarding platform access.\",\"outcome_justification\":\"Invited Guest accesses event content securely using a unique code.\"},{\"branch_id\":\"hlg_d4bd8d89225ca214_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately describes the content contribution capabilities for guests.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a specific collaborative outcome for guests, distinct from simple access.\",\"outcome_justification\":\"Invited Guest contributes to the event's social and media content.\"},{\"branch_id\":\"hlg_e2c0b7b29ea3a654_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goal of monitoring budget and history.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a specific sub-capability of the broader event planning and coordination goal (hlg_15ab31703493776e_001).\",\"outcome_justification\":\"The outcome is already covered by the overarching event planning and coordination goal.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_15ab31703493776e_001\",\"covered_by_high_level_goal_name\":\"Enable seamless event planning and coordination\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately reflects the secure, multi-method payment and confirmation requirements.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

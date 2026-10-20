@@ -1,0 +1,170 @@
+{
+  "iteration": 13,
+  "branch_id": "hlg_98d6ce34de840fb6_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Enable efficient supplier onboarding and proposal management",
+    "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+    "actor": {
+      "name": "Supplier",
+      "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Supplier registers account with basic company details",
+      "description": "The supplier submits their company name, contact information, and tax identification to create an account.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Supplier uploads product proposal with specifications",
+      "description": "The supplier submits a product proposal including SKU, description, pricing, and images.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator evaluates proposal and selects outcome",
+      "description": "The administrator reviews the submitted proposal and selects one of three outcomes: accepted, revisions requested, or rejected.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator notifies supplier of proposal outcome with comment",
+      "description": "The system automatically notifies the supplier of the proposal outcome (accepted, revisions requested, or rejected) and includes any administrative comments for revisions.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Supplier resubmits revised proposal within 5-day deadline",
+      "description": "The supplier updates and resubmits the product proposal within 5 working days in response to feedback or revisions requested by the administrator.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "System automatically removes proposal if deadline not met",
+      "description": "If the supplier does not resubmit the proposal within the 5-day deadline, the system automatically removes the proposal and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "Administrator receives 48-hour reminder for pending evaluations",
+      "description": "The system sends a reminder to the administrator every 48 hours for proposals that are still awaiting evaluation.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    },
+    {
+      "name": "System automatically rejects proposal after 10-day evaluation window",
+      "description": "If a proposal is not evaluated within ten working days, the system automatically rejects it and notifies the supplier.",
+      "high_level_associated": {
+        "name": "Enable efficient supplier onboarding and proposal management",
+        "description": "Ensure suppliers can register, submit product proposals with detailed information, and receive timely feedback or revisions to improve product availability and streamline procurement.",
+        "actor": {
+          "name": "Supplier",
+          "description": "A company or individual providing products to La Reine Marlene, responsible for submitting and managing product proposals."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are distinct outcomes.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation and automated rejection capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct, source-grounded administrative responsibility for proposal oversight.\",\"outcome_justification\":\"Administrator ensures timely evaluation and maintains product quality through systematic oversight.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid inventory replenishment and real-time tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently useful for maintaining stock levels and avoiding overstocking.\",\"outcome_justification\":\"Administrator ensures product availability through automated and manual replenishment triggers.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the verification, location assignment, and defect flagging.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct operational task for goods-receiving staff.\",\"outcome_justification\":\"Goods-Receiving Staff ensures accurate product presentation and inventory intake.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management and automated rejections, which are separate outcomes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the parent; the reconstruction includes overlapping capabilities from other branches.\",\"outcome_justification\":\"Order Department Staff ensures financial accuracy and completes the fulfillment cycle.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the online shopping, payment, and tracking capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the primary customer-facing online commerce outcome.\",\"outcome_justification\":\"Customer completes purchases and tracks deliveries through a seamless digital experience.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct customer service outcome for agents.\",\"outcome_justification\":\"Customer-Service Agent ensures high satisfaction through timely ticket resolution.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on reporting, while the parent describes broader data analysis for strategy.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent describes a strategic outcome; the reconstruction focuses on the reporting mechanism.\",\"outcome_justification\":\"Administrator uses data to inform strategic decisions and optimize business performance.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_98d6ce34de840fb6_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.",
+      "outcome_justification": "Supplier manages registration and proposal lifecycle; administrative actions are distinct outcomes.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue, not a parent defect.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are distinct outcomes.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation and automated rejection capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct, source-grounded administrative responsibility for proposal oversight.\",\"outcome_justification\":\"Administrator ensures timely evaluation and maintains product quality through systematic oversight.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid inventory replenishment and real-time tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is independently useful for maintaining stock levels and avoiding overstocking.\",\"outcome_justification\":\"Administrator ensures product availability through automated and manual replenishment triggers.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the verification, location assignment, and defect flagging.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct operational task for goods-receiving staff.\",\"outcome_justification\":\"Goods-Receiving Staff ensures accurate product presentation and inventory intake.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management and automated rejections, which are separate outcomes.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the parent; the reconstruction includes overlapping capabilities from other branches.\",\"outcome_justification\":\"Order Department Staff ensures financial accuracy and completes the fulfillment cycle.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the online shopping, payment, and tracking capabilities.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents the primary customer-facing online commerce outcome.\",\"outcome_justification\":\"Customer completes purchases and tracks deliveries through a seamless digital experience.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct customer service outcome for agents.\",\"outcome_justification\":\"Customer-Service Agent ensures high satisfaction through timely ticket resolution.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on reporting, while the parent describes broader data analysis for strategy.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent describes a strategic outcome; the reconstruction focuses on the reporting mechanism.\",\"outcome_justification\":\"Administrator uses data to inform strategic decisions and optimize business performance.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The decomposition is complete and accurately reflects the source description. llg_001 covers registration (credentials/company info), llg_002 covers proposal submission (category, price, availability, photos, description, delivery time), llg_003 covers the three outcomes (accepted, revisions, rejected), llg_004 covers the notification and comments for revisions, llg_005 covers the 5-day resubmission window, llg_006 covers the automatic removal/notification for missed deadlines, llg_007 covers the 48-hour reminder, and llg_008 covers the 10-day automatic rejection. All actions are documented and correctly assigned to the system or the relevant actor.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The decomposition is complete and accurately reflects the source description. llg_001 covers registration (credentials/company info), llg_002 covers proposal submission (category, price, availability, photos, description, delivery time), llg_003 covers the three outcomes (accepted, revisions, rejected), llg_004 covers the notification and comments for revisions, llg_005 covers the 5-day resubmission window, llg_006 covers the automatic removal/notification for missed deadlines, llg_007 covers the 48-hour reminder, and llg_008 covers the 10-day automatic rejection. All actions are documented and correctly assigned to the system or the relevant actor.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

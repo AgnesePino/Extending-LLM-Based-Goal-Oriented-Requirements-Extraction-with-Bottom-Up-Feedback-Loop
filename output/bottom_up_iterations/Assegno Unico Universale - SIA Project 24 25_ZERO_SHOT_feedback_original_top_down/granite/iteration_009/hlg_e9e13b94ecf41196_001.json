@@ -1,0 +1,116 @@
+{
+  "iteration": 9,
+  "branch_id": "hlg_e9e13b94ecf41196_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support multiple payment methods for allowance distribution",
+    "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow selection of SEPA IBAN payment method",
+      "description": "The applicant selects SEPA IBAN as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of post office domiciliation payment method",
+      "description": "The applicant selects post office domiciliation as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow selection of prepaid card payment method",
+      "description": "The applicant selects an eligible prepaid card as the payment method for allowance distribution.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow joint parent payment configuration",
+      "description": "The applicant configures joint payment settings for both parents when selecting payment methods.",
+      "high_level_associated": {
+        "name": "Support multiple payment methods for allowance distribution",
+        "description": "Allow applicants to choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint parent payments.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application and follows its status; INPS retains approval responsibility.\"\n  },\n  {\n    \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All booking capabilities match.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Resident obtains and manages a pickup booking; b is its creation step.\"\n  },\n  {\n    \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic evaluation and management capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves evaluation and management to INPS operators; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"INPS evaluates, suspends, or accepts applications; applicants are notified of outcomes.\"\n  },\n  {\n    \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's public access and simulation capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves public access and simulation to citizens; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Citizens consult past applications, view general AUU information, and simulate expected monthly allowance amounts.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's duplicate prevention capability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Applicant prevents duplicate fiscal codes for children; the mismatch concerns its children, not the original parent's legitimacy.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic allowance adjustment capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves allowance adjustment to INPS; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Allowance is automatically recalculated when a valid ISEE becomes available.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's flexible application workflow capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves flexible workflows to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's dynamic addition of children capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves dynamic addition to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's secure data handling and privacy notices capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves secure data handling and privacy notices to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  },\n  {\n    \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's multiple payment methods capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves multiple payment methods to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_e9e13b94ecf41196_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits the original parent's multiple payment methods capability."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source reserves multiple payment methods to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.",
+      "outcome_justification": "Applicants choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application and follows its status; INPS retains approval responsibility.\"\n  },\n  {\n    \"branch_id\": \"hlg_e331cbf7082b6f22_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"All booking capabilities match.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Resident obtains and manages a pickup booking; b is its creation step.\"\n  },\n  {\n    \"branch_id\": \"hlg_900809a7ef8b8375_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic evaluation and management capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves evaluation and management to INPS operators; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"INPS evaluates, suspends, or accepts applications; applicants are notified of outcomes.\"\n  },\n  {\n    \"branch_id\": \"hlg_1bf3e45578a286a9_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's public access and simulation capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves public access and simulation to citizens; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Citizens consult past applications, view general AUU information, and simulate expected monthly allowance amounts.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original parent's duplicate prevention capability.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The parent represents the complete documented outcome and is not covered by the narrower peer.\",\n    \"outcome_justification\": \"Applicant prevents duplicate fiscal codes for children; the mismatch concerns its children, not the original parent's legitimacy.\"\n  },\n  {\n    \"branch_id\": \"hlg_f10d30aaf7989bdf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic allowance adjustment capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves allowance adjustment to INPS; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Allowance is automatically recalculated when a valid ISEE becomes available.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's flexible application workflow capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves flexible workflows to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants save drafts, resume applications from saved points, or discard and restart applications as needed.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's dynamic addition of children capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves dynamic addition to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants add new children to existing applications with real-time fiscal code validation and optional modification of payment or declaration data.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's secure data handling and privacy notices capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves secure data handling and privacy notices to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  },\n  {\n    \"branch_id\": \"hlg_e9e13b94ecf41196_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's multiple payment methods capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves multiple payment methods to applicants; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicants choose from multiple payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits the original parent's multiple payment methods capability.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal by documenting all necessary functional interactions for supporting multiple payment methods and joint parent payments. Each child LLG accurately represents a distinct, documented capability required to realize the parent HLG. The descriptions are clear, concise, and directly linked to the source evidence in the project description.\\n\\nThe LLGs 'Allow selection of SEPA IBAN payment method' (llg_001), 'Allow selection of post office domiciliation payment method' (llg_002), and 'Allow selection of prepaid card payment method' (llg_003) each correspond to a distinct supported payment option, as specified in the project description. The LLG 'Allow joint parent payment configuration' (llg_004) correctly captures the requirement for configuring joint payment settings when applicable, aligning with the parent HLG's mention of 'joint parent payments'.\\n\\nNo unsupported or misleading LLGs are identified, and no essential capabilities are missing. The scope is accurately maintained, with no redundancies or extraneous details.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal by documenting all necessary functional interactions for supporting multiple payment methods and joint parent payments. Each child LLG accurately represents a distinct, documented capability required to realize the parent HLG. The descriptions are clear, concise, and directly linked to the source evidence in the project description.\n\nThe LLGs 'Allow selection of SEPA IBAN payment method' (llg_001), 'Allow selection of post office domiciliation payment method' (llg_002), and 'Allow selection of prepaid card payment method' (llg_003) each correspond to a distinct supported payment option, as specified in the project description. The LLG 'Allow joint parent payment configuration' (llg_004) correctly captures the requirement for configuring joint payment settings when applicable, aligning with the parent HLG's mention of 'joint parent payments'.\n\nNo unsupported or misleading LLGs are identified, and no essential capabilities are missing. The scope is accurately maintained, with no redundancies or extraneous details.\n\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

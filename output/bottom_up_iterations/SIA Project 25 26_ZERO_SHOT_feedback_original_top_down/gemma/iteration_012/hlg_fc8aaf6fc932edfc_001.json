@@ -1,0 +1,122 @@
+{
+  "iteration": 12,
+  "branch_id": "hlg_fc8aaf6fc932edfc_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Ensure Efficient Review and Approval of Citizen Reports",
+    "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+    "actor": {
+      "name": "Organization Office Staff",
+      "description": "Staff responsible for reviewing and approving citizen reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Review citizen report for approval or rejection",
+      "description": "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Assign approved report to technical office based on category",
+      "description": "After approval, the system automatically assigns the report to the appropriate technical office based on the problem category, transitioning the report to the 'In Progress' state.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Track review status and update report state",
+      "description": "The system records and updates the report’s state (e.g., Pending Approval → In Progress → Work in Progress → Suspended → Rejected) based on review decisions and subsequent actions.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    },
+    {
+      "name": "Log mandatory rejection explanation for rejected reports",
+      "description": "When a report is rejected, the system captures and stores the written explanation provided by the Organization Office Staff, ensuring accountability and traceability.",
+      "high_level_associated": {
+        "name": "Ensure Efficient Review and Approval of Citizen Reports",
+        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+        "actor": {
+          "name": "Organization Office Staff",
+          "description": "Staff responsible for reviewing and approving citizen reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate HLGs.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad goal of participation; children are just specific components of this outcome.\",\"outcome_justification\":\"Citizen engages in urban management by reporting issues and interacting with the system.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, documented outcome regarding transparency and public visibility for citizens.\",\"outcome_justification\":\"Citizen views reports on a map and table to increase awareness of urban issues.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and following other reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct communication and trust-building outcome for the citizen actor.\",\"outcome_justification\":\"Citizen receives updates and communicates with staff to build trust and accountability.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction mentions statistics, which is a separate HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the goal of providing anonymous access to the map for public awareness.\",\"outcome_justification\":\"Non-registered users view public data to promote awareness without needing an account.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment, which is a separate HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the Organization Office's specific role in review and approval.\",\"outcome_justification\":\"Organization Office Staff ensures quality control by reviewing and approving reports.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers assignment and lifecycle management for technical reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct operational outcome for the Technical Office staff.\",\"outcome_justification\":\"Technical Office Staff manages the resolution workflow for various report categories.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers both public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for administrators to monitor system performance.\",\"outcome_justification\":\"Municipal Administrator monitors trends and infrastructure health via statistics.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the open-source release and publication.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct administrative goal regarding the system's availability and distribution.\",\"outcome_justification\":\"Municipal Administrator ensures the system is available to other public administrations.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the configuration and triggering of automatic rules.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct administrative goal for streamlining workflows via automation.\",\"outcome_justification\":\"Municipal Administrator configures rules to bypass manual review for specific categories.\"},{\"branch_id\":\"hlg_f584efee9b2f7fee_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers manual status updates for external companies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct operational goal for maintaining consistency with external entities.\",\"outcome_justification\":\"Technical Office Staff ensures system consistency when external companies resolve issues.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_fc8aaf6fc932edfc_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the Organization Office's specific role in review and approval.",
+      "outcome_justification": "Organization Office Staff ensures quality control by reviewing and approving reports.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_c7b4355f5aaf04ca_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes tracking and notifications, which are separate HLGs.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broad goal of participation; children are just specific components of this outcome.\",\"outcome_justification\":\"Citizen engages in urban management by reporting issues and interacting with the system.\"},{\"branch_id\":\"hlg_b9167a622cc75e91_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the map and table views with filtering.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct, documented outcome regarding transparency and public visibility for citizens.\",\"outcome_justification\":\"Citizen views reports on a map and table to increase awareness of urban issues.\"},{\"branch_id\":\"hlg_853e84d06ed9fe58_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers notifications, messages, and following other reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This represents a distinct communication and trust-building outcome for the citizen actor.\",\"outcome_justification\":\"Citizen receives updates and communicates with staff to build trust and accountability.\"},{\"branch_id\":\"hlg_ccc7734d1de6e0ef_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction mentions statistics, which is a separate HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the goal of providing anonymous access to the map for public awareness.\",\"outcome_justification\":\"Non-registered users view public data to promote awareness without needing an account.\"},{\"branch_id\":\"hlg_fc8aaf6fc932edfc_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes assignment, which is a separate HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the Organization Office's specific role in review and approval.\",\"outcome_justification\":\"Organization Office Staff ensures quality control by reviewing and approving reports.\"},{\"branch_id\":\"hlg_ff4642dfb9b0a7fb_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers assignment and lifecycle management for technical reports.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct operational outcome for the Technical Office staff.\",\"outcome_justification\":\"Technical Office Staff manages the resolution workflow for various report categories.\"},{\"branch_id\":\"hlg_ff99f6f5d954d8db_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers both public and private analytics for administrators.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for administrators to monitor system performance.\",\"outcome_justification\":\"Municipal Administrator monitors trends and infrastructure health via statistics.\"},{\"branch_id\":\"hlg_bf787da4fb4e0b50_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the open-source release and publication.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct administrative goal regarding the system's availability and distribution.\",\"outcome_justification\":\"Municipal Administrator ensures the system is available to other public administrations.\"},{\"branch_id\":\"hlg_73541f749496e285_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the configuration and triggering of automatic rules.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct administrative goal for streamlining workflows via automation.\",\"outcome_justification\":\"Municipal Administrator configures rules to bypass manual review for specific categories.\"},{\"branch_id\":\"hlg_f584efee9b2f7fee_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers manual status updates for external companies.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct operational goal for maintaining consistency with external entities.\",\"outcome_justification\":\"Technical Office Staff ensures system consistency when external companies resolve issues.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes assignment, which is a separate HLG.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\"rationale\":\"The children correctly decompose the parent goal based on the source description. llg_001 covers the manual review/decision process. llg_002 covers the automatic assignment and state transition to 'In Progress' described in Section B. llg_003 covers the lifecycle state management (Pending, In Progress, Work in Progress, Suspended, Rejected). llg_004 covers the mandatory written explanation for rejections. All actions are documented and correctly attributed to the Organization Office Staff or the system's automatic effects.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}\n```",
+    "parsed_response": {
+      "rationale": "The children correctly decompose the parent goal based on the source description. llg_001 covers the manual review/decision process. llg_002 covers the automatic assignment and state transition to 'In Progress' described in Section B. llg_003 covers the lifecycle state management (Pending, In Progress, Work in Progress, Suspended, Rejected). llg_004 covers the mandatory written explanation for rejections. All actions are documented and correctly attributed to the Organization Office Staff or the system's automatic effects.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

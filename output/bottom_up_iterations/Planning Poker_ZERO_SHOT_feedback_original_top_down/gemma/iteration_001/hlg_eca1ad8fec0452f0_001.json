@@ -1,0 +1,75 @@
+{
+  "iteration": 1,
+  "branch_id": "hlg_eca1ad8fec0452f0_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Ensure Transparent and Consensus-Based Estimation",
+    "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+    "actor": {
+      "name": "Product Owner",
+      "description": "Defines and prioritizes sprint goals and user stories."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow Team Member to Submit Estimate",
+      "description": "Enable a team member to submit a numerical or relative estimate for a task via an API call, with validation and anonymized storage.",
+      "high_level_associated": {
+        "name": "Ensure Transparent and Consensus-Based Estimation",
+        "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Defines and prioritizes sprint goals and user stories."
+        }
+      }
+    },
+    {
+      "name": "Aggregate Estimates into Consensus View",
+      "description": "Collect submitted estimates and display a visual summary (e.g., histogram, median, or range) via an API to promote consensus and transparency.",
+      "high_level_associated": {
+        "name": "Ensure Transparent and Consensus-Based Estimation",
+        "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Defines and prioritizes sprint goals and user stories."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_58bd0caca4f4bc30_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on the UI/technical implementation rather than the goal of collaborative goal setting.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the goal of collective goal setting; the children's focus on UI is a decomposition issue.\",\"outcome_justification\":\"Scrum Master facilitates the team in defining sprint goals and fostering shared ownership.\"},{\"branch_id\":\"hlg_eca1ad8fec0452f0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the submission and aggregation for consensus.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a functional subset of the collaborative estimation process already covered by the broader team goals.\",\"outcome_justification\":\"Transparency and consensus are achieved through the collaborative estimation process described in other goals.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"covered_by_high_level_goal_name\":\"Promote Knowledge Sharing and Team Alignment\"},{\"branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction describes real-time interactions and API feedback, which are technical details of the conversation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the outcome of knowledge sharing and alignment; the children describe the interaction mechanisms.\",\"outcome_justification\":\"Development Team Members build shared understanding and knowledge through collaborative estimation conversations.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_eca1ad8fec0452f0_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "EQUIVALENT",
+        "rationale": "The reconstruction accurately captures the submission and aggregation for consensus."
+      },
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This goal is a functional subset of the collaborative estimation process already covered by the broader team goals.",
+      "outcome_justification": "Transparency and consensus are achieved through the collaborative estimation process described in other goals.",
+      "removal_basis": "FULLY_REDUNDANT",
+      "covered_by_branch_id": "hlg_00d6a1e8ce60813c_001",
+      "covered_by_high_level_goal_name": "Promote Knowledge Sharing and Team Alignment"
+    },
+    "error": "Redundancy requires the exact ID/name of another same-actor branch"
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_58bd0caca4f4bc30_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on the UI/technical implementation rather than the goal of collaborative goal setting.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the goal of collective goal setting; the children's focus on UI is a decomposition issue.\",\"outcome_justification\":\"Scrum Master facilitates the team in defining sprint goals and fostering shared ownership.\"},{\"branch_id\":\"hlg_eca1ad8fec0452f0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the submission and aggregation for consensus.\"},\"decision\":\"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal is a functional subset of the collaborative estimation process already covered by the broader team goals.\",\"outcome_justification\":\"Transparency and consensus are achieved through the collaborative estimation process described in other goals.\",\"removal_basis\":\"FULLY_REDUNDANT\",\"covered_by_branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"covered_by_high_level_goal_name\":\"Promote Knowledge Sharing and Team Alignment\"},{\"branch_id\":\"hlg_00d6a1e8ce60813c_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction describes real-time interactions and API feedback, which are technical details of the conversation.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the outcome of knowledge sharing and alignment; the children describe the interaction mechanisms.\",\"outcome_justification\":\"Development Team Members build shared understanding and knowledge through collaborative estimation conversations.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately captures the submission and aggregation for consensus.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

@@ -1,0 +1,158 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_44f4380b2d74bcb7_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support clinical decision-making through accurate variant interpretation",
+    "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+    "actor": {
+      "name": "Clinician",
+      "description": "Medical professional using variant data for patient diagnosis and treatment."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Retrieve clinical significance scores for variants",
+      "description": "Enable the clinician to fetch clinical interpretation scores (e.g., ACMG, CADD, REVEL) for submitted variants via API.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Integrate variant data from public databases",
+      "description": "Automatically fetch and aggregate variant annotations from public databases (e.g., ClinVar, dbSNP, gnomAD) via API for comprehensive interpretation.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Integrate variant data from prediction tools",
+      "description": "Automatically fetch and combine functional predictions from computational tools (e.g., CADD, REVEL, SIFT, PolyPhen) via API to assess variant impact.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Integrate clinical knowledge from curated sources",
+      "description": "Automatically retrieve and contextualize variant interpretations from clinical knowledge bases (e.g., HGMD, OMIM) via API to support clinical relevance assessment.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Map variants to reference genome assemblies",
+      "description": "Automatically convert submitted variant coordinates to reference genome assemblies (e.g., GRCh38) via API for accurate genomic context.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Convert DNA-level variants to protein-level changes",
+      "description": "Automatically translate DNA-level mutations into corresponding protein-level changes (e.g., amino acid substitutions) via API for functional interpretation.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    },
+    {
+      "name": "Provide functional predictions about mutation impact on proteins",
+      "description": "Automatically generate and return predictions of protein-level functional consequences (e.g., loss-of-function, missense impact) via API for biological interpretation.",
+      "high_level_associated": {
+        "name": "Support clinical decision-making through accurate variant interpretation",
+        "description": "Enable clinicians to interpret the clinical significance of genetic variants to inform patient diagnosis, prognosis, and treatment strategies.",
+        "actor": {
+          "name": "Clinician",
+          "description": "Medical professional using variant data for patient diagnosis and treatment."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds clinical significance and gene-level context beyond original research focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for rapid annotation; reconstruction mismatch reflects broader children.\",\n      \"outcome_justification\": \"Researcher obtains fast access to variant annotations; clinical interpretation serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes protein-level predictions and genome mapping not in original clinical focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for clinical decision-making; reconstruction mismatch reflects broader children.\",\n      \"outcome_justification\": \"Clinician interprets variant significance for diagnosis; protein mapping serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits cancer-specific focus and adds API constraint not in original description.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent lacks specificity to cancer; correct scope to match source evidence.\",\n      \"outcome_justification\": \"Researcher/clinician analyzes cancer mutations; API constraint is internal workflow.\",\n      \"rewriting_focus\": \"Narrow outcome to cancer-specific mutation analysis, removing API constraint reference.\"\n    },\n    {\n      \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction duplicates capabilities from other HLGs (mapping, protein conversion) and adds workflow steps.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is over-specific to internal pipeline implementation; source supports broader outcomes.\",\n      \"outcome_justification\": \"The containing outcome is handling high-throughput datasets, which is covered by other HLGs.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_18d52024b385646f_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches original mapping and protein conversion capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for variant mapping; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher maps variants to reference assemblies and translates mutations; no broader coverage exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_44f4380b2d74bcb7_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Original parent is source-supported for clinical decision-making; reconstruction mismatch reflects broader children.",
+      "outcome_justification": "Clinician interprets variant significance for diagnosis; protein mapping serves a different outcome.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_fb3acba7a1cf161c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction adds clinical significance and gene-level context beyond original research focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for rapid annotation; reconstruction mismatch reflects broader children.\",\n      \"outcome_justification\": \"Researcher obtains fast access to variant annotations; clinical interpretation serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_44f4380b2d74bcb7_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes protein-level predictions and genome mapping not in original clinical focus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for clinical decision-making; reconstruction mismatch reflects broader children.\",\n      \"outcome_justification\": \"Clinician interprets variant significance for diagnosis; protein mapping serves a different outcome.\"\n    },\n    {\n      \"branch_id\": \"hlg_9fa1df9845374ecf_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits cancer-specific focus and adds API constraint not in original description.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent lacks specificity to cancer; correct scope to match source evidence.\",\n      \"outcome_justification\": \"Researcher/clinician analyzes cancer mutations; API constraint is internal workflow.\",\n      \"rewriting_focus\": \"Narrow outcome to cancer-specific mutation analysis, removing API constraint reference.\"\n    },\n    {\n      \"branch_id\": \"hlg_07bd7d8412bc378e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction duplicates capabilities from other HLGs (mapping, protein conversion) and adds workflow steps.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is over-specific to internal pipeline implementation; source supports broader outcomes.\",\n      \"outcome_justification\": \"The containing outcome is handling high-throughput datasets, which is covered by other HLGs.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_18d52024b385646f_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches original mapping and protein conversion capabilities.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported for variant mapping; equivalence confirms coherence.\",\n      \"outcome_justification\": \"Researcher maps variants to reference assemblies and translates mutations; no broader coverage exists.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction includes protein-level predictions and genome mapping not in original clinical focus.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children (llg_001 to llg_007) correctly and completely realize the parent goal of supporting clinical decision-making through accurate variant interpretation. All documented capabilities are supported, non-redundant, and align with the source description. The children cover fetching clinical significance scores, integrating data from public databases and prediction tools, contextualizing clinical knowledge, mapping variants to reference genomes, converting DNA-level variants to protein-level changes, and providing functional predictions—all of which directly contribute to the parent's goal without any unsupported or out-of-scope additions.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children (llg_001 to llg_007) correctly and completely realize the parent goal of supporting clinical decision-making through accurate variant interpretation. All documented capabilities are supported, non-redundant, and align with the source description. The children cover fetching clinical significance scores, integrating data from public databases and prediction tools, contextualizing clinical knowledge, mapping variants to reference genomes, converting DNA-level variants to protein-level changes, and providing functional predictions—all of which directly contribute to the parent's goal without any unsupported or out-of-scope additions.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

@@ -1,0 +1,114 @@
+{
+  "iteration": 19,
+  "branch_id": "hlg_d7309c7d162e5905_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Provide seamless online shopping and payment experience",
+    "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+    "actor": {
+      "name": "Customer",
+      "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Customer browses product catalog and adds items to cart",
+      "description": "The customer views products, selects items, and adds them to their shopping cart.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System automatically calculates order total including taxes and shipping",
+      "description": "The system computes the final order amount based on selected items, applicable taxes, and shipping costs in real time.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "Customer selects payment method and completes checkout",
+      "description": "The customer chooses a payment method and submits the order for processing.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System generates and sends real-time delivery tracking link via email",
+      "description": "After order confirmation, the system automatically generates a unique tracking link and sends it to the customer via email.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System sends mobile notifications for delivery updates",
+      "description": "When delivery status changes (e.g., shipped, in transit, delivered), the system automatically sends push notifications to customers who have consented to receive them via mobile.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction captures the full supplier onboarding and proposal workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for suppliers.\",\n      \"outcome_justification\": \"Supplier registers, submits proposals, and receives feedback; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits the 5-day resubmission deadline and automatic removal of overdue proposals.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source explicitly mentions deadlines; correct the parent to reflect these constraints.\",\n      \"outcome_justification\": \"Administrator evaluates proposals with strict timeframes and supplier notifications.\",\n      \"rewriting_focus\": \"Include 5-day resubmission deadline, automatic removal of overdue proposals, and 10-day rejection window.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the hybrid inventory replenishment system.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for administrators.\",\n      \"outcome_justification\": \"Administrator manages real-time inventory, reorders, and manual overrides; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the goods receiving and store placement workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for goods-receiving staff.\",\n      \"outcome_justification\": \"Goods-Receiving Staff verifies deliveries, assigns locations, and flags defects; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes automated proposal evaluation reminders, which are not part of order fulfillment.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source distinguishes between proposal evaluation and order fulfillment; correct the parent's scope.\",\n      \"outcome_justification\": \"Order Department Staff processes orders, handles payments, and updates statuses based on delivery.\",\n      \"rewriting_focus\": \"Remove automated proposal evaluation reminders; focus solely on order fulfillment and payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the online shopping and payment experience.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for customers.\",\n      \"outcome_justification\": \"Customer browses, purchases, pays, and tracks orders; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the support ticket lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for customer-service agents.\",\n      \"outcome_justification\": \"Customer-Service Agent manages tickets, responds to customers, and tracks performance; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"DIFFERENT\",\n        \"rationale\": \"The reconstruction describes report generation, not data-driven decision-making.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is a non-functional constraint; the reconstruction reveals it lacks a functional core.\",\n      \"outcome_justification\": \"No other HLG covers this, but it is purely about report generation without strategic decision-making.\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d7309c7d162e5905_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The parent is source-supported and represents an independent outcome for customers.",
+      "outcome_justification": "Customer browses, purchases, pays, and tracks orders; no other HLG covers this.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction captures the full supplier onboarding and proposal workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for suppliers.\",\n      \"outcome_justification\": \"Supplier registers, submits proposals, and receives feedback; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits the 5-day resubmission deadline and automatic removal of overdue proposals.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source explicitly mentions deadlines; correct the parent to reflect these constraints.\",\n      \"outcome_justification\": \"Administrator evaluates proposals with strict timeframes and supplier notifications.\",\n      \"rewriting_focus\": \"Include 5-day resubmission deadline, automatic removal of overdue proposals, and 10-day rejection window.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the hybrid inventory replenishment system.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for administrators.\",\n      \"outcome_justification\": \"Administrator manages real-time inventory, reorders, and manual overrides; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the goods receiving and store placement workflow.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for goods-receiving staff.\",\n      \"outcome_justification\": \"Goods-Receiving Staff verifies deliveries, assigns locations, and flags defects; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes automated proposal evaluation reminders, which are not part of order fulfillment.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source distinguishes between proposal evaluation and order fulfillment; correct the parent's scope.\",\n      \"outcome_justification\": \"Order Department Staff processes orders, handles payments, and updates statuses based on delivery.\",\n      \"rewriting_focus\": \"Remove automated proposal evaluation reminders; focus solely on order fulfillment and payment workflows.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the online shopping and payment experience.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for customers.\",\n      \"outcome_justification\": \"Customer browses, purchases, pays, and tracks orders; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the support ticket lifecycle management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is source-supported and represents an independent outcome for customer-service agents.\",\n      \"outcome_justification\": \"Customer-Service Agent manages tickets, responds to customers, and tracks performance; no other HLG covers this.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"DIFFERENT\",\n        \"rationale\": \"The reconstruction describes report generation, not data-driven decision-making.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent is a non-functional constraint; the reconstruction reveals it lacks a functional core.\",\n      \"outcome_justification\": \"No other HLG covers this, but it is purely about report generation without strategic decision-making.\",\n      \"removal_basis\": \"NON_FUNCTIONAL\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction accurately reflects the online shopping and payment experience.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

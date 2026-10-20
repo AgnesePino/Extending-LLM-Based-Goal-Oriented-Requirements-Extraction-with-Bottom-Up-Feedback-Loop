@@ -1,0 +1,98 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_eca1ad8fec0452f0_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Ensure Transparent and Consensus-Based Estimation",
+    "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+    "actor": {
+      "name": "Product Owner",
+      "description": "Defines and prioritizes sprint goals and user stories."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Allow Team Member to Submit Estimate",
+      "description": "Enable a team member to submit a numerical or relative estimate for a task via an API call, with validation and anonymized storage.",
+      "high_level_associated": {
+        "name": "Ensure Transparent and Consensus-Based Estimation",
+        "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Defines and prioritizes sprint goals and user stories."
+        }
+      }
+    },
+    {
+      "name": "Aggregate Estimates into Consensus View",
+      "description": "Collect submitted estimates and display a visual summary (e.g., histogram, median, or range) via an API to promote consensus and transparency.",
+      "high_level_associated": {
+        "name": "Ensure Transparent and Consensus-Based Estimation",
+        "description": "Allow all team members to contribute anonymously to task estimation, reducing bias and encouraging consensus-driven decision-making.",
+        "actor": {
+          "name": "Product Owner",
+          "description": "Defines and prioritizes sprint goals and user stories."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_58bd0caca4f4bc30_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits audit and retrospective analysis.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports collective sprint goal setting; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Scrum Master facilitates shared ownership through anonymous estimation, distinct from other outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_eca1ad8fec0452f0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches task estimation and consensus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent, anonymous estimation; no redundancy with other goals.\",\n      \"outcome_justification\": \"Product Owner ensures unbiased, consensus-driven estimates, distinct from team alignment.\"\n    },\n    {\n      \"branch_id\": \"hlg_00d6a1e8ce60813c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time collaboration and discussion.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports knowledge sharing; no redundancy with other goals.\",\n      \"outcome_justification\": \"Development Team Member builds understanding through collaborative estimation, distinct from Scrum Master or Product Owner roles.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_eca1ad8fec0452f0_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports transparent, anonymous estimation; no redundancy with other goals.",
+      "outcome_justification": "Product Owner ensures unbiased, consensus-driven estimates, distinct from team alignment.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_58bd0caca4f4bc30_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits audit and retrospective analysis.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports collective sprint goal setting; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Scrum Master facilitates shared ownership through anonymous estimation, distinct from other outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_eca1ad8fec0452f0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches task estimation and consensus.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports transparent, anonymous estimation; no redundancy with other goals.\",\n      \"outcome_justification\": \"Product Owner ensures unbiased, consensus-driven estimates, distinct from team alignment.\"\n    },\n    {\n      \"branch_id\": \"hlg_00d6a1e8ce60813c_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time collaboration and discussion.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports knowledge sharing; no redundancy with other goals.\",\n      \"outcome_justification\": \"Development Team Member builds understanding through collaborative estimation, distinct from Scrum Master or Product Owner roles.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches task estimation and consensus.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children llg_001 and llg_002 correctly address the parent goal of ensuring transparent and consensus-based estimation. llg_001 covers the submission of anonymous estimates, which is a documented functional interaction (API call with validation and anonymized storage). llg_002 covers the aggregation and display of estimates, which promotes transparency and consensus as required by the parent. No essential capabilities are missing, and there are no unsupported or misleading children.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children llg_001 and llg_002 correctly address the parent goal of ensuring transparent and consensus-based estimation. llg_001 covers the submission of anonymous estimates, which is a documented functional interaction (API call with validation and anonymized storage). llg_002 covers the aggregation and display of estimates, which promotes transparency and consensus as required by the parent. No essential capabilities are missing, and there are no unsupported or misleading children.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

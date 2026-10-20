@@ -1,0 +1,84 @@
+{
+  "iteration": 5,
+  "branch_id": "hlg_94df30668f000172_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support service providers in managing appointments and quotations",
+    "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+    "actor": {
+      "name": "Service Provider",
+      "description": "Business or individual offering event-related services for booking."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Respond to appointment requests",
+      "description": "The service provider accepts or declines appointment requests from event organizers via the platform.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    },
+    {
+      "name": "Generate and send quotations",
+      "description": "The service provider creates and sends a quotation to the event organizer with pricing and terms.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    },
+    {
+      "name": "Confirm payment receipt for completed services",
+      "description": "The service provider marks a service as completed and confirms receipt of payment from the event organizer.",
+      "high_level_associated": {
+        "name": "Support service providers in managing appointments and quotations",
+        "description": "Allow service providers to respond to appointment requests, generate quotations, and confirm payments received for completed services.",
+        "actor": {
+          "name": "Service Provider",
+          "description": "Business or individual offering event-related services for booking."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_15ab31703493776e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports broader event management, including guest invitations and budget tracking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Enable seamless event planning and coordination for organizers, encompassing guest invitations, service bookings, and budget management.\"\n  },\n  {\n    \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service discovery and booking for organizers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a centralized platform for service discovery and booking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Facilitate service discovery and booking for event organizers, enabling them to select and book services from verified providers.\"\n  },\n  {\n    \"branch_id\": \"hlg_175cb69663176b35_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure payment processing.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on transparent and secure payment processing.\",\n    \"outcome_justification\": \"Ensure transparent and secure payment processing for event service bookings, supporting multiple payment methods and real-time confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_bba1d36093273738_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service management details like updating availability and adjusting pricing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports comprehensive service management. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Allow service providers to showcase and manage offerings, including publishing, categorizing, updating availability, deactivating, adjusting pricing, and updating showcase media.\"\n  },\n  {\n    \"branch_id\": \"hlg_94df30668f000172_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits appointment response and payment confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a complete service lifecycle for organizers. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support service providers in managing appointments and quotations, allowing them to respond to appointment requests, generate quotations, and confirm payment receipt for completed services.\"\n  },\n  {\n    \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure guest access.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on invited guest participation.\",\n    \"outcome_justification\": \"Enable invited guests to participate in event activities by securely accessing event-related content using invitation codes.\"\n  },\n  {\n    \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits guest feedback and commenting.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports collaborative content creation. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support collaborative event content creation, enabling both organizers and invited guests to contribute to event blogs by posting, uploading media, and commenting on event-related content.\"\n  },\n  {\n    \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover contract history and budget monitoring.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on event organizer tracking capabilities.\",\n    \"outcome_justification\": \"Allow event organizers to track contract history and remaining budget, ensuring financial accountability and operational oversight.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_94df30668f000172_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits appointment response and payment confirmation."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports a complete service lifecycle for organizers. Correct the parent's scope to align with the source.",
+      "outcome_justification": "Support service providers in managing appointments and quotations, allowing them to respond to appointment requests, generate quotations, and confirm payment receipt for completed services."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_15ab31703493776e_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on event planning and coordination, omitting guest invitations and budget tracking.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports broader event management, including guest invitations and budget tracking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Enable seamless event planning and coordination for organizers, encompassing guest invitations, service bookings, and budget management.\"\n  },\n  {\n    \"branch_id\": \"hlg_dc05a6a00e807452_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service discovery and booking for organizers.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a centralized platform for service discovery and booking. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Facilitate service discovery and booking for event organizers, enabling them to select and book services from verified providers.\"\n  },\n  {\n    \"branch_id\": \"hlg_175cb69663176b35_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure payment processing.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on transparent and secure payment processing.\",\n    \"outcome_justification\": \"Ensure transparent and secure payment processing for event service bookings, supporting multiple payment methods and real-time confirmation.\"\n  },\n  {\n    \"branch_id\": \"hlg_bba1d36093273738_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits service management details like updating availability and adjusting pricing.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports comprehensive service management. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Allow service providers to showcase and manage offerings, including publishing, categorizing, updating availability, deactivating, adjusting pricing, and updating showcase media.\"\n  },\n  {\n    \"branch_id\": \"hlg_94df30668f000172_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits appointment response and payment confirmation.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports a complete service lifecycle for organizers. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support service providers in managing appointments and quotations, allowing them to respond to appointment requests, generate quotations, and confirm payment receipt for completed services.\"\n  },\n  {\n    \"branch_id\": \"hlg_57dbb1d19d575603_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover secure guest access.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on invited guest participation.\",\n    \"outcome_justification\": \"Enable invited guests to participate in event activities by securely accessing event-related content using invitation codes.\"\n  },\n  {\n    \"branch_id\": \"hlg_d4bd8d89225ca214_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits guest feedback and commenting.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports collaborative content creation. Correct the parent's scope to align with the source.\",\n    \"outcome_justification\": \"Support collaborative event content creation, enabling both organizers and invited guests to contribute to event blogs by posting, uploading media, and commenting on event-related content.\"\n  },\n  {\n    \"branch_id\": \"hlg_e2c0b7b29ea3a654_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"Both reconstructed and original HLGs cover contract history and budget monitoring.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The original HLG aligns with the source, focusing on event organizer tracking capabilities.\",\n    \"outcome_justification\": \"Allow event organizers to track contract history and remaining budget, ensuring financial accountability and operational oversight.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits appointment response and payment confirmation.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

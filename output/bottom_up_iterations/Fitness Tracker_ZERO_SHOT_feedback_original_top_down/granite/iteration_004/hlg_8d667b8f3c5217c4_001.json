@@ -1,0 +1,98 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_8d667b8f3c5217c4_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Deliver personalized workout recommendations",
+    "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+    "actor": {
+      "name": "Fitness Enthusiast",
+      "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Generate personalized workout plan",
+      "description": "Create a customized workout schedule based on user’s fitness level, preferences, and past performance.",
+      "high_level_associated": {
+        "name": "Deliver personalized workout recommendations",
+        "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    },
+    {
+      "name": "Recommend workouts based on progress",
+      "description": "Suggest new exercises or adjust existing plans as the user’s fitness level improves or plateaus.",
+      "high_level_associated": {
+        "name": "Deliver personalized workout recommendations",
+        "description": "Offer tailored workout plans based on user preferences, fitness level, and progress to enhance engagement and effectiveness.",
+        "actor": {
+          "name": "Fitness Enthusiast",
+          "description": "An experienced user actively tracking workouts and seeking advanced progress insights."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_8d667b8f3c5217c4_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.",
+      "outcome_justification": "Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (llg_001 and llg_002) do not fully capture the reconstructed high-level goal (HHG'). While llg_001 focuses on generating a personalized workout plan based on user's fitness level, preferences, and past performance, it does not explicitly mention dynamic adaptation based on ongoing progress. Similarly, llg_002 addresses recommending new exercises or adjusting existing plans due to improved fitness levels but lacks the aspect of continuous progress monitoring. The reconstructed HLG' emphasizes the importance of dynamically adapting workout plans according to the user's evolving fitness level and progress, which is not entirely covered by the current children. Therefore, a regeneration is necessary to ensure comprehensive coverage of the parent goal.\",\n\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\n\"quality_score\":2,\n\"regeneration_feedback\":\"Preserve the generation of personalized workout plans and add dynamic adaptation based on user's ongoing progress. Also, include continuous monitoring of fitness level improvements or plateaus to suggest appropriate adjustments; return the full decomposition.\",\n\"unsupported_or_misleading_llg_ids\":[\"llg_001\", \"llg_002\"],\n\"missing_essential_capabilities\":[\"Dynamic adaptation based on ongoing progress\", \"Continuous monitoring of fitness level improvements or plateaus\"]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (llg_001 and llg_002) do not fully capture the reconstructed high-level goal (HHG'). While llg_001 focuses on generating a personalized workout plan based on user's fitness level, preferences, and past performance, it does not explicitly mention dynamic adaptation based on ongoing progress. Similarly, llg_002 addresses recommending new exercises or adjusting existing plans due to improved fitness levels but lacks the aspect of continuous progress monitoring. The reconstructed HLG' emphasizes the importance of dynamically adapting workout plans according to the user's evolving fitness level and progress, which is not entirely covered by the current children. Therefore, a regeneration is necessary to ensure comprehensive coverage of the parent goal.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve the generation of personalized workout plans and add dynamic adaptation based on user's ongoing progress. Also, include continuous monitoring of fitness level improvements or plateaus to suggest appropriate adjustments; return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_001",
+        "llg_002"
+      ],
+      "missing_essential_capabilities": [
+        "Dynamic adaptation based on ongoing progress",
+        "Continuous monitoring of fitness level improvements or plateaus"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

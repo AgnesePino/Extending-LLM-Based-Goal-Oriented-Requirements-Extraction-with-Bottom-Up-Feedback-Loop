@@ -1,0 +1,114 @@
+{
+  "iteration": 20,
+  "branch_id": "hlg_d7309c7d162e5905_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Provide seamless online shopping and payment experience",
+    "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+    "actor": {
+      "name": "Customer",
+      "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Customer browses product catalog and adds items to cart",
+      "description": "The customer views products, selects items, and adds them to their shopping cart.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System automatically calculates order total including taxes and shipping",
+      "description": "The system computes the final order amount based on selected items, applicable taxes, and shipping costs in real time.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "Customer selects payment method and completes checkout",
+      "description": "The customer chooses a payment method and submits the order for processing.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System generates and sends real-time delivery tracking link via email",
+      "description": "After order confirmation, the system automatically generates a unique tracking link and sends it to the customer via email.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    },
+    {
+      "name": "System sends mobile notifications for delivery updates",
+      "description": "When delivery status changes (e.g., shipped, in transit, delivered), the system automatically sends push notifications to customers who have consented to receive them via mobile.",
+      "high_level_associated": {
+        "name": "Provide seamless online shopping and payment experience",
+        "description": "Allow customers to browse, purchase, and pay for products online using multiple payment methods, with real-time order tracking and delivery notifications.",
+        "actor": {
+          "name": "Customer",
+          "description": "End-user purchasing products either in-store or online, interacting with the system for purchases and support."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete supplier onboarding and proposal lifecycle; children issues should be addressed without removing the parent.\",\n      \"outcome_justification\": \"Suppliers can register and manage their product proposals to improve availability.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the administrator's evaluation tasks and automated rejection logic.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This goal represents a distinct administrative responsibility from the supplier-facing onboarding process.\",\n      \"outcome_justification\": \"Administrators maintain operational efficiency by evaluating proposals within set timeframes.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction correctly covers both automatic and manual replenishment mechanisms.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Inventory management is a distinct functional area from proposal evaluation or customer support.\",\n      \"outcome_justification\": \"The system ensures product availability and prevents overstocking through real-time tracking.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the verification, location assignment, and defect reporting tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This is a specific operational goal for the goods-receiving staff.\",\n      \"outcome_justification\": \"Staff ensure accurate product presentation and inventory accuracy during reception.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes proposal evaluation and rejection, which belong to the Administrator's goal.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the order department's role in payments and partial delivery management.\",\n      \"outcome_justification\": \"The order department ensures financial accuracy and handles complex delivery statuses.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction covers browsing, checkout, tracking, and notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This represents the primary customer-facing commerce and tracking experience.\",\n      \"outcome_justification\": \"Customers can conveniently purchase products and track deliveries in real-time.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the ticket lifecycle and agent performance tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Customer support is a distinct service provided by a different actor than the order department.\",\n      \"outcome_justification\": \"Agents provide timely assistance and maintain service quality for customers.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction describes the generation of performance reports for management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Data analysis for strategic decision-making is a distinct high-level outcome from operational tasks.\",\n      \"outcome_justification\": \"Management can make informed strategic decisions based on operational data.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d7309c7d162e5905_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This represents the primary customer-facing commerce and tracking experience.",
+      "outcome_justification": "Customers can conveniently purchase products and track deliveries in real-time.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete supplier onboarding and proposal lifecycle; children issues should be addressed without removing the parent.\",\n      \"outcome_justification\": \"Suppliers can register and manage their product proposals to improve availability.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately captures the administrator's evaluation tasks and automated rejection logic.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This goal represents a distinct administrative responsibility from the supplier-facing onboarding process.\",\n      \"outcome_justification\": \"Administrators maintain operational efficiency by evaluating proposals within set timeframes.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction correctly covers both automatic and manual replenishment mechanisms.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Inventory management is a distinct functional area from proposal evaluation or customer support.\",\n      \"outcome_justification\": \"The system ensures product availability and prevents overstocking through real-time tracking.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction matches the verification, location assignment, and defect reporting tasks.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This is a specific operational goal for the goods-receiving staff.\",\n      \"outcome_justification\": \"Staff ensure accurate product presentation and inventory accuracy during reception.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes proposal evaluation and rejection, which belong to the Administrator's goal.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the order department's role in payments and partial delivery management.\",\n      \"outcome_justification\": \"The order department ensures financial accuracy and handles complex delivery statuses.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction covers browsing, checkout, tracking, and notifications.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"This represents the primary customer-facing commerce and tracking experience.\",\n      \"outcome_justification\": \"Customers can conveniently purchase products and track deliveries in real-time.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the ticket lifecycle and agent performance tracking.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Customer support is a distinct service provided by a different actor than the order department.\",\n      \"outcome_justification\": \"Agents provide timely assistance and maintain service quality for customers.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction describes the generation of performance reports for management.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Data analysis for strategic decision-making is a distinct high-level outcome from operational tasks.\",\n      \"outcome_justification\": \"Management can make informed strategic decisions based on operational data.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers browsing, checkout, tracking, and notifications.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

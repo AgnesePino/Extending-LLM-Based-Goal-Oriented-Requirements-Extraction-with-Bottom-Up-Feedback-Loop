@@ -1,0 +1,59 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_00ca9651daa07755_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Provide secure and compliant data handling and privacy notices",
+    "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Display GDPR-compliant privacy notice",
+      "description": "The system displays a GDPR-compliant privacy notice before application submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Require acceptance of responsibility declaration",
+      "description": "The applicant must explicitly accept a responsibility declaration before proceeding with submission.",
+      "high_level_associated": {
+        "name": "Provide secure and compliant data handling and privacy notices",
+        "description": "Ensure applicants accept GDPR-compliant privacy notices and responsibility declarations before submission, and maintain data confidentiality throughout the process.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application for AUU; INPS decides on approval, not the applicant.\",\n    \"rewriting_focus\": \"Express submission and tracking for Applicant; remove automatic approval, reserved for INPS staff.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"This undocumented intent is inherently part of the application submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Prevent duplicate applications by blocking submission when a child's fiscal code is already associated with another active AUU application.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's draft saving and resumption capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Draft management is integral to application workflows; separate it from the broader application submission goal.\",\n    \"outcome_justification\": \"Applicant can save, resume, or discard incomplete applications without affecting the core submission process.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Adding children to applications is inherently part of the submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Applicants can add new children to existing applications with real-time fiscal code validation and subsequent modification of payment or declaration data.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's automatic approval capability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source reserves approval to INPS staff; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Applicant submits an application for AUU; INPS decides on approval, not the applicant.\",\n    \"rewriting_focus\": \"Express submission and tracking for Applicant; remove automatic approval, reserved for INPS staff.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"This undocumented intent is inherently part of the application submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Prevent duplicate applications by blocking submission when a child's fiscal code is already associated with another active AUU application.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits the original parent's draft saving and resumption capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Draft management is integral to application workflows; separate it from the broader application submission goal.\",\n    \"outcome_justification\": \"Applicant can save, resume, or discard incomplete applications without affecting the core submission process.\"\n  },\n  {\n    \"branch_id\": \"hlg_00df6ca09ca87b63_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children; it is a mandatory, standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Adding children to applications is inherently part of the submission process; it cannot be reconstructed as a separate goal.\",\n    \"outcome_justification\": \"Applicants can add new children to existing applications with real-time fiscal code validation and subsequent modification of payment or declaration data.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "EVALUATION_INCONCLUSIVE"
+}

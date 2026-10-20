@@ -1,0 +1,85 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_853e84d06ed9fe58_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+    "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View submitted report status and updates",
+      "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports a broader scope, including tracking and interaction; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens submit reports and receive real-time notifications about their status and location, with direct messaging and following other users' reports.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits public report visibility and dynamic filtering.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports public access and dynamic filtering; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens view public reports on an interactive map with geolocation markers and a summary table, supporting dynamic filtering and sorting by category, status, or date.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report status tracking and following other users' reports.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader interaction features; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens view the status of submitted reports and receive notifications about updates, with the ability to follow other users' reports.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects public, anonymous access to report statistics and an interactive map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n      \"outcome_justification\": \"Non-registered users can view public statistics and an interactive map of report locations without requiring user authentication.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report assignment to external companies.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader review and approval processes; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Organization office staff review, approve, or reject citizen reports with mandatory justifications for rejections.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report category-based assignment to external companies.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader report management; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Technical office staff assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits private system performance analytics.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader administrative oversight; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Municipal Administrators view both public report statistics and private system performance analytics for comprehensive oversight of report trends and system resource allocation.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the open-source software release process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n      \"outcome_justification\": \"Participium is released as open-source software on https://developers.italia.it/, promoting interoperability and scalability across Italian public administrations.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_853e84d06ed9fe58_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits report status tracking and following other users' reports."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports broader interaction features; correct the parent's responsibility to match.",
+      "outcome_justification": "Citizens view the status of submitted reports and receive notifications about updates, with the ability to follow other users' reports."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report tracking and interaction features.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports a broader scope, including tracking and interaction; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens submit reports and receive real-time notifications about their status and location, with direct messaging and following other users' reports.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits public report visibility and dynamic filtering.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports public access and dynamic filtering; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens view public reports on an interactive map with geolocation markers and a summary table, supporting dynamic filtering and sorting by category, status, or date.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report status tracking and following other users' reports.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader interaction features; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Citizens view the status of submitted reports and receive notifications about updates, with the ability to follow other users' reports.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects public, anonymous access to report statistics and an interactive map.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n      \"outcome_justification\": \"Non-registered users can view public statistics and an interactive map of report locations without requiring user authentication.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report assignment to external companies.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader review and approval processes; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Organization office staff review, approve, or reject citizen reports with mandatory justifications for rejections.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits report category-based assignment to external companies.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader report management; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Technical office staff assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction omits private system performance analytics.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader administrative oversight; correct the parent's responsibility to match.\",\n      \"outcome_justification\": \"Municipal Administrators view both public report statistics and private system performance analytics for comprehensive oversight of report trends and system resource allocation.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"The reconstruction accurately reflects the open-source software release process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent represents the complete documented outcome and is not covered by a narrower peer.\",\n      \"outcome_justification\": \"Participium is released as open-source software on https://developers.italia.it/, promoting interoperability and scalability across Italian public administrations.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits report status tracking and following other users' reports.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current child 'View submitted report status and updates' (llg_001) does not fully capture the parent's description. The parent emphasizes real-time communication, notifications, and messages between citizens and municipal staff, while the child only mentions viewing report status and receiving notifications. The parent also implies that citizens can follow other reports and receive notifications following the same rules as for their own reports, which is not covered by the current child.\",\n\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\n\"quality_score\":0,\n\"regeneration_feedback\":\"Preserve the core of real-time communication and notifications; add capabilities for citizens to follow other reports and receive corresponding notifications. Return the full decomposition.\",\n\"unsupported_or_misleading_llg_ids\":[\"llg_001\"],\n\"missing_essential_capabilities\":[\"Citizen follows other reports\", \"Receives notifications for followed reports\"]}",
+    "parsed_response": {
+      "rationale": "The current child 'View submitted report status and updates' (llg_001) does not fully capture the parent's description. The parent emphasizes real-time communication, notifications, and messages between citizens and municipal staff, while the child only mentions viewing report status and receiving notifications. The parent also implies that citizens can follow other reports and receive notifications following the same rules as for their own reports, which is not covered by the current child.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 0,
+      "regeneration_feedback": "Preserve the core of real-time communication and notifications; add capabilities for citizens to follow other reports and receive corresponding notifications. Return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [
+        "llg_001"
+      ],
+      "missing_essential_capabilities": [
+        "Citizen follows other reports",
+        "Receives notifications for followed reports"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}

@@ -1,0 +1,164 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_139f4cc118f2e6b4_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Ensure accurate and compliant AUU application submissions",
+    "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Validate child fiscal code in real-time",
+      "description": "The system validates the entered child's fiscal code in real-time and blocks the application if the child is already associated with another active application, displaying an explanatory warning.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Detect and report duplicate fiscal codes for adult children",
+      "description": "The system detects duplicate fiscal codes for adult children and reports them to the applicant during data entry.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Display real-time validation errors for missing or invalid inputs",
+      "description": "The system displays real-time validation errors for any missing or invalid input fields during application completion, preventing submission until corrections are made.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Present mandatory declarations and GDPR privacy notice for acceptance",
+      "description": "The system presents mandatory declarations of responsibility and GDPR privacy notice to the applicant, requiring explicit acceptance before proceeding to submission.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Display application summary for review before submission",
+      "description": "The system displays a summary of all entered information for the applicant to review before final submission, ensuring data accuracy.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Submit application and generate downloadable receipt",
+      "description": "The system submits the application upon successful validation and generates a downloadable receipt for the applicant.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Allow interruption or saving of application as draft",
+      "description": "The applicant may interrupt the application without saving or save it as a draft for later completion.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Enable resumption of draft with option to continue or restart",
+      "description": "When resuming a draft, the applicant may either continue from previously saved information or discard it and restart the application from the beginning.",
+      "high_level_associated": {
+        "name": "Ensure accurate and compliant AUU application submissions",
+        "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing real-time validation, mandatory declarations, and error handling.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive application submission, including real-time validation and mandatory declarations. The reconstruction misses these crucial elements.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully capture the original parent's flexibility in application workflows.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights the need for flexible application workflows, including drafts and resumptions. The reconstruction lacks this nuance.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source underscores the importance of secure and compliant data handling. The reconstruction does not adequately reflect this aspect.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_139f4cc118f2e6b4_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes comprehensive application submission, including real-time validation and mandatory declarations. The reconstruction misses these crucial elements.",
+      "outcome_justification": "Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes comprehensive application submission, including real-time validation and mandatory declarations. The reconstruction misses these crucial elements.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_f20dd2688cbe70ce_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully capture the original parent's flexibility in application workflows.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source highlights the need for flexible application workflows, including drafts and resumptions. The reconstruction lacks this nuance.\",\n    \"outcome_justification\": \"Support flexible application workflows including drafts and resumptions\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction does not fully convey the original parent's emphasis on secure and compliant data handling.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source underscores the importance of secure and compliant data handling. The reconstruction does not adequately reflect this aspect.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction omits some aspects of the original parent, such as real-time validation and mandatory declarations.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) comprehensively cover the parent high-level goal 'Ensure accurate and compliant AUU application submissions'. Each LLG is supported by documented functional interactions or effects, and there are no missing essential capabilities. The system realizes the parent's requirements through real-time fiscal code validation, duplicate detection, mandatory declaration presentation, error handling, application summary display, receipt generation, and draft management. No unsupported or misleading LLGs were identified.\\n\\nThe LLGs 'Validate child fiscal code in real-time' (llg_001), 'Detect and report duplicate fiscal codes for adult children' (llg_002), 'Display real-time validation errors for missing or invalid inputs' (llg_003), 'Present mandatory declarations and GDPR privacy notice for acceptance' (llg_004), 'Display application summary for review before submission' (llg_005), 'Submit application and generate downloadable receipt' (llg_006), 'Allow interruption or saving of application as draft' (llg_007), and 'Enable resumption of draft with option to continue or restart' (llg_008) all align with the parent's requirements.\\n\\nNo regeneration is needed, as all essential capabilities are covered. The LLGs are non-redundant, supported, and complete.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) comprehensively cover the parent high-level goal 'Ensure accurate and compliant AUU application submissions'. Each LLG is supported by documented functional interactions or effects, and there are no missing essential capabilities. The system realizes the parent's requirements through real-time fiscal code validation, duplicate detection, mandatory declaration presentation, error handling, application summary display, receipt generation, and draft management. No unsupported or misleading LLGs were identified.\n\nThe LLGs 'Validate child fiscal code in real-time' (llg_001), 'Detect and report duplicate fiscal codes for adult children' (llg_002), 'Display real-time validation errors for missing or invalid inputs' (llg_003), 'Present mandatory declarations and GDPR privacy notice for acceptance' (llg_004), 'Display application summary for review before submission' (llg_005), 'Submit application and generate downloadable receipt' (llg_006), 'Allow interruption or saving of application as draft' (llg_007), and 'Enable resumption of draft with option to continue or restart' (llg_008) all align with the parent's requirements.\n\nNo regeneration is needed, as all essential capabilities are covered. The LLGs are non-redundant, supported, and complete.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

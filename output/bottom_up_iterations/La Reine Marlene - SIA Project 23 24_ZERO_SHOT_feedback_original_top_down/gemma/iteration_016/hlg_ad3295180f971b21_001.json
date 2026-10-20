@@ -1,0 +1,124 @@
+{
+  "iteration": 16,
+  "branch_id": "hlg_ad3295180f971b21_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Deliver responsive and efficient customer support",
+    "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+    "actor": {
+      "name": "Customer-Service Agent",
+      "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "System automatically assigns support ticket to customer-service agent",
+      "description": "The system assigns a newly created support ticket to a customer-service agent based on predefined rules or availability.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System notifies customer-service agent of new support ticket",
+      "description": "The system sends a notification to the assigned customer-service agent when a new support ticket is created.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System automatically reassigns support ticket after 24 hours of inactivity",
+      "description": "If no response is provided within 24 hours, the system automatically reassigns the ticket to another agent.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    },
+    {
+      "name": "System updates performance statistics for customer-service agents",
+      "description": "The system automatically updates performance metrics (e.g., response time, ticket resolution rate) for agents based on ticket activity.",
+      "high_level_associated": {
+        "name": "Deliver responsive and efficient customer support",
+        "description": "Enable customer-service agents to manage support tickets with timely responses, automatic reassignment, and performance tracking to ensure high customer satisfaction.",
+        "actor": {
+          "name": "Customer-Service Agent",
+          "description": "Staff handling customer support tickets and responding to customer inquiries or complaints."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are distinct from the Supplier's primary actions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue involving cross-actor workflows.\",\"outcome_justification\":\"Suppliers need to register and manage proposals to improve product availability.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation tasks and automated rejection logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct administrative outcome from the supplier's perspective.\",\"outcome_justification\":\"Administrators ensure operational efficiency by evaluating proposals within timeframes.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly reflects the hybrid automatic and manual replenishment system.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a core independent outcome for inventory management.\",\"outcome_justification\":\"Ensures product availability and prevents overstocking through real-time tracking.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct functional outcome for the goods-receiving staff.\",\"outcome_justification\":\"Ensures accurate product presentation and inventory accuracy in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal evaluation and rejection, which are administrative tasks, not order department tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the order department's specific role in payments and fulfillment.\",\"outcome_justification\":\"Ensures financial accuracy and customer satisfaction through order processing.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers browsing, checkout, tracking, and notifications for customers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary customer-facing outcome.\",\"outcome_justification\":\"Provides a seamless shopping and payment experience for online customers.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the customer-service agent.\",\"outcome_justification\":\"Ensures high customer satisfaction through responsive support management.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data analysis for strategy.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broader strategic goal; the reconstruction is just one way to realize it.\",\"outcome_justification\":\"Informs strategic decisions and optimizes business performance using operational data.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_ad3295180f971b21_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "This is a distinct outcome for the customer-service agent.",
+      "outcome_justification": "Ensures high customer satisfaction through responsive support management.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are distinct from the Supplier's primary actions.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch is a decomposition issue involving cross-actor workflows.\",\"outcome_justification\":\"Suppliers need to register and manage proposals to improve product availability.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation tasks and automated rejection logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This goal represents a distinct administrative outcome from the supplier's perspective.\",\"outcome_justification\":\"Administrators ensure operational efficiency by evaluating proposals within timeframes.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly reflects the hybrid automatic and manual replenishment system.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a core independent outcome for inventory management.\",\"outcome_justification\":\"Ensures product availability and prevents overstocking through real-time tracking.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct functional outcome for the goods-receiving staff.\",\"outcome_justification\":\"Ensures accurate product presentation and inventory accuracy in stores.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal evaluation and rejection, which are administrative tasks, not order department tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the order department's specific role in payments and fulfillment.\",\"outcome_justification\":\"Ensures financial accuracy and customer satisfaction through order processing.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers browsing, checkout, tracking, and notifications for customers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a primary customer-facing outcome.\",\"outcome_justification\":\"Provides a seamless shopping and payment experience for online customers.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the ticket lifecycle and agent performance tracking.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"This is a distinct outcome for the customer-service agent.\",\"outcome_justification\":\"Ensures high customer satisfaction through responsive support management.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data analysis for strategy.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the broader strategic goal; the reconstruction is just one way to realize it.\",\"outcome_justification\":\"Informs strategic decisions and optimizes business performance using operational data.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction correctly captures the ticket lifecycle and agent performance tracking.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\"rationale\":\"The children correctly capture the documented system behaviors: automatic assignment (llg_001), notification (llg_002), automatic reassignment after 24 hours (llg_003), and statistics updates (llg_004). However, the parent goal explicitly mentions 'timely responses' as a requirement for the agent. The current children only cover the system's automated lifecycle management and do not include the agent's primary manual action of responding to the customer, which is the core capability of the actor described in the parent.\",\"decision\":\"REGENERATE_LOW_LEVEL_GOALS\",\"quality_score\":3,\"regeneration_feedback\":\"Preserve all existing automated system actions (llg_001, llg_002, llg_003, llg_004) and add a child for the agent to provide a response to the customer within the 24-hour window; return the entire corrected decomposition.\",\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[\"Agent provides a response to the customer support ticket\"]}\n```",
+    "parsed_response": {
+      "rationale": "The children correctly capture the documented system behaviors: automatic assignment (llg_001), notification (llg_002), automatic reassignment after 24 hours (llg_003), and statistics updates (llg_004). However, the parent goal explicitly mentions 'timely responses' as a requirement for the agent. The current children only cover the system's automated lifecycle management and do not include the agent's primary manual action of responding to the customer, which is the core capability of the actor described in the parent.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 3,
+      "regeneration_feedback": "Preserve all existing automated system actions (llg_001, llg_002, llg_003, llg_004) and add a child for the agent to provide a response to the customer within the 24-hour window; return the entire corrected decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Agent provides a response to the customer support ticket"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

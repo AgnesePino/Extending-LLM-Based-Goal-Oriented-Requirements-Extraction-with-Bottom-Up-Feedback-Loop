@@ -1,0 +1,122 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_be971399c23d5fec_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Enable real-time location tracking",
+    "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+    "actor": {
+      "name": "Ambulance Driver",
+      "description": "Operates the ambulance and follows standard routes."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Update ambulance location in real-time",
+      "description": "The Ambulance Driver sends GPS coordinates to the system every 30 seconds while en route.",
+      "high_level_associated": {
+        "name": "Enable real-time location tracking",
+        "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+        "actor": {
+          "name": "Ambulance Driver",
+          "description": "Operates the ambulance and follows standard routes."
+        }
+      }
+    },
+    {
+      "name": "Confirm adherence to standard routes",
+      "description": "The Ambulance Driver selects and follows pre-defined standard routes via the in-vehicle navigation system, which logs route compliance events.",
+      "high_level_associated": {
+        "name": "Enable real-time location tracking",
+        "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+        "actor": {
+          "name": "Ambulance Driver",
+          "description": "Operates the ambulance and follows standard routes."
+        }
+      }
+    },
+    {
+      "name": "Report departure time and location to CAD system",
+      "description": "The Ambulance Driver transmits departure time and GPS coordinates to the Computer Aided Despatch system upon leaving the station or designated point.",
+      "high_level_associated": {
+        "name": "Enable real-time location tracking",
+        "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+        "actor": {
+          "name": "Ambulance Driver",
+          "description": "Operates the ambulance and follows standard routes."
+        }
+      }
+    },
+    {
+      "name": "Report destination time and location to CAD system",
+      "description": "The Ambulance Driver transmits arrival time and GPS coordinates to the Computer Aided Despatch system upon reaching the incident scene or designated point.",
+      "high_level_associated": {
+        "name": "Enable real-time location tracking",
+        "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+        "actor": {
+          "name": "Ambulance Driver",
+          "description": "Operates the ambulance and follows standard routes."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_173e70b446c0ce36_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and data recording beyond original's focus on timely response.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects child scope, not parent defect.\",\n      \"outcome_justification\": \"Dispatcher ensures ambulance allocation within 11 minutes; other elements belong to different actors.\"\n    },\n    {\n      \"branch_id\": \"hlg_6ba20cb10b0d20a0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects operational timeline and geographic trace recording.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its granularity.\",\n      \"outcome_justification\": \"Radio Operator's data logging supports dispatch efficiency, distinct from other goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_be971399c23d5fec_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time tracking and route compliance requirements.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Tracking is internal to documented dispatch process; granularity does not justify standalone HLG.\",\n      \"outcome_justification\": \"Ambulance Driver's actions are part of broader dispatch workflow, not an independent outcome.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_ee25dcd232ec6e9b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects emergency initiation process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its legitimacy.\",\n      \"outcome_justification\": \"Emergency Caller initiates the dispatch process, distinct from other actors' responsibilities.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_be971399c23d5fec_001",
+      "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Tracking is internal to documented dispatch process; granularity does not justify standalone HLG.",
+      "outcome_justification": "Ambulance Driver's actions are part of broader dispatch workflow, not an independent outcome.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": "OVER_SPECIFIC",
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_173e70b446c0ce36_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and data recording beyond original's focus on timely response.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Original parent is source-supported; reconstruction mismatch reflects child scope, not parent defect.\",\n      \"outcome_justification\": \"Dispatcher ensures ambulance allocation within 11 minutes; other elements belong to different actors.\"\n    },\n    {\n      \"branch_id\": \"hlg_6ba20cb10b0d20a0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects operational timeline and geographic trace recording.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its granularity.\",\n      \"outcome_justification\": \"Radio Operator's data logging supports dispatch efficiency, distinct from other goals.\"\n    },\n    {\n      \"branch_id\": \"hlg_be971399c23d5fec_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches real-time tracking and route compliance requirements.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Tracking is internal to documented dispatch process; granularity does not justify standalone HLG.\",\n      \"outcome_justification\": \"Ambulance Driver's actions are part of broader dispatch workflow, not an independent outcome.\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_ee25dcd232ec6e9b_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects emergency initiation process.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Parent is independently documented; reconstruction confirms its legitimacy.\",\n      \"outcome_justification\": \"Emergency Caller initiates the dispatch process, distinct from other actors' responsibilities.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "Reconstruction matches real-time tracking and route compliance requirements.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children correctly and completely realize the parent's goal of tracking ambulance locations in real-time. All documented actions (updating location, confirming route adherence, reporting departure, and reporting destination) are supported by the source description and are necessary for enabling real-time location tracking. There is no duplication or out-of-scope content.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children correctly and completely realize the parent's goal of tracking ambulance locations in real-time. All documented actions (updating location, confirming route adherence, reporting departure, and reporting destination) are supported by the source description and are necessary for enabling real-time location tracking. There is no duplication or out-of-scope content.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

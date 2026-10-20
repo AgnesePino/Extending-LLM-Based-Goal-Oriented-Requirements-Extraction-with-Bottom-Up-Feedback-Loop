@@ -1,0 +1,92 @@
+{
+  "iteration": 15,
+  "branch_id": "hlg_8cc6881ea295c041_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support group-based purchasing and representative authorization",
+    "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
+    "actor": {
+      "name": "Purchasing Group Representative",
+      "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Authorize group representative to submit orders",
+      "description": "Purchasing Group Representative is authorized to submit orders on behalf of the group via unique credentials or group ID.",
+      "high_level_associated": {
+        "name": "Support group-based purchasing and representative authorization",
+        "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
+        "actor": {
+          "name": "Purchasing Group Representative",
+          "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
+        }
+      }
+    },
+    {
+      "name": "Verify group representative identity",
+      "description": "System verifies the identity of the purchasing group representative before allowing order submission via group membership validation and credential authentication.",
+      "high_level_associated": {
+        "name": "Support group-based purchasing and representative authorization",
+        "description": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.",
+        "actor": {
+          "name": "Purchasing Group Representative",
+          "description": "Registered representative of a purchasing group who is authorized to submit orders on behalf of the group."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as detailed product information and traceability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes transparency and traceability; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Ensure customers can make informed decisions based on detailed product information and its origin, quality, and availability tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on balance management rather than the broader payment and wallet system.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers seamless payment and wallet management; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Enable customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes pickup scheduling rather than the broader optimization of product pickup and collection.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers optimizing product pickup scheduling and collection; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Provide customers with timely delivery and customer notification, including automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to manage inventory and availability tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports accurate inventory and availability tracking; no rewrite is necessary.\",\n    \"outcome_justification\": \"Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to enable efficient store operations and order fulfillment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports efficient store operations and order fulfillment; no rewrite is necessary.\",\n    \"outcome_justification\": \"Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to provide timely delivery and customer notification.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports timely delivery and customer notification; no rewrite is necessary.\",\n    \"outcome_justification\": \"Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on authorization rather than the broader support for group-based purchasing and representative authorization.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers supporting group-based purchasing and representative authorization; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_8cc6881ea295c041_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction focuses on authorization rather than the broader support for group-based purchasing and representative authorization."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source covers supporting group-based purchasing and representative authorization; correct the parent's scope to include these aspects.",
+      "outcome_justification": "Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_5f093c1983a0bd77_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of the original parent, such as detailed product information and traceability.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source emphasizes transparency and traceability; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Ensure customers can make informed decisions based on detailed product information and its origin, quality, and availability tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_1c190ea7f86685cf_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on balance management rather than the broader payment and wallet system.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers seamless payment and wallet management; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Enable customers to securely manage virtual wallets, receive timely payment notifications, and handle insufficient balances with grace periods and automatic cancellations if necessary.\"\n  },\n  {\n    \"branch_id\": \"hlg_45d7b64c9eb54357_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction emphasizes pickup scheduling rather than the broader optimization of product pickup and collection.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers optimizing product pickup scheduling and collection; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Provide customers with timely delivery and customer notification, including automated reminders, forfeiture handling, and fair-play score updates based on pickup compliance.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7aace6841b88a6b_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to manage inventory and availability tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports accurate inventory and availability tracking; no rewrite is necessary.\",\n    \"outcome_justification\": \"Allow farmers to submit product availability estimates and enable the system to dynamically adjust order fulfillment based on real-time availability and precedence rules.\"\n  },\n  {\n    \"branch_id\": \"hlg_d714bbf6da86e761_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to enable efficient store operations and order fulfillment.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports efficient store operations and order fulfillment; no rewrite is necessary.\",\n    \"outcome_justification\": \"Allow store employees to manage orders, coordinate pickups, handle payments, and manage delivery confirmations to ensure smooth daily operations.\"\n  },\n  {\n    \"branch_id\": \"hlg_c12fcb1e0bd72453_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction accurately reflects the original parent's intent to provide timely delivery and customer notification.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports timely delivery and customer notification; no rewrite is necessary.\",\n    \"outcome_justification\": \"Alert farmers and customers of delivery delays, automatically credit back missing amounts with bonus, and maintain transparency about delivery status.\"\n  },\n  {\n    \"branch_id\": \"hlg_8cc6881ea295c041_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction focuses on authorization rather than the broader support for group-based purchasing and representative authorization.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source covers supporting group-based purchasing and representative authorization; correct the parent's scope to include these aspects.\",\n    \"outcome_justification\": \"Enable only registered representatives of purchasing groups to submit orders, ensuring accountability and group-based purchasing integrity.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction focuses on authorization rather than the broader support for group-based purchasing and representative authorization.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). LLG_001, 'Authorize group representative to submit orders', accurately represents the system allowing only registered representatives to submit orders using unique credentials or group ID. LLG_002, 'Verify group representative identity', ensures that the system validates the identity of the purchasing group representative before permitting order submission through group membership validation and credential authentication. Both children are supported by documentary evidence and have a correct scope without redundancy.\\n\\nThe reconstructed HLG' is a concise summary but does not replace the detailed evaluation of LLGs. However, it aligns with the source evidence provided in the current LLGs.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nquality_score: 5\\nregeneration_feedback: null\\nunsupported_or_misleading_llg_ids: []\\nmissing_essential_capabilities: []\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). LLG_001, 'Authorize group representative to submit orders', accurately represents the system allowing only registered representatives to submit orders using unique credentials or group ID. LLG_002, 'Verify group representative identity', ensures that the system validates the identity of the purchasing group representative before permitting order submission through group membership validation and credential authentication. Both children are supported by documentary evidence and have a correct scope without redundancy.\n\nThe reconstructed HLG' is a concise summary but does not replace the detailed evaluation of LLGs. However, it aligns with the source evidence provided in the current LLGs.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nquality_score: 5\nregeneration_feedback: null\nunsupported_or_misleading_llg_ids: []\nmissing_essential_capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

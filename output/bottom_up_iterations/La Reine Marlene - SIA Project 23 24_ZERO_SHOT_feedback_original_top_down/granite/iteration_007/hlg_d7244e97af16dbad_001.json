@@ -1,0 +1,90 @@
+{
+  "iteration": 7,
+  "branch_id": "hlg_d7244e97af16dbad_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Facilitate seamless goods receiving and store placement",
+    "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+    "actor": {
+      "name": "Goods-Receiving Staff",
+      "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Goods-Receiving Staff scans delivery and assigns to store location",
+      "description": "The goods-receiving staff scans the delivery barcode and assigns the items to a specific store location.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    },
+    {
+      "name": "Goods-Receiving Staff flags defective items for exclusion",
+      "description": "The staff marks defective items as excluded from inventory and logs the reason for exclusion.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    },
+    {
+      "name": "Goods-Receiving Staff system suggests store locations based on inventory needs",
+      "description": "The system suggests possible store locations for product assignment based on inventory needs and product category.",
+      "high_level_associated": {
+        "name": "Facilitate seamless goods receiving and store placement",
+        "description": "Allow goods-receiving staff to verify deliveries, assign products to store locations, and flag defective items for exclusion, ensuring accurate product presentation in stores.",
+        "actor": {
+          "name": "Goods-Receiving Staff",
+          "description": "Staff responsible for verifying delivered products and assigning them to store locations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires supplier registration with detailed company info; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding and proposal management includes registering suppliers and submitting proposals with detailed information.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct administrative evaluation with three possible outcomes, automated notifications, and reminders.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to evaluation tools.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals includes administrative evaluation with three possible outcomes, automated notifications, and reminders.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires both automatic and manual inventory management; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management includes manual replenishment and administrator override capabilities.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct goods verification, assignment to store locations, and defect flagging.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific tasks.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement includes verifying deliveries, assigning items to locations, and flagging defective items.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits order fulfillment and supplier payment management.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires managing completed orders, partial deliveries, and supplier payments; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately includes processing completed orders, handling partial deliveries, and managing supplier payments based on delivery status.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct online shopping and payment experience, real-time tracking, and delivery notifications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific features.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience includes browsing, purchasing, paying for products with multiple methods, real-time order tracking, and delivery notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct support ticket lifecycle management, including assignment, notifications, reassignment, and performance tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific features.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support includes managing support tickets with timely responses, automatic reassignment, and performance tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation, not data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support data-driven business decision-making requires collecting and analyzing operational data for strategic insights; the reconstruction omits this capability.\",\n    \"outcome_justification\": \"The containing documented outcome is strategic decision support using collected operational data. Later discovery assesses the missing broader parent.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_d7244e97af16dbad_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it to specific tasks.",
+      "outcome_justification": "Facilitate seamless goods receiving and store placement includes verifying deliveries, assigning items to locations, and flagging defective items.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits supplier registration and company information submission.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires supplier registration with detailed company info; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Enable efficient supplier onboarding and proposal management includes registering suppliers and submitting proposals with detailed information.\"\n  },\n  {\n    \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct administrative evaluation with three possible outcomes, automated notifications, and reminders.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to evaluation tools.\",\n    \"outcome_justification\": \"Ensure timely evaluation and decision-making on supplier proposals includes administrative evaluation with three possible outcomes, automated notifications, and reminders.\"\n  },\n  {\n    \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits manual replenishment and administrator override capabilities.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires both automatic and manual inventory management; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Support accurate and timely product inventory management includes manual replenishment and administrator override capabilities.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct goods verification, assignment to store locations, and defect flagging.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific tasks.\",\n    \"outcome_justification\": \"Facilitate seamless goods receiving and store placement includes verifying deliveries, assigning items to locations, and flagging defective items.\"\n  },\n  {\n    \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits order fulfillment and supplier payment management.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires managing completed orders, partial deliveries, and supplier payments; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Manage order fulfillment and supplier payments accurately includes processing completed orders, handling partial deliveries, and managing supplier payments based on delivery status.\"\n  },\n  {\n    \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct online shopping and payment experience, real-time tracking, and delivery notifications.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific features.\",\n    \"outcome_justification\": \"Provide seamless online shopping and payment experience includes browsing, purchasing, paying for products with multiple methods, real-time order tracking, and delivery notifications.\"\n  },\n  {\n    \"branch_id\": \"hlg_ad3295180f971b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The children reconstruct support ticket lifecycle management, including assignment, notifications, reassignment, and performance tracking.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to specific features.\",\n    \"outcome_justification\": \"Deliver responsive and efficient customer support includes managing support tickets with timely responses, automatic reassignment, and performance tracking.\"\n  },\n  {\n    \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on report generation, not data-driven decision support.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support data-driven business decision-making requires collecting and analyzing operational data for strategic insights; the reconstruction omits this capability.\",\n    \"outcome_justification\": \"The containing documented outcome is strategic decision support using collected operational data. Later discovery assesses the missing broader parent.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The children reconstruct goods verification, assignment to store locations, and defect flagging.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "SKIPPED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

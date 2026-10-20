@@ -1,0 +1,91 @@
+{
+  "iteration": 8,
+  "branch_id": "hlg_f20dd2688cbe70ce_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Support flexible application workflows including drafts and resumptions",
+    "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+    "actor": {
+      "name": "Applicant",
+      "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Save application draft",
+      "description": "The applicant saves the current state of the application as a draft for later completion.",
+      "high_level_associated": {
+        "name": "Support flexible application workflows including drafts and resumptions",
+        "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Resume application from draft",
+      "description": "The applicant resumes an application from a previously saved draft state.",
+      "high_level_associated": {
+        "name": "Support flexible application workflows including drafts and resumptions",
+        "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    },
+    {
+      "name": "Discard and restart application",
+      "description": "The applicant discards the current application and starts a new one from scratch.",
+      "high_level_associated": {
+        "name": "Support flexible application workflows including drafts and resumptions",
+        "description": "Enable applicants to save drafts, resume applications from saved points, or discard and restart applications as needed.",
+        "actor": {
+          "name": "Applicant",
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time fiscal code validation and mandatory declaration enforcement.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, not preventing duplicate fiscal codes.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rational\": \"Data integrity is a documented outcome; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children, indicating a standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rational\": \"Secure and compliant data handling is a documented outcome; the parent lacks children to reconstruct.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices, ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_139f4cc118f2e6b4_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits real-time fiscal code validation and mandatory declaration enforcement.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source requires these capabilities; correct the parent's responsibility, independently of the reconstruction mismatch.\",\n    \"outcome_justification\": \"Ensure accurate and compliant AUU application submissions by providing real-time validation, mandatory declarations, and error handling.\"\n  },\n  {\n    \"branch_id\": \"hlg_80e9bccdebd7256c_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"DIFFERENT\",\n      \"rationale\": \"The reconstruction focuses on blocking applications, not preventing duplicate fiscal codes.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rational\": \"Data integrity is a documented outcome; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Ensure data integrity and prevent duplicate applications by detecting and preventing duplicate fiscal codes for children.\"\n  },\n  {\n    \"branch_id\": \"hlg_00ca9651daa07755_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"NOT_RECONSTRUCTABLE\",\n      \"rationale\": \"The parent has no children, indicating a standalone requirement.\"\n    },\n    \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rational\": \"Secure and compliant data handling is a documented outcome; the parent lacks children to reconstruct.\",\n    \"outcome_justification\": \"Provide secure and compliant data handling and privacy notices, ensuring applicants accept GDPR-compliant privacy notices and responsibility declarations before submission.\"\n  }\n]\n```",
+    "parsed_response": null,
+    "error": "Missing decision for this branch"
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). Each LLG represents a distinct, documented functional interaction or effect that supports the HLG. The 'Save application draft' (llg_001) allows the applicant to store the current state of the application for later completion. The 'Resume application from draft' (llg_002) enables the applicant to continue an application from a previously saved draft state. Lastly, the 'Discard and restart application' (llg_003) provides the option for the applicant to discard the current application and start a new one from scratch. These LLGs cover all essential aspects of flexible application workflows, including drafts and resumptions, as described in the HLG.\\n\\nThe LLGs are supported by documentary evidence, have correct scope, and do not exhibit redundancy. They represent distinct system interactions or effects that do not require manual triggers by the applicant actor, aligning with the GORE criteria for automatic effects.\\n\\nNo unsupported or misleading LLG IDs were identified, nor are there any essential capabilities missing from this decomposition.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[] }",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). Each LLG represents a distinct, documented functional interaction or effect that supports the HLG. The 'Save application draft' (llg_001) allows the applicant to store the current state of the application for later completion. The 'Resume application from draft' (llg_002) enables the applicant to continue an application from a previously saved draft state. Lastly, the 'Discard and restart application' (llg_003) provides the option for the applicant to discard the current application and start a new one from scratch. These LLGs cover all essential aspects of flexible application workflows, including drafts and resumptions, as described in the HLG.\n\nThe LLGs are supported by documentary evidence, have correct scope, and do not exhibit redundancy. They represent distinct system interactions or effects that do not require manual triggers by the applicant actor, aligning with the GORE criteria for automatic effects.\n\nNo unsupported or misleading LLG IDs were identified, nor are there any essential capabilities missing from this decomposition.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

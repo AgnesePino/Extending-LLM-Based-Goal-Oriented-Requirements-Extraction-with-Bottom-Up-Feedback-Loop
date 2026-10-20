@@ -1,0 +1,110 @@
+{
+  "iteration": 6,
+  "branch_id": "hlg_173e70b446c0ce36_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Ensure timely ambulance response",
+    "description": "Ensure every emergency call is assigned an available ambulance that can reach the scene within 11 minutes.",
+    "actor": {
+      "name": "Dispatcher",
+      "description": "Uses the Computer Aided Despatch system to assign ambulances."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Assign ambulance to emergency call within 11-minute window",
+      "description": "The Dispatcher assigns an available ambulance to an emergency call using the Computer Aided Despatch system, ensuring the vehicle reaches the scene within 11 minutes of call receipt by enforcing time-based constraints via system logic.",
+      "high_level_associated": {
+        "name": "Ensure timely ambulance response",
+        "description": "Ensure every emergency call is assigned an available ambulance that can reach the scene within 11 minutes.",
+        "actor": {
+          "name": "Dispatcher",
+          "description": "Uses the Computer Aided Despatch system to assign ambulances."
+        }
+      }
+    },
+    {
+      "name": "Record departure and destination information via standard communication protocol",
+      "description": "The Dispatcher records departure and destination details from ambulance staff using standardized radio communication procedures, ensuring accurate data entry into the CAD system for resource allocation.",
+      "high_level_associated": {
+        "name": "Ensure timely ambulance response",
+        "description": "Ensure every emergency call is assigned an available ambulance that can reach the scene within 11 minutes.",
+        "actor": {
+          "name": "Dispatcher",
+          "description": "Uses the Computer Aided Despatch system to assign ambulances."
+        }
+      }
+    },
+    {
+      "name": "Track ambulance location in real-time using standard routes",
+      "description": "The Dispatcher monitors real-time location updates of ambulances following predefined standard routes, enabling optimal routing and response time monitoring via the CAD system.",
+      "high_level_associated": {
+        "name": "Ensure timely ambulance response",
+        "description": "Ensure every emergency call is assigned an available ambulance that can reach the scene within 11 minutes.",
+        "actor": {
+          "name": "Dispatcher",
+          "description": "Uses the Computer Aided Despatch system to assign ambulances."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_173e70b446c0ce36_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes monitoring and strict time constraints, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to dispatch alone.\",\"outcome_justification\":\"Dispatcher ensures every emergency call is assigned an available ambulance within 11 minutes, without monitoring or time constraints in the original HLG.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes logging and geographic trace, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to data logging alone.\",\"outcome_justification\":\"Radio Operator records precise departure and destination information for efficient resource allocation, without logging or geographic trace in the original HLG.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express real-time tracking and route compliance.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of enabling real-time location tracking, without over-specifying ambulance movements.\",\"outcome_justification\":\"Ambulance Driver operates the ambulance and follows standard routes for real-time tracking, with route compliance in the original HLG description.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express emergency initiation by reporting incidents.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of supporting rapid emergency initiation, without specifying dialing or submission details.\",\"outcome_justification\":\"Emergency Caller initiates an emergency response by reporting incidents, with initiation in the original HLG.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_173e70b446c0ce36_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it to dispatch alone.",
+      "outcome_justification": "Dispatcher ensures every emergency call is assigned an available ambulance within 11 minutes, without monitoring or time constraints in the original HLG.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_173e70b446c0ce36_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes monitoring and strict time constraints, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to dispatch alone.\",\"outcome_justification\":\"Dispatcher ensures every emergency call is assigned an available ambulance within 11 minutes, without monitoring or time constraints in the original HLG.\"},{\"branch_id\":\"hlg_6ba20cb10b0d20a0_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes logging and geographic trace, which are not part of the original HLG.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; inspect children rather than narrowing it to data logging alone.\",\"outcome_justification\":\"Radio Operator records precise departure and destination information for efficient resource allocation, without logging or geographic trace in the original HLG.\"},{\"branch_id\":\"hlg_be971399c23d5fec_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express real-time tracking and route compliance.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of enabling real-time location tracking, without over-specifying ambulance movements.\",\"outcome_justification\":\"Ambulance Driver operates the ambulance and follows standard routes for real-time tracking, with route compliance in the original HLG description.\"},{\"branch_id\":\"hlg_ee25dcd232ec6e9b_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction and original HLG express emergency initiation by reporting incidents.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The parent represents the complete documented outcome of supporting rapid emergency initiation, without specifying dialing or submission details.\",\"outcome_justification\":\"Emergency Caller initiates an emergency response by reporting incidents, with initiation in the original HLG.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes monitoring and strict time constraints, which are not part of the original HLG.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Ensure timely ambulance response' by documenting functional interactions or effects that realize this outcome. Each LLG corresponds to a distinct aspect of the dispatch process: assigning an ambulance within 11 minutes (llg_001), recording departure and destination information (llg_002), and tracking real-time ambulance locations using standard routes (llg_003). These actions are all document-supported automatic effects, aligning with the actor's responsibilities as a Dispatcher using the Computer Aided Despatch system. No essential capability is missing or misrepresented in these LLGs.\\n\\nThe reconstructed HLG' accurately summarizes the parent goal and its realized children. It does not introduce any new information or requirements, serving as a diagnostic tool rather than a replacement for the original parent.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS\\nQuality Score: 5\\nRegeneration Feedback: null\\nUnsupported or Misleading llg_NNN IDs: []\\nMissing Essential Capabilities: []\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete, supported, and non-redundant. They accurately represent the parent high-level goal 'Ensure timely ambulance response' by documenting functional interactions or effects that realize this outcome. Each LLG corresponds to a distinct aspect of the dispatch process: assigning an ambulance within 11 minutes (llg_001), recording departure and destination information (llg_002), and tracking real-time ambulance locations using standard routes (llg_003). These actions are all document-supported automatic effects, aligning with the actor's responsibilities as a Dispatcher using the Computer Aided Despatch system. No essential capability is missing or misrepresented in these LLGs.\n\nThe reconstructed HLG' accurately summarizes the parent goal and its realized children. It does not introduce any new information or requirements, serving as a diagnostic tool rather than a replacement for the original parent.\n\nDecision: KEEP_LOW_LEVEL_GOALS\nQuality Score: 5\nRegeneration Feedback: null\nUnsupported or Misleading llg_NNN IDs: []\nMissing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

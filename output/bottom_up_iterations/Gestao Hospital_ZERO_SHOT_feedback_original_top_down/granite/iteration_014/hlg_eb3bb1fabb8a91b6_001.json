@@ -1,0 +1,134 @@
+{
+  "iteration": 14,
+  "branch_id": "hlg_eb3bb1fabb8a91b6_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Centralize Hospital Administration",
+    "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Manages hospital registration and system-wide configurations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Register Hospital in System",
+      "description": "The Administrator registers a new hospital entity into the system with required metadata.",
+      "high_level_associated": {
+        "name": "Centralize Hospital Administration",
+        "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages hospital registration and system-wide configurations."
+        }
+      }
+    },
+    {
+      "name": "Configure Hospital Settings",
+      "description": "The Administrator configures hospital-specific settings such as contact info, operating hours, and departmental structure.",
+      "high_level_associated": {
+        "name": "Centralize Hospital Administration",
+        "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages hospital registration and system-wide configurations."
+        }
+      }
+    },
+    {
+      "name": "Update Hospital Information",
+      "description": "The Administrator modifies existing hospital metadata such as address, contact details, or operational status.",
+      "high_level_associated": {
+        "name": "Centralize Hospital Administration",
+        "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages hospital registration and system-wide configurations."
+        }
+      }
+    },
+    {
+      "name": "Delete Hospital from System",
+      "description": "The Administrator removes a hospital entity from the system, including associated metadata and configurations.",
+      "high_level_associated": {
+        "name": "Centralize Hospital Administration",
+        "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages hospital registration and system-wide configurations."
+        }
+      }
+    },
+    {
+      "name": "Monitor Hospital Status",
+      "description": "The Administrator views real-time operational status, including active/inactive status, resource availability, and performance metrics.",
+      "high_level_associated": {
+        "name": "Centralize Hospital Administration",
+        "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Manages hospital registration and system-wide configurations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of hospital entities, aligning with the original's centralized administration.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to registration, configuration, updates, and deletion.\",\n    \"outcome_justification\": \"Centralize Hospital Administration provides a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.\"\n  },\n  {\n    \"branch_id\": \"hlg_e01285a371937460_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original's real-time operational monitoring and decision support for Hospital Manager.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Improve Operational Visibility is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Enables hospital managers to monitor real-time data and performance metrics to support decision-making.\"\n  },\n  {\n    \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers patient appointment management, medical record updates, and check-in processes for Healthcare Staff.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enhance Patient Care Coordination is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Supports healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.\"\n  },\n  {\n    \"branch_id\": \"hlg_046276afce6da8f8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original's patient search and location-based recommendation functionality.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enable Patient Self-Service is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Allows patients to search for hospitals and receive location-based recommendations to improve access to care.\"\n  },\n  {\n    \"branch_id\": \"hlg_476ac274557a4b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of clinical documentation, focusing on patient registration and check-in.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Clinical Documentation is source-grounded; correct the parent's responsibility to include all clinical documentation aspects.\",\n    \"outcome_justification\": \"Enables hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.\"\n  },\n  {\n    \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of medical inventory and blood samples.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Optimize Resource Management is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Allows logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.\"\n  }\n]\n```",
+    "parsed_response": {
+      "branch_id": "hlg_eb3bb1fabb8a91b6_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports the complete parent; inspect children rather than narrowing it to registration, configuration, updates, and deletion.",
+      "outcome_justification": "Centralize Hospital Administration provides a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "```json\n[\n  {\n    \"branch_id\": \"hlg_eb3bb1fabb8a91b6_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of hospital entities, aligning with the original's centralized administration.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"The source supports the complete parent; inspect children rather than narrowing it to registration, configuration, updates, and deletion.\",\n    \"outcome_justification\": \"Centralize Hospital Administration provides a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.\"\n  },\n  {\n    \"branch_id\": \"hlg_e01285a371937460_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original's real-time operational monitoring and decision support for Hospital Manager.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Improve Operational Visibility is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Enables hospital managers to monitor real-time data and performance metrics to support decision-making.\"\n  },\n  {\n    \"branch_id\": \"hlg_a9ff40162305bff8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers patient appointment management, medical record updates, and check-in processes for Healthcare Staff.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enhance Patient Care Coordination is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Supports healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.\"\n  },\n  {\n    \"branch_id\": \"hlg_046276afce6da8f8_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction matches the original's patient search and location-based recommendation functionality.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Enable Patient Self-Service is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Allows patients to search for hospitals and receive location-based recommendations to improve access to care.\"\n  },\n  {\n    \"branch_id\": \"hlg_476ac274557a4b21_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n      \"rationale\": \"The reconstruction omits some aspects of clinical documentation, focusing on patient registration and check-in.\"\n    },\n    \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Support Clinical Documentation is source-grounded; correct the parent's responsibility to include all clinical documentation aspects.\",\n    \"outcome_justification\": \"Enables hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.\"\n  },\n  {\n    \"branch_id\": \"hlg_e6cbeca622c85af3_001\",\n    \"reconstruction_diagnosis\": {\n      \"reconstruction_relationship\": \"EQUIVALENT\",\n      \"rationale\": \"The reconstruction covers the full lifecycle management of medical inventory and blood samples.\"\n    },\n    \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n    \"rationale\": \"Optimize Resource Management is independently documented; the mismatch concerns its children, not the original parent's legitimacy.\",\n    \"outcome_justification\": \"Allows logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.\"\n  }\n]\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction covers the full lifecycle management of hospital entities, aligning with the original's centralized administration.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) cover the essential aspects of centralizing hospital administration, including registration, configuration, updates, deletion, and real-time monitoring. Each LLG is supported by a documented functional interaction or effect, aligning with the parent goal's description. No unsupported or misleading LLGs are present, and there are no missing essential capabilities.\\n\\nThe LLGs 'Register Hospital in System' (llg_001), 'Configure Hospital Settings' (llg_002), 'Update Hospital Information' (llg_003), 'Delete Hospital from System' (llg_004), and 'Monitor Hospital Status' (llg_005) all correspond to the parent goal's description. Each LLG represents a distinct, documented action taken by the Administrator actor.\\n\\nThere is no need for regeneration or further addition of LLGs, as all essential capabilities are covered. The current decomposition accurately reflects the parent goal without redundancy or omissions.\\n\\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported/Misleading LLG IDs: []; Missing Essential Capabilities: []\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) cover the essential aspects of centralizing hospital administration, including registration, configuration, updates, deletion, and real-time monitoring. Each LLG is supported by a documented functional interaction or effect, aligning with the parent goal's description. No unsupported or misleading LLGs are present, and there are no missing essential capabilities.\n\nThe LLGs 'Register Hospital in System' (llg_001), 'Configure Hospital Settings' (llg_002), 'Update Hospital Information' (llg_003), 'Delete Hospital from System' (llg_004), and 'Monitor Hospital Status' (llg_005) all correspond to the parent goal's description. Each LLG represents a distinct, documented action taken by the Administrator actor.\n\nThere is no need for regeneration or further addition of LLGs, as all essential capabilities are covered. The current decomposition accurately reflects the parent goal without redundancy or omissions.\n\nDecision: KEEP_LOW_LEVEL_GOALS; Quality Score: 5; Regeneration Feedback: null; Unsupported/Misleading LLG IDs: []; Missing Essential Capabilities: []",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH",
+  "llg_status": "EVALUATED"
+}

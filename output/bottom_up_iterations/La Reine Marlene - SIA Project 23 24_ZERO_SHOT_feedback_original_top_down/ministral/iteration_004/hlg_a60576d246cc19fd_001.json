@@ -1,0 +1,110 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_a60576d246cc19fd_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support data-driven business decision-making",
+    "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator generates sales performance report",
+      "description": "The administrator retrieves and exports a report on sales performance over a defined period.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates inventory turnover report",
+      "description": "The administrator retrieves and exports a report on inventory turnover rates by product category.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator generates customer support response time report",
+      "description": "The administrator retrieves and exports a report on average ticket resolution time and agent performance.",
+      "high_level_associated": {
+        "name": "Support data-driven business decision-making",
+        "description": "Collect and analyze operational data (orders, sales, inventory, support) to inform strategic decisions, optimize processes, and improve overall business performance.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers all supplier onboarding and proposal management steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Supplier registers, submits proposals, and receives feedback—distinct from other outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 10-day auto-rejection rule from the original.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source reserves the 10-day auto-rejection to the parent; correct its description.\",\n      \"outcome_justification\": \"Administrator evaluates proposals with strict deadlines and auto-rejections—distinct from inventory management.\",\n      \"rewriting_focus\": \"Include the 10-day auto-rejection rule in the description.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects inventory management steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Administrator tracks inventory, triggers reorders—distinct from proposal evaluation.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches goods receiving and store placement steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Goods-Receiving Staff verifies deliveries, assigns locations—distinct from order fulfillment.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction conflates order fulfillment with proposal evaluation steps.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent over-specifies internal workflows (e.g., payment triggers) without a broader outcome.\",\n      \"outcome_justification\": \"Order fulfillment is part of the containing outcome 'Manage order fulfillment and supplier payments.'\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects online shopping and payment steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Customer browses, purchases, and tracks orders—distinct from support or inventory outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches support ticket lifecycle steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Customer-Service Agent manages tickets—distinct from other administrator tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the strategic decision-making aspect from the original.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source emphasizes data analysis for strategic decisions; correct its description.\",\n      \"outcome_justification\": \"Administrator analyzes data to inform business strategy—distinct from operational tasks.\",\n      \"rewriting_focus\": \"Clarify the focus on strategic decision-making using collected data.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_a60576d246cc19fd_001",
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source emphasizes data analysis for strategic decisions; correct its description.",
+      "outcome_justification": "Administrator analyzes data to inform business strategy—distinct from operational tasks.",
+      "rewriting_focus": "Clarify the focus on strategic decision-making using collected data.",
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_98d6ce34de840fb6_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction covers all supplier onboarding and proposal management steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Supplier registers, submits proposals, and receives feedback—distinct from other outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_3ce73c4fcbf6e912_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the 10-day auto-rejection rule from the original.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source reserves the 10-day auto-rejection to the parent; correct its description.\",\n      \"outcome_justification\": \"Administrator evaluates proposals with strict deadlines and auto-rejections—distinct from inventory management.\",\n      \"rewriting_focus\": \"Include the 10-day auto-rejection rule in the description.\"\n    },\n    {\n      \"branch_id\": \"hlg_5092a5cab66a3b3d_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects inventory management steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Administrator tracks inventory, triggers reorders—distinct from proposal evaluation.\"\n    },\n    {\n      \"branch_id\": \"hlg_d7244e97af16dbad_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches goods receiving and store placement steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Goods-Receiving Staff verifies deliveries, assigns locations—distinct from order fulfillment.\"\n    },\n    {\n      \"branch_id\": \"hlg_2860d7ffd5986170_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction conflates order fulfillment with proposal evaluation steps.\"\n      },\n      \"decision\": \"REMOVE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The parent over-specifies internal workflows (e.g., payment triggers) without a broader outcome.\",\n      \"outcome_justification\": \"Order fulfillment is part of the containing outcome 'Manage order fulfillment and supplier payments.'\",\n      \"removal_basis\": \"OVER_SPECIFIC\"\n    },\n    {\n      \"branch_id\": \"hlg_d7309c7d162e5905_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction accurately reflects online shopping and payment steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Customer browses, purchases, and tracks orders—distinct from support or inventory outcomes.\"\n    },\n    {\n      \"branch_id\": \"hlg_ad3295180f971b21_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches support ticket lifecycle steps.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports the complete parent; no defect or redundancy found.\",\n      \"outcome_justification\": \"Customer-Service Agent manages tickets—distinct from other administrator tasks.\"\n    },\n    {\n      \"branch_id\": \"hlg_a60576d246cc19fd_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits the strategic decision-making aspect from the original.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source emphasizes data analysis for strategic decisions; correct its description.\",\n      \"outcome_justification\": \"Administrator analyzes data to inform business strategy—distinct from operational tasks.\",\n      \"rewriting_focus\": \"Clarify the focus on strategic decision-making using collected data.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits the strategic decision-making aspect from the original.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current children (llg_001, llg_002, llg_003) correctly and completely realize the parent goal of collecting and analyzing operational data for business decision-making. Each child corresponds to a documented essential capability: sales performance, inventory turnover, and customer support response time reports. The descriptions are supported by the project description, which explicitly mentions the system's role in collecting data regarding orders, sales, inventory, and customer support for strategic decision-making. No unsupported or out-of-scope children are present, and no essential capabilities are missing.\",\n  \"decision\": \"KEEP_LOW_LEVEL_GOALS\",\n  \"quality_score\": 5,\n  \"regeneration_feedback\": null,\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": []\n}\n```",
+    "parsed_response": {
+      "rationale": "The current children (llg_001, llg_002, llg_003) correctly and completely realize the parent goal of collecting and analyzing operational data for business decision-making. Each child corresponds to a documented essential capability: sales performance, inventory turnover, and customer support response time reports. The descriptions are supported by the project description, which explicitly mentions the system's role in collecting data regarding orders, sales, inventory, and customer support for strategic decision-making. No unsupported or out-of-scope children are present, and no essential capabilities are missing.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

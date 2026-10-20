@@ -1,0 +1,92 @@
+{
+  "iteration": 4,
+  "branch_id": "hlg_3b3cb63beecf40e0_001",
+  "model": "ibm/granite-3.2-8b",
+  "high_level_goal": {
+    "name": "Guide new users through their fitness journey",
+    "description": "Provide step-by-step onboarding and beginner-friendly workout suggestions to help users start and stay motivated.",
+    "actor": {
+      "name": "Beginner",
+      "description": "A new user starting their fitness journey and needing guided recommendations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Provide onboarding tutorial",
+      "description": "Guide new users through the app’s core features with interactive walkthroughs or video demonstrations.",
+      "high_level_associated": {
+        "name": "Guide new users through their fitness journey",
+        "description": "Provide step-by-step onboarding and beginner-friendly workout suggestions to help users start and stay motivated.",
+        "actor": {
+          "name": "Beginner",
+          "description": "A new user starting their fitness journey and needing guided recommendations."
+        }
+      }
+    },
+    {
+      "name": "Suggest beginner-friendly workouts",
+      "description": "Recommend low-intensity, easy-to-follow exercises suitable for users with no prior fitness experience.",
+      "high_level_associated": {
+        "name": "Guide new users through their fitness journey",
+        "description": "Provide step-by-step onboarding and beginner-friendly workout suggestions to help users start and stay motivated.",
+        "actor": {
+          "name": "Beginner",
+          "description": "A new user starting their fitness journey and needing guided recommendations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "INVALID",
+    "decision": null,
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "branch_id": "hlg_3b3cb63beecf40e0_001",
+      "reconstruction_diagnosis": {
+        "reconstruction_relationship": "PARTIAL_OVERLAP",
+        "rationale": "The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials."
+      },
+      "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.",
+      "outcome_justification": "Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent."
+    },
+    "error": "1 validation error for HlgStructuralDecision\n  Value error, REWRITE_ORIGINAL_HIGH_LEVEL_GOAL requires rewriting_focus [type=value_error, input_value={'decision': <HighLevelGo..._level_goal_name': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+  },
+  "reconstruction": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_7a7c9f5728034832_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes activity tracking and personalized recommendations, but omits goal setting and progress monitoring.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports broader activities, including goal setting and progress monitoring. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast tracks workouts, analyzes performance, sets goals, and receives tailored recommendations; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_0fb0dc543542f24e_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes goal setting but omits progress monitoring and real-time feedback.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports tracking progress with alerts. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast sets goals and monitors progress with real-time feedback; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_8d667b8f3c5217c4_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes personalized workout plans but omits dynamic adaptation based on ongoing progress.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports adapting plans to ongoing progress. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Fitness Enthusiast receives tailored workout plans that adapt based on performance and progress; the reconstruction omits crucial aspects of the original parent.\"\n    },\n    {\n      \"branch_id\": \"hlg_3b3cb63beecf40e0_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.\"\n      },\n      \"decision\": \"REWRITE_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The source supports guiding new users through fitness journeys. Correct the parent's responsibility to encompass all documented outcomes.\",\n      \"outcome_justification\": \"Beginner receives guided onboarding and personalized workout suggestions; the reconstruction omits crucial aspects of the original parent.\"\n    }\n  ]\n}",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "The reconstruction includes onboarding but omits beginner-friendly workout suggestions and interactive tutorials.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "ibm/granite-3.2-8b",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). LLG_001 'Provide onboarding tutorial' supports the HLG by guiding new users through the app's core features. LLG_002 'Suggest beginner-friendly workouts' aligns with the HLG by offering personalized, low-intensity exercise recommendations suitable for beginners. Both children are document-supported and non-redundant, focusing on distinct aspects of user onboarding and workout suggestions. No essential capabilities are missing from the decomposition.\",\n\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\n\"quality_score\":5,\n\"regeneration_feedback\":null,\n\"unsupported_or_misleading_llg_ids\":[],\n\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The current low-level goals (LLGs) are complete and correctly realize the parent high-level goal (HLG). LLG_001 'Provide onboarding tutorial' supports the HLG by guiding new users through the app's core features. LLG_002 'Suggest beginner-friendly workouts' aligns with the HLG by offering personalized, low-intensity exercise recommendations suitable for beginners. Both children are document-supported and non-redundant, focusing on distinct aspects of user onboarding and workout suggestions. No essential capabilities are missing from the decomposition.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

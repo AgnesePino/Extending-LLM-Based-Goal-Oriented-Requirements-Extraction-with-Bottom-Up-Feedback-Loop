@@ -1,0 +1,134 @@
+{
+  "iteration": 8,
+  "branch_id": "hlg_5092a5cab66a3b3d_001",
+  "model": "google/gemma-4-12b-qat",
+  "high_level_goal": {
+    "name": "Support accurate and timely product inventory management",
+    "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+    "actor": {
+      "name": "Administrator",
+      "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "Administrator sets reorder threshold for product",
+      "description": "The administrator configures the minimum stock level that triggers an automatic reorder request, and configures automatic replenishment rules.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System updates inventory in real-time upon product receipt",
+      "description": "The system automatically adjusts inventory counts when goods are received and verified by the goods-receiving staff.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "Administrator initiates manual replenishment for product",
+      "description": "The administrator manually triggers a replenishment request for a product when real-time inventory falls below a desired level or when automatic triggers are disabled.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System triggers automatic reorder when inventory reaches threshold",
+      "description": "The system automatically initiates a reorder request to a predefined supplier when the inventory level for a product falls below the configured reorder threshold.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    },
+    {
+      "name": "System sends automatic reorder request to supplier with 2-working-day confirmation deadline",
+      "description": "The system sends an automatic reorder request to a predefined supplier, with a 2-working-day deadline for supplier confirmation, and logs the request status.",
+      "high_level_associated": {
+        "name": "Support accurate and timely product inventory management",
+        "description": "Enable real-time tracking of inventory levels, automatic reorder triggers, and manual replenishment to ensure product availability in stores without overstocking.",
+        "actor": {
+          "name": "Administrator",
+          "description": "Staff member responsible for evaluating supplier proposals, managing automatic reorders, and overseeing system operations."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch indicates child issues rather than a defect in the parent's scope.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are distinct outcomes.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation tasks and automated triggers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented administrative responsibility for proposal management.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals and managing automated rejections.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid manual and automatic replenishment logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a standalone inventory management capability with specific triggers and rules.\",\"outcome_justification\":\"Ensures product availability through real-time tracking and automated/manual replenishment.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct operational process for physical goods handling.\",\"outcome_justification\":\"Staff ensure accurate store presentation by verifying and locating received products.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management and automated rejections, which belong to other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the order department's specific role in fulfillment and payments.\",\"outcome_justification\":\"Order department ensures financial accuracy by processing deliveries and payments.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full online shopping and tracking lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the primary customer-facing online commerce capability.\",\"outcome_justification\":\"Customers purchase products online with automated calculations and real-time tracking.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the ticket lifecycle and agent notifications.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct customer service capability for agents.\",\"outcome_justification\":\"Agents manage support tickets to ensure high customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data analysis.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct management capability; the reconstruction is a specific implementation of data usage.\",\"outcome_justification\":\"Management uses operational data to support strategic decision-making and performance analysis.\"}]}",
+    "parsed_response": {
+      "branch_id": "hlg_5092a5cab66a3b3d_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "The goal is a standalone inventory management capability with specific triggers and rules.",
+      "outcome_justification": "Ensures product availability through real-time tracking and automated/manual replenishment.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "EQUIVALENT",
+    "raw_response": "{\"decisions\":[{\"branch_id\":\"hlg_98d6ce34de840fb6_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes administrative evaluation and automated rejections, which are separate outcomes for the Administrator.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the complete parent; the reconstruction mismatch indicates child issues rather than a defect in the parent's scope.\",\"outcome_justification\":\"Supplier manages registration and proposal lifecycle; administrative actions are distinct outcomes.\"},{\"branch_id\":\"hlg_3ce73c4fcbf6e912_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately captures the administrator's evaluation tasks and automated triggers.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct, documented administrative responsibility for proposal management.\",\"outcome_justification\":\"Administrators maintain operational efficiency by evaluating proposals and managing automated rejections.\"},{\"branch_id\":\"hlg_5092a5cab66a3b3d_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction correctly captures the hybrid manual and automatic replenishment logic.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a standalone inventory management capability with specific triggers and rules.\",\"outcome_justification\":\"Ensures product availability through real-time tracking and automated/manual replenishment.\"},{\"branch_id\":\"hlg_d7244e97af16dbad_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction matches the goods-receiving staff's verification and placement tasks.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct operational process for physical goods handling.\",\"outcome_justification\":\"Staff ensure accurate store presentation by verifying and locating received products.\"},{\"branch_id\":\"hlg_2860d7ffd5986170_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction includes proposal management and automated rejections, which belong to other goals.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The source supports the order department's specific role in fulfillment and payments.\",\"outcome_justification\":\"Order department ensures financial accuracy by processing deliveries and payments.\"},{\"branch_id\":\"hlg_d7309c7d162e5905_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction covers the full online shopping and tracking lifecycle.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents the primary customer-facing online commerce capability.\",\"outcome_justification\":\"Customers purchase products online with automated calculations and real-time tracking.\"},{\"branch_id\":\"hlg_ad3295180f971b21_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"EQUIVALENT\",\"rationale\":\"The reconstruction accurately reflects the ticket lifecycle and agent notifications.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal represents a distinct customer service capability for agents.\",\"outcome_justification\":\"Agents manage support tickets to ensure high customer satisfaction.\"},{\"branch_id\":\"hlg_a60576d246cc19fd_001\",\"reconstruction_diagnosis\":{\"reconstruction_relationship\":\"PARTIAL_OVERLAP\",\"rationale\":\"The reconstruction focuses on report generation, while the parent describes broader data analysis.\"},\"decision\":\"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\"rationale\":\"The goal is a distinct management capability; the reconstruction is a specific implementation of data usage.\",\"outcome_justification\":\"Management uses operational data to support strategic decision-making and performance analysis.\"}]}",
+    "parsed_response": {
+      "reconstruction_relationship": "EQUIVALENT",
+      "rationale": "The reconstruction correctly captures the hybrid manual and automatic replenishment logic.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "google/gemma-4-12b-qat",
+    "status": "VALID",
+    "decision": "KEEP_LOW_LEVEL_GOALS",
+    "raw_response": "{\"rationale\":\"The children correctly decompose the parent goal based on the source description. llg_001 covers the configuration of thresholds and rules. llg_002 covers the real-time tracking requirement. llg_003 covers the manual management process described for cases without automatic rules. llg_004 and llg_005 correctly capture the automatic reorder trigger and the specific 2-day confirmation deadline mentioned in the source. All actions are documented and correctly attributed to the system or the administrator.\",\"decision\":\"KEEP_LOW_LEVEL_GOALS\",\"quality_score\":5,\"regeneration_feedback\":null,\"unsupported_or_misleading_llg_ids\":[],\"missing_essential_capabilities\":[]}",
+    "parsed_response": {
+      "rationale": "The children correctly decompose the parent goal based on the source description. llg_001 covers the configuration of thresholds and rules. llg_002 covers the real-time tracking requirement. llg_003 covers the manual management process described for cases without automatic rules. llg_004 and llg_005 correctly capture the automatic reorder trigger and the specific 2-day confirmation deadline mentioned in the source. All actions are documented and correctly attributed to the system or the administrator.",
+      "decision": "KEEP_LOW_LEVEL_GOALS",
+      "quality_score": 5,
+      "regeneration_feedback": null,
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "CONFIRM_BRANCH"
+}

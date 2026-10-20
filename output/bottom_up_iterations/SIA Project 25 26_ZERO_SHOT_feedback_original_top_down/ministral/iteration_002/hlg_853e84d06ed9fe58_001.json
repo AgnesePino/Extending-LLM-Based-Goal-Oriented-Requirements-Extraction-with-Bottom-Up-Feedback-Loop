@@ -1,0 +1,90 @@
+{
+  "iteration": 2,
+  "branch_id": "hlg_853e84d06ed9fe58_001",
+  "model": "mistralai/ministral-3-14b-reasoning",
+  "high_level_goal": {
+    "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+    "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+    "actor": {
+      "name": "Citizen",
+      "description": "Registered user who submits reports, receives updates, and can follow other reports."
+    }
+  },
+  "low_level_goals": [
+    {
+      "name": "View submitted report status and updates",
+      "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
+      "high_level_associated": {
+        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
+        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
+        "actor": {
+          "name": "Citizen",
+          "description": "Registered user who submits reports, receives updates, and can follow other reports."
+        }
+      }
+    }
+  ],
+  "checkpoint_complete": true,
+  "hlg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and interaction, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broad participation; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Citizen submits reports and engages with the system beyond visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches map and table views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms transparent reporting as a distinct outcome.\",\n      \"outcome_justification\": \"Citizen accesses public reports for awareness; other goals cover updates or submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits messaging and following other reports.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as a distinct capability.\",\n      \"outcome_justification\": \"Citizen communicates with staff; other goals cover submission or visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches anonymous public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms non-registered user access as a distinct outcome.\",\n      \"outcome_justification\": \"Non-registered users view data; other goals cover registered citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches review and rejection with justification.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient review as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff reviews reports; other goals cover assignment or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches category-based assignment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports management as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff assigns reports; other goals cover review or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports analytics as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator monitors trends; other goals cover citizen or staff actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches open-source publication.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms open-source release as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator publishes system; other goals cover citizen or staff actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "branch_id": "hlg_853e84d06ed9fe58_001",
+      "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+      "rationale": "Source supports real-time communication as a distinct capability.",
+      "outcome_justification": "Citizen communicates with staff; other goals cover submission or visibility.",
+      "rewriting_focus": null,
+      "consolidate_with_branch_ids": [],
+      "removal_basis": null,
+      "covered_by_branch_id": null,
+      "covered_by_high_level_goal_name": null,
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "reconstruction": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "PARTIAL_OVERLAP",
+    "raw_response": "```json\n{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_c7b4355f5aaf04ca_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction includes tracking and interaction, not in original.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports broad participation; inspect children for missing capabilities.\",\n      \"outcome_justification\": \"Citizen submits reports and engages with the system beyond visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_b9167a622cc75e91_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches map and table views with filtering.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms transparent reporting as a distinct outcome.\",\n      \"outcome_justification\": \"Citizen accesses public reports for awareness; other goals cover updates or submissions.\"\n    },\n    {\n      \"branch_id\": \"hlg_853e84d06ed9fe58_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"PARTIAL_OVERLAP\",\n        \"rationale\": \"Reconstruction omits messaging and following other reports.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports real-time communication as a distinct capability.\",\n      \"outcome_justification\": \"Citizen communicates with staff; other goals cover submission or visibility.\"\n    },\n    {\n      \"branch_id\": \"hlg_ccc7734d1de6e0ef_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches anonymous public access.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms non-registered user access as a distinct outcome.\",\n      \"outcome_justification\": \"Non-registered users view data; other goals cover registered citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_fc8aaf6fc932edfc_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches review and rejection with justification.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports efficient review as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff reviews reports; other goals cover assignment or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff4642dfb9b0a7fb_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches category-based assignment.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports management as a distinct staff responsibility.\",\n      \"outcome_justification\": \"Staff assigns reports; other goals cover review or citizen actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_ff99f6f5d954d8db_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches public and private statistics.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source supports analytics as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator monitors trends; other goals cover citizen or staff actions.\"\n    },\n    {\n      \"branch_id\": \"hlg_bf787da4fb4e0b50_001\",\n      \"reconstruction_diagnosis\": {\n        \"reconstruction_relationship\": \"EQUIVALENT\",\n        \"rationale\": \"Reconstruction matches open-source publication.\"\n      },\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Source confirms open-source release as a distinct administrative outcome.\",\n      \"outcome_justification\": \"Administrator publishes system; other goals cover citizen or staff actions.\"\n    }\n  ]\n}\n```",
+    "parsed_response": {
+      "reconstruction_relationship": "PARTIAL_OVERLAP",
+      "rationale": "Reconstruction omits messaging and following other reports.",
+      "matches_branch_id": null
+    },
+    "error": null
+  },
+  "llg": {
+    "model": "mistralai/ministral-3-14b-reasoning",
+    "status": "VALID",
+    "decision": "REGENERATE_LOW_LEVEL_GOALS",
+    "raw_response": "```json\n{\n  \"rationale\": \"The current child llg_001 correctly addresses the core capability of viewing report status and receiving notifications, as documented in section C. However, the parent goal also includes enabling staff to communicate updates and comments, which is not reflected in the children. The reconstructed HLG' narrows the scope to only citizen actions, omitting the bidirectional communication aspect required by the parent. Additionally, the child does not explicitly cover the email notification option or the chatbot accessibility feature mentioned in section C.\",\n  \"decision\": \"REGENERATE_LOW_LEVEL_GOALS\",\n  \"quality_score\": 2,\n  \"regeneration_feedback\": \"Preserve the citizen's ability to view report status and receive notifications, but expand it to include staff communication capabilities (updates, comments) and explicitly mention email notifications and chatbot support. Return the full decomposition.\",\n  \"unsupported_or_misleading_llg_ids\": [],\n  \"missing_essential_capabilities\": [\n    \"Enable municipal staff to send updates and comments via the platform\",\n    \"Support external chatbots for communication\",\n    \"Provide email notifications (optional in user settings)\"\n  ]\n}\n```",
+    "parsed_response": {
+      "rationale": "The current child llg_001 correctly addresses the core capability of viewing report status and receiving notifications, as documented in section C. However, the parent goal also includes enabling staff to communicate updates and comments, which is not reflected in the children. The reconstructed HLG' narrows the scope to only citizen actions, omitting the bidirectional communication aspect required by the parent. Additionally, the child does not explicitly cover the email notification option or the chatbot accessibility feature mentioned in section C.",
+      "decision": "REGENERATE_LOW_LEVEL_GOALS",
+      "quality_score": 2,
+      "regeneration_feedback": "Preserve the citizen's ability to view report status and receive notifications, but expand it to include staff communication capabilities (updates, comments) and explicitly mention email notifications and chatbot support. Return the full decomposition.",
+      "unsupported_or_misleading_llg_ids": [],
+      "missing_essential_capabilities": [
+        "Enable municipal staff to send updates and comments via the platform",
+        "Support external chatbots for communication",
+        "Provide email notifications (optional in user settings)"
+      ],
+      "voter_count": 1,
+      "valid_vote_count": 1,
+      "winning_vote_count": 1,
+      "vote_distribution": {},
+      "evaluator_votes": []
+    },
+    "error": null
+  },
+  "branch_status": "EVALUATED",
+  "llg_status": "EVALUATED",
+  "aggregated_branch_decision": "REGENERATE_LOW_LEVEL_GOALS"
+}
