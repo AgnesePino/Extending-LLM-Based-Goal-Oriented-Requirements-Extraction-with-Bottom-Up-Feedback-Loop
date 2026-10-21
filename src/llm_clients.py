@@ -373,12 +373,29 @@ def loaded_local_model(model_id: str):
 loaded_local_evaluator_model = loaded_local_model
 
 
+class EvaluatorResponse(str):
+    """Text compatible with existing callers, with structured-call diagnostics."""
+
+    def __new__(cls, content, metadata):
+        result = super().__new__(cls, content)
+        result.metadata = metadata
+        return result
+
+
+class EvaluatorGenerationError(RuntimeError):
+    def __init__(self, message, raw_response, metadata):
+        super().__init__(message)
+        self.raw_response = raw_response
+        self.metadata = metadata
+
+
 def _generate_evaluator_response(
     prompt: str,
     sys_prompt: str,
     conversation: EvaluatorConversation | None = None,
     temperature: float = 0,
     model: str | None = None,
+    response_schema: dict | None = None,
 ) -> str:
     """Run one local critic model through LM Studio.
 
@@ -396,6 +413,31 @@ def _generate_evaluator_response(
     selected_model = model.strip() if model else _ministral_model()
     if not selected_model:
         raise ValueError("The LM Studio evaluator model id cannot be empty.")
+
+    if response_schema is not None:
+        # LM Studio exposes grammar-constrained JSON via /v1/chat/completions.
+        # Never silently fall back to free text if the server rejects the schema.
+        response = _ministral_client().chat.completions.create(
+            model=selected_model, messages=messages, temperature=temperature,
+            max_tokens=BOTTOM_UP_CRITIC_MAX_TOKENS,
+            response_format={"type": "json_schema", "json_schema": {
+                "name": "documentary_review", "strict": True, "schema": response_schema}},
+        )
+        choice = response.choices[0]
+        content = choice.message.content or ""
+        usage = response.usage
+        metadata = {
+            "endpoint": "/v1/chat/completions", "structured_output": True,
+            "model": selected_model, "finish_reason": choice.finish_reason,
+            "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
+            "usage": usage.model_dump(mode="json") if usage is not None else None,
+        }
+        if choice.finish_reason != "stop" or not content.strip():
+            raise EvaluatorGenerationError(
+                f"Structured critic response incomplete or unavailable (finish_reason={choice.finish_reason!r}). "
+                "Check output-token and loaded-context budgets; no partial vote accepted.",
+                content, metadata)
+        return EvaluatorResponse(content, metadata)
 
     # Preserve the existing native reasoning settings for Ministral and Gemma.
     # Granite receives no reasoning override; its server defaults apply.
@@ -460,10 +502,11 @@ def _generate_evaluator_response(
 
 def generate_evaluator_response(prompt: str, sys_prompt: str,
     conversation: EvaluatorConversation | None = None, temperature: float = 0,
-    model: str | None = None) -> str:
+    model: str | None = None, response_schema: dict | None = None) -> str:
     selected = model.strip() if model else _ministral_model()
     with loaded_local_model(selected):
-        return _generate_evaluator_response(prompt, sys_prompt, conversation, temperature, model)
+        return _generate_evaluator_response(prompt, sys_prompt, conversation, temperature, model,
+                                            response_schema=response_schema)
 
 
 # Compatibility alias for the existing reflection module.

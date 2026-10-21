@@ -76,13 +76,8 @@ class HighLevelGoalDecision(str, Enum):
     KEEP = "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
     REWRITE = "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL"
     REMOVE = "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL"
-
-
-class HighLevelGoalRemovalBasis(str, Enum):
-    UNSUPPORTED = "UNSUPPORTED"
-    FULLY_REDUNDANT = "FULLY_REDUNDANT"
-    NON_FUNCTIONAL = "NON_FUNCTIONAL"
-    OVER_SPECIFIC = "OVER_SPECIFIC"
+    DUPLICATE_REMOVAL = "DUPLICATE_REMOVAL"
+    ADD = "ADD_NEW_HIGH_LEVEL_GOAL"
 
 
 class ReconstructionRelationship(str, Enum):
@@ -100,6 +95,7 @@ class EvaluatorVoteRecord(BaseModel):
     raw_response: str | None = None
     parsed_response: dict | None = None
     error: str | None = None
+    attempt_history: list[dict] = Field(default_factory=list)
 
 
 class HighLevelGoalEvaluation(BaseModel):
@@ -214,27 +210,6 @@ class HighLevelGoalEvaluation(BaseModel):
         ):
             raise ValueError(
                 "An equivalent reconstruction must not trigger LLG evaluation"
-            )
-        if (
-            self.decision == HighLevelGoalDecision.KEEP
-            and self.reconstruction_relationship
-            == ReconstructionRelationship.EQUIVALENT
-            and self.quality_score != 5
-            and not self.rewrite_limit_reached
-            and not self.post_repair_llg_audit_required
-        ):
-            raise ValueError(
-                "KEEP with EQUIVALENT requires quality_score 5"
-            )
-        if (
-            self.decision == HighLevelGoalDecision.KEEP
-            and self.reconstruction_relationship
-            != ReconstructionRelationship.EQUIVALENT
-            and not self.requires_llg_evaluation
-        ):
-            raise ValueError(
-                "A non-equivalent or absent reconstruction of a kept HLG must "
-                "trigger LLG evaluation"
             )
         return self
 
@@ -425,7 +400,7 @@ class GlobalGoalEvaluationDecision(str, Enum):
     DISCOVER_NEW_HIGH_LEVEL_GOAL = "DISCOVER_NEW_HIGH_LEVEL_GOAL"
     REWRITE_ORIGINAL_HIGH_LEVEL_GOAL = "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL"
     REMOVE_ORIGINAL_HIGH_LEVEL_GOAL = "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL"
-    CHECK_MISSING_HIGH_LEVEL_GOALS = "CHECK_MISSING_HIGH_LEVEL_GOALS"
+    ADD_NEW_HIGH_LEVEL_GOAL = "ADD_NEW_HIGH_LEVEL_GOAL"
     MISSING_HIGH_LEVEL_GOALS_FOUND = "MISSING_HIGH_LEVEL_GOALS_FOUND"
     NO_MISSING_HIGH_LEVEL_GOALS = "NO_MISSING_HIGH_LEVEL_GOALS"
 
@@ -439,6 +414,9 @@ class GlobalGoalEvaluationResult(BaseModel):
     low_level_evaluation: LowLevelGoalEvaluation | None = None
     critic_votes: dict[str, list[EvaluatorVoteRecord]] = Field(default_factory=dict)
     evaluation_status: str | None = None
+    similarity: dict = Field(default_factory=dict)
+    regeneration_feedback: str | None = None
+    new_goal_focus: str | None = None
 
 
 class HighLevelGoalGenerationAction(str, Enum):
@@ -523,6 +501,10 @@ class GlobalGoalCycleIteration(BaseModel):
     checkpoint_complete: bool = True
     completed_branch_count: int = 0
     total_branch_count: int = 0
+    similarity_analysis: dict = Field(default_factory=dict)
+    stage_logs: dict[str, dict[str, str]] = Field(default_factory=dict)
+    new_hlg_additions: dict[str, str] = Field(default_factory=dict)
+    hlg_addition_counts: dict[str, int] = Field(default_factory=dict)
 
 
 class GlobalGoalCycleResult(BaseModel):
@@ -542,6 +524,8 @@ class GlobalGoalCycleResult(BaseModel):
         default_factory=dict, validation_alias=AliasChoices("completeness_rejection_counts", "discovery_rejection_counts")
     )
     warnings: list[str] = Field(default_factory=list)
+    configuration: dict = Field(default_factory=dict)
+    hlg_addition_counts: dict[str, int] = Field(default_factory=dict)
 
     @property
     def kaos_analysis(self) -> None:
