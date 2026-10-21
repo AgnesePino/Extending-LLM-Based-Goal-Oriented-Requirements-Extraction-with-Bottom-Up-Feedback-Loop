@@ -179,6 +179,40 @@ FEW_SHOT_EXAMPLES = [
 
 # Response contract
 
+# Synthetic additions for the six-example experiment; the original four stay intact.
+EXTRA_FEW_SHOT_EXAMPLES = [
+    {
+        "source": "Librarians record returned books. Fee payments are excluded.",
+        "actor": "Librarian",
+        "branches": [{"branch_id": "a", "hlg": "Record book returns",
+                      "hlg_prime": "Collect late fees", "relationship": "NOT_EQUIVALENT"}],
+        "response": {"decisions": [{"branch_id": "a",
+            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+            "rationale": "Returns are documented; payments are excluded.",
+            "regenerate_llgs": True,
+            "regeneration_feedback": "Generate capabilities for recording book returns only."}]},
+    },
+    {
+        "source": "Editors publish only their own articles.",
+        "actor": "Editor",
+        "branches": [{"branch_id": "a", "hlg": "Publish all editors' articles",
+                      "hlg_prime": "Publish my articles", "relationship": "NOT_EQUIVALENT",
+                      "original_hlg_comparisons_complete": True}],
+        "response": {"decisions": [{"branch_id": "a",
+            "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+            "rationale": "Publication is restricted to the editor's own articles.",
+            "rewriting_focus": "Restrict publication to articles owned by the acting editor."}]},
+    },
+]
+
+
+def evaluator_examples(count=None):
+    """Nested example sets, independent of evaluation ground truths."""
+    count = CRITIC1_FEW_SHOT_EXAMPLE_COUNT if count is None else count
+    if count not in (0, 2, 4, 6):
+        raise ValueError("Evaluator example count must be 0, 2, 4 or 6")
+    return (FEW_SHOT_EXAMPLES + EXTRA_FEW_SHOT_EXAMPLES)[:count]
+
 
 class DocumentaryDecision(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -331,6 +365,7 @@ def _critic1_prompt(
     reconstructions,
     analysis,
     cosine_payload=None,
+    few_shot_example_count=None,
 ):
     payload = (
         cosine_payload
@@ -341,8 +376,9 @@ def _critic1_prompt(
         f"Example {i}\nDescription: {e['source']}\n"
         f"Actor: {e['actor']}\nGoals: {json.dumps(e['branches'], separators=(',', ':'))}\n"
         f"Output: {json.dumps(e['response'], separators=(',', ':'))}"
-        for i, e in enumerate(FEW_SHOT_EXAMPLES, 1)
+        for i, e in enumerate(evaluator_examples(few_shot_example_count), 1)
     )
+    example_section = f"EXAMPLES (fictional requirements, not project evidence)\n{examples}\n\n" if examples else ""
     return f"""TASK
 Review each branch against the source for its actor. HLG prime comes from its LLGs.
 Use the supplied cosine labels as fixed facts; do not reassess similarity.
@@ -364,10 +400,7 @@ DECISIONS
   Never REWRITE from empty children or incomplete original comparisons.
   Choose one of the four permitted actions for every requested branch.
 
-EXAMPLES (fictional requirements, not project evidence)
-{examples}
-
-PROJECT DESCRIPTION
+{example_section}PROJECT DESCRIPTION
 {description}
 ACTORS
 {actors.model_dump_json()}
@@ -409,7 +442,8 @@ def _json_object(raw):
     return payload
 
 
-def _critic1_vote(prompt, model, branches, analysis):
+def _critic1_vote(prompt, model, branches, analysis, *, temperature=None):
+    temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if temperature is None else temperature
     retained, history, errors = {}, [], {}
     raw, payload, retry = None, None, prompt
     expected = {b.branch_id for b in branches}
@@ -434,7 +468,7 @@ def _critic1_vote(prompt, model, branches, analysis):
                 retry,
                 SYSTEM_PROMPT,
                 conversation=None,
-                temperature=BOTTOM_UP_EVALUATOR_TEMPERATURE,
+                temperature=temperature,
                 model=model,
                 response_schema=schema,
             )
@@ -531,6 +565,8 @@ def evaluate_all_branches(
     on_global_vote=None,
     similarity_analysis=None,
     cosine_payload=None,
+    few_shot_example_count=None,
+    evaluator_temperature=None,
 ):
     if not branches:
         return {}
@@ -543,11 +579,13 @@ def evaluate_all_branches(
             on_evaluation(len(results), len(branches), results)
         return results
     actors = actors or Actors(actors=list({b.high_level_goal.actor.name: b.high_level_goal.actor for b in branches}.values()))
-    prompt = _critic1_prompt(project_description, actors, branches, reconstructions, analysis, cosine_payload)
+    prompt = _critic1_prompt(project_description, actors, branches, reconstructions, analysis, cosine_payload,
+                            few_shot_example_count=few_shot_example_count)
     records = {b.branch_id: [] for b in branches}
     for model in BOTTOM_UP_EVALUATOR_MODELS:
         with loaded_local_evaluator_model(model):
-            global_record, votes = _critic1_vote(prompt, model, branches, analysis)
+            global_record, votes = _critic1_vote(prompt, model, branches, analysis,
+                                               temperature=evaluator_temperature)
         if on_global_vote:
             on_global_vote(global_record)
         for branch in branches:

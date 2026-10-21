@@ -1,5 +1,42 @@
 # Revisione bottom-up
 
+Il notebook [03_bottom_up_experiments.ipynb](../../notebook/03_bottom_up_experiments.ipynb)
+implementa il confronto OFAT su 12 baseline: riferimento e nove varianti per
+numero di esempi (0/2/6 contro 4), coppia di soglie (0.64/0.76, 0.72/0.84,
+0.76/0.88 contro 0.68/0.80) e temperatura degli evaluator (0.0/0.4/0.6 contro 0.2).
+Sono 120 run per ripetizione. `REPETITIONS` permette ripetizioni indipendenti;
+`SUITE_ID` identifica una suite nuova o da riprendere.
+
+Il runner è incorporato nelle celle di supporto del notebook 03. Congela gli
+input top-down e registra configurazioni, esempi esatti, hash degli input,
+dei moduli della pipeline e delle celle di supporto in
+`output/bottom_up_experiments/<suite>/manifest.json`. Ogni configurazione,
+ripetizione, dataset e tentativo ha una directory separata, con stato della run,
+risultato completo e checkpoint delle iterazioni. Non vengono cancellati output
+precedenti. Le run completate, anche non convergenti, vengono saltate alla ripresa;
+quelle fallite o interrotte ripartono dalla baseline in un nuovo tentativo.
+Anche le funzioni per esportare le iterazioni per configurazione e dataset
+sono incorporate nel notebook: non sono più necessari `experiments.py` e
+`iteration_exports.py` in `src/bottom_up/`. Il codice delle celle di supporto
+viene conservato per provenienza in `notebook_helpers_snapshot.py` nella suite.
+Le suite prodotte con i moduli precedenti restano leggibili dal notebook 04;
+il nuovo runner richiede una nuova suite per registrarne la diversa provenienza.
+
+Le varianti sono parametri espliciti di `run_global_goal_cycle`:
+`evaluator_few_shot_examples`, `evaluator_temperature`, `parent_threshold` e
+`duplicate_threshold`. I default della pipeline esistente restano invariati.
+Esempi e temperatura variano solo per i tre evaluator globali: il notebook
+mantiene generazione zero-shot, reflection con quattro esempi e limiti originali.
+
+La sezione finale carica le ground truth solo per la valutazione esterna,
+riutilizzando la metrica soft del notebook di confronto (BERT, matching Hungarian,
+soglia fissa 0.65). Esporta CSV di metriche HLG/LLG, delta dalla baseline,
+confronti appaiati con il riferimento, macro-medie, variabilità tra ripetizioni,
+validità delle risposte, quorum e operazioni, con numerosità e stati delle run.
+Gli hash e uno snapshot delle ground truth sono salvati nel manifest di valutazione.
+I risultati non convergenti rimangono valutabili e identificati; errori e run
+mancanti non vengono trasformati in gerarchie con punteggio zero.
+
 La policy corrente è `cosine_global_documentary_review_v58_three_limits`.
 La descrizione del metodo e la tabella decisionale sono nel
 [README principale](../../README.md).

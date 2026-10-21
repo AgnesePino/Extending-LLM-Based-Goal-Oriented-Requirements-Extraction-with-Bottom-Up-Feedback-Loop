@@ -54,12 +54,16 @@ def _embedding_model():
     return SentenceTransformer(EMBEDDING_MODEL, revision=EMBEDDING_REVISION, device="cpu")
 
 
-def similarity_configuration() -> dict:
+def similarity_configuration(*, parent_threshold=None, duplicate_threshold=None) -> dict:
+    parent_threshold = HLG_SIMILARITY_THRESHOLD if parent_threshold is None else parent_threshold
+    duplicate_threshold = DUPLICATE_SIMILARITY_THRESHOLD if duplicate_threshold is None else duplicate_threshold
+    if not all(0 <= value <= 1 for value in (parent_threshold, duplicate_threshold)):
+        raise ValueError("Similarity thresholds must be between 0 and 1")
     return {
         "embedding_model": EMBEDDING_MODEL,
         "requested_revision": EMBEDDING_REVISION,
-        "parent_threshold": HLG_SIMILARITY_THRESHOLD,
-        "duplicate_threshold": DUPLICATE_SIMILARITY_THRESHOLD,
+        "parent_threshold": parent_threshold,
+        "duplicate_threshold": duplicate_threshold,
         "thresholds_validated": False,
         "parent_threshold_calibration": {
             "status": "preliminary_in_sample",
@@ -67,7 +71,7 @@ def similarity_configuration() -> dict:
             "annotation": "assistant semantic review; not independently validated",
             "pair_count": 8,
             "selected_default": DEFAULT_HLG_SIMILARITY_THRESHOLD,
-            "active_threshold_matches_default": HLG_SIMILARITY_THRESHOLD == DEFAULT_HLG_SIMILARITY_THRESHOLD,
+            "active_threshold_matches_default": parent_threshold == DEFAULT_HLG_SIMILARITY_THRESHOLD,
             "report": "output/analysis/SIA_Project_25_26_hlg_prime_calibration.json",
         },
         "duplicate_threshold_calibrated": False,
@@ -129,12 +133,16 @@ def _actor_key(branch: GoalBranch) -> str:
 
 
 def analyze_similarities(branches: list[GoalBranch],
-                         reconstructions: dict[str, BottomUpHighLevelGoal]) -> dict:
+                         reconstructions: dict[str, BottomUpHighLevelGoal], *,
+                         parent_threshold=None, duplicate_threshold=None) -> dict:
     """Return parent labels and same-actor peer/original comparisons.
 
     An embedding error makes only the affected branch inconclusive. Empty
     decompositions have no score and cannot be proposed as duplicate candidates.
     """
+    config = similarity_configuration(parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
+    parent_threshold = config["parent_threshold"]
+    duplicate_threshold = config["duplicate_threshold"]
     records, vectors, actor_groups = {}, {}, {}
     for branch in branches:
         actor_groups.setdefault(_actor_key(branch), []).append(branch)
@@ -152,7 +160,7 @@ def analyze_similarities(branches: list[GoalBranch],
             score = _cosine(parent_vector, prime_vector)
             vectors[branch.branch_id] = prime_vector
             record.update(score=score, relationship=(
-                "EQUIVALENT" if score >= HLG_SIMILARITY_THRESHOLD else "NOT_EQUIVALENT"))
+                "EQUIVALENT" if score >= parent_threshold else "NOT_EQUIVALENT"))
         except Exception as exc:
             record.update(status="ERROR", relationship=None, error=f"{type(exc).__name__}: {exc}")
     pairs = []
@@ -163,7 +171,7 @@ def analyze_similarities(branches: list[GoalBranch],
                 continue
             score = _cosine(vectors[left.branch_id], vectors[right.branch_id])
             pair = {"branch_id": left.branch_id, "other_branch_id": right.branch_id,
-                    "score": score, "candidate": score >= DUPLICATE_SIMILARITY_THRESHOLD}
+                    "score": score, "candidate": score >= duplicate_threshold}
             pairs.append(pair)
             if pair["candidate"]:
                 records[left.branch_id]["duplicate_label"] = "DUPLICATE"
@@ -216,10 +224,9 @@ def analyze_similarities(branches: list[GoalBranch],
             item["status"] == "VALID" for item in comparisons)
         other_matches = [item["original_branch_id"] for item in comparisons
                          if not item["is_own_parent"] and item["status"] == "VALID"
-                         and item["score"] >= HLG_SIMILARITY_THRESHOLD]
+                         and item["score"] >= parent_threshold]
         record = records[branch.branch_id]
         record["matching_other_original_hlg_ids"] = other_matches
-    config = similarity_configuration()
     config["original_hlg_comparison_count"] = sum(len(group) ** 2 for group in actor_groups.values())
     config["resolved_revision"] = _resolved_revision()
     return {"configuration": config, "branches": records, "pairs": pairs}

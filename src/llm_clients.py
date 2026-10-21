@@ -428,7 +428,7 @@ def _generate_evaluator_response(
         usage = response.usage
         metadata = {
             "endpoint": "/v1/chat/completions", "structured_output": True,
-            "model": selected_model, "finish_reason": choice.finish_reason,
+            "model": selected_model, "temperature": temperature, "finish_reason": choice.finish_reason,
             "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
             "usage": usage.model_dump(mode="json") if usage is not None else None,
         }

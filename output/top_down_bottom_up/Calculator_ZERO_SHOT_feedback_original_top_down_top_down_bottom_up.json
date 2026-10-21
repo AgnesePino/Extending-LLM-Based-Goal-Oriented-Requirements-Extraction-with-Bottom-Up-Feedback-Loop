@@ -155,7 +155,7 @@
         "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
     },
     "baselineSourceFile": "Calculator_ZERO_SHOT_feedback_original_top_down_top_down.json",
-    "bottomUpRunProfile": "cosine_global_documentary_review_v55_hlg_scope",
+    "bottomUpRunProfile": "cosine_global_documentary_review_v58_three_limits",
     "bottomUpInputSource": "structured baseline fields",
     "bottomUpModelConfiguration": {
         "generatorProvider": "LM Studio (local)",
@@ -200,14 +200,13 @@
             "duplicate_threshold_calibrated": false,
             "original_hlg_comparisons_scope": "same_actor_original_hlgs_including_own",
             "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
-            "original_hlg_comparisons_usage": "documentary_review_and_novel_hlg_detection",
-            "new_hlg_similarity_threshold": 0.68,
+            "original_hlg_comparisons_usage": "documentary_review",
             "parent_text": "name + newline + description",
             "preprocessing": "none",
             "device": "cpu"
         },
         "completenessEnabled": false,
-        "structuralActionPriority": "REMOVALS_THEN_REWRITES_THEN_NOVEL_HLG_ADDITIONS_THEN_DIRECT_LLG_REGENERATION",
+        "structuralActionPriority": "REMOVALS_THEN_REWRITES_THEN_DIRECT_LLG_REGENERATION",
         "parentReferencePolicy": "EXACT_PARENT_REFERENCE_NO_REPAIR",
         "branchConfirmationPolicy": "REEVALUATE_ALL_BRANCHES_EVERY_ITERATION",
         "evaluatorContextLength": 8192,
@@ -224,13 +223,11 @@
         "maxIterations": 25,
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
-        "pipelinePolicyVersion": "cosine_global_documentary_review_v55_hlg_scope",
+        "pipelinePolicyVersion": "cosine_global_documentary_review_v58_three_limits",
         "criticMemoryTurns": 0,
         "criticStateUpdates": 0,
         "evaluatorMaxCompletionTokens": 4096,
         "maxHlgRewritesPerLineage": 3,
-        "maxLlgRegenerationsPerBranch": 2,
-        "repairRejectedCycleLimit": 3,
         "resolvedSimilarityConfiguration": {
             "embedding_model": "sentence-transformers/all-mpnet-base-v2",
             "requested_revision": "main",
@@ -249,8 +246,7 @@
             "duplicate_threshold_calibrated": false,
             "original_hlg_comparisons_scope": "same_actor_original_hlgs_including_own",
             "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
-            "original_hlg_comparisons_usage": "documentary_review_and_novel_hlg_detection",
-            "new_hlg_similarity_threshold": 0.68,
+            "original_hlg_comparisons_usage": "documentary_review",
             "parent_text": "name + newline + description",
             "preprocessing": "none",
             "device": "cpu",
@@ -258,7 +254,7 @@
             "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
         }
     },
-    "evaluationOutputDirectory": "C:\\Users\\agnes\\Desktop\\github\\LLM_MultiAgentChain_GoalOrientedAPIAlignement\\output\\bottom_up_iterations\\Calculator",
+    "evaluationOutputDirectory": "C:\\Users\\agnes\\Desktop\\TESI FINALE CON EXPERIMENT\\LLM_MultiAgentChain_GoalOrientedAPIAlignement\\output\\bottom_up_iterations\\Calculator",
     "globalGoalCycle": {
         "converged": true,
         "stop_reason": "ALL_BRANCHES_CONFIRMED",
@@ -360,16 +356,16 @@
                 "evaluations": {
                     "hlg_342521cf6fdd0795_001": {
                         "branch_id": "hlg_342521cf6fdd0795_001",
-                        "rationale": "Basic calculator functionality is documented and matches the described outcome.",
+                        "rationale": "Basic calculator functionality is documented and matches the project's initial version.",
                         "final_decision": "CONFIRM_BRANCH",
                         "high_level_evaluation": {
-                            "rationale": "Basic calculator functionality is documented and matches the described outcome.",
+                            "rationale": "Basic calculator functionality is documented and matches the project's initial version.",
                             "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
                             "reconstruction_relationship": "EQUIVALENT",
                             "structural_decision": {
                                 "branch_id": "hlg_342521cf6fdd0795_001",
                                 "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                "rationale": "Basic calculator functionality is documented and matches the described outcome.",
+                                "rationale": "Basic calculator functionality is documented and matches the project's initial version.",
                                 "regenerate_llgs": false
                             },
                             "requires_llg_evaluation": false,
@@ -390,18 +386,18 @@
                                     "model": "mistralai/ministral-3-14b-reasoning",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "Basic calculator functionality is documented and matches the described outcome.",
+                                        "rationale": "Basic calculator functionality is documented and matches the project's initial version.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -413,9 +409,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 78,
-                                                    "prompt_tokens": 1704,
-                                                    "total_tokens": 1782,
+                                                    "completion_tokens": 80,
+                                                    "prompt_tokens": 1522,
+                                                    "total_tokens": 1602,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -436,18 +432,18 @@
                                     "model": "ibm/granite-3.2-8b",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'",
+                                        "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -459,9 +455,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 108,
-                                                    "prompt_tokens": 1757,
-                                                    "total_tokens": 1865,
+                                                    "completion_tokens": 90,
+                                                    "prompt_tokens": 1562,
+                                                    "total_tokens": 1652,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -482,18 +478,18 @@
                                     "model": "google/gemma-4-12b-qat",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                                    "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "Basic calculations are documented in the initial version.",
+                                        "rationale": "Basic arithmetic operations are documented in the project description.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                                            "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -505,9 +501,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 70,
-                                                    "prompt_tokens": 1700,
-                                                    "total_tokens": 1770,
+                                                    "completion_tokens": 67,
+                                                    "prompt_tokens": 1519,
+                                                    "total_tokens": 1586,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -534,18 +530,18 @@
                                     "model": "mistralai/ministral-3-14b-reasoning",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "Basic calculator functionality is documented and matches the described outcome.",
+                                        "rationale": "Basic calculator functionality is documented and matches the project's initial version.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -557,9 +553,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 78,
-                                                    "prompt_tokens": 1704,
-                                                    "total_tokens": 1782,
+                                                    "completion_tokens": 80,
+                                                    "prompt_tokens": 1522,
+                                                    "total_tokens": 1602,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -580,18 +576,18 @@
                                     "model": "ibm/granite-3.2-8b",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                                    "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'",
+                                        "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                                            "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -603,9 +599,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 108,
-                                                    "prompt_tokens": 1757,
-                                                    "total_tokens": 1865,
+                                                    "completion_tokens": 90,
+                                                    "prompt_tokens": 1562,
+                                                    "total_tokens": 1652,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -626,18 +622,18 @@
                                     "model": "google/gemma-4-12b-qat",
                                     "status": "VALID",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL|regenerate=False|survivor=",
-                                    "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                                    "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                                     "parsed_response": {
                                         "branch_id": "hlg_342521cf6fdd0795_001",
                                         "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                        "rationale": "Basic calculations are documented in the initial version.",
+                                        "rationale": "Basic arithmetic operations are documented in the project description.",
                                         "regenerate_llgs": false
                                     },
                                     "error": null,
                                     "attempt_history": [
                                         {
                                             "attempt": 1,
-                                            "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                                            "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                                             "errors": {},
                                             "valid_branch_ids": [
                                                 "hlg_342521cf6fdd0795_001"
@@ -649,9 +645,9 @@
                                                 "finish_reason": "stop",
                                                 "max_output_tokens": 4096,
                                                 "usage": {
-                                                    "completion_tokens": 70,
-                                                    "prompt_tokens": 1700,
-                                                    "total_tokens": 1770,
+                                                    "completion_tokens": 67,
+                                                    "prompt_tokens": 1519,
+                                                    "total_tokens": 1586,
                                                     "completion_tokens_details": {
                                                         "accepted_prediction_tokens": null,
                                                         "audio_tokens": null,
@@ -689,8 +685,7 @@
                                 }
                             ],
                             "original_hlg_comparisons_complete": true,
-                            "matching_other_original_hlg_ids": [],
-                            "novel_to_original_hlgs": false
+                            "matching_other_original_hlg_ids": []
                         },
                         "regeneration_feedback": null,
                         "new_goal_focus": null
@@ -701,13 +696,13 @@
                         "model": "mistralai/ministral-3-14b-reasoning",
                         "status": "VALID",
                         "decision": null,
-                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                         "parsed_response": {
                             "decisions": [
                                 {
                                     "branch_id": "hlg_342521cf6fdd0795_001",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                    "rationale": "Basic calculator functionality is documented and matches the described outcome."
+                                    "rationale": "Basic calculator functionality is documented and matches the project's initial version."
                                 }
                             ]
                         },
@@ -715,7 +710,7 @@
                         "attempt_history": [
                             {
                                 "attempt": 1,
-                                "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the described outcome.\"\n    }\n  ]\n}",
+                                "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"Basic calculator functionality is documented and matches the project's initial version.\"\n    }\n  ]\n}",
                                 "errors": {},
                                 "valid_branch_ids": [
                                     "hlg_342521cf6fdd0795_001"
@@ -727,9 +722,9 @@
                                     "finish_reason": "stop",
                                     "max_output_tokens": 4096,
                                     "usage": {
-                                        "completion_tokens": 78,
-                                        "prompt_tokens": 1704,
-                                        "total_tokens": 1782,
+                                        "completion_tokens": 80,
+                                        "prompt_tokens": 1522,
+                                        "total_tokens": 1602,
                                         "completion_tokens_details": {
                                             "accepted_prediction_tokens": null,
                                             "audio_tokens": null,
@@ -750,13 +745,13 @@
                         "model": "ibm/granite-3.2-8b",
                         "status": "VALID",
                         "decision": null,
-                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                        "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                         "parsed_response": {
                             "decisions": [
                                 {
                                     "branch_id": "hlg_342521cf6fdd0795_001",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                    "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'"
+                                    "rationale": "The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'."
                                 }
                             ]
                         },
@@ -764,7 +759,7 @@
                         "attempt_history": [
                             {
                                 "attempt": 1,
-                                "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator that accepts two operands, allows selection of an arithmetic operation, triggers computation, and displays the result.'\"\n    }\n  ]\n}\n",
+                                "raw_response": "{\n  \"decisions\": [\n    {\n      \"branch_id\": \"hlg_342521cf6fdd0795_001\",\n      \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\",\n      \"rationale\": \"The goal 'Perform Basic Calculations' is documented and equivalent to the prime 'Implement a basic calculator'.\"\n    }\n  ]\n}\n",
                                 "errors": {},
                                 "valid_branch_ids": [
                                     "hlg_342521cf6fdd0795_001"
@@ -776,9 +771,9 @@
                                     "finish_reason": "stop",
                                     "max_output_tokens": 4096,
                                     "usage": {
-                                        "completion_tokens": 108,
-                                        "prompt_tokens": 1757,
-                                        "total_tokens": 1865,
+                                        "completion_tokens": 90,
+                                        "prompt_tokens": 1562,
+                                        "total_tokens": 1652,
                                         "completion_tokens_details": {
                                             "accepted_prediction_tokens": null,
                                             "audio_tokens": null,
@@ -799,13 +794,13 @@
                         "model": "google/gemma-4-12b-qat",
                         "status": "VALID",
                         "decision": null,
-                        "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                        "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                         "parsed_response": {
                             "decisions": [
                                 {
                                     "branch_id": "hlg_342521cf6fdd0795_001",
                                     "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                                    "rationale": "Basic calculations are documented in the initial version."
+                                    "rationale": "Basic arithmetic operations are documented in the project description."
                                 }
                             ]
                         },
@@ -813,7 +808,7 @@
                         "attempt_history": [
                             {
                                 "attempt": 1,
-                                "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic calculations are documented in the initial version.\"}]}\n    \t\t\t\t    \t\t\t\t    ",
+                                "raw_response": "{\"decisions\": [{\"branch_id\": \"hlg_342521cf6fdd0795_001\", \"decision\": \"KEEP_ORIGINAL_HIGH_LEVEL_GOAL\", \"rationale\": \"Basic arithmetic operations are documented in the project description.\"}]}\n    ",
                                 "errors": {},
                                 "valid_branch_ids": [
                                     "hlg_342521cf6fdd0795_001"
@@ -825,9 +820,9 @@
                                     "finish_reason": "stop",
                                     "max_output_tokens": 4096,
                                     "usage": {
-                                        "completion_tokens": 70,
-                                        "prompt_tokens": 1700,
-                                        "total_tokens": 1770,
+                                        "completion_tokens": 67,
+                                        "prompt_tokens": 1519,
+                                        "total_tokens": 1586,
                                         "completion_tokens_details": {
                                             "accepted_prediction_tokens": null,
                                             "audio_tokens": null,
@@ -1118,8 +1113,7 @@
                         "duplicate_threshold_calibrated": false,
                         "original_hlg_comparisons_scope": "same_actor_original_hlgs_including_own",
                         "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
-                        "original_hlg_comparisons_usage": "documentary_review_and_novel_hlg_detection",
-                        "new_hlg_similarity_threshold": 0.68,
+                        "original_hlg_comparisons_usage": "documentary_review",
                         "parent_text": "name + newline + description",
                         "preprocessing": "none",
                         "device": "cpu",
@@ -1145,8 +1139,7 @@
                                 }
                             ],
                             "original_hlg_comparisons_complete": true,
-                            "matching_other_original_hlg_ids": [],
-                            "novel_to_original_hlgs": false
+                            "matching_other_original_hlg_ids": []
                         }
                     },
                     "pairs": []
@@ -1167,7 +1160,7 @@
         "completeness_rejection_counts": {},
         "warnings": [],
         "configuration": {
-            "pipeline_policy_version": "cosine_global_documentary_review_v55_hlg_scope",
+            "pipeline_policy_version": "cosine_global_documentary_review_v58_three_limits",
             "output_file_prefix": "Calculator_",
             "evaluator_models": [
                 "mistralai/ministral-3-14b-reasoning",
@@ -1195,8 +1188,7 @@
                 "duplicate_threshold_calibrated": false,
                 "original_hlg_comparisons_scope": "same_actor_original_hlgs_including_own",
                 "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
-                "original_hlg_comparisons_usage": "documentary_review_and_novel_hlg_detection",
-                "new_hlg_similarity_threshold": 0.68,
+                "original_hlg_comparisons_usage": "documentary_review",
                 "parent_text": "name + newline + description",
                 "preprocessing": "none",
                 "device": "cpu",
@@ -1204,9 +1196,10 @@
                 "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
             },
             "completeness_enabled": false,
-            "new_goal_discovery": "documented_novel_hlg_prime_only",
+            "new_goal_discovery": "disabled",
             "direct_llg_audit_enabled": false,
-            "max_new_hlgs_per_iteration": 3,
+            "max_global_iterations": 25,
+            "max_hlg_rewrites_per_lineage": 3,
             "output_verbosity": "detailed"
         },
         "hlg_addition_counts": {}

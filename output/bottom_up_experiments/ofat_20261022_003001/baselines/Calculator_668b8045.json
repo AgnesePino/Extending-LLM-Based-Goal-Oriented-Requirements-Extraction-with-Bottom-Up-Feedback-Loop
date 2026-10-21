@@ -1,0 +1,157 @@
+{
+    "name": "Calculator",
+    "description": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "rawDescription": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "documentationPreprocessing": {
+        "chunked": false,
+        "chunkCount": 1,
+        "originalChars": 228,
+        "processedChars": 228,
+        "strategy": "groundtruth_description_links_ignored",
+        "linksIgnored": true,
+        "sourceTruncated": false
+    },
+    "actors": [
+        "User"
+    ],
+    "highLevelGoals": [
+        "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division."
+    ],
+    "lowLevelGoals": [
+        "The user enters the first operand for the calculation.",
+        "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+        "The user enters the second operand for the calculation.",
+        "The user presses the equals button to execute the selected operation on the two operands.",
+        "The system displays the computed result of the operation on the screen."
+    ],
+    "structuredActors": {
+        "actors": [
+            {
+                "name": "User",
+                "description": "A person using the calculator app on their smartphone."
+            }
+        ]
+    },
+    "structuredHighLevelGoals": {
+        "goals": [
+            {
+                "name": "Perform Basic Calculations",
+                "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                    "name": "User",
+                    "description": "A person using the calculator app on their smartphone."
+                }
+            }
+        ]
+    },
+    "structuredLowLevelGoals": {
+        "low_level_goals": [
+            {
+                "name": "Input First Number",
+                "description": "The user enters the first operand for the calculation.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Select Operation",
+                "description": "The user selects an arithmetic operation (addition, subtraction, multiplication, or division) from the available options.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Input Second Number",
+                "description": "The user enters the second operand for the calculation.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Trigger Calculation",
+                "description": "The user presses the equals button to execute the selected operation on the two operands.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            },
+            {
+                "name": "Display Result",
+                "description": "The system displays the computed result of the operation on the screen.",
+                "high_level_associated": {
+                    "name": "Perform Basic Calculations",
+                    "description": "Enable users to perform fundamental arithmetic operations such as addition, subtraction, multiplication, and division.",
+                    "actor": {
+                        "name": "User",
+                        "description": "A person using the calculator app on their smartphone."
+                    }
+                }
+            }
+        ]
+    },
+    "baselineScores": {
+        "actors": 7.0,
+        "highLevelGoals": 10.0,
+        "lowLevelGoals": 10.0
+    },
+    "baselineCritiques": {
+        "actors": "The actor \"User\" is correctly identified as the primary end user of the calculator app. However, there may be additional actors to consider, such as a \"Developer\" (for future iterations or maintenance) or an \"Administrator\" (if the app requires system-level management). While the current description focuses on the initial version, these roles could become relevant in later stages.",
+        "highLevelGoals": "The high-level goals are correctly aligned with the software description, focusing solely on functional requirements for a basic calculator app. No contradictions or omissions are present, and the goals are clear and representative of the system's purpose.",
+        "lowLevelGoals": "The low-level goals are well-defined, functional, and directly correspond to the user's actions for performing basic calculations. They cover all necessary steps from inputting numbers to displaying the result, aligning perfectly with the high-level goal of enabling fundamental arithmetic operations."
+    },
+    "baselineConfiguration": {
+        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
+        "generatorProvider": "LM Studio (local)",
+        "generatorModel": "qwen/qwen3-vl-8b",
+        "actorPromptingMode": "ZERO_SHOT",
+        "actorEvaluatorEnabled": true,
+        "highLevelGoalPromptingMode": "ZERO_SHOT",
+        "lowLevelGoalPromptingMode": "ZERO_SHOT",
+        "highLevelGoalEvaluatorEnabled": true,
+        "lowLevelGoalEvaluatorEnabled": true,
+        "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+        "qualityThreshold": 8.5,
+        "maxReflectionAttempts": 3,
+        "evaluatorFewShotExampleCount": 4,
+        "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
+        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
+        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
+        "maxOutputTokens": 32768
+    },
+    "pipelineConfiguration": {
+        "actors": {
+            "promptingMode": "ZERO_SHOT",
+            "evaluator": true
+        },
+        "highLevelGoals": {
+            "promptingMode": "ZERO_SHOT",
+            "evaluator": true
+        },
+        "lowLevelGoals": {
+            "promptingMode": "ZERO_SHOT",
+            "evaluator": true,
+            "generationStrategy": "all_hlgs_in_one_call",
+            "evaluationStrategy": "single_global_call_with_original_prompt"
+        },
+        "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    }
+}

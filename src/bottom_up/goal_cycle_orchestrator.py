@@ -9,6 +9,7 @@ from pathlib import Path
 from src.bottom_up.global_goal_evaluator import (
     BOTTOM_UP_EVALUATOR_MODELS, PIPELINE_POLICY_VERSION,
     BOTTOM_UP_EVALUATOR_TEMPERATURE, evaluate_all_branches,
+    CRITIC1_FEW_SHOT_EXAMPLE_COUNT, evaluator_examples,
 )
 from src.bottom_up.goal_similarity import (
     analyze_similarities, similarity_configuration, build_cosine_payload,
@@ -261,9 +262,20 @@ def run_global_goal_cycle(
     evaluator_ablation=False, evaluation_output_directory=None,
     max_iterations=DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS, actors: Actors | None = None,
     verbose: bool = False, output_file_prefix: str | None = None,
+    evaluator_few_shot_examples: int | None = None,
+    evaluator_temperature: float | None = None,
+    parent_threshold: float | None = None, duplicate_threshold: float | None = None,
 ) -> GlobalGoalCycleResult:
     if not 1 <= max_iterations <= DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS:
         raise ValueError("max_iterations must be between 1 and 25")
+    evaluator_few_shot_examples = (CRITIC1_FEW_SHOT_EXAMPLE_COUNT if evaluator_few_shot_examples is None
+                                   else evaluator_few_shot_examples)
+    evaluator_examples(evaluator_few_shot_examples)
+    evaluator_temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if evaluator_temperature is None else evaluator_temperature
+    if not 0 <= evaluator_temperature <= 2:
+        raise ValueError("Evaluator temperature must be between 0 and 2")
+    similarity_options = {"parent_threshold": parent_threshold, "duplicate_threshold": duplicate_threshold}
+    active_similarity = similarity_configuration(**similarity_options)
     file_prefix = ""
     if output_file_prefix is not None:
         safe_name = re.sub(r"[^\w.-]+", "_", output_file_prefix).strip("._")
@@ -279,10 +291,11 @@ def run_global_goal_cycle(
     config = {"pipeline_policy_version": PIPELINE_POLICY_VERSION,
               "output_file_prefix": file_prefix,
               "evaluator_models": list(BOTTOM_UP_EVALUATOR_MODELS),
-              "evaluator_temperature": BOTTOM_UP_EVALUATOR_TEMPERATURE,
+              "evaluator_temperature": evaluator_temperature,
+              "evaluator_few_shot_examples": evaluator_few_shot_examples,
               "evaluator_response_format": "json_schema",
               "evaluator_endpoint": "/v1/chat/completions",
-              "similarity": similarity_configuration(), "completeness_enabled": False,
+              "similarity": active_similarity, "completeness_enabled": False,
               "new_goal_discovery": "disabled",
               "direct_llg_audit_enabled": False,
               "max_global_iterations": max_iterations,
@@ -315,7 +328,7 @@ def run_global_goal_cycle(
         branches = _branches_from_embedded_parents(current_hlgs, current_llgs)
         reconstructions = {k: _coerce_model(v, BottomUpHighLevelGoal, context="reconstruction")
                            for k, v in run_stage("reconstruction", reconstruct_all_branches, branches).items()}
-        analysis = run_stage("similarity", analyze_similarities, branches, reconstructions)
+        analysis = run_stage("similarity", analyze_similarities, branches, reconstructions, **similarity_options)
         config["similarity"] = analysis["configuration"]
         cosine_payload = build_cosine_payload(branches, reconstructions, analysis, iteration=iteration)
         if evaluation_output_directory is not None:
@@ -343,7 +356,8 @@ def run_global_goal_cycle(
         evaluations = run_stage("documentary_review", evaluate_all_branches,
             project_description, branches, reconstructions, actors=known_actors,
             on_global_vote=save_global_vote,
-            on_evaluation=checkpoint, similarity_analysis=analysis, cosine_payload=cosine_payload)
+            on_evaluation=checkpoint, similarity_analysis=analysis, cosine_payload=cosine_payload,
+            few_shot_example_count=evaluator_few_shot_examples, evaluator_temperature=evaluator_temperature)
         evaluations = {k: _coerce_model(v, GlobalGoalEvaluationResult, context="global review")
                        for k, v in evaluations.items()}
         start_hlgs, start_llgs = current_hlgs, current_llgs
