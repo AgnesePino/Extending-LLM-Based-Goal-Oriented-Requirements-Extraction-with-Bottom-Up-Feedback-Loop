@@ -5,11 +5,12 @@ import os
 from collections import Counter
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from src.bottom_up.goal_similarity import analyze_similarities, build_cosine_payload
 from src.data_model import (
     Actors,
+    BottomUpRepairFeedback,
     EvaluatorVoteRecord,
     GlobalGoalEvaluationDecision,
     GlobalGoalEvaluationResult,
@@ -25,7 +26,7 @@ from src.llm_clients import (
 
 # Configuration
 
-PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v58_three_limits"
+PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v63_direct_llg_groups"
 BOTTOM_UP_EVALUATOR_MODELS = configured_bottom_up_critic_models()
 
 if len(set(BOTTOM_UP_EVALUATOR_MODELS)) != 3 or not all(BOTTOM_UP_EVALUATOR_MODELS):
@@ -48,169 +49,131 @@ Use only this source. Similarity scores and labels are fixed inputs, not questio
 Return one JSON object. Give short documentary reasons. Do not invent requirements."""
 
 # Four source/branch/response examples, shared by all three evaluators.
-FEW_SHOT_EXAMPLES = [
-    {
-        "source": "Members reserve tools.",
-        "actor": "Member",
-        "branches": [
-            {
-                "branch_id": "a",
-                "hlg": "Reserve tools",
-                "hlg_prime": "Request tool reservations",
-                "relationship": "EQUIVALENT"
-            }
-        ],
-        "response": {
-            "decisions": [
-                {
-                    "branch_id": "a",
-                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                    "rationale": "Tool reservations are documented."
-                }
-            ]
-        }
-    },
-    {
-        "source": "Members reserve tools and edit only their own profile. Tool auctions are excluded.",
-        "actor": "Member",
-        "branches": [
-            {
-                "branch_id": "a",
-                "hlg": "Edit all member profiles",
-                "hlg_prime": "Edit my profile",
-                "relationship": "NOT_EQUIVALENT",
-                "original_hlg_comparisons_complete": True
-            },
-            {
-                "branch_id": "c",
-                "hlg": "Reserve tools",
-                "hlg_prime": "Auction tools",
-                "relationship": "NOT_EQUIVALENT"
-            }
-        ],
-        "response": {
-            "decisions": [
-                {
-                    "branch_id": "a",
-                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
-                    "rationale": "Own-profile editing corrects the existing scope.",
-                    "rewriting_focus": "Limit editing to the member's own profile."
-                },
-                {
-                    "branch_id": "c",
-                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                    "rationale": "Auctions are excluded; tool reservations remain valid.",
-                    "regenerate_llgs": True,
-                    "regeneration_feedback": "Generate tool-reservation capabilities."
-                }
-            ]
-        }
-    },
-    {
-        "source": "Members reserve tools; auctions are excluded.",
-        "actor": "Member",
-        "branches": [
-            {
-                "branch_id": "a",
-                "hlg": "Auction tools",
-                "hlg_prime": "Run tool auctions",
-                "relationship": "EQUIVALENT"
-            }
-        ],
-        "response": {
-            "decisions": [
-                {
-                    "branch_id": "a",
-                    "decision": "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-                    "rationale": "Auctions are explicitly excluded."
-                }
-            ]
-        }
-    },
-    {
-        "source": "Members reserve tools.",
-        "actor": "Member",
-        "branches": [
-            {
-                "branch_id": "a",
-                "hlg": "Reserve tools",
-                "hlg_prime": "Request tool reservations",
-                "relationship": "EQUIVALENT",
-                "duplicate_label": "DUPLICATE",
-                "duplicate_candidates": [
-                    "b"
-                ]
-            },
-            {
-                "branch_id": "b",
-                "hlg": "Request tool reservations",
-                "hlg_prime": "Reserve tools",
-                "relationship": "EQUIVALENT",
-                "duplicate_label": "DUPLICATE",
-                "duplicate_candidates": [
-                    "a"
-                ]
-            }
-        ],
-        "duplicate_candidates": [
-            {
-                "branch_id": "a",
-                "other_branch_id": "b"
-            }
-        ],
-        "response": {
-            "decisions": [
-                {
-                    "branch_id": "a",
-                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-                    "rationale": "This parent represents the documented outcome."
-                },
-                {
-                    "branch_id": "b",
-                    "decision": "DUPLICATE_REMOVAL",
-                    "rationale": "The same member outcome is covered by a.",
-                    "surviving_branch_id": "a"
-                }
-            ]
-        }
-    }
-]
+FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools.',
+  'actor': 'Member',
+  'branches': [{'branch_id': 'a',
+                'hlg': 'Reserve tools',
+                'hlg_prime': 'Request tool reservations',
+                'relationship': 'EQUIVALENT'}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'Tool reservations are documented.'}]}},
+ {'source': 'Members edit only their own profile.',
+  'actor': 'Member',
+  'branches': [{'branch_id': 'a',
+                'hlg': 'Edit all member profiles',
+                'hlg_prime': 'Edit my profile',
+                'relationship': 'NOT_EQUIVALENT',
+                'original_hlg_comparisons_complete': True}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'Own-profile editing corrects the existing scope.',
+                              'feedback': {'critique': "For the goal 'Edit all member profiles': Own-profile "
+                                                       'editing corrects the existing scope. Limit editing '
+                                                       "to the member's own profile."}}]}},
+ {'source': 'Members reserve tools; auctions and tool sales are excluded.',
+  'actor': 'Member',
+  'branches': [{'branch_id': 'a',
+                'hlg': 'Auction tools',
+                'hlg_prime': 'Run tool auctions',
+                'relationship': 'EQUIVALENT'},
+               {'branch_id': 'b',
+                'hlg': 'Reserve and auction tools',
+                'hlg_prime': 'Manage tool reservations and auctions',
+                'relationship': 'EQUIVALENT',
+                'original_hlg_comparisons_complete': True},
+               {'branch_id': 'c',
+                'hlg': 'Auction tools',
+                'hlg_prime': 'Sell tools',
+                'relationship': 'NOT_EQUIVALENT'}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'Auctions are explicitly excluded.'},
+                             {'branch_id': 'b',
+                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'Despite numerical equivalence, only reservations are documented; '
+                                           'auctions are excluded from both goals.',
+                              'feedback': {'critique': "For the goal 'Reserve and auction tools': Despite "
+                                                       'numerical equivalence, only reservations are '
+                                                       'documented; auctions are excluded from both goals. '
+                                                       'Preserve tool reservations and remove the '
+                                                       'unsupported auction capability.'}},
+                             {'branch_id': 'c',
+                              'decision': 'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'The parent concerns auctions and the reconstruction concerns '
+                                           'sales; neither outcome is documented. Removing this branch loses '
+                                           'no supported capability.'}]}},
+ {'source': 'Members reserve tools.',
+  'actor': 'Member',
+  'branches': [{'branch_id': 'a',
+                'hlg': 'Reserve tools',
+                'hlg_prime': 'Request tool reservations',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'DUPLICATE',
+                'duplicate_candidates': ['b']},
+               {'branch_id': 'b',
+                'hlg': 'Request tool reservations',
+                'hlg_prime': 'Reserve tools',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'DUPLICATE',
+                'duplicate_candidates': ['a']}],
+  'duplicate_candidates': [{'branch_id': 'a', 'other_branch_id': 'b'}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'This parent represents the documented outcome.'},
+                             {'branch_id': 'b',
+                              'decision': 'DUPLICATE_REMOVAL',
+                              'rationale': 'The same member outcome is covered by a.',
+                              'surviving_branch_id': 'a'}]}}]
 
 
 # Response contract
 
 # Synthetic additions for the six-example experiment; the original four stay intact.
-EXTRA_FEW_SHOT_EXAMPLES = [
-    {
-        "source": "Librarians record returned books. Fee payments are excluded.",
-        "actor": "Librarian",
-        "branches": [{"branch_id": "a", "hlg": "Record book returns",
-                      "hlg_prime": "Collect late fees", "relationship": "NOT_EQUIVALENT"}],
-        "response": {"decisions": [{"branch_id": "a",
-            "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-            "rationale": "Returns are documented; payments are excluded.",
-            "regenerate_llgs": True,
-            "regeneration_feedback": "Generate capabilities for recording book returns only."}]},
-    },
-    {
-        "source": "Editors publish only their own articles.",
-        "actor": "Editor",
-        "branches": [{"branch_id": "a", "hlg": "Publish all editors' articles",
-                      "hlg_prime": "Publish my articles", "relationship": "NOT_EQUIVALENT",
-                      "original_hlg_comparisons_complete": True}],
-        "response": {"decisions": [{"branch_id": "a",
-            "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
-            "rationale": "Publication is restricted to the editor's own articles.",
-            "rewriting_focus": "Restrict publication to articles owned by the acting editor."}]},
-    },
-]
+EXTRA_FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools and cancel their reservations. Both capabilities are required.',
+  'actor': 'Member',
+  'branches': [{'branch_id': 'a',
+                'hlg': 'Reserve tools',
+                'hlg_prime': 'Request tool reservations',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'DUPLICATE',
+                'duplicate_candidates': ['b']},
+               {'branch_id': 'b',
+                'hlg': 'Cancel tool reservations',
+                'hlg_prime': 'Cancel requested tool reservations',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'DUPLICATE',
+                'duplicate_candidates': ['a']}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'The source requires making reservations; cancellation is a '
+                                           'separate documented capability, so numerical duplication does '
+                                           'not justify removal.'},
+                             {'branch_id': 'b',
+                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': 'The source also requires cancellation; removing this branch '
+                                           'would lose an independent capability.'}]}},
+ {'source': 'Editors publish only their own articles.',
+  'actor': 'Editor',
+  'branches': [{'branch_id': 'a',
+                'hlg': "Publish all editors' articles",
+                'hlg_prime': 'Publish my articles',
+                'relationship': 'NOT_EQUIVALENT',
+                'original_hlg_comparisons_complete': True}],
+  'response': {'decisions': [{'branch_id': 'a',
+                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'rationale': "Publication is restricted to the editor's own articles.",
+                              'feedback': {'critique': "For the goal 'Publish all editors' articles': "
+                                                       "Publication is restricted to the editor's own "
+                                                       'articles. Restrict publication to articles owned by '
+                                                       'the acting editor.'}}]}}]
 
 
 def evaluator_examples(count=None):
     """Nested example sets, independent of evaluation ground truths."""
     count = CRITIC1_FEW_SHOT_EXAMPLE_COUNT if count is None else count
-    if count not in (0, 2, 4, 6):
-        raise ValueError("Evaluator example count must be 0, 2, 4 or 6")
+    if count not in (0, 1, 2, 4, 6):
+        raise ValueError("Evaluator example count must be 0, 1, 2, 4 or 6")
     return (FEW_SHOT_EXAMPLES + EXTRA_FEW_SHOT_EXAMPLES)[:count]
 
 
@@ -219,44 +182,43 @@ class DocumentaryDecision(BaseModel):
 
     branch_id: str = Field(min_length=1)
     decision: Literal[
-        "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
-        "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL",
-        "DUPLICATE_REMOVAL",
+        "KEEP_ORIGINAL_HIGH_LEVEL_GOAL", "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+        "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL", "DUPLICATE_REMOVAL",
     ]
     rationale: str = Field(min_length=1)
-    rewriting_focus: str | None = None
-    regenerate_llgs: StrictBool = False
-    regeneration_feedback: str | None = None
+    feedback: BottomUpRepairFeedback | None = None
     surviving_branch_id: str | None = None
 
     @model_validator(mode="after")
     def check_parameters(self):
-        for value in (
-            self.branch_id,
-            self.rationale,
-            self.rewriting_focus,
-            self.regeneration_feedback,
-            self.surviving_branch_id,
-        ):
+        for value in (self.branch_id, self.rationale, self.surviving_branch_id):
             if value is not None and not value.strip():
                 raise ValueError("Text fields cannot be blank")
-        if bool(self.rewriting_focus) != (self.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL"):
-            raise ValueError("Only REWRITE requires rewriting_focus")
+        if bool(self.feedback) != (self.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL"):
+            raise ValueError("Only REWRITE requires textual feedback")
         if bool(self.surviving_branch_id) != (self.decision == "DUPLICATE_REMOVAL"):
             raise ValueError("Only DUPLICATE_REMOVAL requires surviving_branch_id")
-        if self.regenerate_llgs and self.decision != "KEEP_ORIGINAL_HIGH_LEVEL_GOAL":
-            raise ValueError("Only KEEP may request regeneration")
-        if bool(self.regeneration_feedback) != self.regenerate_llgs:
-            raise ValueError("Only regeneration requires regeneration_feedback")
         return self
 
 
-# Numerical validation and structured-output schema
-
-
 def _operation_key(vote):
-    return f"{vote.decision}|regenerate={vote.regenerate_llgs}|survivor={vote.surviving_branch_id or ''}"
+    return f"{vote.decision}|survivor={vote.surviving_branch_id or ''}"
+
+
+def _merge_agreeing_judgments(records, operation_key):
+    """Join only the feedback prose of the agreeing evaluators for generation."""
+    votes = [DocumentaryDecision.model_validate(record.parsed_response)
+             for record in records if record.status == "VALID" and record.decision == operation_key]
+    if len(votes) < EVALUATOR_VOTING_QUORUM:
+        raise ValueError("Merged feedback requires at least two agreeing valid votes")
+
+    def join_text(parts):
+        return "\n\n".join(dict.fromkeys(part.strip() for part in parts if part and part.strip()))
+
+    updates = {"rationale": join_text(vote.rationale for vote in votes)}
+    if votes[0].feedback:
+        updates["feedback"] = {"critique": join_text(vote.feedback.critique for vote in votes)}
+    return DocumentaryDecision.model_validate({**votes[0].model_dump(), **updates})
 
 
 def _documentary_response_schema(branches, analysis):
@@ -264,8 +226,7 @@ def _documentary_response_schema(branches, analysis):
     variants = []
     actions = [
         ("KEEP_ORIGINAL_HIGH_LEVEL_GOAL", []),
-        ("KEEP_ORIGINAL_HIGH_LEVEL_GOAL", ["regenerate_llgs", "regeneration_feedback"]),
-        ("REWRITE_ORIGINAL_HIGH_LEVEL_GOAL", ["rewriting_focus"]),
+        ("REWRITE_ORIGINAL_HIGH_LEVEL_GOAL", ["feedback"]),
         ("REMOVE_ORIGINAL_HIGH_LEVEL_GOAL", []),
         ("DUPLICATE_REMOVAL", ["surviving_branch_id"]),
     ]
@@ -282,7 +243,7 @@ def _documentary_response_schema(branches, analysis):
                 "rationale": "Schema eligibility",
             }
             for name in fields:
-                probe[name] = True if name == "regenerate_llgs" else "Required feedback"
+                probe[name] = {"critique": "Required feedback"} if name == "feedback" else "Required feedback"
             if action == "DUPLICATE_REMOVAL":
                 candidates = analysis["branches"][branch.branch_id].get("duplicate_candidates", [])
                 if not candidates:
@@ -301,9 +262,10 @@ def _documentary_response_schema(branches, analysis):
             "rationale": {"type": "string", "minLength": 1},
         }
         for name in fields:
-            properties[name] = ({"type": "boolean", "enum": [True]} if name == "regenerate_llgs"
-                                else {"type": "string", "enum": ids} if name == "surviving_branch_id"
-                                else {"type": "string", "minLength": 1})
+            properties[name] = (
+                {"type": "object", "properties": {"critique": {"type": "string", "minLength": 1}},
+                 "required": ["critique"], "additionalProperties": False}
+                if name == "feedback" else {"type": "string", "enum": ids})
         variants.append({
             "type": "object",
             "properties": properties,
@@ -341,21 +303,69 @@ def _validate_decision(item, branch, analysis):
         if vote.surviving_branch_id not in record["duplicate_candidates"]:
             raise ValueError("Survivor must be a direct same-actor cosine candidate")
     elif vote.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
-        if not record["reconstructable"] or record["relationship"] != "NOT_EQUIVALENT":
-            raise ValueError("REWRITE requires a non-equivalent, reconstructable HLG prime")
+        if not record["reconstructable"] or record["relationship"] not in {"EQUIVALENT", "NOT_EQUIVALENT"}:
+            raise ValueError("REWRITE requires a reconstructable HLG prime and a valid numerical relationship")
         if record.get("original_hlg_comparisons_complete") is False:
             raise ValueError("Cannot choose REWRITE before completing comparisons with original HLGs")
     elif vote.decision == "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL":
-        if record["relationship"] != "EQUIVALENT":
-            raise ValueError("REMOVE requires numerical equivalence")
-    elif vote.regenerate_llgs != (record["relationship"] == "NOT_EQUIVALENT"):
-        if record["relationship"] == "NOT_EQUIVALENT":
-            raise ValueError("NOT_EQUIVALENT: KEEP requires regenerate_llgs=true and regeneration_feedback; plain KEEP is invalid")
-        raise ValueError("EQUIVALENT: KEEP must omit regenerate_llgs and regeneration_feedback")
+        if record["relationship"] not in {"EQUIVALENT", "NOT_EQUIVALENT"}:
+            raise ValueError("REMOVE requires a valid numerical relationship")
     return vote
 
 
 # Global documentary prompt
+
+
+GLOBAL_REVIEW_INSTRUCTIONS = """Review goals against the supplied project documentation.
+Numerical relationships and duplicate candidates are fixed inputs.
+
+BRANCH ANALYSIS
+Use these checks within one global review, without returning extra diagnostic fields:
+1. Read the fixed relationship between the original HLG and HLG prime.
+2. Check whether the original HLG is fully, partly, or not supported by the source.
+3. Check documentary support for HLG prime separately from its parent.
+4. Inspect matches with all original HLGs, including goals of other actors.
+5. Check whether numerical duplicate candidates are actual functional redundancies.
+6. Check the documented responsibility of the parent actor. An actor difference
+   alone is not evidence that the original goal must be rewritten or removed.
+7. Read whether the branch is reconstructable. Missing children alone do not
+   establish that the original goal is undocumented.
+Do not infer reconstruction fidelity or individual LLG quality: their texts are not supplied.
+
+DECISION CONDITIONS
+Return one of these four actions for every branch:
+- KEEP_ORIGINAL_HIGH_LEVEL_GOAL: retain a correctly formulated, documented
+  functional outcome when the documentary analysis justifies preserving it.
+  EQUIVALENT alone does not establish documentary validity.
+- REWRITE_ORIGINAL_HIGH_LEVEL_GOAL: correct the SAME functional outcome when
+  NOT_EQUIVALENT and HLG prime provides a documented correction, or when
+  EQUIVALENT but only partly documented. Preserve supported capabilities and
+  remove unsupported scope. HLG prime is a reference, not text to copy blindly.
+- REMOVE_ORIGINAL_HIGH_LEVEL_GOAL: remove the parent and children only when the
+  shared EQUIVALENT outcome is entirely undocumented, or both NOT_EQUIVALENT
+  outcomes are entirely undocumented. Explain why no documented capability is lost.
+- DUPLICATE_REMOVAL: remove a direct same-actor duplicate candidate only if the
+  retained parent preserves all independent functionality. Specify surviving_branch_id.
+  Keep the most complete valid parent; ties follow registry order. No child transfer.
+
+Justify the chosen action from the source, not from a numerical label alone.
+NOT_EQUIVALENT does not automatically require rewriting the parent. A match
+with another original HLG does not automatically authorize removal or child transfer.
+Do not introduce an unresolved-review action, abstention, or a separate LLG repair.
+Give one short rationale identifying the documentary evidence, the relevant
+problem or absence of a problem, and why the selected action is justified.
+
+For REWRITE return feedback: {"critique": "..."}. Write a self-contained textual
+judgment for the HLG generator, naming the goal in natural prose and explaining
+what should change and what should remain. Address the correction of the HLG
+itself; do not supply a replacement collection or instructions for editing LLGs.
+Only this text is passed as correction
+feedback. Keep branch_id, decision, rationale and surviving_branch_id outside
+feedback: they are orchestration metadata, not generator instructions.
+The feedback of the two or three agreeing evaluators will be joined as prose.
+Do not request a separate LLG regeneration action. A rewrite starts the original
+top-down pipeline at HLG generation; after HLG approval, top-down generates its LLGs.
+"""
 
 
 def _critic1_prompt(
@@ -372,33 +382,32 @@ def _critic1_prompt(
         if cosine_payload is not None
         else build_cosine_payload(branches, reconstructions, analysis)
     )
+    selected_examples = evaluator_examples(few_shot_example_count)
     examples = "\n\n".join(
         f"Example {i}\nDescription: {e['source']}\n"
         f"Actor: {e['actor']}\nGoals: {json.dumps(e['branches'], separators=(',', ':'))}\n"
         f"Output: {json.dumps(e['response'], separators=(',', ':'))}"
-        for i, e in enumerate(evaluator_examples(few_shot_example_count), 1)
+        for i, e in enumerate(selected_examples, 1)
     )
     example_section = f"EXAMPLES (fictional requirements, not project evidence)\n{examples}\n\n" if examples else ""
-    return f"""TASK
+    return f"""{GLOBAL_REVIEW_INSTRUCTIONS}
+
+OPERATIONAL RESPONSE REQUIREMENTS
 Review each branch against the source for its actor. HLG prime comes from its LLGs.
 Use the supplied cosine labels as fixed facts; do not reassess similarity.
 Do not audit LLG quality or judge reconstruction fidelity; review the goals only.
 original_branch_index refers to the branch list, starting at 0; absent comparison status means VALID.
+Every HLG prime is compared with ALL original HLGs regardless of actor, including
+its own parent. Cross-actor matches are review context, not duplicate candidates.
+Only prime/prime duplicate comparisons remain restricted to the same actor.
+The preceding description states the default setup. This request contains
+{len(selected_examples)} examples; use only the examples actually supplied below.
 
-DECISIONS
-- EQUIVALENT: documented outcome -> KEEP_ORIGINAL_HIGH_LEVEL_GOAL;
-  entirely unsupported outcome -> REMOVE_ORIGINAL_HIGH_LEVEL_GOAL.
-- NOT_EQUIVALENT + documented prime: correct the SAME outcome ->
-  REWRITE_ORIGINAL_HIGH_LEVEL_GOAL + rewriting_focus. Never create a new HLG.
-- NOT_EQUIVALENT + unsupported prime + valid parent -> KEEP_ORIGINAL_HIGH_LEVEL_GOAL
-  + regenerate_llgs=true + regeneration_feedback. Plain KEEP is forbidden here.
-- DUPLICATE is only a candidate. Use DUPLICATE_REMOVAL + surviving_branch_id only
-  for a direct duplicate_candidates member if the source justifies one parent
-  without losing autonomous capabilities. Keep the most complete valid parent;
-  ties: registry order. No child transfer, circular or transitive removals.
-- Empty branch: KEEP with regeneration only if the parent is documented.
-  Never REWRITE from empty children or incomplete original comparisons.
-  Choose one of the four permitted actions for every requested branch.
+Check documentary support for BOTH parent and HLG prime. Unsupported prime alone
+never justifies removing a documented parent. Empty children alone do not justify
+removal either. Never REWRITE from empty children or incomplete original comparisons.
+DUPLICATE is separate from EQUIVALENT/NOT_EQUIVALENT; choose a direct candidate only.
+No circular or transitive removals. The bottom-up correction entry point is HLG generation; top-down then handles LLGs.
 
 {example_section}PROJECT DESCRIPTION
 {description}
@@ -411,7 +420,8 @@ OUTPUT
 Only {{"decisions":[...]}} matching the schema. Every requested branch exactly once.
 No abstention, omitted branches, empty decisions or additional action labels.
 Each entry: branch_id, decision, one short source-based rationale; add only the
-fields required above. Do not repeat goals, scores, labels or unused fields.
+fields required above. For REWRITE include feedback with critique only.
+No scores, flags, JSON decisions or branch IDs inside feedback.
 """
 
 
@@ -608,7 +618,7 @@ def evaluate_all_branches(
                 })
         else:
             key, count = counts.most_common(1)[0]
-            vote = DocumentaryDecision.model_validate(next(r for r in valid if r.decision == key).parsed_response)
+            vote = _merge_agreeing_judgments(valid, key)
             if match["status"] != "VALID":
                 result = _inconclusive(branch, vote.rationale, local, match)
             else:
@@ -616,7 +626,7 @@ def evaluate_all_branches(
                 hlg = HighLevelGoalEvaluation(
                     rationale=vote.rationale, decision=vote.decision,
                     reconstruction_relationship=match["relationship"], requires_llg_evaluation=False,
-                    rewriting_focus=vote.rewriting_focus, covered_by_branch_id=vote.surviving_branch_id,
+                    rewriting_focus=vote.feedback.critique if vote.feedback else None, covered_by_branch_id=vote.surviving_branch_id,
                     covered_by_high_level_goal_name=survivor.high_level_goal.name if survivor else None,
                     structural_decision=vote.model_dump(exclude_none=True), voter_count=3,
                     valid_vote_count=len(valid), winning_vote_count=count,
@@ -625,17 +635,15 @@ def evaluate_all_branches(
                     final = GlobalGoalEvaluationDecision.REMOVE_ORIGINAL_HIGH_LEVEL_GOAL
                 elif vote.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
                     final = GlobalGoalEvaluationDecision.REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
-                elif vote.regenerate_llgs:
-                    final = GlobalGoalEvaluationDecision.REGENERATE_LOW_LEVEL_GOALS
                 else:
                     final = GlobalGoalEvaluationDecision.CONFIRM_BRANCH
                 replacement = HighLevelGoalReplacementRequest(
                     rationale=vote.rationale, actor=branch.high_level_goal.actor,
-                    generation_project_description=project_description) if vote.rewriting_focus else None
+                    generation_project_description=project_description) if vote.feedback else None
                 result = GlobalGoalEvaluationResult(
                     branch_id=branch.branch_id, rationale=vote.rationale, final_decision=final,
                     high_level_evaluation=hlg, replacement_request=replacement,
-                    regeneration_feedback=vote.regeneration_feedback, similarity=match,
+                    feedback=vote.feedback, similarity=match,
                     critic_votes={"documentary": local}, evaluation_status="DECIDED")
         results[branch.branch_id] = result
         print(f"[bottom-up] ensemble | branch={branch.branch_id} | cosine={match.get('score')} | "
@@ -643,7 +651,7 @@ def evaluate_all_branches(
               f"decision={result.final_decision.value}\n  rationale: {result.rationale}", flush=True)
     # Check all survivors against the original aggregate, not a mutated order-dependent graph.
     kept = {key for key, result in results.items() if result.final_decision in {
-        GlobalGoalEvaluationDecision.CONFIRM_BRANCH, GlobalGoalEvaluationDecision.REGENERATE_LOW_LEVEL_GOALS}}
+        GlobalGoalEvaluationDecision.CONFIRM_BRANCH}}
     for branch in branches:
         survivor = results[branch.branch_id].high_level_evaluation.covered_by_branch_id
         if survivor and survivor not in kept:

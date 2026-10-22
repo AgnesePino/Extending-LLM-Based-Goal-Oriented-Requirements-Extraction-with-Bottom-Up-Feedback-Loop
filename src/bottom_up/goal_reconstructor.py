@@ -14,9 +14,8 @@ is a lossless diagnostic summary, not a charitable abstraction: it must expose
 every distinct functional capability present in the children, including an
 outlier that does not belong with the others. Never silently discard, weaken,
 or generalize an inconvenient child merely to make the set look coherent.
-Explain exactly how every supplied LLG contributes to the reconstructed scope.
 Do not invent functionality and do not mention the hidden parent goal. Return
-only the requested JSON."""
+only the requested JSON containing the reconstructed goal, without a rationale."""
 
 
 def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
@@ -26,12 +25,6 @@ def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
             reconstructed_high_level_goal=(
                 "No High-Level Goal can be reconstructed because this branch "
                 "has no Low-Level Goals."
-            ),
-            rationale=(
-                "The empty decomposition is a material coverage gap. Evaluate "
-                "the original HLG normally; if it is valid, generate its "
-                "required Low-Level Goals instead of removing it merely because "
-                "the branch is empty."
             ),
             source_low_level_goal_ids=[],
             source_low_level_goal_map={},
@@ -53,22 +46,20 @@ Mandatory lossless reconstruction rules:
   capability explicitly in the reconstructed HLG so the evaluator can detect
   the mismatch;
 - do not infer missing operations that are not present in the supplied LLGs;
-- in the rationale, reference every llg_NNN and state the capability it adds.
+- return only the reconstructed goal, without explanations or a rationale.
 
 Low-Level Goals:
 {goals}
 
 Output only valid JSON:
 {{
-  "reconstructed_high_level_goal": "...",
-  "rationale": "Brief explanation of the inferred intention."
+  "reconstructed_high_level_goal": "..."
 }}""".format(goals="\n".join(lines))
 
     output = generate_response(prompt, SYSTEM_PROMPT, BottomUpHighLevelGoalLLMOutput)
     return BottomUpHighLevelGoal(
         branch_id=branch.branch_id,
         reconstructed_high_level_goal=output.reconstructed_high_level_goal,
-        rationale=output.rationale,
         source_low_level_goal_ids=[goal.name for goal in branch.low_level_goals],
     )
 

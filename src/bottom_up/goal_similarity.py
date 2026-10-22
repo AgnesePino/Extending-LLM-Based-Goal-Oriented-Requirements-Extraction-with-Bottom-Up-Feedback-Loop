@@ -14,12 +14,17 @@ from src.data_model import BottomUpHighLevelGoal, GoalBranch
 EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
 EMBEDDING_REVISION = os.getenv("BOTTOM_UP_EMBEDDING_REVISION", "main")
 DEFAULT_HLG_SIMILARITY_THRESHOLD = 0.68
-HLG_SIMILARITY_THRESHOLD = float(os.getenv(
-    "BOTTOM_UP_HLG_SIMILARITY_THRESHOLD", str(DEFAULT_HLG_SIMILARITY_THRESHOLD)))
-DUPLICATE_SIMILARITY_THRESHOLD = float(os.getenv("BOTTOM_UP_DUPLICATE_SIMILARITY_THRESHOLD", "0.80"))
-if not all(0 <= threshold <= 1 for threshold in
-           (HLG_SIMILARITY_THRESHOLD, DUPLICATE_SIMILARITY_THRESHOLD)):
-    raise ValueError("Bottom-up similarity thresholds must be between 0 and 1")
+_configured_thresholds = [float(value) for name in (
+    "BOTTOM_UP_SIMILARITY_THRESHOLD", "BOTTOM_UP_HLG_SIMILARITY_THRESHOLD",
+    "BOTTOM_UP_DUPLICATE_SIMILARITY_THRESHOLD") if (value := os.getenv(name)) is not None]
+if len(set(_configured_thresholds)) > 1:
+    raise ValueError("Equivalence and duplicate candidates require one shared similarity threshold")
+SIMILARITY_THRESHOLD = (_configured_thresholds[0] if _configured_thresholds
+                        else DEFAULT_HLG_SIMILARITY_THRESHOLD)
+if not 0 <= SIMILARITY_THRESHOLD <= 1:
+    raise ValueError("Bottom-up similarity threshold must be between 0 and 1")
+# Compatibility names refer to the same value; callers cannot set them separately.
+HLG_SIMILARITY_THRESHOLD = DUPLICATE_SIMILARITY_THRESHOLD = SIMILARITY_THRESHOLD
 
 
 @lru_cache(maxsize=1)
@@ -55,28 +60,33 @@ def _embedding_model():
 
 
 def similarity_configuration(*, parent_threshold=None, duplicate_threshold=None) -> dict:
-    parent_threshold = HLG_SIMILARITY_THRESHOLD if parent_threshold is None else parent_threshold
-    duplicate_threshold = DUPLICATE_SIMILARITY_THRESHOLD if duplicate_threshold is None else duplicate_threshold
-    if not all(0 <= value <= 1 for value in (parent_threshold, duplicate_threshold)):
-        raise ValueError("Similarity thresholds must be between 0 and 1")
+    supplied = [value for value in (parent_threshold, duplicate_threshold) if value is not None]
+    if len(set(supplied)) > 1:
+        raise ValueError("Equivalence and duplicate candidates require one shared similarity threshold")
+    threshold = supplied[0] if supplied else SIMILARITY_THRESHOLD
+    if isinstance(threshold, bool) or not 0 <= threshold <= 1:
+        raise ValueError("Similarity threshold must be between 0 and 1")
+    parent_threshold = duplicate_threshold = threshold
     return {
         "embedding_model": EMBEDDING_MODEL,
         "requested_revision": EMBEDDING_REVISION,
+        "similarity_threshold": threshold,
+        "threshold_policy": "shared_equivalence_and_duplicate_candidates",
         "parent_threshold": parent_threshold,
         "duplicate_threshold": duplicate_threshold,
         "thresholds_validated": False,
         "parent_threshold_calibration": {
-            "status": "preliminary_in_sample",
-            "dataset": "SIA Project 25 26, iteration 1 HLG versus HLG prime",
-            "annotation": "assistant semantic review; not independently validated",
-            "pair_count": 8,
+            "status": "provisional_shared_threshold",
+            "annotation": "user-directed provisional value; not independently validated",
             "selected_default": DEFAULT_HLG_SIMILARITY_THRESHOLD,
             "active_threshold_matches_default": parent_threshold == DEFAULT_HLG_SIMILARITY_THRESHOLD,
-            "report": "output/analysis/SIA_Project_25_26_hlg_prime_calibration.json",
         },
         "duplicate_threshold_calibrated": False,
-        "original_hlg_comparisons_scope": "same_actor_original_hlgs_including_own",
+        "original_hlg_comparisons_scope": "all_original_hlgs_including_own",
+        "original_hlg_actor_filter": "none",
+        "duplicate_comparisons_scope": "same_actor_reconstructed_hlgs",
         "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+        "actor_filter_scope": "duplicate_comparisons_only",
         "original_hlg_comparisons_usage": "documentary_review",
         "parent_text": "name + newline + description",
         "preprocessing": "none",
@@ -135,7 +145,7 @@ def _actor_key(branch: GoalBranch) -> str:
 def analyze_similarities(branches: list[GoalBranch],
                          reconstructions: dict[str, BottomUpHighLevelGoal], *,
                          parent_threshold=None, duplicate_threshold=None) -> dict:
-    """Return parent labels and same-actor peer/original comparisons.
+    """Compare primes to all original HLGs; restrict prime pairs to one actor.
 
     An embedding error makes only the affected branch inconclusive. Empty
     decompositions have no score and cannot be proposed as duplicate candidates.
@@ -143,9 +153,7 @@ def analyze_similarities(branches: list[GoalBranch],
     config = similarity_configuration(parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
     parent_threshold = config["parent_threshold"]
     duplicate_threshold = config["duplicate_threshold"]
-    records, vectors, actor_groups = {}, {}, {}
-    for branch in branches:
-        actor_groups.setdefault(_actor_key(branch), []).append(branch)
+    records, vectors = {}, {}
     for branch in branches:
         record = {"status": "VALID", "score": None, "relationship": "NOT_EQUIVALENT",
                   "reconstructable": bool(branch.low_level_goals),
@@ -179,13 +187,11 @@ def analyze_similarities(branches: list[GoalBranch],
                 records[left.branch_id]["duplicate_candidates"].append(right.branch_id)
                 records[right.branch_id]["duplicate_candidates"].append(left.branch_id)
 
-    # Every reconstructed goal versus original HLGs of the same actor only,
-    # including its own parent. Filter before computing cosine products.
+    # Every reconstructed goal versus every original HLG, regardless of actor.
+    # The actor filter above applies only to prime/prime duplicate candidates.
     original_vectors, original_errors = {}, {}
-    for group in actor_groups.values():
-        if not any(branch.low_level_goals for branch in group):
-            continue
-        for original in group:
+    if any(branch.low_level_goals for branch in branches):
+        for original in branches:
             try:
                 text = f"{original.high_level_goal.name}\n{original.high_level_goal.description}"
                 original_vectors[original.branch_id] = _encode_text(text)
@@ -199,7 +205,7 @@ def analyze_similarities(branches: list[GoalBranch],
                 prime_vector = _encode_text(reconstructions[branch.branch_id].reconstructed_high_level_goal)
             except Exception as exc:
                 prime_error = f"{type(exc).__name__}: {exc}"
-        for original in actor_groups[_actor_key(branch)]:
+        for original in branches:
             own_parent = original.branch_id == branch.branch_id
             comparison = {"original_branch_id": original.branch_id,
                           "original_hlg_name": original.high_level_goal.name,
@@ -227,7 +233,7 @@ def analyze_similarities(branches: list[GoalBranch],
                          and item["score"] >= parent_threshold]
         record = records[branch.branch_id]
         record["matching_other_original_hlg_ids"] = other_matches
-    config["original_hlg_comparison_count"] = sum(len(group) ** 2 for group in actor_groups.values())
+    config["original_hlg_comparison_count"] = len(branches) ** 2
     config["resolved_revision"] = _resolved_revision()
     return {"configuration": config, "branches": records, "pairs": pairs}
 

@@ -10,11 +10,73 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 from difflib import SequenceMatcher
 
-nltk.download('punkt')
-nltk.download('punkt_tab')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('stopwords')
+def ensure_nltk_resources():
+    """Resolve preprocessing resources on demand, never during module import."""
+    for package, resource in (
+        ('punkt', 'tokenizers/punkt'), ('punkt_tab', 'tokenizers/punkt_tab'),
+        ('wordnet', 'corpora/wordnet'), ('omw-1.4', 'corpora/omw-1.4'),
+        ('stopwords', 'corpora/stopwords'),
+    ):
+        try:
+            nltk.data.find(resource)
+        except LookupError:
+            try:
+                nltk.data.find(resource + '.zip')
+            except LookupError:
+                if not nltk.download(package, quiet=True):
+                    raise RuntimeError(f"Cannot install required NLTK resource: {package}")
+
+
+def aggregate_soft_scores(results):
+    """Original reference-count-weighted P/R, then harmonic F1 (not macro F1)."""
+    results = list(results)
+    weight = sum(row['reference_goal_count'] for row in results)
+    precision = sum(row['precision'] * row['reference_goal_count'] for row in results) / weight if weight else 0.0
+    recall = sum(row['recall'] * row['reference_goal_count'] for row in results) / weight if weight else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {'precision': precision, 'recall': recall, 'f1': f1,
+            'reference_goal_count': weight, 'dataset_count': len(results)}
+
+
+
+def weighted_metric_table(frame, group_columns):
+    """Reference-weighted P/R and harmonic F1 per cohort, distinct from macros.
+
+    Repeated observations of one dataset are averaged before weighting so a
+    dataset does not gain weight from extra repetitions. Reference counts must
+    remain identical within that dataset/cohort. Missing results are excluded,
+    not replaced by zero; the dataset count describes the actual cohort.
+    """
+    import pandas as pd
+    columns = [*group_columns, 'precision', 'recall', 'f1', 'reference_goal_count',
+               'dataset_count', 'aggregation']
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    rows = []
+    for keys, group in frame.groupby(list(group_columns), dropna=False):
+        identity = dict(zip(group_columns, keys if isinstance(keys, tuple) else (keys,)))
+        if (group.groupby('dataset')['reference_goal_count'].nunique() > 1).any():
+            raise ValueError('Reference counts changed within an evaluation cohort')
+        datasets = group.groupby('dataset', as_index=False).agg(
+            precision=('precision', 'mean'), recall=('recall', 'mean'),
+            reference_goal_count=('reference_goal_count', 'first'))
+        result = aggregate_soft_scores(datasets.to_dict('records'))
+        rows.append({**identity, **result, 'aggregation': 'reference_weighted_precision_recall_harmonic_f1'})
+    return pd.DataFrame(rows, columns=columns)
+
+
+def goal_descriptions(container, field):
+    """Use generated descriptions, as exported by the original notebook."""
+    items = container.get(field) if isinstance(container, dict) else container
+    if not isinstance(items, list):
+        raise ValueError(f"Missing goal collection: {field}")
+    texts = []
+    for item in items:
+        text = item if isinstance(item, str) else item.get('description') if isinstance(item, dict) else None
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError("Evaluation requires a nonblank goal description")
+        texts.append(text)
+    return texts
 
 
 class GoalEvaluator:
@@ -27,6 +89,7 @@ class GoalEvaluator:
         self.lemmatizer = WordNetLemmatizer()
         self.preprocess = preprocess
         if preprocess:
+            ensure_nltk_resources()
             self.stop_words = set(stopwords.words('english'))
 
     def preprocess_text(self, text):
@@ -37,6 +100,8 @@ class GoalEvaluator:
         return " ".join(lemmatized_tokens)
 
     def encode_texts(self, texts):
+        if not texts:
+            return torch.empty((0, self.model.config.hidden_size), device=self.device)
         if self.preprocess:
             texts = [self.preprocess_text(text) for text in texts]
 
@@ -55,6 +120,8 @@ class GoalEvaluator:
         return sum_embeddings / sum_mask
 
     def compute_similarity(self, generated_goals, reference_goals):
+        if not generated_goals or not reference_goals:
+            return np.zeros((len(generated_goals), len(reference_goals)), dtype=float)
         gen_embeddings = self.encode_texts(generated_goals)
         ref_embeddings = self.encode_texts(reference_goals)
 
@@ -70,16 +137,16 @@ class GoalEvaluator:
         return SequenceMatcher(None, a, b).ratio()
 
     def calculate_soft_f1(self, preds, refs):
-        if not preds or not refs:
-            return 0.0
-
         sim_matrix = self.compute_similarity(preds, refs)
 
-        row_ind, col_ind = linear_sum_assignment(-sim_matrix)
+        if preds and refs:
+            row_ind, col_ind = linear_sum_assignment(-sim_matrix)
+        else:
+            row_ind, col_ind = np.array([], dtype=int), np.array([], dtype=int)
         total_similarity = sim_matrix[row_ind, col_ind].sum()
 
-        precision = total_similarity / len(preds)
-        recall = total_similarity / len(refs)
+        precision = total_similarity / len(preds) if preds else 0.0
+        recall = total_similarity / len(refs) if refs else 0.0
 
         f1 = 0 if precision + recall == 0 else 2 * (precision * recall) / (precision + recall)
 
@@ -95,9 +162,30 @@ class GoalEvaluator:
             "precision": precision,
             "recall": recall,
             "f1_score": f1,
+            "f1": f1,
+            "total_similarity": float(total_similarity),
+            "matched_goal_count": len(row_ind),
+            "matches": [{"generated_index": int(i), "reference_index": int(j),
+                         "generated_text": preds[i], "reference_text": refs[j],
+                         "cosine": float(sim_matrix[i, j]), "selected": True}
+                        for i, j in zip(row_ind, col_ind)],
             "similarities": sim_matrix,
             "rate_table": rate_table
         }
+
+    def score_goals(self, preds, refs):
+        """Tabular notebook output; every assigned similarity contributes, without a threshold."""
+        result = self.calculate_soft_f1(preds, refs)
+        return {key: result[key] for key in (
+            'precision', 'recall', 'f1', 'total_similarity', 'matched_goal_count', 'matches')}
+
+    def evaluate_datasets(self, generated, references):
+        """Score a matched dataset cohort and aggregate using reference counts."""
+        if set(generated) != set(references):
+            raise ValueError("Generated and reference datasets must have identical keys")
+        rows = [{"dataset": name, "reference_goal_count": len(references[name]),
+                 **self.score_goals(preds, references[name])} for name, preds in generated.items()]
+        return rows, aggregate_soft_scores(rows)
 
     def print_prec_rec_curve(self, generated_goals_dict: dict[str, list[str]],
                              reference_goals_dict: dict[str, list[str]], hide_prec_rec=False,
@@ -133,7 +221,8 @@ class GoalEvaluator:
                 weighted_recalls += (recalls * weight)
                 weighted_precisions += (precisions * weight)
 
-        normalization_term = 1 / (sum([len(l) for l in reference_goals_dict.values()]))
+        reference_count = sum(len(l) for l in reference_goals_dict.values())
+        normalization_term = 1 / reference_count if reference_count else 0.0
 
         if rate_table:
             weighted_recalls *= normalization_term

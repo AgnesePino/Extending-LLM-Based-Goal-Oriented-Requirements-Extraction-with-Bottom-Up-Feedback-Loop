@@ -116,65 +116,33 @@ def serialize_top_down_hierarchy(actors: Actors, high_level_goals: HighLevelGoal
             "hierarchyProvenance": sources}
 
 
-def group_goals_by_parent(
-    high_level_goals: HighLevelGoals,
-    low_level_goals: LowLevelGoals,
-) -> list[GoalBranch]:
-    """Represent the existing top-down parent links as explicit branches."""
-    occurrences: dict[str, int] = {}
-    branches: list[GoalBranch] = []
-    for goal in high_level_goals.goals:
-        serialized = json.dumps(
-            goal.model_dump(mode="json"),
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        )
-        fingerprint = hashlib.sha256(serialized.encode("utf-8")).hexdigest()[:16]
-        occurrences[fingerprint] = occurrences.get(fingerprint, 0) + 1
-        branches.append(GoalBranch(
-            branch_id=f"hlg_{fingerprint}_{occurrences[fingerprint]:03d}",
-            high_level_goal=goal,
-            low_level_goals=[],
-        ))
+def group_low_level_goals_by_hlg(low_level_goals: LowLevelGoals) -> list[GoalBranch]:
+    """Group the generated LLGs by their embedded parent text, ignoring actor.
 
-    for llg in low_level_goals.low_level_goals:
-        associated = llg.high_level_associated
-        # The original top-down LLG generator may reproduce the parent with
-        # slightly different descriptions. Actor and goal names identify the
-        # generated parent; full model equality is too strict for this link.
-        candidates = [
-            branch for branch in branches
-            if branch.high_level_goal.actor.name == associated.actor.name
-            and branch.high_level_goal.name == associated.name
-        ]
-        if len(candidates) == 1:
-            parent_branch = candidates[0]
-        else:
-            # Prefer an exact match when duplicate HLG labels make the stable
-            # key ambiguous. Never guess which branch owns the LLG.
-            exact_matches = [
-                branch for branch in candidates
-                if branch.high_level_goal == associated
-            ]
-            parent_branch = exact_matches[0] if exact_matches else None
-        if parent_branch is None:
-            raise ValueError(
-                "An LLG parent cannot be matched unambiguously to the supplied HLGs: "
-                f"{associated.actor.name}::{associated.name} "
-                f"({len(candidates)} candidates)."
-            )
-        # Keep the LLG text intact while canonicalizing only its parent link
-        # to the HLG object already present in the top-down collection.
-        parent_branch.low_level_goals.append(
-            llg.model_copy(update={"high_level_associated": parent_branch.high_level_goal})
-        )
-    return branches
+    GoalBranch is only the existing transport container for a group. No child
+    reference is rewritten and no group is synthesized from the HLG collection.
+    """
+    groups = {}
+    for child in low_level_goals.low_level_goals:
+        parent = child.high_level_associated
+        key = (parent.name, parent.description)
+        if key not in groups:
+            serialized = json.dumps(key, ensure_ascii=False, separators=(",", ":"))
+            fingerprint = hashlib.sha256(serialized.encode("utf-8")).hexdigest()[:16]
+            groups[key] = GoalBranch(branch_id=f"hlg_{fingerprint}_001",
+                high_level_goal=parent, low_level_goals=[])
+        groups[key].low_level_goals.append(child)
+    return list(groups.values())
+
+
+def group_goals_by_parent(high_level_goals: HighLevelGoals,
+                         low_level_goals: LowLevelGoals) -> list[GoalBranch]:
+    """Compatibility entry point: group directly from generated LLG references."""
+    return group_low_level_goals_by_hlg(low_level_goals)
 
 
 class BottomUpHighLevelGoalLLMOutput(BaseModel):
     reconstructed_high_level_goal: str
-    rationale: str
 
 
 class BottomUpHighLevelGoal(BottomUpHighLevelGoalLLMOutput):
@@ -575,6 +543,7 @@ class GlobalGoalCycleIteration(BaseModel):
     total_branch_count: int = 0
     similarity_analysis: dict = Field(default_factory=dict)
     stage_logs: dict[str, dict[str, str]] = Field(default_factory=dict)
+    top_down_reflections: dict[str, dict] = Field(default_factory=dict)
     new_hlg_additions: dict[str, str] = Field(default_factory=dict)
     hlg_addition_counts: dict[str, int] = Field(default_factory=dict)
 
