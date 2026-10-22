@@ -1,33 +1,18 @@
-import os
-
 from  src.examples.shot_learning import ShotPromptingMode, example1_actors, example2_actors, example3_actors, example1_hl, example2_hl, example3_hl, example1_ll, example2_ll, example3_ll
 from src.data_model import DocumentDescription,  Actors,  LowLevelGoals,  HighLevelGoals
-from src.utils import get_markdown
+from src.utils import get_markdown, get_local_markdown
 from src.llm_clients import generate_response
 
-DESCRIPTION_SOURCE_MAX_CHARS = int(
-    os.getenv("DESCRIPTION_SOURCE_MAX_CHARS", "18000")
-)
+def generate_description(documentation_link=None, local_readme_path=None):
+    """Generate the description of a system from its README.
 
-
-def _compact_documentation_source(documentation: str) -> str:
-    """Bound remote documentation so it fits Groq's generator input tier."""
-    if len(documentation) <= DESCRIPTION_SOURCE_MAX_CHARS:
-        return documentation
-    head_chars = int(DESCRIPTION_SOURCE_MAX_CHARS * 0.75)
-    tail_chars = DESCRIPTION_SOURCE_MAX_CHARS - head_chars
-    omitted = len(documentation) - DESCRIPTION_SOURCE_MAX_CHARS
-    return (
-        documentation[:head_chars]
-        + f"\n\n[... {omitted} documentation characters omitted ...]\n\n"
-        + documentation[-tail_chars:]
-    )
-
-
-def generate_description(documentation_link=None, documentation_text=None):
-    if documentation_link is None and documentation_text is None:
+    If `local_readme_path` is given, the README is read from that local snapshot
+    instead of being downloaded. `documentation_link` is still required as the
+    reference to the original source, even when it is not used for the download.
+    """
+    if documentation_link == None:
         raise Exception("No documentation link provided")
-    
+
     sys_prompt = (
         "You are a technical writing assistant specialized in summarizing software documentation. "
         "Your goal is to extract a clear, well-written, and accurate description of a project from its README file. "
@@ -37,15 +22,13 @@ def generate_description(documentation_link=None, documentation_text=None):
         "elicitation)."
     )
 
-    documentation = (
-        documentation_text
-        if documentation_text is not None
-        else get_markdown(link=documentation_link)
-    )
-    compact_documentation = _compact_documentation_source(str(documentation))
+    if local_readme_path is not None:
+        readme_content = get_local_markdown(local_readme_path)
+    else:
+        readme_content = get_markdown(link=documentation_link)
 
     prompt = (
-        f"Here is the README file of a software project:\n\n{compact_documentation}\n\n"
+        f"Here is the README file of a software project:\n\n{readme_content}\n\n"
         "Based on this README, write a well-structured description of the project. "
         "Explain its purpose, the problem it addresses (if mentioned), and its main functionalities. "
         "Do not include software implementation details"
@@ -135,7 +118,7 @@ def generate_high_level_goals(project_description, actors, feedback=None, mode=S
     else:
         print("No feedback provided!")
 
-    print("High-level-goal generator prompt prepared.")
+    print("This is the provided sys prompt: ", sys_prompt)
 
     prompt = f"""
         {(example1_hl if mode == ShotPromptingMode.ONE_SHOT else f"{example1_hl}, {example2_hl}" if mode == ShotPromptingMode.FEW_SHOT else "")}\n
@@ -193,7 +176,7 @@ def generate_low_level_goals(highLevelGoals, feedback=None, mode=ShotPromptingMo
     else:
         print("No feedback provided!")
 
-    print("Low-level-goal generator prompt prepared.")
+    print("This is the provided sys prompt: ", sys_prompt)
 
     prompt = f""" 
 

@@ -1,8 +1,10 @@
 """Shared models for the original top-down and bottom-up pipelines."""
 
+import hashlib
+import json
 from enum import Enum
 
-from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class DocumentDescription(BaseModel):
@@ -59,6 +61,115 @@ class GoalBranch(BaseModel):
     branch_id: str
     high_level_goal: HighLevelGoal
     low_level_goals: list[LowLevelGoal]
+
+
+def serialize_top_down_hierarchy(actors: Actors, high_level_goals: HighLevelGoals,
+                                 low_level_goals: LowLevelGoals) -> dict:
+    """Store explicit generator references verbatim, without resolving identities.
+
+    An embedded parent different from every HLG-stage output is a separate
+    observed variant. Both versions remain visible; no actor or goal is rewritten.
+    """
+    branches: list[GoalBranch] = []
+    sources: dict[str, dict] = {}
+    fingerprints: dict[str, list[int]] = {}
+
+    def fingerprint(model):
+        return json.dumps(model.model_dump(mode="json"), ensure_ascii=False,
+                          sort_keys=True, separators=(",", ":"))
+
+    def append_parent(parent, source, index):
+        key = fingerprint(parent)
+        positions = fingerprints.setdefault(key, [])
+        bid = f"hlg_{hashlib.sha256(key.encode('utf-8')).hexdigest()[:16]}_{len(positions) + 1:03d}"
+        positions.append(len(branches))
+        branches.append(GoalBranch(branch_id=bid, high_level_goal=parent, low_level_goals=[]))
+        sources[bid] = {"source": source, "source_index": index}
+        return branches[-1]
+
+    for index, parent in enumerate(high_level_goals.goals):
+        append_parent(parent, "high_level_generator", index)
+    for index, child in enumerate(low_level_goals.low_level_goals):
+        positions = fingerprints.get(fingerprint(child.high_level_associated))
+        branch = (branches[positions[0]] if positions else
+                  append_parent(child.high_level_associated, "low_level_generator_parent_reference", index))
+        branch.low_level_goals.append(child)
+
+    hierarchy = []
+    actor_positions = {}
+    for actor in actors.actors:
+        key = fingerprint(actor)
+        if key not in actor_positions:
+            actor_positions[key] = len(hierarchy)
+            hierarchy.append({"actor": actor.model_dump(mode="json"), "goals": []})
+    for branch in branches:
+        actor = branch.high_level_goal.actor
+        key = fingerprint(actor)
+        if key not in actor_positions:
+            actor_positions[key] = len(hierarchy)
+            hierarchy.append({"actor": actor.model_dump(mode="json"), "goals": []})
+        hierarchy[actor_positions[key]]["goals"].append(branch.model_dump(mode="json"))
+    return {"hierarchySchemaVersion": 2,
+            "hierarchyPolicy": "preserve_exact_generator_associations",
+            "actorHierarchy": hierarchy,
+            "goalBranches": [branch.model_dump(mode="json") for branch in branches],
+            "hierarchyProvenance": sources}
+
+
+def group_goals_by_parent(
+    high_level_goals: HighLevelGoals,
+    low_level_goals: LowLevelGoals,
+) -> list[GoalBranch]:
+    """Represent the existing top-down parent links as explicit branches."""
+    occurrences: dict[str, int] = {}
+    branches: list[GoalBranch] = []
+    for goal in high_level_goals.goals:
+        serialized = json.dumps(
+            goal.model_dump(mode="json"),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        fingerprint = hashlib.sha256(serialized.encode("utf-8")).hexdigest()[:16]
+        occurrences[fingerprint] = occurrences.get(fingerprint, 0) + 1
+        branches.append(GoalBranch(
+            branch_id=f"hlg_{fingerprint}_{occurrences[fingerprint]:03d}",
+            high_level_goal=goal,
+            low_level_goals=[],
+        ))
+
+    for llg in low_level_goals.low_level_goals:
+        associated = llg.high_level_associated
+        # The original top-down LLG generator may reproduce the parent with
+        # slightly different descriptions. Actor and goal names identify the
+        # generated parent; full model equality is too strict for this link.
+        candidates = [
+            branch for branch in branches
+            if branch.high_level_goal.actor.name == associated.actor.name
+            and branch.high_level_goal.name == associated.name
+        ]
+        if len(candidates) == 1:
+            parent_branch = candidates[0]
+        else:
+            # Prefer an exact match when duplicate HLG labels make the stable
+            # key ambiguous. Never guess which branch owns the LLG.
+            exact_matches = [
+                branch for branch in candidates
+                if branch.high_level_goal == associated
+            ]
+            parent_branch = exact_matches[0] if exact_matches else None
+        if parent_branch is None:
+            raise ValueError(
+                "An LLG parent cannot be matched unambiguously to the supplied HLGs: "
+                f"{associated.actor.name}::{associated.name} "
+                f"({len(candidates)} candidates)."
+            )
+        # Keep the LLG text intact while canonicalizing only its parent link
+        # to the HLG object already present in the top-down collection.
+        parent_branch.low_level_goals.append(
+            llg.model_copy(update={"high_level_associated": parent_branch.high_level_goal})
+        )
+    return branches
 
 
 class BottomUpHighLevelGoalLLMOutput(BaseModel):
@@ -351,6 +462,19 @@ class GlobalGoalEvaluationDecision(str, Enum):
     NO_MISSING_HIGH_LEVEL_GOALS = "NO_MISSING_HIGH_LEVEL_GOALS"
 
 
+class BottomUpRepairFeedback(BaseModel):
+    """Evaluator-authored correction; previous goals are recovered from the branch."""
+    model_config = ConfigDict(extra="forbid")
+    critique: str = Field(min_length=1)
+
+    @field_validator("critique")
+    @classmethod
+    def require_nonblank_critique(cls, value):
+        if not value.strip():
+            raise ValueError("Repair critique cannot be blank")
+        return value
+
+
 class GlobalGoalEvaluationResult(BaseModel):
     branch_id: str
     rationale: str
@@ -362,6 +486,7 @@ class GlobalGoalEvaluationResult(BaseModel):
     evaluation_status: str | None = None
     similarity: dict = Field(default_factory=dict)
     regeneration_feedback: str | None = None
+    feedback: BottomUpRepairFeedback | None = None
     new_goal_focus: str | None = None
 
 
@@ -398,6 +523,7 @@ class HighLevelGoalGenerationRequest(BaseModel):
 class LowLevelGoalRegenerationRequest(BaseModel):
     high_level_goals: HighLevelGoals
     rationale: str
+    feedback: BottomUpRepairFeedback | None = None
     project_description: str = ""
     sibling_high_level_goals: HighLevelGoals = Field(default_factory=lambda: HighLevelGoals(goals=[]))
     guidance_by_parent_name: dict[str, str] = Field(default_factory=dict)
