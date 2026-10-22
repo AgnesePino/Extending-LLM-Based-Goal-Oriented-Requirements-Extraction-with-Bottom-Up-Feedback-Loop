@@ -7,29 +7,27 @@
         "chunkCount": 1,
         "originalChars": 601,
         "processedChars": 601,
-        "strategy": "groundtruth_description_links_ignored",
-        "linksIgnored": true,
-        "sourceTruncated": false
+        "strategy": "groundtruth_description"
     },
     "actors": [
         "Ambulance Driver",
         "Radio Operator",
-        "Dispatcher",
+        "CAD System User",
         "Emergency Caller"
     ],
     "highLevelGoals": [
         "Minimize response time to ensure every emergency call is reached within 11 minutes.",
         "Record precise departure and destination information to support efficient resource allocation.",
-        "Track the exact location of ambulances in motion to optimize routing and response.",
-        "Allow emergency callers to quickly report incidents and initiate the dispatch process."
+        "Assign the most suitable available ambulance to each call within the maximum time limit.",
+        "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch."
     ],
     "lowLevelGoals": [
-        "The Dispatcher assigns an available ambulance to an emergency call within 11 minutes of call receipt.",
-        "The Radio Operator logs the exact departure time and GPS coordinates of the assigned ambulance.",
-        "The Radio Operator logs the destination address and arrival time of the ambulance at the scene.",
-        "The Ambulance Driver sends GPS coordinates to the system every 30 seconds while en route.",
-        "The Emergency Caller dials the emergency number and triggers the system to log the incident details.",
-        "The Emergency Caller submits location, nature of emergency, and contact information via the system interface."
+        "The Ambulance Driver confirms that the assigned route complies with standard protocols to ensure optimal response time.",
+        "The Ambulance Driver transmits the exact departure time, GPS coordinates, and destination to the Radio Operator via the dispatch system.",
+        "The Radio Operator validates the received departure and destination details and logs them into the dispatch system for record-keeping and resource tracking.",
+        "The CAD System User queries the system to retrieve real-time status of ambulances, including their location and availability, to identify the most suitable unit.",
+        "The CAD System User submits an assignment request to the system, selecting the ambulance closest to the incident and available within the time limit.",
+        "The Emergency Caller confirms the accuracy of the incident location and urgency level with the dispatch system to ensure correct assignment."
     ],
     "structuredActors": {
         "actors": [
@@ -42,12 +40,12 @@
                 "description": "Communicates with ambulance staff and records dispatch data."
             },
             {
-                "name": "Dispatcher",
+                "name": "CAD System User",
                 "description": "Uses the Computer Aided Despatch system to assign ambulances."
             },
             {
                 "name": "Emergency Caller",
-                "description": "Initiates the process by reporting an emergency."
+                "description": "Initiates the call and provides critical information about the incident location and urgency."
             }
         ]
     },
@@ -57,8 +55,8 @@
                 "name": "Ensure timely ambulance response",
                 "description": "Minimize response time to ensure every emergency call is reached within 11 minutes.",
                 "actor": {
-                    "name": "Dispatcher",
-                    "description": "Uses the Computer Aided Despatch system to assign ambulances."
+                    "name": "Ambulance Driver",
+                    "description": "Operates the ambulance and follows standard routes."
                 }
             },
             {
@@ -70,19 +68,19 @@
                 }
             },
             {
-                "name": "Enable real-time location tracking",
-                "description": "Track the exact location of ambulances in motion to optimize routing and response.",
+                "name": "Optimize ambulance allocation",
+                "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
                 "actor": {
-                    "name": "Ambulance Driver",
-                    "description": "Operates the ambulance and follows standard routes."
+                    "name": "CAD System User",
+                    "description": "Uses the Computer Aided Despatch system to assign ambulances."
                 }
             },
             {
-                "name": "Support rapid emergency initiation",
-                "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+                "name": "Provide accurate incident information",
+                "description": "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch.",
                 "actor": {
                     "name": "Emergency Caller",
-                    "description": "Initiates the process by reporting an emergency."
+                    "description": "Initiates the call and provides critical information about the incident location and urgency."
                 }
             }
         ]
@@ -90,47 +88,11 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Assign ambulance to emergency call",
-                "description": "The Dispatcher assigns an available ambulance to an emergency call within 11 minutes of call receipt.",
+                "name": "Confirm adherence to standard routes",
+                "description": "The Ambulance Driver confirms that the assigned route complies with standard protocols to ensure optimal response time.",
                 "high_level_associated": {
                     "name": "Ensure timely ambulance response",
                     "description": "Minimize response time to ensure every emergency call is reached within 11 minutes.",
-                    "actor": {
-                        "name": "Dispatcher",
-                        "description": "Uses the Computer Aided Despatch system to assign ambulances."
-                    }
-                }
-            },
-            {
-                "name": "Record departure time and location",
-                "description": "The Radio Operator logs the exact departure time and GPS coordinates of the assigned ambulance.",
-                "high_level_associated": {
-                    "name": "Maintain accurate dispatch data",
-                    "description": "Record precise departure and destination information to support efficient resource allocation.",
-                    "actor": {
-                        "name": "Radio Operator",
-                        "description": "Communicates with ambulance staff and records dispatch data."
-                    }
-                }
-            },
-            {
-                "name": "Record destination and arrival time",
-                "description": "The Radio Operator logs the destination address and arrival time of the ambulance at the scene.",
-                "high_level_associated": {
-                    "name": "Maintain accurate dispatch data",
-                    "description": "Record precise departure and destination information to support efficient resource allocation.",
-                    "actor": {
-                        "name": "Radio Operator",
-                        "description": "Communicates with ambulance staff and records dispatch data."
-                    }
-                }
-            },
-            {
-                "name": "Update ambulance location in real-time",
-                "description": "The Ambulance Driver sends GPS coordinates to the system every 30 seconds while en route.",
-                "high_level_associated": {
-                    "name": "Enable real-time location tracking",
-                    "description": "Track the exact location of ambulances in motion to optimize routing and response.",
                     "actor": {
                         "name": "Ambulance Driver",
                         "description": "Operates the ambulance and follows standard routes."
@@ -138,26 +100,62 @@
                 }
             },
             {
-                "name": "Initiate emergency call via phone interface",
-                "description": "The Emergency Caller dials the emergency number and triggers the system to log the incident details.",
+                "name": "Communicate departure and destination details to radio operator",
+                "description": "The Ambulance Driver transmits the exact departure time, GPS coordinates, and destination to the Radio Operator via the dispatch system.",
                 "high_level_associated": {
-                    "name": "Support rapid emergency initiation",
-                    "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+                    "name": "Maintain accurate dispatch data",
+                    "description": "Record precise departure and destination information to support efficient resource allocation.",
                     "actor": {
-                        "name": "Emergency Caller",
-                        "description": "Initiates the process by reporting an emergency."
+                        "name": "Radio Operator",
+                        "description": "Communicates with ambulance staff and records dispatch data."
                     }
                 }
             },
             {
-                "name": "Submit incident details to dispatch system",
-                "description": "The Emergency Caller submits location, nature of emergency, and contact information via the system interface.",
+                "name": "Validate and log departure and destination data",
+                "description": "The Radio Operator validates the received departure and destination details and logs them into the dispatch system for record-keeping and resource tracking.",
                 "high_level_associated": {
-                    "name": "Support rapid emergency initiation",
-                    "description": "Allow emergency callers to quickly report incidents and initiate the dispatch process.",
+                    "name": "Maintain accurate dispatch data",
+                    "description": "Record precise departure and destination information to support efficient resource allocation.",
+                    "actor": {
+                        "name": "Radio Operator",
+                        "description": "Communicates with ambulance staff and records dispatch data."
+                    }
+                }
+            },
+            {
+                "name": "Query ambulance availability and proximity",
+                "description": "The CAD System User queries the system to retrieve real-time status of ambulances, including their location and availability, to identify the most suitable unit.",
+                "high_level_associated": {
+                    "name": "Optimize ambulance allocation",
+                    "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
+                    "actor": {
+                        "name": "CAD System User",
+                        "description": "Uses the Computer Aided Despatch system to assign ambulances."
+                    }
+                }
+            },
+            {
+                "name": "Assign ambulance based on proximity and availability",
+                "description": "The CAD System User submits an assignment request to the system, selecting the ambulance closest to the incident and available within the time limit.",
+                "high_level_associated": {
+                    "name": "Optimize ambulance allocation",
+                    "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
+                    "actor": {
+                        "name": "CAD System User",
+                        "description": "Uses the Computer Aided Despatch system to assign ambulances."
+                    }
+                }
+            },
+            {
+                "name": "Verify incident location and urgency with caller",
+                "description": "The Emergency Caller confirms the accuracy of the incident location and urgency level with the dispatch system to ensure correct assignment.",
+                "high_level_associated": {
+                    "name": "Provide accurate incident information",
+                    "description": "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch.",
                     "actor": {
                         "name": "Emergency Caller",
-                        "description": "Initiates the process by reporting an emergency."
+                        "description": "Initiates the call and provides critical information about the incident location and urgency."
                     }
                 }
             }
@@ -166,16 +164,34 @@
     "baselineScores": {
         "actors": 10.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 10.0
+        "lowLevelGoals": 8.0
+    },
+    "baselineAttempts": {
+        "actors": 2,
+        "highLevelGoals": 1,
+        "lowLevelGoals": 3
+    },
+    "baselineScoreHistory": {
+        "actors": [
+            7.0,
+            10.0
+        ],
+        "highLevelGoals": [
+            10.0
+        ],
+        "lowLevelGoals": [
+            6.0,
+            8.0,
+            8.0
+        ]
     },
     "baselineCritiques": {
-        "actors": "The actors defined are appropriate for the described system. All relevant roles involved in the dispatch process (Ambulance Driver, Radio Operator, Dispatcher, Emergency Caller) are correctly identified without any omissions or contradictions.",
-        "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the software description. All key aspects of the system (timely response, accurate data recording, real-time tracking, and rapid emergency initiation) are covered without contradictions or omissions.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and accurately reflect the functional requirements for each actor. All necessary actions (e.g., ambulance assignment, real-time tracking, dispatch data recording) are covered without omissions or contradictions. No improvements are needed."
+        "actors": "The actors defined are appropriate for the described system, covering all necessary roles involved in the ambulance dispatch process. No contradictions or omissions are observed.",
+        "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the system's description. They cover all key aspects of the London Ambulance Service's dispatch process, including timely response, accurate data recording, optimized allocation, and incident information accuracy. No contradictions or omissions were detected.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of the system. However, there is a minor omission regarding the real-time tracking and monitoring of ambulances' locations, which is crucial for optimizing ambulance allocation and ensuring timely response. This could be addressed by adding a low-level goal related to real-time GPS tracking and location updates."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
-        "generatorProvider": "LM Studio (local)",
+        "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
         "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
@@ -187,10 +203,7 @@
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
-        "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
-        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
-        "maxOutputTokens": 32768
+        "evaluatorPromptStrategy": "original_prompt"
     },
     "pipelineConfiguration": {
         "actors": {

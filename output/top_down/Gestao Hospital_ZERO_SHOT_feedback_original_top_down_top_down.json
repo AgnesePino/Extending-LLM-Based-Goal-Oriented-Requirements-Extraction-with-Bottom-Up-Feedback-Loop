@@ -1,125 +1,107 @@
 {
     "name": "Gestao Hospital",
-    "description": "Gestao Hospital is a hospital management system that supports the administration of hospitals, patients, beds, products, and blood bank resources. The system allows administrators and hospital managers to register, update, delete, and monitor hospitals, while healthcare staff can manage operational information related to patients, appointments, products, and medical resources.\n\nPatients can use the system to search for hospitals, obtain information about specific hospitals, and receive recommendations about the nearest hospital. Hospital staff can register patients, consult patient information and medical history, manage check-in related information, and maintain notes about treatments.\n\nThe system also supports hospital logistics by allowing authorized staff to manage products, quantities, requests, and blood samples. Its overall goal is to centralize hospital administration and improve the coordination of clinical and logistical activities.",
+    "description": "Gestao Hospital centralizes the management of hospitals, patients, beds, products, and blood-bank resources. Administrators and managers maintain hospital information. Patients search for hospitals and nearby care. Healthcare staff register patients, consult medical histories, and manage appointments, check-in information, and treatment notes. Authorized staff manage products, quantities, requests, and blood samples.",
     "rawDescription": "Gestao Hospital is a hospital management system that supports the administration of hospitals, patients, beds, products, and blood bank resources. The system allows administrators and hospital managers to register, update, delete, and monitor hospitals, while healthcare staff can manage operational information related to patients, appointments, products, and medical resources.\n\nPatients can use the system to search for hospitals, obtain information about specific hospitals, and receive recommendations about the nearest hospital. Hospital staff can register patients, consult patient information and medical history, manage check-in related information, and maintain notes about treatments.\n\nThe system also supports hospital logistics by allowing authorized staff to manage products, quantities, requests, and blood samples. Its overall goal is to centralize hospital administration and improve the coordination of clinical and logistical activities.",
     "documentationPreprocessing": {
         "chunked": false,
         "chunkCount": 1,
         "originalChars": 956,
-        "processedChars": 956,
-        "strategy": "groundtruth_description_links_ignored",
-        "linksIgnored": true,
-        "sourceTruncated": false
+        "processedChars": 420,
+        "strategy": "dataset_specific_compact_groundtruth_description"
     },
     "actors": [
         "Administrator",
         "Hospital Manager",
-        "Healthcare Staff",
         "Patient",
-        "Hospital Staff",
-        "Logistics Staff"
+        "Healthcare Staff",
+        "Authorized Staff"
     ],
     "highLevelGoals": [
-        "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
-        "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
-        "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
-        "Allow patients to search for hospitals and receive location-based recommendations to improve access to care.",
-        "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
-        "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency."
+        "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+        "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+        "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+        "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+        "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity."
     ],
     "lowLevelGoals": [
-        "The Administrator registers a new hospital entity into the system with required metadata.",
-        "The Administrator configures hospital-specific settings such as contact info, operating hours, and departmental structure.",
-        "The Hospital Manager accesses a dashboard displaying real-time metrics such as patient throughput, staff availability, and resource utilization.",
-        "The Hospital Manager exports historical operational data for analysis and compliance purposes.",
-        "The Healthcare Staff schedules a patient appointment with a specific doctor and time slot.",
-        "The Healthcare Staff updates a patient’s medical record with new diagnosis, treatment, or notes.",
-        "The Healthcare Staff checks in a patient at the facility, recording arrival time and assigning a room or queue.",
-        "The Patient searches for hospitals within a specified geographic area using location-based filters.",
-        "The Patient receives personalized hospital recommendations based on proximity, specialty, and availability.",
-        "The Hospital Staff registers a new patient into the system with personal and insurance details.",
-        "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
-        "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
-        "The Logistics Staff submits a request to replenish medical supplies or equipment in the inventory system.",
-        "The Logistics Staff views and updates the status of blood samples in inventory, including expiration and usage.",
-        "The Logistics Staff approves or rejects a product request based on availability and clinical need."
+        "The Administrator creates hospital records with details such as name, address, contact info, and bed capacity.",
+        "The Administrator or Hospital Manager updates real-time bed occupancy status for each hospital.",
+        "The Healthcare Staff registers new patients and stores their personal and medical information in the system.",
+        "The Healthcare Staff schedules appointments for patients based on doctor availability and patient preference.",
+        "The Healthcare Staff updates patient medical records with new diagnoses, treatments, and medications.",
+        "The Healthcare Staff creates, edits, and archives treatment notes for each patient during consultations.",
+        "The Healthcare Staff records patient check-in status, including time, location, and any preliminary observations.",
+        "The Hospital Manager assigns staff and beds to specific departments based on operational needs and patient load.",
+        "The Hospital Manager generates reports on bed occupancy, staff hours, and supply usage to optimize operations.",
+        "The Patient searches for hospitals within a specified geographic radius using location-based filters.",
+        "The Patient selects and confirms a care service appointment based on real-time availability of providers and facilities.",
+        "The Authorized Staff tracks blood type availability, expiration dates, and issues alerts for low stock.",
+        "The Authorized Staff submits and tracks requests for medical supplies or equipment from inventory."
     ],
     "structuredActors": {
         "actors": [
             {
                 "name": "Administrator",
-                "description": "Manages hospital registration and system-wide configurations."
+                "description": "Manages hospital information and system settings."
             },
             {
                 "name": "Hospital Manager",
-                "description": "Oversees hospital operations and monitors system data."
-            },
-            {
-                "name": "Healthcare Staff",
-                "description": "Manages patient appointments, medical records, and check-in."
+                "description": "Oversees hospital operations and resource allocation."
             },
             {
                 "name": "Patient",
-                "description": "Searches for hospitals and receives location-based recommendations."
+                "description": "Searches for hospitals and nearby care services."
             },
             {
-                "name": "Hospital Staff",
-                "description": "Registers patients, manages medical notes, and handles check-in."
+                "name": "Healthcare Staff",
+                "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
             },
             {
-                "name": "Logistics Staff",
-                "description": "Manages products, blood samples, and inventory requests."
+                "name": "Authorized Staff",
+                "description": "Manages products, quantities, requests, and blood samples."
             }
         ]
     },
     "structuredHighLevelGoals": {
         "goals": [
             {
-                "name": "Centralize Hospital Administration",
-                "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+                "name": "Ensure centralized hospital management",
+                "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
                 "actor": {
                     "name": "Administrator",
-                    "description": "Manages hospital registration and system-wide configurations."
+                    "description": "Manages hospital information and system settings."
                 }
             },
             {
-                "name": "Improve Operational Visibility",
-                "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+                "name": "Optimize hospital resource allocation",
+                "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
                 "actor": {
                     "name": "Hospital Manager",
-                    "description": "Oversees hospital operations and monitors system data."
+                    "description": "Oversees hospital operations and resource allocation."
                 }
             },
             {
-                "name": "Enhance Patient Care Coordination",
-                "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
-                "actor": {
-                    "name": "Healthcare Staff",
-                    "description": "Manages patient appointments, medical records, and check-in."
-                }
-            },
-            {
-                "name": "Enable Patient Self-Service",
-                "description": "Allow patients to search for hospitals and receive location-based recommendations to improve access to care.",
+                "name": "Enable patients to access care services",
+                "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
                 "actor": {
                     "name": "Patient",
-                    "description": "Searches for hospitals and receives location-based recommendations."
+                    "description": "Searches for hospitals and nearby care services."
                 }
             },
             {
-                "name": "Support Clinical Documentation",
-                "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+                "name": "Support clinical workflows for patient care",
+                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
                 "actor": {
-                    "name": "Hospital Staff",
-                    "description": "Registers patients, manages medical notes, and handles check-in."
+                    "name": "Healthcare Staff",
+                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
                 }
             },
             {
-                "name": "Optimize Resource Management",
-                "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
+                "name": "Maintain inventory and blood-bank operations",
+                "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
                 "actor": {
-                    "name": "Logistics Staff",
-                    "description": "Manages products, blood samples, and inventory requests."
+                    "name": "Authorized Staff",
+                    "description": "Manages products, quantities, requests, and blood samples."
                 }
             }
         ]
@@ -127,182 +109,158 @@
     "structuredLowLevelGoals": {
         "low_level_goals": [
             {
-                "name": "Register Hospital in System",
-                "description": "The Administrator registers a new hospital entity into the system with required metadata.",
+                "name": "Create and configure hospital profiles",
+                "description": "The Administrator creates hospital records with details such as name, address, contact info, and bed capacity.",
                 "high_level_associated": {
-                    "name": "Centralize Hospital Administration",
-                    "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+                    "name": "Ensure centralized hospital management",
+                    "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
                     "actor": {
                         "name": "Administrator",
-                        "description": "Manages hospital registration and system-wide configurations."
+                        "description": "Manages hospital information and system settings."
                     }
                 }
             },
             {
-                "name": "Configure Hospital Settings",
-                "description": "The Administrator configures hospital-specific settings such as contact info, operating hours, and departmental structure.",
+                "name": "Assign and update bed availability",
+                "description": "The Administrator or Hospital Manager updates real-time bed occupancy status for each hospital.",
                 "high_level_associated": {
-                    "name": "Centralize Hospital Administration",
-                    "description": "Provide a unified platform for managing hospital data, resources, and operations to streamline administrative tasks.",
+                    "name": "Ensure centralized hospital management",
+                    "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
                     "actor": {
                         "name": "Administrator",
-                        "description": "Manages hospital registration and system-wide configurations."
+                        "description": "Manages hospital information and system settings."
                     }
                 }
             },
             {
-                "name": "View Real-Time Operational Dashboard",
-                "description": "The Hospital Manager accesses a dashboard displaying real-time metrics such as patient throughput, staff availability, and resource utilization.",
+                "name": "Register and manage patient records",
+                "description": "The Healthcare Staff registers new patients and stores their personal and medical information in the system.",
                 "high_level_associated": {
-                    "name": "Improve Operational Visibility",
-                    "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+                    "name": "Support clinical workflows for patient care",
+                    "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                    "actor": {
+                        "name": "Healthcare Staff",
+                        "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                    }
+                }
+            },
+            {
+                "name": "Schedule patient appointments",
+                "description": "The Healthcare Staff schedules appointments for patients based on doctor availability and patient preference.",
+                "high_level_associated": {
+                    "name": "Support clinical workflows for patient care",
+                    "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                    "actor": {
+                        "name": "Healthcare Staff",
+                        "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                    }
+                }
+            },
+            {
+                "name": "Update patient medical history",
+                "description": "The Healthcare Staff updates patient medical records with new diagnoses, treatments, and medications.",
+                "high_level_associated": {
+                    "name": "Support clinical workflows for patient care",
+                    "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                    "actor": {
+                        "name": "Healthcare Staff",
+                        "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                    }
+                }
+            },
+            {
+                "name": "Manage treatment notes",
+                "description": "The Healthcare Staff creates, edits, and archives treatment notes for each patient during consultations.",
+                "high_level_associated": {
+                    "name": "Support clinical workflows for patient care",
+                    "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                    "actor": {
+                        "name": "Healthcare Staff",
+                        "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                    }
+                }
+            },
+            {
+                "name": "Manage check-in information",
+                "description": "The Healthcare Staff records patient check-in status, including time, location, and any preliminary observations.",
+                "high_level_associated": {
+                    "name": "Support clinical workflows for patient care",
+                    "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                    "actor": {
+                        "name": "Healthcare Staff",
+                        "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                    }
+                }
+            },
+            {
+                "name": "Allocate staff and beds to departments",
+                "description": "The Hospital Manager assigns staff and beds to specific departments based on operational needs and patient load.",
+                "high_level_associated": {
+                    "name": "Optimize hospital resource allocation",
+                    "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
                     "actor": {
                         "name": "Hospital Manager",
-                        "description": "Oversees hospital operations and monitors system data."
+                        "description": "Oversees hospital operations and resource allocation."
                     }
                 }
             },
             {
-                "name": "Export Operational Reports",
-                "description": "The Hospital Manager exports historical operational data for analysis and compliance purposes.",
+                "name": "Track and report resource utilization",
+                "description": "The Hospital Manager generates reports on bed occupancy, staff hours, and supply usage to optimize operations.",
                 "high_level_associated": {
-                    "name": "Improve Operational Visibility",
-                    "description": "Enable hospital managers to monitor real-time data and performance metrics to support decision-making.",
+                    "name": "Optimize hospital resource allocation",
+                    "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
                     "actor": {
                         "name": "Hospital Manager",
-                        "description": "Oversees hospital operations and monitors system data."
+                        "description": "Oversees hospital operations and resource allocation."
                     }
                 }
             },
             {
-                "name": "Schedule Patient Appointment",
-                "description": "The Healthcare Staff schedules a patient appointment with a specific doctor and time slot.",
+                "name": "Search for nearby hospitals",
+                "description": "The Patient searches for hospitals within a specified geographic radius using location-based filters.",
                 "high_level_associated": {
-                    "name": "Enhance Patient Care Coordination",
-                    "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
-                    "actor": {
-                        "name": "Healthcare Staff",
-                        "description": "Manages patient appointments, medical records, and check-in."
-                    }
-                }
-            },
-            {
-                "name": "Update Patient Medical Record",
-                "description": "The Healthcare Staff updates a patient’s medical record with new diagnosis, treatment, or notes.",
-                "high_level_associated": {
-                    "name": "Enhance Patient Care Coordination",
-                    "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
-                    "actor": {
-                        "name": "Healthcare Staff",
-                        "description": "Manages patient appointments, medical records, and check-in."
-                    }
-                }
-            },
-            {
-                "name": "Check In Patient at Facility",
-                "description": "The Healthcare Staff checks in a patient at the facility, recording arrival time and assigning a room or queue.",
-                "high_level_associated": {
-                    "name": "Enhance Patient Care Coordination",
-                    "description": "Support healthcare staff in managing patient appointments, medical records, and check-in processes efficiently.",
-                    "actor": {
-                        "name": "Healthcare Staff",
-                        "description": "Manages patient appointments, medical records, and check-in."
-                    }
-                }
-            },
-            {
-                "name": "Search Hospitals by Location",
-                "description": "The Patient searches for hospitals within a specified geographic area using location-based filters.",
-                "high_level_associated": {
-                    "name": "Enable Patient Self-Service",
-                    "description": "Allow patients to search for hospitals and receive location-based recommendations to improve access to care.",
+                    "name": "Enable patients to access care services",
+                    "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
                     "actor": {
                         "name": "Patient",
-                        "description": "Searches for hospitals and receives location-based recommendations."
+                        "description": "Searches for hospitals and nearby care services."
                     }
                 }
             },
             {
-                "name": "Receive Location-Based Recommendations",
-                "description": "The Patient receives personalized hospital recommendations based on proximity, specialty, and availability.",
+                "name": "Schedule care services based on availability",
+                "description": "The Patient selects and confirms a care service appointment based on real-time availability of providers and facilities.",
                 "high_level_associated": {
-                    "name": "Enable Patient Self-Service",
-                    "description": "Allow patients to search for hospitals and receive location-based recommendations to improve access to care.",
+                    "name": "Enable patients to access care services",
+                    "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
                     "actor": {
                         "name": "Patient",
-                        "description": "Searches for hospitals and receives location-based recommendations."
+                        "description": "Searches for hospitals and nearby care services."
                     }
                 }
             },
             {
-                "name": "Register New Patient",
-                "description": "The Hospital Staff registers a new patient into the system with personal and insurance details.",
+                "name": "Manage blood-bank inventory",
+                "description": "The Authorized Staff tracks blood type availability, expiration dates, and issues alerts for low stock.",
                 "high_level_associated": {
-                    "name": "Support Clinical Documentation",
-                    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+                    "name": "Maintain inventory and blood-bank operations",
+                    "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
                     "actor": {
-                        "name": "Hospital Staff",
-                        "description": "Registers patients, manages medical notes, and handles check-in."
+                        "name": "Authorized Staff",
+                        "description": "Manages products, quantities, requests, and blood samples."
                     }
                 }
             },
             {
-                "name": "Create Medical Note",
-                "description": "The Hospital Staff creates a new medical note for a patient, including symptoms, diagnosis, or treatment plan.",
+                "name": "Process product inventory requests",
+                "description": "The Authorized Staff submits and tracks requests for medical supplies or equipment from inventory.",
                 "high_level_associated": {
-                    "name": "Support Clinical Documentation",
-                    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
+                    "name": "Maintain inventory and blood-bank operations",
+                    "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
                     "actor": {
-                        "name": "Hospital Staff",
-                        "description": "Registers patients, manages medical notes, and handles check-in."
-                    }
-                }
-            },
-            {
-                "name": "Manage Patient Check-In",
-                "description": "The Hospital Staff manages patient check-in by verifying identity, updating status, and assigning resources.",
-                "high_level_associated": {
-                    "name": "Support Clinical Documentation",
-                    "description": "Enable hospital staff to register patients, maintain medical notes, and manage check-in information for accurate treatment records.",
-                    "actor": {
-                        "name": "Hospital Staff",
-                        "description": "Registers patients, manages medical notes, and handles check-in."
-                    }
-                }
-            },
-            {
-                "name": "Place Inventory Request",
-                "description": "The Logistics Staff submits a request to replenish medical supplies or equipment in the inventory system.",
-                "high_level_associated": {
-                    "name": "Optimize Resource Management",
-                    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
-                    "actor": {
-                        "name": "Logistics Staff",
-                        "description": "Manages products, blood samples, and inventory requests."
-                    }
-                }
-            },
-            {
-                "name": "Track Blood Sample Inventory",
-                "description": "The Logistics Staff views and updates the status of blood samples in inventory, including expiration and usage.",
-                "high_level_associated": {
-                    "name": "Optimize Resource Management",
-                    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
-                    "actor": {
-                        "name": "Logistics Staff",
-                        "description": "Manages products, blood samples, and inventory requests."
-                    }
-                }
-            },
-            {
-                "name": "Approve Product Request",
-                "description": "The Logistics Staff approves or rejects a product request based on availability and clinical need.",
-                "high_level_associated": {
-                    "name": "Optimize Resource Management",
-                    "description": "Allow logistics staff to manage inventory, blood samples, and product requests to ensure clinical and logistical efficiency.",
-                    "actor": {
-                        "name": "Logistics Staff",
-                        "description": "Manages products, blood samples, and inventory requests."
+                        "name": "Authorized Staff",
+                        "description": "Manages products, quantities, requests, and blood samples."
                     }
                 }
             }
@@ -314,13 +272,12 @@
         "lowLevelGoals": 10.0
     },
     "baselineCritiques": {
-        "actors": "The actors listed are mostly appropriate for the system's description. However, there is a redundancy between \"Healthcare Staff\" and \"Hospital Staff,\" as both seem to describe similar roles with overlapping responsibilities (managing patient appointments, medical records, check-in). This duplication should be resolved by merging or clearly distinguishing their roles.",
-        "highLevelGoals": "The high-level goals are well-defined and align with the system's description. All goals are functional and address the core functionalities of the hospital management system, including administration, patient care, logistics, and self-service for patients. No contradictions or omissions were found.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of the hospital management system. There are no contradictions or omissions, and each goal corresponds to a specific action an actor can perform within the software."
+        "actors": "The actors defined are appropriate for the system's description. However, \"Hospital Manager\" and \"Authorized Staff\" could be more specific to better reflect their roles in a hospital setting (e.g., \"Hospital Operations Manager\" or \"Pharmacy/Inventory Staff\"). Additionally, there is no distinction between different types of healthcare staff (e.g., doctors, nurses), which may be relevant for a detailed system analysis.",
+        "highLevelGoals": "The high-level goals are well-defined and align with the software description. All goals are functional and address the core functionalities of Gestao Hospital, including centralized management, resource allocation, patient care access, clinical workflows, and inventory management. No contradictions or omissions were found.",
+        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors. All functional aspects of the system are covered, including hospital management, resource allocation, patient care workflows, and inventory/blood-bank operations. No contradictions or omissions were detected."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with full-text compact serialization; Qwen generator and local Ministral critic",
-        "generatorProvider": "LM Studio (local)",
+        "implementation": "original top-down generators, full critic inputs and reflection loop; local Qwen generator and Ministral critic",
         "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
@@ -332,10 +289,7 @@
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
-        "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "inputPolicy": "FULL_TEXT_COMPACT_SERIALIZATION",
-        "outputPolicy": "ADAPTIVE_RETRY_WITHOUT_PARTIAL_RESULTS",
-        "maxOutputTokens": 32768
+        "evaluatorPromptStrategy": "original_prompt_with_full_inputs"
     },
     "pipelineConfiguration": {
         "actors": {
@@ -353,5 +307,555 @@
             "evaluationStrategy": "single_global_call_with_original_prompt"
         },
         "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "status": "completed",
+    "reflection": {
+        "actors": {
+            "status": "attempt_budget_exhausted",
+            "attempts": 3,
+            "score": 7.0,
+            "critique": "The actors defined are appropriate for the system's description. However, \"Hospital Manager\" and \"Authorized Staff\" could be more specific to better reflect their roles in a hospital setting (e.g., \"Hospital Operations Manager\" or \"Pharmacy/Inventory Staff\"). Additionally, there is no distinction between different types of healthcare staff (e.g., doctors, nurses), which may be relevant for a detailed system analysis.",
+            "scoreHistory": [
+                8.0,
+                7.0,
+                7.0
+            ]
+        },
+        "highLevelGoals": {
+            "status": "accepted",
+            "attempts": 1,
+            "score": 10.0,
+            "critique": "The high-level goals are well-defined and align with the software description. All goals are functional and address the core functionalities of Gestao Hospital, including centralized management, resource allocation, patient care access, clinical workflows, and inventory management. No contradictions or omissions were found.",
+            "scoreHistory": [
+                10.0
+            ]
+        },
+        "lowLevelGoals": {
+            "status": "accepted",
+            "attempts": 2,
+            "score": 10.0,
+            "critique": "The low-level goals are well-aligned with the high-level goals and actors. All functional aspects of the system are covered, including hospital management, resource allocation, patient care workflows, and inventory/blood-bank operations. No contradictions or omissions were detected.",
+            "scoreHistory": [
+                8.0,
+                10.0
+            ]
+        }
+    },
+    "snapshotDirectory": "output\\top_down\\history\\Gestao_Hospital_9a100722b058\\20261022T120658_551955Z",
+    "hierarchySerialization": {
+        "source": "existing_saved_generator_outputs",
+        "restoredBranchFormatAt": "2026-10-22T17:04:35.734287+00:00",
+        "previousFileSha256": "945cf538c6d1449defc1a3f0c5512fddb15245bfb19c79a0e75c43847daf1dfa",
+        "originalBackup": "output/top_down/history/branch_format_restore_20261022T170435_715289Z/945cf538c6d1.json"
+    },
+    "hierarchySchemaVersion": 2,
+    "hierarchyPolicy": "preserve_exact_generator_associations",
+    "actorHierarchy": [
+        {
+            "actor": {
+                "name": "Administrator",
+                "description": "Manages hospital information and system settings."
+            },
+            "goals": [
+                {
+                    "branch_id": "hlg_e6ef337220548ef9_001",
+                    "high_level_goal": {
+                        "name": "Ensure centralized hospital management",
+                        "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                        "actor": {
+                            "name": "Administrator",
+                            "description": "Manages hospital information and system settings."
+                        }
+                    },
+                    "low_level_goals": [
+                        {
+                            "name": "Create and configure hospital profiles",
+                            "description": "The Administrator creates hospital records with details such as name, address, contact info, and bed capacity.",
+                            "high_level_associated": {
+                                "name": "Ensure centralized hospital management",
+                                "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                                "actor": {
+                                    "name": "Administrator",
+                                    "description": "Manages hospital information and system settings."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Assign and update bed availability",
+                            "description": "The Administrator or Hospital Manager updates real-time bed occupancy status for each hospital.",
+                            "high_level_associated": {
+                                "name": "Ensure centralized hospital management",
+                                "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                                "actor": {
+                                    "name": "Administrator",
+                                    "description": "Manages hospital information and system settings."
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "actor": {
+                "name": "Hospital Manager",
+                "description": "Oversees hospital operations and resource allocation."
+            },
+            "goals": [
+                {
+                    "branch_id": "hlg_986f3063bb1ac5f0_001",
+                    "high_level_goal": {
+                        "name": "Optimize hospital resource allocation",
+                        "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                        "actor": {
+                            "name": "Hospital Manager",
+                            "description": "Oversees hospital operations and resource allocation."
+                        }
+                    },
+                    "low_level_goals": [
+                        {
+                            "name": "Allocate staff and beds to departments",
+                            "description": "The Hospital Manager assigns staff and beds to specific departments based on operational needs and patient load.",
+                            "high_level_associated": {
+                                "name": "Optimize hospital resource allocation",
+                                "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                                "actor": {
+                                    "name": "Hospital Manager",
+                                    "description": "Oversees hospital operations and resource allocation."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Track and report resource utilization",
+                            "description": "The Hospital Manager generates reports on bed occupancy, staff hours, and supply usage to optimize operations.",
+                            "high_level_associated": {
+                                "name": "Optimize hospital resource allocation",
+                                "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                                "actor": {
+                                    "name": "Hospital Manager",
+                                    "description": "Oversees hospital operations and resource allocation."
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "actor": {
+                "name": "Patient",
+                "description": "Searches for hospitals and nearby care services."
+            },
+            "goals": [
+                {
+                    "branch_id": "hlg_70cbfb50df635814_001",
+                    "high_level_goal": {
+                        "name": "Enable patients to access care services",
+                        "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                        "actor": {
+                            "name": "Patient",
+                            "description": "Searches for hospitals and nearby care services."
+                        }
+                    },
+                    "low_level_goals": [
+                        {
+                            "name": "Search for nearby hospitals",
+                            "description": "The Patient searches for hospitals within a specified geographic radius using location-based filters.",
+                            "high_level_associated": {
+                                "name": "Enable patients to access care services",
+                                "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                                "actor": {
+                                    "name": "Patient",
+                                    "description": "Searches for hospitals and nearby care services."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Schedule care services based on availability",
+                            "description": "The Patient selects and confirms a care service appointment based on real-time availability of providers and facilities.",
+                            "high_level_associated": {
+                                "name": "Enable patients to access care services",
+                                "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                                "actor": {
+                                    "name": "Patient",
+                                    "description": "Searches for hospitals and nearby care services."
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "actor": {
+                "name": "Healthcare Staff",
+                "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+            },
+            "goals": [
+                {
+                    "branch_id": "hlg_e414f1594c58b521_001",
+                    "high_level_goal": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    },
+                    "low_level_goals": [
+                        {
+                            "name": "Register and manage patient records",
+                            "description": "The Healthcare Staff registers new patients and stores their personal and medical information in the system.",
+                            "high_level_associated": {
+                                "name": "Support clinical workflows for patient care",
+                                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                                "actor": {
+                                    "name": "Healthcare Staff",
+                                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Schedule patient appointments",
+                            "description": "The Healthcare Staff schedules appointments for patients based on doctor availability and patient preference.",
+                            "high_level_associated": {
+                                "name": "Support clinical workflows for patient care",
+                                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                                "actor": {
+                                    "name": "Healthcare Staff",
+                                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Update patient medical history",
+                            "description": "The Healthcare Staff updates patient medical records with new diagnoses, treatments, and medications.",
+                            "high_level_associated": {
+                                "name": "Support clinical workflows for patient care",
+                                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                                "actor": {
+                                    "name": "Healthcare Staff",
+                                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Manage treatment notes",
+                            "description": "The Healthcare Staff creates, edits, and archives treatment notes for each patient during consultations.",
+                            "high_level_associated": {
+                                "name": "Support clinical workflows for patient care",
+                                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                                "actor": {
+                                    "name": "Healthcare Staff",
+                                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Manage check-in information",
+                            "description": "The Healthcare Staff records patient check-in status, including time, location, and any preliminary observations.",
+                            "high_level_associated": {
+                                "name": "Support clinical workflows for patient care",
+                                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                                "actor": {
+                                    "name": "Healthcare Staff",
+                                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "actor": {
+                "name": "Authorized Staff",
+                "description": "Manages products, quantities, requests, and blood samples."
+            },
+            "goals": [
+                {
+                    "branch_id": "hlg_2cb37b2c4a8984c6_001",
+                    "high_level_goal": {
+                        "name": "Maintain inventory and blood-bank operations",
+                        "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                        "actor": {
+                            "name": "Authorized Staff",
+                            "description": "Manages products, quantities, requests, and blood samples."
+                        }
+                    },
+                    "low_level_goals": [
+                        {
+                            "name": "Manage blood-bank inventory",
+                            "description": "The Authorized Staff tracks blood type availability, expiration dates, and issues alerts for low stock.",
+                            "high_level_associated": {
+                                "name": "Maintain inventory and blood-bank operations",
+                                "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                                "actor": {
+                                    "name": "Authorized Staff",
+                                    "description": "Manages products, quantities, requests, and blood samples."
+                                }
+                            }
+                        },
+                        {
+                            "name": "Process product inventory requests",
+                            "description": "The Authorized Staff submits and tracks requests for medical supplies or equipment from inventory.",
+                            "high_level_associated": {
+                                "name": "Maintain inventory and blood-bank operations",
+                                "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                                "actor": {
+                                    "name": "Authorized Staff",
+                                    "description": "Manages products, quantities, requests, and blood samples."
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "goalBranches": [
+        {
+            "branch_id": "hlg_e6ef337220548ef9_001",
+            "high_level_goal": {
+                "name": "Ensure centralized hospital management",
+                "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                "actor": {
+                    "name": "Administrator",
+                    "description": "Manages hospital information and system settings."
+                }
+            },
+            "low_level_goals": [
+                {
+                    "name": "Create and configure hospital profiles",
+                    "description": "The Administrator creates hospital records with details such as name, address, contact info, and bed capacity.",
+                    "high_level_associated": {
+                        "name": "Ensure centralized hospital management",
+                        "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                        "actor": {
+                            "name": "Administrator",
+                            "description": "Manages hospital information and system settings."
+                        }
+                    }
+                },
+                {
+                    "name": "Assign and update bed availability",
+                    "description": "The Administrator or Hospital Manager updates real-time bed occupancy status for each hospital.",
+                    "high_level_associated": {
+                        "name": "Ensure centralized hospital management",
+                        "description": "Provide a unified platform to manage hospitals, patients, beds, products, and blood-bank resources across multiple facilities.",
+                        "actor": {
+                            "name": "Administrator",
+                            "description": "Manages hospital information and system settings."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "branch_id": "hlg_986f3063bb1ac5f0_001",
+            "high_level_goal": {
+                "name": "Optimize hospital resource allocation",
+                "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                "actor": {
+                    "name": "Hospital Manager",
+                    "description": "Oversees hospital operations and resource allocation."
+                }
+            },
+            "low_level_goals": [
+                {
+                    "name": "Allocate staff and beds to departments",
+                    "description": "The Hospital Manager assigns staff and beds to specific departments based on operational needs and patient load.",
+                    "high_level_associated": {
+                        "name": "Optimize hospital resource allocation",
+                        "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                        "actor": {
+                            "name": "Hospital Manager",
+                            "description": "Oversees hospital operations and resource allocation."
+                        }
+                    }
+                },
+                {
+                    "name": "Track and report resource utilization",
+                    "description": "The Hospital Manager generates reports on bed occupancy, staff hours, and supply usage to optimize operations.",
+                    "high_level_associated": {
+                        "name": "Optimize hospital resource allocation",
+                        "description": "Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance.",
+                        "actor": {
+                            "name": "Hospital Manager",
+                            "description": "Oversees hospital operations and resource allocation."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "branch_id": "hlg_70cbfb50df635814_001",
+            "high_level_goal": {
+                "name": "Enable patients to access care services",
+                "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                "actor": {
+                    "name": "Patient",
+                    "description": "Searches for hospitals and nearby care services."
+                }
+            },
+            "low_level_goals": [
+                {
+                    "name": "Search for nearby hospitals",
+                    "description": "The Patient searches for hospitals within a specified geographic radius using location-based filters.",
+                    "high_level_associated": {
+                        "name": "Enable patients to access care services",
+                        "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                        "actor": {
+                            "name": "Patient",
+                            "description": "Searches for hospitals and nearby care services."
+                        }
+                    }
+                },
+                {
+                    "name": "Schedule care services based on availability",
+                    "description": "The Patient selects and confirms a care service appointment based on real-time availability of providers and facilities.",
+                    "high_level_associated": {
+                        "name": "Enable patients to access care services",
+                        "description": "Allow patients to search for nearby hospitals and schedule care services based on availability and proximity.",
+                        "actor": {
+                            "name": "Patient",
+                            "description": "Searches for hospitals and nearby care services."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "branch_id": "hlg_e414f1594c58b521_001",
+            "high_level_goal": {
+                "name": "Support clinical workflows for patient care",
+                "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                "actor": {
+                    "name": "Healthcare Staff",
+                    "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                }
+            },
+            "low_level_goals": [
+                {
+                    "name": "Register and manage patient records",
+                    "description": "The Healthcare Staff registers new patients and stores their personal and medical information in the system.",
+                    "high_level_associated": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    }
+                },
+                {
+                    "name": "Schedule patient appointments",
+                    "description": "The Healthcare Staff schedules appointments for patients based on doctor availability and patient preference.",
+                    "high_level_associated": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    }
+                },
+                {
+                    "name": "Update patient medical history",
+                    "description": "The Healthcare Staff updates patient medical records with new diagnoses, treatments, and medications.",
+                    "high_level_associated": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    }
+                },
+                {
+                    "name": "Manage treatment notes",
+                    "description": "The Healthcare Staff creates, edits, and archives treatment notes for each patient during consultations.",
+                    "high_level_associated": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    }
+                },
+                {
+                    "name": "Manage check-in information",
+                    "description": "The Healthcare Staff records patient check-in status, including time, location, and any preliminary observations.",
+                    "high_level_associated": {
+                        "name": "Support clinical workflows for patient care",
+                        "description": "Enable healthcare staff to register patients, consult medical histories, manage appointments, check-ins, and treatment notes seamlessly.",
+                        "actor": {
+                            "name": "Healthcare Staff",
+                            "description": "Registers patients, consults medical histories, manages appointments, check-in information, and treatment notes."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "branch_id": "hlg_2cb37b2c4a8984c6_001",
+            "high_level_goal": {
+                "name": "Maintain inventory and blood-bank operations",
+                "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                "actor": {
+                    "name": "Authorized Staff",
+                    "description": "Manages products, quantities, requests, and blood samples."
+                }
+            },
+            "low_level_goals": [
+                {
+                    "name": "Manage blood-bank inventory",
+                    "description": "The Authorized Staff tracks blood type availability, expiration dates, and issues alerts for low stock.",
+                    "high_level_associated": {
+                        "name": "Maintain inventory and blood-bank operations",
+                        "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                        "actor": {
+                            "name": "Authorized Staff",
+                            "description": "Manages products, quantities, requests, and blood samples."
+                        }
+                    }
+                },
+                {
+                    "name": "Process product inventory requests",
+                    "description": "The Authorized Staff submits and tracks requests for medical supplies or equipment from inventory.",
+                    "high_level_associated": {
+                        "name": "Maintain inventory and blood-bank operations",
+                        "description": "Allow authorized staff to manage product inventory, request fulfillment, and blood sample tracking to ensure supply chain integrity.",
+                        "actor": {
+                            "name": "Authorized Staff",
+                            "description": "Manages products, quantities, requests, and blood samples."
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "hierarchyProvenance": {
+        "hlg_e6ef337220548ef9_001": {
+            "source": "high_level_generator",
+            "source_index": 0
+        },
+        "hlg_986f3063bb1ac5f0_001": {
+            "source": "high_level_generator",
+            "source_index": 1
+        },
+        "hlg_70cbfb50df635814_001": {
+            "source": "high_level_generator",
+            "source_index": 2
+        },
+        "hlg_e414f1594c58b521_001": {
+            "source": "high_level_generator",
+            "source_index": 3
+        },
+        "hlg_2cb37b2c4a8984c6_001": {
+            "source": "high_level_generator",
+            "source_index": 4
+        }
     }
 }

@@ -11,45 +11,41 @@
     },
     "actors": [
         "Citizen",
-        "Non-Registered User",
         "Municipal Administrator",
         "Organization Office Staff",
-        "Technical Office Staff"
+        "Technical Office Staff",
+        "External Maintenance Personnel"
     ],
     "highLevelGoals": [
-        "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
-        "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
-        "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
-        "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-        "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
-        "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
-        "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
-        "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations."
+        "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+        "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+        "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+        "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+        "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+        "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+        "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation."
     ],
     "lowLevelGoals": [
-        "Citizen submits a report with location, description, category, and optional photos or attachments.",
-        "Citizen views the current status of their submitted report and receives notifications about updates.",
-        "Citizen follows multiple reports to receive updates and monitor resolution progress.",
-        "Citizen views an interactive map displaying all public reports with filters by category, status, or location.",
-        "Citizen applies filters and sorting options to view reports based on specific criteria.",
-        "Non-registered user views public statistics on report trends and categories without logging in.",
-        "Non-registered user views the public interactive map of reports without authentication.",
-        "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
-        "Technical Office Staff assigns a report to a department or external company based on its category.",
-        "Municipal Administrator views public statistics on report trends and categories.",
-        "Municipal Administrator accesses private analytics to monitor system performance and resource allocation.",
-        "Municipal Administrator configures system settings to prepare for open-source release and integration with https://developers.italia.it/.",
-        "Municipal Administrator publishes the system as open-source software on https://developers.italia.it/."
+        "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+        "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+        "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+        "System pushes in-app notification to citizen when report status updates.",
+        "Organization Office Staff approves a report to move it to the 'assigned' state.",
+        "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+        "Technical Office Staff assigns a report to a department or external company based on category.",
+        "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+        "External Maintenance Personnel views reports assigned to them and their current status.",
+        "External Maintenance Personnel updates report details and status via a secure login portal.",
+        "Citizen views aggregated public statistics on report trends and categories without login.",
+        "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+        "Municipal Administrator configures which external companies can access and manage reports.",
+        "Municipal Administrator generates and exports reports on urban issue trends and resolution times."
     ],
     "structuredActors": {
         "actors": [
             {
                 "name": "Citizen",
-                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-            },
-            {
-                "name": "Non-Registered User",
-                "description": "User who can view public statistics and the interactive map of reports without logging in."
+                "description": "Registered user who submits reports and receives updates about their reports."
             },
             {
                 "name": "Municipal Administrator",
@@ -62,6 +58,10 @@
             {
                 "name": "Technical Office Staff",
                 "description": "Staff responsible for assigning and managing reports based on category."
+            },
+            {
+                "name": "External Maintenance Personnel",
+                "description": "Maintenance workers from external companies who handle reports assigned to them."
             }
         ]
     },
@@ -69,63 +69,55 @@
         "goals": [
             {
                 "name": "Enable Citizen Participation in Urban Management",
-                "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+                "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
                 "actor": {
                     "name": "Citizen",
-                    "description": "Registered user who submits reports, receives updates, and can follow other reports."
+                    "description": "Registered user who submits reports and receives updates about their reports."
                 }
             },
             {
-                "name": "Provide Transparent and Accessible Reporting System",
-                "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
-                "actor": {
-                    "name": "Citizen",
-                    "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                }
-            },
-            {
-                "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
-                "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
-                "actor": {
-                    "name": "Citizen",
-                    "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                }
-            },
-            {
-                "name": "Allow Non-Registered Users to Access Public Information",
-                "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                "actor": {
-                    "name": "Non-Registered User",
-                    "description": "User who can view public statistics and the interactive map of reports without logging in."
-                }
-            },
-            {
-                "name": "Ensure Efficient Review and Approval of Citizen Reports",
-                "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+                "name": "Ensure Efficient and Transparent Report Processing",
+                "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
                 "actor": {
                     "name": "Organization Office Staff",
                     "description": "Staff responsible for reviewing and approving citizen reports."
                 }
             },
             {
-                "name": "Facilitate Report Assignment and Management Based on Category",
-                "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+                "name": "Facilitate Cross-Functional Collaboration Between Municipal Departments",
+                "description": "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
                 "actor": {
                     "name": "Technical Office Staff",
                     "description": "Staff responsible for assigning and managing reports based on category."
                 }
             },
             {
-                "name": "Provide Public and Private Statistical Insights",
-                "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
+                "name": "Support External Companies in Managing Assigned Reports",
+                "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
                 "actor": {
-                    "name": "Municipal Administrator",
-                    "description": "Administrator who configures system settings and manages access for external companies."
+                    "name": "External Maintenance Personnel",
+                    "description": "Maintenance workers from external companies who handle reports assigned to them."
                 }
             },
             {
-                "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
+                "name": "Provide Real-Time Visibility and Trust Through Notifications",
+                "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                "actor": {
+                    "name": "Citizen",
+                    "description": "Registered user who submits reports and receives updates about their reports."
+                }
+            },
+            {
+                "name": "Enable Public Access to Urban Issue Statistics",
+                "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                "actor": {
+                    "name": "Citizen",
+                    "description": "Registered user who submits reports and receives updates about their reports."
+                }
+            },
+            {
+                "name": "Support Administrative Oversight and Strategic Decision-Making",
+                "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
                 "actor": {
                     "name": "Municipal Administrator",
                     "description": "Administrator who configures system settings and manages access for external companies."
@@ -137,94 +129,58 @@
         "low_level_goals": [
             {
                 "name": "Submit a new urban issue report",
-                "description": "Citizen submits a report with location, description, category, and optional photos or attachments.",
+                "description": "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
                 "high_level_associated": {
                     "name": "Enable Citizen Participation in Urban Management",
-                    "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+                    "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registered user who submits reports, receives updates, and can follow other reports."
+                        "description": "Registered user who submits reports and receives updates about their reports."
                     }
                 }
             },
             {
-                "name": "View submitted report status and updates",
-                "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
-                "high_level_associated": {
-                    "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
-                    "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
-                    "actor": {
-                        "name": "Citizen",
-                        "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                    }
-                }
-            },
-            {
-                "name": "Follow and track multiple reports",
-                "description": "Citizen follows multiple reports to receive updates and monitor resolution progress.",
+                "name": "View the status of a submitted report",
+                "description": "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
                 "high_level_associated": {
                     "name": "Enable Citizen Participation in Urban Management",
-                    "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
+                    "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registered user who submits reports, receives updates, and can follow other reports."
+                        "description": "Registered user who submits reports and receives updates about their reports."
                     }
                 }
             },
             {
-                "name": "View public interactive map of reports",
-                "description": "Citizen views an interactive map displaying all public reports with filters by category, status, or location.",
+                "name": "Receive automated email notification on report status change",
+                "description": "System sends email to citizen when report status updates (e.g., assigned, resolved).",
                 "high_level_associated": {
-                    "name": "Provide Transparent and Accessible Reporting System",
-                    "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+                    "name": "Provide Real-Time Visibility and Trust Through Notifications",
+                    "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registered user who submits reports, receives updates, and can follow other reports."
+                        "description": "Registered user who submits reports and receives updates about their reports."
                     }
                 }
             },
             {
-                "name": "Filter and sort reports by category or status",
-                "description": "Citizen applies filters and sorting options to view reports based on specific criteria.",
+                "name": "Receive in-app notification on report status change",
+                "description": "System pushes in-app notification to citizen when report status updates.",
                 "high_level_associated": {
-                    "name": "Provide Transparent and Accessible Reporting System",
-                    "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
+                    "name": "Provide Real-Time Visibility and Trust Through Notifications",
+                    "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
                     "actor": {
                         "name": "Citizen",
-                        "description": "Registered user who submits reports, receives updates, and can follow other reports."
+                        "description": "Registered user who submits reports and receives updates about their reports."
                     }
                 }
             },
             {
-                "name": "View public statistics on report trends",
-                "description": "Non-registered user views public statistics on report trends and categories without logging in.",
+                "name": "Approve a citizen report for assignment",
+                "description": "Organization Office Staff approves a report to move it to the 'assigned' state.",
                 "high_level_associated": {
-                    "name": "Allow Non-Registered Users to Access Public Information",
-                    "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                    "actor": {
-                        "name": "Non-Registered User",
-                        "description": "User who can view public statistics and the interactive map of reports without logging in."
-                    }
-                }
-            },
-            {
-                "name": "View public interactive map without login",
-                "description": "Non-registered user views the public interactive map of reports without authentication.",
-                "high_level_associated": {
-                    "name": "Allow Non-Registered Users to Access Public Information",
-                    "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                    "actor": {
-                        "name": "Non-Registered User",
-                        "description": "User who can view public statistics and the interactive map of reports without logging in."
-                    }
-                }
-            },
-            {
-                "name": "Review citizen report for approval or rejection",
-                "description": "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
-                "high_level_associated": {
-                    "name": "Ensure Efficient Review and Approval of Citizen Reports",
-                    "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
+                    "name": "Ensure Efficient and Transparent Report Processing",
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
                     "actor": {
                         "name": "Organization Office Staff",
                         "description": "Staff responsible for reviewing and approving citizen reports."
@@ -232,11 +188,23 @@
                 }
             },
             {
-                "name": "Assign report to appropriate department or external company",
-                "description": "Technical Office Staff assigns a report to a department or external company based on its category.",
+                "name": "Reject a citizen report with written explanation",
+                "description": "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
                 "high_level_associated": {
-                    "name": "Facilitate Report Assignment and Management Based on Category",
-                    "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
+                    "name": "Ensure Efficient and Transparent Report Processing",
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "actor": {
+                        "name": "Organization Office Staff",
+                        "description": "Staff responsible for reviewing and approving citizen reports."
+                    }
+                }
+            },
+            {
+                "name": "Assign a report to a technical office or external company",
+                "description": "Technical Office Staff assigns a report to a department or external company based on category.",
+                "high_level_associated": {
+                    "name": "Ensure Efficient and Transparent Report Processing",
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
                     "actor": {
                         "name": "Technical Office Staff",
                         "description": "Staff responsible for assigning and managing reports based on category."
@@ -244,11 +212,59 @@
                 }
             },
             {
-                "name": "View public report statistics and trends",
-                "description": "Municipal Administrator views public statistics on report trends and categories.",
+                "name": "Update report status to 'in progress' or 'resolved'",
+                "description": "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
                 "high_level_associated": {
-                    "name": "Provide Public and Private Statistical Insights",
-                    "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
+                    "name": "Ensure Efficient and Transparent Report Processing",
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "actor": {
+                        "name": "Technical Office Staff",
+                        "description": "Staff responsible for assigning and managing reports based on category."
+                    }
+                }
+            },
+            {
+                "name": "View assigned reports and their statuses",
+                "description": "External Maintenance Personnel views reports assigned to them and their current status.",
+                "high_level_associated": {
+                    "name": "Support External Companies in Managing Assigned Reports",
+                    "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                    "actor": {
+                        "name": "External Maintenance Personnel",
+                        "description": "Maintenance workers from external companies who handle reports assigned to them."
+                    }
+                }
+            },
+            {
+                "name": "Update report details and status via secure portal",
+                "description": "External Maintenance Personnel updates report details and status via a secure login portal.",
+                "high_level_associated": {
+                    "name": "Support External Companies in Managing Assigned Reports",
+                    "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                    "actor": {
+                        "name": "External Maintenance Personnel",
+                        "description": "Maintenance workers from external companies who handle reports assigned to them."
+                    }
+                }
+            },
+            {
+                "name": "View public urban issue statistics",
+                "description": "Citizen views aggregated public statistics on report trends and categories without login.",
+                "high_level_associated": {
+                    "name": "Enable Public Access to Urban Issue Statistics",
+                    "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                    "actor": {
+                        "name": "Citizen",
+                        "description": "Registered user who submits reports and receives updates about their reports."
+                    }
+                }
+            },
+            {
+                "name": "Access detailed system statistics and configuration tools",
+                "description": "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+                "high_level_associated": {
+                    "name": "Support Administrative Oversight and Strategic Decision-Making",
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
                     "actor": {
                         "name": "Municipal Administrator",
                         "description": "Administrator who configures system settings and manages access for external companies."
@@ -256,11 +272,11 @@
                 }
             },
             {
-                "name": "View private system performance analytics",
-                "description": "Municipal Administrator accesses private analytics to monitor system performance and resource allocation.",
+                "name": "Configure external company access permissions",
+                "description": "Municipal Administrator configures which external companies can access and manage reports.",
                 "high_level_associated": {
-                    "name": "Provide Public and Private Statistical Insights",
-                    "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making",
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
                     "actor": {
                         "name": "Municipal Administrator",
                         "description": "Administrator who configures system settings and manages access for external companies."
@@ -268,23 +284,11 @@
                 }
             },
             {
-                "name": "Configure system settings for open-source release",
-                "description": "Municipal Administrator configures system settings to prepare for open-source release and integration with https://developers.italia.it/.",
+                "name": "Generate and export urban issue trend reports",
+                "description": "Municipal Administrator generates and exports reports on urban issue trends and resolution times.",
                 "high_level_associated": {
-                    "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                    "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
-                    "actor": {
-                        "name": "Municipal Administrator",
-                        "description": "Administrator who configures system settings and manages access for external companies."
-                    }
-                }
-            },
-            {
-                "name": "Publish system as open-source on developers.italia.it",
-                "description": "Municipal Administrator publishes the system as open-source software on https://developers.italia.it/.",
-                "high_level_associated": {
-                    "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                    "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making",
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
                     "actor": {
                         "name": "Municipal Administrator",
                         "description": "Administrator who configures system settings and manages access for external companies."
@@ -294,17 +298,35 @@
         ]
     },
     "baselineScores": {
-        "actors": 6.0,
+        "actors": 10.0,
         "highLevelGoals": 10.0,
-        "lowLevelGoals": 10.0
+        "lowLevelGoals": 7.0
+    },
+    "baselineAttempts": {
+        "actors": 1,
+        "highLevelGoals": 1,
+        "lowLevelGoals": 3
+    },
+    "baselineScoreHistory": {
+        "actors": [
+            10.0
+        ],
+        "highLevelGoals": [
+            10.0
+        ],
+        "lowLevelGoals": [
+            7.0,
+            5.0,
+            7.0
+        ]
     },
     "baselineCritiques": {
-        "actors": "The actors list is mostly representative of the system's description, but it lacks clarity in distinguishing between roles that might overlap or could be more precisely defined. Specifically, \"Organization Office Staff\" and \"Technical Office Staff\" are not clearly differentiated in their responsibilities based on the provided description. Additionally, while \"Municipal Administrator\" is mentioned, its specific tasks (e.g., configuring system settings) are not explicitly aligned with typical administrative roles in such systems. The omission of a role for managing notifications or handling public statistics access could also be considered.",
-        "highLevelGoals": "The high-level goals are well-defined and align with the software description, covering all key functionalities such as citizen participation, reporting, communication, public access, administrative tasks, and open-source availability. No contradictions or omissions were detected.",
-        "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of the Participium system. There are no contradictions or omissions, and each goal corresponds to a specific action an actor can perform. The system's description is fully represented in both high-level and low-level goals."
+        "actors": "The actors defined are comprehensive and accurately represent the roles involved in the Participium system based on the provided description. All relevant stakeholders (Citizen, Municipal Administrator, Organization Office Staff, Technical Office Staff, External Maintenance Personnel) are included without any omissions or contradictions.",
+        "highLevelGoals": "The high-level goals are well-defined, comprehensive, and align with the software description. They cover all functional aspects of Participium, including citizen participation, report processing, collaboration between departments, external company support, notifications, public statistics, and administrative oversight. No contradictions or omissions were found.",
+        "lowLevelGoals": "The low-level goals are mostly well-aligned with the high-level goals and the software description. However, there is a notable omission regarding the citizen's ability to follow other citizens' reports and receive notifications for them, which was mentioned in section C of the software description. Additionally, the low-level goal \"Update report status to 'in progress' or 'resolved'\" does not specify all possible state transitions (e.g., moving from \"Work in Progress\" to \"Resolved\"), which could lead to incomplete implementation. Lastly, the low-level goals do not address the citizen's ability to send and receive messages through the platform, which is also mentioned in section C."
     },
     "baselineConfiguration": {
-        "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
+        "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
         "generatorModel": "qwen/qwen3-vl-8b",
         "actorPromptingMode": "ZERO_SHOT",
         "actorEvaluatorEnabled": true,
@@ -316,9 +338,7 @@
         "qualityThreshold": 8.5,
         "maxReflectionAttempts": 3,
         "evaluatorFewShotExampleCount": 4,
-        "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-        "evaluatorMaxInputChars": 24000,
-        "evaluatorDescriptionMaxChars": 1800
+        "evaluatorPromptStrategy": "original_prompt"
     },
     "pipelineConfiguration": {
         "actors": {
@@ -336,475 +356,5 @@
             "evaluationStrategy": "single_global_call_with_original_prompt"
         },
         "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
-    },
-    "hierarchyAudit": {
-        "schema_version": 1,
-        "provenance": {
-            "dataset": "SIA Project 25 26",
-            "baseline_sha256": "4b438b389d0c6bb336b18f53ea85984cb73a6f2b4d77abaf6f6360c81d8b2a66",
-            "hash_policy": "canonical_json_without_hierarchyAudit",
-            "baseline_source_file": "SIA Project 25 26_ZERO_SHOT_feedback_original_top_down_top_down.json",
-            "baseline_configuration": {
-                "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
-                "generatorModel": "qwen/qwen3-vl-8b",
-                "actorPromptingMode": "ZERO_SHOT",
-                "actorEvaluatorEnabled": true,
-                "highLevelGoalPromptingMode": "ZERO_SHOT",
-                "lowLevelGoalPromptingMode": "ZERO_SHOT",
-                "highLevelGoalEvaluatorEnabled": true,
-                "lowLevelGoalEvaluatorEnabled": true,
-                "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
-                "qualityThreshold": 8.5,
-                "maxReflectionAttempts": 3,
-                "evaluatorFewShotExampleCount": 4,
-                "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-                "evaluatorMaxInputChars": 24000,
-                "evaluatorDescriptionMaxChars": 1800
-            },
-            "pipeline_configuration": {
-                "actors": {
-                    "promptingMode": "ZERO_SHOT",
-                    "evaluator": true
-                },
-                "highLevelGoals": {
-                    "promptingMode": "ZERO_SHOT",
-                    "evaluator": true
-                },
-                "lowLevelGoals": {
-                    "promptingMode": "ZERO_SHOT",
-                    "evaluator": true,
-                    "generationStrategy": "all_hlgs_in_one_call",
-                    "evaluationStrategy": "single_global_call_with_original_prompt"
-                },
-                "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
-            }
-        },
-        "baseline": {
-            "schema_version": 1,
-            "stage": "baseline",
-            "iteration": null,
-            "provenance": {
-                "dataset": "SIA Project 25 26",
-                "baseline_sha256": "4b438b389d0c6bb336b18f53ea85984cb73a6f2b4d77abaf6f6360c81d8b2a66",
-                "hash_policy": "canonical_json_without_hierarchyAudit",
-                "baseline_source_file": "SIA Project 25 26_ZERO_SHOT_feedback_original_top_down_top_down.json",
-                "baseline_configuration": {
-                    "implementation": "original top-down prompts with token-safe compact target serialization; Qwen generator and local Ministral critic",
-                    "generatorModel": "qwen/qwen3-vl-8b",
-                    "actorPromptingMode": "ZERO_SHOT",
-                    "actorEvaluatorEnabled": true,
-                    "highLevelGoalPromptingMode": "ZERO_SHOT",
-                    "lowLevelGoalPromptingMode": "ZERO_SHOT",
-                    "highLevelGoalEvaluatorEnabled": true,
-                    "lowLevelGoalEvaluatorEnabled": true,
-                    "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
-                    "qualityThreshold": 8.5,
-                    "maxReflectionAttempts": 3,
-                    "evaluatorFewShotExampleCount": 4,
-                    "evaluatorPromptStrategy": "original_prompt_with_compact_target_serialization",
-                    "evaluatorMaxInputChars": 24000,
-                    "evaluatorDescriptionMaxChars": 1800
-                },
-                "pipeline_configuration": {
-                    "actors": {
-                        "promptingMode": "ZERO_SHOT",
-                        "evaluator": true
-                    },
-                    "highLevelGoals": {
-                        "promptingMode": "ZERO_SHOT",
-                        "evaluator": true
-                    },
-                    "lowLevelGoals": {
-                        "promptingMode": "ZERO_SHOT",
-                        "evaluator": true,
-                        "generationStrategy": "all_hlgs_in_one_call",
-                        "evaluationStrategy": "single_global_call_with_original_prompt"
-                    },
-                    "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
-                }
-            },
-            "missing_data": [],
-            "parents": [
-                {
-                    "id": "hlg_c7b4355f5aaf04ca_001",
-                    "goal": {
-                        "name": "Enable Citizen Participation in Urban Management",
-                        "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
-                        "actor": {
-                            "name": "Citizen",
-                            "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_d1e112914b4d9815_001",
-                        "llg_9e5db6fb09da08ee_001"
-                    ]
-                },
-                {
-                    "id": "hlg_b9167a622cc75e91_001",
-                    "goal": {
-                        "name": "Provide Transparent and Accessible Reporting System",
-                        "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
-                        "actor": {
-                            "name": "Citizen",
-                            "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_6e170435385ecec0_001",
-                        "llg_cd9f49a5bb009e56_001"
-                    ]
-                },
-                {
-                    "id": "hlg_853e84d06ed9fe58_001",
-                    "goal": {
-                        "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
-                        "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
-                        "actor": {
-                            "name": "Citizen",
-                            "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_9ac0b584c4d89e33_001"
-                    ]
-                },
-                {
-                    "id": "hlg_ccc7734d1de6e0ef_001",
-                    "goal": {
-                        "name": "Allow Non-Registered Users to Access Public Information",
-                        "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                        "actor": {
-                            "name": "Non-Registered User",
-                            "description": "User who can view public statistics and the interactive map of reports without logging in."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_a42873fab1b6ddb4_001",
-                        "llg_9efda239bd0448b5_001"
-                    ]
-                },
-                {
-                    "id": "hlg_fc8aaf6fc932edfc_001",
-                    "goal": {
-                        "name": "Ensure Efficient Review and Approval of Citizen Reports",
-                        "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
-                        "actor": {
-                            "name": "Organization Office Staff",
-                            "description": "Staff responsible for reviewing and approving citizen reports."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_171f6af47296304a_001"
-                    ]
-                },
-                {
-                    "id": "hlg_ff4642dfb9b0a7fb_001",
-                    "goal": {
-                        "name": "Facilitate Report Assignment and Management Based on Category",
-                        "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
-                        "actor": {
-                            "name": "Technical Office Staff",
-                            "description": "Staff responsible for assigning and managing reports based on category."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_1a9649e2f6010c03_001"
-                    ]
-                },
-                {
-                    "id": "hlg_ff99f6f5d954d8db_001",
-                    "goal": {
-                        "name": "Provide Public and Private Statistical Insights",
-                        "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
-                        "actor": {
-                            "name": "Municipal Administrator",
-                            "description": "Administrator who configures system settings and manages access for external companies."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_01bd1eeb4dafc198_001",
-                        "llg_104e567c6b56d36a_001"
-                    ]
-                },
-                {
-                    "id": "hlg_bf787da4fb4e0b50_001",
-                    "goal": {
-                        "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                        "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
-                        "actor": {
-                            "name": "Municipal Administrator",
-                            "description": "Administrator who configures system settings and manages access for external companies."
-                        }
-                    },
-                    "llg_ids": [
-                        "llg_66fc0afc17c73af8_001",
-                        "llg_521fb09f34cf1d50_001"
-                    ]
-                }
-            ],
-            "children": [
-                {
-                    "id": "llg_d1e112914b4d9815_001",
-                    "goal": {
-                        "name": "Submit a new urban issue report",
-                        "description": "Citizen submits a report with location, description, category, and optional photos or attachments.",
-                        "high_level_associated": {
-                            "name": "Enable Citizen Participation in Urban Management",
-                            "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
-                            "actor": {
-                                "name": "Citizen",
-                                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_c7b4355f5aaf04ca_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_c7b4355f5aaf04ca_001"
-                    ]
-                },
-                {
-                    "id": "llg_9ac0b584c4d89e33_001",
-                    "goal": {
-                        "name": "View submitted report status and updates",
-                        "description": "Citizen views the current status of their submitted report and receives notifications about updates.",
-                        "high_level_associated": {
-                            "name": "Support Real-Time Communication Between Citizens and Municipal Staff",
-                            "description": "Enable citizens to receive notifications and messages regarding their reports, and allow staff to communicate updates and comments, building trust and accountability.",
-                            "actor": {
-                                "name": "Citizen",
-                                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_853e84d06ed9fe58_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_853e84d06ed9fe58_001"
-                    ]
-                },
-                {
-                    "id": "llg_9e5db6fb09da08ee_001",
-                    "goal": {
-                        "name": "Follow and track multiple reports",
-                        "description": "Citizen follows multiple reports to receive updates and monitor resolution progress.",
-                        "high_level_associated": {
-                            "name": "Enable Citizen Participation in Urban Management",
-                            "description": "Allow citizens to report urban issues such as potholes, broken streetlights, or garbage, fostering civic engagement and improving public services through direct feedback.",
-                            "actor": {
-                                "name": "Citizen",
-                                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_c7b4355f5aaf04ca_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_c7b4355f5aaf04ca_001"
-                    ]
-                },
-                {
-                    "id": "llg_6e170435385ecec0_001",
-                    "goal": {
-                        "name": "View public interactive map of reports",
-                        "description": "Citizen views an interactive map displaying all public reports with filters by category, status, or location.",
-                        "high_level_associated": {
-                            "name": "Provide Transparent and Accessible Reporting System",
-                            "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
-                            "actor": {
-                                "name": "Citizen",
-                                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_b9167a622cc75e91_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_b9167a622cc75e91_001"
-                    ]
-                },
-                {
-                    "id": "llg_cd9f49a5bb009e56_001",
-                    "goal": {
-                        "name": "Filter and sort reports by category or status",
-                        "description": "Citizen applies filters and sorting options to view reports based on specific criteria.",
-                        "high_level_associated": {
-                            "name": "Provide Transparent and Accessible Reporting System",
-                            "description": "Ensure citizens can view reports on an interactive map and summary table, with filtering and sorting options, to increase transparency and awareness of urban issues.",
-                            "actor": {
-                                "name": "Citizen",
-                                "description": "Registered user who submits reports, receives updates, and can follow other reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_b9167a622cc75e91_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_b9167a622cc75e91_001"
-                    ]
-                },
-                {
-                    "id": "llg_a42873fab1b6ddb4_001",
-                    "goal": {
-                        "name": "View public statistics on report trends",
-                        "description": "Non-registered user views public statistics on report trends and categories without logging in.",
-                        "high_level_associated": {
-                            "name": "Allow Non-Registered Users to Access Public Information",
-                            "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                            "actor": {
-                                "name": "Non-Registered User",
-                                "description": "User who can view public statistics and the interactive map of reports without logging in."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_ccc7734d1de6e0ef_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_ccc7734d1de6e0ef_001"
-                    ]
-                },
-                {
-                    "id": "llg_9efda239bd0448b5_001",
-                    "goal": {
-                        "name": "View public interactive map without login",
-                        "description": "Non-registered user views the public interactive map of reports without authentication.",
-                        "high_level_associated": {
-                            "name": "Allow Non-Registered Users to Access Public Information",
-                            "description": "Enable anonymous users to view public statistics and the interactive map of reports to promote public awareness and encourage civic involvement without requiring registration.",
-                            "actor": {
-                                "name": "Non-Registered User",
-                                "description": "User who can view public statistics and the interactive map of reports without logging in."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_ccc7734d1de6e0ef_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_ccc7734d1de6e0ef_001"
-                    ]
-                },
-                {
-                    "id": "llg_171f6af47296304a_001",
-                    "goal": {
-                        "name": "Review citizen report for approval or rejection",
-                        "description": "Organization Office Staff reviews a citizen report and decides to approve or reject it with mandatory explanation for rejection.",
-                        "high_level_associated": {
-                            "name": "Ensure Efficient Review and Approval of Citizen Reports",
-                            "description": "Enable the Organization Office to review, approve, or reject citizen reports with mandatory explanations for rejections, ensuring accountability and quality control.",
-                            "actor": {
-                                "name": "Organization Office Staff",
-                                "description": "Staff responsible for reviewing and approving citizen reports."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_fc8aaf6fc932edfc_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_fc8aaf6fc932edfc_001"
-                    ]
-                },
-                {
-                    "id": "llg_1a9649e2f6010c03_001",
-                    "goal": {
-                        "name": "Assign report to appropriate department or external company",
-                        "description": "Technical Office Staff assigns a report to a department or external company based on its category.",
-                        "high_level_associated": {
-                            "name": "Facilitate Report Assignment and Management Based on Category",
-                            "description": "Allow Technical Office Staff to assign reports to appropriate departments or external companies based on category, ensuring timely and accurate resolution of urban issues.",
-                            "actor": {
-                                "name": "Technical Office Staff",
-                                "description": "Staff responsible for assigning and managing reports based on category."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_ff4642dfb9b0a7fb_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_ff4642dfb9b0a7fb_001"
-                    ]
-                },
-                {
-                    "id": "llg_01bd1eeb4dafc198_001",
-                    "goal": {
-                        "name": "View public report statistics and trends",
-                        "description": "Municipal Administrator views public statistics on report trends and categories.",
-                        "high_level_associated": {
-                            "name": "Provide Public and Private Statistical Insights",
-                            "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
-                            "actor": {
-                                "name": "Municipal Administrator",
-                                "description": "Administrator who configures system settings and manages access for external companies."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_ff99f6f5d954d8db_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_ff99f6f5d954d8db_001"
-                    ]
-                },
-                {
-                    "id": "llg_104e567c6b56d36a_001",
-                    "goal": {
-                        "name": "View private system performance analytics",
-                        "description": "Municipal Administrator accesses private analytics to monitor system performance and resource allocation.",
-                        "high_level_associated": {
-                            "name": "Provide Public and Private Statistical Insights",
-                            "description": "Offer public statistics on report trends and categories, and private analytics for administrators to monitor system performance and resource allocation.",
-                            "actor": {
-                                "name": "Municipal Administrator",
-                                "description": "Administrator who configures system settings and manages access for external companies."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_ff99f6f5d954d8db_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_ff99f6f5d954d8db_001"
-                    ]
-                },
-                {
-                    "id": "llg_66fc0afc17c73af8_001",
-                    "goal": {
-                        "name": "Configure system settings for open-source release",
-                        "description": "Municipal Administrator configures system settings to prepare for open-source release and integration with https://developers.italia.it/.",
-                        "high_level_associated": {
-                            "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                            "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
-                            "actor": {
-                                "name": "Municipal Administrator",
-                                "description": "Administrator who configures system settings and manages access for external companies."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_bf787da4fb4e0b50_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_bf787da4fb4e0b50_001"
-                    ]
-                },
-                {
-                    "id": "llg_521fb09f34cf1d50_001",
-                    "goal": {
-                        "name": "Publish system as open-source on developers.italia.it",
-                        "description": "Municipal Administrator publishes the system as open-source software on https://developers.italia.it/.",
-                        "high_level_associated": {
-                            "name": "Make Participium Open-Source and Available to All Italian Public Administrations",
-                            "description": "Ensure the system is released as open-source software and made available through https://developers.italia.it/ to promote interoperability and scalability across Italian public administrations.",
-                            "actor": {
-                                "name": "Municipal Administrator",
-                                "description": "Administrator who configures system settings and manages access for external companies."
-                            }
-                        }
-                    },
-                    "parent_id": "hlg_bf787da4fb4e0b50_001",
-                    "reference_status": "valid",
-                    "candidate_parent_ids": [
-                        "hlg_bf787da4fb4e0b50_001"
-                    ]
-                }
-            ]
-        }
     }
 }
