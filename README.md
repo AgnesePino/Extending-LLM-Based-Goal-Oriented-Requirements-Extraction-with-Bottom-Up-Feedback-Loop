@@ -4,7 +4,13 @@ This project extends a top-down goal extraction pipeline inspired by Arnaudo et 
 
 The bottom-up stage reconstructs an HLG from each group of LLGs and compares it with the current goals. Three evaluators review the results against the project description and vote on keeping, rewriting, or removing goals, including redundant goals. Approved rewrite requests return to the top-down pipeline, which generates revised HLGs and their LLGs before replacing the previous hierarchy.
 
-Threshold calibration uses a single Excel workbook for manual review. Experiments compare zero-shot, one-shot, and few-shot evaluators and four evaluator temperatures across 12 datasets, with one fixed similarity threshold shared by equivalence and duplicate detection. External evaluation measures HLG and LLG quality separately against ground truth.
+Reconstruction is zero-shot and uses only child names and descriptions. Related operations are abstracted into a concise verb-led functional goal, without introductory wording. Distinct capabilities, responsibilities, and scope constraints remain explicit when necessary. The reconstructor produces one goal, including a composite goal when needed, without judging or correcting the decomposition or receiving the original parent or ground truth.
+
+Each evaluator reviews the complete hierarchy using a compact numerical payload. An incomplete or invalid response is discarded in full and retried only for that model, up to three attempts. Valid responses from the other evaluators are preserved. Defaults are a verified 16384-token loaded context, 4096 output tokens per evaluator, and 8192 output tokens for Qwen. New experiments require a new suite because the prompt and retry policy changed.
+
+Each decision starts from the scope expressed by the reconstructed HLG. Action-specific instructions guide comparisons with its parent, all current HLGs, same-actor reconstructions, project description and actors before choosing KEEP, REWRITE, REMOVE or DUPLICATE_REMOVAL. The description establishes required functionality; generated goals and similarity results establish relationships and scope, without becoming additional requirements. Partial overlap calls for preserving independent capabilities, while duplicate removal requires full supported coverage by a direct candidate's retained parent.
+
+Experiments compare zero-shot, one-shot, and few-shot evaluators and three evaluator temperatures (0, 0.3, 0.6) across 12 datasets. The fixed 0.68 cosine threshold applies to reconstructed goals versus their parent and all current HLGs. Duplicate review compares same-actor goal texts without prime/prime cosine or a numerical duplicate threshold. The separate threshold-tuning workbook remains an offline analysis tool. External evaluation measures HLG and LLG quality separately against ground truth.
 
 - [Detailed approach — Italian](docs/README_approach.md)
 - [Experimental design and thesis guide](docs/PIANO_SPERIMENTALE_E_GUIDA_TESI.md)
@@ -30,7 +36,7 @@ The modules in `src/bottom_up/` are all used by these notebooks:
 |---|---|
 | `goal_cycle_orchestrator.py` | Run the review cycle and apply approved corrections through the top-down pipeline |
 | `goal_reconstructor.py` | Reconstruct an HLG from each group of LLGs |
-| `goal_similarity.py` | Compute cosine similarities for equivalence and duplicate detection |
+| `goal_similarity.py` | Compare reconstructed goals with original HLGs; list same-actor branches for textual duplicate review |
 | `global_goal_evaluator.py` | Collect evaluator decisions and combine their votes |
 | `result_storage.py` | Save dataset results and batch summaries for execution and evaluation |
 

@@ -8,14 +8,15 @@ from src.data_model import (
 from src.llm_clients import generate_response, loaded_local_model, QWEN_GENERATOR_MODEL
 
 
-SYSTEM_PROMPT = """You are an expert in Goal-Oriented Requirements Engineering.
-Infer one High-Level Goal from the supplied Low-Level Goals. The reconstruction
-is a lossless diagnostic summary, not a charitable abstraction: it must expose
-every distinct functional capability present in the children, including an
-outlier that does not belong with the others. Never silently discard, weaken,
-or generalize an inconvenient child merely to make the set look coherent.
-Do not invent functionality and do not mention the hidden parent goal. Return
-only the requested JSON containing the reconstructed goal, without a rationale."""
+SYSTEM_PROMPT = (
+    "You are a helpful assistant expert in software engineering tasks. "
+    "You are tasked to reconstruct one High-Level Goal from the supplied Low-Level Goals. "
+    "Following the Goal-Oriented Requirements Engineering (GORE) framework, express the "
+    "functional outcome represented by the concrete operations in the low-level goals. "
+    "Write a concise, action-oriented goal phrase starting with a verb, followed by the "
+    "functional object and any necessary scope qualification. "
+    "Use only the supplied low-level goals. Return only the requested JSON, without explanations."
+)
 
 
 def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
@@ -34,24 +35,27 @@ def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
         f"- llg_{index:03d}: {goal.name}\n  Description: {goal.description}"
         for index, goal in enumerate(branch.low_level_goals, start=1)
     ]
-    prompt = """Given these Low-Level Goals, reconstruct the single High-Level
-Goal that describes the complete aggregate scope implemented by them.
+    prompt = """Your task: summarize the following low-level goals as one
+high-level functional goal.
 
-Mandatory lossless reconstruction rules:
-- account for every llg_NNN; no child may be ignored as noise;
-- preserve materially different actions, objects, actors, lifecycle phases,
-  and outcomes instead of hiding them behind a vague verb such as manage,
-  handle, support, process, or use;
-- if one child introduces an unrelated or broader capability, include that
-  capability explicitly in the reconstructed HLG so the evaluator can detect
-  the mismatch;
-- do not infer missing operations that are not present in the supplied LLGs;
-- return only the reconstructed goal, without explanations or a rationale.
+- Account for every supplied LLG.
+- Combine related operations into their common functional outcome.
+- Preserve distinct capabilities and scope constraints when omitting them
+  would change the meaning.
+- Use a concise verb-led phrase, rather than a list of operations.
+- Omit introductory wording such as "The stakeholder aims to", "Enable users to",
+  or "The system shall".
+- Include actors or ownership restrictions only when needed to distinguish
+  responsibilities or scope.
+- Do not add functionality, explanations, assessments, or corrections.
+- If the LLGs express distinct outcomes, retain them in one concise composite
+  goal; do not invent a common purpose to make them appear coherent.
 
-Low-Level Goals:
+**Low-level goals:**
 {goals}
 
-Output only valid JSON:
+**Output:**
+Return only valid JSON:
 {{
   "reconstructed_high_level_goal": "..."
 }}""".format(goals="\n".join(lines))

@@ -51,12 +51,19 @@ i dataset di calibrazione e richiede esempi sia equivalenti sia non equivalenti;
 i dataset di validazione restano separati. Il confronto con la ground truth
 e diagnostico.
 
-## 3. Confermare per gli esperimenti
+## 3. Confermare nel report di tuning
 
 Nel foglio **Scelta soglie** inserisci la soglia unica in **B2** e `true`
 in **C2**. La riga duplicati riusa la stessa scelta. Salva, chiudi Excel
-ed esegui nuovamente `tune`. Il notebook 03 legge la scelta tramite
-`confirmed_thresholds`: imposta `THRESHOLD_WORKBOOK` sul file preparato.
+ed esegui nuovamente `tune`.
+
+Il notebook 03 usa direttamente la soglia fissa **0.68**, testata e confermata
+dall'utente per tutti i dataset e le configurazioni. Non richiede questo
+workbook: il tuning resta disponibile per analisi separate.
+
+Nella pipeline attuale i duplicati sono valutati tramite i testi, senza cosine
+HLG ricostruito--HLG ricostruito o soglia numerica. Le relative tabelle del
+workbook sono analisi offline e non selezionano i candidati della pipeline.
 
 Per le opzioni aggiuntive: `python -m experiment_threhold_tuning prepare --help`.
 Il comando `consolidate "cartella"` resta disponibile per convertire i vecchi

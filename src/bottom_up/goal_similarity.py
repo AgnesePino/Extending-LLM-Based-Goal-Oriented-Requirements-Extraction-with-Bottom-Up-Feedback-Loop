@@ -15,16 +15,15 @@ EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
 EMBEDDING_REVISION = os.getenv("BOTTOM_UP_EMBEDDING_REVISION", "main")
 DEFAULT_HLG_SIMILARITY_THRESHOLD = 0.68
 _configured_thresholds = [float(value) for name in (
-    "BOTTOM_UP_SIMILARITY_THRESHOLD", "BOTTOM_UP_HLG_SIMILARITY_THRESHOLD",
-    "BOTTOM_UP_DUPLICATE_SIMILARITY_THRESHOLD") if (value := os.getenv(name)) is not None]
+    "BOTTOM_UP_SIMILARITY_THRESHOLD", "BOTTOM_UP_HLG_SIMILARITY_THRESHOLD") if (value := os.getenv(name)) is not None]
 if len(set(_configured_thresholds)) > 1:
-    raise ValueError("Equivalence and duplicate candidates require one shared similarity threshold")
+    raise ValueError("Parent and original-HLG comparisons require one similarity threshold")
 SIMILARITY_THRESHOLD = (_configured_thresholds[0] if _configured_thresholds
                         else DEFAULT_HLG_SIMILARITY_THRESHOLD)
 if not 0 <= SIMILARITY_THRESHOLD <= 1:
     raise ValueError("Bottom-up similarity threshold must be between 0 and 1")
-# Compatibility names refer to the same value; callers cannot set them separately.
-HLG_SIMILARITY_THRESHOLD = DUPLICATE_SIMILARITY_THRESHOLD = SIMILARITY_THRESHOLD
+# Compatibility alias for the parent/original-HLG threshold.
+HLG_SIMILARITY_THRESHOLD = SIMILARITY_THRESHOLD
 
 
 @lru_cache(maxsize=1)
@@ -60,31 +59,29 @@ def _embedding_model():
 
 
 def similarity_configuration(*, parent_threshold=None, duplicate_threshold=None) -> dict:
-    supplied = [value for value in (parent_threshold, duplicate_threshold) if value is not None]
-    if len(set(supplied)) > 1:
-        raise ValueError("Equivalence and duplicate candidates require one shared similarity threshold")
-    threshold = supplied[0] if supplied else SIMILARITY_THRESHOLD
+    # Retain the old argument for archived callers; it never controls a comparison.
+    threshold = SIMILARITY_THRESHOLD if parent_threshold is None else parent_threshold
     if isinstance(threshold, bool) or not 0 <= threshold <= 1:
         raise ValueError("Similarity threshold must be between 0 and 1")
-    parent_threshold = duplicate_threshold = threshold
+    parent_threshold = threshold
     return {
         "embedding_model": EMBEDDING_MODEL,
         "requested_revision": EMBEDDING_REVISION,
         "similarity_threshold": threshold,
-        "threshold_policy": "shared_equivalence_and_duplicate_candidates",
+        "threshold_policy": "parent_and_original_hlg_matches",
         "parent_threshold": parent_threshold,
-        "duplicate_threshold": duplicate_threshold,
+        "duplicate_threshold": None,
         "thresholds_validated": False,
         "parent_threshold_calibration": {
-            "status": "provisional_shared_threshold",
+            "status": "parent_original_threshold",
             "annotation": "user-directed provisional value; not independently validated",
             "selected_default": DEFAULT_HLG_SIMILARITY_THRESHOLD,
             "active_threshold_matches_default": parent_threshold == DEFAULT_HLG_SIMILARITY_THRESHOLD,
         },
-        "duplicate_threshold_calibrated": False,
+        "duplicate_comparisons_method": "textual_review_no_cosine",
         "original_hlg_comparisons_scope": "all_original_hlgs_including_own",
         "original_hlg_actor_filter": "none",
-        "duplicate_comparisons_scope": "same_actor_reconstructed_hlgs",
+        "duplicate_comparisons_scope": "all_same_actor_branch_texts",
         "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
         "actor_filter_scope": "duplicate_comparisons_only",
         "original_hlg_comparisons_usage": "documentary_review",
@@ -145,15 +142,14 @@ def _actor_key(branch: GoalBranch) -> str:
 def analyze_similarities(branches: list[GoalBranch],
                          reconstructions: dict[str, BottomUpHighLevelGoal], *,
                          parent_threshold=None, duplicate_threshold=None) -> dict:
-    """Compare primes to all original HLGs; restrict prime pairs to one actor.
+    """Compare primes only to original HLGs; duplicate review uses same-actor texts.
 
-    An embedding error makes only the affected branch inconclusive. Empty
-    decompositions have no score and cannot be proposed as duplicate candidates.
+    The duplicate pool is not a prediction: the evaluator must establish full
+    functional coverage from the parents and reconstructions, without cosine.
     """
     config = similarity_configuration(parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
     parent_threshold = config["parent_threshold"]
-    duplicate_threshold = config["duplicate_threshold"]
-    records, vectors = {}, {}
+    records = {}
     for branch in branches:
         record = {"status": "VALID", "score": None, "relationship": "NOT_EQUIVALENT",
                   "reconstructable": bool(branch.low_level_goals),
@@ -166,29 +162,21 @@ def analyze_similarities(branches: list[GoalBranch],
             rebuilt = reconstructions[branch.branch_id].reconstructed_high_level_goal
             parent_vector, prime_vector = _encode_text(original), _encode_text(rebuilt)
             score = _cosine(parent_vector, prime_vector)
-            vectors[branch.branch_id] = prime_vector
             record.update(score=score, relationship=(
                 "EQUIVALENT" if score >= parent_threshold else "NOT_EQUIVALENT"))
         except Exception as exc:
             record.update(status="ERROR", relationship=None, error=f"{type(exc).__name__}: {exc}")
-    pairs = []
-    for i, left in enumerate(branches):
-        for right in branches[i + 1:]:
-            if (_actor_key(left) != _actor_key(right)
-                    or left.branch_id not in vectors or right.branch_id not in vectors):
-                continue
-            score = _cosine(vectors[left.branch_id], vectors[right.branch_id])
-            pair = {"branch_id": left.branch_id, "other_branch_id": right.branch_id,
-                    "score": score, "candidate": score >= duplicate_threshold}
-            pairs.append(pair)
-            if pair["candidate"]:
-                records[left.branch_id]["duplicate_label"] = "DUPLICATE"
-                records[right.branch_id]["duplicate_label"] = "DUPLICATE"
-                records[left.branch_id]["duplicate_candidates"].append(right.branch_id)
-                records[right.branch_id]["duplicate_candidates"].append(left.branch_id)
+    # Every other evaluable same-actor branch is a text-comparison candidate.
+    # No prime/prime comparisons, scores or numerical DUPLICATE labels are produced.
+    for branch in branches:
+        if records[branch.branch_id]["status"] != "VALID" or not branch.low_level_goals:
+            continue
+        records[branch.branch_id]["duplicate_candidates"] = [
+            other.branch_id for other in branches
+            if other.branch_id != branch.branch_id and _actor_key(other) == _actor_key(branch)
+            and other.low_level_goals and records[other.branch_id]["status"] == "VALID"]
 
     # Every reconstructed goal versus every original HLG, regardless of actor.
-    # The actor filter above applies only to prime/prime duplicate candidates.
     original_vectors, original_errors = {}, {}
     if any(branch.low_level_goals for branch in branches):
         for original in branches:
@@ -235,7 +223,7 @@ def analyze_similarities(branches: list[GoalBranch],
         record["matching_other_original_hlg_ids"] = other_matches
     config["original_hlg_comparison_count"] = len(branches) ** 2
     config["resolved_revision"] = _resolved_revision()
-    return {"configuration": config, "branches": records, "pairs": pairs}
+    return {"configuration": config, "branches": records, "pairs": []}
 
 
 def _compact_original_comparison(row: dict, positions: dict[str, int]) -> dict:
@@ -278,4 +266,38 @@ def build_cosine_payload(branches: list[GoalBranch],
             ],
         } for branch in branches],
         "pairs": analysis["pairs"],
+    }
+
+
+def build_review_payload(payload: dict) -> dict:
+    """Compact original-HLG scores and text-review pool; diagnostics stay unchanged."""
+    branches = payload["branches"]
+    positions = {branch["branch_id"]: i for i, branch in enumerate(branches)}
+    errors = []
+    rows = []
+    for i, branch in enumerate(branches):
+        scores = [None] * len(branches)
+        for comparison in branch.get("original_hlg_comparisons", []):
+            j = comparison.get("original_branch_index")
+            if j is None:
+                j = positions[comparison["original_branch_id"]]
+            scores[j] = comparison.get("score")
+            if comparison.get("status", "VALID") != "VALID":
+                errors.append([i, j, comparison["status"], comparison.get("error")])
+        rows.append(scores)
+    return {
+        "threshold": payload["configuration"]["similarity_threshold"],
+        "requested_branch_ids": [b["branch_id"] for b in branches if b["status"] == "VALID"],
+        "branches": [{
+            "branch_id": b["branch_id"], "actor": b["actor"],
+            "hlg": b["hlg"], "hlg_prime": b["hlg_prime"],
+            "status": b["status"], "reconstructable": b["reconstructable"],
+            "relationship": b["relationship"], "parent_score": b["score"],
+            "original_hlg_comparisons_complete": b["original_hlg_comparisons_complete"],
+            "duplicate_candidates": b["duplicate_candidates"],
+            **({"error": b["error"]} if b.get("error") else {}),
+        } for b in branches],
+        "original_scores": rows,
+        "original_errors": errors,
+        "duplicate_review": "same_actor_texts_only",
     }

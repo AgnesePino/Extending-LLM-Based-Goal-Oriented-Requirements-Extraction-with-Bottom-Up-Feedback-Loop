@@ -172,6 +172,7 @@ class EvaluatorVoteRecord(BaseModel):
     parsed_response: dict | None = None
     error: str | None = None
     attempt_history: list[dict] = Field(default_factory=list)
+    generation_attempts: list[dict] = Field(default_factory=list)
 
 
 class HighLevelGoalEvaluation(BaseModel):

@@ -20,7 +20,7 @@ from pydantic import BaseModel
 
 
 QWEN_GENERATOR_MODEL = os.getenv("QWEN_GENERATOR_MODEL", "qwen/qwen3-vl-8b")
-QWEN_GENERATOR_MAX_TOKENS = int(os.getenv("QWEN_GENERATOR_MAX_TOKENS", "4000"))
+QWEN_GENERATOR_MAX_TOKENS = int(os.getenv("QWEN_GENERATOR_MAX_TOKENS", "8192"))
 LM_STUDIO_GENERATOR_ATTEMPTS = int(os.getenv("LM_STUDIO_GENERATOR_ATTEMPTS", "3"))
 REQUEST_TIMEOUT_SECONDS = float(os.getenv("REQUEST_TIMEOUT_SECONDS", "600"))
 API_MAX_RETRIES = int(os.getenv("API_MAX_RETRIES", "1"))
@@ -39,7 +39,7 @@ LM_STUDIO_MODEL_MANAGEMENT_TIMEOUT_SECONDS = float(
     os.getenv("LM_STUDIO_MODEL_MANAGEMENT_TIMEOUT_SECONDS", "600")
 )
 LM_STUDIO_EVALUATOR_CONTEXT_LENGTH = int(
-    os.getenv("LM_STUDIO_EVALUATOR_CONTEXT_LENGTH", "8192")
+    os.getenv("LM_STUDIO_EVALUATOR_CONTEXT_LENGTH", "16384")
 )
 MINISTRAL_CRITIC_MODEL = os.getenv(
     "MINISTRAL_CRITIC_MODEL", "mistralai/ministral-3-14b-reasoning"
@@ -276,19 +276,24 @@ def _lm_studio_management_request(
     return json.loads(content) if content else {}
 
 
-def _loaded_lm_studio_instances() -> dict[str, list[str]]:
+def _loaded_lm_studio_instance_configs() -> dict[str, list[dict]]:
     payload = _lm_studio_management_request("models")
-    loaded: dict[str, list[str]] = {}
+    loaded = {}
     for model in payload.get("models", []):
         model_id = str(model.get("key", "")).strip()
-        instances = [
-            str(instance.get("id", "")).strip()
-            for instance in model.get("loaded_instances", [])
-            if str(instance.get("id", "")).strip()
-        ]
+        instances = [instance for instance in model.get("loaded_instances", [])
+                     if str(instance.get("id", "")).strip()]
         if model_id and instances:
             loaded[model_id] = instances
     return loaded
+
+
+def _loaded_lm_studio_instances() -> dict[str, list[str]]:
+    return {model: [str(instance["id"]).strip() for instance in instances]
+            for model, instances in _loaded_lm_studio_instance_configs().items()}
+
+
+_local_load_configs: dict[str, dict] = {}
 
 
 def _unload_lm_studio_instance(instance_id: str) -> None:
@@ -315,18 +320,26 @@ def _loaded_local_model_instance(model_id: str):
         raise ValueError("The LM Studio evaluator model id cannot be empty.")
 
     _unload_other_bottom_up_critics(selected_model)
-    loaded = _loaded_lm_studio_instances()
+    loaded = _loaded_lm_studio_instance_configs()
     existing_instances = loaded.get(selected_model, [])
-    if existing_instances:
-        instance_id = existing_instances[0]
-        for duplicate_instance_id in existing_instances[1:]:
-            _unload_lm_studio_instance(duplicate_instance_id)
+    required_context = LM_STUDIO_EVALUATOR_CONTEXT_LENGTH
+    if required_context < 1:
+        raise ValueError("Requested model context must be positive")
+    suitable = [instance for instance in existing_instances
+                if isinstance((instance.get("config") or {}).get("context_length"), int)
+                and instance["config"]["context_length"] >= required_context]
+    instance_id = str(suitable[0]["id"]).strip() if suitable else None
+    for instance in existing_instances:
+        if str(instance["id"]).strip() != instance_id:
+            _unload_lm_studio_instance(str(instance["id"]).strip())
+    if instance_id:
+        load_config = suitable[0]["config"]
     else:
         response = _lm_studio_management_request(
             "models/load",
             {
                 "model": selected_model,
-                "context_length": LM_STUDIO_EVALUATOR_CONTEXT_LENGTH,
+                "context_length": required_context,
                 "flash_attention": True,
                 "offload_kv_cache_to_gpu": True,
                 "echo_load_config": True,
@@ -341,11 +354,30 @@ def _loaded_local_model_instance(model_id: str):
             raise RuntimeError(
                 f"LM Studio loaded {selected_model!r} but returned no instance id."
             )
+        load_config = response.get("load_config") or {}
+        if not isinstance(load_config.get("context_length"), int):
+            instances = _loaded_lm_studio_instance_configs().get(selected_model, [])
+            load_config = next((instance.get("config") or {} for instance in instances
+                                if str(instance["id"]).strip() == instance_id), {})
+
+    actual_context = load_config.get("context_length")
+    if not isinstance(actual_context, int) or actual_context < required_context:
+        _unload_lm_studio_instance(instance_id)
+        raise RuntimeError(f"LM Studio context verification failed for {selected_model}: "
+                           f"requested={required_context}, actual={actual_context}. "
+                           "No silent context reduction is allowed.")
+    _local_load_configs[selected_model] = {
+        "loaded_instance_id": instance_id, "loaded_context_length": actual_context,
+        "requested_context_length": required_context,
+    }
 
     try:
         yield selected_model
     finally:
-        _unload_lm_studio_instance(instance_id)
+        try:
+            _unload_lm_studio_instance(instance_id)
+        finally:
+            _local_load_configs.pop(selected_model, None)
 
 
 _model_lock = RLock()
@@ -417,19 +449,27 @@ def _generate_evaluator_response(
     if response_schema is not None:
         # LM Studio exposes grammar-constrained JSON via /v1/chat/completions.
         # Never silently fall back to free text if the server rejects the schema.
-        response = _ministral_client().chat.completions.create(
-            model=selected_model, messages=messages, temperature=temperature,
-            max_tokens=BOTTOM_UP_CRITIC_MAX_TOKENS,
-            response_format={"type": "json_schema", "json_schema": {
-                "name": "documentary_review", "strict": True, "schema": response_schema}},
-        )
+        request_metadata = {
+            "endpoint": "/v1/chat/completions", "structured_output": True,
+            "model": selected_model, "temperature": temperature,
+            "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
+            "prompt_characters": sum(len(message["content"]) for message in messages),
+            **_local_load_configs.get(selected_model, {}),
+        }
+        try:
+            response = _ministral_client().chat.completions.create(
+                model=selected_model, messages=messages, temperature=temperature,
+                max_tokens=BOTTOM_UP_CRITIC_MAX_TOKENS,
+                response_format={"type": "json_schema", "json_schema": {
+                    "name": "documentary_review", "strict": True, "schema": response_schema}},
+            )
+        except Exception as exc:
+            raise EvaluatorGenerationError(str(exc), "", request_metadata) from exc
         choice = response.choices[0]
         content = choice.message.content or ""
         usage = response.usage
         metadata = {
-            "endpoint": "/v1/chat/completions", "structured_output": True,
-            "model": selected_model, "temperature": temperature, "finish_reason": choice.finish_reason,
-            "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
+            **request_metadata, "finish_reason": choice.finish_reason,
             "usage": usage.model_dump(mode="json") if usage is not None else None,
         }
         if choice.finish_reason != "stop" or not content.strip():

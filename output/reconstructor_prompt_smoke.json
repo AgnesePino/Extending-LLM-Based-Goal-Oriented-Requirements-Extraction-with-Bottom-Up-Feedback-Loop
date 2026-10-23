@@ -1,0 +1,60 @@
+{
+  "model": "qwen/qwen3-vl-8b",
+  "prompt_policy": "functional_outcome_abstraction_v1",
+  "mode": "ZERO_SHOT",
+  "cases": [
+    {
+      "case": "related_cart_operations",
+      "input": [
+        {
+          "name": "Add product",
+          "description": "Allow customers to add products to their shopping cart."
+        },
+        {
+          "name": "Remove product",
+          "description": "Allow customers to remove products from their shopping cart."
+        },
+        {
+          "name": "View cart",
+          "description": "Allow customers to view the products in their shopping cart."
+        }
+      ],
+      "output": "Enable customers to manage their shopping cart by adding, removing, and viewing products.",
+      "elapsed_seconds": 1.33
+    },
+    {
+      "case": "distinct_capability_and_scope",
+      "input": [
+        {
+          "name": "View own profile",
+          "description": "Allow members to view only their own profile."
+        },
+        {
+          "name": "Edit own profile",
+          "description": "Allow members to edit only their own profile."
+        },
+        {
+          "name": "Generate financial report",
+          "description": "Allow members to generate financial reports."
+        }
+      ],
+      "output": "Enable members to manage their own profiles and generate financial reports.",
+      "elapsed_seconds": 0.28
+    },
+    {
+      "case": "distinct_actor_responsibilities",
+      "input": [
+        {
+          "name": "Request a loan",
+          "description": "Allow members to request a loan of available tools."
+        },
+        {
+          "name": "Approve a loan",
+          "description": "Allow librarians to approve requested tool loans."
+        }
+      ],
+      "output": "Enable members to request tool loans and allow librarians to approve those requests.",
+      "elapsed_seconds": 0.3
+    }
+  ]
+}

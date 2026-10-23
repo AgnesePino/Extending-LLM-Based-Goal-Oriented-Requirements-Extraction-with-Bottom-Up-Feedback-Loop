@@ -166,6 +166,7 @@ def run_global_goal_cycle(
     parent_threshold: float | None = None, duplicate_threshold: float | None = None,
     on_state=None,
 ) -> GlobalGoalCycleResult:
+    """Review a hierarchy; duplicate_threshold is a legacy, unused argument."""
     if mode != ShotPromptingMode.ZERO_SHOT or evaluator_ablation:
         raise ValueError("Bottom-up repairs require original zero-shot generation and an enabled critic")
     if not 1 <= max_iterations <= DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS:
@@ -176,7 +177,7 @@ def run_global_goal_cycle(
     evaluator_temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if evaluator_temperature is None else evaluator_temperature
     if not 0 <= evaluator_temperature <= 2:
         raise ValueError("Evaluator temperature must be between 0 and 2")
-    similarity_options = {"parent_threshold": parent_threshold, "duplicate_threshold": duplicate_threshold}
+    similarity_options = {"parent_threshold": parent_threshold}
     active_similarity = similarity_configuration(**similarity_options)
     file_prefix = ""
     if output_file_prefix is not None:
@@ -199,6 +200,9 @@ def run_global_goal_cycle(
               "evaluator_few_shot_examples": evaluator_few_shot_examples,
               "evaluator_response_format": "json_schema",
               "evaluator_endpoint": "/v1/chat/completions",
+              "evaluator_retry_policy": "whole_global_response_per_model",
+              "review_payload_format": "compact_matrix_v2_textual_duplicates",
+              "rationale_max_words": 25, "critique_max_words": 60,
               "similarity": active_similarity, "completeness_enabled": False,
               "branch_grouping_policy": "direct_llg_embedded_parent_name_and_description_actor_ignored",
               "new_goal_discovery": "no_explicit_bottom_up_addition; top_down_cardinality_unrestricted",

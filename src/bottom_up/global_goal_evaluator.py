@@ -1,4 +1,4 @@
-"""One global documentary review per critic, using fixed numerical matches."""
+"""One joint global review per critic of goals, numerical matches and project context."""
 
 import json
 import os
@@ -7,7 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from src.bottom_up.goal_similarity import analyze_similarities, build_cosine_payload
+from src.bottom_up.goal_similarity import analyze_similarities, build_cosine_payload, build_review_payload
 from src.data_model import (
     Actors,
     BottomUpRepairFeedback,
@@ -26,7 +26,7 @@ from src.llm_clients import (
 
 # Configuration
 
-PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v63_direct_llg_groups"
+PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v69_textual_duplicate_review"
 BOTTOM_UP_EVALUATOR_MODELS = configured_bottom_up_critic_models()
 
 if len(set(BOTTOM_UP_EVALUATOR_MODELS)) != 3 or not all(BOTTOM_UP_EVALUATOR_MODELS):
@@ -44,9 +44,14 @@ if not 1 <= BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS <= 3:
 BOTTOM_UP_EVALUATOR_PROMPTING_MODE = "FEW_SHOT"
 CRITIC1_FEW_SHOT_EXAMPLE_COUNT = 4
 
-SYSTEM_PROMPT = """Review software goals against the supplied project description.
-Use only this source. Similarity scores and labels are fixed inputs, not questions.
-Return one JSON object. Give short documentary reasons. Do not invent requirements."""
+SYSTEM_PROMPT = (
+    "You are an expert in software engineering and Goal-Oriented Requirements Engineering (GORE). "
+    "Start from each reconstructed HLG and jointly review project description, actors, current HLGs, "
+    "reconstructed HLGs and fixed similarity results. The description states requirements; "
+    "generated goals reveal scope, consistency and overlap, not additional requirements. "
+    "Return only the requested decision JSON. Do not invent functionality."
+)
+
 
 # Four source/branch/response examples, shared by all three evaluators.
 FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools.',
@@ -109,13 +114,11 @@ FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools.',
                 'hlg': 'Reserve tools',
                 'hlg_prime': 'Request tool reservations',
                 'relationship': 'EQUIVALENT',
-                'duplicate_label': 'DUPLICATE',
                 'duplicate_candidates': ['b']},
                {'branch_id': 'b',
                 'hlg': 'Request tool reservations',
                 'hlg_prime': 'Reserve tools',
                 'relationship': 'EQUIVALENT',
-                'duplicate_label': 'DUPLICATE',
                 'duplicate_candidates': ['a']}],
   'duplicate_candidates': [{'branch_id': 'a', 'other_branch_id': 'b'}],
   'response': {'decisions': [{'branch_id': 'a',
@@ -127,54 +130,12 @@ FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools.',
                               'surviving_branch_id': 'a'}]}}]
 
 
-# Response contract
-
-# Synthetic additions for the six-example experiment; the original four stay intact.
-EXTRA_FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools and cancel their reservations. Both capabilities are required.',
-  'actor': 'Member',
-  'branches': [{'branch_id': 'a',
-                'hlg': 'Reserve tools',
-                'hlg_prime': 'Request tool reservations',
-                'relationship': 'EQUIVALENT',
-                'duplicate_label': 'DUPLICATE',
-                'duplicate_candidates': ['b']},
-               {'branch_id': 'b',
-                'hlg': 'Cancel tool reservations',
-                'hlg_prime': 'Cancel requested tool reservations',
-                'relationship': 'EQUIVALENT',
-                'duplicate_label': 'DUPLICATE',
-                'duplicate_candidates': ['a']}],
-  'response': {'decisions': [{'branch_id': 'a',
-                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
-                              'rationale': 'The source requires making reservations; cancellation is a '
-                                           'separate documented capability, so numerical duplication does '
-                                           'not justify removal.'},
-                             {'branch_id': 'b',
-                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL',
-                              'rationale': 'The source also requires cancellation; removing this branch '
-                                           'would lose an independent capability.'}]}},
- {'source': 'Editors publish only their own articles.',
-  'actor': 'Editor',
-  'branches': [{'branch_id': 'a',
-                'hlg': "Publish all editors' articles",
-                'hlg_prime': 'Publish my articles',
-                'relationship': 'NOT_EQUIVALENT',
-                'original_hlg_comparisons_complete': True}],
-  'response': {'decisions': [{'branch_id': 'a',
-                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
-                              'rationale': "Publication is restricted to the editor's own articles.",
-                              'feedback': {'critique': "For the goal 'Publish all editors' articles': "
-                                                       "Publication is restricted to the editor's own "
-                                                       'articles. Restrict publication to articles owned by '
-                                                       'the acting editor.'}}]}}]
-
-
 def evaluator_examples(count=None):
     """Nested example sets, independent of evaluation ground truths."""
     count = CRITIC1_FEW_SHOT_EXAMPLE_COUNT if count is None else count
-    if count not in (0, 1, 2, 4, 6):
-        raise ValueError("Evaluator example count must be 0, 1, 2, 4 or 6")
-    return (FEW_SHOT_EXAMPLES + EXTRA_FEW_SHOT_EXAMPLES)[:count]
+    if type(count) is not int or count not in (0, 1, 2, 4):
+        raise ValueError("Evaluator example count must be 0, 1, 2 or 4 (maximum 4)")
+    return FEW_SHOT_EXAMPLES[:count]
 
 
 class DocumentaryDecision(BaseModel):
@@ -222,30 +183,21 @@ def _merge_agreeing_judgments(records, operation_key):
 
 
 def _documentary_response_schema(branches, analysis):
-    """Constrain syntax and action-specific fields; validate semantics per branch."""
+    """Constrain each duplicate operation to its own direct candidates."""
     variants = []
-    actions = [
-        ("KEEP_ORIGINAL_HIGH_LEVEL_GOAL", []),
-        ("REWRITE_ORIGINAL_HIGH_LEVEL_GOAL", ["feedback"]),
-        ("REMOVE_ORIGINAL_HIGH_LEVEL_GOAL", []),
-        ("DUPLICATE_REMOVAL", ["surviving_branch_id"]),
-    ]
-    # A retry may request only unresolved branches; survivors can be accepted peers.
-    ids = list(analysis["branches"])
-    for action, fields in actions:
-        eligible = []
+    actions = ["KEEP_ORIGINAL_HIGH_LEVEL_GOAL", "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+               "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL", "DUPLICATE_REMOVAL"]
+    eligible_ids = [b.branch_id for b in branches
+                    if analysis["branches"][b.branch_id]["status"] == "VALID"]
+    for action in actions:
+        groups = {}
         for branch in branches:
-            # Reuse the live numerical/parameter validator instead of duplicating
-            # its rules. Documentary support remains the model's responsibility.
-            probe = {
-                "branch_id": branch.branch_id,
-                "decision": action,
-                "rationale": "Schema eligibility",
-            }
-            for name in fields:
-                probe[name] = {"critique": "Required feedback"} if name == "feedback" else "Required feedback"
+            record = analysis["branches"][branch.branch_id]
+            candidates = tuple(record.get("duplicate_candidates", []))
+            probe = dict(branch_id=branch.branch_id, decision=action, rationale="Schema eligibility")
+            if action == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
+                probe["feedback"] = {"critique": "Correct the documented scope."}
             if action == "DUPLICATE_REMOVAL":
-                candidates = analysis["branches"][branch.branch_id].get("duplicate_candidates", [])
                 if not candidates:
                     continue
                 probe["surviving_branch_id"] = candidates[0]
@@ -253,42 +205,28 @@ def _documentary_response_schema(branches, analysis):
                 _validate_decision(probe, branch, analysis)
             except ValueError:
                 continue
-            eligible.append(branch.branch_id)
-        if not eligible:
-            continue
-        properties = {
-            "branch_id": {"type": "string", "enum": eligible},
-            "decision": {"type": "string", "enum": [action]},
-            "rationale": {"type": "string", "minLength": 1},
-        }
-        for name in fields:
-            properties[name] = (
-                {"type": "object", "properties": {"critique": {"type": "string", "minLength": 1}},
-                 "required": ["critique"], "additionalProperties": False}
-                if name == "feedback" else {"type": "string", "enum": ids})
-        variants.append({
-            "type": "object",
-            "properties": properties,
-            "required": list(properties),
-            "additionalProperties": False,
-        })
-
-    required_count = len({
-        branch_id for variant in variants
-        for branch_id in variant["properties"]["branch_id"]["enum"]
-    })
+            key = candidates if action == "DUPLICATE_REMOVAL" else ()
+            groups.setdefault(key, []).append(branch.branch_id)
+        for candidates, ids in groups.items():
+            properties = {
+                "branch_id": {"type": "string", "enum": ids},
+                "decision": {"type": "string", "enum": [action]},
+                "rationale": {"type": "string", "minLength": 1},
+            }
+            if action == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
+                properties["feedback"] = {
+                    "type": "object", "properties": {"critique": {"type": "string", "minLength": 1}},
+                    "required": ["critique"], "additionalProperties": False}
+            if action == "DUPLICATE_REMOVAL":
+                properties["surviving_branch_id"] = {"type": "string", "enum": list(candidates)}
+            variants.append({"type": "object", "properties": properties,
+                             "required": list(properties), "additionalProperties": False})
     return {
-        "type": "object",
-        "properties": {
-            "decisions": {
-                "type": "array",
-                "items": ({"anyOf": variants} if variants else {"type": "object", "additionalProperties": False}),
-                "minItems": required_count,
-                "maxItems": required_count,
-            },
-        },
-        "required": ["decisions"],
-        "additionalProperties": False,
+        "type": "object", "properties": {"decisions": {
+            "type": "array",
+            "items": {"anyOf": variants} if variants else {"type": "object", "additionalProperties": False},
+            "minItems": len(eligible_ids), "maxItems": len(eligible_ids)}},
+        "required": ["decisions"], "additionalProperties": False,
     }
 
 
@@ -301,7 +239,7 @@ def _validate_decision(item, branch, analysis):
         raise ValueError("Similarity unavailable; branch must remain inconclusive")
     if vote.decision == "DUPLICATE_REMOVAL":
         if vote.surviving_branch_id not in record["duplicate_candidates"]:
-            raise ValueError("Survivor must be a direct same-actor cosine candidate")
+            raise ValueError("Survivor must be a direct same-actor text-review candidate")
     elif vote.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
         if not record["reconstructable"] or record["relationship"] not in {"EQUIVALENT", "NOT_EQUIVALENT"}:
             raise ValueError("REWRITE requires a reconstructable HLG prime and a valid numerical relationship")
@@ -313,58 +251,59 @@ def _validate_decision(item, branch, analysis):
     return vote
 
 
-# Global documentary prompt
+# Joint global review prompt
 
 
-GLOBAL_REVIEW_INSTRUCTIONS = """Review goals against the supplied project documentation.
-Numerical relationships and duplicate candidates are fixed inputs.
+GLOBAL_REVIEW_INSTRUCTIONS = """START FROM HLG PRIME: it summarizes the branch's child capabilities, not an
+approved replacement. Read its scope, then compare it with its parent, ALL
+current HLGs, same-actor primes, project description and actors. Use the fixed
+scores/labels to locate matches; read goal texts to distinguish actual coverage
+from proximity. Other goals provide context, not new requirements evidence.
+Composite scope or different wording alone is not an error. LLG texts are absent:
+do not audit individual children or reconstruction fidelity.
 
-BRANCH ANALYSIS
-Use these checks within one global review, without returning extra diagnostic fields:
-1. Read the fixed relationship between the original HLG and HLG prime.
-2. Check whether the original HLG is fully, partly, or not supported by the source.
-3. Check documentary support for HLG prime separately from its parent.
-4. Inspect matches with all original HLGs, including goals of other actors.
-5. Check whether numerical duplicate candidates are actual functional redundancies.
-6. Check the documented responsibility of the parent actor. An actor difference
-   alone is not evidence that the original goal must be rewritten or removed.
-7. Read whether the branch is reconstructable. Missing children alone do not
-   establish that the original goal is undocumented.
-Do not infer reconstruction fidelity or individual LLG quality: their texts are not supplied.
+For every requested branch, apply the comparisons for the chosen action:
 
-DECISION CONDITIONS
-Return one of these four actions for every branch:
-- KEEP_ORIGINAL_HIGH_LEVEL_GOAL: retain a correctly formulated, documented
-  functional outcome when the documentary analysis justifies preserving it.
-  EQUIVALENT alone does not establish documentary validity.
-- REWRITE_ORIGINAL_HIGH_LEVEL_GOAL: correct the SAME functional outcome when
-  NOT_EQUIVALENT and HLG prime provides a documented correction, or when
-  EQUIVALENT but only partly documented. Preserve supported capabilities and
-  remove unsupported scope. HLG prime is a reference, not text to copy blindly.
-- REMOVE_ORIGINAL_HIGH_LEVEL_GOAL: remove the parent and children only when the
-  shared EQUIVALENT outcome is entirely undocumented, or both NOT_EQUIVALENT
-  outcomes are entirely undocumented. Explain why no documented capability is lost.
-- DUPLICATE_REMOVAL: remove a direct same-actor duplicate candidate only if the
-  retained parent preserves all independent functionality. Specify surviving_branch_id.
-  Keep the most complete valid parent; ties follow registry order. No child transfer.
+KEEP_ORIGINAL_HIGH_LEVEL_GOAL
+Compare prime with parent (score, label, texts), then parent with source, actor
+and other HLGs. Keep a correctly scoped supported parent with an independent
+outcome, or the selected duplicate survivor. EQUIVALENT supports retention only
+if the shared outcome is required. If NOT_EQUIVALENT, keep a valid parent when
+prime's different scope does not establish a parent defect; explain that distinction.
 
-Justify the chosen action from the source, not from a numerical label alone.
-NOT_EQUIVALENT does not automatically require rewriting the parent. A match
-with another original HLG does not automatically authorize removal or child transfer.
-Do not introduce an unresolved-review action, abstention, or a separate LLG repair.
-Give one short rationale identifying the documentary evidence, the relevant
-problem or absence of a problem, and why the selected action is justified.
+REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
+Compare prime with parent to identify scope differences; inspect prime's matches
+with other HLGs and check source/actor to locate the correct responsibility.
+Rewrite when the parent's supported outcome needs a concrete scope, ownership
+or boundary correction. With EQUIVALENT, both texts may share unsupported scope;
+with NOT_EQUIVALENT, prime may reveal a required correction, not an automatic
+replacement. Preserve supported capabilities without absorbing another goal's
+independent scope. Requires reconstructable=true and original_hlg_comparisons_complete=true.
 
-For REWRITE return feedback: {"critique": "..."}. Write a self-contained textual
-judgment for the HLG generator, naming the goal in natural prose and explaining
-what should change and what should remain. Address the correction of the HLG
-itself; do not supply a replacement collection or instructions for editing LLGs.
-Only this text is passed as correction
-feedback. Keep branch_id, decision, rationale and surviving_branch_id outside
-feedback: they are orchestration metadata, not generator instructions.
-The feedback of the two or three agreeing evaluators will be joined as prose.
-Do not request a separate LLG regeneration action. A rewrite starts the original
-top-down pipeline at HLG generation; after HLG approval, top-down generates its LLGs.
+REMOVE_ORIGINAL_HIGH_LEVEL_GOAL
+Compare BOTH parent and prime with source, actors and remaining HLGs. Remove
+only if the parent has no supported outcome to preserve and removing its children
+loses no required capability. EQUIVALENT: their shared outcome is unsupported.
+NOT_EQUIVALENT: neither outcome supplies supported functionality to preserve.
+Partial support requires correction; supported redundancy uses DUPLICATE_REMOVAL.
+
+DUPLICATE_REMOVAL
+Compare the texts of same-actor primes and BOTH original parents, then check
+source and actor responsibilities. No prime/prime cosine is computed. Remove only if the
+survivor's parent fully covers this branch's supported capabilities. Shared words
+or partial overlap cannot replace this coverage check. Preserve
+complementary outcomes. Keep the most complete valid parent; ties follow branch
+order. Survivor must be KEEP, not rewritten/removed. No chains, cycles or child transfer.
+
+OUTPUT: only {"decisions":[...]}; every requested ID once, schema fields only.
+Each entry: branch_id, decision, rationale (<=25 words), naming the decisive
+comparison and concrete scope finding. Do not output the intermediate analysis.
+REWRITE alone adds feedback: {"critique":"..."} (<=60 words): name the goal,
+state what to preserve/change and relevant boundaries/responsibilities. Only
+this prose reaches the HLG generator; agreeing critiques are joined. No IDs,
+scores or JSON in critique, replacement collections or separate LLG repair.
+DUPLICATE_REMOVAL alone adds surviving_branch_id from its direct candidates.
+No abstention or extra actions. Do not recalculate scores or replace fixed labels.
 """
 
 
@@ -382,6 +321,7 @@ def _critic1_prompt(
         if cosine_payload is not None
         else build_cosine_payload(branches, reconstructions, analysis)
     )
+    payload = build_review_payload(payload)
     selected_examples = evaluator_examples(few_shot_example_count)
     examples = "\n\n".join(
         f"Example {i}\nDescription: {e['source']}\n"
@@ -392,22 +332,17 @@ def _critic1_prompt(
     example_section = f"EXAMPLES (fictional requirements, not project evidence)\n{examples}\n\n" if examples else ""
     return f"""{GLOBAL_REVIEW_INSTRUCTIONS}
 
-OPERATIONAL RESPONSE REQUIREMENTS
-Review each branch against the source for its actor. HLG prime comes from its LLGs.
-Use the supplied cosine labels as fixed facts; do not reassess similarity.
-Do not audit LLG quality or judge reconstruction fidelity; review the goals only.
-original_branch_index refers to the branch list, starting at 0; absent comparison status means VALID.
-Every HLG prime is compared with ALL original HLGs regardless of actor, including
-its own parent. Cross-actor matches are review context, not duplicate candidates.
-Only prime/prime duplicate comparisons remain restricted to the same actor.
-The preceding description states the default setup. This request contains
-{len(selected_examples)} examples; use only the examples actually supplied below.
-
-Check documentary support for BOTH parent and HLG prime. Unsupported prime alone
-never justifies removing a documented parent. Empty children alone do not justify
-removal either. Never REWRITE from empty children or incomplete original comparisons.
-DUPLICATE is separate from EQUIVALENT/NOT_EQUIVALENT; choose a direct candidate only.
-No circular or transitive removals. The bottom-up correction entry point is HLG generation; top-down then handles LLGs.
+PAYLOAD FORMAT
+Branch list order defines zero-based matrix indices. original_scores[i][j] is
+cosine(prime of branch i, original HLG of branch j), across ALL actors; diagonal
+is parent_score. Values are unrounded. Null means unavailable; original_errors
+contains [row,column,status,error] for non-VALID comparisons.
+threshold applies only to prime/original-HLG matches. duplicate_candidates lists
+all other evaluable same-actor branches, NOT cosine-selected or confirmed duplicates.
+Compare their parents and primes by text; preserve independent capabilities.
+This request supplies {len(selected_examples)} fictional examples; use them only
+as decision demonstrations, not evidence. Their prose illustrates policy;
+apply the current 25/60-word limits to your response.
 
 {example_section}PROJECT DESCRIPTION
 {description}
@@ -416,12 +351,6 @@ ACTORS
 Cosine JSON:
 {json.dumps(payload, ensure_ascii=False, separators=(',', ':'))}
 
-OUTPUT
-Only {{"decisions":[...]}} matching the schema. Every requested branch exactly once.
-No abstention, omitted branches, empty decisions or additional action labels.
-Each entry: branch_id, decision, one short source-based rationale; add only the
-fields required above. For REWRITE include feedback with critique only.
-No scores, flags, JSON decisions or branch IDs inside feedback.
 """
 
 
@@ -453,95 +382,88 @@ def _json_object(raw):
 
 
 def _critic1_vote(prompt, model, branches, analysis, *, temperature=None):
+    """Accept one complete global response per model; never mix attempts."""
     temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if temperature is None else temperature
-    retained, history, errors = {}, [], {}
+    eligible = [b for b in branches if analysis["branches"][b.branch_id]["status"] == "VALID"]
+    expected = {b.branch_id for b in eligible}
+    schema = _documentary_response_schema(eligible, analysis)
+    history, accepted, errors = [], {}, {}
     raw, payload, retry = None, None, prompt
-    expected = {b.branch_id for b in branches}
-    for branch in branches:
-        if analysis["branches"][branch.branch_id]["status"] != "VALID":
-            retained[branch.branch_id] = EvaluatorVoteRecord(
-                model=model, status="INVALID", error="Numerical comparison unavailable")
     for attempt in range(1, BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS + 1):
-        print(
-            f"[bottom-up] global review | model={model} | attempt={attempt}/"
-            f"{BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS}",
-            flush=True,
-        )
-        current_errors, raw, payload, generation = {}, None, None, {}
-        context_error = False
-        pending = [b for b in branches if b.branch_id not in retained]
-        if not pending:
+        if not eligible:
             break
-        schema = _documentary_response_schema(pending, analysis)
+        print(f"[bottom-up] global review | model={model} | attempt={attempt}/"
+              f"{BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS}", flush=True)
+        current_errors, generation, candidate = {}, {}, {}
+        raw, payload, context_error = None, None, False
         try:
-            raw = generate_evaluator_response(
-                retry,
-                SYSTEM_PROMPT,
-                conversation=None,
-                temperature=temperature,
-                model=model,
-                response_schema=schema,
-            )
-            generation = getattr(raw, "metadata", {})
+            raw = generate_evaluator_response(retry, SYSTEM_PROMPT, conversation=None,
+                temperature=temperature, model=model, response_schema=schema)
+            generation = dict(getattr(raw, "metadata", {}))
+            # Also reject truncation if a custom client returns it instead of raising.
+            if generation.get("finish_reason", "stop") != "stop":
+                raise ValueError("Incomplete global response; regenerate complete concise JSON")
             payload = _json_object(raw)
             items = payload["decisions"]
-            counts = Counter(x.get("branch_id") for x in items
-                             if isinstance(x, dict) and isinstance(x.get("branch_id"), str))
-            unknown = [i for i in counts if i not in expected]
-            if unknown:
-                current_errors["response"] = f"Unknown branch IDs: {unknown}"
-            for branch in branches:
-                if branch.branch_id in retained:
-                    continue
-                try:
-                    if counts[branch.branch_id] != 1:
-                        raise ValueError("Missing or repeated branch decision")
-                    item = next(x for x in items if isinstance(x, dict) and x.get("branch_id") == branch.branch_id)
-                    vote = _validate_decision(item, branch, analysis)
-                    retained[branch.branch_id] = EvaluatorVoteRecord(
-                        model=model, status="VALID", decision=_operation_key(vote), raw_response=raw,
-                        parsed_response=vote.model_dump(exclude_none=True))
-                    print(f"[bottom-up] model={model} | branch={branch.branch_id} | "
-                          f"{_operation_key(vote)}\n  rationale: {vote.rationale}", flush=True)
-                except (ValueError, TypeError) as exc:
-                    current_errors[branch.branch_id] = str(exc)
+            if any(not isinstance(item, dict) for item in items):
+                raise ValueError("Every decision must be an object")
+            counts = Counter(item.get("branch_id") for item in items
+                             if isinstance(item.get("branch_id"), str))
+            if set(counts) != expected or any(n != 1 for n in counts.values()) or len(items) != len(expected):
+                raise ValueError("Return every requested branch exactly once; no extra or missing IDs")
+            by_id = {item["branch_id"]: item for item in items}
+            for branch in eligible:
+                vote = _validate_decision(by_id[branch.branch_id], branch, analysis)
+                if len(vote.rationale.split()) > 25:
+                    raise ValueError("Each rationale must use at most 25 words")
+                if vote.feedback and len(vote.feedback.critique.split()) > 60:
+                    raise ValueError("Each critique must use at most 60 words")
+                candidate[branch.branch_id] = EvaluatorVoteRecord(
+                    model=model, status="VALID", decision=_operation_key(vote), raw_response=raw,
+                    parsed_response=vote.model_dump(exclude_none=True))
         except Exception as exc:
             raw = getattr(exc, "raw_response", raw)
-            generation = getattr(exc, "metadata", generation)
+            generation = dict(getattr(exc, "metadata", generation))
             current_errors["response"] = f"{type(exc).__name__}: {exc}"
             context_error = _is_context_length_error(exc)
             if context_error:
-                generation = {**generation, "error_type": "CONTEXT_LENGTH_EXCEEDED", "retryable": False}
-        history.append({
-            "attempt": attempt,
-            "raw_response": raw,
-            "errors": current_errors,
-            "valid_branch_ids": list(retained),
-            "generation": generation,
-            "requested_branch_ids": [b.branch_id for b in pending],
-        })
-        errors.update(current_errors)
-        if len(retained) == len(branches):
+                generation.update(error_type="CONTEXT_LENGTH_EXCEEDED", retryable=False)
+        success = not current_errors and len(candidate) == len(expected)
+        if raw is not None:
+            raw = str(raw)  # Persist plain text, not the metadata-bearing str subclass.
+        generation.update(accepted=success, global_retry_policy="discard_entire_invalid_response")
+        history.append(dict(attempt=attempt, raw_response=raw, errors=current_errors,
+                            valid_branch_ids=list(candidate) if success else [],
+                            generation=generation, requested_branch_ids=[b.branch_id for b in eligible]))
+        errors = current_errors
+        if success:
+            accepted = candidate
             break
-        print(f"[bottom-up] model={model} | invalid decisions: {current_errors}", flush=True)
+        print(f"[bottom-up] model={model} | global response rejected: {current_errors}", flush=True)
         if context_error:
-            print(f"[bottom-up] model={model} | context exceeded; identical retries skipped", flush=True)
-            break
-        pending_ids = [b.branch_id for b in branches if b.branch_id not in retained]
-        retry = (prompt + "\nCORRECTION: This retry overrides the output branch list only.\n"
-                 "Return decisions ONLY for these unresolved IDs: " + json.dumps(pending_ids)
-                 + ". Do not repeat accepted decisions. Keep the full project context above. Fix: "
-                 + json.dumps(current_errors, ensure_ascii=False))
+            break  # Repeating the same oversized input cannot repair its context.
+        reason = current_errors.get("response", "Invalid global response")[:350]
+        retry = (prompt + "\nCORRECTION: The previous global response was discarded. "
+                 "Regenerate ALL requested decisions as one complete concise JSON. "
+                 "Rationale <=25 words; critique <=60 words. Error: " + reason)
+    records = {}
     for branch in branches:
-        if branch.branch_id not in retained:
-            retained[branch.branch_id] = EvaluatorVoteRecord(
-                model=model, status="INVALID", raw_response=raw,
-                error=errors.get(branch.branch_id, errors.get("response", "Invalid decision")))
-        retained[branch.branch_id].attempt_history = history
-    global_record = EvaluatorVoteRecord(
-        model=model, status="VALID" if all(v.status == "VALID" for v in retained.values()) else "PARTIAL",
-        raw_response=raw, parsed_response=payload, attempt_history=history)
-    return global_record, retained
+        record = accepted.get(branch.branch_id)
+        if record is None:
+            unavailable = analysis["branches"][branch.branch_id]["status"] != "VALID"
+            record = EvaluatorVoteRecord(model=model, status="INVALID",
+                error="Numerical comparison unavailable" if unavailable else errors.get("response", "Invalid global response"))
+        record.attempt_history = history
+        record.generation_attempts = [dict(attempt=h["attempt"], errors=h["errors"],
+                                           **h["generation"]) for h in history]
+        records[branch.branch_id] = record
+    global_record = EvaluatorVoteRecord(model=model,
+        status="VALID" if accepted else "INVALID",
+        error=errors.get("response"), raw_response=raw,
+        parsed_response=payload if accepted else None, attempt_history=history,
+        generation_attempts=[dict(attempt=h["attempt"], errors=h["errors"],
+                                  **h["generation"]) for h in history])
+    return global_record, records
 
 
 # Ensemble aggregation
@@ -593,9 +515,18 @@ def evaluate_all_branches(
                             few_shot_example_count=few_shot_example_count)
     records = {b.branch_id: [] for b in branches}
     for model in BOTTOM_UP_EVALUATOR_MODELS:
-        with loaded_local_evaluator_model(model):
-            global_record, votes = _critic1_vote(prompt, model, branches, analysis,
-                                               temperature=evaluator_temperature)
+        try:
+            with loaded_local_evaluator_model(model):
+                global_record, votes = _critic1_vote(prompt, model, branches, analysis,
+                                                   temperature=evaluator_temperature)
+        except Exception as exc:
+            # A failed model lease must not erase complete responses from peers.
+            error = f"Model load/release failed: {type(exc).__name__}: {exc}"
+            diagnostic = [dict(attempt=0, accepted=False, error_type="MODEL_LOAD_FAILED", error=error)]
+            global_record = EvaluatorVoteRecord(model=model, status="INVALID", error=error,
+                                               generation_attempts=diagnostic)
+            votes = {b.branch_id: EvaluatorVoteRecord(model=model, status="INVALID", error=error,
+                                                     generation_attempts=diagnostic) for b in branches}
         if on_global_vote:
             on_global_vote(global_record)
         for branch in branches:
