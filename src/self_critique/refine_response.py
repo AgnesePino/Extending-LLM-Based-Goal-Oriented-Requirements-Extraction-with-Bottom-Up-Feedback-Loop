@@ -7,7 +7,7 @@ from src import examples
 import src.examples.shot_learning
 from src.data_model import Critique
 from  src.examples.shot_learning import ShotPromptingMode
-from src.llm_clients import generate_response_llama, generate_response
+from src.llm_clients import generate_evaluator_response, generate_response
 
 
 MAX_ATTEMPTS = 3
@@ -23,7 +23,7 @@ class Feedback():
         self.previous_output = previous_output
         self.critique = critique 
 
-# evaluation by Llama
+# Evaluation by the configured local critic
 def get_evaluation(eval_mode: EvalMode, description, actors, high_level_goals=None, low_level_goals=None):
     if not isinstance(eval_mode, EvalMode):
         raise TypeError(f"Expected an instance of EvalMode, but got {type(eval_mode).__name__}")
@@ -172,7 +172,7 @@ def get_evaluation(eval_mode: EvalMode, description, actors, high_level_goals=No
         Feedback: 
     """
 
-    critique = generate_response_llama(prompt, sys_prompt)
+    critique = generate_evaluator_response(prompt, sys_prompt)
     return critique
 
 _SCORE_RE = re.compile(r"score\s*:?\s*\**\s*([0-9]+(?:[.,][0-9]+)?)", re.IGNORECASE)

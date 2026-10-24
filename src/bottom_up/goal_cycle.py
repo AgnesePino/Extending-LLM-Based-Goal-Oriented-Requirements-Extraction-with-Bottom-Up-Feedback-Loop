@@ -1,4 +1,4 @@
-"""Snapshot-based numerical review and transactional bottom-up repairs."""
+"""Function-based bottom-up loop over the original top-down goal collections."""
 import io
 import json
 import re
@@ -9,16 +9,18 @@ from src.bottom_up.global_goal_evaluator import (
     BOTTOM_UP_EVALUATOR_MODELS, PIPELINE_POLICY_VERSION,
     BOTTOM_UP_EVALUATOR_TEMPERATURE, evaluate_all_branches,
     CRITIC1_FEW_SHOT_EXAMPLE_COUNT, evaluator_examples,
+    BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS,
 )
 from src.bottom_up.goal_similarity import (
     analyze_similarities, similarity_configuration, build_cosine_payload,
+    SIMILARITY_TECHNICAL_ATTEMPTS,
 )
 from src.bottom_up.goal_reconstructor import reconstruct_all_branches
 from src.bottom_up.result_storage import atomic_write, compact_cycle
 from src.data_model import (
     Actors, BottomUpHighLevelGoal, GlobalGoalCycleIteration, GlobalGoalCycleResult,
-    GlobalGoalCycleStopReason, GlobalGoalEvaluationDecision, GlobalGoalEvaluationResult,
-    GoalBranch, HighLevelGoal, HighLevelGoals, LowLevelGoals, group_low_level_goals_by_hlg,
+    GlobalGoalCycleStopReason, HighLevelGoalDecision, GlobalGoalEvaluationResult, RESULT_SCHEMA_VERSION,
+    HighLevelGoals, LowLevelGoals, indexed_high_level_goals, low_level_goals_for_hlg,
 )
 from src.examples.shot_learning import ShotPromptingMode
 from src.extraction.extractor import generate_high_level_goals, generate_low_level_goals
@@ -26,12 +28,9 @@ from src.self_critique.refine_response import (
     EvalMode, Feedback, MAX_ATTEMPTS, QUALITY_THRESHOLD, generate_response_with_reflection,
 )
 
-DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS = 25
-MAX_HLG_COLLECTION_REPAIR_PASSES = 3
-# Compatibility for external callers that recorded the former branch limit.
-MAX_HLG_REWRITES_PER_BRANCH = MAX_HLG_COLLECTION_REPAIR_PASSES
-BOTTOM_UP_CRITIC_MEMORY_TURNS = 0
-BOTTOM_UP_CRITIC_STATE_UPDATES = 0
+# Fixed global bound; iteration counters increase without changing this value.
+MAX_ITERATIONS = 25
+
 
 
 def _model_payload(value):
@@ -51,14 +50,6 @@ def _coerce_model(value, model_type, *, context: str):
 
 def _key(value: str) -> str:
     return " ".join(value.casefold().split())
-
-
-def _branches_from_embedded_parents(
-    high_level_goals: HighLevelGoals,
-    low_level_goals: LowLevelGoals,
-) -> list[GoalBranch]:
-    """Read groups directly from the HLG references carried by generated LLGs."""
-    return group_low_level_goals_by_hlg(low_level_goals)
 
 
 def _actors_from_goals(high_level_goals: HighLevelGoals) -> Actors:
@@ -112,11 +103,42 @@ def _run_original_top_down(*, initial_feedback, records, stage, **kwargs):
     return result
 
 
+def _reconcile_parent_references(high_level_goals, low_level_goals, *, strict, adjustments, warnings):
+    """Recover only unmatched references with one exact description match."""
+    parents_by_description = {}
+    for parent in high_level_goals.goals:
+        parents_by_description.setdefault(parent.description, []).append(parent)
+    reconciled = []
+    for index, child in enumerate(low_level_goals.low_level_goals):
+        reference = child.high_level_associated
+        if reference in high_level_goals.goals:
+            reconciled.append(child)
+            continue
+        matches = parents_by_description.get(reference.description, [])
+        if len(matches) != 1:
+            reason = "absent from" if not matches else "ambiguous in"
+            message = f"Top-down LLG parent description is {reason} the approved collection"
+            if strict:
+                raise ValueError(message)
+            warnings.append(f"UNRESOLVED_PARENT_REFERENCE: LLG {index} ({child.name}): {message}")
+            reconciled.append(child)
+            continue
+        parent = matches[0]
+        adjustments.append({"llg_index": index, "llg_name": child.name,
+            "matched_description": parent.description,
+            "generated_parent_reference": reference.model_dump(mode="json"),
+            "approved_parent_reference": parent.model_dump(mode="json")})
+        reconciled.append(child.model_copy(update={"high_level_associated": parent}))
+    return LowLevelGoals(low_level_goals=reconciled)
+
+
 def _repair_collections_with_top_down(
     *, description, actors, high_level_goals, low_level_goals,
     hlg_requests, records,
 ):
-    """Start at HLG; replace the old hierarchy only after the LLG phase succeeds."""
+    """Forward all approved rewrite suggestions to the original top-down generator."""
+    if not hlg_requests:
+        raise ValueError("A repair requires at least one branch suggestion")
     candidates = _run_original_top_down(
         target_type="High Level Goals", call_function=generate_high_level_goals,
         define_args=(description, actors), eval_mode=EvalMode.HIGH_LEVEL,
@@ -143,33 +165,120 @@ def _repair_collections_with_top_down(
     children = _coerce_model(children, LowLevelGoals, context="LLG repair")
     if not children.low_level_goals:
         raise ValueError("Top-down returned an empty LLG collection")
-    candidate_names = {goal.name for goal in candidates.goals}
-    if any(child.high_level_associated.name not in candidate_names for child in children.low_level_goals):
-        raise ValueError("Top-down LLGs reference an HLG absent from the approved collection")
+    adjustments = []
+    records["lowLevelGoals"]["parent_reference_reconciliations"] = adjustments
+    children = _reconcile_parent_references(
+        candidates, children, strict=True, adjustments=adjustments, warnings=[])
     return candidates, children
 
 
 def _mark_unresolved(result, message):
-    return result.model_copy(update={
-        "final_decision": GlobalGoalEvaluationDecision.EVALUATION_INCONCLUSIVE,
-        "evaluation_status": "REPAIR_UNRESOLVED", "rationale": result.rationale + " " + message})
+    return GlobalGoalEvaluationResult(
+        branch_id=result.branch_id, decision=None, diagnostic=" ".join(filter(None, (result.diagnostic, message))),
+        evaluation_status="INCONCLUSIVE")
+
+
+def apply_review_decisions(
+    *, project_description: str, known_actors: Actors,
+    current_hlgs: HighLevelGoals, current_llgs: LowLevelGoals,
+    branches, evaluations, repair,
+):
+    """Remove approved branches, then send all rewrite feedback to top-down.
+
+    Inputs are the existing goal models and evaluator outputs. Return updated
+    collections and trace data; do not constrain the generator's intervention.
+    """
+    next_goals = dict(branches)
+    removed_parents = []
+    outcomes, iteration_warnings = {}, []
+    changed = False
+    protected = {e.surviving_branch_id for e in evaluations.values()
+                 if e.surviving_branch_id}
+    for branch in branches:
+        if (evaluations[branch].decision in {HighLevelGoalDecision.REMOVE, HighLevelGoalDecision.DUPLICATE_REMOVAL}
+                and branch in protected):
+            evaluations[branch] = _mark_unresolved(evaluations[branch], "Conflicting survivor removal.")
+    for branch in branches:
+        result = evaluations[branch]
+        if result.decision not in {HighLevelGoalDecision.REMOVE, HighLevelGoalDecision.DUPLICATE_REMOVAL}:
+            continue
+        next_goals.pop(branch)
+        removed_parents.append(branches[branch])
+        outcomes[branch] = "REMOVED_WITH_CHILDREN"
+        changed = True
+
+    # Apply all approved removals before repairing the surviving collection.
+    current_hlgs = HighLevelGoals(goals=list(next_goals.values()))
+    current_llgs = LowLevelGoals(low_level_goals=[
+        child for child in current_llgs.low_level_goals
+        if not any(child.high_level_associated.model_dump(mode="json") == parent.model_dump(mode="json")
+                   for parent in removed_parents)
+        or any(child.high_level_associated.model_dump(mode="json") == parent.model_dump(mode="json")
+               for parent in next_goals.values())])
+    hlg_requests, requested_ids = [], []
+    top_down_reflections = {}
+    for branch in branches:
+        bid = branch
+        if bid not in next_goals:
+            continue
+        result = evaluations[bid]
+        rewrite = result.decision == HighLevelGoalDecision.REWRITE
+        if not rewrite:
+            continue
+        instruction = result.feedback.critique if result.feedback else None
+        if not instruction or not instruction.strip():
+            evaluations[bid] = _mark_unresolved(result, "Missing repair instruction")
+            outcomes[bid] = "REJECTED_STATE_PRESERVED"
+            iteration_warnings.append(f"{bid}: Missing repair instruction")
+            continue
+        hlg_requests.append(instruction)
+        requested_ids.append(bid)
+    handoff_completed = False
+    if requested_ids:
+        try:
+            candidate_hlgs, candidate_llgs = repair(
+                description=project_description, actors=known_actors,
+                high_level_goals=current_hlgs, low_level_goals=current_llgs,
+                hlg_requests=hlg_requests,
+                records=top_down_reflections)
+            state_changed = candidate_hlgs != current_hlgs or candidate_llgs != current_llgs
+            current_hlgs, current_llgs = candidate_hlgs, candidate_llgs
+            changed = changed or state_changed
+            handoff_completed = True
+            for bid in requested_ids:
+                outcomes[bid] = "HLG_LLG_HANDOFF_COMPLETED"
+        except Exception as exc:
+            message = f"REPAIR_REJECTED: {type(exc).__name__}: {exc}"
+            for bid in requested_ids:
+                outcomes[bid] = "REJECTED_STATE_PRESERVED"
+            iteration_warnings.append(message)
+    
+    confirmed = [] if handoff_completed else [bid for bid, e in evaluations.items()
+                 if bid in next_goals and e.decision == HighLevelGoalDecision.KEEP]
+    for bid, result in evaluations.items():
+        outcomes.setdefault(bid, result.decision.value if result.decision else "INCONCLUSIVE")
+
+    return dict(high_level_goals=current_hlgs, low_level_goals=current_llgs,
+                evaluations=evaluations, outcomes=outcomes, changed=changed,
+                reflections=top_down_reflections, warnings=iteration_warnings,
+                confirmed=confirmed)
 
 
 def run_global_goal_cycle(
     *, project_description: str, initial_high_level_goals: HighLevelGoals,
     initial_low_level_goals: LowLevelGoals, mode=ShotPromptingMode.ZERO_SHOT,
     evaluator_ablation=False, evaluation_output_directory=None,
-    max_iterations=DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS, actors: Actors | None = None,
+    max_iterations=MAX_ITERATIONS, actors: Actors | None = None,
     verbose: bool = False, output_file_prefix: str | None = None,
     evaluator_few_shot_examples: int | None = None,
     evaluator_temperature: float | None = None,
     parent_threshold: float | None = None, duplicate_threshold: float | None = None,
     on_state=None,
 ) -> GlobalGoalCycleResult:
-    """Review a hierarchy; duplicate_threshold is a legacy, unused argument."""
+    """Review original top-down goals using prime versus all original HLG cosine."""
     if mode != ShotPromptingMode.ZERO_SHOT or evaluator_ablation:
         raise ValueError("Bottom-up repairs require original zero-shot generation and an enabled critic")
-    if not 1 <= max_iterations <= DEFAULT_GLOBAL_CYCLE_MAX_ITERATIONS:
+    if type(max_iterations) is not int or not 1 <= max_iterations <= MAX_ITERATIONS:
         raise ValueError("max_iterations must be between 1 and 25")
     evaluator_few_shot_examples = (CRITIC1_FEW_SHOT_EXAMPLE_COUNT if evaluator_few_shot_examples is None
                                    else evaluator_few_shot_examples)
@@ -177,7 +286,7 @@ def run_global_goal_cycle(
     evaluator_temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if evaluator_temperature is None else evaluator_temperature
     if not 0 <= evaluator_temperature <= 2:
         raise ValueError("Evaluator temperature must be between 0 and 2")
-    similarity_options = {"parent_threshold": parent_threshold}
+    similarity_options = {"parent_threshold": parent_threshold, "duplicate_threshold": duplicate_threshold}
     active_similarity = similarity_configuration(**similarity_options)
     file_prefix = ""
     if output_file_prefix is not None:
@@ -187,13 +296,14 @@ def run_global_goal_cycle(
         file_prefix = safe_name + "_"
     current_hlgs = _coerce_model(initial_high_level_goals, HighLevelGoals, context="initial HLGs").model_copy(deep=True)
     current_llgs = _coerce_model(initial_low_level_goals, LowLevelGoals, context="initial LLGs").model_copy(deep=True)
-    input_groups = group_low_level_goals_by_hlg(current_llgs)
-    current_hlgs = HighLevelGoals(goals=[group.high_level_goal for group in input_groups])
     known_actors = _merge_actors(actors or Actors(actors=[]), _actors_from_goals(current_hlgs))
-    rewrites, rejections = {}, {}
     traces, warnings = [], []
-    hlg_repair_passes = 0
+    initial_adjustments = []
+    current_llgs = _reconcile_parent_references(
+        current_hlgs, current_llgs, strict=False, adjustments=initial_adjustments, warnings=warnings)
     config = {"pipeline_policy_version": PIPELINE_POLICY_VERSION,
+              "execution_structure": "functions_over_top_down_models",
+              "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
               "output_file_prefix": file_prefix,
               "evaluator_models": list(BOTTOM_UP_EVALUATOR_MODELS),
               "evaluator_temperature": evaluator_temperature,
@@ -201,28 +311,36 @@ def run_global_goal_cycle(
               "evaluator_response_format": "json_schema",
               "evaluator_endpoint": "/v1/chat/completions",
               "evaluator_retry_policy": "whole_global_response_per_model",
-              "review_payload_format": "compact_matrix_v2_textual_duplicates",
-              "rationale_max_words": 25, "critique_max_words": 60,
-              "similarity": active_similarity, "completeness_enabled": False,
-              "branch_grouping_policy": "direct_llg_embedded_parent_name_and_description_actor_ignored",
-              "new_goal_discovery": "no_explicit_bottom_up_addition; top_down_cardinality_unrestricted",
-              "direct_llg_audit_enabled": False,
+              "evaluator_attempts_per_iteration": BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS,
+              "context_recovery_policy": "reload_affected_model_double_context",
+              "similarity_technical_attempts": SIMILARITY_TECHNICAL_ATTEMPTS,
+              "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+              "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+              "similarity": active_similarity,
+              "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+              "goal_counter_scope": "position_within_iteration_snapshot",
               "max_global_iterations": max_iterations,
               "repair_policy": "original_top_down_start_at_hlg_then_llgs",
               "repair_feedback_policy": "join_agreeing_feedback_critique_only",
               "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+              "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+              "initial_parent_reference_reconciliations": initial_adjustments,
               "repair_reflection_max_attempts": MAX_ATTEMPTS,
               "repair_quality_threshold": QUALITY_THRESHOLD,
               "repair_prompting_mode": "ZERO_SHOT",
               "repair_critic_enabled": True,
-              "max_hlg_collection_repair_passes": MAX_HLG_COLLECTION_REPAIR_PASSES,
+              "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+              "removal_schedule": "all_approved_removals_before_batch_rewrites",
+              "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+              "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
               "output_verbosity": "detailed" if verbose else "iteration_summary"}
 
     def publish(pending=None, result=None):
         if result is not None:
             state = result.model_dump(mode="json", exclude_defaults=True)
         else:
-            state = dict(configuration=config, completed_iterations=len(traces),
+            state = dict(schema_version=RESULT_SCHEMA_VERSION, configuration=config, completed_iterations=len(traces),
+                         warnings=list(warnings),
                          final_high_level_goals=current_hlgs.model_dump(mode="json"),
                          final_low_level_goals=current_llgs.model_dump(mode="json"),
                          iterations=[trace.model_dump(mode="json", exclude_defaults=True)
@@ -234,11 +352,10 @@ def run_global_goal_cycle(
 
     def finish(reason, converged):
         result = GlobalGoalCycleResult(
+            schema_version=RESULT_SCHEMA_VERSION,
             converged=converged, stop_reason=reason, completed_iterations=len(traces),
             final_high_level_goals=current_hlgs, final_low_level_goals=current_llgs,
-            iterations=traces, hlg_rewrite_counts=rewrites,
-            repair_rejection_counts=rejections, warnings=warnings, configuration=config,
-            confirmed_branch_ids=traces[-1].confirmed_branch_ids if traces else [])
+            iterations=traces, warnings=warnings, configuration=config)
         publish(result=result)
         return result
 
@@ -246,22 +363,24 @@ def run_global_goal_cycle(
 
     for iteration in range(1, max_iterations + 1):
         print(f"[bottom-up] iteration {iteration}/{max_iterations} | full snapshot review", flush=True)
-        stage_logs = {}
 
         def run_stage(name, function, *args, **kwargs):
             if verbose:
                 return function(*args, **kwargs)
-            stdout, stderr = io.StringIO(), io.StringIO()
-            try:
-                with redirect_stdout(stdout), redirect_stderr(stderr):
-                    return function(*args, **kwargs)
-            finally:
-                if stdout.getvalue() or stderr.getvalue():
-                    stage_logs[name] = {"stdout": stdout.getvalue(), "stderr": stderr.getvalue()}
+            with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                return function(*args, **kwargs)
 
-        branches = _branches_from_embedded_parents(current_hlgs, current_llgs)
+        branches = indexed_high_level_goals(current_hlgs)
+        children_by_hlg = {bid: low_level_goals_for_hlg(parent, current_llgs)
+                           for bid, parent in branches.items()}
+        branch_warnings = [f"HLG_WITHOUT_CHILDREN: branch {bid} ({branches[bid].name})"
+                           for bid, children in children_by_hlg.items() if not children]
+        if verbose:
+            for message in branch_warnings:
+                print(f"[bottom-up] {message}", flush=True)
         reconstructions = {k: _coerce_model(v, BottomUpHighLevelGoal, context="reconstruction")
-                           for k, v in run_stage("reconstruction", reconstruct_all_branches, branches).items()}
+                           for k, v in run_stage("reconstruction", reconstruct_all_branches,
+                               {bid: children for bid, children in children_by_hlg.items() if children}).items()}
         analysis = run_stage("similarity", analyze_similarities, branches, reconstructions, **similarity_options)
         config["similarity"] = analysis["configuration"]
         cosine_payload = build_cosine_payload(branches, reconstructions, analysis, iteration=iteration)
@@ -277,8 +396,7 @@ def run_global_goal_cycle(
             trace = GlobalGoalCycleIteration(
                 iteration=iteration, reconstructions=reconstructions, evaluations=evaluations,
                 high_level_goals=current_hlgs, low_level_goals=current_llgs,
-                critic1_global_votes=list(global_votes), similarity_analysis=analysis,
-                stage_logs=dict(stage_logs),
+                evaluator_responses=list(global_votes), similarity_analysis=analysis,
                 input_hierarchy={"high_level_goals": current_hlgs.model_dump(mode="json"),
                                  "low_level_goals": current_llgs.model_dump(mode="json")},
                 checkpoint_complete=False, completed_branch_count=done, total_branch_count=total)
@@ -293,120 +411,45 @@ def run_global_goal_cycle(
         evaluations = {k: _coerce_model(v, GlobalGoalEvaluationResult, context="global review")
                        for k, v in evaluations.items()}
         start_hlgs, start_llgs = current_hlgs, current_llgs
-        next_goals = {b.branch_id: b.high_level_goal for b in branches}
-        next_children = {b.branch_id: list(b.low_level_goals) for b in branches}
-        outcomes, iteration_warnings = {}, []
-        changed = False
-        protected = {e.high_level_evaluation.covered_by_branch_id for e in evaluations.values()
-                     if e.high_level_evaluation.covered_by_branch_id}
-        for branch in branches:
-            result = evaluations[branch.branch_id]
-            if result.final_decision != GlobalGoalEvaluationDecision.REMOVE_ORIGINAL_HIGH_LEVEL_GOAL:
-                continue
-            if branch.branch_id in protected:
-                evaluations[branch.branch_id] = _mark_unresolved(result, "Conflicting survivor removal.")
-                continue
-            next_goals.pop(branch.branch_id)
-            next_children.pop(branch.branch_id)
-            outcomes[branch.branch_id] = "REMOVED_WITH_CHILDREN"
-            changed = True
-
-        # Approved removals are committed before the transactional handoff.
-        current_hlgs = HighLevelGoals(goals=list(next_goals.values()))
-        current_llgs = LowLevelGoals(low_level_goals=[child for children in next_children.values() for child in children])
-        hlg_requests, requested_ids = [], []
-        top_down_reflections = {}
-        for branch in branches:
-            bid = branch.branch_id
-            if bid not in next_goals:
-                continue
-            result = evaluations[bid]
-            rewrite = result.final_decision == GlobalGoalEvaluationDecision.REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
-            if not rewrite:
-                continue
-            if hlg_repair_passes >= MAX_HLG_COLLECTION_REPAIR_PASSES:
-                message = "HLG_COLLECTION_REPAIR_LIMIT_REACHED"
-                evaluations[bid] = _mark_unresolved(result, message)
-                iteration_warnings.append(f"{bid}: {message}")
-                outcomes[bid] = "LIMIT_REACHED"
-                continue
-            instruction = result.feedback.critique if result.feedback else None
-            if not instruction or not instruction.strip():
-                evaluations[bid] = _mark_unresolved(result, "Missing repair instruction")
-                outcomes[bid] = "REJECTED_STATE_PRESERVED"
-                iteration_warnings.append(f"{bid}: Missing repair instruction")
-                continue
-            hlg_requests.append(instruction)
-            requested_ids.append(bid)
-            rewrites[bid] = rewrites.get(bid, 0) + 1
-        handoff_completed = False
-        if requested_ids:
-            hlg_repair_passes += 1
-            try:
-                candidate_hlgs, candidate_llgs = run_stage(
-                    "top_down_repair", _repair_collections_with_top_down,
-                    description=project_description, actors=known_actors,
-                    high_level_goals=current_hlgs, low_level_goals=current_llgs,
-                    hlg_requests=hlg_requests,
-                    records=top_down_reflections)
-                state_changed = candidate_hlgs != current_hlgs or candidate_llgs != current_llgs
-                current_hlgs, current_llgs = candidate_hlgs, candidate_llgs
-                changed = changed or state_changed
-                handoff_completed = True
-                for bid in requested_ids:
-                    outcomes[bid] = "HLG_LLG_HANDOFF_COMPLETED"
-            except Exception as exc:
-                message = f"REPAIR_REJECTED: {type(exc).__name__}: {exc}"
-                for bid in requested_ids:
-                    rejections[bid] = rejections.get(bid, 0) + 1
-                    evaluations[bid] = _mark_unresolved(evaluations[bid], message)
-                    outcomes[bid] = "REJECTED_STATE_PRESERVED"
-                iteration_warnings.append(message)
-        config["hlg_collection_repair_passes"] = hlg_repair_passes
-        confirmed = [] if handoff_completed else [bid for bid, e in evaluations.items()
-                     if bid in next_goals and e.final_decision == GlobalGoalEvaluationDecision.CONFIRM_BRANCH]
-        for bid, result in evaluations.items():
-            outcomes.setdefault(bid, result.final_decision.value)
-            if verbose:
-                print(f"[bottom-up] applied | branch={bid} | {outcomes[bid]}", flush=True)
+        update = apply_review_decisions(
+            project_description=project_description, known_actors=known_actors,
+            current_hlgs=current_hlgs, current_llgs=current_llgs,
+            branches=branches, evaluations=evaluations,
+            repair=lambda **kwargs: run_stage(
+                "top_down_repair", _repair_collections_with_top_down, **kwargs))
+        current_hlgs, current_llgs = update["high_level_goals"], update["low_level_goals"]
+        evaluations, outcomes = update["evaluations"], update["outcomes"]
+        changed, confirmed = update["changed"], update["confirmed"]
+        top_down_reflections, iteration_warnings = update["reflections"], update["warnings"]
+        iteration_warnings.extend(branch_warnings)
+        if verbose:
+            for bid, outcome in outcomes.items():
+                print(f"[bottom-up] applied | branch={bid} | {outcome}", flush=True)
         context_blocked = not changed and any(
             result.evaluation_status == "CONTEXT_LENGTH_EXCEEDED" for result in evaluations.values()
         )
         if context_blocked:
-            iteration_warnings.append("EVALUATOR_CONTEXT_LENGTH_EXCEEDED: unchanged snapshot will not be retried")
+            iteration_warnings.append("EVALUATOR_CONTEXT_LENGTH_EXCEEDED: iteration attempt budget exhausted; remaining valid actions applied; review continues next iteration")
+        if branches and all(analysis["branches"][b]["status"] == "ERROR" for b in branches):
+            iteration_warnings.append("SIMILARITY_UNAVAILABLE: iteration attempt budget exhausted; review continues next iteration")
         trace = GlobalGoalCycleIteration(
             iteration=iteration, reconstructions=reconstructions, evaluations=evaluations,
             top_down_reflections=top_down_reflections,
-            critic1_global_votes=global_votes, similarity_analysis=analysis,
-            stage_logs=stage_logs,
+            evaluator_responses=global_votes, similarity_analysis=analysis,
             high_level_goals=current_hlgs, low_level_goals=current_llgs,
             input_hierarchy={"high_level_goals": start_hlgs.model_dump(mode="json"),
                              "low_level_goals": start_llgs.model_dump(mode="json")},
-            output_hierarchy={"high_level_goals": current_hlgs.model_dump(mode="json"),
-                              "low_level_goals": current_llgs.model_dump(mode="json")},
             structural_action_outcomes=outcomes,
-            hlg_structure_summary=dict(Counter(e.final_decision.value for e in evaluations.values())),
-            hlg_rewrite_counts=dict(rewrites),
-            repair_rejection_counts=dict(rejections), confirmed_branch_ids=confirmed,
             warnings=iteration_warnings, checkpoint_complete=True,
             completed_branch_count=len(evaluations), total_branch_count=len(branches))
         traces.append(trace)
         warnings.extend(iteration_warnings)
         publish()
         print(f"[bottom-up] iteration {iteration} complete | branches={len(branches)} | "
-              f"changed={changed} | decisions={dict(Counter(e.final_decision.value for e in evaluations.values()))}",
+              f"changed={changed} | decisions={dict(Counter(e.decision.value if e.decision else 'INCONCLUSIVE' for e in evaluations.values()))}",
               flush=True)
         if evaluation_output_directory is not None:
             print(f"  updated: {file_prefix}results.json", flush=True)
         if not changed and len(confirmed) == len(branches):
             return finish(GlobalGoalCycleStopReason.ALL_BRANCHES_CONFIRMED, True)
-        if context_blocked:
-            return finish(GlobalGoalCycleStopReason.NO_ACTIONS_REMAIN_WITH_WARNINGS, False)
-        if branches and all(analysis["branches"][b.branch_id]["status"] == "ERROR" for b in branches):
-            warnings.append("SIMILARITY_UNAVAILABLE: no LLM verdict can replace a numerical comparison")
-            return finish(GlobalGoalCycleStopReason.NO_ACTIONS_REMAIN_WITH_WARNINGS, False)
-        if not changed:
-            actionable = [b for b in branches if evaluations[b.branch_id].evaluation_status == "REPAIR_UNRESOLVED"]
-            if actionable and all(outcomes.get(b.branch_id) == "LIMIT_REACHED" for b in actionable):
-                return finish(GlobalGoalCycleStopReason.NO_ACTIONS_REMAIN_WITH_WARNINGS, False)
     return finish(GlobalGoalCycleStopReason.MAX_ITERATIONS_REACHED, False)

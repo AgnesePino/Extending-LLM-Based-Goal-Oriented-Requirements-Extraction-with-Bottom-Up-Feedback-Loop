@@ -2,7 +2,7 @@
 
 Qwen served locally by LM Studio generates and reconstructs goals. Ministral
 evaluates top-down and repair candidates; Ministral, Granite and Gemma form
-the bottom-up HLG/LLG/completeness-analysis ensemble.
+the bottom-up goal-review ensemble. No conversation history is retained.
 """
 
 from __future__ import annotations
@@ -56,75 +56,9 @@ MINISTRAL_CRITIC_MAX_TOKENS = int(
 BOTTOM_UP_CRITIC_MAX_TOKENS = int(
     os.getenv("BOTTOM_UP_CRITIC_MAX_TOKENS", "4096")
 )
-MINISTRAL_CRITIC_HISTORY_MAX_CHARS = int(
-    os.getenv("MINISTRAL_CRITIC_HISTORY_MAX_CHARS", "1000")
-)
-
-# Compatibility attributes retained for old imports that described these as
-# OpenAI models. Both now point to the Qwen generator.
-OPENAI_STRUCTURED_MODEL = QWEN_GENERATOR_MODEL
-OPENAI_TEXT_MODEL = QWEN_GENERATOR_MODEL
-
 qwen_client = None
 ministral_client = None
 _resolved_ministral_model: str | None = None
-
-
-class EvaluatorConversation:
-    """Bounded, compact chat history for one critic execution."""
-
-    def __init__(self, max_turns: int = 8, max_state_updates: int = 8):
-        if max_turns < 1 or max_state_updates < 1:
-            raise ValueError("Conversation memory limits must be positive.")
-        self.max_turns = max_turns
-        self.max_state_updates = max_state_updates
-        self._exchanges: list[tuple[str, str]] = []
-        self._state_updates: list[str] = []
-
-    def build_messages(self, prompt: str, sys_prompt: str) -> list[dict[str, str]]:
-        system_content = sys_prompt
-        if self._state_updates:
-            system_content += (
-                "\n\nMost recent bottom-up state supplied as explicit input "
-                "for this evaluation (the previous iteration when available):\n"
-                f"{self._state_updates[-1]}"
-            )
-
-        messages = [{"role": "system", "content": system_content}]
-        selected_exchanges: list[tuple[str, str]] = []
-        retained_chars = 0
-        for label, previous_response in reversed(self._exchanges):
-            exchange_chars = len(label) + len(previous_response)
-            if retained_chars + exchange_chars > MINISTRAL_CRITIC_HISTORY_MAX_CHARS:
-                continue
-            selected_exchanges.append((label, previous_response))
-            retained_chars += exchange_chars
-
-        for label, previous_response in reversed(selected_exchanges):
-            messages.extend([
-                {"role": "user", "content": label},
-                {"role": "assistant", "content": previous_response},
-            ])
-        messages.append({"role": "user", "content": prompt})
-        return messages
-
-    def record_exchange(self, label: str, response: str) -> None:
-        normalized_label = " ".join(label.split())
-        if not normalized_label:
-            return
-        self._exchanges.append((normalized_label, response))
-        self._exchanges = self._exchanges[-self.max_turns:]
-
-    def remember_state(self, update: str) -> None:
-        normalized = " ".join(update.split())
-        if not normalized:
-            return
-        self._state_updates.append(normalized)
-        self._state_updates = self._state_updates[-self.max_state_updates:]
-
-    @property
-    def retained_turns(self) -> int:
-        return len(self._exchanges)
 
 
 def _qwen_client():
@@ -137,7 +71,7 @@ def _qwen_client():
 
 
 def reset_model_clients():
-    """Close local connections; creation remains lazy and never requires Groq keys."""
+    """Close the lazily created local API connections."""
     global qwen_client, ministral_client
     for client in (qwen_client, ministral_client):
         if client is not None:
@@ -163,8 +97,9 @@ def _extract_json(text: str) -> Any:
 
 def generate_response(
     prompt: str, sys_prompt: str, response_format: type[BaseModel] | None = None,
+    *, stateless_retries: bool = False,
 ) -> str | BaseModel:
-    """Generate with local Qwen, validating complete JSON without remote fallbacks."""
+    """Use fresh messages per call; optionally repeat invalid JSON without history."""
     system_content = sys_prompt
     if response_format is not None:
         system_content += ("\nReturn only one JSON object matching this schema:\n"
@@ -191,8 +126,9 @@ def generate_response(
                 return response_format.model_validate(_extract_json(content))
             except ValueError as exc:
                 last_exception = exc
-                messages.extend([{"role": "assistant", "content": content},
-                                 {"role": "user", "content": f"Correct the complete JSON to match the schema. Validation error: {exc}"}])
+                if not stateless_retries:
+                    messages.extend([{"role": "assistant", "content": content},
+                                     {"role": "user", "content": f"Correct the complete JSON to match the schema. Validation error: {exc}"}])
     raise ValueError(f"Local Qwen produced invalid structured output after {LM_STUDIO_GENERATOR_ATTEMPTS} attempts") from last_exception
 
 
@@ -313,7 +249,7 @@ def _unload_other_bottom_up_critics(selected_model: str) -> None:
 
 
 @contextmanager
-def _loaded_local_model_instance(model_id: str):
+def _loaded_local_model_instance(model_id: str, *, context_length: int | None = None):
     """Load one local pipeline model and unload it at the end of the lease."""
     selected_model = model_id.strip()
     if not selected_model:
@@ -322,7 +258,7 @@ def _loaded_local_model_instance(model_id: str):
     _unload_other_bottom_up_critics(selected_model)
     loaded = _loaded_lm_studio_instance_configs()
     existing_instances = loaded.get(selected_model, [])
-    required_context = LM_STUDIO_EVALUATOR_CONTEXT_LENGTH
+    required_context = LM_STUDIO_EVALUATOR_CONTEXT_LENGTH if context_length is None else context_length
     if required_context < 1:
         raise ValueError("Requested model context must be positive")
     suitable = [instance for instance in existing_instances
@@ -385,16 +321,18 @@ _active_local_model = None
 
 
 @contextmanager
-def loaded_local_model(model_id: str):
+def loaded_local_model(model_id: str, *, context_length: int | None = None):
     """One GPU model per process; nested leases of the same model reuse it."""
     global _active_local_model
     with _model_lock:
         if _active_local_model is not None:
             if _active_local_model != model_id:
                 raise RuntimeError(f"Cannot load {model_id} while {_active_local_model} has an active lease")
+            if context_length is not None and _local_load_configs.get(model_id, {}).get("loaded_context_length", 0) < context_length:
+                raise RuntimeError("Cannot enlarge context inside an active nested model lease")
             yield model_id
             return
-        with _loaded_local_model_instance(model_id) as selected:
+        with _loaded_local_model_instance(model_id, context_length=context_length) as selected:
             _active_local_model = selected
             try:
                 yield selected
@@ -406,7 +344,7 @@ loaded_local_evaluator_model = loaded_local_model
 
 
 class EvaluatorResponse(str):
-    """Text compatible with existing callers, with structured-call diagnostics."""
+    """Critic text with request and generation diagnostics."""
 
     def __new__(cls, content, metadata):
         result = super().__new__(cls, content)
@@ -424,130 +362,68 @@ class EvaluatorGenerationError(RuntimeError):
 def _generate_evaluator_response(
     prompt: str,
     sys_prompt: str,
-    conversation: EvaluatorConversation | None = None,
+    *,
     temperature: float = 0,
     model: str | None = None,
     response_schema: dict | None = None,
-) -> str:
-    """Run one local critic model through LM Studio.
+) -> EvaluatorResponse:
+    """One stateless chat-completions request, textual or schema-constrained.
 
-    Calls that omit ``model`` retain the original behavior and use Ministral.
-    The bottom-up voting layer passes an explicit model id for each voter.
+    The top-down critic uses text; bottom-up evaluators supply a JSON schema.
+    No native chat endpoint or free-text fallback is used for structured calls.
     """
-    messages = (
-        conversation.build_messages(prompt, sys_prompt)
-        if conversation is not None
-        else [
-            {"role": "system", "content": sys_prompt},
-            {"role": "user", "content": prompt},
-        ]
-    )
     selected_model = model.strip() if model else _ministral_model()
     if not selected_model:
         raise ValueError("The LM Studio evaluator model id cannot be empty.")
-
-    if response_schema is not None:
-        # LM Studio exposes grammar-constrained JSON via /v1/chat/completions.
-        # Never silently fall back to free text if the server rejects the schema.
-        request_metadata = {
-            "endpoint": "/v1/chat/completions", "structured_output": True,
-            "model": selected_model, "temperature": temperature,
-            "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
-            "prompt_characters": sum(len(message["content"]) for message in messages),
-            **_local_load_configs.get(selected_model, {}),
-        }
-        try:
-            response = _ministral_client().chat.completions.create(
-                model=selected_model, messages=messages, temperature=temperature,
-                max_tokens=BOTTOM_UP_CRITIC_MAX_TOKENS,
-                response_format={"type": "json_schema", "json_schema": {
-                    "name": "documentary_review", "strict": True, "schema": response_schema}},
-            )
-        except Exception as exc:
-            raise EvaluatorGenerationError(str(exc), "", request_metadata) from exc
-        choice = response.choices[0]
-        content = choice.message.content or ""
-        usage = response.usage
-        metadata = {
-            **request_metadata, "finish_reason": choice.finish_reason,
-            "usage": usage.model_dump(mode="json") if usage is not None else None,
-        }
-        if choice.finish_reason != "stop" or not content.strip():
-            raise EvaluatorGenerationError(
-                f"Structured critic response incomplete or unavailable (finish_reason={choice.finish_reason!r}). "
-                "Check output-token and loaded-context budgets; no partial vote accepted.",
-                content, metadata)
-        return EvaluatorResponse(content, metadata)
-
-    # Preserve the existing native reasoning settings for Ministral and Gemma.
-    # Granite receives no reasoning override; its server defaults apply.
-    if model is not None:
-        native_input = "\n\n".join(
-            f"{message['role'].upper()}: {message['content']}"
-            for message in messages
-            if message["role"] != "system"
-        )
-        payload = _lm_studio_management_request(
-            "chat",
-            {
-                "model": selected_model,
-                "input": native_input,
-                "system_prompt": sys_prompt,
-                "temperature": temperature,
-                "max_output_tokens": BOTTOM_UP_CRITIC_MAX_TOKENS,
-                **({"reasoning": "on" if selected_model == configured_critic_model() else "off"}
-                   if selected_model != GRANITE_CRITIC_MODEL else {}),
-                "store": False,
-                "stream": False,
-            },
-        )
-        content_parts = [
-            str(item.get("content", "")).strip()
-            for item in payload.get("output", [])
-            if item.get("type") == "message"
-            and str(item.get("content", "")).strip()
-        ]
-        if not content_parts:
-            stats = payload.get("stats") or {}
-            raise RuntimeError(
-                f"The local critic {selected_model!r} returned no final message "
-                f"(output_tokens={stats.get('total_output_tokens')}, "
-                f"reasoning_tokens={stats.get('reasoning_output_tokens')})."
-            )
-        return "\n".join(content_parts)
-
+    messages = [
+        {"role": "system", "content": sys_prompt},
+        {"role": "user", "content": prompt},
+    ]
+    structured = response_schema is not None
+    max_tokens = BOTTOM_UP_CRITIC_MAX_TOKENS if structured else MINISTRAL_CRITIC_MAX_TOKENS
+    metadata = {
+        "endpoint": "/v1/chat/completions", "structured_output": structured,
+        "model": selected_model, "temperature": temperature,
+        "max_output_tokens": max_tokens,
+        "prompt_characters": sum(len(message["content"]) for message in messages),
+        **_local_load_configs.get(selected_model, {}),
+    }
+    options = {}
+    if structured:
+        options["response_format"] = {"type": "json_schema", "json_schema": {
+            "name": "documentary_review", "strict": True, "schema": response_schema}}
     try:
         response = _ministral_client().chat.completions.create(
-            model=selected_model,
-            messages=messages,
-            temperature=temperature,
-            max_tokens=MINISTRAL_CRITIC_MAX_TOKENS,
-        )
+            model=selected_model, messages=messages, temperature=temperature,
+            max_tokens=max_tokens, **options)
     except Exception as exc:
-        raise RuntimeError(
-            f"Impossibile interrogare il critic locale {selected_model!r} "
-            "tramite LM Studio su "
-            f"{LM_STUDIO_BASE_URL}. Verifica che il server locale sia attivo e "
-            f"che il modello richiesto sia caricato. Dettaglio: {exc}"
-        ) from exc
+        raise EvaluatorGenerationError(
+            f"Local critic {selected_model!r} on {LM_STUDIO_BASE_URL}: {exc}",
+            "", metadata) from exc
+    choice = response.choices[0]
+    content = choice.message.content or ""
+    metadata.update(
+        finish_reason=choice.finish_reason,
+        usage=response.usage.model_dump(mode="json") if response.usage is not None else None)
+    if choice.finish_reason != "stop" or not content.strip():
+        raise EvaluatorGenerationError(
+            f"Critic response incomplete or unavailable (finish_reason={choice.finish_reason!r}). "
+            "Check output-token and loaded-context budgets; no partial response accepted.",
+            content, metadata)
+    return EvaluatorResponse(content, metadata)
 
-    content = response.choices[0].message.content
-    if not content:
-        raise RuntimeError(
-            f"The local critic {selected_model!r} returned an empty response."
-        )
-    return content
 
-
-
-def generate_evaluator_response(prompt: str, sys_prompt: str,
-    conversation: EvaluatorConversation | None = None, temperature: float = 0,
-    model: str | None = None, response_schema: dict | None = None) -> str:
+def generate_evaluator_response(
+    prompt: str,
+    sys_prompt: str,
+    *,
+    temperature: float = 0,
+    model: str | None = None,
+    response_schema: dict | None = None,
+) -> EvaluatorResponse:
+    """Load the selected local model and make one request without chat history."""
     selected = model.strip() if model else _ministral_model()
     with loaded_local_model(selected):
-        return _generate_evaluator_response(prompt, sys_prompt, conversation, temperature, model,
-                                            response_schema=response_schema)
-
-
-# Compatibility alias for the existing reflection module.
-generate_response_llama = generate_evaluator_response
+        return _generate_evaluator_response(
+            prompt, sys_prompt, temperature=temperature, model=selected,
+            response_schema=response_schema)

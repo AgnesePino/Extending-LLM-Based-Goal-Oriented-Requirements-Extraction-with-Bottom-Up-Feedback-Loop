@@ -3,53 +3,59 @@
 from src.data_model import (
     BottomUpHighLevelGoal,
     BottomUpHighLevelGoalLLMOutput,
-    GoalBranch,
+    LowLevelGoal, HighLevelGoals, LowLevelGoals,
+    indexed_high_level_goals, low_level_goals_for_hlg,
 )
 from src.llm_clients import generate_response, loaded_local_model, QWEN_GENERATOR_MODEL
 
 
 SYSTEM_PROMPT = (
-    "You are a helpful assistant expert in software engineering tasks. "
-    "You are tasked to reconstruct one High-Level Goal from the supplied Low-Level Goals. "
-    "Following the Goal-Oriented Requirements Engineering (GORE) framework, express the "
-    "functional outcome represented by the concrete operations in the low-level goals. "
-    "Write a concise, action-oriented goal phrase starting with a verb, followed by the "
-    "functional object and any necessary scope qualification. "
-    "Use only the supplied low-level goals. Return only the requested JSON, without explanations."
+    "You are an expert in software engineering and Goal-Oriented Requirements Engineering (GORE). "
+    "Reconstruct one High-Level Goal from only the supplied Low-Level Goal descriptions. "
+    "Apply bottom-up goal abstraction by asking WHY these lower-level goals should be achieved: "
+    "identify the higher-level functional purpose that justifies them together. "
+    "Infer only a purpose supported by the supplied children; do not invent stakeholder motivations "
+    "or additional capabilities. Return a concise verb-led goal description in the requested JSON, "
+    "without a separate name, explanations or assessments."
 )
 
 
-def reconstruct_high_level_goal(branch: GoalBranch) -> BottomUpHighLevelGoal:
-    if not branch.low_level_goals:
-        return BottomUpHighLevelGoal(
-            branch_id=branch.branch_id,
+def reconstruct_high_level_goal(low_level_goals: list[LowLevelGoal]) -> BottomUpHighLevelGoalLLMOutput:
+    """Read original structured LLGs; copy only their descriptions into the prompt.
+
+    Do not rewrite descriptions or mutate the source goals/parent references.
+    Every request, including JSON-validation retries, excludes prior responses.
+    """
+    if not low_level_goals:
+        return BottomUpHighLevelGoalLLMOutput(
             reconstructed_high_level_goal=(
                 "No High-Level Goal can be reconstructed because this branch "
                 "has no Low-Level Goals."
             ),
-            source_low_level_goal_ids=[],
-            source_low_level_goal_map={},
         )
 
+    # Local labels organize the input; each description is copied verbatim.
     lines = [
-        f"- llg_{index:03d}: {goal.name}\n  Description: {goal.description}"
-        for index, goal in enumerate(branch.low_level_goals, start=1)
+        f"- llg_{index:03d}: {goal.description}"
+        for index, goal in enumerate(low_level_goals, start=1)
     ]
-    prompt = """Your task: summarize the following low-level goals as one
-high-level functional goal.
+    prompt = """Apply GORE goal abstraction to the following low-level goal descriptions.
+Ask WHY these goals should be achieved together: what common functional purpose
+do their operations serve? Express that purpose as one higher-level goal.
 
-- Account for every supplied LLG.
-- Combine related operations into their common functional outcome.
-- Preserve distinct capabilities and scope constraints when omitting them
-  would change the meaning.
-- Use a concise verb-led phrase, rather than a list of operations.
-- Omit introductory wording such as "The stakeholder aims to", "Enable users to",
+- Use only the supplied descriptions and account for every LLG.
+- Move from concrete operations to their supported functional intention;
+  do not merely list, concatenate or paraphrase the operations.
+- Preserve distinct capabilities, actor responsibilities and ownership/scope
+  restrictions whenever omitting them would change the meaning.
+- Do not infer unsupported functionality, business benefits or motivations.
+- Do not correct, assess or omit an LLG to make the branch appear coherent.
+- If no single common purpose is supported, retain the distinct outcomes in one
+  concise composite goal rather than inventing a unifying purpose.
+- Start with a verb and its functional object, adding only necessary scope.
+  Omit introductions such as "The stakeholder aims to", "Enable users to",
   or "The system shall".
-- Include actors or ownership restrictions only when needed to distinguish
-  responsibilities or scope.
-- Do not add functionality, explanations, assessments, or corrections.
-- If the LLGs express distinct outcomes, retain them in one concise composite
-  goal; do not invent a common purpose to make them appear coherent.
+- Return only the goal description in JSON, without a separate name or reasoning.
 
 **Low-level goals:**
 {goals}
@@ -60,16 +66,30 @@ Return only valid JSON:
   "reconstructed_high_level_goal": "..."
 }}""".format(goals="\n".join(lines))
 
-    output = generate_response(prompt, SYSTEM_PROMPT, BottomUpHighLevelGoalLLMOutput)
-    return BottomUpHighLevelGoal(
-        branch_id=branch.branch_id,
-        reconstructed_high_level_goal=output.reconstructed_high_level_goal,
-        source_low_level_goal_ids=[goal.name for goal in branch.low_level_goals],
-    )
+    return generate_response(prompt, SYSTEM_PROMPT, BottomUpHighLevelGoalLLMOutput,
+                             stateless_retries=True)
 
 
-def reconstruct_all_branches(branches: list[GoalBranch]):
-    if not branches:
+def reconstruct_all_branches(
+    goal_lists: dict[str, list[LowLevelGoal]] | HighLevelGoals,
+    low_level_goals: LowLevelGoals | None = None,
+):
+    """Return reconstructions from existing top-down models or grouped LLGs."""
+    if isinstance(goal_lists, HighLevelGoals):
+        if low_level_goals is None:
+            raise ValueError("The top-down LLG collection is required")
+        goal_lists = {
+            bid: children for bid, parent in indexed_high_level_goals(goal_lists).items()
+            if (children := low_level_goals_for_hlg(parent, low_level_goals))
+        }
+    if not goal_lists:
         return {}
     with loaded_local_model(QWEN_GENERATOR_MODEL):
-        return {branch.branch_id: reconstruct_high_level_goal(branch) for branch in branches}
+        results = {}
+        for branch_id, low_level_goals in goal_lists.items():
+            output = reconstruct_high_level_goal(low_level_goals)
+            results[branch_id] = BottomUpHighLevelGoal(
+                branch_id=branch_id,
+                reconstructed_high_level_goal=output.reconstructed_high_level_goal,
+                source_low_level_goal_ids=[goal.name for goal in low_level_goals])
+        return results

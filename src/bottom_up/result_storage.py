@@ -3,6 +3,8 @@
 Configurations/repetitions are entries in a dataset document, not extra files.
 This module performs no model calls and does not decide goal actions.
 """
+from src.data_model import RESULT_SCHEMA_VERSION, GlobalGoalCycleResult
+
 from collections import Counter
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -50,15 +52,6 @@ def _plain(value):
     return deepcopy(value)
 
 
-def _clean(value):
-    if isinstance(value, dict):
-        return {k: _clean(v) for k, v in value.items()
-                if k not in {'raw_response', 'attempt_history', 'stage_logs', 'output_hierarchy'}}
-    if isinstance(value, list):
-        return [_clean(v) for v in value]
-    return value
-
-
 def _difference(before, after):
     remaining = Counter(json.dumps(g, sort_keys=True, ensure_ascii=False) for g in before)
     added = []
@@ -73,27 +66,10 @@ def _difference(before, after):
 
 
 def compact_cycle(value):
-    """Retain decisions and actual changes; omit raw prompts/retry transcripts."""
-    cycle = _clean(_plain(value))
+    """Persist current results without duplicating votes or aggregate decisions."""
+    cycle = _plain(value)
+    require_current_schema(cycle)
     for trace in cycle.get('iterations', []):
-        parents = {}
-        for child in (trace.get('input_hierarchy') or {}).get('low_level_goals', {}).get('low_level_goals', []):
-            parent = child.get('high_level_associated')
-            if parent:
-                text = json.dumps((parent['name'], parent['description']), ensure_ascii=False, separators=(',', ':'))
-                key = 'hlg_' + hashlib.sha256(text.encode()).hexdigest()[:16] + '_001'
-                parents[key] = parent
-        decisions = []
-        for branch_id, evaluation in trace.get('evaluations', {}).items():
-            votes = evaluation.get('critic_votes', {}).get('documentary', [])
-            decisions.append(dict(branch_id=branch_id, model_decisions=votes,
-                                  original_hlg=parents.get(branch_id),
-                                  reconstructed_hlg=trace.get('reconstructions', {}).get(branch_id),
-                                  final_decision=evaluation['final_decision'],
-                                  rationale=evaluation.get('rationale'),
-                                  feedback=evaluation.get('feedback'),
-                                  applied_change=trace.get('structural_action_outcomes', {}).get(branch_id)))
-        trace['decision_summary'] = decisions
         if trace.get('checkpoint_complete', True):
             initial = trace.get('input_hierarchy') or {}
             changes = {}
@@ -107,15 +83,21 @@ def compact_cycle(value):
     return cycle
 
 
+def require_current_schema(value):
+    if value.get("schema_version") != RESULT_SCHEMA_VERSION:
+        raise ValueError("Unsupported result format; only new schema-3 runs are supported. Start a new suite.")
+    return value
+
+
 class DatasetResults:
-    def __init__(self, path, baseline, *, reset=False):
+    def __init__(self, path, baseline):
         self.path = Path(path)
-        if self.path.exists() and not reset:
-            self.data = read_json(self.path)
+        if self.path.exists():
+            self.data = require_current_schema(read_json(self.path))
             if self.data.get('baseline_sha256') != payload_hash(baseline):
                 raise ValueError('Dataset baseline changed; use a new suite')
         else:
-            self.data = dict(schema_version=2, name=baseline['name'], baseline=baseline,
+            self.data = dict(schema_version=RESULT_SCHEMA_VERSION, name=baseline['name'], baseline=baseline,
                              baseline_sha256=payload_hash(baseline), runs={})
 
     def save(self):
@@ -127,7 +109,7 @@ class DatasetResults:
         self.data['runs'][run_id] = dict(status='running', started_at=now(),
             attempt=previous.get('attempt', 0) + 1, experiment=configuration,
             repetition=repetition, converged=None, stop_reason=None,
-            globalGoalCycle={'iterations': [], 'completed_iterations': 0}, final_decisions=[])
+            globalGoalCycle={'schema_version': RESULT_SCHEMA_VERSION, 'iterations': [], 'completed_iterations': 0})
         self.save()
 
     def update(self, run_id, cycle):
@@ -135,11 +117,6 @@ class DatasetResults:
         record['globalGoalCycle'] = compact_cycle(cycle)
         iterations = record['globalGoalCycle'].get('iterations', [])
         record['completed_iterations'] = sum(t.get('checkpoint_complete', True) for t in iterations)
-        if iterations:
-            last = iterations[-1]
-            record['currentHighLevelGoals'] = last['high_level_goals']
-            record['currentLowLevelGoals'] = last['low_level_goals']
-            record['final_decisions'] = last.get('decision_summary', [])
         self.save()
 
     def complete(self, run_id, result):
@@ -160,19 +137,24 @@ class DatasetResults:
 
 
 def result_payload(document, run):
-    """Common adapter for evaluation of compact and legacy results."""
+    """Expose a current-format run alongside its frozen top-down baseline."""
+    require_current_schema(document)
+    if run.get("globalGoalCycle"):
+        require_current_schema(run["globalGoalCycle"])
+        if run.get("status") == "completed":
+            GlobalGoalCycleResult.model_validate(run["globalGoalCycle"])
     return {**document['baseline'], 'baselineSha256': document['baseline_sha256'],
             **run}
 
 
 def write_summary(directory, dataset_files, *, planned_runs=None):
-    documents = [read_json(path) for path in dataset_files if Path(path).exists()]
+    documents = [require_current_schema(read_json(path)) for path in dataset_files if Path(path).exists()]
     runs = [run for document in documents for run in document['runs'].values()]
     counts = Counter(run['status'] for run in runs)
     expected = planned_runs if planned_runs is not None else len(runs)
     terminal = counts['completed'] + counts['failed'] + counts['interrupted']
     complete = len(runs) == expected and terminal == expected
-    summary = dict(schema_version=2, updated_at=now(), planned_runs=expected,
+    summary = dict(schema_version=RESULT_SCHEMA_VERSION, updated_at=now(), planned_runs=expected,
         status_counts=dict(counts), all_runs_completed=counts['completed'] == expected and complete,
         system_status=('COMPLETED_WITH_ERRORS' if complete and terminal != counts['completed'] else
                        'COMPLETED' if complete else 'IN_PROGRESS'),

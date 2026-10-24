@@ -6,9 +6,10 @@ from pathlib import Path
 import subprocess
 import sys
 
+
 import numpy as np
 
-from src.data_model import BottomUpHighLevelGoal, GoalBranch
+from src.data_model import BottomUpHighLevelGoal, HighLevelGoal, HighLevelGoals, indexed_high_level_goals
 
 
 EMBEDDING_MODEL = "sentence-transformers/all-mpnet-base-v2"
@@ -17,13 +18,13 @@ DEFAULT_HLG_SIMILARITY_THRESHOLD = 0.68
 _configured_thresholds = [float(value) for name in (
     "BOTTOM_UP_SIMILARITY_THRESHOLD", "BOTTOM_UP_HLG_SIMILARITY_THRESHOLD") if (value := os.getenv(name)) is not None]
 if len(set(_configured_thresholds)) > 1:
-    raise ValueError("Parent and original-HLG comparisons require one similarity threshold")
+    raise ValueError("Parent and reconstructed-HLG comparisons require one similarity threshold")
 SIMILARITY_THRESHOLD = (_configured_thresholds[0] if _configured_thresholds
                         else DEFAULT_HLG_SIMILARITY_THRESHOLD)
 if not 0 <= SIMILARITY_THRESHOLD <= 1:
     raise ValueError("Bottom-up similarity threshold must be between 0 and 1")
-# Compatibility alias for the parent/original-HLG threshold.
-HLG_SIMILARITY_THRESHOLD = SIMILARITY_THRESHOLD
+MAX_SIMILARITY_ATTEMPTS = 3
+SIMILARITY_TECHNICAL_ATTEMPTS = MAX_SIMILARITY_ATTEMPTS
 
 
 @lru_cache(maxsize=1)
@@ -59,33 +60,32 @@ def _embedding_model():
 
 
 def similarity_configuration(*, parent_threshold=None, duplicate_threshold=None) -> dict:
-    # Retain the old argument for archived callers; it never controls a comparison.
     threshold = SIMILARITY_THRESHOLD if parent_threshold is None else parent_threshold
     if isinstance(threshold, bool) or not 0 <= threshold <= 1:
         raise ValueError("Similarity threshold must be between 0 and 1")
+    if duplicate_threshold is not None and duplicate_threshold != threshold:
+        raise ValueError("Parent and duplicate comparisons use the same fixed similarity threshold")
     parent_threshold = threshold
     return {
         "embedding_model": EMBEDDING_MODEL,
         "requested_revision": EMBEDDING_REVISION,
         "similarity_threshold": threshold,
-        "threshold_policy": "parent_and_original_hlg_matches",
+        "threshold_policy": "prime_against_all_original_hlgs",
         "parent_threshold": parent_threshold,
-        "duplicate_threshold": None,
+        "duplicate_threshold": threshold,
         "thresholds_validated": False,
         "parent_threshold_calibration": {
-            "status": "parent_original_threshold",
+            "status": "shared_threshold",
             "annotation": "user-directed provisional value; not independently validated",
             "selected_default": DEFAULT_HLG_SIMILARITY_THRESHOLD,
             "active_threshold_matches_default": parent_threshold == DEFAULT_HLG_SIMILARITY_THRESHOLD,
         },
-        "duplicate_comparisons_method": "textual_review_no_cosine",
-        "original_hlg_comparisons_scope": "all_original_hlgs_including_own",
-        "original_hlg_actor_filter": "none",
-        "duplicate_comparisons_scope": "all_same_actor_branch_texts",
+        "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+        "parent_comparisons_scope": "all_current_original_hlgs",
+        "duplicate_comparisons_scope": "all_current_original_hlgs",
         "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
-        "actor_filter_scope": "duplicate_comparisons_only",
-        "original_hlg_comparisons_usage": "documentary_review",
-        "parent_text": "name + newline + description",
+        "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+        "parent_text": "description",
         "preprocessing": "none",
         "device": "cpu",
     }
@@ -135,169 +135,160 @@ def _cosine(left, right) -> float:
     return float(np.clip(np.dot(a / np.linalg.norm(a), b / np.linalg.norm(b)), -1, 1))
 
 
-def _actor_key(branch: GoalBranch) -> str:
-    return " ".join(branch.high_level_goal.actor.name.casefold().split())
+def _actor_key(goal: HighLevelGoal) -> str:
+    return " ".join(goal.actor.name.casefold().split())
 
 
-def analyze_similarities(branches: list[GoalBranch],
+def _analyze_similarities_once(branches: dict[str, HighLevelGoal],
                          reconstructions: dict[str, BottomUpHighLevelGoal], *,
                          parent_threshold=None, duplicate_threshold=None) -> dict:
-    """Compare primes only to original HLGs; duplicate review uses same-actor texts.
-
-    The duplicate pool is not a prediction: the evaluator must establish full
-    functional coverage from the parents and reconstructions, without cosine.
-    """
+    """Compare each reconstructed HLG with every current original HLG."""
     config = similarity_configuration(parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
-    parent_threshold = config["parent_threshold"]
-    records = {}
-    for branch in branches:
-        record = {"status": "VALID", "score": None, "relationship": "NOT_EQUIVALENT",
-                  "reconstructable": bool(branch.low_level_goals),
-                  "duplicate_label": None, "duplicate_candidates": []}
-        records[branch.branch_id] = record
-        if not branch.low_level_goals:
-            continue
+    threshold = config["similarity_threshold"]
+    records, vectors, originals, reconstruction_errors, original_errors = {}, {}, {}, {}, {}
+    ids = list(branches)
+    # Every original HLG remains a column, including parents without children.
+    for goal_id, parent in branches.items():
         try:
-            original = f"{branch.high_level_goal.name}\n{branch.high_level_goal.description}"
-            rebuilt = reconstructions[branch.branch_id].reconstructed_high_level_goal
-            parent_vector, prime_vector = _encode_text(original), _encode_text(rebuilt)
-            score = _cosine(parent_vector, prime_vector)
-            record.update(score=score, relationship=(
-                "EQUIVALENT" if score >= parent_threshold else "NOT_EQUIVALENT"))
+            originals[goal_id] = _encode_text(parent.description)
         except Exception as exc:
-            record.update(status="ERROR", relationship=None, error=f"{type(exc).__name__}: {exc}")
-    # Every other evaluable same-actor branch is a text-comparison candidate.
-    # No prime/prime comparisons, scores or numerical DUPLICATE labels are produced.
-    for branch in branches:
-        if records[branch.branch_id]["status"] != "VALID" or not branch.low_level_goals:
-            continue
-        records[branch.branch_id]["duplicate_candidates"] = [
-            other.branch_id for other in branches
-            if other.branch_id != branch.branch_id and _actor_key(other) == _actor_key(branch)
-            and other.low_level_goals and records[other.branch_id]["status"] == "VALID"]
+            original_errors[goal_id] = f"{type(exc).__name__}: {exc}"
+        if goal_id in reconstructions:
+            try:
+                vectors[goal_id] = _encode_text(reconstructions[goal_id].reconstructed_high_level_goal)
+            except Exception as exc:
+                reconstruction_errors[goal_id] = f"{type(exc).__name__}: {exc}"
 
-    # Every reconstructed goal versus every original HLG, regardless of actor.
-    original_vectors, original_errors = {}, {}
-    if any(branch.low_level_goals for branch in branches):
-        for original in branches:
-            try:
-                text = f"{original.high_level_goal.name}\n{original.high_level_goal.description}"
-                original_vectors[original.branch_id] = _encode_text(text)
-            except Exception as exc:
-                original_errors[original.branch_id] = f"{type(exc).__name__}: {exc}"
-    for branch in branches:
+    pairs = []
+    for goal_id in ids:
         comparisons = []
-        prime_vector, prime_error = None, None
-        if branch.low_level_goals:
-            try:
-                prime_vector = _encode_text(reconstructions[branch.branch_id].reconstructed_high_level_goal)
-            except Exception as exc:
-                prime_error = f"{type(exc).__name__}: {exc}"
-        for original in branches:
-            own_parent = original.branch_id == branch.branch_id
-            comparison = {"original_branch_id": original.branch_id,
-                          "original_hlg_name": original.high_level_goal.name,
-                          "original_hlg_actor": original.high_level_goal.actor.name,
-                          "is_own_parent": own_parent, "score": None}
-            if not branch.low_level_goals:
-                comparison["status"] = "NOT_RECONSTRUCTABLE"
-            elif prime_error or original.branch_id in original_errors:
-                comparison.update(status="ERROR", error=prime_error or original_errors[original.branch_id])
+        for other in ids:
+            row = {"other_branch_id": other, "score": None}
+            if goal_id not in reconstructions:
+                row.update(status="NOT_RECONSTRUCTABLE")
+            elif goal_id in reconstruction_errors or other in original_errors:
+                row.update(status="ERROR", error=reconstruction_errors.get(goal_id) or original_errors[other])
             else:
                 try:
-                    # Reuse the exact existing score on the matrix diagonal.
-                    own_score = records[branch.branch_id]["score"]
-                    score = own_score if own_parent and own_score is not None else _cosine(
-                        prime_vector, original_vectors[original.branch_id])
-                    comparison.update(status="VALID", score=score)
+                    row.update(status="VALID", score=_cosine(vectors[goal_id], originals[other]))
                 except Exception as exc:
-                    comparison.update(status="ERROR", error=f"{type(exc).__name__}: {exc}")
-            comparisons.append(comparison)
-        records[branch.branch_id]["original_hlg_comparisons"] = comparisons
-        records[branch.branch_id]["original_hlg_comparisons_complete"] = all(
-            item["status"] == "VALID" for item in comparisons)
-        other_matches = [item["original_branch_id"] for item in comparisons
-                         if not item["is_own_parent"] and item["status"] == "VALID"
-                         and item["score"] >= parent_threshold]
-        record = records[branch.branch_id]
-        record["matching_other_original_hlg_ids"] = other_matches
-    config["original_hlg_comparison_count"] = len(branches) ** 2
+                    row.update(status="ERROR", error=f"{type(exc).__name__}: {exc}")
+            comparisons.append(row)
+        own = comparisons[ids.index(goal_id)]
+        record = {"status": own["status"], "score": own["score"],
+                  "relationship": ("EQUIVALENT" if own["score"] >= threshold else "NOT_EQUIVALENT")
+                                  if own["status"] == "VALID" else None,
+                  "reconstructable": goal_id in reconstructions,
+                  "duplicate_label": None, "duplicate_candidates": [],
+                  "original_hlg_comparisons": comparisons,
+                  "original_hlg_comparisons_complete": all(row["status"] == "VALID" for row in comparisons)}
+        if own.get("error"):
+            record["error"] = own["error"]
+        elif own["status"] == "NOT_RECONSTRUCTABLE":
+            record["error"] = "No reconstruction available for numerical comparison"
+        records[goal_id] = record
+
+    for goal_id in ids:
+        record = records[goal_id]
+        for row in record["original_hlg_comparisons"]:
+            other = row["other_branch_id"]
+            if other == goal_id:
+                continue
+            candidate = (row["status"] == "VALID" and row["score"] >= threshold
+                         and record["status"] == "VALID" and records[other]["status"] == "VALID"
+                         and _actor_key(branches[goal_id]) == _actor_key(branches[other]))
+            pairs.append({"branch_id": goal_id, **row, "candidate": candidate})
+            if candidate:
+                record["duplicate_candidates"].append(other)
+        if record["status"] == "VALID":
+            record["duplicate_label"] = "POTENTIAL_DUPLICATE" if record["duplicate_candidates"] else "NO_DUPLICATE_MATCH"
+    config["parent_hlg_comparison_count"] = len(reconstructions)
+    config["original_hlg_comparison_count"] = len(reconstructions) * len(branches)
     config["resolved_revision"] = _resolved_revision()
-    return {"configuration": config, "branches": records, "pairs": []}
+    return {"configuration": config, "branches": records, "pairs": pairs}
 
 
-def _compact_original_comparison(row: dict, positions: dict[str, int]) -> dict:
-    compact = {key: value for key, value in row.items()
-               if key not in {"original_hlg_name", "original_hlg_actor", "is_own_parent"}}
-    if "original_branch_id" in compact:
-        target = compact.pop("original_branch_id")
-        compact = {"original_branch_index": positions[target], **compact}
-    if compact.get("status") == "VALID":
-        compact.pop("status")
-    return compact
+def analyze_similarities(branches: dict[str, HighLevelGoal] | HighLevelGoals,
+                         reconstructions: dict[str, BottomUpHighLevelGoal], *,
+                         parent_threshold=None, duplicate_threshold=None) -> dict:
+    """Recover failed numerical work before allowing documentary review.
+
+    Successful text vectors stay cached. Errors are never cached by lru_cache;
+    model/import failures can be retried after resetting their cached state.
+    No text is shortened and no score or threshold is substituted.
+    Missing reconstructions are unavailable inputs, not retryable numerical errors.
+    """
+    if isinstance(branches, HighLevelGoals):
+        branches = indexed_high_level_goals(branches)
+    history = []
+    for attempt in range(1, SIMILARITY_TECHNICAL_ATTEMPTS + 1):
+        analysis = _analyze_similarities_once(branches, reconstructions,
+            parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
+        errors = {}
+        for bid, record in analysis["branches"].items():
+            failed = [row for row in record.get("original_hlg_comparisons", [])
+                      if row.get("status") == "ERROR"]
+            if record["status"] == "ERROR" or failed:
+                errors[bid] = {"parent_error": record.get("error"),
+                               "comparison_errors": failed}
+        history.append({"attempt": attempt, "accepted": not errors, "errors": errors})
+        if not errors:
+            break
+        print(f"[bottom-up] similarity recovery | attempt={attempt}/"
+              f"{SIMILARITY_TECHNICAL_ATTEMPTS} | failed_branches={len(errors)}", flush=True)
+        if attempt < SIMILARITY_TECHNICAL_ATTEMPTS:
+            _embedding_model.cache_clear()
+            _runtime_import_error.cache_clear()
+    analysis["technical_attempts"] = history
+    analysis["configuration"]["similarity_technical_attempts"] = SIMILARITY_TECHNICAL_ATTEMPTS
+    return analysis
 
 
-def build_cosine_payload(branches: list[GoalBranch],
+def build_cosine_payload(branches: dict[str, HighLevelGoal],
                          reconstructions: dict[str, BottomUpHighLevelGoal],
                          analysis: dict, *, iteration: int | None = None) -> dict:
-    """Build the one JSON object shared by disk output and all three critics."""
-    positions = {branch.branch_id: index for index, branch in enumerate(branches)}
+    """Expose the full reconstructed-HLG versus original-HLG comparisons."""
     return {
         "iteration": iteration,
-        # Keep provenance, thresholds and every score, but omit the offline
-        # calibration narrative from the LLM input. Full config is in the trace.
-        "configuration": {
-            **{key: value for key, value in analysis["configuration"].items()
-               if key != "parent_threshold_calibration"},
-            "original_comparison_reference": "zero_based_index_in_branches",
-            "original_comparison_default_status": "VALID",
-        },
-        "branches": [{
-            "branch_id": branch.branch_id,
-            "actor": branch.high_level_goal.actor.name,
-            "hlg": {"name": branch.high_level_goal.name, "description": branch.high_level_goal.description},
-            "hlg_prime": reconstructions[branch.branch_id].reconstructed_high_level_goal,
-            **analysis["branches"][branch.branch_id],
-            # Targets are already defined in branches. Repeating their name,
-            # actor and diagonal flag for every matrix cell grows quadratically.
-            "original_hlg_comparisons": [
-                _compact_original_comparison(row, positions)
-                for row in analysis["branches"][branch.branch_id].get("original_hlg_comparisons", [])
-            ],
-        } for branch in branches],
+        "configuration": {key: value for key, value in analysis["configuration"].items()
+                          if key != "parent_threshold_calibration"},
+        "branches": [{"branch_id": goal_id, "actor": parent.actor.name,
+            "hlg": {"name": parent.name, "description": parent.description},
+            "hlg_prime": (reconstructions[goal_id].reconstructed_high_level_goal
+                          if goal_id in reconstructions else None),
+            **analysis["branches"][goal_id]} for goal_id, parent in branches.items()],
         "pairs": analysis["pairs"],
     }
 
 
 def build_review_payload(payload: dict) -> dict:
-    """Compact original-HLG scores and text-review pool; diagnostics stay unchanged."""
+    """Expose categorical similarity signals; keep numerical values in diagnostics."""
     branches = payload["branches"]
-    positions = {branch["branch_id"]: i for i, branch in enumerate(branches)}
-    errors = []
-    rows = []
-    for i, branch in enumerate(branches):
-        scores = [None] * len(branches)
-        for comparison in branch.get("original_hlg_comparisons", []):
-            j = comparison.get("original_branch_index")
-            if j is None:
-                j = positions[comparison["original_branch_id"]]
-            scores[j] = comparison.get("score")
-            if comparison.get("status", "VALID") != "VALID":
-                errors.append([i, j, comparison["status"], comparison.get("error")])
-        rows.append(scores)
+    positions = {goal["branch_id"]: i for i, goal in enumerate(branches)}
+    errors, rows = [], []
+    for i, goal in enumerate(branches):
+        labels = [None] * len(branches)
+        for comparison in goal.get("original_hlg_comparisons", []):
+            j = positions[comparison["other_branch_id"]]
+            if comparison["status"] == "VALID":
+                if i == j:
+                    labels[j] = goal["relationship"]
+                elif goal["status"] == "VALID" and branches[j]["status"] == "VALID":
+                    labels[j] = ("POTENTIAL_DUPLICATE" if comparison["other_branch_id"]
+                                 in goal["duplicate_candidates"] else "NO_DUPLICATE_MATCH")
+                else:
+                    errors.append([i, j, "NOT_ELIGIBLE_FOR_DUPLICATE_REVIEW"])
+            else:
+                errors.append([i, j, comparison["status"]])
+        rows.append(labels)
     return {
-        "threshold": payload["configuration"]["similarity_threshold"],
-        "requested_branch_ids": [b["branch_id"] for b in branches if b["status"] == "VALID"],
-        "branches": [{
-            "branch_id": b["branch_id"], "actor": b["actor"],
-            "hlg": b["hlg"], "hlg_prime": b["hlg_prime"],
-            "status": b["status"], "reconstructable": b["reconstructable"],
-            "relationship": b["relationship"], "parent_score": b["score"],
-            "original_hlg_comparisons_complete": b["original_hlg_comparisons_complete"],
-            "duplicate_candidates": b["duplicate_candidates"],
-            **({"error": b["error"]} if b.get("error") else {}),
-        } for b in branches],
-        "original_scores": rows,
-        "original_errors": errors,
-        "duplicate_review": "same_actor_texts_only",
+        "requested_branch_ids": [g["branch_id"] for g in branches if g["status"] == "VALID"],
+        "branches": [{"branch_id": g["branch_id"], "actor": g["actor"],
+            "hlg": g["hlg"], "hlg_prime": g["hlg_prime"], "status": g["status"],
+            "reconstructable": g["reconstructable"], "relationship": g["relationship"],
+            "original_hlg_comparisons_complete": g["original_hlg_comparisons_complete"],
+            "duplicate_candidates": g["duplicate_candidates"], "duplicate_label": g["duplicate_label"]}
+            for g in branches],
+        "original_labels": rows, "comparison_statuses": errors,
+        "duplicate_review": "prime_original_similarity_labels_same_actor_documentary_confirmation",
     }
