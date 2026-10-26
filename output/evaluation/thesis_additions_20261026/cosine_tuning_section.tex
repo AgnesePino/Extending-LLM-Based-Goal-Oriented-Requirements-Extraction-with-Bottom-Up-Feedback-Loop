@@ -1,0 +1,134 @@
+\subsection{Analisi esplorativa della soglia su tutti i dataset}
+\label{sec:cosine-tuning-all-datasets}
+% Evidence C-T01/C-T02: cosine_summary.json, cosine_pairs.csv, parent_review.json.
+Per esaminare il valore operativo della soglia è stata eseguita un'analisi
+descrittiva sui dodici dataset, distinta dagli esperimenti che variano esempi
+e temperatura. A partire dalle baseline top-down sono state generate nuove
+ricostruzioni con Qwen3-VL-8B e lo stesso prompt, usando soltanto le descrizioni
+degli LLG associati. MPNet ha confrontato ogni HLG$'$ con la descrizione del
+proprio padre e con quelle degli altri HLG dello stesso progetto. I nomi dei
+goal e le ground truth non entrano in questo calcolo.
+
+Il corpus comprende 61 HLG, dei quali 60 hanno figli associabili e producono
+una ricostruzione. Un ramo di SIA 25--26 non è ricostruibile; quattro LLG,
+due in Recycling e due in SIA 25--26, non sono associati dal raggruppamento
+usato in questa analisi. Questi casi sono registrati, senza assegnare loro
+una cosine pari a zero. Sono disponibili 60 confronti con il padre e 334
+confronti direzionali con altri HLG; 112 di questi ultimi riguardano lo stesso
+attore. Non vengono confrontate due ricostruzioni.
+Questo run usa il raggruppamento diretto dei riferimenti ai padri, senza il
+recupero dei riferimenti non corrispondenti usato in alcune versioni del ciclo
+completo; la copertura dichiarata si riferisce a tale procedura.
+
+\paragraph{Distribuzione dei valori osservati.}
+La media dei 60 confronti HLG$'$--padre è 0,69298, la mediana è 0,69766
+e la deviazione standard della popolazione osservata è 0,11064; minimo
+e massimo sono rispettivamente 0,43849 e 0,88138. La media delle dodici
+medie per dataset è 0,69714. La prima media assegna lo stesso peso a ogni
+ramo, mentre la seconda assegna lo stesso peso a ogni progetto.
+I confronti con altri HLG hanno media 0,43388; limitandoli allo stesso attore
+la media è 0,42825. Queste popolazioni hanno scopi differenti e non vengono
+mescolate per ricavare un unico valore medio.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Cosine HLG$\prime$--padre nei dodici dataset: tutte le ricostruzioni disponibili.}
+\label{tab:cosine-tuning-datasets}
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & $n$ & Media & Minimo & Massimo \\
+\midrule
+AUU & 10 & 0,64812 & 0,43849 & 0,82918 \\
+Calculator & 1 & 0,77194 & 0,77194 & 0,77194 \\
+Ethical Purchasing & 9 & 0,76273 & 0,68389 & 0,85761 \\
+Event Organization & 3 & 0,71297 & 0,65420 & 0,81350 \\
+Fitness Tracker & 7 & 0,67662 & 0,56779 & 0,83131 \\
+Genome Nexus & 2 & 0,80036 & 0,78733 & 0,81339 \\
+Gestao Hospital & 5 & 0,78789 & 0,73596 & 0,88138 \\
+La Reine Marlene & 3 & 0,56844 & 0,51631 & 0,61549 \\
+London Ambulance & 4 & 0,60180 & 0,46356 & 0,80152 \\
+Planning Poker & 3 & 0,65786 & 0,58294 & 0,70860 \\
+Recycling & 7 & 0,69779 & 0,57675 & 0,83531 \\
+SIA 25--26 & 6 & 0,67921 & 0,57145 & 0,84972 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\paragraph{Confronto descrittivo tra soglie.}
+La Tabella~\ref{tab:cosine-threshold-sensitivity} mostra come cambiano le
+etichette e il numero di coppie candidate applicando diversi valori agli
+stessi punteggi salvati. Non sono state rieseguite le pipeline per ogni soglia.
+I conteggi non sono veri o falsi positivi: mancano annotazioni indipendenti
+di equivalenza funzionale e quindi non misurano accuratezza o F1 del filtro.
+\begin{table}[htbp]
+\centering
+\small
+\caption{Sensibilità descrittiva delle classificazioni alla soglia. Le coppie candidate sono direzionali e dello stesso attore.}
+\label{tab:cosine-threshold-sensitivity}
+\begin{tabular}{rrrr}
+\toprule
+$\tau$ & Padri sopra soglia & Padri sotto soglia & Coppie candidate \\
+\midrule
+0,50 & 56 & 4 & 29 \\
+0,55 & 54 & 6 & 20 \\
+0,60 & 46 & 14 & 10 \\
+0,65 & 39 & 21 & 6 \\
+0,68 & 34 & 26 & 5 \\
+0,70 & 29 & 31 & 5 \\
+0,75 & 21 & 39 & 2 \\
+0,80 & 13 & 47 & 0 \\
+0,85 & 2 & 58 & 0 \\
+0,90 & 0 & 60 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\paragraph{Interpretazione della scelta operativa.}
+La soglia 0,68 è una scelta operativa basata su una lettura d'insieme dei
+confronti, non sulla regola ``soglia uguale alla media''. Con questo valore,
+34 confronti con il padre risultano sopra soglia e 26 sotto; cinque coppie
+direzionali dello stesso attore diventano candidate alla verifica dei duplicati.
+La vicinanza alla media non dimostra che 0,68 sia ottimale: funzionalità
+complementari possono avere cosine elevate e una formulazione valida può
+avere una ricostruzione più astratta con cosine inferiore.
+
+L'analisi qui riportata è successiva alle esecuzioni storiche del capitolo
+dei risultati, nelle quali 0,68 era già stato adottato. Offre quindi un
+riscontro descrittivo alla scelta, non una validazione retroattiva o una
+calibrazione supervisionata. Non risultano annotazioni manuali di equivalenza
+complete; una selezione statistica della soglia richiederebbe tali annotazioni
+e una verifica su progetti separati.
+
+\paragraph{Esempi reali.}
+La Tabella~\ref{tab:cosine-real-examples} riporta testi effettivamente
+confrontati e i punteggi ottenuti. AUU presenta sia il valore minimo sia un
+confronto appena sotto 0,68; SIA 25--26 e Planning Poker mostrano casi appena
+sopra soglia. Il confronto incrociato di Recycling illustra perché una
+cosine elevata non basta a giustificare una rimozione: ricerca dei centri,
+mappe e notifiche possono condividere termini ma includere risultati distinti.
+\begingroup
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{0.17\textwidth}p{0.33\textwidth}p{0.33\textwidth}r@{}}
+\caption{Esempi reali di confronti cosine. I testi sono riportati dai file del tuning; l’ultima riga è un confronto con un altro padre.}\label{tab:cosine-real-examples}\\
+\toprule
+Dataset e coppia & HLG$\prime$ & Descrizione HLG & Cosine \\
+\midrule
+\endfirsthead
+\toprule
+Dataset e coppia & HLG$\prime$ & Descrizione HLG & Cosine \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+AUU 1$\rightarrow$1 & Ensure applicant compliance and data accuracy before submission & Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices. & 0,43849 \\
+Gestao Hospital 2$\rightarrow$2 & Optimize hospital resource allocation and operational efficiency through staff and bed assignment and performance reporting. & Enable hospital managers to efficiently allocate beds, staff, and supplies to improve operational performance. & 0,88138 \\
+AUU 3$\rightarrow$3 & Validate fiscal codes for children against national databases to ensure uniqueness and avoid conflicts. & Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application. & 0,67579 \\
+SIA 25--26 6$\rightarrow$6 & Provide public access to aggregated statistics on report trends and categories. & Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning. & 0,68177 \\
+Planning Poker 3$\rightarrow$3 & Support real-time task estimation alignment and transparency across development team members & Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity. & 0,68206 \\
+Recycling 1$\rightarrow$3 & Provide users with location-based access to recycling centers and their detailed information. & Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness. & 0,76935 \\
+\end{longtable}
+\endgroup
+L'Appendice~\ref{app:all-cosine-values} elenca tutti i 394 punteggi,
+senza selezionare soltanto quelli vicini alla soglia. I CSV ed Excel del run
+\path{all_datasets_20261025_170409} conservano anche i testi completi,
+gli identificativi e la copertura dei dataset.

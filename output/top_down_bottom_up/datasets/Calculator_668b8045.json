@@ -1,0 +1,181 @@
+{
+  "baseline": {
+    "actors": [
+      "User"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 1
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actor \"User\" is correctly identified as the primary end user of the calculator app, but the description could be slightly more precise by mentioning that this user may also include developers or testers in future iterations (e.g., for complex calculations). However, no contradictions or omissions are present.",
+      "highLevelGoals": "The high-level goals are correctly aligned with the software description, focusing solely on functional requirements for a basic calculator app. No contradictions or omissions are present.",
+      "lowLevelGoals": "The low-level goals are well-defined and directly correspond to the actions a user would take with the calculator app. They cover all essential functionalities for performing basic arithmetic operations, including input, evaluation, display of results, and clearing calculations. There are no contradictions or omissions, and all goals are functional and aligned with the high-level goal."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        9.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        10.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 9.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 228,
+      "processedChars": 228,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division."
+    ],
+    "lowLevelGoals": [
+      "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+      "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+      "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+      "Show the final result of the calculation prominently on the screen for user confirmation.",
+      "Provide a 'Clear' button or gesture to reset the current input and start a new calculation."
+    ],
+    "name": "Calculator",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "A person using the smartphone app to perform basic calculations.",
+          "name": "User"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "A person using the smartphone app to perform basic calculations.",
+            "name": "User"
+          },
+          "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+          "name": "Enable quick and accurate basic arithmetic operations"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Display a numeric keypad for input"
+        },
+        {
+          "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Accept user input for operands and operators"
+        },
+        {
+          "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Evaluate the arithmetic expression"
+        },
+        {
+          "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Display the computed result"
+        },
+        {
+          "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Allow clearing the current calculation"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "5bc908e48692de09f570ab9ebc0b415ceeebe5de337abe9b5ddb06bb55c56e21",
+  "name": "Calculator",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "final_decisions": [],
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 2,
+  "updated_at": "2026-10-23T21:19:35.371520+00:00"
+}

@@ -1,0 +1,108 @@
+\section{Analisi dettagliata della configurazione reference}
+\label{sec:reference-dataset-analysis}
+% Evidence C-R01/C-R02: frozen final_metrics.csv, dataset_comparison.csv, source_snapshot.json.
+La configurazione \texttt{reference}, indicata come P4, usa quattro scenari
+few-shot. I risultati di questa sezione appartengono alla campagna storica
+\path{ofat_fixed_thresholds_20261024_211627}, con temperatura 0,3, soglia 0,68,
+policy v103 e una run per ciascuno dei dodici dataset. Non sono risultati
+della nuova reference a temperatura 0,2 o degli esempi aggiornati successivamente.
+Il confronto è appaiato con la baseline top-down dello stesso progetto.
+
+La reference raggiunge F1 macro 0,53723 per gli HLG e 0,51528 per gli LLG.
+Per gli HLG quattro dataset migliorano, quattro peggiorano e quattro restano
+invariati; per gli LLG i conteggi sono rispettivamente cinque, tre e quattro.
+Dieci run convergono, mentre Fitness Tracker e SIA 25--26 raggiungono il limite
+di 25 iterazioni. La convergenza non è una misura di correttezza documentale.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Reference storica: F1 prima e dopo il feedback. I delta sono differenze assolute; l’asterisco indica mancata convergenza.}
+\label{tab:reference-before-after}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Dataset & $H_0$ & $H_R$ & $\Delta H$ & $L_0$ & $L_R$ & $\Delta L$ & Iter. \\
+\midrule
+AUU & 0,4435 & 0,4157 & -0,0277 & 0,7235 & 0,7526 & +0,0291 & 18 \\
+Calculator & 0,5366 & 0,5366 & +0,0000 & 0,6083 & 0,6083 & +0,0000 & 1 \\
+Ethical Purchasing & 0,4167 & 0,4167 & +0,0000 & 0,5087 & 0,5087 & +0,0000 & 1 \\
+Event Organization & 0,5532 & 0,5309 & -0,0223 & 0,3855 & 0,3917 & +0,0062 & 2 \\
+Fitness Tracker & 0,6244 & 0,6313 & +0,0069 & 0,6288 & 0,6338 & +0,0050 & 25$^{*}$ \\
+Genome Nexus & 0,5428 & 0,5428 & +0,0000 & 0,3625 & 0,3625 & +0,0000 & 1 \\
+Gestao Hospital & 0,6817 & 0,6817 & +0,0000 & 0,6199 & 0,6199 & +0,0000 & 1 \\
+La Reine Marlene & 0,3299 & 0,3249 & -0,0050 & 0,3923 & 0,4913 & +0,0991 & 3 \\
+London Ambulance & 0,5095 & 0,5284 & +0,0189 & 0,4841 & 0,2877 & -0,1964 & 13 \\
+Planning Poker & 0,5147 & 0,4781 & -0,0366 & 0,3126 & 0,3011 & -0,0116 & 9 \\
+Recycling & 0,6311 & 0,7587 & +0,1275 & 0,5906 & 0,5116 & -0,0790 & 7 \\
+SIA 25--26 & 0,5725 & 0,6010 & +0,0285 & 0,4833 & 0,7142 & +0,2309 & 25$^{*}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\paragraph{Come vengono interpretati i cambiamenti.}
+Le metriche usano un matching testuale uno-a-uno. Il numero di goal, la loro
+copertura e la formulazione influenzano congiuntamente il punteggio; un aumento
+di F1 non certifica ogni requisito o associazione padre--figlio. Le spiegazioni
+seguenti collegano metriche e modifiche osservate, senza attribuire causalmente
+l'esito al solo few-shot: non sono disponibili repliche o confronti controllati
+che isolino la causa di ogni differenza.
+I conteggi di riscritture e dei relativi esiti sono conteggi per ramo lungo
+le iterazioni, non chiamate API indipendenti. Una singola riparazione batch
+può produrre un esito applicato per più rami; i passaggi batch riportati
+nel riepilogo operativo vanno quindi distinti da questi conteggi.
+
+\subsection{AUU}
+% Evidence C-R02: source_snapshot.json /documents/0/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $-0,0277$ e F1 LLG di $+0,0291$. Gli HLG passano da 10 a 11 a fronte di quattro riferimenti. La Recall HLG rimane quasi stabile (0,7760--0,7795), mentre la Precision scende da 0,3104 a 0,2835: il lieve aumento della somma del matching non compensa l'ulteriore goal nel denominatore. Gli LLG passano invece da 24 a 30 su 28 riferimenti e la Recall sale da 0,6719 a 0,7795. Le 18 iterazioni comprendono 56 decisioni REWRITE, 52 passaggi di riparazione accettati e tre rimozioni per duplicazione. Queste azioni convivono con la rigenerazione dell'intera collezione: il numero finale degli HLG non è quindi la sola baseline meno le rimozioni. L'esito è misto, con maggiore copertura LLG ma frammentazione degli HLG.
+
+\subsection{Calculator}
+% Evidence C-R02: source_snapshot.json /documents/1/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0000$ e F1 LLG di $+0,0000$. La run termina alla prima iterazione con un KEEP e mantiene un HLG e cinque LLG. Entrambi i valori F1 restano identici alla baseline. Il confronto contiene due HLG e sette LLG di riferimento: confermare il ramo esistente conserva la gerarchia, ma non recupera le capacità che non erano state estratte. Questo caso mostra una conservazione operativa della baseline, non un miglioramento dell'estrazione.
+
+\subsection{Ethical Purchasing}
+% Evidence C-R02: source_snapshot.json /documents/2/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0000$ e F1 LLG di $+0,0000$. Tutti i nove rami ricevono KEEP nella prima iterazione e restano nove HLG e 22 LLG. La ground truth contiene quattro HLG e 14 LLG. La Precision HLG di 0,3009 e quella LLG di 0,4162 non cambiano: il metodo conferma una rappresentazione più articolata dei riferimenti senza correggerne il disallineamento misurato. Poiché non vi sono riparazioni, l'assenza di variazioni è direttamente verificabile nelle tracce.
+
+\subsection{Event Organization}
+% Evidence C-R02: source_snapshot.json /documents/3/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $-0,0223$ e F1 LLG di $+0,0062$. Due REWRITE nella prima iterazione, entrambi applicati, sono seguiti dalla conferma alla seconda. I conteggi rimangono tre HLG e dieci LLG, contro quattro e 28 riferimenti. Le critiche riguardano ambito della gestione finanziaria, inviti, richieste e responsabilità dei fornitori; alcune indicazioni sulla gestione degli ospiti non coincidono tra loro. La lieve riduzione HLG e il piccolo incremento LLG sono quindi associati a una riformulazione con numerosità invariata. La Recall LLG finale resta 0,2658: il miglioramento non recupera l'ampia parte della collezione ancora non coperta.
+
+\subsection{Fitness Tracker}
+% Evidence C-R02: source_snapshot.json /documents/4/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0069$ e F1 LLG di $+0,0050$. Dopo 25 iterazioni la run non converge. Cinquanta decisioni REWRITE producono 47 riparazioni accettate e tre rifiutate; sono registrati sette esiti inconcludenti e due rami rimossi, uno come duplicato. Gli HLG scendono da sette a cinque e gli LLG da 17 a 11. La Precision LLG cresce da 0,5548 a 0,6914, ma la Recall diminuisce da 0,7255 a 0,5851: il piccolo aumento di F1 deriva da questo compromesso, non da una maggiore copertura. Le critiche finali sulla definizione di obiettivi e scadenze sono incompatibili, come documentato nel caso qualitativo già discusso. Il lieve guadagno metrico non risolve l'instabilità del ciclo.
+
+\subsection{Genome Nexus}
+% Evidence C-R02: source_snapshot.json /documents/5/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0000$ e F1 LLG di $+0,0000$. Due KEEP arrestano il ciclo alla prima iterazione. Restano due HLG e otto LLG, contro tre e 30 riferimenti. La Precision LLG è 0,8608 ma la Recall è soltanto 0,2296: i pochi goal generati possono avere buone corrispondenze pur rappresentando una parte limitata dei riferimenti. L'invarianza non costituisce evidenza di completezza; mostra che la revisione dei rami presenti non ha attivato una nuova decomposizione.
+
+\subsection{Gestao Hospital}
+% Evidence C-R02: source_snapshot.json /documents/6/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0000$ e F1 LLG di $+0,0000$. Cinque KEEP nella prima iterazione mantengono cinque HLG e 13 LLG, contro quattro e 18 riferimenti. F1 HLG resta 0,6817 e F1 LLG 0,6199. Gli evaluator non propongono interventi e il sistema preserva una baseline già relativamente vicina ai riferimenti secondo il matching. Il risultato è stabile, senza evidenza di un guadagno dovuto al feedback.
+
+\subsection{La Reine Marlene}
+% Evidence C-R02: source_snapshot.json /documents/7/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $-0,0050$ e F1 LLG di $+0,0991$. È il secondo maggiore incremento LLG della reference: +0,0991. Tre riparazioni accettate in tre iterazioni mantengono tre HLG, ma portano gli LLG da dieci a 13 su 29 riferimenti. La Recall LLG aumenta da 0,2638 a 0,3558 e la Precision da 0,7649 a 0,7937. La decomposizione finale esplicita categoria, prezzo, disponibilità, immagini, descrizione e tempi di consegna delle proposte, oltre a revisione amministrativa e ricezione dei prodotti. È una spiegazione compatibile con l'aumento della copertura misurata, ma anche la baseline già conteneva una proposta generica: parte del guadagno riguarda granularità e corrispondenza testuale. Gli HLG restano tre contro dieci riferimenti e il loro F1 diminuisce leggermente; il miglioramento è localizzato alla decomposizione.
+
+\subsection{London Ambulance}
+% Evidence C-R02: source_snapshot.json /documents/8/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0189$ e F1 LLG di $-0,1964$. È il maggiore peggioramento LLG: $-0{,}1964$, nonostante la convergenza in 13 iterazioni e un incremento HLG di +0,0189. Diciannove REWRITE producono 18 riparazioni accettate; un ramo è rimosso come duplicato. Gli LLG raddoppiano da sei a dodici contro tre riferimenti. La Recall rimane quasi stabile (0,7262--0,7194), mentre la Precision si dimezza da 0,3631 a 0,1798: il maggiore denominatore spiega il forte calo di F1 nel matching uno-a-uno. Gli output includono traffico in tempo reale e previsione dell'arrivo, dettagli non richiesti esplicitamente dal testo di partenza. Più dettaglio e conferma degli evaluator non equivalgono a un'estrazione migliore.
+
+\subsection{Planning Poker}
+% Evidence C-R02: source_snapshot.json /documents/9/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $-0,0366$ e F1 LLG di $-0,0116$. È il maggiore calo HLG della reference: $-0{,}0366$. Gli HLG restano tre contro cinque riferimenti, quindi il peggioramento non dipende dal loro numero ma dalla somma delle corrispondenze, che diminuisce con la riformulazione. Dopo 13 riparazioni accettate e una rimozione per duplicazione, la run converge in nove iterazioni. Gli LLG passano da nove a otto su 33 riferimenti; la Precision sale da 0,7294 a 0,7715 ma la Recall scende da 0,1989 a 0,1870, portando F1 a 0,3011. Gli output si concentrano su stime anonime, visualizzazione del consenso e riordinamento delle storie. Questa concentrazione non recupera la parte più ampia delle funzionalità di riferimento.
+
+\subsection{Recycling}
+% Evidence C-R02: source_snapshot.json /documents/10/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,1275$ e F1 LLG di $-0,0790$. È il maggiore incremento HLG, +0,1275, ma uno dei peggioramenti LLG più ampi, $-0{,}0790$. Gli HLG passano da sette a cinque, lo stesso numero dei riferimenti. La Recall HLG cambia pochissimo (0,7573--0,7587), mentre la Precision sale da 0,5409 a 0,7587: il guadagno è compatibile soprattutto con la riduzione di ridondanza o frammentazione nel matching. Gli LLG scendono da 15 a 12 su 25 riferimenti; la Precision resta quasi invariata, ma la Recall passa da 0,4725 a 0,3786. La traccia contiene la rimozione del ramo relativo a notifiche degli eventi e navigazione, undici riparazioni accettate e una decomposizione finale senza un goal esplicito per la mappa. Le notifiche degli eventi ricompaiono invece in un LLG finale: non sono interamente assenti. Compaiono anche AES-256 e TLS 1.3, dettagli non specificati nella documentazione. Il vantaggio agli HLG non dimostra la preservazione completa delle funzionalità dei figli.
+
+\subsection{SIA 25--26}
+% Evidence C-R02: source_snapshot.json /documents/11/runs/reference~1repeat_001
+Rispetto al top-down, F1 HLG cambia di $+0,0285$ e F1 LLG di $+0,2309$. È il maggiore miglioramento LLG: +0,2309, accompagnato da +0,0285 negli HLG. I figli passano da 14 a 28 su 31 riferimenti. La Recall LLG aumenta da 0,3508 a 0,6797, con una riduzione più contenuta della Precision da 0,7767 a 0,7525. La gerarchia finale esplicita posizione, titolo, categoria, fotografie e anonimato del report, motivazione dei rifiuti, configurazione degli assegnamenti e statistiche pubbliche e private. Questa maggiore copertura è osservabile nei testi e coerente con il guadagno di Recall. Tuttavia, sono necessarie 25 iterazioni senza convergenza: 78 decisioni REWRITE, 64 riparazioni accettate, 14 rifiutate e sette esiti inconcludenti. Il miglioramento non è una prova di stabilità del meccanismo.
+
+\paragraph{Confronto tra gli estremi.}
+SIA 25--26 e London mostrano che il numero di LLG non ha un effetto uniforme:
+nel primo caso cresce la copertura di una collezione di 31 riferimenti;
+nel secondo aumentano goal e dettagli rispetto a tre riferimenti senza un
+incremento della somma del matching. Recycling mostra inoltre che una riduzione
+dei padri può migliorare F1 HLG mentre si perde copertura ai figli.
+Queste osservazioni spiegano i punteggi attraverso conteggi e tracce, ma non
+isolano la qualità semantica di ciascuna modifica o l'effetto causale del few-shot.

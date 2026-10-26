@@ -1,0 +1,951 @@
+\section{Funzioni dell'orchestratore e delle chiamate ai modelli}
+\label{sec:orchestrator-implementation}
+Questa sezione riproduce estratti del codice corrente. Le funzioni locali sono
+definite dentro \texttt{run\_global\_goal\_orchestrator} e usano il suo stato tramite
+closure: non sono procedure autonome da eseguire separatamente.
+La funzione principale mantiene il controllo della sequenza descritta nella
+Sezione~\ref{sec:goal-orchestrator}. Non sono richieste conversazioni tra LLM
+per decidere quale stadio invocare.
+
+\clearpage
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Definizione integrale del punto di ingresso dell'orchestratore: configurazione, fasi, aggiornamento e arresto.},label={lst:orchestrator-main-full}]
+def run_global_goal_orchestrator(
+    *, project_description: str, initial_high_level_goals: HighLevelGoals,
+    initial_low_level_goals: LowLevelGoals, mode=ShotPromptingMode.ZERO_SHOT,
+    evaluator_ablation=False, evaluation_output_directory=None,
+    max_iterations=MAX_ITERATIONS, actors: Actors | None = None,
+    verbose: bool = False, output_file_prefix: str | None = None,
+    evaluator_few_shot_examples: int | None = None,
+    evaluator_temperature: float | None = None,
+    parent_threshold: float | None = None, duplicate_threshold: float | None = None,
+    on_state=None,
+) -> GlobalGoalCycleResult:
+    """Coordinate reconstruction, documentary votes and approved top-down repairs."""
+    # [01] Verifica le condizioni della pipeline top-down riusata.
+    if mode != ShotPromptingMode.ZERO_SHOT or evaluator_ablation:
+        raise ValueError("Bottom-up repairs require original zero-shot generation and an enabled critic")
+    if type(max_iterations) is not int or not 1 <= max_iterations <= MAX_ITERATIONS:
+        raise ValueError("max_iterations must be between 1 and 25")
+    evaluator_few_shot_examples = (CRITIC1_FEW_SHOT_EXAMPLE_COUNT if evaluator_few_shot_examples is None
+                                   else evaluator_few_shot_examples)
+    evaluator_examples(evaluator_few_shot_examples)
+    evaluator_temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if evaluator_temperature is None else evaluator_temperature
+    if not 0 <= evaluator_temperature <= 2:
+        raise ValueError("Evaluator temperature must be between 0 and 2")
+    similarity_options = {"parent_threshold": parent_threshold, "duplicate_threshold": duplicate_threshold}
+    active_similarity = similarity_configuration(**similarity_options)
+    file_prefix = ""
+    if output_file_prefix is not None:
+        safe_name = re.sub(r"[^\w.-]+", "_", output_file_prefix).strip("._")
+        if not safe_name:
+            raise ValueError("Output file prefix must contain a project name")
+        file_prefix = safe_name + "_"
+    # [02] Copia la baseline: le revisioni lavorano sullo stato corrente.
+    current_hlgs = _coerce_model(initial_high_level_goals, HighLevelGoals, context="initial HLGs").model_copy(deep=True)
+    current_llgs = _coerce_model(initial_low_level_goals, LowLevelGoals, context="initial LLGs").model_copy(deep=True)
+    known_actors = _merge_actors(actors or Actors(actors=[]), _actors_from_goals(current_hlgs))
+    traces, warnings = [], []
+    initial_adjustments = []
+    # [03] Riconcilia i riferimenti prima del raggruppamento dei figli.
+    current_llgs = _reconcile_parent_references(
+        current_hlgs, current_llgs, strict=False, adjustments=initial_adjustments, warnings=warnings)
+    # [04] Registra policy e parametri per ricostruire questa esecuzione.
+    config = {"pipeline_policy_version": PIPELINE_POLICY_VERSION,
+              "orchestrator_module": "src.bottom_up.goal_orchestrator",
+              "execution_structure": "functions_over_top_down_models",
+              "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+              "output_file_prefix": file_prefix,
+              "evaluator_models": list(BOTTOM_UP_EVALUATOR_MODELS),
+              "evaluator_temperature": evaluator_temperature,
+              "evaluator_few_shot_examples": evaluator_few_shot_examples,
+              "evaluator_response_format": "json_schema",
+              "evaluator_endpoint": "/v1/chat/completions",
+              "evaluator_retry_policy": "whole_global_response_per_model",
+              "evaluator_attempts_per_iteration": BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS,
+              "context_recovery_policy": "reload_affected_model_double_context",
+              "similarity_technical_attempts": SIMILARITY_TECHNICAL_ATTEMPTS,
+              "review_payload_format": "explicit_prime_original_candidate_pairs_v1",
+              "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+              "similarity": active_similarity,
+              "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+              "goal_counter_scope": "position_within_iteration_snapshot",
+              "max_global_iterations": max_iterations,
+              "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+              "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+              "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+              "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+              "initial_parent_reference_reconciliations": initial_adjustments,
+              "repair_reflection_max_attempts": MAX_ATTEMPTS,
+              "repair_quality_threshold": QUALITY_THRESHOLD,
+              "repair_prompting_mode": "ZERO_SHOT",
+              "repair_critic_enabled": True,
+              "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+              "removal_schedule": "all_approved_removals_before_batch_rewrites",
+              "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+              "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+              "output_verbosity": "detailed" if verbose else "iteration_summary"}
+
+    # [05] Pubblica uno stato finale oppure un checkpoint ancora parziale.
+    def publish(pending=None, result=None):
+        if result is not None:
+            state = result.model_dump(mode="json", exclude_defaults=True)
+        else:
+            state = dict(schema_version=RESULT_SCHEMA_VERSION, configuration=config, completed_iterations=len(traces),
+                         warnings=list(warnings),
+                         final_high_level_goals=current_hlgs.model_dump(mode="json"),
+                         final_low_level_goals=current_llgs.model_dump(mode="json"),
+                         iterations=[trace.model_dump(mode="json", exclude_defaults=True)
+                                     for trace in traces + ([pending] if pending is not None else [])])
+        if evaluation_output_directory is not None:
+            atomic_write(Path(evaluation_output_directory) / f"{file_prefix}results.json", compact_cycle(state))
+        if on_state is not None:
+            on_state(state)
+
+    # [06] Costruisce il risultato con il motivo di arresto.
+    def finish(reason, converged):
+        result = GlobalGoalCycleResult(
+            schema_version=RESULT_SCHEMA_VERSION,
+            converged=converged, stop_reason=reason, completed_iterations=len(traces),
+            final_high_level_goals=current_hlgs, final_low_level_goals=current_llgs,
+            iterations=traces, warnings=warnings, configuration=config)
+        publish(result=result)
+        return result
+
+    publish()
+
+    # [07] Il limite globale resta fisso; aumenta solo il contatore.
+    for iteration in range(1, max_iterations + 1):
+        print(f"[bottom-up] iteration {iteration}/{max_iterations} | full snapshot review", flush=True)
+
+        def run_stage(name, function, *args, **kwargs):
+            if verbose:
+                return function(*args, **kwargs)
+            with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                return function(*args, **kwargs)
+
+        # [08] Gli ID di ramo appartengono a questo snapshot.
+        branches = indexed_high_level_goals(current_hlgs)
+        children_by_hlg = {bid: low_level_goals_for_hlg(parent, current_llgs)
+                           for bid, parent in branches.items()}
+        branch_warnings = [f"HLG_WITHOUT_CHILDREN: branch {bid} ({branches[bid].name})"
+                           for bid, children in children_by_hlg.items() if not children]
+        if verbose:
+            for message in branch_warnings:
+                print(f"[bottom-up] {message}", flush=True)
+        # [09] Qwen ricostruisce HLG prime soltanto per gruppi non vuoti.
+        reconstructions = {k: _coerce_model(v, BottomUpHighLevelGoal, context="reconstruction")
+                           for k, v in run_stage("reconstruction", reconstruct_all_branches,
+                               {bid: children for bid, children in children_by_hlg.items() if children}).items()}
+        # [10] MPNet calcola relazioni e candidati senza un giudizio LLM.
+        analysis = run_stage("similarity", analyze_similarities, branches, reconstructions, **similarity_options)
+        config["similarity"] = analysis["configuration"]
+        cosine_payload = build_cosine_payload(branches, reconstructions, analysis, iteration=iteration)
+        if verbose:
+            print(json.dumps(cosine_payload, ensure_ascii=False, indent=2), flush=True)
+        global_votes = []
+
+        # [11] Salva ogni risposta di modello prima degli aggiornamenti.
+        def save_global_vote(record):
+            global_votes.append(record)
+            checkpoint(0, len(branches), {})
+
+        def checkpoint(done, total, evaluations):
+            # [12] Costruisce un checkpoint parziale con dati e voti correnti.
+            trace = GlobalGoalCycleIteration(
+                iteration=iteration, reconstructions=reconstructions, evaluations=evaluations,
+                high_level_goals=current_hlgs, low_level_goals=current_llgs,
+                evaluator_responses=list(global_votes), similarity_analysis=analysis,
+                input_hierarchy={"high_level_goals": current_hlgs.model_dump(mode="json"),
+                                 "low_level_goals": current_llgs.model_dump(mode="json")},
+                checkpoint_complete=False, completed_branch_count=done, total_branch_count=total)
+            publish(pending=trace)
+
+        checkpoint(0, len(branches), {})
+        # [13] I tre evaluator ricevono lo stesso snapshot e contesto.
+        evaluations = run_stage("documentary_review", evaluate_all_branches,
+            project_description, branches, reconstructions, actors=known_actors,
+            on_global_vote=save_global_vote,
+            on_evaluation=checkpoint, similarity_analysis=analysis, cosine_payload=cosine_payload,
+            few_shot_example_count=evaluator_few_shot_examples, evaluator_temperature=evaluator_temperature)
+        evaluations = {k: _coerce_model(v, GlobalGoalEvaluationResult, context="global review")
+                       for k, v in evaluations.items()}
+        start_hlgs, start_llgs = current_hlgs, current_llgs
+        # [14] Applica le sole proposte approvate e tenta la riparazione.
+        update = apply_review_decisions(
+            project_description=project_description, known_actors=known_actors,
+            current_hlgs=current_hlgs, current_llgs=current_llgs,
+            branches=branches, evaluations=evaluations,
+            repair=lambda **kwargs: run_stage(
+                "top_down_repair", _repair_collections_with_top_down, **kwargs))
+        current_hlgs, current_llgs = update["high_level_goals"], update["low_level_goals"]
+        evaluations, outcomes = update["evaluations"], update["outcomes"]
+        changed, confirmed = update["changed"], update["confirmed"]
+        top_down_reflections, iteration_warnings = update["reflections"], update["warnings"]
+        iteration_warnings.extend(branch_warnings)
+        if verbose:
+            for bid, outcome in outcomes.items():
+                print(f"[bottom-up] applied | branch={bid} | {outcome}", flush=True)
+        context_blocked = not changed and any(
+            result.evaluation_status == "CONTEXT_LENGTH_EXCEEDED" for result in evaluations.values()
+        )
+        if context_blocked:
+            iteration_warnings.append("EVALUATOR_CONTEXT_LENGTH_EXCEEDED: iteration attempt budget exhausted; remaining valid actions applied; review continues next iteration")
+        if branches and all(analysis["branches"][b]["status"] == "ERROR" for b in branches):
+            iteration_warnings.append("SIMILARITY_UNAVAILABLE: iteration attempt budget exhausted; review continues next iteration")
+        trace = GlobalGoalCycleIteration(
+            iteration=iteration, reconstructions=reconstructions, evaluations=evaluations,
+            top_down_reflections=top_down_reflections,
+            evaluator_responses=global_votes, similarity_analysis=analysis,
+            high_level_goals=current_hlgs, low_level_goals=current_llgs,
+            input_hierarchy={"high_level_goals": start_hlgs.model_dump(mode="json"),
+                             "low_level_goals": start_llgs.model_dump(mode="json")},
+            structural_action_outcomes=outcomes,
+            warnings=iteration_warnings, checkpoint_complete=True,
+            completed_branch_count=len(evaluations), total_branch_count=len(branches))
+        # [15] Archivia la traccia completa solo dopo gli aggiornamenti della gerarchia.
+        traces.append(trace)
+        warnings.extend(iteration_warnings)
+        publish()
+        print(f"[bottom-up] iteration {iteration} complete | branches={len(branches)} | "
+              f"changed={changed} | decisions={dict(Counter(e.decision.value if e.decision else 'INCONCLUSIVE' for e in evaluations.values()))}",
+              flush=True)
+        if evaluation_output_directory is not None:
+            print(f"  updated: {file_prefix}results.json", flush=True)
+        # [16] Arresta per conferma solo senza cambiamenti e con tutti i rami confermati.
+        if not changed and len(confirmed) == len(branches):
+            return finish(GlobalGoalCycleStopReason.ALL_BRANCHES_CONFIRMED, True)
+    # [17] Conserva il risultato anche se il limite viene raggiunto senza convergenza.
+    return finish(GlobalGoalCycleStopReason.MAX_ITERATIONS_REACHED, False)
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Applicazione delle decisioni: rimozioni approvate, raccolta delle critiche e riparazione batch.},label={lst:orchestrator-apply-full}]
+def apply_review_decisions(
+    *, project_description: str, known_actors: Actors,
+    current_hlgs: HighLevelGoals, current_llgs: LowLevelGoals,
+    branches, evaluations, repair,
+):
+    """Remove approved branches, then send all rewrite feedback to top-down.
+
+    Inputs are the existing goal models and evaluator outputs. Return updated
+    collections and trace data; do not constrain the generator's intervention.
+    """
+    # [01] Lavora sulle collezioni correnti indicizzate per ramo.
+    next_goals = dict(branches)
+    removed_parents = []
+    outcomes, iteration_warnings = {}, []
+    changed = False
+    # [02] Protegge i rami indicati come superstiti da rimozioni incompatibili.
+    protected = {e.surviving_branch_id for e in evaluations.values()
+                 if e.surviving_branch_id}
+    for branch in branches:
+        if (evaluations[branch].decision in {HighLevelGoalDecision.REMOVE, HighLevelGoalDecision.DUPLICATE_REMOVAL}
+                and branch in protected):
+            evaluations[branch] = _mark_unresolved(evaluations[branch], "Conflicting survivor removal.")
+    for branch in branches:
+        result = evaluations[branch]
+        if result.decision not in {HighLevelGoalDecision.REMOVE, HighLevelGoalDecision.DUPLICATE_REMOVAL}:
+            continue
+        # [03] Rimuove il padre; i figli associati sono filtrati subito dopo.
+        next_goals.pop(branch)
+        removed_parents.append(branches[branch])
+        outcomes[branch] = "REMOVED_WITH_CHILDREN"
+        changed = True
+
+    # Apply all approved removals before repairing the surviving collection.
+    current_hlgs = HighLevelGoals(goals=list(next_goals.values()))
+    current_llgs = LowLevelGoals(low_level_goals=[
+        child for child in current_llgs.low_level_goals
+        if not any(child.high_level_associated.model_dump(mode="json") == parent.model_dump(mode="json")
+                   for parent in removed_parents)
+        or any(child.high_level_associated.model_dump(mode="json") == parent.model_dump(mode="json")
+               for parent in next_goals.values())])
+    # [04] Raccoglie le critiche dei rami superstiti da riscrivere.
+    hlg_requests, requested_ids = [], []
+    top_down_reflections = {}
+    for branch in branches:
+        bid = branch
+        if bid not in next_goals:
+            continue
+        result = evaluations[bid]
+        rewrite = result.decision == HighLevelGoalDecision.REWRITE
+        if not rewrite:
+            continue
+        instruction = result.feedback.critique if result.feedback else None
+        if not instruction or not instruction.strip():
+            evaluations[bid] = _mark_unresolved(result, "Missing repair instruction")
+            outcomes[bid] = "REJECTED_STATE_PRESERVED"
+            iteration_warnings.append(f"{bid}: Missing repair instruction")
+            continue
+        hlg_requests.append(instruction)
+        requested_ids.append(bid)
+    handoff_completed = False
+    # [05] Una sola riparazione batch riceve tutti i feedback raccolti.
+    if requested_ids:
+        try:
+            candidate_hlgs, candidate_llgs = repair(
+                description=project_description, actors=known_actors,
+                high_level_goals=current_hlgs, low_level_goals=current_llgs,
+                hlg_requests=hlg_requests,
+                records=top_down_reflections)
+            # [06] Confronta i contenuti: handoff riuscito non implica cambiamento.
+            state_changed = candidate_hlgs != current_hlgs or candidate_llgs != current_llgs
+            current_hlgs, current_llgs = candidate_hlgs, candidate_llgs
+            changed = changed or state_changed
+            handoff_completed = True
+            for bid in requested_ids:
+                outcomes[bid] = "HLG_LLG_HANDOFF_COMPLETED"
+        # [07] Se la riparazione fallisce conserva lo stato dopo le rimozioni.
+        except Exception as exc:
+            message = f"REPAIR_REJECTED: {type(exc).__name__}: {exc}"
+            for bid in requested_ids:
+                outcomes[bid] = "REJECTED_STATE_PRESERVED"
+            iteration_warnings.append(message)
+    
+    # [08] Dopo un handoff la nuova gerarchia richiede una nuova verifica.
+    confirmed = [] if handoff_completed else [bid for bid, e in evaluations.items()
+                 if bid in next_goals and e.decision == HighLevelGoalDecision.KEEP]
+    # [09] Assegna un esito anche ai rami senza interventi strutturali.
+    for bid, result in evaluations.items():
+        outcomes.setdefault(bid, result.decision.value if result.decision else "INCONCLUSIVE")
+
+    return dict(high_level_goals=current_hlgs, low_level_goals=current_llgs,
+                evaluations=evaluations, outcomes=outcomes, changed=changed,
+                reflections=top_down_reflections, warnings=iteration_warnings,
+                confirmed=confirmed)
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Validatore operativo corrente delle singole decisioni: i controlli strutturali sono distinti dalle condizioni documentali del prompt.},label={lst:documentary-decision-validator}]
+def _validate_decision(item, branch, analysis):
+    vote = DocumentaryDecision.model_validate(item)
+    if vote.branch_id != branch:
+        raise ValueError("Wrong branch_id")
+    record = analysis["branches"][branch]
+    if record["status"] != "VALID":
+        raise ValueError("Similarity unavailable; branch must remain inconclusive")
+    if vote.decision == "DUPLICATE_REMOVAL":
+        if vote.surviving_branch_id not in record["duplicate_candidates"]:
+            raise ValueError("Survivor must be a direct same-actor text-review candidate")
+    elif vote.decision == "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL":
+        if not record["reconstructable"] or record["relationship"] not in {"EQUIVALENT", "NOT_EQUIVALENT"}:
+            raise ValueError("REWRITE requires a reconstructable HLG prime and a valid numerical relationship")
+        if record.get("original_hlg_comparisons_complete") is False:
+            raise ValueError("Cannot choose REWRITE before completing available reconstructed-HLG comparisons")
+    elif vote.decision == "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL":
+        if record["relationship"] != "EQUIVALENT":
+            raise ValueError("REMOVE requires an EQUIVALENT parent relationship")
+    return vote
+\end{lstlisting}
+
+\clearpage
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Wrapper che esegue una funzione di fase e controlla soltanto la visibilità dei log.},label={lst:orchestrator-run-stage}]
+def run_stage(name, function, *args, **kwargs):
+    if verbose:
+        return function(*args, **kwargs)
+    with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+        return function(*args, **kwargs)
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Callback e salvataggio dello stato: i checkpoint parziali restano distinti dalle iterazioni complete.},label={lst:orchestrator-state-callbacks}]
+def save_global_vote(record):
+    global_votes.append(record)
+    checkpoint(0, len(branches), {})
+
+def checkpoint(done, total, evaluations):
+    trace = GlobalGoalCycleIteration(
+        iteration=iteration, reconstructions=reconstructions, evaluations=evaluations,
+        high_level_goals=current_hlgs, low_level_goals=current_llgs,
+        evaluator_responses=list(global_votes), similarity_analysis=analysis,
+        input_hierarchy={"high_level_goals": current_hlgs.model_dump(mode="json"),
+                         "low_level_goals": current_llgs.model_dump(mode="json")},
+        checkpoint_complete=False, completed_branch_count=done, total_branch_count=total)
+    publish(pending=trace)
+
+def publish(pending=None, result=None):
+    if result is not None:
+        state = result.model_dump(mode="json", exclude_defaults=True)
+    else:
+        state = dict(schema_version=RESULT_SCHEMA_VERSION, configuration=config, completed_iterations=len(traces),
+                     warnings=list(warnings),
+                     final_high_level_goals=current_hlgs.model_dump(mode="json"),
+                     final_low_level_goals=current_llgs.model_dump(mode="json"),
+                     iterations=[trace.model_dump(mode="json", exclude_defaults=True)
+                                 for trace in traces + ([pending] if pending is not None else [])])
+    if evaluation_output_directory is not None:
+        atomic_write(Path(evaluation_output_directory) / f"{file_prefix}results.json", compact_cycle(state))
+    if on_state is not None:
+        on_state(state)
+
+def finish(reason, converged):
+    result = GlobalGoalCycleResult(
+        schema_version=RESULT_SCHEMA_VERSION,
+        converged=converged, stop_reason=reason, completed_iterations=len(traces),
+        final_high_level_goals=current_hlgs, final_low_level_goals=current_llgs,
+        iterations=traces, warnings=warnings, configuration=config)
+    publish(result=result)
+    return result
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Ciclo reale di interrogazione dei tre evaluator: ogni risposta globale viene salvata prima di passare al modello successivo.},label={lst:orchestrator-evaluator-sequence}]
+for model in BOTTOM_UP_EVALUATOR_MODELS:
+    global_record, votes = _critic1_vote(
+        prompt, model, branches, analysis,
+        temperature=evaluator_temperature, manage_model=True)
+    global_records.append(global_record)
+    if on_global_vote:
+        on_global_vote(global_record)
+    for branch in branches:
+        if branch in votes:
+            records[branch].append(votes[branch])
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Adattamento della chiamata alla reflection e registrazione dei candidati della riparazione.},label={lst:orchestrator-top-down-call}]
+def _run_original_top_down(*, initial_feedback, records, stage, **kwargs):
+    """Record all original reflection results for the transactional handoff."""
+    kwargs["call_function"] = _adapt_bottom_up_feedback(
+        kwargs["call_function"], initial_feedback)
+    result, score, critique, attempts, history = generate_response_with_reflection(
+        max_attempts=MAX_ATTEMPTS, **kwargs)
+    records[stage] = {
+        "score": score, "critique": critique, "attempts": attempts,
+        "score_history": history,
+        "candidate": _model_payload(result),
+    }
+    return result
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Gestore rientrante dei modelli locali: stesso modello nelle chiamate annidate e rilascio al termine.},label={lst:orchestrator-model-lease}]
+@contextmanager
+def loaded_local_model(model_id: str, *, context_length: int | None = None):
+    """One GPU model per process; nested leases of the same model reuse it."""
+    global _active_local_model
+    with _model_lock:
+        if _active_local_model is not None:
+            if _active_local_model != model_id:
+                raise RuntimeError(f"Cannot load {model_id} while {_active_local_model} has an active lease")
+            if context_length is not None and _local_load_configs.get(model_id, {}).get("loaded_context_length", 0) < context_length:
+                raise RuntimeError("Cannot enlarge context inside an active nested model lease")
+            yield model_id
+            return
+        with _loaded_local_model_instance(model_id, context_length=context_length) as selected:
+            _active_local_model = selected
+            try:
+                yield selected
+            finally:
+                _active_local_model = None
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Client del generatore Qwen: messaggi, schema richiesto e validazione del risultato.},label={lst:orchestrator-generator-client}]
+def generate_response(
+    prompt: str, sys_prompt: str, response_format: type[BaseModel] | None = None,
+    *, stateless_retries: bool = False,
+) -> str | BaseModel:
+    """Use fresh messages per call; optionally repeat invalid JSON without history."""
+    system_content = sys_prompt
+    if response_format is not None:
+        system_content += ("\nReturn only one JSON object matching this schema:\n"
+                           + json.dumps(response_format.model_json_schema(), ensure_ascii=False))
+    messages = [{"role": "system", "content": system_content}, {"role": "user", "content": prompt}]
+    last_exception = None
+    with loaded_local_model(QWEN_GENERATOR_MODEL):
+        for _ in range(LM_STUDIO_GENERATOR_ATTEMPTS):
+            try:
+                response = _qwen_client().chat.completions.create(
+                    model=QWEN_GENERATOR_MODEL, messages=messages, temperature=0,
+                    max_tokens=QWEN_GENERATOR_MAX_TOKENS)
+            except Exception as exc:
+                raise RuntimeError(f"Qwen locale {QWEN_GENERATOR_MODEL!r} su {LM_STUDIO_BASE_URL}: {exc}") from exc
+            choice = response.choices[0]
+            content = choice.message.content
+            if choice.finish_reason == "length":
+                raise RuntimeError("Qwen reached its output-token budget; no incomplete result was accepted. Increase QWEN_GENERATOR_MAX_TOKENS and the loaded context.")
+            if not content:
+                raise RuntimeError("Local Qwen returned no final response; verify reasoning and output-token budgets.")
+            if response_format is None:
+                return content
+            try:
+                return response_format.model_validate(_extract_json(content))
+            except ValueError as exc:
+                last_exception = exc
+                if not stateless_retries:
+                    messages.extend([{"role": "assistant", "content": content},
+                                     {"role": "user", "content": f"Correct the complete JSON to match the schema. Validation error: {exc}"}])
+    raise ValueError(f"Local Qwen produced invalid structured output after {LM_STUDIO_GENERATOR_ATTEMPTS} attempts") from last_exception
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Client degli evaluator: gestione del modello e invio della richiesta testuale o con schema JSON.},label={lst:orchestrator-evaluator-client}]
+def generate_evaluator_response(
+    prompt: str,
+    sys_prompt: str,
+    *,
+    temperature: float = 0,
+    model: str | None = None,
+    response_schema: dict | None = None,
+) -> EvaluatorResponse:
+    """Load the selected local model and make one request without chat history."""
+    selected = model.strip() if model else _ministral_model()
+    with loaded_local_model(selected):
+        return _generate_evaluator_response(
+            prompt, sys_prompt, temperature=temperature, model=selected,
+            response_schema=response_schema)
+
+
+def _generate_evaluator_response(
+    prompt: str,
+    sys_prompt: str,
+    *,
+    temperature: float = 0,
+    model: str | None = None,
+    response_schema: dict | None = None,
+) -> EvaluatorResponse:
+    """One stateless chat-completions request, textual or schema-constrained.
+
+    The top-down critic uses text; bottom-up evaluators supply a JSON schema.
+    No native chat endpoint or free-text fallback is used for structured calls.
+    """
+    selected_model = model.strip() if model else _ministral_model()
+    if not selected_model:
+        raise ValueError("The LM Studio evaluator model id cannot be empty.")
+    messages = [
+        {"role": "system", "content": sys_prompt},
+        {"role": "user", "content": prompt},
+    ]
+    structured = response_schema is not None
+    max_tokens = BOTTOM_UP_CRITIC_MAX_TOKENS if structured else MINISTRAL_CRITIC_MAX_TOKENS
+    metadata = {
+        "endpoint": "/v1/chat/completions", "structured_output": structured,
+        "model": selected_model, "temperature": temperature,
+        "max_output_tokens": max_tokens,
+        "prompt_characters": sum(len(message["content"]) for message in messages),
+        **_local_load_configs.get(selected_model, {}),
+    }
+    options = {}
+    if structured:
+        options["response_format"] = {"type": "json_schema", "json_schema": {
+            "name": "documentary_review", "strict": True, "schema": response_schema}}
+    try:
+        response = _ministral_client().chat.completions.create(
+            model=selected_model, messages=messages, temperature=temperature,
+            max_tokens=max_tokens, **options)
+    except Exception as exc:
+        raise EvaluatorGenerationError(
+            f"Local critic {selected_model!r} on {LM_STUDIO_BASE_URL}: {exc}",
+            "", metadata) from exc
+    choice = response.choices[0]
+    content = choice.message.content or ""
+    metadata.update(
+        finish_reason=choice.finish_reason,
+        usage=response.usage.model_dump(mode="json") if response.usage is not None else None)
+    if choice.finish_reason != "stop" or not content.strip():
+        raise EvaluatorGenerationError(
+            f"Critic response incomplete or unavailable (finish_reason={choice.finish_reason!r}). "
+            "Check output-token and loaded-context budgets; no partial response accepted.",
+            content, metadata)
+    return EvaluatorResponse(content, metadata)
+\end{lstlisting}
+
+La richiesta strutturata viene ulteriormente verificata da
+\texttt{\_critic1\_vote} prima di partecipare al voto. La gestione del retry
+globale e l'applicazione degli aggiornamenti rimangono separate dal client HTTP.
+L'adattatore che inserisce il feedback soltanto al primo tentativo e la funzione
+di riparazione della collezione sono riportati anche nei
+Listing~\ref{lst:bottom-up-feedback-adapter} e~\ref{lst:collection-repair-code}.
+
+\subsection{Fasi del bottom-up: definizioni con annotazioni}
+\label{sec:annotated-bottom-up-phases}
+Le funzioni seguenti sono estratte dai moduli correnti. I commenti
+numerati spiegano input, chiamate e controlli nel punto in cui avvengono;
+non sono istruzioni aggiunte ai prompt e non modificano il runtime.
+
+\paragraph{Ricostruzione dei rami.}
+Il caricamento esterno mantiene Qwen disponibile mentre si attraversano
+i gruppi di figli. La funzione di ricostruzione del singolo gruppo
+costruisce il prompt e il risultato riporta gli LLG usati come sorgente.
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Ricostruzione dei rami e provenienza degli HLG ricostruiti.},label={lst:annotated-reconstruction}]
+def reconstruct_all_branches(
+    goal_lists: dict[str, list[LowLevelGoal]] | HighLevelGoals,
+    low_level_goals: LowLevelGoals | None = None,
+):
+    """Return reconstructions from existing top-down models or grouped LLGs."""
+    # [01] Accetta anche le collezioni top-down e raggruppa i figli per padre.
+    if isinstance(goal_lists, HighLevelGoals):
+        if low_level_goals is None:
+            raise ValueError("The top-down LLG collection is required")
+        goal_lists = {
+            bid: children for bid, parent in indexed_high_level_goals(goal_lists).items()
+            if (children := low_level_goals_for_hlg(parent, low_level_goals))
+        }
+    # [02] Un insieme vuoto non richiede chiamate al modello.
+    if not goal_lists:
+        return {}
+    # [03] Mantiene lo stesso modello caricato per tutti i gruppi.
+    with loaded_local_model(QWEN_GENERATOR_MODEL):
+        results = {}
+        for branch_id, low_level_goals in goal_lists.items():
+            # [04] La funzione del singolo ramo usa soltanto le descrizioni dei figli.
+            output = reconstruct_high_level_goal(low_level_goals)
+            # [05] Registra testo ricostruito e nomi dei figli sorgente.
+            results[branch_id] = BottomUpHighLevelGoal(
+                branch_id=branch_id,
+                reconstructed_high_level_goal=output.reconstructed_high_level_goal,
+                source_low_level_goal_ids=[goal.name for goal in low_level_goals])
+        return results
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Embedding e cosine: controlli numerici prima delle etichette.},label={lst:annotated-numerical-primitives}]
+@lru_cache(maxsize=4096)
+def _encode_text(text: str) -> tuple[float, ...]:
+    # [01] Un testo vuoto non riceve un vettore sostitutivo.
+    if not text.strip():
+        raise ValueError("Cannot embed empty goal text")
+    model = _embedding_model()
+    tokens = model.tokenizer(text, truncation=False, add_special_tokens=True)["input_ids"]
+    # [02] Un testo troppo lungo genera un errore invece di essere troncato.
+    if len(tokens) > model.max_seq_length:
+        raise ValueError(f"Goal has {len(tokens)} tokens; embedding limit is {model.max_seq_length}")
+    # [03] Codifica il testo con normalizzazione del vettore.
+    vector = np.asarray(model.encode(text, normalize_embeddings=True), dtype=float)
+    norm = np.linalg.norm(vector)
+    if vector.ndim != 1 or not np.isfinite(vector).all() or not np.isfinite(norm) or norm == 0:
+        raise ValueError("Invalid embedding vector")
+    return tuple(vector / norm)
+
+def _cosine(left, right) -> float:
+    a, b = np.asarray(left, dtype=float), np.asarray(right, dtype=float)
+    if (a.shape != b.shape or a.ndim != 1 or not np.isfinite(a).all()
+            or not np.isfinite(b).all() or np.linalg.norm(a) == 0 or np.linalg.norm(b) == 0):
+        raise ValueError("Invalid vectors for cosine similarity")
+    # [01] Normalizza i vettori e limita il risultato in [-1, 1].
+    return float(np.clip(np.dot(a / np.linalg.norm(a), b / np.linalg.norm(b)), -1, 1))
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Confronti HLG prime contro tutti gli HLG originali del progetto.},label={lst:annotated-similarity-pass}]
+def _analyze_similarities_once(branches: dict[str, HighLevelGoal],
+                         reconstructions: dict[str, BottomUpHighLevelGoal], *,
+                         parent_threshold=None, duplicate_threshold=None) -> dict:
+    """Compare each reconstructed HLG with every current original HLG."""
+    config = similarity_configuration(parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
+    threshold = config["similarity_threshold"]
+    records, vectors, originals, reconstruction_errors, original_errors = {}, {}, {}, {}, {}
+    ids = list(branches)
+    # Every original HLG remains a column, including parents without children.
+    # [01] Codifica le descrizioni originali e le ricostruzioni disponibili.
+    for goal_id, parent in branches.items():
+        try:
+            originals[goal_id] = _encode_text(parent.description)
+        except Exception as exc:
+            original_errors[goal_id] = f"{type(exc).__name__}: {exc}"
+        if goal_id in reconstructions:
+            try:
+                vectors[goal_id] = _encode_text(reconstructions[goal_id].reconstructed_high_level_goal)
+            except Exception as exc:
+                reconstruction_errors[goal_id] = f"{type(exc).__name__}: {exc}"
+
+    pairs = []
+    # [02] Ogni riga parte da una ricostruzione; le colonne sono HLG originali.
+    for goal_id in ids:
+        comparisons = []
+        for other in ids:
+            row = {"other_branch_id": other, "score": None}
+            if goal_id not in reconstructions:
+                row.update(status="NOT_RECONSTRUCTABLE")
+            elif goal_id in reconstruction_errors or other in original_errors:
+                row.update(status="ERROR", error=reconstruction_errors.get(goal_id) or original_errors[other])
+            else:
+                try:
+                    row.update(status="VALID", score=_cosine(vectors[goal_id], originals[other]))
+                except Exception as exc:
+                    row.update(status="ERROR", error=f"{type(exc).__name__}: {exc}")
+            comparisons.append(row)
+        # [03] Il confronto diagonale identifica il rapporto con il proprio padre.
+        own = comparisons[ids.index(goal_id)]
+        record = {"status": own["status"], "score": own["score"],
+                  "relationship": ("EQUIVALENT" if own["score"] >= threshold else "NOT_EQUIVALENT")
+                                  if own["status"] == "VALID" else None,
+                  "reconstructable": goal_id in reconstructions,
+                  "duplicate_label": None, "duplicate_candidates": [],
+                  "original_hlg_comparisons": comparisons,
+                  "original_hlg_comparisons_complete": all(row["status"] == "VALID" for row in comparisons)}
+        if own.get("error"):
+            record["error"] = own["error"]
+        elif own["status"] == "NOT_RECONSTRUCTABLE":
+            record["error"] = "No reconstruction available for numerical comparison"
+        records[goal_id] = record
+
+    for goal_id in ids:
+        record = records[goal_id]
+        for row in record["original_hlg_comparisons"]:
+            other = row["other_branch_id"]
+            if other == goal_id:
+                continue
+            # [04] Soglia, disponibilita e stesso attore delimitano i candidati duplicati.
+            candidate = (row["status"] == "VALID" and row["score"] >= threshold
+                         and record["status"] == "VALID" and records[other]["status"] == "VALID"
+                         and _actor_key(branches[goal_id]) == _actor_key(branches[other]))
+            pairs.append({"branch_id": goal_id, **row, "candidate": candidate})
+            if candidate:
+                record["duplicate_candidates"].append(other)
+        if record["status"] == "VALID":
+            # [05] La candidatura numerica resta da confermare sulla documentazione.
+            record["duplicate_label"] = "POTENTIAL_DUPLICATE" if record["duplicate_candidates"] else "NO_DUPLICATE_MATCH"
+    config["parent_hlg_comparison_count"] = len(reconstructions)
+    config["original_hlg_comparison_count"] = len(reconstructions) * len(branches)
+    config["resolved_revision"] = _resolved_revision()
+    return {"configuration": config, "branches": records, "pairs": pairs}
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Recupero degli errori tecnici della similarita, con budget separato.},label={lst:annotated-similarity-retry}]
+def analyze_similarities(branches: dict[str, HighLevelGoal] | HighLevelGoals,
+                         reconstructions: dict[str, BottomUpHighLevelGoal], *,
+                         parent_threshold=None, duplicate_threshold=None) -> dict:
+    """Recover failed numerical work before allowing documentary review.
+
+    Successful text vectors stay cached. Errors are never cached by lru_cache;
+    model/import failures can be retried after resetting their cached state.
+    No text is shortened and no score or threshold is substituted.
+    Missing reconstructions are unavailable inputs, not retryable numerical errors.
+    """
+    if isinstance(branches, HighLevelGoals):
+        branches = indexed_high_level_goals(branches)
+    history = []
+    # [01] Riprova soltanto entro il budget tecnico della similarita.
+    for attempt in range(1, SIMILARITY_TECHNICAL_ATTEMPTS + 1):
+        analysis = _analyze_similarities_once(branches, reconstructions,
+            parent_threshold=parent_threshold, duplicate_threshold=duplicate_threshold)
+        errors = {}
+        for bid, record in analysis["branches"].items():
+            failed = [row for row in record.get("original_hlg_comparisons", [])
+                      if row.get("status") == "ERROR"]
+            if record["status"] == "ERROR" or failed:
+                errors[bid] = {"parent_error": record.get("error"),
+                               "comparison_errors": failed}
+        history.append({"attempt": attempt, "accepted": not errors, "errors": errors})
+        # [02] Senza errori tecnici termina i retry; un ramo puo restare non ricostruibile.
+        if not errors:
+            break
+        print(f"[bottom-up] similarity recovery | attempt={attempt}/"
+              f"{SIMILARITY_TECHNICAL_ATTEMPTS} | failed_branches={len(errors)}", flush=True)
+        if attempt < SIMILARITY_TECHNICAL_ATTEMPTS:
+            # [03] Ricarica il modello dopo errori; conserva i vettori validi in cache.
+            _embedding_model.cache_clear()
+            _runtime_import_error.cache_clear()
+    # [04] Conserva la storia dei tentativi anche dopo il recupero.
+    analysis["technical_attempts"] = history
+    analysis["configuration"]["similarity_technical_attempts"] = SIMILARITY_TECHNICAL_ATTEMPTS
+    return analysis
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Ingresso degli evaluator: testi, etichette e coppie candidate.},label={lst:annotated-review-payload}]
+def build_review_payload(payload: dict) -> dict:
+    """Expose parent labels and explicit candidate pairs; retain matrices in diagnostics."""
+    branches = payload["branches"]
+    # [01] Separa gli ID richiesti dalle informazioni di contesto della gerarchia.
+    return {
+        "requested_branch_ids": [g["branch_id"] for g in branches if g["status"] == "VALID"],
+        "branches": [{"branch_id": g["branch_id"], "actor": g["actor"],
+            "hlg": g["hlg"], "hlg_prime": g["hlg_prime"], "status": g["status"],
+            "reconstructable": g["reconstructable"], "relationship": g["relationship"],
+            "original_hlg_comparisons_complete": g["original_hlg_comparisons_complete"],
+            "duplicate_candidates": g["duplicate_candidates"], "duplicate_label": g["duplicate_label"]}
+            for g in branches],
+        # [02] Ogni coppia contiene HLG prime e il suo specifico HLG candidato.
+        "potential_duplicates": build_duplicate_candidate_pairs(branches),
+        "duplicate_review": "explicit_prime_original_candidate_pairs_documentary_confirmation",
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Risposta globale di un evaluator: chiamata, validazione e retry.},label={lst:annotated-model-vote}]
+def _critic1_vote(prompt, model, branches, analysis, *, temperature=None, manage_model=False):
+    """Share one per-iteration budget across load, context and output failures."""
+    temperature = BOTTOM_UP_EVALUATOR_TEMPERATURE if temperature is None else temperature
+    # [01] Richiede decisioni soltanto per confronti numerici disponibili.
+    eligible = [b for b in branches if analysis["branches"][b]["status"] == "VALID"]
+    expected = {b for b in eligible}
+    schema = _documentary_response_schema(eligible, analysis)
+    history, accepted, errors = [], {}, {}
+    raw, payload, retry = None, None, prompt
+    requested_context = LM_STUDIO_EVALUATOR_CONTEXT_LENGTH
+    # [02] Lo stesso budget copre caricamento, contesto e risposta.
+    for attempt in range(1, BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS + 1):
+        if not eligible:
+            break
+        print(f"[bottom-up] global review | model={model} | attempt={attempt}/"
+              f"{BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS}", flush=True)
+        current_errors, generation, candidate = {}, {}, {}
+        raw, payload, context_error = None, None, False
+        stage = "loading"
+        try:
+            options = ({"context_length": requested_context}
+                       if requested_context != LM_STUDIO_EVALUATOR_CONTEXT_LENGTH else {})
+            lease = loaded_local_evaluator_model(model, **options) if manage_model else nullcontext()
+            with lease:
+                stage = "generation"
+                # [03] Invia modello, temperatura, prompt e schema al client locale.
+                raw = generate_evaluator_response(retry, SYSTEM_PROMPT,
+                    temperature=temperature, model=model, response_schema=schema)
+                generation = dict(getattr(raw, "metadata", {}))
+                stage = "release"
+            stage = "validation"
+            # Also reject truncation if a custom client returns it instead of raising.
+            if generation.get("finish_reason", "stop") != "stop":
+                raise ValueError("Incomplete global response; regenerate complete concise JSON")
+            payload = _json_object(raw)
+            items = payload["decisions"]
+            if any(not isinstance(item, dict) for item in items):
+                raise ValueError("Every decision must be an object")
+            counts = Counter(item.get("branch_id") for item in items
+                             if isinstance(item.get("branch_id"), str))
+            # [04] Una risposta deve coprire esattamente gli ID richiesti una sola volta.
+            if set(counts) != expected or any(n != 1 for n in counts.values()) or len(items) != len(expected):
+                raise ValueError("Return every requested branch exactly once; no extra or missing IDs")
+            by_id = {item["branch_id"]: item for item in items}
+            for branch in eligible:
+                # [05] Controlla ciascuna azione prima di accettare la risposta intera.
+                vote = _validate_decision(by_id[branch], branch, analysis)
+                candidate[branch] = vote
+        except Exception as exc:
+            raw = getattr(exc, "raw_response", raw)
+            generation = dict(getattr(exc, "metadata", generation))
+            current_errors["response"] = f"{type(exc).__name__}: {exc}"
+            context_error = _is_context_length_error(exc)
+            # [06] Un errore di contesto puo richiedere il raddoppio del contesto.
+            if context_error:
+                generation.update(error_type="CONTEXT_LENGTH_EXCEEDED", recovery_required=True)
+            elif stage in {"loading", "release"}:
+                generation.update(error_type="MODEL_LOAD_FAILED")
+        # [07] Nessun voto parziale di un tentativo scartato viene riutilizzato.
+        success = not current_errors and len(candidate) == len(expected)
+        if raw is not None:
+            raw = str(raw)  # Persist plain text, not the metadata-bearing str subclass.
+        generation.update(accepted=success, global_retry_policy="discard_entire_invalid_response",
+                          recovery_requested_context_length=requested_context,
+                          attempt_budget_scope="per_model_per_iteration")
+        history.append(dict(attempt=attempt, errors=current_errors,
+                            valid_branch_ids=list(candidate) if success else [],
+                            generation=generation, requested_branch_ids=[b for b in eligible]))
+        errors = current_errors
+        if success:
+            accepted = candidate
+            break
+        print(f"[bottom-up] model={model} | global response rejected: {current_errors}", flush=True)
+        if context_error:
+            requested_context = max(requested_context, generation.get("loaded_context_length", 0) or 0) * 2
+            retry = prompt
+            continue
+        if stage in {"loading", "release"}:
+            continue
+        reason = current_errors.get("response", "Invalid global response")[:350]
+        retry = (prompt + "\nCORRECTION: The previous global response was discarded. "
+                 "Regenerate ALL requested decisions as one complete concise JSON. "
+                 "Keep the explanation focused and the critique actionable. Error: " + reason)
+    # [08] Restituisce voti accettati e cronologia del modello.
+    global_record = EvaluatorVoteRecord(
+        model=model, status="VALID" if accepted else "INVALID",
+        decisions=list(accepted.values()), error=errors.get("response"), attempts=history)
+    return global_record, accepted
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Giudizi dei tre modelli, quorum per ramo e verifica dei superstiti.},label={lst:annotated-global-voting}]
+def evaluate_all_branches(
+    project_description,
+    branches,
+    reconstructions,
+    on_evaluation=None,
+    *,
+    actors=None,
+    on_global_vote=None,
+    similarity_analysis=None,
+    cosine_payload=None,
+    few_shot_example_count=None,
+    evaluator_temperature=None,
+):
+    if isinstance(branches, HighLevelGoals):
+        branches = indexed_high_level_goals(branches)
+    if not branches:
+        return {}
+    analysis = similarity_analysis if similarity_analysis is not None else analyze_similarities(branches, reconstructions)
+    if all(analysis["branches"][b]["status"] == "ERROR" for b in branches):
+        results = {b: _inconclusive(
+            b, "Similarity unavailable: " + analysis["branches"][b]["error"],
+            status="SIMILARITY_UNAVAILABLE") for b in branches}
+        if on_evaluation:
+            on_evaluation(len(results), len(branches), results)
+        return results
+    actors = actors or Actors(actors=list({branches[b].actor.name: branches[b].actor for b in branches}.values()))
+    # [01] Costruisce un solo prompt di snapshot condiviso dai tre modelli.
+    prompt = _critic1_prompt(project_description, actors, branches, reconstructions, analysis, cosine_payload,
+                            few_shot_example_count=few_shot_example_count)
+    records = {b: [] for b in branches}
+    global_records = []
+    # [02] Interroga i modelli in sequenza senza mostrare i voti precedenti.
+    for model in BOTTOM_UP_EVALUATOR_MODELS:
+        global_record, votes = _critic1_vote(
+            prompt, model, branches, analysis,
+            temperature=evaluator_temperature, manage_model=True)
+        global_records.append(global_record)
+        if on_global_vote:
+            on_global_vote(global_record)
+        for branch in branches:
+            if branch in votes:
+                records[branch].append(votes[branch])
+    results = {}
+    for branch in branches:
+        local = records[branch]
+        # [03] La chiave conta azione e superstite, non la sola azione.
+        counts = Counter(_operation_key(vote) for vote in local)
+        match = analysis["branches"][branch]
+        # [04] Senza due operazioni concordi il ramo resta inconcludente.
+        if not counts or counts.most_common(1)[0][1] < EVALUATOR_VOTING_QUORUM:
+            result = _inconclusive(branch, "No two valid documentary actions agree.")
+            if any(attempt.get("generation", {}).get("error_type") == "CONTEXT_LENGTH_EXCEEDED"
+                   for record in global_records for attempt in record.attempts):
+                result = _inconclusive(branch,
+                    "Evaluator context exceeded; insufficient agreeing valid votes. No automatic action.",
+                    status="CONTEXT_LENGTH_EXCEEDED")
+        else:
+            key, _ = counts.most_common(1)[0]
+            # [05] Unisce solo i feedback dei voti che sostengono la maggioranza.
+            vote = _merge_agreeing_judgments(local, key)
+            if match["status"] != "VALID":
+                result = _inconclusive(branch, "Similarity comparison unavailable.")
+            else:
+                result = GlobalGoalEvaluationResult(
+                    **vote.model_dump(), evaluation_status="DECIDED")
+        results[branch] = result
+        print(f"[bottom-up] ensemble | branch={branch} | cosine={match.get('score')} | "
+              f"relationship={match.get('relationship')} | votes={dict(counts)} | "
+              f"decision={(result.decision.value if result.decision else 'INCONCLUSIVE')}", flush=True)
+    # Check all survivors against the original aggregate, not a mutated order-dependent graph.
+    # [06] Controlla i superstiti sullo stesso aggregato, senza dipendenze di ordine.
+    kept = {key for key, result in results.items() if result.decision == HighLevelGoalDecision.KEEP}
+    for branch in branches:
+        survivor = results[branch].surviving_branch_id
+        # [07] Respinge una duplicazione se il superstite non e confermato KEEP.
+        if survivor and survivor not in kept:
+            results[branch] = _inconclusive(
+                branch, "Duplicate survivor is not conclusively kept in this snapshot.",
+                )
+            print(f"[bottom-up] ensemble | branch={branch} | INCONCLUSIVE: "
+                  "duplicate survivor is not kept", flush=True)
+    if on_evaluation:
+        on_evaluation(len(results), len(branches), results)
+    return results
+\end{lstlisting}
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Consolidamento del feedback dei soli voti concordi.},label={lst:annotated-feedback-merge}]
+def _merge_agreeing_judgments(records, operation_key):
+    """Join only the feedback prose of the agreeing evaluators for generation."""
+    # [01] Scarta dal feedback i giudizi che non sostengono la stessa operazione.
+    votes = [vote for vote in records if _operation_key(vote) == operation_key]
+    if len(votes) < EVALUATOR_VOTING_QUORUM:
+        raise ValueError("Merged feedback requires at least two agreeing valid votes")
+
+    def join_text(parts):
+        # [02] Elimina solo critiche testualmente identiche; non risolve contraddizioni.
+        return "\n\n".join(dict.fromkeys(part.strip() for part in parts if part and part.strip()))
+
+    updates = {}
+    if votes[0].feedback:
+        updates["feedback"] = {"critique": join_text(vote.feedback.critique for vote in votes)}
+    return DocumentaryDecision.model_validate({**votes[0].model_dump(), **updates})
+\end{lstlisting}
+

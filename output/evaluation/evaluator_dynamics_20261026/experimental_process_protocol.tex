@@ -1,0 +1,86 @@
+\section{Protocollo operativo per similarit\`a e analisi del ciclo}
+\label{sec:operational-experiment-protocol}
+Questa sezione precisa come vengono prodotte e lette le osservazioni,
+senza introdurre fattori aggiuntivi nel piano a cinque configurazioni.
+
+\subsection{Dalle descrizioni alle etichette cosine}
+Per ciascun dataset si conserva la baseline top-down e si raggruppano
+gli LLG secondo il riferimento al padre. La ricostruzione riceve soltanto
+le descrizioni dei figli non vuoti: non vede il padre, la ground truth
+o il documento per riprodurli. Qwen restituisce una descrizione HLG$'$
+in JSON; richieste e retry di ricostruzione non riutilizzano risposte
+precedentemente scartate. I rami non ricostruibili sono registrati,
+senza trasformare un dato mancante in similarit\`a zero.
+
+MPNet codifica separatamente la descrizione ricostruita e quelle degli
+HLG originali correnti, con vettori normalizzati. Il codice usa CPU,
+cache delle rappresentazioni e nessun preprocessing lessicale aggiuntivo;
+controlla testi vuoti, vettori non validi e superamento del limite di
+token prima di ammettere il confronto. Per vettori unitari il prodotto
+scalare coincide con la cosine:
+\begin{equation}
+u_i=\frac{e(HLG'_i)}{\|e(HLG'_i)\|},\quad
+v_j=\frac{e(HLG_j)}{\|e(HLG_j)\|},\qquad s_{ij}=u_i^\top v_j.
+\end{equation}
+Ogni HLG$'_i$ viene confrontato con tutti gli HLG originali dello
+stesso progetto: $j=i$ indica il proprio padre; $j\ne i$ un altro
+padre. Non si usano confronti HLG$'$--HLG$'$ e non si incrociano dataset.
+Con $\tau=0{,}68$, il confronto col padre produce
+\texttt{EQUIVALENT} quando $s_{ii}\ge\tau$ e
+\texttt{NOT\_EQUIVALENT} altrimenti. I confronti fuori diagonale
+sopra soglia possono diventare candidati duplicati soltanto per HLG
+dello stesso attore e con le disponibilit\`a richieste dal codice.
+L'uguaglianza dell'attore usa il nome normalizzato per spazi e maiuscole;
+non \`e una verifica semantica automatica dei ruoli.
+
+Gli evaluator ricevono etichette fisse e coppie candidate testuali,
+non i punteggi da riclassificare. La somiglianza numerica serve a
+individuare confronti da verificare, mentre la documentazione determina
+supporto e responsabilit\`a della funzionalit\`a. La soglia \`e comune
+ai dataset e non viene adattata in base alla ground truth. Nello studio
+esplorativo si ricalcolano i conteggi sopra soglia sulle stesse coppie
+per diversi valori ipotizzati; non si eseguono altrettante pipeline
+iterative. Il raggruppamento diretto di quel run, la sua copertura e
+i valori osservati restano quelli descritti nella
+Sezione~\ref{sec:cosine-tuning-all-datasets}.
+
+\subsection{Esecuzione dei confronti di prompting e temperatura}
+Ogni run riparte dalla baseline congelata, anzich\'e dall'output della
+configurazione precedente. Il confronto P0--P1--P4 varia soltanto
+il prefisso di scenari dimostrativi a temperatura 0,2; il confronto
+T0--P4--T4 mantiene quattro scenari e varia la temperatura fra
+0, 0,2 e 0,4. P4 \`e una sola condizione condivisa. Ricostruzione,
+generazione e critic della riparazione mantengono le proprie impostazioni.
+La verifica iniziale del backend controlla l'accettazione delle
+temperature richieste; non dimostra identit\`a delle risposte a temperatura zero.
+Una modifica di prompt o codice richiede una suite distinta e non viene
+applicata retroattivamente ai dati storici. Le analisi del processo
+di seguito riguardano P0, P1 e P4 della v111, tutte terminate sui dodici
+dataset; i risultati parziali delle temperature non vi entrano.
+
+\subsection{Unit\`a di conteggio per i singoli LLM e per il ciclo}
+Si distinguono tre livelli: la risposta globale di un modello a una
+iterazione; il tentativo tecnico usato per ottenerla; la decisione
+di quel modello su un ramo all'interno della risposta accettata.
+Un tentativo scartato non fornisce voti parzialmente utilizzabili.
+La percentuale di azioni di un LLM ha come denominatore le sue decisioni
+accettate, non il numero di richieste o di dataset. Le frequenze sono
+quindi pesate dall'esposizione: run lunghe e gerarchie grandi contribuiscono
+pi\`u delle run brevi. Non costituiscono accuratezza dei singoli modelli.
+
+L'accordo confronta azione e, per una rimozione duplicata, superstite.
+L'accordo a coppie usa solo rami per cui entrambi i modelli hanno una
+risposta valida. Il quorum \`e misurato separatamente dall'applicazione
+della proposta. Un voto di riscrittura non equivale a una riparazione
+riuscita; \texttt{HLG\_LLG\_HANDOFF\_COMPLETED} registra il completamento
+del passaggio della collezione, non il conteggio dei goal effettivamente
+modificati. Pi\`u rami possono riferirsi alla medesima riparazione batch.
+
+La convergenza \`e l'arresto per conferma di tutti i rami, mentre il
+limite di 25 iterazioni \`e un diverso motivo di arresto. Per verificare
+le modifiche si confrontano le collezioni HLG--LLG in ingresso e in
+uscita della stessa iterazione. Le ripetizioni esatte di stato sono
+rilevate mediante impronta del contenuto serializzato, preservando
+l'ordine delle collezioni. Gli ID di ramo sono locali allo snapshot:
+non vengono usati per sostenere che lo stesso goal oscilli dopo una
+rigenerazione che potrebbe aver cambiato cardinalit\`a o ordine.

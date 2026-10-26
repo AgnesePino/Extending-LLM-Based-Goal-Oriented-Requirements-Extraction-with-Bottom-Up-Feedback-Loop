@@ -1,0 +1,273 @@
+{
+  "baseline": {
+    "actors": [
+      "Event Organizer",
+      "Service Provider",
+      "Invited Guest"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 1
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors defined are completely representative of the software system described. No omissions or contradictions were found.",
+      "highLevelGoals": "The high-level goals are well-defined and align with the system's description. They cover the core functionalities for all actors (Event Organizer, Service Provider, Invited Guest) without any contradictions or omissions. The goals are functional and address the 'why' behind the system effectively.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and accurately reflect the functional requirements of the system. All actors (Event Organizer, Service Provider, Invited Guest) have appropriate low-level goals that correspond to their actions within the software. There are no contradictions or omissions in the provided low-level goals."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        10.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        10.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "The system is a web portal designed to support people who want to organize an event by bringing together, in a single platform, information about event guests and the various services required for the event.\n\nThe platform supports three main types of users: event organizers, service providers, and invited guests.\n\nService providers register on the platform by providing authentication credentials, personal information, and company details, including VAT number, company address, and accepted payment methods.\n\nOnce registered, providers can publish the services offered by their company. Each service belongs to a category, such as catering, hairdressing, florist services, or transportation. For each service, the provider can configure a virtual showcase containing demonstration photos, prices, and the time slots during which the service is available.\n\nEvent organizers register by providing credentials, personal information, residence information, their fiscal code, and an IBAN that can be used for service payments.\n\nThrough the portal, organizers can create an event by specifying the event type, date, location, and the planned budget. During event creation, they can also select from a predefined list the categories of services for which they want to receive support.\n\nOrganizers can add invited guests to the event by entering their personal information, email address, and guest category, such as relative, friend, or colleague. For each invited guest, the system generates an invitation code that is sent by email and is used by the guest as a password to access the platform.\n\nEach event has an associated blog where both organizers and invited guests can publish information about the event, upload photos or videos, create new posts, and comment on existing posts.\n\nAfter creating an event, the organizer can browse the service showcases provided by suppliers for the selected service categories. The organizer can then request an appointment with a provider by choosing a time compatible with the provider's availability and specifying appointment details and any special requests.\n\nProviders can view appointment requests through their interface and decide whether to approve them. Approved appointments are automatically displayed in a calendar associated with the event, which the organizer can consult to view all confirmed service appointments.\n\nAfter an appointment between the organizer and the provider has taken place, the provider prepares a quotation for the agreed service and uploads the corresponding amount to the portal, associating it with the completed appointment.\n\nOnce a quotation has been uploaded, the organizer can accept or reject it. If the quotation is accepted, its total amount is deducted from the remaining event budget.\n\nWhen accepting a quotation, the organizer selects both the payment schedule, which can consist of installments, deposit plus final balance, or full payment, and the payment method, which can be online or on-site.\n\nIf payment is made on-site, the provider confirms the received amount through the portal. If payment is divided into multiple installments, the provider confirms each received installment separately.\n\nAt any time, the organizer can consult the history of contracts associated with the event, including their status and cost, and can also view the remaining event budget.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 3359,
+      "processedChars": 3359,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+      "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+      "Enable invited guests to access event details, contribute to event content, and participate in event-related activities through personalized access."
+    ],
+    "lowLevelGoals": [
+      "Allow the event organizer to input and modify event title, date, location, and description.",
+      "Generate and distribute unique invitation codes to guests for platform access.",
+      "Allow the event organizer to select and reserve services from service providers with specified dates and quantities.",
+      "Enable the event organizer to log, categorize, and monitor event-related expenditures against the budget.",
+      "Allow service providers to upload service descriptions, pricing, availability, and images to the platform.",
+      "Enable service providers to view, accept, decline, or reschedule incoming booking requests from event organizers.",
+      "Allow service providers to receive payments, generate invoices, and track payment status for booked services.",
+      "Enable invited guests to view event details, schedule, and participating services using their invitation code.",
+      "Allow invited guests to submit event-related content (e.g., photos, comments) or feedback through a dedicated form.",
+      "Enable invited guests to register for or join event activities (e.g., workshops, games) using their invitation code."
+    ],
+    "name": "Event Organization Portal - SIA Project 21 22",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "The system is a web portal designed to support people who want to organize an event by bringing together, in a single platform, information about event guests and the various services required for the event.\n\nThe platform supports three main types of users: event organizers, service providers, and invited guests.\n\nService providers register on the platform by providing authentication credentials, personal information, and company details, including VAT number, company address, and accepted payment methods.\n\nOnce registered, providers can publish the services offered by their company. Each service belongs to a category, such as catering, hairdressing, florist services, or transportation. For each service, the provider can configure a virtual showcase containing demonstration photos, prices, and the time slots during which the service is available.\n\nEvent organizers register by providing credentials, personal information, residence information, their fiscal code, and an IBAN that can be used for service payments.\n\nThrough the portal, organizers can create an event by specifying the event type, date, location, and the planned budget. During event creation, they can also select from a predefined list the categories of services for which they want to receive support.\n\nOrganizers can add invited guests to the event by entering their personal information, email address, and guest category, such as relative, friend, or colleague. For each invited guest, the system generates an invitation code that is sent by email and is used by the guest as a password to access the platform.\n\nEach event has an associated blog where both organizers and invited guests can publish information about the event, upload photos or videos, create new posts, and comment on existing posts.\n\nAfter creating an event, the organizer can browse the service showcases provided by suppliers for the selected service categories. The organizer can then request an appointment with a provider by choosing a time compatible with the provider's availability and specifying appointment details and any special requests.\n\nProviders can view appointment requests through their interface and decide whether to approve them. Approved appointments are automatically displayed in a calendar associated with the event, which the organizer can consult to view all confirmed service appointments.\n\nAfter an appointment between the organizer and the provider has taken place, the provider prepares a quotation for the agreed service and uploads the corresponding amount to the portal, associating it with the completed appointment.\n\nOnce a quotation has been uploaded, the organizer can accept or reject it. If the quotation is accepted, its total amount is deducted from the remaining event budget.\n\nWhen accepting a quotation, the organizer selects both the payment schedule, which can consist of installments, deposit plus final balance, or full payment, and the payment method, which can be online or on-site.\n\nIf payment is made on-site, the provider confirms the received amount through the portal. If payment is divided into multiple installments, the provider confirms each received installment separately.\n\nAt any time, the organizer can consult the history of contracts associated with the event, including their status and cost, and can also view the remaining event budget.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Person creating and managing an event, coordinating services and payments.",
+          "name": "Event Organizer"
+        },
+        {
+          "description": "Business or individual offering event-related services for booking.",
+          "name": "Service Provider"
+        },
+        {
+          "description": "Person invited to the event, who accesses the platform via an invitation code.",
+          "name": "Invited Guest"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Person creating and managing an event, coordinating services and payments.",
+            "name": "Event Organizer"
+          },
+          "description": "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+          "name": "Manage Event Planning and Coordination"
+        },
+        {
+          "actor": {
+            "description": "Business or individual offering event-related services for booking.",
+            "name": "Service Provider"
+          },
+          "description": "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+          "name": "Offer and Market Services to Event Clients"
+        },
+        {
+          "actor": {
+            "description": "Person invited to the event, who accesses the platform via an invitation code.",
+            "name": "Invited Guest"
+          },
+          "description": "Enable invited guests to access event details, contribute to event content, and participate in event-related activities through personalized access.",
+          "name": "Access Event Information and Participate in Event Activities"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Allow the event organizer to input and modify event title, date, location, and description.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person creating and managing an event, coordinating services and payments.",
+              "name": "Event Organizer"
+            },
+            "description": "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+            "name": "Manage Event Planning and Coordination"
+          },
+          "name": "Create and Edit Event Details"
+        },
+        {
+          "description": "Generate and distribute unique invitation codes to guests for platform access.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person creating and managing an event, coordinating services and payments.",
+              "name": "Event Organizer"
+            },
+            "description": "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+            "name": "Manage Event Planning and Coordination"
+          },
+          "name": "Invite Guests via Invitation Code"
+        },
+        {
+          "description": "Allow the event organizer to select and reserve services from service providers with specified dates and quantities.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person creating and managing an event, coordinating services and payments.",
+              "name": "Event Organizer"
+            },
+            "description": "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+            "name": "Manage Event Planning and Coordination"
+          },
+          "name": "Book Event Services"
+        },
+        {
+          "description": "Enable the event organizer to log, categorize, and monitor event-related expenditures against the budget.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person creating and managing an event, coordinating services and payments.",
+              "name": "Event Organizer"
+            },
+            "description": "Enable event organizers to efficiently plan, coordinate, and manage all aspects of an event, including guest invitations, service bookings, and budget tracking.",
+            "name": "Manage Event Planning and Coordination"
+          },
+          "name": "Track Event Budget and Expenses"
+        },
+        {
+          "description": "Allow service providers to upload service descriptions, pricing, availability, and images to the platform.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Business or individual offering event-related services for booking.",
+              "name": "Service Provider"
+            },
+            "description": "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+            "name": "Offer and Market Services to Event Clients"
+          },
+          "name": "Publish Services for Booking"
+        },
+        {
+          "description": "Enable service providers to view, accept, decline, or reschedule incoming booking requests from event organizers.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Business or individual offering event-related services for booking.",
+              "name": "Service Provider"
+            },
+            "description": "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+            "name": "Offer and Market Services to Event Clients"
+          },
+          "name": "Receive and Manage Booking Requests"
+        },
+        {
+          "description": "Allow service providers to receive payments, generate invoices, and track payment status for booked services.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Business or individual offering event-related services for booking.",
+              "name": "Service Provider"
+            },
+            "description": "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+            "name": "Offer and Market Services to Event Clients"
+          },
+          "name": "Process Payments and Generate Invoices"
+        },
+        {
+          "description": "Enable invited guests to view event details, schedule, and participating services using their invitation code.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person invited to the event, who accesses the platform via an invitation code.",
+              "name": "Invited Guest"
+            },
+            "description": "Enable invited guests to access event details, contribute to event content, and participate in event-related activities through personalized access.",
+            "name": "Access Event Information and Participate in Event Activities"
+          },
+          "name": "Access Event Details via Invitation Code"
+        },
+        {
+          "description": "Allow invited guests to submit event-related content (e.g., photos, comments) or feedback through a dedicated form.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person invited to the event, who accesses the platform via an invitation code.",
+              "name": "Invited Guest"
+            },
+            "description": "Enable invited guests to access event details, contribute to event content, and participate in event-related activities through personalized access.",
+            "name": "Access Event Information and Participate in Event Activities"
+          },
+          "name": "Submit Content or Feedback for Event"
+        },
+        {
+          "description": "Enable invited guests to register for or join event activities (e.g., workshops, games) using their invitation code.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Person invited to the event, who accesses the platform via an invitation code.",
+              "name": "Invited Guest"
+            },
+            "description": "Enable invited guests to access event details, contribute to event content, and participate in event-related activities through personalized access.",
+            "name": "Access Event Information and Participate in Event Activities"
+          },
+          "name": "Participate in Event Activities"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "1474f7c98a367adc38350e442c3f0fa809dae8e183c119917d2bb1398545f0b0",
+  "name": "Event Organization Portal - SIA Project 21 22",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:48:08.217879+00:00"
+}

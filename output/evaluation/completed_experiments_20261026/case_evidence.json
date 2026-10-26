@@ -1,0 +1,90 @@
+[
+  {
+    "dataset": "SIA Project 25 26",
+    "config_id": "reference",
+    "repetition": 1,
+    "original": {
+      "actor": {
+        "description": "Staff responsible for reviewing and approving citizen reports.",
+        "name": "Organization Office Staff"
+      },
+      "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+      "name": "Ensure Efficient and Transparent Report Processing"
+    },
+    "final": {
+      "actor": {
+        "description": "Staff responsible for reviewing and approving citizen reports.",
+        "name": "Organization Office Staff"
+      },
+      "description": "Organization Office Staff performs a preliminary review of citizen reports, marking them as accepted or rejected. A written justification is mandatory for rejections; other status changes (e.g., Pending Approval to In Progress) do not require explicit justification. The Organization Office is responsible for the preliminary review and rejection justification only.",
+      "name": "Ensure Efficient and Transparent Preliminary Review of Reports"
+    },
+    "explanation": "La formulazione finale restringe la responsabilit\\`a dell'ufficio alla verifica preliminare e rende esplicita la motivazione del rifiuto, invece di attribuirgli l'intero processo fino alla risoluzione. Questa trasformazione illustra una correzione dei confini di responsabilit\\`a; l'aumento di F1 degli LLG riguarda l'intero dataset e non pu\\`o essere attribuito causalmente a questo solo padre."
+  },
+  {
+    "dataset": "London Ambulance Service",
+    "config_id": "reference",
+    "repetition": 1,
+    "original": {
+      "actor": {
+        "description": "Operates the ambulance and follows standard routes.",
+        "name": "Ambulance Driver"
+      },
+      "description": "Minimize response time to ensure every emergency call is reached within 11 minutes.",
+      "name": "Ensure timely ambulance response"
+    },
+    "final": {
+      "actor": {
+        "description": "Operates the ambulance and follows standard routes.",
+        "name": "Ambulance Driver"
+      },
+      "description": "Allocate an available ambulance for every emergency call that can reach the scene within 11 minutes, by following standard routes and communicating departure and destination information to support real-time dispatch.",
+      "name": "Ensure timely ambulance response"
+    },
+    "explanation": "Il dataset presenta un piccolo aumento di F1 HLG ma una diminuzione marcata di F1 LLG. L'esempio mostra il contenuto di un padre finale; il peggioramento quantitativo della decomposizione non dimostra, da solo, che ogni sua frase sia errata. Cambiamenti di granularit\\`a, cardinalit\\`a e corrispondenza con il riferimento possono contribuire al punteggio: stabilire il peso di ciascun fattore richiede un'analisi delle singole corrispondenze."
+  },
+  {
+    "dataset": "Event Organization Portal - SIA Project 21 22",
+    "config_id": "reference",
+    "repetition": 1,
+    "original": {
+      "actor": {
+        "description": "Business or individual offering event-related services for booking.",
+        "name": "Service Provider"
+      },
+      "description": "Allow service providers to showcase their services, receive appointment requests, and manage payments in a transparent and efficient manner.",
+      "name": "Offer and Market Services to Event Clients"
+    },
+    "final": {
+      "actor": {
+        "description": "Business or individual offering event-related services for booking.",
+        "name": "Service Provider"
+      },
+      "description": "Allow service providers to showcase their services, receive and manage appointment requests, prepare and upload quotations, and handle payments associated with confirmed appointments.",
+      "name": "Offer and Manage Event-Related Services"
+    },
+    "explanation": "Il padre finale esplicita gestione delle richieste di appuntamento, preventivi e pagamenti associati agli appuntamenti confermati. Il risultato complessivo aumenta F1 LLG (+0,0723), ma riduce F1 HLG (-0,0263): una descrizione pi\\`u dettagliata e una decomposizione pi\\`u vicina al riferimento possono coesistere con una minore corrispondenza al livello superiore."
+  },
+  {
+    "dataset": "Calculator",
+    "config_id": "reference",
+    "repetition": 1,
+    "original": {
+      "actor": {
+        "description": "A person using the smartphone app to perform basic calculations.",
+        "name": "User"
+      },
+      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+      "name": "Enable quick and accurate basic arithmetic operations"
+    },
+    "final": {
+      "actor": {
+        "description": "A person using the smartphone app to perform basic calculations.",
+        "name": "User"
+      },
+      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+      "name": "Enable quick and accurate basic arithmetic operations"
+    },
+    "explanation": "Il padre rimane identico alla baseline e i punteggi HLG e LLG non cambiano. La revisione pu\\`o quindi confermare un risultato gi\\`a presente; assenza di modifica e assenza di miglioramento non equivalgono a un fallimento tecnico."
+  }
+]

@@ -1,0 +1,1615 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-24T09:36:07.235633+00:00",
+  "status": "prepared",
+  "dataset_count": 5,
+  "pair_count": 23,
+  "selection": "Five explicitly selected projects with different domains and hierarchy sizes; not a random sample.",
+  "generator_model": "qwen/qwen3-vl-8b",
+  "reconstruction": "Fresh HLG prime from LLG descriptions only; current pipeline prompt; no evaluator, repair or ground truth.",
+  "reference_threshold": 0.68,
+  "selected_threshold": null,
+  "threshold_status": "awaiting_human_annotations",
+  "instructions": "Read each HLG original and fresh HLG prime alongside cosine_similarity. Set human_review.equivalent to true or false and describe differences. The cosine is a pair score, not a calculated optimal threshold. The 0.68 label is provisional, not a human annotation. No threshold is selected automatically.",
+  "embedding_configuration": {
+    "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+    "requested_revision": "main",
+    "similarity_threshold": 0.68,
+    "threshold_policy": "prime_against_all_original_hlgs",
+    "parent_threshold": 0.68,
+    "duplicate_threshold": 0.68,
+    "thresholds_validated": false,
+    "parent_threshold_calibration": {
+      "status": "shared_threshold",
+      "annotation": "user-directed provisional value; not independently validated",
+      "selected_default": 0.68,
+      "active_threshold_matches_default": true
+    },
+    "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+    "parent_comparisons_scope": "all_current_original_hlgs",
+    "duplicate_comparisons_scope": "all_current_original_hlgs",
+    "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+    "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+    "parent_text": "description",
+    "preprocessing": "none",
+    "device": "cpu"
+  },
+  "code_sha256": {
+    "experiment_threhold_tuning\\parent_review.py": "abbdc69e68b2d996c11049d2a93870bc5f44f54afba6d334d5932db1c64d3242",
+    "src\\bottom_up\\goal_reconstructor.py": "d026dee14bf7b34cbc7529f136dec3a8e12f06a3090e65de93401cb0c18379d4",
+    "src\\bottom_up\\goal_similarity.py": "78106b7cb0a9a708bbd1a144f7208e2af272069be784bf2722b1b36fc3c1a570"
+  },
+  "datasets": [
+    {
+      "dataset": "Assegno Unico Universale - SIA Project 24 25",
+      "baseline_file": "output\\top_down\\Assegno Unico Universale - SIA Project 24 25_ZERO_SHOT_feedback_original_top_down_top_down.json",
+      "baseline_sha256": "fe97a58e2f82204d600c89375a5c40235794e4915a58fbb6cc63f871fb92e15b",
+      "project_description": "The system supports the online management of applications for the Italian Assegno Unico Universale (AUU), a financial benefit provided by INPS to families with dependent children. The considered scenario focuses exclusively on applications submitted directly by interested users through the INPS website, excluding applications submitted by delegated patronage institutions, mobile applications, and call-center interactions.\n\nAn authenticated applicant can submit an AUU application as a parent, foster parent, or legal guardian of a child. During the first phase of the application, the applicant provides information about each dependent child, including the child's fiscal code, dependency status, disability status and, when applicable, disability level. Depending on the applicant type, additional information concerning family composition, exclusive custody, the other parent's fiscal code, and the requested allowance distribution between parents must also be provided.\n\nWhen a child's fiscal code is entered, the system verifies it in real time. If the child is already associated with another active application, the application flow is blocked and an explanatory warning is shown. The applicant may also specify adult dependent children who do not directly qualify for AUU but contribute to determining household composition. Duplicate fiscal codes for adult children are detected and reported.\n\nThe amount of the allowance depends on the applicant's economic situation. If INPS does not already possess a valid ISEE when the application is submitted, the minimum allowance established by regulation is used. If a valid ISEE becomes available later, INPS automatically recalculates the allowance without requiring the applicant to modify the application.\n\nIn the payment phase, the applicant specifies the payment method. If the allowance is to be divided equally between both parents, the payment information of the other parent must also be provided. Supported payment methods include credit to a SEPA IBAN account owned by the beneficiary, domiciled payment at a post office, and credit to an eligible prepaid card.\n\nBefore submitting the application, the applicant must read and accept the declarations of responsibility and the GDPR privacy notice. The system then presents a summary of the entered information so that it can be reviewed. If validation errors are detected, the application is not submitted and the applicant must correct the erroneous information. If validation succeeds, the application is submitted and a receipt can be downloaded.\n\nAn application may be interrupted without saving or saved as a draft before submission. A saved draft can later be consulted and completed. When resuming a draft, the applicant may either continue from the previously saved information or discard it and restart the application from the beginning.\n\nOnce submitted, the application is evaluated by authorized INPS staff. The application may be accepted, rejected because the applicant is not entitled to the benefit, or suspended when additional documentation is required. The applicant is notified of the outcome. An accepted application remains valid for twelve months and the corresponding allowance is paid automatically every month.\n\nWhen an application is suspended, the INPS operator specifies which additional documents are required. The applicant can consult the application, upload the requested attachments, reconfirm the application data, and again accept the responsibility declarations and privacy notice.\n\nThe system also allows an application originally submitted by one parent to be completed by the other parent. The other parent can consult the application and confirm or modify the proposed allowance distribution. If the applicant requested the entire allowance, the other parent may accept the 100 percent allocation or request a 50 percent distribution. When payment to the other parent is required, that parent provides their own payment information.\n\nApplicants can also add one or more children to an existing application. Each new child's fiscal code is checked in real time to ensure that the child is not already associated with another active application. After adding the child, existing payment and declaration data can be confirmed or modified.\n\nFinally, the system provides supporting functions that allow citizens to consult previously submitted applications, consult general information about the Assegno Unico Universale, and simulate the expected monthly allowance amount.",
+      "actors": {
+        "actors": [
+          {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          {
+            "name": "Other Parent",
+            "description": "Second parent completing or modifying an application initiated by the first parent."
+          },
+          {
+            "name": "INPS Operator",
+            "description": "INPS staff evaluating and managing submitted applications."
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "branch_id": "1",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Ensure accurate and compliant AUU application submissions",
+            "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant fills out application fields step-by-step with real-time validation and tooltips to ensure completeness and accuracy.",
+            "The applicant must explicitly check a box to accept legal declarations and privacy notices before proceeding with submission."
+          ],
+          "llgs": [
+            {
+              "name": "Submit AUU application with guided data entry",
+              "description": "The applicant fills out application fields step-by-step with real-time validation and tooltips to ensure completeness and accuracy.",
+              "high_level_associated": {
+                "name": "Ensure accurate and compliant AUU application submissions",
+                "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Accept mandatory declarations and privacy notices",
+              "description": "The applicant must explicitly check a box to accept legal declarations and privacy notices before proceeding with submission.",
+              "high_level_associated": {
+                "name": "Ensure accurate and compliant AUU application submissions",
+                "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "2",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Support flexible application workflows including drafts and co-parent completion",
+            "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant saves the current state of the application to return later and resume editing without losing progress.",
+            "The applicant resumes a previously saved draft and modifies any section, including payment or declaration data.",
+            "The second parent modifies or adjusts payment distribution and method for a joint application."
+          ],
+          "llgs": [
+            {
+              "name": "Save application draft",
+              "description": "The applicant saves the current state of the application to return later and resume editing without losing progress.",
+              "high_level_associated": {
+                "name": "Support flexible application workflows including drafts and co-parent completion",
+                "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Resume and modify saved application draft",
+              "description": "The applicant resumes a previously saved draft and modifies any section, including payment or declaration data.",
+              "high_level_associated": {
+                "name": "Support flexible application workflows including drafts and co-parent completion",
+                "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Modify payment details for joint applications",
+              "description": "The second parent modifies or adjusts payment distribution and method for a joint application.",
+              "high_level_associated": {
+                "name": "Support flexible application workflows including drafts and co-parent completion",
+                "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "3",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Enable real-time fiscal code validation and conflict detection",
+            "description": "Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The system validates the fiscal code entered for each child against national databases to detect duplicates or conflicts."
+          ],
+          "llgs": [
+            {
+              "name": "Validate child fiscal code in real time",
+              "description": "The system validates the fiscal code entered for each child against national databases to detect duplicates or conflicts.",
+              "high_level_associated": {
+                "name": "Enable real-time fiscal code validation and conflict detection",
+                "description": "Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "4",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Automatically manage allowance calculations based on economic status",
+            "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The system automatically calculates the monthly allowance based on the applicant’s ISEE data, applying minimum regulated amounts if no ISEE is provided.",
+            "When valid ISEE data is uploaded, the system recalculates the allowance amount and updates the application without requiring manual intervention."
+          ],
+          "llgs": [
+            {
+              "name": "Calculate allowance based on ISEE",
+              "description": "The system automatically calculates the monthly allowance based on the applicant’s ISEE data, applying minimum regulated amounts if no ISEE is provided.",
+              "high_level_associated": {
+                "name": "Automatically manage allowance calculations based on economic status",
+                "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Recalculate allowance after ISEE update",
+              "description": "When valid ISEE data is uploaded, the system recalculates the allowance amount and updates the application without requiring manual intervention.",
+              "high_level_associated": {
+                "name": "Automatically manage allowance calculations based on economic status",
+                "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "5",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Provide transparent and secure payment options",
+            "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant selects SEPA IBAN as the payment method for the allowance and provides the required bank details.",
+            "The applicant selects post office domiciliation as the payment method and provides required postal and identification details.",
+            "The applicant selects an eligible prepaid card as the payment method and provides card details for validation.",
+            "The applicant configures how payments will be split or shared between co-parents, including setting individual payment amounts or percentages."
+          ],
+          "llgs": [
+            {
+              "name": "Select SEPA IBAN payment method",
+              "description": "The applicant selects SEPA IBAN as the payment method for the allowance and provides the required bank details.",
+              "high_level_associated": {
+                "name": "Provide transparent and secure payment options",
+                "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Select post office domiciliation payment method",
+              "description": "The applicant selects post office domiciliation as the payment method and provides required postal and identification details.",
+              "high_level_associated": {
+                "name": "Provide transparent and secure payment options",
+                "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Select prepaid card payment method",
+              "description": "The applicant selects an eligible prepaid card as the payment method and provides card details for validation.",
+              "high_level_associated": {
+                "name": "Provide transparent and secure payment options",
+                "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Configure joint payment between parents",
+              "description": "The applicant configures how payments will be split or shared between co-parents, including setting individual payment amounts or percentages.",
+              "high_level_associated": {
+                "name": "Provide transparent and secure payment options",
+                "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "6",
+          "actor": {
+            "name": "INPS Operator",
+            "description": "INPS staff evaluating and managing submitted applications."
+          },
+          "hlg_original": {
+            "name": "Notify applicants of application status and enable document uploads for suspensions",
+            "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+            "actor": {
+              "name": "INPS Operator",
+              "description": "INPS staff evaluating and managing submitted applications."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant uploads documents (e.g., proof of residence, updated ISEE) to resolve a suspended application.",
+            "The applicant reconfirms all application data after uploading documents to ensure accuracy before resubmission.",
+            "The applicant reaccepts legal declarations and privacy notices after resubmitting a suspended application."
+          ],
+          "llgs": [
+            {
+              "name": "Upload required documents for suspended application",
+              "description": "The applicant uploads documents (e.g., proof of residence, updated ISEE) to resolve a suspended application.",
+              "high_level_associated": {
+                "name": "Notify applicants of application status and enable document uploads for suspensions",
+                "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+                "actor": {
+                  "name": "INPS Operator",
+                  "description": "INPS staff evaluating and managing submitted applications."
+                }
+              }
+            },
+            {
+              "name": "Reconfirm application data for suspended application",
+              "description": "The applicant reconfirms all application data after uploading documents to ensure accuracy before resubmission.",
+              "high_level_associated": {
+                "name": "Notify applicants of application status and enable document uploads for suspensions",
+                "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+                "actor": {
+                  "name": "INPS Operator",
+                  "description": "INPS staff evaluating and managing submitted applications."
+                }
+              }
+            },
+            {
+              "name": "Reaccept declarations and privacy notices for suspended application",
+              "description": "The applicant reaccepts legal declarations and privacy notices after resubmitting a suspended application.",
+              "high_level_associated": {
+                "name": "Notify applicants of application status and enable document uploads for suspensions",
+                "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+                "actor": {
+                  "name": "INPS Operator",
+                  "description": "INPS staff evaluating and managing submitted applications."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "7",
+          "actor": {
+            "name": "INPS Operator",
+            "description": "INPS staff evaluating and managing submitted applications."
+          },
+          "hlg_original": {
+            "name": "Maintain application validity and automate monthly payments",
+            "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+            "actor": {
+              "name": "INPS Operator",
+              "description": "INPS staff evaluating and managing submitted applications."
+            }
+          },
+          "llg_descriptions": [
+            "The system automatically triggers a monthly payment for an accepted application without requiring further action from the applicant.",
+            "The system automatically extends the validity of an accepted application for 12 months upon successful payment or approval."
+          ],
+          "llgs": [
+            {
+              "name": "Trigger automatic monthly payment for accepted application",
+              "description": "The system automatically triggers a monthly payment for an accepted application without requiring further action from the applicant.",
+              "high_level_associated": {
+                "name": "Maintain application validity and automate monthly payments",
+                "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+                "actor": {
+                  "name": "INPS Operator",
+                  "description": "INPS staff evaluating and managing submitted applications."
+                }
+              }
+            },
+            {
+              "name": "Extend application validity for 12 months",
+              "description": "The system automatically extends the validity of an accepted application for 12 months upon successful payment or approval.",
+              "high_level_associated": {
+                "name": "Maintain application validity and automate monthly payments",
+                "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+                "actor": {
+                  "name": "INPS Operator",
+                  "description": "INPS staff evaluating and managing submitted applications."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "8",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Support application modifications and additions after submission",
+            "description": "Allow applicants to add new children to existing applications, validate fiscal codes, and modify payment or declaration data without restarting the application.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant adds a new child to an existing application, triggering fiscal code validation and updating allowance calculations."
+          ],
+          "llgs": [
+            {
+              "name": "Add new child to existing application",
+              "description": "The applicant adds a new child to an existing application, triggering fiscal code validation and updating allowance calculations.",
+              "high_level_associated": {
+                "name": "Support application modifications and additions after submission",
+                "description": "Allow applicants to add new children to existing applications, validate fiscal codes, and modify payment or declaration data without restarting the application.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "9",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Provide self-service access to application history and informational resources",
+            "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant accesses and views the history of previously submitted applications, including status, payment records, and modifications.",
+            "The applicant accesses informational resources such as eligibility criteria, payment schedules, and application guidelines.",
+            "The applicant inputs hypothetical data to simulate the expected monthly allowance amount based on current or projected economic status."
+          ],
+          "llgs": [
+            {
+              "name": "Consult past application history",
+              "description": "The applicant accesses and views the history of previously submitted applications, including status, payment records, and modifications.",
+              "high_level_associated": {
+                "name": "Provide self-service access to application history and informational resources",
+                "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Access general AUU information",
+              "description": "The applicant accesses informational resources such as eligibility criteria, payment schedules, and application guidelines.",
+              "high_level_associated": {
+                "name": "Provide self-service access to application history and informational resources",
+                "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Simulate expected monthly allowance amount",
+              "description": "The applicant inputs hypothetical data to simulate the expected monthly allowance amount based on current or projected economic status.",
+              "high_level_associated": {
+                "name": "Provide self-service access to application history and informational resources",
+                "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "10",
+          "actor": {
+            "name": "Applicant",
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+          },
+          "hlg_original": {
+            "name": "Ensure secure and compliant data handling in line with GDPR",
+            "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+            "actor": {
+              "name": "Applicant",
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+            }
+          },
+          "llg_descriptions": [
+            "The applicant explicitly accepts the privacy notice before any personal or financial data is submitted to the system.",
+            "The system encrypts and securely stores all personal and financial data in compliance with GDPR standards.",
+            "The system logs all data access and modification events for audit purposes, ensuring compliance with GDPR and internal policies."
+          ],
+          "llgs": [
+            {
+              "name": "Accept privacy notice before data submission",
+              "description": "The applicant explicitly accepts the privacy notice before any personal or financial data is submitted to the system.",
+              "high_level_associated": {
+                "name": "Ensure secure and compliant data handling in line with GDPR",
+                "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Securely store personal and financial data",
+              "description": "The system encrypts and securely stores all personal and financial data in compliance with GDPR standards.",
+              "high_level_associated": {
+                "name": "Ensure secure and compliant data handling in line with GDPR",
+                "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            },
+            {
+              "name": "Audit data access and modification logs",
+              "description": "The system logs all data access and modification events for audit purposes, ensuring compliance with GDPR and internal policies.",
+              "high_level_associated": {
+                "name": "Ensure secure and compliant data handling in line with GDPR",
+                "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+                "actor": {
+                  "name": "Applicant",
+                  "description": "Parent, foster parent, or legal guardian submitting an AUU application."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "Calculator",
+      "baseline_file": "output\\top_down\\Calculator_ZERO_SHOT_feedback_original_top_down_top_down.json",
+      "baseline_sha256": "7f908906fdbaa43b0dc11d30783848f95fe676ad8fe34cb9bb61784c1aeb3413",
+      "project_description": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+      "actors": {
+        "actors": [
+          {
+            "name": "User",
+            "description": "A person using the smartphone app to perform basic calculations."
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "branch_id": "1",
+          "actor": {
+            "name": "User",
+            "description": "A person using the smartphone app to perform basic calculations."
+          },
+          "hlg_original": {
+            "name": "Enable quick and accurate basic arithmetic operations",
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "actor": {
+              "name": "User",
+              "description": "A person using the smartphone app to perform basic calculations."
+            }
+          },
+          "llg_descriptions": [
+            "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "Provide a 'Clear' button or gesture to reset the current input and start a new calculation."
+          ],
+          "llgs": [
+            {
+              "name": "Display a numeric keypad for input",
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "name": "Enable quick and accurate basic arithmetic operations",
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                  "name": "User",
+                  "description": "A person using the smartphone app to perform basic calculations."
+                }
+              }
+            },
+            {
+              "name": "Accept user input for operands and operators",
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "name": "Enable quick and accurate basic arithmetic operations",
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                  "name": "User",
+                  "description": "A person using the smartphone app to perform basic calculations."
+                }
+              }
+            },
+            {
+              "name": "Evaluate the arithmetic expression",
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "name": "Enable quick and accurate basic arithmetic operations",
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                  "name": "User",
+                  "description": "A person using the smartphone app to perform basic calculations."
+                }
+              }
+            },
+            {
+              "name": "Display the computed result",
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "name": "Enable quick and accurate basic arithmetic operations",
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                  "name": "User",
+                  "description": "A person using the smartphone app to perform basic calculations."
+                }
+              }
+            },
+            {
+              "name": "Allow clearing the current calculation",
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "name": "Enable quick and accurate basic arithmetic operations",
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "actor": {
+                  "name": "User",
+                  "description": "A person using the smartphone app to perform basic calculations."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "Fitness Tracker",
+      "baseline_file": "output\\top_down\\Fitness Tracker_ZERO_SHOT_feedback_original_top_down_top_down.json",
+      "baseline_sha256": "a69cf6a0be0268a5e9175aaabe6245953cb0bcb14038ad144d3f7d3489cc880e",
+      "project_description": "This project develops a fitness application aimed at helping users track their physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations. This app is designed to cater to both fitness enthusiasts and beginners, providing valuable tools and insights to support their fitness journey.",
+      "actors": {
+        "actors": [
+          {
+            "name": "Fitness Enthusiast",
+            "description": "An experienced user actively tracking workouts and optimizing performance."
+          },
+          {
+            "name": "Beginner",
+            "description": "A new user seeking guidance and structured fitness plans."
+          },
+          {
+            "name": "Administrator",
+            "description": "A system-level user managing user data, app settings, and content."
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "branch_id": "1",
+          "actor": {
+            "name": "Fitness Enthusiast",
+            "description": "An experienced user actively tracking workouts and optimizing performance."
+          },
+          "hlg_original": {
+            "name": "Enable users to track and analyze their physical activities",
+            "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+            "actor": {
+              "name": "Fitness Enthusiast",
+              "description": "An experienced user actively tracking workouts and optimizing performance."
+            }
+          },
+          "llg_descriptions": [
+            "User submits a new workout entry with metadata including time, heart rate, and equipment used.",
+            "User views time-series graphs of past workouts with filters for intensity, date, and type.",
+            "User downloads workout logs for external analysis or record-keeping."
+          ],
+          "llgs": [
+            {
+              "name": "Log workout session with duration, intensity, and equipment",
+              "description": "User submits a new workout entry with metadata including time, heart rate, and equipment used.",
+              "high_level_associated": {
+                "name": "Enable users to track and analyze their physical activities",
+                "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            },
+            {
+              "name": "Visualize workout history using interactive charts",
+              "description": "User views time-series graphs of past workouts with filters for intensity, date, and type.",
+              "high_level_associated": {
+                "name": "Enable users to track and analyze their physical activities",
+                "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            },
+            {
+              "name": "Export workout data in CSV or PDF format",
+              "description": "User downloads workout logs for external analysis or record-keeping.",
+              "high_level_associated": {
+                "name": "Enable users to track and analyze their physical activities",
+                "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "2",
+          "actor": {
+            "name": "Fitness Enthusiast",
+            "description": "An experienced user actively tracking workouts and optimizing performance."
+          },
+          "hlg_original": {
+            "name": "Support users in setting and achieving personalized fitness goals",
+            "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+            "actor": {
+              "name": "Fitness Enthusiast",
+              "description": "An experienced user actively tracking workouts and optimizing performance."
+            }
+          },
+          "llg_descriptions": [
+            "User defines a goal with specific parameters such as weight, reps, or distance.",
+            "User receives alerts when nearing or achieving milestones defined in their goals."
+          ],
+          "llgs": [
+            {
+              "name": "Set a measurable fitness goal with target metrics",
+              "description": "User defines a goal with specific parameters such as weight, reps, or distance.",
+              "high_level_associated": {
+                "name": "Support users in setting and achieving personalized fitness goals",
+                "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            },
+            {
+              "name": "Track goal progress with real-time notifications",
+              "description": "User receives alerts when nearing or achieving milestones defined in their goals.",
+              "high_level_associated": {
+                "name": "Support users in setting and achieving personalized fitness goals",
+                "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "3",
+          "actor": {
+            "name": "Fitness Enthusiast",
+            "description": "An experienced user actively tracking workouts and optimizing performance."
+          },
+          "hlg_original": {
+            "name": "Deliver tailored workout recommendations based on user profiles",
+            "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+            "actor": {
+              "name": "Fitness Enthusiast",
+              "description": "An experienced user actively tracking workouts and optimizing performance."
+            }
+          },
+          "llg_descriptions": [
+            "System creates a workout plan using user’s fitness level, preferences, and past performance.",
+            "User adjusts or provides feedback on a plan, triggering an adaptive revision by the system."
+          ],
+          "llgs": [
+            {
+              "name": "Generate personalized workout plan based on user profile",
+              "description": "System creates a workout plan using user’s fitness level, preferences, and past performance.",
+              "high_level_associated": {
+                "name": "Deliver tailored workout recommendations based on user profiles",
+                "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            },
+            {
+              "name": "Update workout plan based on user feedback and performance",
+              "description": "User adjusts or provides feedback on a plan, triggering an adaptive revision by the system.",
+              "high_level_associated": {
+                "name": "Deliver tailored workout recommendations based on user profiles",
+                "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+                "actor": {
+                  "name": "Fitness Enthusiast",
+                  "description": "An experienced user actively tracking workouts and optimizing performance."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "4",
+          "actor": {
+            "name": "Beginner",
+            "description": "A new user seeking guidance and structured fitness plans."
+          },
+          "hlg_original": {
+            "name": "Guide beginners through structured and progressive fitness plans",
+            "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+            "actor": {
+              "name": "Beginner",
+              "description": "A new user seeking guidance and structured fitness plans."
+            }
+          },
+          "llg_descriptions": [
+            "User starts with a pre-defined, step-by-step workout plan designed for new users.",
+            "User progresses to a more advanced workout plan after achieving a defined milestone."
+          ],
+          "llgs": [
+            {
+              "name": "Onboard user with guided beginner workout sequence",
+              "description": "User starts with a pre-defined, step-by-step workout plan designed for new users.",
+              "high_level_associated": {
+                "name": "Guide beginners through structured and progressive fitness plans",
+                "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+                "actor": {
+                  "name": "Beginner",
+                  "description": "A new user seeking guidance and structured fitness plans."
+                }
+              }
+            },
+            {
+              "name": "Unlock next-level workout after completing milestone",
+              "description": "User progresses to a more advanced workout plan after achieving a defined milestone.",
+              "high_level_associated": {
+                "name": "Guide beginners through structured and progressive fitness plans",
+                "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+                "actor": {
+                  "name": "Beginner",
+                  "description": "A new user seeking guidance and structured fitness plans."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "5",
+          "actor": {
+            "name": "Administrator",
+            "description": "A system-level user managing user data, app settings, and content."
+          },
+          "hlg_original": {
+            "name": "Ensure user data privacy and system integrity",
+            "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+            "actor": {
+              "name": "Administrator",
+              "description": "A system-level user managing user data, app settings, and content."
+            }
+          },
+          "llg_descriptions": [
+            "System ensures all user data is encrypted using industry-standard protocols.",
+            "System restricts data access based on user roles (e.g., admin, user, guest).",
+            "Administrator reviews logs of who accessed what data and when."
+          ],
+          "llgs": [
+            {
+              "name": "Encrypt user data at rest and in transit",
+              "description": "System ensures all user data is encrypted using industry-standard protocols.",
+              "high_level_associated": {
+                "name": "Ensure user data privacy and system integrity",
+                "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            },
+            {
+              "name": "Implement role-based access control for user data",
+              "description": "System restricts data access based on user roles (e.g., admin, user, guest).",
+              "high_level_associated": {
+                "name": "Ensure user data privacy and system integrity",
+                "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            },
+            {
+              "name": "Audit user data access logs",
+              "description": "Administrator reviews logs of who accessed what data and when.",
+              "high_level_associated": {
+                "name": "Ensure user data privacy and system integrity",
+                "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "6",
+          "actor": {
+            "name": "Administrator",
+            "description": "A system-level user managing user data, app settings, and content."
+          },
+          "hlg_original": {
+            "name": "Manage and update app content and configurations",
+            "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+            "actor": {
+              "name": "Administrator",
+              "description": "A system-level user managing user data, app settings, and content."
+            }
+          },
+          "llg_descriptions": [
+            "Administrator adds new workout content with metadata such as difficulty and target muscle group.",
+            "Administrator pushes global settings or feature toggles to all users simultaneously."
+          ],
+          "llgs": [
+            {
+              "name": "Upload and categorize new workout routines",
+              "description": "Administrator adds new workout content with metadata such as difficulty and target muscle group.",
+              "high_level_associated": {
+                "name": "Manage and update app content and configurations",
+                "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            },
+            {
+              "name": "Deploy configuration updates to all users",
+              "description": "Administrator pushes global settings or feature toggles to all users simultaneously.",
+              "high_level_associated": {
+                "name": "Manage and update app content and configurations",
+                "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "7",
+          "actor": {
+            "name": "Administrator",
+            "description": "A system-level user managing user data, app settings, and content."
+          },
+          "hlg_original": {
+            "name": "Support scalable user management and data analytics",
+            "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+            "actor": {
+              "name": "Administrator",
+              "description": "A system-level user managing user data, app settings, and content."
+            }
+          },
+          "llg_descriptions": [
+            "Administrator views aggregated metrics such as active users, workout frequency, and goal completion rates.",
+            "Administrator exports anonymized user trend data for external analysis or reporting.",
+            "Administrator imports multiple user accounts with pre-assigned fitness goals and preferences."
+          ],
+          "llgs": [
+            {
+              "name": "Generate usage analytics report for administrators",
+              "description": "Administrator views aggregated metrics such as active users, workout frequency, and goal completion rates.",
+              "high_level_associated": {
+                "name": "Support scalable user management and data analytics",
+                "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            },
+            {
+              "name": "Export user activity trends for business intelligence",
+              "description": "Administrator exports anonymized user trend data for external analysis or reporting.",
+              "high_level_associated": {
+                "name": "Support scalable user management and data analytics",
+                "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            },
+            {
+              "name": "Bulk import user accounts with predefined profiles",
+              "description": "Administrator imports multiple user accounts with pre-assigned fitness goals and preferences.",
+              "high_level_associated": {
+                "name": "Support scalable user management and data analytics",
+                "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+                "actor": {
+                  "name": "Administrator",
+                  "description": "A system-level user managing user data, app settings, and content."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "Genome Nexus",
+      "baseline_file": "output\\top_down\\Genome Nexus_ZERO_SHOT_feedback_original_top_down_top_down.json",
+      "baseline_sha256": "dd6f9a4baa9160bb6c55bef124f4836ff65ee3857b23fa04c4da63093c61a0e3",
+      "project_description": "Genome Nexus enables researchers and clinicians to annotate and interpret genetic variants. It retrieves mutation annotations, clinical significance, disease associations, frequencies, and gene information from genomic and clinical resources. It maps variants to reference assemblies, converts DNA changes into protein-level changes, and predicts their possible functional impact. It supports cancer-related mutations and high-throughput datasets by integrating public databases, prediction tools, and clinical knowledge.",
+      "actors": {
+        "actors": [
+          {
+            "name": "Researcher",
+            "description": "Scientist studying genetic variants and their biological implications."
+          },
+          {
+            "name": "Clinician",
+            "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "branch_id": "1",
+          "actor": {
+            "name": "Researcher",
+            "description": "Scientist studying genetic variants and their biological implications."
+          },
+          "hlg_original": {
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "actor": {
+              "name": "Researcher",
+              "description": "Scientist studying genetic variants and their biological implications."
+            }
+          },
+          "llg_descriptions": [
+            "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+            "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+            "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+            "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+            "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets."
+          ],
+          "llgs": [
+            {
+              "name": "Map genetic variants to reference genome assemblies",
+              "description": "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+              "high_level_associated": {
+                "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+                "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                "actor": {
+                  "name": "Researcher",
+                  "description": "Scientist studying genetic variants and their biological implications."
+                }
+              }
+            },
+            {
+              "name": "Convert DNA-level variants to protein-level changes",
+              "description": "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+              "high_level_associated": {
+                "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+                "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                "actor": {
+                  "name": "Researcher",
+                  "description": "Scientist studying genetic variants and their biological implications."
+                }
+              }
+            },
+            {
+              "name": "Annotate variants with functional impact predictions",
+              "description": "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+              "high_level_associated": {
+                "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+                "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                "actor": {
+                  "name": "Researcher",
+                  "description": "Scientist studying genetic variants and their biological implications."
+                }
+              }
+            },
+            {
+              "name": "Link variants to disease associations via public databases",
+              "description": "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+              "high_level_associated": {
+                "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+                "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                "actor": {
+                  "name": "Researcher",
+                  "description": "Scientist studying genetic variants and their biological implications."
+                }
+              }
+            },
+            {
+              "name": "Allow user-defined filters and prioritization rules",
+              "description": "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets.",
+              "high_level_associated": {
+                "name": "Enable rapid and accurate interpretation of genetic variants for research purposes",
+                "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                "actor": {
+                  "name": "Researcher",
+                  "description": "Scientist studying genetic variants and their biological implications."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "2",
+          "actor": {
+            "name": "Clinician",
+            "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+          },
+          "hlg_original": {
+            "name": "Support clinical decision-making through reliable variant interpretation",
+            "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+            "actor": {
+              "name": "Clinician",
+              "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+            }
+          },
+          "llg_descriptions": [
+            "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+            "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+            "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use."
+          ],
+          "llgs": [
+            {
+              "name": "Provide clinically relevant variant annotations",
+              "description": "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+              "high_level_associated": {
+                "name": "Support clinical decision-making through reliable variant interpretation",
+                "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                "actor": {
+                  "name": "Clinician",
+                  "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+                }
+              }
+            },
+            {
+              "name": "Integrate with clinical knowledge bases and variant databases",
+              "description": "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+              "high_level_associated": {
+                "name": "Support clinical decision-making through reliable variant interpretation",
+                "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                "actor": {
+                  "name": "Clinician",
+                  "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+                }
+              }
+            },
+            {
+              "name": "Generate variant interpretation reports with structured outputs",
+              "description": "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use.",
+              "high_level_associated": {
+                "name": "Support clinical decision-making through reliable variant interpretation",
+                "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                "actor": {
+                  "name": "Clinician",
+                  "description": "Medical professional using variant interpretation for patient diagnosis and treatment."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "Planning Poker",
+      "baseline_file": "output\\top_down\\Planning Poker_ZERO_SHOT_feedback_original_top_down_top_down.json",
+      "baseline_sha256": "bc9b72e4060167e72723298c5f75308e6191c7f4a98a865db4576138ad560261",
+      "project_description": "This project describes 'Planning Poker' a digital card game designed to help empower agile and scrum development teams to collectively set their sprint goals. Using anonymous pointing, Planning Poker helps to elicit productive conversations across the team to create shared ownership, knowledge, and understanding.",
+      "actors": {
+        "actors": [
+          {
+            "name": "Scrum Master",
+            "description": "Facilitates the agile process and guides the team during planning sessions."
+          },
+          {
+            "name": "Product Owner",
+            "description": "Defines and prioritizes sprint goals and user stories."
+          },
+          {
+            "name": "Development Team Member",
+            "description": "Contributes to estimating and planning work during sprint planning."
+          }
+        ]
+      },
+      "pairs": [
+        {
+          "branch_id": "1",
+          "actor": {
+            "name": "Scrum Master",
+            "description": "Facilitates the agile process and guides the team during planning sessions."
+          },
+          "hlg_original": {
+            "name": "Enable Transparent and Consensus-Based Sprint Planning",
+            "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+            "actor": {
+              "name": "Scrum Master",
+              "description": "Facilitates the agile process and guides the team during planning sessions."
+            }
+          },
+          "llg_descriptions": [
+            "Show all sprint goals and user stories in a shared, editable interface accessible to all team members during planning.",
+            "Enable each team member to submit their estimation for each user story using a collaborative input system.",
+            "Provide a mechanism for team members to vote or indicate agreement on sprint goals to ensure collective buy-in.",
+            "Allow team members to submit estimations without revealing their identity to prevent bias and encourage honest input."
+          ],
+          "llgs": [
+            {
+              "name": "Display Sprint Goals and User Stories for Team Review",
+              "description": "Show all sprint goals and user stories in a shared, editable interface accessible to all team members during planning.",
+              "high_level_associated": {
+                "name": "Enable Transparent and Consensus-Based Sprint Planning",
+                "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+                "actor": {
+                  "name": "Scrum Master",
+                  "description": "Facilitates the agile process and guides the team during planning sessions."
+                }
+              }
+            },
+            {
+              "name": "Allow Real-Time Estimation Input from All Team Members",
+              "description": "Enable each team member to submit their estimation for each user story using a collaborative input system.",
+              "high_level_associated": {
+                "name": "Enable Transparent and Consensus-Based Sprint Planning",
+                "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+                "actor": {
+                  "name": "Scrum Master",
+                  "description": "Facilitates the agile process and guides the team during planning sessions."
+                }
+              }
+            },
+            {
+              "name": "Enable Voting or Consensus Mechanism on Sprint Goals",
+              "description": "Provide a mechanism for team members to vote or indicate agreement on sprint goals to ensure collective buy-in.",
+              "high_level_associated": {
+                "name": "Enable Transparent and Consensus-Based Sprint Planning",
+                "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+                "actor": {
+                  "name": "Scrum Master",
+                  "description": "Facilitates the agile process and guides the team during planning sessions."
+                }
+              }
+            },
+            {
+              "name": "Enable Anonymous Estimation Submission",
+              "description": "Allow team members to submit estimations without revealing their identity to prevent bias and encourage honest input.",
+              "high_level_associated": {
+                "name": "Enable Transparent and Consensus-Based Sprint Planning",
+                "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+                "actor": {
+                  "name": "Scrum Master",
+                  "description": "Facilitates the agile process and guides the team during planning sessions."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "2",
+          "actor": {
+            "name": "Product Owner",
+            "description": "Defines and prioritizes sprint goals and user stories."
+          },
+          "hlg_original": {
+            "name": "Align Team Members on Sprint Objectives and Effort",
+            "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+            "actor": {
+              "name": "Product Owner",
+              "description": "Defines and prioritizes sprint goals and user stories."
+            }
+          },
+          "llg_descriptions": [
+            "Show aggregated effort estimates per user story and visualize workload distribution across team members.",
+            "Enable the Product Owner to set and adjust priority levels for user stories during sprint planning."
+          ],
+          "llgs": [
+            {
+              "name": "Display Effort Estimates and Visualize Workload Distribution",
+              "description": "Show aggregated effort estimates per user story and visualize workload distribution across team members.",
+              "high_level_associated": {
+                "name": "Align Team Members on Sprint Objectives and Effort",
+                "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+                "actor": {
+                  "name": "Product Owner",
+                  "description": "Defines and prioritizes sprint goals and user stories."
+                }
+              }
+            },
+            {
+              "name": "Allow Product Owner to Assign Priorities to User Stories",
+              "description": "Enable the Product Owner to set and adjust priority levels for user stories during sprint planning.",
+              "high_level_associated": {
+                "name": "Align Team Members on Sprint Objectives and Effort",
+                "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+                "actor": {
+                  "name": "Product Owner",
+                  "description": "Defines and prioritizes sprint goals and user stories."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        },
+        {
+          "branch_id": "3",
+          "actor": {
+            "name": "Development Team Member",
+            "description": "Contributes to estimating and planning work during sprint planning."
+          },
+          "hlg_original": {
+            "name": "Foster Collaborative Estimation and Shared Ownership",
+            "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+            "actor": {
+              "name": "Development Team Member",
+              "description": "Contributes to estimating and planning work during sprint planning."
+            }
+          },
+          "llg_descriptions": [
+            "Allow each development team member to view their assigned tasks and confirm their understanding and commitment.",
+            "Enable each team member to submit their estimation and provide feedback on task complexity or dependencies.",
+            "Provide a live dashboard showing estimation consensus levels and discrepancies across team members."
+          ],
+          "llgs": [
+            {
+              "name": "Enable Team Member to View and Confirm Assigned Tasks",
+              "description": "Allow each development team member to view their assigned tasks and confirm their understanding and commitment.",
+              "high_level_associated": {
+                "name": "Foster Collaborative Estimation and Shared Ownership",
+                "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+                "actor": {
+                  "name": "Development Team Member",
+                  "description": "Contributes to estimating and planning work during sprint planning."
+                }
+              }
+            },
+            {
+              "name": "Allow Team Member to Submit Estimation and Feedback",
+              "description": "Enable each team member to submit their estimation and provide feedback on task complexity or dependencies.",
+              "high_level_associated": {
+                "name": "Foster Collaborative Estimation and Shared Ownership",
+                "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+                "actor": {
+                  "name": "Development Team Member",
+                  "description": "Contributes to estimating and planning work during sprint planning."
+                }
+              }
+            },
+            {
+              "name": "Enable Real-Time Visualization of Estimation Consensus",
+              "description": "Provide a live dashboard showing estimation consensus levels and discrepancies across team members.",
+              "high_level_associated": {
+                "name": "Foster Collaborative Estimation and Shared Ownership",
+                "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+                "actor": {
+                  "name": "Development Team Member",
+                  "description": "Contributes to estimating and planning work during sprint planning."
+                }
+              }
+            }
+          ],
+          "hlg_prime": null,
+          "cosine_similarity": null,
+          "relationship_at_reference_threshold": null,
+          "status": "pending",
+          "human_review": {
+            "equivalent": null,
+            "differences": "",
+            "notes": ""
+          }
+        }
+      ]
+    }
+  ]
+}

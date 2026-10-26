@@ -6,7 +6,10 @@ from collections import Counter
 from contextlib import nullcontext
 
 
-from src.bottom_up.goal_similarity import analyze_similarities, build_cosine_payload, build_review_payload
+from src.bottom_up.goal_similarity import (
+    analyze_similarities, build_cosine_payload, build_review_payload,
+    build_duplicate_candidate_pairs,
+)
 from src.data_model import (
     Actors, HighLevelGoals, indexed_high_level_goals,
     EvaluatorVoteRecord,
@@ -25,7 +28,7 @@ from src.llm_clients import (
 
 MAX_EVALUATOR_ATTEMPTS = 3
 
-PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v105_restored_v103_review_prompt_schema3"
+PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v112_minimal_candidate_pairs"
 BOTTOM_UP_EVALUATOR_MODELS = configured_bottom_up_critic_models()
 
 if len(set(BOTTOM_UP_EVALUATOR_MODELS)) != 3 or not all(BOTTOM_UP_EVALUATOR_MODELS):
@@ -45,90 +48,142 @@ CRITIC1_FEW_SHOT_EXAMPLE_COUNT = 4
 CRITIQUE_CHARACTER_TARGET = 500
 
 SYSTEM_PROMPT = (
-    "You are an expert in software engineering and Goal-Oriented Requirements Engineering (GORE). "
-    "Start from each reconstructed HLG and its software-supplied similarity labels. "
-    "Accept those labels as the completed similarity assessment; do not reassess or relabel it. "
-    "Then use project description and actors to interpret the reconstructed and original HLG texts "
-    "and identify any concrete correction. The description states requirements; "
-    "generated goals reveal scope, consistency and overlap, not additional requirements. "
-    "Return only the requested decision JSON. Do not invent functionality."
+    "You are an expert in Goal-Oriented Requirements Engineering. Review original HLGs "
+    "bottom-up using reconstructed HLGs, fixed labels, documentation and actors. "
+    "Apply exactly the four action conditions below. Read each parent's name and description. "
+    "Preserve supported functionality, invent no requirements, and return only the requested JSON."
 )
 
 
 # Four source/branch/response examples, shared by all three evaluators.
-FEW_SHOT_EXAMPLES = [{'source': 'Members reserve tools and cancel their reservations.',
-  'actor': 'Member',
+FEW_SHOT_EXAMPLES = [{'source': 'Requesters create, modify and cancel their own service requests.',
+  'actor': 'Requester',
   'branches': [{'branch_id': 'a',
-                'hlg': 'Reserve tools',
-                'hlg_prime': 'Request tool reservations',
-                'relationship': 'EQUIVALENT'},
-               {'branch_id': 'b',
-                'hlg': 'Cancel tool reservations',
-                'hlg_prime': 'View the reservation selected for cancellation',
-                'relationship': 'NOT_EQUIVALENT'}],
-  'response': {'decisions': [{'branch_id': 'a',
-                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'},
-                             {'branch_id': 'b',
-                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'}]}},
- {'source': 'Members edit only their own profile.',
-  'actor': 'Member',
+                'hlg': {'name': 'Manage my service requests',
+                        'description': 'Create, modify and cancel my service requests.'},
+                'hlg_prime': 'Submit and cancel my service requests',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
+                'original_hlg_comparisons_complete': True}],
+  'response': {'decisions': [{'branch_id': 'a', 'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'}]}},
+ {'source': 'Requesters create, modify and cancel their own service requests. Only a service '
+            'officer may approve requests. Requesters may view approval outcomes.',
+  'actor': 'Requester',
   'branches': [{'branch_id': 'a',
-                'hlg': 'Edit all member profiles',
-                'hlg_prime': 'Edit my profile',
+                'hlg': {'name': 'Create service requests only',
+                        'description': 'Changes and cancellations are excluded.'},
+                'hlg_prime': 'Create, modify and cancel my service requests',
                 'relationship': 'NOT_EQUIVALENT',
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
+                'original_hlg_comparisons_complete': True},
+               {'branch_id': 'b',
+                'hlg': {'name': 'Approve service requests',
+                        'description': 'Approve or reject submitted service requests as a '
+                                       'requester.'},
+                'hlg_prime': 'Approve or reject service requests',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
+                'original_hlg_comparisons_complete': True},
+               {'branch_id': 'c',
+                'hlg': {'name': "Manage other requesters' service requests",
+                        'description': 'Create, modify and cancel requests on behalf of any '
+                                       'requester.'},
+                'hlg_prime': 'Manage my own service requests',
+                'relationship': 'NOT_EQUIVALENT',
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
                 'original_hlg_comparisons_complete': True}],
   'response': {'decisions': [{'branch_id': 'a',
                               'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
-                              
-                              'feedback': {'critique': "For the goal 'Edit all member profiles': Own-profile "
-                                                       'editing corrects the existing scope. Limit editing '
-                                                       "to the member's own profile."}}]}},
- {'source': 'Members reserve tools; auctions and tool sales are excluded.',
-  'actor': 'Member',
-  'branches': [{'branch_id': 'a',
-                'hlg': 'Auction tools',
-                'hlg_prime': 'Run tool auctions',
-                'relationship': 'EQUIVALENT'},
-               {'branch_id': 'b',
-                'hlg': 'Reserve and auction tools',
-                'hlg_prime': 'Manage tool reservations and auctions',
-                'relationship': 'EQUIVALENT',
-                'original_hlg_comparisons_complete': True},
-               {'branch_id': 'c',
-                'hlg': 'Auction tools',
-                'hlg_prime': 'Sell tools',
-                'relationship': 'NOT_EQUIVALENT'}],
-  'response': {'decisions': [{'branch_id': 'a',
-                              'decision': 'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL'},
+                              'feedback': {'critique': "For 'Create service requests only': "
+                                                       'requirements allow creation, modification '
+                                                       "and cancellation of the requester's own "
+                                                       'requests. The parent explicitly excludes '
+                                                       'two required operations. Preserve creation '
+                                                       'and include modification and cancellation '
+                                                       'within the same request scope.'}},
                              {'branch_id': 'b',
                               'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
-                              
-                              'feedback': {'critique': "For the goal 'Reserve and auction tools': Despite "
-                                                       'numerical equivalence, only reservations are '
-                                                       'documented; auctions are excluded from both goals. '
-                                                       'Preserve tool reservations and remove the '
-                                                       'unsupported auction capability.'}},
+                              'feedback': {'critique': "For 'Approve service requests': the source "
+                                                       'assigns approval and rejection to the '
+                                                       'service officer, not the requester. '
+                                                       'Correct the actor responsibility to the '
+                                                       'service officer while preserving the '
+                                                       'approval and rejection functionality. Keep '
+                                                       "the requester's ability to view outcomes "
+                                                       'distinct.'}},
                              {'branch_id': 'c',
-                              'decision': 'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL'}]}},
- {'source': 'Members reserve tools.',
+                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'feedback': {'critique': "For 'Manage other requesters' service "
+                                                       "requests': documentation allows requesters "
+                                                       'to manage only their own requests. The '
+                                                       'parent incorrectly extends responsibility '
+                                                       'to other requesters. Restrict creation, '
+                                                       'modification and cancellation to the '
+                                                       "acting requester's own requests, "
+                                                       'preserving all three operations.'}}]}},
+ {'source': 'Members reserve tools. Auctions and sales are explicitly excluded.',
   'actor': 'Member',
   'branches': [{'branch_id': 'a',
-                'hlg': 'Reserve tools',
-                'hlg_prime': 'Request tool reservations',
+                'hlg': {'name': 'Auction tools', 'description': 'Run tool auctions.'},
+                'hlg_prime': 'Organize tool auctions',
                 'relationship': 'EQUIVALENT',
-                'duplicate_candidates': ['b'], 'duplicate_label': 'POTENTIAL_DUPLICATE'},
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
+                'original_hlg_comparisons_complete': True},
                {'branch_id': 'b',
-                'hlg': 'Request tool reservations',
-                'hlg_prime': 'Reserve tools',
+                'hlg': {'name': 'Reserve and sell tools',
+                        'description': 'Reserve tools and offer them for sale.'},
+                'hlg_prime': 'Manage tool reservations and sales',
                 'relationship': 'EQUIVALENT',
-                'duplicate_candidates': ['a'], 'duplicate_label': 'POTENTIAL_DUPLICATE'}],
-  'duplicate_candidates': [{'branch_id': 'a', 'other_branch_id': 'b'}],
-  'response': {'decisions': [{'branch_id': 'a',
-                              'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'},
+                'duplicate_label': 'NO_DUPLICATE_MATCH',
+                'duplicate_candidates': [],
+                'original_hlg_comparisons_complete': True}],
+  'response': {'decisions': [{'branch_id': 'a', 'decision': 'REMOVE_ORIGINAL_HIGH_LEVEL_GOAL'},
+                             {'branch_id': 'b',
+                              'decision': 'REWRITE_ORIGINAL_HIGH_LEVEL_GOAL',
+                              'feedback': {'critique': "For 'Reserve and sell tools': requirements "
+                                                       'support reservations and explicitly '
+                                                       'exclude sales. Preserve reservations and '
+                                                       'remove sales. The branch is partly '
+                                                       'supported, so removing it would lose '
+                                                       'required functionality.'}}]}},
+ {'source': 'Requesters create, modify and cancel their own service requests and download '
+            'confirmation receipts.',
+  'actor': 'Requester',
+  'branches': [{'branch_id': 'a',
+                'hlg': {'name': 'Manage my service requests',
+                        'description': 'Create, modify and cancel my service requests.'},
+                'hlg_prime': 'Create, modify and cancel my service requests',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'POTENTIAL_DUPLICATE',
+                'duplicate_candidates': ['b', 'c'],
+                'original_hlg_comparisons_complete': True},
+               {'branch_id': 'b',
+                'hlg': {'name': 'Create my service requests',
+                        'description': 'Submit a service request for myself.'},
+                'hlg_prime': 'Submit a service request for myself',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'POTENTIAL_DUPLICATE',
+                'duplicate_candidates': ['a', 'c'],
+                'original_hlg_comparisons_complete': True},
+               {'branch_id': 'c',
+                'hlg': {'name': 'Cancel requests and download receipts',
+                        'description': 'Cancel my service requests and download confirmation '
+                                       'receipts.'},
+                'hlg_prime': 'Cancel my service requests and retrieve their receipts',
+                'relationship': 'EQUIVALENT',
+                'duplicate_label': 'POTENTIAL_DUPLICATE',
+                'duplicate_candidates': ['a', 'b'],
+                'original_hlg_comparisons_complete': True}],
+  'response': {'decisions': [{'branch_id': 'a', 'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'},
                              {'branch_id': 'b',
                               'decision': 'DUPLICATE_REMOVAL',
-                              
-                              'surviving_branch_id': 'a'}]}}]
+                              'surviving_branch_id': 'a'},
+                             {'branch_id': 'c', 'decision': 'KEEP_ORIGINAL_HIGH_LEVEL_GOAL'}]}}]
 
 
 def evaluator_examples(count=None):
@@ -221,80 +276,90 @@ def _validate_decision(item, branch, analysis):
         if record.get("original_hlg_comparisons_complete") is False:
             raise ValueError("Cannot choose REWRITE before completing available reconstructed-HLG comparisons")
     elif vote.decision == "REMOVE_ORIGINAL_HIGH_LEVEL_GOAL":
-        if record["relationship"] not in {"EQUIVALENT", "NOT_EQUIVALENT"}:
-            raise ValueError("REMOVE requires a valid numerical relationship")
+        if record["relationship"] != "EQUIVALENT":
+            raise ValueError("REMOVE requires an EQUIVALENT parent relationship")
     return vote
 
 
 # Joint global review prompt
 
 
-GLOBAL_REVIEW_INSTRUCTIONS = """A. ROLE AND OBJECTIVE
-Review the whole hierarchy, starting from each reconstructed HLG (prime), which
-summarizes its LLGs. Prime is diagnostic, not an approved parent replacement.
-Check original HLG scope, formulation, missing documented capabilities, actor
-responsibility and redundancy against project documentation. Other generated
-goals provide context, not requirements. Wording, abstraction or composite scope
-alone is not a defect. LLG texts are absent: do not audit children or synthesis fidelity.
+GLOBAL_REVIEW_INSTRUCTIONS = """A. CONTEXT AND OBJECTIVE
+Review original HLGs bottom-up: start from HLG', compare goals, then check the
+project documentation. HLG' is reconstructed evidence, not an approved replacement.
 
-B. FIXED SEMANTIC LABELS
-EQUIVALENT: classified semantic alignment, not proof of identical coverage,
-correctness or documentary support.
-NOT_EQUIVALENT: classified non-alignment, not proof of a parent defect.
-POTENTIAL_DUPLICATE: a screened cross-branch candidate, not confirmed redundancy.
-NO_DUPLICATE_MATCH: no screened candidate, not proof of independent functionality.
-Accept these labels. Never recalculate cosine similarity, relabel, or invent
-scores/thresholds. Coverage differences may be identified without changing labels.
+B. INPUTS AND THEIR MEANING
+PROJECT CONTEXT
+- PROJECT DESCRIPTION: original requirements.
+- ACTORS: roles and responsibilities.
+- requested_branch_ids: branches requiring a decision.
 
-C. LABEL-GUIDED REVIEW
-Case 1: EQUIVALENT
-Check the shared intention, parent's formulation/boundaries and actor against source.
-KEEP a valid supported parent. REWRITE a documented defect, even if shared by prime.
-REMOVE only if the shared outcome is unsupported, no supported parent outcome
-remains, and removing its children loses no required capability. Partial support
-requires correction. Equivalence alone never justifies KEEP.
+BRANCHES (one entry per original HLG)
+- branch_id / actor: branch identifier and responsible actor.
+- hlg: original parent's name AND description; read both.
+- hlg_prime: HLG' reconstructed from the branch's LLGs. LLG texts are not supplied.
+- relationship: fixed parent comparison, EQUIVALENT or NOT_EQUIVALENT.
+- duplicate_candidates: IDs of eligible same-actor parents.
+- duplicate_label: POTENTIAL_DUPLICATE if candidates exist; otherwise NO_DUPLICATE_MATCH.
+- status / reconstructable / original_hlg_comparisons_complete: availability checks.
 
-Case 2: NOT_EQUIVALENT
-Identify the difference: documented parent defect/missing capability, legitimate
-abstraction/scope, or narrower/incomplete prime. KEEP a valid supported parent;
-REWRITE only a concrete documented parent defect. Non-equivalence alone never
-justifies REWRITE. REMOVE only if neither parent nor prime supplies a supported
-outcome to preserve and no required child capability is lost. Preserve supported
-scope; do not add unsupported capabilities, absorb independent goals or request
-corrections already present in the parent's name or description.
+POTENTIAL_DUPLICATES (only candidate pairs)
+- branch_id / hlg_prime: source branch identifier and its reconstruction.
+- candidate_branch_id / candidate_hlg: candidate parent's ID, name and description.
+Each entry contains only HLG' and its candidate; parent and actor remain in BRANCHES.
+Compare source HLG' -> candidate original HLG. The reverse pair is not implied.
+An empty list means no eligible candidate, not proof that goals are independent.
 
-Case 3: POTENTIAL_DUPLICATE (additional review)
-Apply alongside either parent label. Compare BOTH parents, current and relevant
-same-actor primes, source and responsibilities. DUPLICATE_REMOVAL requires a direct
-same-actor candidate's parent to cover ALL supported capabilities of this branch.
-Shared terms or partial overlap are insufficient; preserve complementary outcomes.
-Choose the most complete valid parent; equivalent ties follow branch order.
-Survivor must receive KEEP, never REWRITE/removal. No chains, cycles or child transfers.
+Use documentation as authority; generated goals provide context, not requirements.
+No matrix, cosine scores or threshold are supplied.
+Never recalculate cosine similarity or modify the supplied classifications.
 
-D. GLOBAL DECISION CONSISTENCY
-Return one globally consistent set: exactly one action per requested branch,
-with duplicate survivors kept in the same response. Do not split contexts by label
-or force duplicates without full coverage. Every correction requires source evidence.
-REWRITE requires a valid reconstruction and complete required comparisons.
+C. FOUR ACTIONS AND THEIR CONDITIONS
+1. KEEP -> KEEP_ORIGINAL_HIGH_LEVEL_GOAL
+Keep the HLG when comparison with HLG', considering EQUIVALENT, and verification
+of documentation confirm a valid, supported functionality correctly assigned
+to its actor. KEEP is not available with NOT_EQUIVALENT.
+
+2. REWRITE -> REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
+Propose rewriting when analysis of HLG', considering EQUIVALENT or NOT_EQUIVALENT,
+reveals concrete problems in the original parent's formulation, functional scope
+or assigned responsibility. In particular, NOT_EQUIVALENT may indicate that the
+original HLG inadequately represents functionality expressed by the LLGs.
+Propose REWRITE when documentation confirms this problem, preserving supported
+functionality and respecting the functional boundaries of other HLGs.
+Requires an available reconstruction and complete required comparisons.
+
+3. REMOVE -> REMOVE_ORIGINAL_HIGH_LEVEL_GOAL
+Remove the HLG and its LLGs when HLG' is EQUIVALENT to the original HLG and
+documentation confirms that the represented functionality is unsupported.
+Removal must not lose required functionality. Partial support requires correction.
+Never REMOVE with NOT_EQUIVALENT.
+
+4. DUPLICATE REMOVAL -> DUPLICATE_REMOVAL
+Remove a branch when comparison of HLG' with another same-actor HLG signals
+POTENTIAL_DUPLICATE and documentary verification confirms full redundancy.
+Use documentation to select the survivor, ensuring it covers ALL supported
+functionality of the removed branch, including outcomes absent from HLG'.
+Partial overlap is insufficient. Keep the most complete valid parent; equivalent
+ties follow branch order. The survivor must meet KEEP conditions and receive KEEP.
+No chains, cycles or child transfers.
+
+D. DECISION DISCIPLINE
+Choose one action per requested branch using the conditions above. All decisions
+must be justified by original project documentation, never similarity labels alone.
+NOT_EQUIVALENT flags a possible problem; it alone does not justify REWRITE.
+Read the whole parent before claiming omissions: do not request changes already
+satisfied by its name or description, invent requirements, or treat HLG' as a replacement.
 
 E. OUTPUT REQUIREMENTS
-Return only {"decisions":[{"branch_id":"...","decision":"..."}]}.
-Each requested branch_id once; schema fields only. Be concise and avoid repetition.
-Aim for at most {critique_characters} characters per feedback.critique, including spaces and punctuation
-in the decoded text value (not JSON syntax or escaping). This is a brevity target,
-not an exact required length. Preserve actionable feedback.
-Use these exact decision values (the short names above are explanatory only):
-KEEP_ORIGINAL_HIGH_LEVEL_GOAL
-REWRITE_ORIGINAL_HIGH_LEVEL_GOAL
-REMOVE_ORIGINAL_HIGH_LEVEL_GOAL
-DUPLICATE_REMOVAL
-Each entry: branch_id and decision. Do not return rationale or explanations.
-No extra actions.
-REWRITE alone adds feedback: {"critique":"..."}: name the goal, what to
-preserve/change, boundaries and actor responsibility. Only critique prose reaches
-the generator; agreeing critiques are joined. No IDs, scores or JSON in critique.
-DUPLICATE_REMOVAL alone adds surviving_branch_id from direct candidates.
-No abstention, intermediate analysis, replacement collections or separate LLG repair.
+Return only {"decisions":[...]} with each requested branch_id exactly once and
+the exact decision values above. REWRITE alone adds feedback: {"critique":"..."},
+identifying the documented parent problem, specific changes and functionality
+to preserve. Aim for at most {critique_characters} characters per feedback.critique, including spaces and punctuation.
+This is guidance, not a hard limit. Be concise. No replacement goals or reasoning trace.
+DUPLICATE_REMOVAL alone adds surviving_branch_id from duplicate_candidates.
+KEEP and REMOVE add no fields. Only approved rewrite critique reaches the generator;
+agreeing critiques are joined. Examples are fictional demonstrations, not evidence.
 """.replace("{critique_characters}", str(CRITIQUE_CHARACTER_TARGET))
 
 
@@ -317,31 +382,14 @@ def _critic1_prompt(
     examples = "\n\n".join(
         f"Example {i}\nDescription: {e['source']}\n"
         f"Actor: {e['actor']}\nGoals: {json.dumps(e['branches'], separators=(',', ':'))}\n"
+        f"Potential duplicates: {json.dumps(build_duplicate_candidate_pairs([{**b, 'actor': e['actor']} for b in e['branches']]), separators=(',', ':'))}\n"
         f"Output: {json.dumps(e['response'], separators=(',', ':'))}"
         for i, e in enumerate(selected_examples, 1)
     )
     example_section = f"EXAMPLES (fictional requirements, not project evidence)\n{examples}\n\n" if examples else ""
     return f"""{GLOBAL_REVIEW_INSTRUCTIONS}
 
-PAYLOAD FORMAT
-Goal list order defines zero-based matrix indices. original_labels[i][j] compares
-reconstructed HLG i with current original HLG j, across ALL actors.
-Diagonal labels are EQUIVALENT or NOT_EQUIVALENT for the own-parent comparison.
-Off-diagonal labels are POTENTIAL_DUPLICATE or NO_DUPLICATE_MATCH and incorporate
-same-actor eligibility. NO_DUPLICATE_MATCH means no candidate identified by the
-fixed screening rule, not proof that the texts are functionally different.
-Null cells have no available/eligible judgement; consult comparison_statuses.
-The matrix is directional, not necessarily symmetric. relationship repeats the
-diagonal own-parent label.
-duplicate_label is POTENTIAL_DUPLICATE or NO_DUPLICATE_MATCH for valid goals.
-duplicate_candidates excludes self and restricts potential survivors to the same
-actor and admissible comparisons. These labels do not establish full coverage.
-No cosine values or numerical threshold are supplied. comparison_statuses contains
-[row,column,status] for unavailable comparisons. Confirm complete supported
-coverage from BOTH parents, primes and source before duplicate removal.
-This request supplies {len(selected_examples)} fictional examples; use them only
-as decision demonstrations, not evidence. Keep rewrite critiques actionable;
-avoid unnecessary explanations or repeated details.
+This request supplies {len(selected_examples)} fictional decision examples.
 
 {example_section}PROJECT DESCRIPTION
 {description}

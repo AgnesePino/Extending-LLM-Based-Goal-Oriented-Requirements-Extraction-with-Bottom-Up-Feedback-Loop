@@ -1,0 +1,402 @@
+{
+  "baseline": {
+    "actors": [
+      "Fitness Enthusiast",
+      "Beginner",
+      "Administrator"
+    ],
+    "baselineAttempts": {
+      "actors": 3,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 1
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors \"Fitness Enthusiast\" and \"Beginner\" are well-defined and align with the software description, representing users at different stages of their fitness journey. However, the inclusion of an \"Administrator\" as a user role is questionable since the description does not mention any system-level management or administrative tasks. The focus seems to be on end-user functionality rather than backend administration.",
+      "highLevelGoals": "The high-level goals are well-defined and align with the software description. All goals are functional and address key aspects of the fitness application, including tracking activities, setting goals, delivering recommendations, guiding beginners, ensuring data privacy, managing content, and supporting analytics. No contradictions or omissions are detected.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors. They cover functional aspects such as tracking workouts, visualizing data, setting goals, generating personalized plans, onboarding beginners, ensuring security, managing content, and analytics. However, there is a minor omission regarding the \"Beginner\" actor's ability to request guidance or support within the app, which could be implied but not explicitly stated in the low-level goals."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        7.0,
+        7.0,
+        7.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        9.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 7.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 9.0
+    },
+    "description": "This project develops a fitness application aimed at helping users track their physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations. This app is designed to cater to both fitness enthusiasts and beginners, providing valuable tools and insights to support their fitness journey.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 331,
+      "processedChars": 331,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+      "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+      "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+      "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+      "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+      "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+      "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings."
+    ],
+    "lowLevelGoals": [
+      "User submits a new workout entry with metadata including time, heart rate, and equipment used.",
+      "User views time-series graphs of past workouts with filters for intensity, date, and type.",
+      "User downloads workout logs for external analysis or record-keeping.",
+      "User defines a goal with specific parameters such as weight, reps, or distance.",
+      "User receives alerts when nearing or achieving milestones defined in their goals.",
+      "System creates a workout plan using user’s fitness level, preferences, and past performance.",
+      "User adjusts or provides feedback on a plan, triggering an adaptive revision by the system.",
+      "User starts with a pre-defined, step-by-step workout plan designed for new users.",
+      "User progresses to a more advanced workout plan after achieving a defined milestone.",
+      "System ensures all user data is encrypted using industry-standard protocols.",
+      "System restricts data access based on user roles (e.g., admin, user, guest).",
+      "Administrator reviews logs of who accessed what data and when.",
+      "Administrator adds new workout content with metadata such as difficulty and target muscle group.",
+      "Administrator pushes global settings or feature toggles to all users simultaneously.",
+      "Administrator views aggregated metrics such as active users, workout frequency, and goal completion rates.",
+      "Administrator exports anonymized user trend data for external analysis or reporting.",
+      "Administrator imports multiple user accounts with pre-assigned fitness goals and preferences."
+    ],
+    "name": "Fitness Tracker",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "This project develops a fitness application aimed at helping users track their physical activities, monitor progress, set fitness goals, and receive personalized workout recommendations. This app is designed to cater to both fitness enthusiasts and beginners, providing valuable tools and insights to support their fitness journey.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "An experienced user actively tracking workouts and optimizing performance.",
+          "name": "Fitness Enthusiast"
+        },
+        {
+          "description": "A new user seeking guidance and structured fitness plans.",
+          "name": "Beginner"
+        },
+        {
+          "description": "A system-level user managing user data, app settings, and content.",
+          "name": "Administrator"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "An experienced user actively tracking workouts and optimizing performance.",
+            "name": "Fitness Enthusiast"
+          },
+          "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+          "name": "Enable users to track and analyze their physical activities"
+        },
+        {
+          "actor": {
+            "description": "An experienced user actively tracking workouts and optimizing performance.",
+            "name": "Fitness Enthusiast"
+          },
+          "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+          "name": "Support users in setting and achieving personalized fitness goals"
+        },
+        {
+          "actor": {
+            "description": "An experienced user actively tracking workouts and optimizing performance.",
+            "name": "Fitness Enthusiast"
+          },
+          "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+          "name": "Deliver tailored workout recommendations based on user profiles"
+        },
+        {
+          "actor": {
+            "description": "A new user seeking guidance and structured fitness plans.",
+            "name": "Beginner"
+          },
+          "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+          "name": "Guide beginners through structured and progressive fitness plans"
+        },
+        {
+          "actor": {
+            "description": "A system-level user managing user data, app settings, and content.",
+            "name": "Administrator"
+          },
+          "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+          "name": "Ensure user data privacy and system integrity"
+        },
+        {
+          "actor": {
+            "description": "A system-level user managing user data, app settings, and content.",
+            "name": "Administrator"
+          },
+          "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+          "name": "Manage and update app content and configurations"
+        },
+        {
+          "actor": {
+            "description": "A system-level user managing user data, app settings, and content.",
+            "name": "Administrator"
+          },
+          "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+          "name": "Support scalable user management and data analytics"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "User submits a new workout entry with metadata including time, heart rate, and equipment used.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+            "name": "Enable users to track and analyze their physical activities"
+          },
+          "name": "Log workout session with duration, intensity, and equipment"
+        },
+        {
+          "description": "User views time-series graphs of past workouts with filters for intensity, date, and type.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+            "name": "Enable users to track and analyze their physical activities"
+          },
+          "name": "Visualize workout history using interactive charts"
+        },
+        {
+          "description": "User downloads workout logs for external analysis or record-keeping.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Provide a comprehensive platform for users to log, visualize, and interpret their workout data to understand performance trends.",
+            "name": "Enable users to track and analyze their physical activities"
+          },
+          "name": "Export workout data in CSV or PDF format"
+        },
+        {
+          "description": "User defines a goal with specific parameters such as weight, reps, or distance.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+            "name": "Support users in setting and achieving personalized fitness goals"
+          },
+          "name": "Set a measurable fitness goal with target metrics"
+        },
+        {
+          "description": "User receives alerts when nearing or achieving milestones defined in their goals.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Allow users to define measurable fitness objectives and provide tools to monitor progress toward those goals.",
+            "name": "Support users in setting and achieving personalized fitness goals"
+          },
+          "name": "Track goal progress with real-time notifications"
+        },
+        {
+          "description": "System creates a workout plan using user’s fitness level, preferences, and past performance.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+            "name": "Deliver tailored workout recommendations based on user profiles"
+          },
+          "name": "Generate personalized workout plan based on user profile"
+        },
+        {
+          "description": "User adjusts or provides feedback on a plan, triggering an adaptive revision by the system.",
+          "high_level_associated": {
+            "actor": {
+              "description": "An experienced user actively tracking workouts and optimizing performance.",
+              "name": "Fitness Enthusiast"
+            },
+            "description": "Use user data to generate customized, adaptive workout plans that evolve with user progress and preferences.",
+            "name": "Deliver tailored workout recommendations based on user profiles"
+          },
+          "name": "Update workout plan based on user feedback and performance"
+        },
+        {
+          "description": "User starts with a pre-defined, step-by-step workout plan designed for new users.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A new user seeking guidance and structured fitness plans.",
+              "name": "Beginner"
+            },
+            "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+            "name": "Guide beginners through structured and progressive fitness plans"
+          },
+          "name": "Onboard user with guided beginner workout sequence"
+        },
+        {
+          "description": "User progresses to a more advanced workout plan after achieving a defined milestone.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A new user seeking guidance and structured fitness plans.",
+              "name": "Beginner"
+            },
+            "description": "Offer onboarding content, step-by-step workout routines, and milestone-based progression to help new users build confidence and consistency.",
+            "name": "Guide beginners through structured and progressive fitness plans"
+          },
+          "name": "Unlock next-level workout after completing milestone"
+        },
+        {
+          "description": "System ensures all user data is encrypted using industry-standard protocols.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+            "name": "Ensure user data privacy and system integrity"
+          },
+          "name": "Encrypt user data at rest and in transit"
+        },
+        {
+          "description": "System restricts data access based on user roles (e.g., admin, user, guest).",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+            "name": "Ensure user data privacy and system integrity"
+          },
+          "name": "Implement role-based access control for user data"
+        },
+        {
+          "description": "Administrator reviews logs of who accessed what data and when.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Maintain secure storage and controlled access to user data while ensuring the app’s reliability and performance.",
+            "name": "Ensure user data privacy and system integrity"
+          },
+          "name": "Audit user data access logs"
+        },
+        {
+          "description": "Administrator adds new workout content with metadata such as difficulty and target muscle group.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+            "name": "Manage and update app content and configurations"
+          },
+          "name": "Upload and categorize new workout routines"
+        },
+        {
+          "description": "Administrator pushes global settings or feature toggles to all users simultaneously.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Allow administrators to modify workout libraries, adjust settings, and deploy new features or content updates.",
+            "name": "Manage and update app content and configurations"
+          },
+          "name": "Deploy configuration updates to all users"
+        },
+        {
+          "description": "Administrator views aggregated metrics such as active users, workout frequency, and goal completion rates.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+            "name": "Support scalable user management and data analytics"
+          },
+          "name": "Generate usage analytics report for administrators"
+        },
+        {
+          "description": "Administrator exports anonymized user trend data for external analysis or reporting.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+            "name": "Support scalable user management and data analytics"
+          },
+          "name": "Export user activity trends for business intelligence"
+        },
+        {
+          "description": "Administrator imports multiple user accounts with pre-assigned fitness goals and preferences.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A system-level user managing user data, app settings, and content.",
+              "name": "Administrator"
+            },
+            "description": "Enable administrators to monitor usage patterns, manage user accounts, and generate insights for improving the app’s offerings.",
+            "name": "Support scalable user management and data analytics"
+          },
+          "name": "Bulk import user accounts with predefined profiles"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "6275a7e4085e454d1f9b84add3ee93c950c339aec8d2f1df8774160d4a5de6cd",
+  "name": "Fitness Tracker",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:37:12.829721+00:00"
+}

@@ -1,0 +1,532 @@
+{
+  "baseline": {
+    "actorHierarchy": [
+      {
+        "actor": {
+          "description": "Scientist studying genetic variants and their biological implications.",
+          "name": "Researcher"
+        },
+        "goals": [
+          {
+            "branch_id": "hlg_0d50da95518ebbf6_001",
+            "high_level_goal": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "low_level_goals": [
+              {
+                "description": "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Scientist studying genetic variants and their biological implications.",
+                    "name": "Researcher"
+                  },
+                  "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                  "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+                },
+                "name": "Map genetic variants to reference genome assemblies"
+              },
+              {
+                "description": "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Scientist studying genetic variants and their biological implications.",
+                    "name": "Researcher"
+                  },
+                  "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                  "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+                },
+                "name": "Convert DNA-level variants to protein-level changes"
+              },
+              {
+                "description": "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Scientist studying genetic variants and their biological implications.",
+                    "name": "Researcher"
+                  },
+                  "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                  "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+                },
+                "name": "Annotate variants with functional impact predictions"
+              },
+              {
+                "description": "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Scientist studying genetic variants and their biological implications.",
+                    "name": "Researcher"
+                  },
+                  "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                  "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+                },
+                "name": "Link variants to disease associations via public databases"
+              },
+              {
+                "description": "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets.",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Scientist studying genetic variants and their biological implications.",
+                    "name": "Researcher"
+                  },
+                  "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+                  "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+                },
+                "name": "Allow user-defined filters and prioritization rules"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "actor": {
+          "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+          "name": "Clinician"
+        },
+        "goals": [
+          {
+            "branch_id": "hlg_12b1a7c2ed1319c1_001",
+            "high_level_goal": {
+              "actor": {
+                "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                "name": "Clinician"
+              },
+              "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+              "name": "Support clinical decision-making through reliable variant interpretation"
+            },
+            "low_level_goals": [
+              {
+                "description": "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                    "name": "Clinician"
+                  },
+                  "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                  "name": "Support clinical decision-making through reliable variant interpretation"
+                },
+                "name": "Provide clinically relevant variant annotations"
+              },
+              {
+                "description": "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                    "name": "Clinician"
+                  },
+                  "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                  "name": "Support clinical decision-making through reliable variant interpretation"
+                },
+                "name": "Integrate with clinical knowledge bases and variant databases"
+              },
+              {
+                "description": "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use.",
+                "high_level_associated": {
+                  "actor": {
+                    "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                    "name": "Clinician"
+                  },
+                  "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+                  "name": "Support clinical decision-making through reliable variant interpretation"
+                },
+                "name": "Generate variant interpretation reports with structured outputs"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actors": [
+      "Researcher",
+      "Clinician"
+    ],
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt_with_full_inputs",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down generators, full critic inputs and reflection loop; local Qwen generator and Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors \"Researcher\" and \"Clinician\" are correctly identified as they align with the description of Genome Nexus, which caters to both researchers studying genetic variants and clinicians using variant interpretation for patient diagnosis. No contradictions or omissions are observed.",
+      "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the software's purpose. They cover both research and clinical use cases without any contradictions or omissions. However, there is a slight overlap in functionality between the two goals (e.g., \"comprehensive annotation\" and \"clinically relevant variant annotations\"), which could be refined for clarity.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and the software description. They cover essential functional requirements for variant mapping, conversion, annotation, clinical relevance, integration, reporting, and customization. No contradictions or omissions were detected."
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 8.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "Genome Nexus enables researchers and clinicians to annotate and interpret genetic variants. It retrieves mutation annotations, clinical significance, disease associations, frequencies, and gene information from genomic and clinical resources. It maps variants to reference assemblies, converts DNA changes into protein-level changes, and predicts their possible functional impact. It supports cancer-related mutations and high-throughput datasets by integrating public databases, prediction tools, and clinical knowledge.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 965,
+      "processedChars": 521,
+      "strategy": "dataset_specific_compact_groundtruth_description"
+    },
+    "goalBranches": [
+      {
+        "branch_id": "hlg_0d50da95518ebbf6_001",
+        "high_level_goal": {
+          "actor": {
+            "description": "Scientist studying genetic variants and their biological implications.",
+            "name": "Researcher"
+          },
+          "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+          "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+        },
+        "low_level_goals": [
+          {
+            "description": "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+            "high_level_associated": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "name": "Map genetic variants to reference genome assemblies"
+          },
+          {
+            "description": "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+            "high_level_associated": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "name": "Convert DNA-level variants to protein-level changes"
+          },
+          {
+            "description": "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+            "high_level_associated": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "name": "Annotate variants with functional impact predictions"
+          },
+          {
+            "description": "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+            "high_level_associated": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "name": "Link variants to disease associations via public databases"
+          },
+          {
+            "description": "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets.",
+            "high_level_associated": {
+              "actor": {
+                "description": "Scientist studying genetic variants and their biological implications.",
+                "name": "Researcher"
+              },
+              "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+              "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+            },
+            "name": "Allow user-defined filters and prioritization rules"
+          }
+        ]
+      },
+      {
+        "branch_id": "hlg_12b1a7c2ed1319c1_001",
+        "high_level_goal": {
+          "actor": {
+            "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+            "name": "Clinician"
+          },
+          "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+          "name": "Support clinical decision-making through reliable variant interpretation"
+        },
+        "low_level_goals": [
+          {
+            "description": "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+            "high_level_associated": {
+              "actor": {
+                "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                "name": "Clinician"
+              },
+              "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+              "name": "Support clinical decision-making through reliable variant interpretation"
+            },
+            "name": "Provide clinically relevant variant annotations"
+          },
+          {
+            "description": "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+            "high_level_associated": {
+              "actor": {
+                "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                "name": "Clinician"
+              },
+              "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+              "name": "Support clinical decision-making through reliable variant interpretation"
+            },
+            "name": "Integrate with clinical knowledge bases and variant databases"
+          },
+          {
+            "description": "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use.",
+            "high_level_associated": {
+              "actor": {
+                "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+                "name": "Clinician"
+              },
+              "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+              "name": "Support clinical decision-making through reliable variant interpretation"
+            },
+            "name": "Generate variant interpretation reports with structured outputs"
+          }
+        ]
+      }
+    ],
+    "hierarchyPolicy": "preserve_exact_generator_associations",
+    "hierarchyProvenance": {
+      "hlg_0d50da95518ebbf6_001": {
+        "source": "high_level_generator",
+        "source_index": 0
+      },
+      "hlg_12b1a7c2ed1319c1_001": {
+        "source": "high_level_generator",
+        "source_index": 1
+      }
+    },
+    "hierarchySchemaVersion": 2,
+    "hierarchySerialization": {
+      "originalBackup": "output/top_down/history/branch_format_restore_20261022T170435_715289Z/0a8238438d57.json",
+      "previousFileSha256": "0a8238438d57fb32785f469b1a9414e066f5b7f459ae39c00577bca7a355bd15",
+      "restoredBranchFormatAt": "2026-10-22T17:04:35.732287+00:00",
+      "source": "existing_saved_generator_outputs"
+    },
+    "highLevelGoals": [
+      "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+      "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge."
+    ],
+    "lowLevelGoals": [
+      "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+      "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+      "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+      "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+      "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+      "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+      "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use.",
+      "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets."
+    ],
+    "name": "Genome Nexus",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "Genome Nexus is a web service that supports the annotation and interpretation of genetic variants. The system allows researchers and clinicians to retrieve information about variants from multiple genomic and clinical resources, including mutation annotations, clinical significance, disease associations, mutation frequencies, and gene-related information.\n\nThe system supports the analysis of cancer-related mutations and high-throughput genomic datasets. It can map variants to reference genome assemblies, convert DNA-level changes into corresponding protein-level changes, and provide functional predictions about the possible impact of mutations on proteins.\n\nGenome Nexus also helps users interpret the biological and clinical relevance of variants by integrating information from public databases, prediction tools, and clinical knowledge sources. Its goal is to provide a fast, automated, and centralized resource for variant annotation and interpretation.",
+    "reflection": {
+      "actors": {
+        "attempts": 1,
+        "critique": "The actors \"Researcher\" and \"Clinician\" are correctly identified as they align with the description of Genome Nexus, which caters to both researchers studying genetic variants and clinicians using variant interpretation for patient diagnosis. No contradictions or omissions are observed.",
+        "score": 10.0,
+        "scoreHistory": [
+          10.0
+        ],
+        "status": "accepted"
+      },
+      "highLevelGoals": {
+        "attempts": 3,
+        "critique": "The high-level goals are well-defined, functional, and aligned with the software's purpose. They cover both research and clinical use cases without any contradictions or omissions. However, there is a slight overlap in functionality between the two goals (e.g., \"comprehensive annotation\" and \"clinically relevant variant annotations\"), which could be refined for clarity.",
+        "score": 8.0,
+        "scoreHistory": [
+          6.0,
+          8.0,
+          8.0
+        ],
+        "status": "attempt_budget_exhausted"
+      },
+      "lowLevelGoals": {
+        "attempts": 1,
+        "critique": "The low-level goals are well-aligned with the high-level goals and the software description. They cover essential functional requirements for variant mapping, conversion, annotation, clinical relevance, integration, reporting, and customization. No contradictions or omissions were detected.",
+        "score": 10.0,
+        "scoreHistory": [
+          10.0
+        ],
+        "status": "accepted"
+      }
+    },
+    "snapshotDirectory": "output\\top_down\\history\\Genome_Nexus_2aa003beaa7a\\20261022T120406_201078Z",
+    "status": "completed",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Scientist studying genetic variants and their biological implications.",
+          "name": "Researcher"
+        },
+        {
+          "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+          "name": "Clinician"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Scientist studying genetic variants and their biological implications.",
+            "name": "Researcher"
+          },
+          "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+          "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+        },
+        {
+          "actor": {
+            "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+            "name": "Clinician"
+          },
+          "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+          "name": "Support clinical decision-making through reliable variant interpretation"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Provide functionality to align and map submitted genetic variants to standard reference genome assemblies (e.g., GRCh38).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Scientist studying genetic variants and their biological implications.",
+              "name": "Researcher"
+            },
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+          },
+          "name": "Map genetic variants to reference genome assemblies"
+        },
+        {
+          "description": "Implement a system to translate DNA sequence variants into corresponding amino acid changes (e.g., c.123A>G → p.Thr41Ala).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Scientist studying genetic variants and their biological implications.",
+              "name": "Researcher"
+            },
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+          },
+          "name": "Convert DNA-level variants to protein-level changes"
+        },
+        {
+          "description": "Integrate prediction tools (e.g., CADD, SIFT, PolyPhen) to annotate variants with scores indicating potential functional impact.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Scientist studying genetic variants and their biological implications.",
+              "name": "Researcher"
+            },
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+          },
+          "name": "Annotate variants with functional impact predictions"
+        },
+        {
+          "description": "Query and return disease associations for variants from public databases (e.g., ClinVar, OMIM, DisGeNET).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Scientist studying genetic variants and their biological implications.",
+              "name": "Researcher"
+            },
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+          },
+          "name": "Link variants to disease associations via public databases"
+        },
+        {
+          "description": "Filter and prioritize annotations based on clinical relevance, including ACMG/AMP guidelines and variant classification.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+              "name": "Clinician"
+            },
+            "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+            "name": "Support clinical decision-making through reliable variant interpretation"
+          },
+          "name": "Provide clinically relevant variant annotations"
+        },
+        {
+          "description": "Allow seamless querying and retrieval of variant data from clinical databases (e.g., ClinVar, gnomAD, ExAC) and knowledge bases (e.g., GeneReviews, PharmGKB).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+              "name": "Clinician"
+            },
+            "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+            "name": "Support clinical decision-making through reliable variant interpretation"
+          },
+          "name": "Integrate with clinical knowledge bases and variant databases"
+        },
+        {
+          "description": "Export variant interpretation results in standardized formats (e.g., JSON, VCF, HL7 FHIR) for downstream clinical or research use.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Medical professional using variant interpretation for patient diagnosis and treatment.",
+              "name": "Clinician"
+            },
+            "description": "Enable clinicians to diagnose and treat patients by providing clinically relevant variant annotations, disease associations, functional impact predictions, and integration with public databases and clinical knowledge.",
+            "name": "Support clinical decision-making through reliable variant interpretation"
+          },
+          "name": "Generate variant interpretation reports with structured outputs"
+        },
+        {
+          "description": "Enable users to define custom filters (e.g., by gene, disease, population frequency) and apply prioritization rules to variant sets.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Scientist studying genetic variants and their biological implications.",
+              "name": "Researcher"
+            },
+            "description": "Support researchers in understanding the biological and functional implications of genetic variants by providing comprehensive annotation and prediction tools, including mapping to reference assemblies and conversion of DNA changes to protein-level changes.",
+            "name": "Enable rapid and accurate interpretation of genetic variants for research purposes"
+          },
+          "name": "Allow user-defined filters and prioritization rules"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "61f4e922c0892058107db8ac65b448385814641f51eaaffd70eda383675803c5",
+  "name": "Genome Nexus",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:48:08.226884+00:00"
+}

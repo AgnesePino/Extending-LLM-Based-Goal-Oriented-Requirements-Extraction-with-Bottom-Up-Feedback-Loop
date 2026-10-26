@@ -1,0 +1,239 @@
+{
+  "baseline": {
+    "actors": [
+      "Ambulance Driver",
+      "Radio Operator",
+      "CAD System User",
+      "Emergency Caller"
+    ],
+    "baselineAttempts": {
+      "actors": 2,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 3
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors defined are appropriate for the described system, covering all necessary roles involved in the ambulance dispatch process. No contradictions or omissions are observed.",
+      "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the system's description. They cover all key aspects of the London Ambulance Service's dispatch process, including timely response, accurate data recording, optimized allocation, and incident information accuracy. No contradictions or omissions were detected.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of the system. However, there is a minor omission regarding the real-time tracking and monitoring of ambulances' locations, which is crucial for optimizing ambulance allocation and ensuring timely response. This could be addressed by adding a low-level goal related to real-time GPS tracking and location updates."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        7.0,
+        10.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        6.0,
+        8.0,
+        8.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 8.0
+    },
+    "description": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit.\n\nTo make this work, the Computer Aided Despatch system analyzes incident forms and assigns vehicles. It is vital to track the exact location of moving ambulances. This requires ambulance staff to follow standard routes and correctly communicate departure and destination information, allowing radio operators and the CAD system to record data accurately.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 601,
+      "processedChars": 601,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Minimize response time to ensure every emergency call is reached within 11 minutes.",
+      "Record precise departure and destination information to support efficient resource allocation.",
+      "Assign the most suitable available ambulance to each call within the maximum time limit.",
+      "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch."
+    ],
+    "lowLevelGoals": [
+      "The Ambulance Driver confirms that the assigned route complies with standard protocols to ensure optimal response time.",
+      "The Ambulance Driver transmits the exact departure time, GPS coordinates, and destination to the Radio Operator via the dispatch system.",
+      "The Radio Operator validates the received departure and destination details and logs them into the dispatch system for record-keeping and resource tracking.",
+      "The CAD System User queries the system to retrieve real-time status of ambulances, including their location and availability, to identify the most suitable unit.",
+      "The CAD System User submits an assignment request to the system, selecting the ambulance closest to the incident and available within the time limit.",
+      "The Emergency Caller confirms the accuracy of the incident location and urgency level with the dispatch system to ensure correct assignment."
+    ],
+    "name": "London Ambulance Service",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "The London Ambulance Service dispatches ambulances in emergencies. The key goal is to allocate an available ambulance for every call that can reach the scene within 11 minutes. The entire dispatch process must not exceed a set maximum time limit.\n\nTo make this work, the Computer Aided Despatch system analyzes incident forms and assigns vehicles. It is vital to track the exact location of moving ambulances. This requires ambulance staff to follow standard routes and correctly communicate departure and destination information, allowing radio operators and the CAD system to record data accurately.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Operates the ambulance and follows standard routes.",
+          "name": "Ambulance Driver"
+        },
+        {
+          "description": "Communicates with ambulance staff and records dispatch data.",
+          "name": "Radio Operator"
+        },
+        {
+          "description": "Uses the Computer Aided Despatch system to assign ambulances.",
+          "name": "CAD System User"
+        },
+        {
+          "description": "Initiates the call and provides critical information about the incident location and urgency.",
+          "name": "Emergency Caller"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Operates the ambulance and follows standard routes.",
+            "name": "Ambulance Driver"
+          },
+          "description": "Minimize response time to ensure every emergency call is reached within 11 minutes.",
+          "name": "Ensure timely ambulance response"
+        },
+        {
+          "actor": {
+            "description": "Communicates with ambulance staff and records dispatch data.",
+            "name": "Radio Operator"
+          },
+          "description": "Record precise departure and destination information to support efficient resource allocation.",
+          "name": "Maintain accurate dispatch data"
+        },
+        {
+          "actor": {
+            "description": "Uses the Computer Aided Despatch system to assign ambulances.",
+            "name": "CAD System User"
+          },
+          "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
+          "name": "Optimize ambulance allocation"
+        },
+        {
+          "actor": {
+            "description": "Initiates the call and provides critical information about the incident location and urgency.",
+            "name": "Emergency Caller"
+          },
+          "description": "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch.",
+          "name": "Provide accurate incident information"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "The Ambulance Driver confirms that the assigned route complies with standard protocols to ensure optimal response time.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Operates the ambulance and follows standard routes.",
+              "name": "Ambulance Driver"
+            },
+            "description": "Minimize response time to ensure every emergency call is reached within 11 minutes.",
+            "name": "Ensure timely ambulance response"
+          },
+          "name": "Confirm adherence to standard routes"
+        },
+        {
+          "description": "The Ambulance Driver transmits the exact departure time, GPS coordinates, and destination to the Radio Operator via the dispatch system.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Communicates with ambulance staff and records dispatch data.",
+              "name": "Radio Operator"
+            },
+            "description": "Record precise departure and destination information to support efficient resource allocation.",
+            "name": "Maintain accurate dispatch data"
+          },
+          "name": "Communicate departure and destination details to radio operator"
+        },
+        {
+          "description": "The Radio Operator validates the received departure and destination details and logs them into the dispatch system for record-keeping and resource tracking.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Communicates with ambulance staff and records dispatch data.",
+              "name": "Radio Operator"
+            },
+            "description": "Record precise departure and destination information to support efficient resource allocation.",
+            "name": "Maintain accurate dispatch data"
+          },
+          "name": "Validate and log departure and destination data"
+        },
+        {
+          "description": "The CAD System User queries the system to retrieve real-time status of ambulances, including their location and availability, to identify the most suitable unit.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Uses the Computer Aided Despatch system to assign ambulances.",
+              "name": "CAD System User"
+            },
+            "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
+            "name": "Optimize ambulance allocation"
+          },
+          "name": "Query ambulance availability and proximity"
+        },
+        {
+          "description": "The CAD System User submits an assignment request to the system, selecting the ambulance closest to the incident and available within the time limit.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Uses the Computer Aided Despatch system to assign ambulances.",
+              "name": "CAD System User"
+            },
+            "description": "Assign the most suitable available ambulance to each call within the maximum time limit.",
+            "name": "Optimize ambulance allocation"
+          },
+          "name": "Assign ambulance based on proximity and availability"
+        },
+        {
+          "description": "The Emergency Caller confirms the accuracy of the incident location and urgency level with the dispatch system to ensure correct assignment.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Initiates the call and provides critical information about the incident location and urgency.",
+              "name": "Emergency Caller"
+            },
+            "description": "Ensure emergency callers provide sufficient location and urgency details to enable effective dispatch.",
+            "name": "Provide accurate incident information"
+          },
+          "name": "Verify incident location and urgency with caller"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "2e2497745b0dd5edcf68a21b5a4589398ff3667d1c0eb7e89c7cf2cce61849f3",
+  "name": "London Ambulance Service",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "final_decisions": [],
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 2,
+  "updated_at": "2026-10-23T21:19:35.381521+00:00"
+}

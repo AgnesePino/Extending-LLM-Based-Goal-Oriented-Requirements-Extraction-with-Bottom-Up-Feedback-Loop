@@ -1,0 +1,493 @@
+\chapter{Results}
+\label{ch:results}
+
+\section{Esecuzioni incluse e provenienza dei risultati}
+% Evidence: evidence_manifest.json; source_snapshot.json, configurations/documents.
+Questo capitolo riporta i risultati della suite
+\path{ofat_fixed_thresholds_20261024_211627}, limitatamente alle configurazioni
+completate su tutti e dodici i dataset: P0, zero-shot; P1, one-shot;
+P4, few-shot con quattro esempi, identificata come \texttt{reference} nei file.
+La temperatura degli evaluator \`e 0,3 e la soglia MPNet \`e 0,68 in tutti
+e tre i casi. L'analisi comprende quindi \textbf{36 run bottom-up}, una
+per coppia dataset--configurazione, confrontate con le stesse dodici
+baseline top-down. Non sono incluse medie delle configurazioni di
+temperatura T0 e T6, che non erano complete sull'intero corpus al momento
+dello snapshot. RQ2 viene pertanto affrontata qui soltanto per il prompting.
+
+Una run completata viene inclusa anche se termina al limite di 25
+iterazioni senza convergere. Non vengono selezionati soltanto gli esiti
+favorevoli, n\'e usati checkpoint intermedi come risultati finali.
+La suite registra la policy
+\path{cosine_global_documentary_review_v103_conditional_parent_reference_recovery_schema3}.
+Le modifiche successive al codice non descrivono retroattivamente queste
+esecuzioni. Lo snapshot dei dati, le metriche, i conteggi e gli estratti
+dei casi discussi sono conservati in
+\path{output/evaluation/thesis_completed_v103_20261025/}.
+\texttt{evidence\_manifest.json} registra provenienza e checksum;
+\texttt{case\_evidence.json} identifica dataset, configurazione,
+iterazione, ramo e modello per ciascun estratto.
+
+Le metriche sono state calcolate nuovamente sugli output finali con
+\texttt{bert-base-uncased}, preprocessing NLTK e matching uno-a-uno
+descritti nel Capitolo~\ref{ch:experiments}. Precision, Recall e F1 sono
+mediate separatamente sui dodici dataset: ogni progetto ha lo stesso
+peso, indipendentemente dal numero dei suoi goal. I delta sono differenze
+assolute rispetto alla baseline appaiata, non percentuali. L'analisi
+descrive una sola ripetizione per configurazione e non stima la
+variabilit\`a tra generazioni o una significativit\`a statistica.
+
+\section{Confronto complessivo con il top-down}
+% Evidence: final_comparison.csv, all four rows; final_metrics.csv, 96 rows.
+\begin{table}[htbp]
+\centering
+\caption{Metriche semantiche macro degli HLG su tutti i 12 dataset. Ogni riga bottom-up comprende 12 run completate, incluse quelle non convergenti.}
+\label{tab:results-HLG-macro}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Metodo} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & $\boldsymbol{\Delta F1}$ \\
+\midrule
+Top-down & 0,5794 & 0,5725 & 0,5297 & +0,0000 \\
+P0 & 0,6047 & 0,5537 & 0,5418 & +0,0121 \\
+P1 & 0,5951 & 0,5752 & 0,5428 & +0,0131 \\
+P4 & 0,5973 & 0,5673 & 0,5372 & +0,0075 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Metriche semantiche macro degli LLG su tutti i 12 dataset. Ogni riga bottom-up comprende 12 run completate, incluse quelle non convergenti.}
+\label{tab:results-LLG-macro}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Metodo} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & $\boldsymbol{\Delta F1}$ \\
+\midrule
+Top-down & 0,6866 & 0,4675 & 0,5083 & +0,0000 \\
+P0 & 0,6883 & 0,5135 & 0,5558 & +0,0475 \\
+P1 & 0,6815 & 0,4728 & 0,5083 & -0,0001 \\
+P4 & 0,6830 & 0,4908 & 0,5153 & +0,0069 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Tutte e tre le configurazioni aumentano l'F1 medio degli HLG rispetto
+al top-down: da 0,5297 a 0,5372 con P4, 0,5418 con P0 e 0,5428 con P1.
+Il vantaggio di P1 su P0 \`e circa 0,0010 e va letto come differenza
+descrittiva della singola campagna. Gli incrementi di Precision non
+coincidono sempre con incrementi di Recall: P0 passa da 0,5794 a 0,6047
+in Precision, ma da 0,5725 a 0,5537 in Recall. Una maggiore selettivit\`a
+o una diversa formulazione dei goal pu\`o quindi migliorare il matching
+senza aumentare la copertura misurata dei riferimenti.
+
+Per gli LLG, P0 ottiene l'incremento maggiore: F1 da 0,5083 a 0,5558,
+con delta +0,0475. La variazione accompagna soprattutto la Recall,
+che passa da 0,4675 a 0,5135, mentre la Precision cambia da 0,6866
+a 0,6883. P4 raggiunge F1 0,5153, con delta +0,0069; P1 rimane
+sostanzialmente sul valore iniziale, con differenza non arrotondata
+pari a circa $-0{,}000073$. Non emerge quindi una configurazione
+uniformemente migliore su entrambi i livelli: P1 ha il maggiore F1
+HLG, mentre P0 ha il maggiore F1 LLG.
+
+Questi risultati non dimostrano che introdurre pi\`u esempi migliori
+le prestazioni. P1 contiene un unico scenario con decisioni di
+mantenimento; P4 aggiunge anche dimostrazioni di riscrittura e rimozione.
+Il confronto modifica quindi contenuto, copertura delle azioni e
+lunghezza del prompt, oltre al numero di esempi. Le differenze
+osservate riguardano queste specifiche configurazioni.
+
+\section{Risultati per dataset e configurazione}
+% Evidence: dataset_comparison.csv; iteration_counts.csv.
+Le Tabelle~\ref{tab:results-P0-datasets}--\ref{tab:results-P4-datasets}
+separano i risultati delle tre configurazioni. AUU indica Assegno
+Unico Universale; gli altri nomi abbreviati identificano i progetti
+elencati nel corpus. I conteggi di iterazioni descrivono l'esito
+operativo, mentre F1 descrive il matching con la ground truth.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Risultati di P0 per dataset. I delta sono differenze assolute rispetto alla stessa baseline top-down. L'asterisco indica arresto a 25 iterazioni senza convergenza.}
+\label{tab:results-P0-datasets}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{HLG F1} & $\boldsymbol{\Delta F1_H}$ & \textbf{LLG F1} & $\boldsymbol{\Delta F1_L}$ & \textbf{Iter.} \\
+\midrule
+AUU & 0,5502 & +0,1067 & 0,7255 & +0,0020 & 25$^{*}$ \\
+Calculator & 0,5366 & +0,0000 & 0,6083 & +0,0000 & 1 \\
+Ethical Purchasing & 0,4167 & +0,0000 & 0,5087 & +0,0000 & 1 \\
+Event Organization & 0,5265 & -0,0267 & 0,6242 & +0,2386 & 4 \\
+Fitness Tracker & 0,6215 & -0,0029 & 0,6488 & +0,0201 & 10 \\
+Genome Nexus & 0,5285 & -0,0143 & 0,3510 & -0,0115 & 3 \\
+Gestao Hospital & 0,6817 & +0,0000 & 0,6199 & +0,0000 & 1 \\
+La Reine Marlene & 0,4003 & +0,0704 & 0,5208 & +0,1286 & 13 \\
+London Ambulance & 0,4960 & -0,0135 & 0,4118 & -0,0724 & 6 \\
+Planning Poker & 0,4965 & -0,0182 & 0,4449 & +0,1323 & 11 \\
+Recycling & 0,7551 & +0,1240 & 0,5909 & +0,0003 & 5 \\
+SIA 25--26 & 0,4920 & -0,0805 & 0,6153 & +0,1320 & 25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Risultati di P1 per dataset. I delta sono differenze assolute rispetto alla stessa baseline top-down. L'asterisco indica arresto a 25 iterazioni senza convergenza.}
+\label{tab:results-P1-datasets}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{HLG F1} & $\boldsymbol{\Delta F1_H}$ & \textbf{LLG F1} & $\boldsymbol{\Delta F1_L}$ & \textbf{Iter.} \\
+\midrule
+AUU & 0,4776 & +0,0341 & 0,6621 & -0,0614 & 4 \\
+Calculator & 0,5366 & +0,0000 & 0,6083 & +0,0000 & 1 \\
+Ethical Purchasing & 0,4167 & +0,0000 & 0,5087 & +0,0000 & 1 \\
+Event Organization & 0,5532 & +0,0000 & 0,3855 & +0,0000 & 1 \\
+Fitness Tracker & 0,6244 & +0,0000 & 0,6288 & +0,0000 & 3 \\
+Genome Nexus & 0,5428 & +0,0000 & 0,3625 & +0,0000 & 1 \\
+Gestao Hospital & 0,6817 & +0,0000 & 0,6199 & +0,0000 & 1 \\
+La Reine Marlene & 0,3299 & +0,0000 & 0,3923 & +0,0000 & 1 \\
+London Ambulance & 0,5176 & +0,0080 & 0,4023 & -0,0819 & 4 \\
+Planning Poker & 0,4897 & -0,0250 & 0,3687 & +0,0561 & 12 \\
+Recycling & 0,7524 & +0,1213 & 0,5152 & -0,0754 & 4 \\
+SIA 25--26 & 0,5911 & +0,0186 & 0,6450 & +0,1617 & 4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Risultati di P4 per dataset. I delta sono differenze assolute rispetto alla stessa baseline top-down. L'asterisco indica arresto a 25 iterazioni senza convergenza.}
+\label{tab:results-P4-datasets}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{HLG F1} & $\boldsymbol{\Delta F1_H}$ & \textbf{LLG F1} & $\boldsymbol{\Delta F1_L}$ & \textbf{Iter.} \\
+\midrule
+AUU & 0,4157 & -0,0277 & 0,7526 & +0,0291 & 18 \\
+Calculator & 0,5366 & +0,0000 & 0,6083 & +0,0000 & 1 \\
+Ethical Purchasing & 0,4167 & +0,0000 & 0,5087 & +0,0000 & 1 \\
+Event Organization & 0,5309 & -0,0223 & 0,3917 & +0,0062 & 2 \\
+Fitness Tracker & 0,6313 & +0,0069 & 0,6338 & +0,0050 & 25$^{*}$ \\
+Genome Nexus & 0,5428 & +0,0000 & 0,3625 & +0,0000 & 1 \\
+Gestao Hospital & 0,6817 & +0,0000 & 0,6199 & +0,0000 & 1 \\
+La Reine Marlene & 0,3249 & -0,0050 & 0,4913 & +0,0991 & 3 \\
+London Ambulance & 0,5284 & +0,0189 & 0,2877 & -0,1964 & 13 \\
+Planning Poker & 0,4781 & -0,0366 & 0,3011 & -0,0116 & 9 \\
+Recycling & 0,7587 & +0,1275 & 0,5116 & -0,0790 & 7 \\
+SIA 25--26 & 0,6010 & +0,0285 & 0,7142 & +0,2309 & 25$^{*}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Gli incrementi aggregati nascondono comportamenti eterogenei.
+Con P0, l'F1 degli HLG aumenta in tre dataset e diminuisce in sei,
+restando invariato negli altri tre; i guadagni pi\`u ampi di AUU,
+La Reine Marlene e Recycling compensano le diminuzioni.
+Per gli LLG della stessa configurazione si osservano sette incrementi,
+due diminuzioni e tre valori invariati. Con P1, invece, sette dataset
+mantengono sia il valore HLG sia quello LLG della baseline: il maggiore
+F1 HLG medio non implica una revisione estesa di tutti i progetti.
+
+Recycling mostra il disaccoppiamento tra livelli: con P4 l'F1 HLG
+passa da 0,6311 a 0,7586, mentre l'F1 LLG scende da 0,5906 a 0,5116.
+Il miglioramento del padre non garantisce quindi una decomposizione
+migliore. Anche London Ambulance Service converge con P4 dopo tredici
+iterazioni, ma l'F1 LLG diminuisce da 0,4841 a 0,2877.
+Viceversa, in Event Organization P0 aumenta l'F1 LLG da 0,3855 a
+0,6242, pur riducendo l'F1 HLG da 0,5532 a 0,5265.
+Le due misure devono essere interpretate separatamente.
+
+\section{Convergenza, decisioni e costo iterativo}
+% Evidence: operational_summary.csv; iteration_counts.csv.
+\begin{table}[htbp]
+\centering
+\small
+\caption{Esiti operativi delle 36 run: convergenza, cicli globali e passaggi di riparazione della collezione. Le rimozioni contano rami effettivamente eliminati, anche se altri goal sono generati in seguito.}
+\label{tab:results-convergence}
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \textbf{Conv.} & \textbf{Cicli} & \textbf{Media} & \textbf{Rip. acc.} & \textbf{Rip. rif.} & \textbf{Rimossi} \\
+\midrule
+P0 & 11/12 & 105 & 8,75 & 83 & 9 & 6 \\
+P1 & 12/12 & 37 & 3,08 & 20 & 2 & 2 \\
+P4 & 10/12 & 106 & 8,83 & 86 & 8 & 9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+P1 converge su tutti i dodici dataset in 37 iterazioni globali
+complessive; P0 converge su undici dataset e ne richiede 105; P4
+converge su dieci e ne richiede 106. Le medie sono rispettivamente
+3,08, 8,75 e 8,83 iterazioni per dataset. Questi conteggi indicano
+lavoro iterativo e non tempi di esecuzione: la durata dipende anche
+da dimensione dei prompt, tentativi locali e caricamento dei modelli.
+AUU non converge con P0 entro 25 iterazioni; Fitness Tracker e
+SIA 25--26 non convergono con P4. SIA 25--26 converge invece
+all'ultima iterazione consentita con P0.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Decisioni aggregate per ramo, sommate su tutte le iterazioni. DUP indica DUPLICATE\_REMOVAL; INC indica un esito inconcludente del software, non un'azione LLM.}
+\label{tab:results-actions}
+\begin{tabular}{lrrrrr}
+\toprule
+ & \textbf{KEEP} & \textbf{REWRITE} & \textbf{REMOVE} & \textbf{DUP} & \textbf{INC} \\
+\midrule
+P0 & 360 & 223 & 0 & 6 & 17 \\
+P1 & 140 & 42 & 0 & 2 & 3 \\
+P4 & 438 & 232 & 2 & 7 & 17 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Le decisioni della Tabella~\ref{tab:results-actions} sono conteggi
+di rami esaminati attraverso tutte le iterazioni, non di goal distinti.
+Una riscrittura approvata pu\`o produrre un passaggio di riparazione
+rifiutato; pi\`u rami riscritti nella stessa iterazione condividono
+un solo passaggio top-down. Per questo i 232 voti aggregati di
+riscrittura di P4 corrispondono a 86 passaggi accettati e otto
+rifiutati, non a 232 chiamate indipendenti alla pipeline.
+
+Nell'ultima iterazione delle tre run non convergenti, AUU con P0
+mantiene tre rami e richiede quattro riscritture; Fitness Tracker
+con P4 mantiene due rami, richiede due riscritture e lascia un ramo
+inconcludente; SIA 25--26 con P4 mantiene cinque rami e richiede tre
+riscritture. Le altre 33 run terminano con tutti i rami confermati.
+Questi esiti conclusivi sono distinti dai totali dell'intero percorso
+nella Tabella~\ref{tab:results-actions}.
+
+Gli evaluator forniscono 318 risposte globali valide in P4, 312 valide
+e tre non valide in P0, 110 valide e una non valida in P1. Questi
+conteggi riguardano l'esito finale del budget di tentativi di ciascun
+modello per iterazione, non tutti i tentativi tecnici. La maggior parte
+degli output rispetta dunque il contratto JSON; la validit\`a
+strutturale non garantisce per\`o la compatibilit\`a delle critiche
+o la correttezza documentale della decisione.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Proposte individuali nelle risposte globali valide, sommate sui dodici dataset. Le ultime colonne contano risposte globali valide (V) e non valide (NV), non decisioni per ramo.}
+\label{tab:results-model-actions}
+\begin{tabular}{llrrrrrr}
+\toprule
+ & \textbf{Modello} & \textbf{KEEP} & \textbf{REWRITE} & \textbf{REMOVE} & \textbf{DUP} & \textbf{V} & \textbf{NV} \\
+\midrule
+P0 & Ministral & 337 & 245 & 15 & 8 & 105 & 0 \\
+P0 & Granite & 551 & 46 & 2 & 6 & 105 & 0 \\
+P0 & Gemma & 329 & 243 & 6 & 11 & 102 & 3 \\
+P1 & Ministral & 127 & 53 & 2 & 4 & 37 & 0 \\
+P1 & Granite & 179 & 5 & 0 & 2 & 37 & 0 \\
+P1 & Gemma & 103 & 72 & 0 & 6 & 36 & 1 \\
+P4 & Ministral & 386 & 280 & 7 & 19 & 106 & 0 \\
+P4 & Granite & 517 & 147 & 24 & 4 & 106 & 0 \\
+P4 & Gemma & 442 & 229 & 3 & 18 & 106 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+I modelli non utilizzano le azioni con la stessa frequenza.
+In P1, Granite propone 179 mantenimenti e cinque riscritture,
+Ministral 127 mantenimenti e 53 riscritture, Gemma 103 mantenimenti
+e 72 riscritture. La stessa informazione non conduce quindi a
+giudizi uniformi. Questi conteggi non misurano l'accuratezza dei
+singoli evaluator: descrivono il loro comportamento sulle gerarchie
+effettivamente visitate. I confronti tra configurazioni dipendono
+anche dal numero diverso di iterazioni e rami esaminati. Il dettaglio
+per modello, dataset e configurazione, insieme alle decisioni aggregate
+dell'intera run e dell'ultima iterazione, rimane nei CSV dell'analisi.
+
+\section{Casi reali: contributi utili e limiti}
+Gli esempi seguenti sono estratti dagli output effettivamente salvati,
+non dalle dimostrazioni few-shot. I listing riproducono la singola
+decisione selezionata dentro una risposta globale pi\`u ampia.
+Il numero del ramo vale esclusivamente nello snapshot indicato.
+
+\subsection{Recupero di capacit\`a documentate: Event Organization, P0}
+% Evidence: case_evidence.json/E1_event_rewrite; source_snapshot.json, Event/P0;
+% final_metrics.csv, Event Organization, top_down and E1_0_examples, LLG.
+Alla prima iterazione, il ramo 1 ha come padre
+\emph{Manage Event Planning and Coordination}, la cui descrizione
+menziona inviti, prenotazione dei servizi e budget. La ricostruzione
+\`e \emph{Manage event planning and financial oversight from setup
+to execution}. Il documento fornito ai modelli descrive anche la
+richiesta di appuntamenti ai fornitori e l'accettazione o il rifiuto
+dei preventivi, capacit\`a non esplicite nella descrizione iniziale
+del padre. Ministral produce l'estratto seguente; Gemma propone
+anch'esso REWRITE, mentre Granite propone KEEP.
+
+\begin{lstlisting}[style=llmjson,caption={Decisione reale di Ministral: Event Organization, P0, iterazione 1, ramo 1.},label={lst:results-event-rewrite}]
+{
+  "branch_id": "1",
+  "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+  "feedback": {
+    "critique": "Manage Event Planning and Coordination. Preserve the scope of guest invitations, service bookings, and budget tracking. Change to explicitly include appointment scheduling and quotation management, aligning with actor responsibility."
+  }
+}
+\end{lstlisting}
+
+
+Nella gerarchia finale compaiono, tra gli altri, i goal
+\emph{Manage Quotations and Approvals}, descritto come la possibilit\`a
+di visualizzare, approvare o rifiutare preventivi, e
+\emph{Manage Payment Schedules for Event Services}, che include
+rate, anticipo e saldo. Entrambi hanno un riscontro esplicito nella
+descrizione del progetto usata dalla pipeline.
+Gli LLG passano da 10 a 22 su 28 riferimenti; la Recall semantica
+sale da 0,2616 a 0,5573 e la Precision diminuisce da 0,7325 a 0,7093.
+Il guadagno F1 osservato \`e quindi coerente con una maggiore copertura
+testuale accompagnata da una lieve perdita di Precision. La
+riscrittura riapre la decomposizione e rende possibile tale recupero;
+il caso non isola il contributo causale di HLG$'$ rispetto alla
+rigenerazione completa degli LLG e agli altri segnali disponibili.
+
+\subsection{Conservazione della baseline: Calculator}
+% Evidence: source_snapshot.json, Calculator, all selected configurations;
+% final_metrics.csv, Calculator; iteration_counts.csv.
+Calculator termina alla prima iterazione in tutte e tre le
+configurazioni, confermando l'unico HLG
+\emph{Enable quick and accurate basic arithmetic operations}.
+La collezione rimane composta da un HLG e cinque LLG, con F1 HLG
+0,5366 e F1 LLG 0,6083 invariati. Il meccanismo evita una rigenerazione
+in questo caso, ma l'accordo dei modelli non rende perfetta la
+baseline rispetto ai riferimenti. La conservazione costituisce un
+esito utile di stabilit\`a, distinto da un miglioramento delle metriche.
+
+\subsection{Critiche incompatibili: Fitness Tracker, P4}
+% Evidence: case_evidence.json/E2_fitness_conflict.
+All'iterazione 25, il ramo 2 riguarda
+\emph{Support users in setting and achieving personalized fitness goals}.
+Il padre consente gi\`a di definire obiettivi misurabili con scadenze,
+usare dati storici, monitorare il progresso e ricevere feedback e
+promemoria. HLG$'$ sintetizza obiettivi definiti, visualizzazione dei
+progressi e promemoria. Ministral e Granite approvano entrambi
+REWRITE, ma forniscono istruzioni divergenti:
+
+\begin{lstlisting}[style=llmjson,caption={Decisione reale di Ministral: Fitness Tracker, P4, iterazione 25, ramo 2.},label={lst:results-fitness-ministral}]
+{
+  "branch_id": "2",
+  "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+  "feedback": {
+    "critique": "For the goal 'Support users in setting and achieving personalized fitness goals': The original scope is overly broad for Fitness Enthusiasts; correct to focus solely on tracking progress, visual feedback, and reminders without defining objectives or deadlines."
+  }
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[style=llmjson,caption={Decisione reale di Granite sullo stesso ramo e snapshot.},label={lst:results-fitness-granite}]
+{
+  "branch_id": "2",
+  "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+  "feedback": {
+    "critique": "For the goal 'Support users in setting and achieving personalized fitness goals': The original description lacks clarity on how historical performance data is utilized for goal definition and progress monitoring. Rewrite to specify that this feature will use historical workout data to set measurable objectives, track progress, and provide visual feedback and reminders."
+  }
+}
+\end{lstlisting}
+
+
+La prima critica esclude la definizione di obiettivi e scadenze;
+la seconda chiede di esplicitare l'uso dei dati storici per definire
+gli obiettivi, gi\`a presente nel padre corrente. Gemma propone KEEP.
+I due voti di riscrittura raggiungono il quorum, ma non esprimono
+accordo sul contenuto della correzione. La concatenazione trasferisce
+entrambe le istruzioni al generatore. Questa incompatibilit\`a
+fornisce una spiegazione plausibile delle revisioni persistenti,
+senza dimostrare da sola la causa di tutte le oscillazioni.
+La run termina senza convergenza, con due riscritture e un ramo
+inconcludente nell'ultimo snapshot; gli incrementi F1 rispetto alla
+baseline sono soltanto +0,0069 per gli HLG e +0,0050 per gli LLG.
+
+\subsection{Una duplicazione approvata non garantisce copertura: AUU, P1}
+% Evidence: case_evidence.json/E3_auu_duplicate; AUU baseline description and P1 final goals.
+Alla prima iterazione, tutti e tre gli evaluator chiedono di eliminare
+il ramo 8, \emph{Support application modifications and additions after
+submission}, come duplicato del ramo 3,
+\emph{Enable real-time fiscal code validation and conflict detection}.
+L'output di Ministral \`e il seguente; gli altri due modelli indicano
+la stessa coppia di identificativi.
+
+\begin{lstlisting}[style=llmjson,caption={Decisione reale di Ministral: AUU, P1, iterazione 1, ramo 8; voto unanime dei tre evaluator.},label={lst:results-auu-duplicate}]
+{
+  "branch_id": "8",
+  "decision": "DUPLICATE_REMOVAL",
+  "surviving_branch_id": "3"
+}
+\end{lstlisting}
+
+
+Il primo padre descrive l'aggiunta di figli a domande esistenti e la
+modifica dei dati di pagamento o delle dichiarazioni; il superstite
+descrive la validazione dei codici fiscali e il blocco delle domande
+in conflitto. I testi condividono una parte delle funzionalit\`a,
+ma il secondo non esplicita tutte quelle del primo. La descrizione
+del progetto richiede espressamente di aggiungere figli a una domanda
+esistente e confermare o modificare i dati gi\`a presenti.
+Il codice applica \texttt{REMOVED\_WITH\_CHILDREN}; negli HLG finali
+non compare pi\`u una formulazione esplicita dell'aggiunta di figli.
+Questo \`e un caso in cui l'unanimit\`a non dimostra la copertura
+completa necessaria alla rimozione. L'analisi riguarda il testo
+conservato e non costituisce una verifica formale di tutta la gerarchia.
+La run converge in quattro iterazioni e migliora F1 HLG di +0,0341,
+ma riduce F1 LLG di $-0{,}0614$: convergenza e miglioramento del
+matching degli HLG possono coesistere con una perdita agli altri livelli.
+
+\subsection{Granularit\`a e dettagli non supportati: London e Recycling, P4}
+% Evidence: source_snapshot.json, London/reference and Recycling/reference final LLGs;
+% final_metrics.csv, respective paired baseline and reference rows.
+In London Ambulance Service gli LLG passano da sei a dodici, a fronte
+di tre riferimenti. La Precision scende da 0,3631 a 0,1798, mentre
+la Recall passa da 0,7262 a 0,7194. Poich\'e il matching \`e uno-a-uno,
+al massimo tre goal generati contribuiscono alla somma assegnata;
+gli altri aumentano il denominatore della Precision. La crescita
+del numero dei goal non si traduce quindi in maggiore copertura
+misurata. Tra gli output finali compare
+\emph{Load real-time traffic data for current route}, mentre la
+descrizione fornita richiede il raggiungimento entro undici minuti,
+l'allocazione dei veicoli e l'aderenza a percorsi standard, senza
+specificare un servizio di traffico in tempo reale.
+
+In Recycling la descrizione richiede sicurezza dei dati in termini
+generali, ma la decomposizione finale contiene
+\emph{System uses AES-256 encryption for data at rest and TLS 1.3
+for data in transit}. Queste specifiche tecniche non compaiono nel
+testo del progetto usato dai modelli. Inoltre, tra gli LLG finali
+non sono espliciti la mappa e le notifiche degli eventi, citate nella
+descrizione. Il miglioramento F1 HLG di +0,1275 non equivale pertanto
+a una correzione completa della gerarchia. La revisione usa le sintesi
+HLG$'$ e non i testi integrali degli LLG: questo limita la visibilit\`a
+dei dettagli introdotti o omessi durante la decomposizione.
+
+\section{Interpretazione rispetto alle domande di ricerca}
+Per RQ1, l'estensione produce incrementi medi di F1 HLG in tutte
+le configurazioni complete e incrementi F1 LLG in P0 e P4, mentre
+P1 mantiene sostanzialmente il valore LLG iniziale. I risultati per
+dataset mostrano miglioramenti, conservazioni e peggioramenti:
+l'effetto del feedback dipende dal progetto e dal livello considerato.
+Il meccanismo funziona in modo utile quando conserva una gerarchia
+senza richiedere revisioni o quando una critica documentata riapre
+una decomposizione incompleta. Mostra invece limiti nei conflitti
+tra critiche, nelle rimozioni di funzionalit\`a complementari e nelle
+decomposizioni che introducono granularit\`a o dettagli non supportati.
+
+Per la parte di RQ2 dedicata al prompting, P1 presenta la maggiore
+stabilit\`a operativa e P0 il maggiore F1 LLG. Il minor numero di
+revisioni con P1 \`e compatibile con un comportamento pi\`u conservativo
+e con il contenuto del suo esempio, che mostra mantenimenti; questa
+\`e un'interpretazione, non un effetto causale isolato dal disegno.
+I risultati non sostengono una superiorit\`a generale del few-shot.
+Non viene formulata una conclusione sulla temperatura, poich\'e
+T0 e T6 non fanno parte del confronto completo qui congelato.
+
+Le spiegazioni restano limitate da una sola ripetizione, dal matching
+testuale che non valuta direttamente attori e associazioni padre--figlio,
+e dal riuso della generazione top-down dell'intera collezione durante
+le riparazioni. La convergenza misura l'accordo operativo finale,
+non la correttezza dei requisiti. Questi limiti spiegano perch\'e
+occorre leggere metriche e tracce insieme e perch\'e un singolo F1
+aggregato non basta a stabilire dove la gerarchia sia stata corretta.
+

@@ -1,4 +1,4 @@
-"""Function-based bottom-up loop over the original top-down goal collections."""
+"""Coordinate bottom-up review and top-down repair over shared goal snapshots."""
 import io
 import json
 import re
@@ -275,7 +275,7 @@ def run_global_goal_cycle(
     parent_threshold: float | None = None, duplicate_threshold: float | None = None,
     on_state=None,
 ) -> GlobalGoalCycleResult:
-    """Review original top-down goals using prime versus all original HLG cosine."""
+    """Coordinate reconstruction, documentary votes and approved top-down repairs."""
     if mode != ShotPromptingMode.ZERO_SHOT or evaluator_ablation:
         raise ValueError("Bottom-up repairs require original zero-shot generation and an enabled critic")
     if type(max_iterations) is not int or not 1 <= max_iterations <= MAX_ITERATIONS:
@@ -314,7 +314,7 @@ def run_global_goal_cycle(
               "evaluator_attempts_per_iteration": BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS,
               "context_recovery_policy": "reload_affected_model_double_context",
               "similarity_technical_attempts": SIMILARITY_TECHNICAL_ATTEMPTS,
-              "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+              "review_payload_format": "explicit_prime_original_candidate_pairs_v1",
               "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
               "similarity": active_similarity,
               "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",

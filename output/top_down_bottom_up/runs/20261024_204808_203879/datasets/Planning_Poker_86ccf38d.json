@@ -1,0 +1,261 @@
+{
+  "baseline": {
+    "actors": [
+      "Scrum Master",
+      "Product Owner",
+      "Development Team Member"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 2
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors defined are appropriate for a Planning Poker system, as they accurately represent the key roles involved in agile and scrum development teams (Scrum Master, Product Owner, Development Team Member). No contradictions or omissions are present.",
+      "highLevelGoals": "The high-level goals are well-defined, functional, and aligned with the software's purpose of enabling collaborative sprint planning. They address transparency, consensus-building, alignment on objectives, and shared ownership, which are core functionalities of Planning Poker. No contradictions or omissions are detected.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all necessary functional aspects of Planning Poker. They address transparency in sprint planning, real-time estimation input, consensus mechanisms, workload visualization, priority assignment, task confirmation, feedback submission, live estimation visualization, and anonymous submissions. No contradictions or omissions are observed."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        10.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        8.0,
+        10.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "This project describes 'Planning Poker' a digital card game designed to help empower agile and scrum development teams to collectively set their sprint goals. Using anonymous pointing, Planning Poker helps to elicit productive conversations across the team to create shared ownership, knowledge, and understanding.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 314,
+      "processedChars": 314,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+      "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+      "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity."
+    ],
+    "lowLevelGoals": [
+      "Show all sprint goals and user stories in a shared, editable interface accessible to all team members during planning.",
+      "Enable each team member to submit their estimation for each user story using a collaborative input system.",
+      "Provide a mechanism for team members to vote or indicate agreement on sprint goals to ensure collective buy-in.",
+      "Show aggregated effort estimates per user story and visualize workload distribution across team members.",
+      "Enable the Product Owner to set and adjust priority levels for user stories during sprint planning.",
+      "Allow each development team member to view their assigned tasks and confirm their understanding and commitment.",
+      "Enable each team member to submit their estimation and provide feedback on task complexity or dependencies.",
+      "Provide a live dashboard showing estimation consensus levels and discrepancies across team members.",
+      "Allow team members to submit estimations without revealing their identity to prevent bias and encourage honest input."
+    ],
+    "name": "Planning Poker",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "This project describes 'Planning Poker' a digital card game designed to help empower agile and scrum development teams to collectively set their sprint goals. Using anonymous pointing, Planning Poker helps to elicit productive conversations across the team to create shared ownership, knowledge, and understanding.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Facilitates the agile process and guides the team during planning sessions.",
+          "name": "Scrum Master"
+        },
+        {
+          "description": "Defines and prioritizes sprint goals and user stories.",
+          "name": "Product Owner"
+        },
+        {
+          "description": "Contributes to estimating and planning work during sprint planning.",
+          "name": "Development Team Member"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Facilitates the agile process and guides the team during planning sessions.",
+            "name": "Scrum Master"
+          },
+          "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+          "name": "Enable Transparent and Consensus-Based Sprint Planning"
+        },
+        {
+          "actor": {
+            "description": "Defines and prioritizes sprint goals and user stories.",
+            "name": "Product Owner"
+          },
+          "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+          "name": "Align Team Members on Sprint Objectives and Effort"
+        },
+        {
+          "actor": {
+            "description": "Contributes to estimating and planning work during sprint planning.",
+            "name": "Development Team Member"
+          },
+          "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+          "name": "Foster Collaborative Estimation and Shared Ownership"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Show all sprint goals and user stories in a shared, editable interface accessible to all team members during planning.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Facilitates the agile process and guides the team during planning sessions.",
+              "name": "Scrum Master"
+            },
+            "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+            "name": "Enable Transparent and Consensus-Based Sprint Planning"
+          },
+          "name": "Display Sprint Goals and User Stories for Team Review"
+        },
+        {
+          "description": "Enable each team member to submit their estimation for each user story using a collaborative input system.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Facilitates the agile process and guides the team during planning sessions.",
+              "name": "Scrum Master"
+            },
+            "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+            "name": "Enable Transparent and Consensus-Based Sprint Planning"
+          },
+          "name": "Allow Real-Time Estimation Input from All Team Members"
+        },
+        {
+          "description": "Provide a mechanism for team members to vote or indicate agreement on sprint goals to ensure collective buy-in.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Facilitates the agile process and guides the team during planning sessions.",
+              "name": "Scrum Master"
+            },
+            "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+            "name": "Enable Transparent and Consensus-Based Sprint Planning"
+          },
+          "name": "Enable Voting or Consensus Mechanism on Sprint Goals"
+        },
+        {
+          "description": "Show aggregated effort estimates per user story and visualize workload distribution across team members.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Defines and prioritizes sprint goals and user stories.",
+              "name": "Product Owner"
+            },
+            "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+            "name": "Align Team Members on Sprint Objectives and Effort"
+          },
+          "name": "Display Effort Estimates and Visualize Workload Distribution"
+        },
+        {
+          "description": "Enable the Product Owner to set and adjust priority levels for user stories during sprint planning.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Defines and prioritizes sprint goals and user stories.",
+              "name": "Product Owner"
+            },
+            "description": "Support the Product Owner in ensuring that the team collectively understands and commits to the sprint goals and their relative effort.",
+            "name": "Align Team Members on Sprint Objectives and Effort"
+          },
+          "name": "Allow Product Owner to Assign Priorities to User Stories"
+        },
+        {
+          "description": "Allow each development team member to view their assigned tasks and confirm their understanding and commitment.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Contributes to estimating and planning work during sprint planning.",
+              "name": "Development Team Member"
+            },
+            "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+            "name": "Foster Collaborative Estimation and Shared Ownership"
+          },
+          "name": "Enable Team Member to View and Confirm Assigned Tasks"
+        },
+        {
+          "description": "Enable each team member to submit their estimation and provide feedback on task complexity or dependencies.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Contributes to estimating and planning work during sprint planning.",
+              "name": "Development Team Member"
+            },
+            "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+            "name": "Foster Collaborative Estimation and Shared Ownership"
+          },
+          "name": "Allow Team Member to Submit Estimation and Feedback"
+        },
+        {
+          "description": "Provide a live dashboard showing estimation consensus levels and discrepancies across team members.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Contributes to estimating and planning work during sprint planning.",
+              "name": "Development Team Member"
+            },
+            "description": "Allow Development Team Members to actively participate in estimating work and building shared understanding of task complexity.",
+            "name": "Foster Collaborative Estimation and Shared Ownership"
+          },
+          "name": "Enable Real-Time Visualization of Estimation Consensus"
+        },
+        {
+          "description": "Allow team members to submit estimations without revealing their identity to prevent bias and encourage honest input.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Facilitates the agile process and guides the team during planning sessions.",
+              "name": "Scrum Master"
+            },
+            "description": "Ensure that all team members can collaboratively estimate and agree on sprint goals without bias or dominance from any single individual.",
+            "name": "Enable Transparent and Consensus-Based Sprint Planning"
+          },
+          "name": "Enable Anonymous Estimation Submission"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "53d61d8506567d5eda193939a27696ddf8f86c5165f2145386b0a85d2cb97fa7",
+  "name": "Planning Poker",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:48:08.233882+00:00"
+}

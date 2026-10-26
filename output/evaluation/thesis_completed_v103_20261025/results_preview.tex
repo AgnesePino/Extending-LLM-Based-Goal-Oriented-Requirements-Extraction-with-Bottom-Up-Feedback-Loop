@@ -1,0 +1,38 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,booktabs,tabularx,listings,xurl,hyperref}
+\usepackage[margin=2.8cm]{geometry}
+\usepackage{upquote}
+\setlength{\emergencystretch}{3em}
+\lstdefinestyle{llmprompt}{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    breakatwhitespace=false,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    upquote=true,
+    frame=single,
+    framerule=0.3pt,
+    framesep=5pt,
+    xleftmargin=0.01\linewidth,
+    xrightmargin=0.01\linewidth,
+    linewidth=0.98\linewidth,
+    aboveskip=0.8em,
+    belowskip=0.8em,
+    tabsize=2,
+    numbers=none,
+    captionpos=b
+}
+
+% Stile specifico per JSON e output strutturati
+\lstdefinestyle{llmjson}{
+    style=llmprompt,
+    basicstyle=\ttfamily\scriptsize
+}
+
+\begin{document}
+\setcounter{chapter}{3}\refstepcounter{chapter}\label{ch:experiments}
+\input{results_chapter.tex}
+\end{document}

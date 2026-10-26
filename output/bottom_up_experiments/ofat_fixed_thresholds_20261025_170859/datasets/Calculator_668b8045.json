@@ -1,0 +1,3380 @@
+{
+  "baseline": {
+    "actors": [
+      "User"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 1
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actor \"User\" is correctly identified as the primary end user of the calculator app, but the description could be slightly more precise by mentioning that this user may also include developers or testers in future iterations (e.g., for complex calculations). However, no contradictions or omissions are present.",
+      "highLevelGoals": "The high-level goals are correctly aligned with the software description, focusing solely on functional requirements for a basic calculator app. No contradictions or omissions are present.",
+      "lowLevelGoals": "The low-level goals are well-defined and directly correspond to the actions a user would take with the calculator app. They cover all essential functionalities for performing basic arithmetic operations, including input, evaluation, display of results, and clearing calculations. There are no contradictions or omissions, and all goals are functional and aligned with the high-level goal."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        9.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        10.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 9.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 228,
+      "processedChars": 228,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division."
+    ],
+    "lowLevelGoals": [
+      "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+      "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+      "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+      "Show the final result of the calculation prominently on the screen for user confirmation.",
+      "Provide a 'Clear' button or gesture to reset the current input and start a new calculation."
+    ],
+    "name": "Calculator",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "This project develops a smartphone app for a simple calculator. In its initial version, it allows the user to do basic calculations. More complex calculations will be considered in subsequent versions that are added iteratively.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "A person using the smartphone app to perform basic calculations.",
+          "name": "User"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "A person using the smartphone app to perform basic calculations.",
+            "name": "User"
+          },
+          "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+          "name": "Enable quick and accurate basic arithmetic operations"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Display a numeric keypad for input"
+        },
+        {
+          "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Accept user input for operands and operators"
+        },
+        {
+          "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Evaluate the arithmetic expression"
+        },
+        {
+          "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Display the computed result"
+        },
+        {
+          "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+          "high_level_associated": {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          },
+          "name": "Allow clearing the current calculation"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "5bc908e48692de09f570ab9ebc0b415ceeebe5de337abe9b5ddb06bb55c56e21",
+  "name": "Calculator",
+  "runs": {
+    "E1_0_examples/repeat_001": {
+      "attempt": 1,
+      "completed_iterations": 1,
+      "converged": true,
+      "elapsed_seconds": 43.3948456000071,
+      "experiment": {
+        "config_id": "E1_0_examples",
+        "evaluator_few_shot_examples": 0,
+        "evaluator_temperature": 0.2,
+        "experiment": "E1_prompting",
+        "parent_threshold": 0.68
+      },
+      "finalHighLevelGoals": {
+        "goals": [
+          {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          }
+        ]
+      },
+      "finalLowLevelGoals": {
+        "low_level_goals": [
+          {
+            "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display a numeric keypad for input"
+          },
+          {
+            "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Accept user input for operands and operators"
+          },
+          {
+            "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Evaluate the arithmetic expression"
+          },
+          {
+            "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display the computed result"
+          },
+          {
+            "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Allow clearing the current calculation"
+          }
+        ]
+      },
+      "finished_at": "2026-10-25T21:56:07.130643+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 1,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 0,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.2,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "initial_parent_reference_reconciliations": [],
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+          "pipeline_policy_version": "cosine_global_documentary_review_v111_schematic_inputs",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 1,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 1,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "converged": true,
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display a numeric keypad for input"
+            },
+            {
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Accept user input for operands and operators"
+            },
+            {
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Evaluate the arithmetic expression"
+            },
+            {
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display the computed result"
+            },
+            {
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Allow clearing the current calculation"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "changes": {
+              "hlg_added": [],
+              "hlg_removed": [],
+              "llg_added": [],
+              "llg_removed": []
+            },
+            "completed_branch_count": 1,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED"
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 5944,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 27,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1316,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1343
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 5944,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 43,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1392,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1435
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 5944,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 31,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1317,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1348
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "A person using the smartphone app to perform basic calculations.",
+                    "name": "User"
+                  },
+                  "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                  "name": "Enable quick and accurate basic arithmetic operations"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display a numeric keypad for input"
+                  },
+                  {
+                    "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Accept user input for operands and operators"
+                  },
+                  {
+                    "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Evaluate the arithmetic expression"
+                  },
+                  {
+                    "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display the computed result"
+                  },
+                  {
+                    "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Allow clearing the current calculation"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display a numeric keypad for input"
+                },
+                {
+                  "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Accept user input for operands and operators"
+                },
+                {
+                  "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Evaluate the arithmetic expression"
+                },
+                {
+                  "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display the computed result"
+                },
+                {
+                  "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Allow clearing the current calculation"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Allow users to input, compute, and view the result of arithmetic expressions via a virtual keypad interface.",
+                "source_low_level_goal_ids": [
+                  "Display a numeric keypad for input",
+                  "Accept user input for operands and operators",
+                  "Evaluate the arithmetic expression",
+                  "Display the computed result",
+                  "Allow clearing the current calculation"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.7719351237008687,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7719351237008687,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 1,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 1,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "structural_action_outcomes": {
+              "1": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+            },
+            "total_branch_count": 1
+          }
+        ],
+        "schema_version": 3,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED"
+      },
+      "repetition": 1,
+      "started_at": "2026-10-25T21:55:23.736519+00:00",
+      "status": "completed",
+      "stop_reason": "ALL_BRANCHES_CONFIRMED"
+    },
+    "E1_1_examples/repeat_001": {
+      "attempt": 1,
+      "completed_iterations": 1,
+      "converged": true,
+      "elapsed_seconds": 41.89015579991974,
+      "experiment": {
+        "config_id": "E1_1_examples",
+        "evaluator_few_shot_examples": 1,
+        "evaluator_temperature": 0.2,
+        "experiment": "E1_prompting",
+        "parent_threshold": 0.68
+      },
+      "finalHighLevelGoals": {
+        "goals": [
+          {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          }
+        ]
+      },
+      "finalLowLevelGoals": {
+        "low_level_goals": [
+          {
+            "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display a numeric keypad for input"
+          },
+          {
+            "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Accept user input for operands and operators"
+          },
+          {
+            "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Evaluate the arithmetic expression"
+          },
+          {
+            "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display the computed result"
+          },
+          {
+            "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Allow clearing the current calculation"
+          }
+        ]
+      },
+      "finished_at": "2026-10-26T02:06:12.276552+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 1,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 1,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.2,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "initial_parent_reference_reconciliations": [],
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+          "pipeline_policy_version": "cosine_global_documentary_review_v111_schematic_inputs",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 1,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 1,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "converged": true,
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display a numeric keypad for input"
+            },
+            {
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Accept user input for operands and operators"
+            },
+            {
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Evaluate the arithmetic expression"
+            },
+            {
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display the computed result"
+            },
+            {
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Allow clearing the current calculation"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "changes": {
+              "hlg_added": [],
+              "hlg_removed": [],
+              "llg_added": [],
+              "llg_removed": []
+            },
+            "completed_branch_count": 1,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED"
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 6536,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 27,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1466,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1493
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 6536,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 43,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1541,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1584
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 6536,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 32,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 1466,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 1498
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "A person using the smartphone app to perform basic calculations.",
+                    "name": "User"
+                  },
+                  "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                  "name": "Enable quick and accurate basic arithmetic operations"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display a numeric keypad for input"
+                  },
+                  {
+                    "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Accept user input for operands and operators"
+                  },
+                  {
+                    "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Evaluate the arithmetic expression"
+                  },
+                  {
+                    "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display the computed result"
+                  },
+                  {
+                    "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Allow clearing the current calculation"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display a numeric keypad for input"
+                },
+                {
+                  "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Accept user input for operands and operators"
+                },
+                {
+                  "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Evaluate the arithmetic expression"
+                },
+                {
+                  "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display the computed result"
+                },
+                {
+                  "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Allow clearing the current calculation"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Allow users to input, compute, and view the result of arithmetic expressions via a virtual keypad interface.",
+                "source_low_level_goal_ids": [
+                  "Display a numeric keypad for input",
+                  "Accept user input for operands and operators",
+                  "Evaluate the arithmetic expression",
+                  "Display the computed result",
+                  "Allow clearing the current calculation"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.7719351237008687,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7719351237008687,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 1,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 1,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "structural_action_outcomes": {
+              "1": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+            },
+            "total_branch_count": 1
+          }
+        ],
+        "schema_version": 3,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED"
+      },
+      "repetition": 1,
+      "started_at": "2026-10-26T02:05:30.388263+00:00",
+      "status": "completed",
+      "stop_reason": "ALL_BRANCHES_CONFIRMED"
+    },
+    "E2_temperature_0.0/repeat_001": {
+      "attempt": 1,
+      "completed_iterations": 1,
+      "converged": true,
+      "elapsed_seconds": 25.208924899925478,
+      "experiment": {
+        "config_id": "E2_temperature_0.0",
+        "evaluator_few_shot_examples": 4,
+        "evaluator_temperature": 0.0,
+        "experiment": "E2_temperature",
+        "parent_threshold": 0.68
+      },
+      "finalHighLevelGoals": {
+        "goals": [
+          {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          }
+        ]
+      },
+      "finalLowLevelGoals": {
+        "low_level_goals": [
+          {
+            "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display a numeric keypad for input"
+          },
+          {
+            "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Accept user input for operands and operators"
+          },
+          {
+            "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Evaluate the arithmetic expression"
+          },
+          {
+            "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display the computed result"
+          },
+          {
+            "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Allow clearing the current calculation"
+          }
+        ]
+      },
+      "finished_at": "2026-10-26T06:32:21.976223+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 1,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 4,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.0,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "initial_parent_reference_reconciliations": [],
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+          "pipeline_policy_version": "cosine_global_documentary_review_v111_schematic_inputs",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 1,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 1,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "converged": true,
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display a numeric keypad for input"
+            },
+            {
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Accept user input for operands and operators"
+            },
+            {
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Evaluate the arithmetic expression"
+            },
+            {
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display the computed result"
+            },
+            {
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Allow clearing the current calculation"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "changes": {
+              "hlg_added": [],
+              "hlg_removed": [],
+              "llg_added": [],
+              "llg_removed": []
+            },
+            "completed_branch_count": 1,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED"
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.0,
+                      "usage": {
+                        "completion_tokens": 27,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3188,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3215
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.0,
+                      "usage": {
+                        "completion_tokens": 26,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3221,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3247
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.0,
+                      "usage": {
+                        "completion_tokens": 26,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3124,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3150
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "A person using the smartphone app to perform basic calculations.",
+                    "name": "User"
+                  },
+                  "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                  "name": "Enable quick and accurate basic arithmetic operations"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display a numeric keypad for input"
+                  },
+                  {
+                    "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Accept user input for operands and operators"
+                  },
+                  {
+                    "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Evaluate the arithmetic expression"
+                  },
+                  {
+                    "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display the computed result"
+                  },
+                  {
+                    "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Allow clearing the current calculation"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display a numeric keypad for input"
+                },
+                {
+                  "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Accept user input for operands and operators"
+                },
+                {
+                  "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Evaluate the arithmetic expression"
+                },
+                {
+                  "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display the computed result"
+                },
+                {
+                  "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Allow clearing the current calculation"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Allow users to input, compute, and view the result of arithmetic expressions via a virtual keypad interface.",
+                "source_low_level_goal_ids": [
+                  "Display a numeric keypad for input",
+                  "Accept user input for operands and operators",
+                  "Evaluate the arithmetic expression",
+                  "Display the computed result",
+                  "Allow clearing the current calculation"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.7719351237008687,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7719351237008687,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 1,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 1,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "structural_action_outcomes": {
+              "1": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+            },
+            "total_branch_count": 1
+          }
+        ],
+        "schema_version": 3,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED"
+      },
+      "repetition": 1,
+      "started_at": "2026-10-26T06:31:56.768037+00:00",
+      "status": "completed",
+      "stop_reason": "ALL_BRANCHES_CONFIRMED"
+    },
+    "E2_temperature_0.4/repeat_001": {
+      "attempt": 1,
+      "completed_iterations": 1,
+      "converged": true,
+      "elapsed_seconds": 44.24050340009853,
+      "experiment": {
+        "config_id": "E2_temperature_0.4",
+        "evaluator_few_shot_examples": 4,
+        "evaluator_temperature": 0.4,
+        "experiment": "E2_temperature",
+        "parent_threshold": 0.68
+      },
+      "finalHighLevelGoals": {
+        "goals": [
+          {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          }
+        ]
+      },
+      "finalLowLevelGoals": {
+        "low_level_goals": [
+          {
+            "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display a numeric keypad for input"
+          },
+          {
+            "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Accept user input for operands and operators"
+          },
+          {
+            "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Evaluate the arithmetic expression"
+          },
+          {
+            "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display the computed result"
+          },
+          {
+            "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Allow clearing the current calculation"
+          }
+        ]
+      },
+      "finished_at": "2026-10-26T15:29:47.026994+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 1,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 4,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.4,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "initial_parent_reference_reconciliations": [],
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+          "pipeline_policy_version": "cosine_global_documentary_review_v111_schematic_inputs",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 1,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 1,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "converged": true,
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display a numeric keypad for input"
+            },
+            {
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Accept user input for operands and operators"
+            },
+            {
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Evaluate the arithmetic expression"
+            },
+            {
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display the computed result"
+            },
+            {
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Allow clearing the current calculation"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "changes": {
+              "hlg_added": [],
+              "hlg_removed": [],
+              "llg_added": [],
+              "llg_removed": []
+            },
+            "completed_branch_count": 1,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED"
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.4,
+                      "usage": {
+                        "completion_tokens": 27,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3188,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3215
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.4,
+                      "usage": {
+                        "completion_tokens": 25,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3221,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3246
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.4,
+                      "usage": {
+                        "completion_tokens": 26,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3124,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3150
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "A person using the smartphone app to perform basic calculations.",
+                    "name": "User"
+                  },
+                  "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                  "name": "Enable quick and accurate basic arithmetic operations"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display a numeric keypad for input"
+                  },
+                  {
+                    "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Accept user input for operands and operators"
+                  },
+                  {
+                    "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Evaluate the arithmetic expression"
+                  },
+                  {
+                    "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display the computed result"
+                  },
+                  {
+                    "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Allow clearing the current calculation"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display a numeric keypad for input"
+                },
+                {
+                  "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Accept user input for operands and operators"
+                },
+                {
+                  "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Evaluate the arithmetic expression"
+                },
+                {
+                  "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display the computed result"
+                },
+                {
+                  "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Allow clearing the current calculation"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Allow users to input, compute, and view the result of arithmetic expressions via a virtual keypad interface.",
+                "source_low_level_goal_ids": [
+                  "Display a numeric keypad for input",
+                  "Accept user input for operands and operators",
+                  "Evaluate the arithmetic expression",
+                  "Display the computed result",
+                  "Allow clearing the current calculation"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.7719351237008687,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7719351237008687,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 1,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 1,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "structural_action_outcomes": {
+              "1": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+            },
+            "total_branch_count": 1
+          }
+        ],
+        "schema_version": 3,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED"
+      },
+      "repetition": 1,
+      "started_at": "2026-10-26T15:29:02.787201+00:00",
+      "status": "completed",
+      "stop_reason": "ALL_BRANCHES_CONFIRMED"
+    },
+    "reference/repeat_001": {
+      "attempt": 1,
+      "completed_iterations": 1,
+      "converged": true,
+      "elapsed_seconds": 25.234932799939997,
+      "experiment": {
+        "config_id": "reference",
+        "evaluator_few_shot_examples": 4,
+        "evaluator_temperature": 0.2,
+        "experiment": "reference",
+        "parent_threshold": 0.68
+      },
+      "finalHighLevelGoals": {
+        "goals": [
+          {
+            "actor": {
+              "description": "A person using the smartphone app to perform basic calculations.",
+              "name": "User"
+            },
+            "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+            "name": "Enable quick and accurate basic arithmetic operations"
+          }
+        ]
+      },
+      "finalLowLevelGoals": {
+        "low_level_goals": [
+          {
+            "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display a numeric keypad for input"
+          },
+          {
+            "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Accept user input for operands and operators"
+          },
+          {
+            "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Evaluate the arithmetic expression"
+          },
+          {
+            "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Display the computed result"
+          },
+          {
+            "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+            "high_level_associated": {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            },
+            "name": "Allow clearing the current calculation"
+          }
+        ]
+      },
+      "finished_at": "2026-10-25T17:37:34.467833+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 1,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 4,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.2,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "initial_parent_reference_reconciliations": [],
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "exact_reference_first_then_unique_exact_description",
+          "pipeline_policy_version": "cosine_global_documentary_review_v111_schematic_inputs",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "rewrite_feedback_500_character_target_no_length_rejection",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 1,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 1,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "converged": true,
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "A person using the smartphone app to perform basic calculations.",
+                "name": "User"
+              },
+              "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+              "name": "Enable quick and accurate basic arithmetic operations"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display a numeric keypad for input"
+            },
+            {
+              "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Accept user input for operands and operators"
+            },
+            {
+              "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Evaluate the arithmetic expression"
+            },
+            {
+              "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Display the computed result"
+            },
+            {
+              "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "A person using the smartphone app to perform basic calculations.",
+                  "name": "User"
+                },
+                "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                "name": "Enable quick and accurate basic arithmetic operations"
+              },
+              "name": "Allow clearing the current calculation"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "changes": {
+              "hlg_added": [],
+              "hlg_removed": [],
+              "llg_added": [],
+              "llg_removed": []
+            },
+            "completed_branch_count": 1,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED"
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 27,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3188,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3215
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 25,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3221,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3246
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 13762,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 26,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 3124,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 3150
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1"
+                    ],
+                    "valid_branch_ids": [
+                      "1"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "A person using the smartphone app to perform basic calculations.",
+                    "name": "User"
+                  },
+                  "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                  "name": "Enable quick and accurate basic arithmetic operations"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display a numeric keypad for input"
+                  },
+                  {
+                    "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Accept user input for operands and operators"
+                  },
+                  {
+                    "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Evaluate the arithmetic expression"
+                  },
+                  {
+                    "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Display the computed result"
+                  },
+                  {
+                    "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "A person using the smartphone app to perform basic calculations.",
+                        "name": "User"
+                      },
+                      "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                      "name": "Enable quick and accurate basic arithmetic operations"
+                    },
+                    "name": "Allow clearing the current calculation"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Show a virtual keypad with digits 0-9 and basic operation symbols (+, -, *, /) for user input.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display a numeric keypad for input"
+                },
+                {
+                  "description": "Capture and validate user input for numbers and operators in sequence to build an arithmetic expression.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Accept user input for operands and operators"
+                },
+                {
+                  "description": "Parse and compute the mathematical expression using a safe evaluation engine to return the result.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Evaluate the arithmetic expression"
+                },
+                {
+                  "description": "Show the final result of the calculation prominently on the screen for user confirmation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Display the computed result"
+                },
+                {
+                  "description": "Provide a 'Clear' button or gesture to reset the current input and start a new calculation.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "A person using the smartphone app to perform basic calculations.",
+                      "name": "User"
+                    },
+                    "description": "Provide users with a reliable and intuitive interface to perform fundamental calculations such as addition, subtraction, multiplication, and division.",
+                    "name": "Enable quick and accurate basic arithmetic operations"
+                  },
+                  "name": "Allow clearing the current calculation"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Allow users to input, compute, and view the result of arithmetic expressions via a virtual keypad interface.",
+                "source_low_level_goal_ids": [
+                  "Display a numeric keypad for input",
+                  "Accept user input for operands and operators",
+                  "Evaluate the arithmetic expression",
+                  "Display the computed result",
+                  "Allow clearing the current calculation"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.7719351237008687,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7719351237008687,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 1,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 1,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "structural_action_outcomes": {
+              "1": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL"
+            },
+            "total_branch_count": 1
+          }
+        ],
+        "schema_version": 3,
+        "stop_reason": "ALL_BRANCHES_CONFIRMED"
+      },
+      "repetition": 1,
+      "started_at": "2026-10-25T17:37:09.233115+00:00",
+      "status": "completed",
+      "stop_reason": "ALL_BRANCHES_CONFIRMED"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-26T15:29:47.031998+00:00"
+}

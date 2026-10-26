@@ -1,0 +1,2269 @@
+{
+  "baseline": {
+    "actors": [
+      "Citizen",
+      "Municipal Administrator",
+      "Organization Office Staff",
+      "Technical Office Staff",
+      "External Maintenance Personnel"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 3
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors defined are comprehensive and accurately represent the roles involved in the Participium system based on the provided description. All relevant stakeholders (Citizen, Municipal Administrator, Organization Office Staff, Technical Office Staff, External Maintenance Personnel) are included without any omissions or contradictions.",
+      "highLevelGoals": "The high-level goals are well-defined, comprehensive, and align with the software description. They cover all functional aspects of Participium, including citizen participation, report processing, collaboration between departments, external company support, notifications, public statistics, and administrative oversight. No contradictions or omissions were found.",
+      "lowLevelGoals": "The low-level goals are mostly well-aligned with the high-level goals and the software description. However, there is a notable omission regarding the citizen's ability to follow other citizens' reports and receive notifications for them, which was mentioned in section C of the software description. Additionally, the low-level goal \"Update report status to 'in progress' or 'resolved'\" does not specify all possible state transitions (e.g., moving from \"Work in Progress\" to \"Resolved\"), which could lead to incomplete implementation. Lastly, the low-level goals do not address the citizen's ability to send and receive messages through the platform, which is also mentioned in section C."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        10.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        7.0,
+        5.0,
+        7.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 7.0
+    },
+    "description": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: https://iris.sad.ve.it/. The system, once developed, will be made available as open-source software to all Italian public administrations through the portal https://developers.italia.it/.\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section). If the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n- Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved. Note: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n- Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo). Moreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description. Even non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 5824,
+      "processedChars": 5824,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+      "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+      "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+      "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+      "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+      "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+      "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation."
+    ],
+    "lowLevelGoals": [
+      "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+      "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+      "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+      "System pushes in-app notification to citizen when report status updates.",
+      "Organization Office Staff approves a report to move it to the 'assigned' state.",
+      "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+      "Technical Office Staff assigns a report to a department or external company based on category.",
+      "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+      "External Maintenance Personnel views reports assigned to them and their current status.",
+      "External Maintenance Personnel updates report details and status via a secure login portal.",
+      "Citizen views aggregated public statistics on report trends and categories without login.",
+      "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+      "Municipal Administrator configures which external companies can access and manage reports.",
+      "Municipal Administrator generates and exports reports on urban issue trends and resolution times."
+    ],
+    "name": "SIA Project 25 26",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "In the Municipality of Turin, a system called Participium is being developed — an information system that enables citizen participation in the management of urban environments. It allows citizens to interact with the public administration by reporting inconveniences and malfunctions found in the city (e.g., potholes in the asphalt, sidewalks with architectural barriers, garbage in the streets, broken streetlights, etc.). An example of a similar information system is IRIS in Venice: https://iris.sad.ve.it/. The system, once developed, will be made available as open-source software to all Italian public administrations through the portal https://developers.italia.it/.\n\nA. REPORTS\nCitizens can submit reports only if they have registered in the system with a username, first name, and last name. Once the registration is received, the user gets an email with a confirmation link. The registration becomes valid, and the user can use the system only after confirming through that link. Once registered, a citizen can submit reports by selecting a point on the map of Turin (which will be saved with latitude and longitude values) and filling in a problem form with the following mandatory fields: title, textual description, category (chosen from a predefined list). It is also mandatory to attach one or more photos (up to 3 per report, with each photo stored with its file path on the server). The possible problem categories are:\n• Waterworks – Drinking water\n• Architectural Barriers\n• Sewerage\n• Public Lighting\n• Waste\n• Road Signs and Traffic Lights\n• Roads and Urban Furniture\n• Public Green Areas and Playgrounds\n• Other\nAfter entering all the information and the pictures, the system asks the citizen whether they want the report to be anonymous (the name will not appear in the public list of all reports).\n\nB. REPORT LIFECYCLE\nOnce submitted, the report is in the “Pending Approval” state until the Organization Office of the Municipality of Turin performs a preliminary review of citizen reports, marking them as accepted or rejected. The possible states for a report are: Pending Approval, In Progress, Work in Progress, Suspended, Rejected. After approval, accepted reports move to the “In Progress” state, at which point they are assigned to the technical office responsible, based on the problem category. Once the intervention is planned, the state changes to “Work in Progress”, indicating that the issue resolution has started. In some cases, for organizational or technical reasons, the report can be set to “Suspended”, awaiting further evaluation or resources. When the problem is solved, the technical office updates the status and closes the report. In case of rejection, a written explanation from the Organization Office is mandatory (see next section). If the intervention must be carried out by maintenance personnel from an external company (for example, Enel X for Public Lighting, or company Y for specific reports based on their content), two cases are possible:\n- Case 1: The company has access to Participium. In this case, the technical office assigns the report to users from the corresponding company. External maintenance personnel can move the report from Assigned to In Progress. Staff from the technical office and external maintenance workers can exchange information and comments through the report, but these are not visible to the reporting citizen (nor to other citizens). Once the work is completed, the external maintainer can mark the report as resolved. Note: Automatic assignment of all reports in a certain category to the external company (bypassing the initial review by the public relations officer of the municipality) is possible only if previously configured by the municipal administrator.\n- Case 2: The company does NOT have access to Participium. In this case, the external company updates the technical office outside Participium, and once the problems are solved, a staff member from the technical office will manually move the report to the Resolved state.\n\nC. CITIZEN UPDATES\nTo strengthen trust between citizens and institutions, the citizen can receive updates regarding their own reports through various channels. First, at every state change, the citizen receives a notification on the platform with the corresponding update. Furthermore, municipal operators updating reports can send the reporting citizen a message through the platform, to which it can reply. The system must allow this functionality to be accessible by external chatbots as well. Each time the citizen receives a notification on the platform, they also get an email (this option can be disabled in the user settings panel, where they can also upload a personal photo). Moreover, after the approval phase, accepted reports immediately become visible on the Participium portal: they appear both on an interactive map of Turin, geolocated based on the citizen’s selected point, and in a summary table that allows filtering and sorting reports by category, status, or date. In both views, the reporter’s name (“anonymous” if that option was chosen) and the report title are displayed. Clicking on the title opens a page with the description. Even non-registered users can view both the maps and the summary table. Once logged into Participium, citizens can follow other citizens’ open reports and receive notifications (following the same rules as for their own reports).\n\nD. STATISTICS\nThe system allows viewing public and private statistics. Public statistics are visible in a dedicated section of the website and concern the number of reports per category, and trends over day, week, or month. They are also visible to non-registered users. In the private section, accessible only to administrators, it is possible to view, in addition to the public statistics, charts and tables.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Registered user who submits reports and receives updates about their reports.",
+          "name": "Citizen"
+        },
+        {
+          "description": "Administrator who configures system settings and manages access for external companies.",
+          "name": "Municipal Administrator"
+        },
+        {
+          "description": "Staff responsible for reviewing and approving citizen reports.",
+          "name": "Organization Office Staff"
+        },
+        {
+          "description": "Staff responsible for assigning and managing reports based on category.",
+          "name": "Technical Office Staff"
+        },
+        {
+          "description": "Maintenance workers from external companies who handle reports assigned to them.",
+          "name": "External Maintenance Personnel"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Registered user who submits reports and receives updates about their reports.",
+            "name": "Citizen"
+          },
+          "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+          "name": "Enable Citizen Participation in Urban Management"
+        },
+        {
+          "actor": {
+            "description": "Staff responsible for reviewing and approving citizen reports.",
+            "name": "Organization Office Staff"
+          },
+          "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+          "name": "Ensure Efficient and Transparent Report Processing"
+        },
+        {
+          "actor": {
+            "description": "Staff responsible for assigning and managing reports based on category.",
+            "name": "Technical Office Staff"
+          },
+          "description": "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+          "name": "Facilitate Cross-Functional Collaboration Between Municipal Departments"
+        },
+        {
+          "actor": {
+            "description": "Maintenance workers from external companies who handle reports assigned to them.",
+            "name": "External Maintenance Personnel"
+          },
+          "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+          "name": "Support External Companies in Managing Assigned Reports"
+        },
+        {
+          "actor": {
+            "description": "Registered user who submits reports and receives updates about their reports.",
+            "name": "Citizen"
+          },
+          "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+          "name": "Provide Real-Time Visibility and Trust Through Notifications"
+        },
+        {
+          "actor": {
+            "description": "Registered user who submits reports and receives updates about their reports.",
+            "name": "Citizen"
+          },
+          "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+          "name": "Enable Public Access to Urban Issue Statistics"
+        },
+        {
+          "actor": {
+            "description": "Administrator who configures system settings and manages access for external companies.",
+            "name": "Municipal Administrator"
+          },
+          "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+          "name": "Support Administrative Oversight and Strategic Decision-Making"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Registered user who submits reports and receives updates about their reports.",
+              "name": "Citizen"
+            },
+            "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+            "name": "Enable Citizen Participation in Urban Management"
+          },
+          "name": "Submit a new urban issue report"
+        },
+        {
+          "description": "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Registered user who submits reports and receives updates about their reports.",
+              "name": "Citizen"
+            },
+            "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+            "name": "Enable Citizen Participation in Urban Management"
+          },
+          "name": "View the status of a submitted report"
+        },
+        {
+          "description": "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Registered user who submits reports and receives updates about their reports.",
+              "name": "Citizen"
+            },
+            "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+            "name": "Provide Real-Time Visibility and Trust Through Notifications"
+          },
+          "name": "Receive automated email notification on report status change"
+        },
+        {
+          "description": "System pushes in-app notification to citizen when report status updates.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Registered user who submits reports and receives updates about their reports.",
+              "name": "Citizen"
+            },
+            "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+            "name": "Provide Real-Time Visibility and Trust Through Notifications"
+          },
+          "name": "Receive in-app notification on report status change"
+        },
+        {
+          "description": "Organization Office Staff approves a report to move it to the 'assigned' state.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Staff responsible for reviewing and approving citizen reports.",
+              "name": "Organization Office Staff"
+            },
+            "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+            "name": "Ensure Efficient and Transparent Report Processing"
+          },
+          "name": "Approve a citizen report for assignment"
+        },
+        {
+          "description": "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Staff responsible for reviewing and approving citizen reports.",
+              "name": "Organization Office Staff"
+            },
+            "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+            "name": "Ensure Efficient and Transparent Report Processing"
+          },
+          "name": "Reject a citizen report with written explanation"
+        },
+        {
+          "description": "Technical Office Staff assigns a report to a department or external company based on category.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Staff responsible for assigning and managing reports based on category.",
+              "name": "Technical Office Staff"
+            },
+            "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+            "name": "Ensure Efficient and Transparent Report Processing"
+          },
+          "name": "Assign a report to a technical office or external company"
+        },
+        {
+          "description": "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Staff responsible for assigning and managing reports based on category.",
+              "name": "Technical Office Staff"
+            },
+            "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+            "name": "Ensure Efficient and Transparent Report Processing"
+          },
+          "name": "Update report status to 'in progress' or 'resolved'"
+        },
+        {
+          "description": "External Maintenance Personnel views reports assigned to them and their current status.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Maintenance workers from external companies who handle reports assigned to them.",
+              "name": "External Maintenance Personnel"
+            },
+            "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+            "name": "Support External Companies in Managing Assigned Reports"
+          },
+          "name": "View assigned reports and their statuses"
+        },
+        {
+          "description": "External Maintenance Personnel updates report details and status via a secure login portal.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Maintenance workers from external companies who handle reports assigned to them.",
+              "name": "External Maintenance Personnel"
+            },
+            "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+            "name": "Support External Companies in Managing Assigned Reports"
+          },
+          "name": "Update report details and status via secure portal"
+        },
+        {
+          "description": "Citizen views aggregated public statistics on report trends and categories without login.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Registered user who submits reports and receives updates about their reports.",
+              "name": "Citizen"
+            },
+            "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+            "name": "Enable Public Access to Urban Issue Statistics"
+          },
+          "name": "View public urban issue statistics"
+        },
+        {
+          "description": "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Administrator who configures system settings and manages access for external companies.",
+              "name": "Municipal Administrator"
+            },
+            "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+            "name": "Support Administrative Oversight and Strategic Decision-Making"
+          },
+          "name": "Access detailed system statistics and configuration tools"
+        },
+        {
+          "description": "Municipal Administrator configures which external companies can access and manage reports.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Administrator who configures system settings and manages access for external companies.",
+              "name": "Municipal Administrator"
+            },
+            "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+            "name": "Support Administrative Oversight and Strategic Decision-Making"
+          },
+          "name": "Configure external company access permissions"
+        },
+        {
+          "description": "Municipal Administrator generates and exports reports on urban issue trends and resolution times.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Administrator who configures system settings and manages access for external companies.",
+              "name": "Municipal Administrator"
+            },
+            "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+            "name": "Support Administrative Oversight and Strategic Decision-Making"
+          },
+          "name": "Generate and export urban issue trend reports"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "59f13e51d837481cd452e910bb951c6a0a1944ff2b19e92d1abbde1ad0ccb573",
+  "name": "SIA Project 25 26",
+  "runs": {
+    "bottom_up": {
+      "attempt": 1,
+      "completed_iterations": 0,
+      "converged": null,
+      "elapsed_seconds": 271.4977438999922,
+      "error": "KeyboardInterrupt: ",
+      "experiment": {
+        "branchConfirmationPolicy": "REEVALUATE_ALL_BRANCHES_EVERY_ITERATION",
+        "collectionRepairBudgetPolicy": "ONE_PASS_PER_GLOBAL_ITERATION_NO_SEPARATE_CAP",
+        "consoleVerbosity": "detailed",
+        "critic1FewShotExamples": 4,
+        "critic1Policy": "ONE_GLOBAL_DOCUMENTARY_RESPONSE_WITH_FIXED_COSINE_MATCHES",
+        "datasetBatchSize": 3,
+        "evaluatorContextLength": 16384,
+        "evaluatorEndpoint": "/v1/chat/completions",
+        "evaluatorMaxCompletionTokens": 4096,
+        "evaluatorModels": [
+          "mistralai/ministral-3-14b-reasoning",
+          "ibm/granite-3.2-8b",
+          "google/gemma-4-12b-qat"
+        ],
+        "evaluatorPromptingMode": "FEW_SHOT",
+        "evaluatorProvider": "LM Studio (local)",
+        "evaluatorResponseFormat": "json_schema",
+        "evaluatorVoteAttempts": 3,
+        "evaluatorVotingQuorum": 2,
+        "evaluatorVotingTemperature": 0.2,
+        "generationCriticFewShotExamples": 4,
+        "generationReflectionEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+        "generatorModel": "qwen/qwen3-vl-8b",
+        "generatorProvider": "LM Studio (local)",
+        "groupingPolicy": "EXACT_EMBEDDED_PARENT_NAME_DESCRIPTION_AND_ACTOR",
+        "hlgGenerationEvaluatorEnabled": true,
+        "hlgGenerationPromptingMode": "ZERO_SHOT",
+        "interBatchDelaySeconds": 0,
+        "interDatasetDelaySeconds": 0,
+        "iterationOutputFiles": [
+          "datasets/<progetto>.json",
+          "results_summary.json"
+        ],
+        "llgGenerationEvaluatorEnabled": true,
+        "llgGenerationPromptingMode": "ZERO_SHOT",
+        "maxIterations": 25,
+        "maxReflectionAttempts": 3,
+        "parentReferencePolicy": "UNIQUE_EXACT_APPROVED_DESCRIPTION",
+        "pipelinePolicyVersion": "cosine_global_documentary_review_v99_gore_why_reconstruction_schema3",
+        "qualityThreshold": 8.5,
+        "reconstructionRelationships": [
+          "EQUIVALENT",
+          "NOT_EQUIVALENT"
+        ],
+        "repairAcceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+        "repairFeedbackPolicy": "join_agreeing_feedback_critique_only",
+        "repairPolicy": "original_top_down_start_at_hlg_then_llgs",
+        "repairTraceField": "top_down_reflections",
+        "similarity": {
+          "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+          "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+          "device": "cpu",
+          "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+          "duplicate_comparisons_scope": "all_current_original_hlgs",
+          "duplicate_threshold": 0.68,
+          "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+          "parent_comparisons_scope": "all_current_original_hlgs",
+          "parent_text": "description",
+          "parent_threshold": 0.68,
+          "parent_threshold_calibration": {
+            "active_threshold_matches_default": true,
+            "annotation": "user-directed provisional value; not independently validated",
+            "selected_default": 0.68,
+            "status": "shared_threshold"
+          },
+          "preprocessing": "none",
+          "requested_revision": "main",
+          "similarity_threshold": 0.68,
+          "threshold_policy": "prime_against_all_original_hlgs",
+          "thresholds_validated": false
+        },
+        "structuralActionPriority": "REMOVALS_THEN_HLG_ENTRY_TOP_DOWN_HANDOFF"
+      },
+      "finished_at": "2026-10-24T18:41:44.416970+00:00",
+      "globalGoalCycle": {
+        "completed_iterations": 0,
+        "configuration": {
+          "action_schedule": "all_approved_removals_then_all_surviving_rewrite_suggestions",
+          "context_recovery_policy": "reload_affected_model_double_context",
+          "evaluator_attempts_per_iteration": 3,
+          "evaluator_endpoint": "/v1/chat/completions",
+          "evaluator_few_shot_examples": 4,
+          "evaluator_models": [
+            "mistralai/ministral-3-14b-reasoning",
+            "ibm/granite-3.2-8b",
+            "google/gemma-4-12b-qat"
+          ],
+          "evaluator_response_format": "json_schema",
+          "evaluator_retry_policy": "whole_global_response_per_model",
+          "evaluator_temperature": 0.2,
+          "execution_structure": "functions_over_top_down_models",
+          "generator_intervention_policy": "full_collection_generation_no_bottom_up_freeze",
+          "goal_counter_scope": "position_within_iteration_snapshot",
+          "hierarchy_input_policy": "original_top_down_hlg_and_llg_collections",
+          "hlg_collection_repair_policy": "one_batch_pass_per_iteration_until_global_stop",
+          "max_global_iterations": 25,
+          "output_file_prefix": "",
+          "output_verbosity": "detailed",
+          "parent_reference_policy": "unique_approved_description_then_canonical_parent",
+          "pipeline_policy_version": "cosine_global_documentary_review_v99_gore_why_reconstruction_schema3",
+          "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
+          "removal_schedule": "all_approved_removals_before_batch_rewrites",
+          "repair_acceptance": "hlg_critic_approval_then_llg_structural_validation_atomic_commit",
+          "repair_critic_enabled": true,
+          "repair_feedback_policy": "join_agreeing_feedback_critique_only",
+          "repair_policy": "original_top_down_start_at_hlg_then_llgs",
+          "repair_prompting_mode": "ZERO_SHOT",
+          "repair_quality_threshold": 8.5,
+          "repair_reflection_max_attempts": 3,
+          "response_length_policy": "prompt_guidance_only_no_word_limit",
+          "review_payload_format": "categorical_matrix_v5_prime_original_labels",
+          "similarity": {
+            "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+            "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+            "device": "cpu",
+            "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+            "duplicate_comparisons_scope": "all_current_original_hlgs",
+            "duplicate_threshold": 0.68,
+            "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+            "original_hlg_comparison_count": 42,
+            "parent_comparisons_scope": "all_current_original_hlgs",
+            "parent_hlg_comparison_count": 6,
+            "parent_text": "description",
+            "parent_threshold": 0.68,
+            "parent_threshold_calibration": {
+              "active_threshold_matches_default": true,
+              "annotation": "user-directed provisional value; not independently validated",
+              "selected_default": 0.68,
+              "status": "shared_threshold"
+            },
+            "preprocessing": "none",
+            "requested_revision": "main",
+            "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+            "similarity_technical_attempts": 3,
+            "similarity_threshold": 0.68,
+            "threshold_policy": "prime_against_all_original_hlgs",
+            "thresholds_validated": false
+          },
+          "similarity_technical_attempts": 3
+        },
+        "final_high_level_goals": {
+          "goals": [
+            {
+              "actor": {
+                "description": "Registered user who submits reports and receives updates about their reports.",
+                "name": "Citizen"
+              },
+              "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+              "name": "Enable Citizen Participation in Urban Management"
+            },
+            {
+              "actor": {
+                "description": "Staff responsible for reviewing and approving citizen reports.",
+                "name": "Organization Office Staff"
+              },
+              "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+              "name": "Ensure Efficient and Transparent Report Processing"
+            },
+            {
+              "actor": {
+                "description": "Staff responsible for assigning and managing reports based on category.",
+                "name": "Technical Office Staff"
+              },
+              "description": "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+              "name": "Facilitate Cross-Functional Collaboration Between Municipal Departments"
+            },
+            {
+              "actor": {
+                "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                "name": "External Maintenance Personnel"
+              },
+              "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+              "name": "Support External Companies in Managing Assigned Reports"
+            },
+            {
+              "actor": {
+                "description": "Registered user who submits reports and receives updates about their reports.",
+                "name": "Citizen"
+              },
+              "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+              "name": "Provide Real-Time Visibility and Trust Through Notifications"
+            },
+            {
+              "actor": {
+                "description": "Registered user who submits reports and receives updates about their reports.",
+                "name": "Citizen"
+              },
+              "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+              "name": "Enable Public Access to Urban Issue Statistics"
+            },
+            {
+              "actor": {
+                "description": "Administrator who configures system settings and manages access for external companies.",
+                "name": "Municipal Administrator"
+              },
+              "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+              "name": "Support Administrative Oversight and Strategic Decision-Making"
+            }
+          ]
+        },
+        "final_low_level_goals": {
+          "low_level_goals": [
+            {
+              "description": "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Registered user who submits reports and receives updates about their reports.",
+                  "name": "Citizen"
+                },
+                "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                "name": "Enable Citizen Participation in Urban Management"
+              },
+              "name": "Submit a new urban issue report"
+            },
+            {
+              "description": "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Registered user who submits reports and receives updates about their reports.",
+                  "name": "Citizen"
+                },
+                "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                "name": "Enable Citizen Participation in Urban Management"
+              },
+              "name": "View the status of a submitted report"
+            },
+            {
+              "description": "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Registered user who submits reports and receives updates about their reports.",
+                  "name": "Citizen"
+                },
+                "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                "name": "Provide Real-Time Visibility and Trust Through Notifications"
+              },
+              "name": "Receive automated email notification on report status change"
+            },
+            {
+              "description": "System pushes in-app notification to citizen when report status updates.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Registered user who submits reports and receives updates about their reports.",
+                  "name": "Citizen"
+                },
+                "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                "name": "Provide Real-Time Visibility and Trust Through Notifications"
+              },
+              "name": "Receive in-app notification on report status change"
+            },
+            {
+              "description": "Organization Office Staff approves a report to move it to the 'assigned' state.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Staff responsible for reviewing and approving citizen reports.",
+                  "name": "Organization Office Staff"
+                },
+                "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                "name": "Ensure Efficient and Transparent Report Processing"
+              },
+              "name": "Approve a citizen report for assignment"
+            },
+            {
+              "description": "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Staff responsible for reviewing and approving citizen reports.",
+                  "name": "Organization Office Staff"
+                },
+                "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                "name": "Ensure Efficient and Transparent Report Processing"
+              },
+              "name": "Reject a citizen report with written explanation"
+            },
+            {
+              "description": "Technical Office Staff assigns a report to a department or external company based on category.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Staff responsible for assigning and managing reports based on category.",
+                  "name": "Technical Office Staff"
+                },
+                "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                "name": "Ensure Efficient and Transparent Report Processing"
+              },
+              "name": "Assign a report to a technical office or external company"
+            },
+            {
+              "description": "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Staff responsible for assigning and managing reports based on category.",
+                  "name": "Technical Office Staff"
+                },
+                "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                "name": "Ensure Efficient and Transparent Report Processing"
+              },
+              "name": "Update report status to 'in progress' or 'resolved'"
+            },
+            {
+              "description": "External Maintenance Personnel views reports assigned to them and their current status.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                  "name": "External Maintenance Personnel"
+                },
+                "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                "name": "Support External Companies in Managing Assigned Reports"
+              },
+              "name": "View assigned reports and their statuses"
+            },
+            {
+              "description": "External Maintenance Personnel updates report details and status via a secure login portal.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                  "name": "External Maintenance Personnel"
+                },
+                "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                "name": "Support External Companies in Managing Assigned Reports"
+              },
+              "name": "Update report details and status via secure portal"
+            },
+            {
+              "description": "Citizen views aggregated public statistics on report trends and categories without login.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Registered user who submits reports and receives updates about their reports.",
+                  "name": "Citizen"
+                },
+                "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                "name": "Enable Public Access to Urban Issue Statistics"
+              },
+              "name": "View public urban issue statistics"
+            },
+            {
+              "description": "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Administrator who configures system settings and manages access for external companies.",
+                  "name": "Municipal Administrator"
+                },
+                "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                "name": "Support Administrative Oversight and Strategic Decision-Making"
+              },
+              "name": "Access detailed system statistics and configuration tools"
+            },
+            {
+              "description": "Municipal Administrator configures which external companies can access and manage reports.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Administrator who configures system settings and manages access for external companies.",
+                  "name": "Municipal Administrator"
+                },
+                "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                "name": "Support Administrative Oversight and Strategic Decision-Making"
+              },
+              "name": "Configure external company access permissions"
+            },
+            {
+              "description": "Municipal Administrator generates and exports reports on urban issue trends and resolution times.",
+              "high_level_associated": {
+                "actor": {
+                  "description": "Administrator who configures system settings and manages access for external companies.",
+                  "name": "Municipal Administrator"
+                },
+                "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                "name": "Support Administrative Oversight and Strategic Decision-Making"
+              },
+              "name": "Generate and export urban issue trend reports"
+            }
+          ]
+        },
+        "iterations": [
+          {
+            "checkpoint_complete": false,
+            "completed_branch_count": 7,
+            "evaluations": {
+              "1": {
+                "branch_id": "1",
+                "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "feedback": {
+                  "critique": "For the goal 'Enable Citizen Participation in Urban Management': Restrict the scope to explicitly cover reporting urban issues with location and photos, tracking report status, and ensuring transparency. Remove undocumented capabilities like civic engagement or unspecified tracking features.\n\nFor the goal 'Enable Citizen Participation in Urban Management': The parent goal is too broad. Rewrite it to specifically include reporting urban issues with location and photo requirements, and tracking the status of reports. Preserve the core intention of civic engagement."
+                },
+                "rationale": "NOT_EQUIVALENT: the prime summarizes citizen reporting and tracking, which aligns with the project description. The original HLG's scope ('Enable Citizen Participation in Urban Management') is overly broad and includes undocumented capabilities (e.g., no mention of photo attachments or category selection). The actor responsibility is correct, but the formulation must be narrowed to reflect the documented requirements.\n\nNOT_EQUIVALENT: the prime summarizes citizen reporting and tracking, which is the core requirement. The parent goal 'Enable Citizen Participation in Urban Management' is too broad and lacks the specific mandatory fields (location, photos) and the core tracking functionality."
+              },
+              "2": {
+                "branch_id": "2",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "rationale": "EQUIVALENT: the prime ('Manage report status transitions through approval or rejection by organization office staff') aligns with the original HLG's scope and actor responsibility. The project description fully supports this workflow, and no defects are identified.\n\nEQUIVALENT: Both goals align in ensuring efficient and transparent report processing through structured workflow and clear state transitions. The prime accurately represents this process, so keep the original HLG.\n\nEQUIVALENT: the prime summarizes the organization office's role in status transitions, which is correctly captured by the parent goal. The parent goal's description of a structured workflow with clear state transitions and accountability aligns with the source. No correction needed."
+              },
+              "3": {
+                "branch_id": "3",
+                "decision": null,
+                "evaluation_status": "INCONCLUSIVE",
+                "rationale": "No two valid documentary actions agree."
+              },
+              "4": {
+                "branch_id": "4",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "rationale": "EQUIVALENT: the prime ('External Maintenance Personnel manages assigned reports by viewing their status and updating details securely') matches the original HLG's scope and actor responsibility. The project description confirms this functionality, including secure communication channels.\n\nEQUIVALENT: The prime covers external maintenance personnel managing assigned reports with secure communication channels for internal coordination. This aligns with the original HLG's description of supporting external companies in managing their assigned reports.\n\nEQUIVALENT: the prime summarizes the management of assigned reports by external companies, which is correctly captured by the parent goal. The parent goal's description of secure communication channels and access for external companies aligns with the source. No correction needed."
+              },
+              "5": {
+                "branch_id": "5",
+                "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "feedback": {
+                  "critique": "For the goal 'Provide Real-Time Visibility and Trust Through Notifications': Restrict the scope to explicitly cover report status updates via email and in-app notifications. Remove undocumented capabilities like 'trust' or unspecified visibility features.\n\nFor the goal 'Provide Real-Time Visibility and Trust Through Notifications': The parent goal is too broad. Rewrite it to explicitly include platform notifications and emails as the primary communication channels for status updates and messages. Preserve the core intention of building trust."
+                },
+                "rationale": "NOT_EQUIVALENT: the prime ('Notify citizen of report status updates via email and in-app notification') aligns with the project description's requirement for notifications. The original HLG's scope ('Provide Real-Time Visibility and Trust Through Notifications') is overly broad, including undocumented capabilities like 'trust through notifications.' The actor responsibility is correct, but the formulation must be narrowed to focus solely on status updates via email and in-app notifications.\n\nNOT_EQUIVALENT: the prime summarizes notifications via email and in-app, which is the core requirement. The parent goal 'Provide Real-Time Visibility and Trust Through Notifications' is too broad and does not explicitly mention the communication channel requirements (platform notifications and emails)."
+              },
+              "6": {
+                "branch_id": "6",
+                "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "rationale": "EQUIVALENT: the prime ('Provide public access to aggregated statistics on report trends and categories') matches the original HLG's scope and actor responsibility. The project description fully supports this functionality, including public visibility for non-registered users.\n\nEQUIVALENT: Both goals aim to provide public access to urban issue statistics for awareness and data-driven planning. The prime accurately represents this objective, so keep the original HLG.\n\nEQUIVALENT: the prime summarizes public access to aggregated statistics, which is correctly captured by the parent goal. The parent goal's description of promoting awareness and data-driven urban planning aligns with the source. No correction needed."
+              },
+              "7": {
+                "branch_id": "7",
+                "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                "evaluation_status": "DECIDED",
+                "feedback": {
+                  "critique": "For the goal 'Support Administrative Oversight and Strategic Decision-Making': Restrict the scope to explicitly cover urban reporting management and external company access configuration. Remove undocumented capabilities like 'strategic decision-making' or unspecified oversight features.\n\nFor the goal 'Support Administrative Oversight and Strategic Decision-Making': The parent goal is too broad. Rewrite it to specifically include the configuration of external company access and private statistics for strategic decision-making. Preserve the core intention of administrative oversight."
+                },
+                "rationale": "NOT_EQUIVALENT: the prime ('Manage urban reporting and external access configuration') aligns with the project description's requirements for municipal administrators. The original HLG's scope ('Support Administrative Oversight and Strategic Decision-Making') is overly broad, including undocumented capabilities like 'strategic decision-making.' The actor responsibility is correct, but the formulation must be narrowed to focus on system configuration and external access management.\n\nNOT_EQUIVALENT: the prime summarizes the management of urban reporting and external access configuration, which is the core requirement. The parent goal 'Support Administrative Oversight and Strategic Decision-Making' is too broad and does not explicitly mention the configuration of external company access."
+              }
+            },
+            "evaluator_responses": [
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "mistralai/ministral-3-14b-reasoning",
+                      "max_output_tokens": 4096,
+                      "model": "mistralai/ministral-3-14b-reasoning",
+                      "prompt_characters": 21665,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 719,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 4881,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 5600
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ],
+                    "valid_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Enable Citizen Participation in Urban Management': Restrict the scope to explicitly cover reporting urban issues with location and photos, tracking report status, and ensuring transparency. Remove undocumented capabilities like civic engagement or unspecified tracking features."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime summarizes citizen reporting and tracking, which aligns with the project description. The original HLG's scope ('Enable Citizen Participation in Urban Management') is overly broad and includes undocumented capabilities (e.g., no mention of photo attachments or category selection). The actor responsibility is correct, but the formulation must be narrowed to reflect the documented requirements."
+                  },
+                  {
+                    "branch_id": "2",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime ('Manage report status transitions through approval or rejection by organization office staff') aligns with the original HLG's scope and actor responsibility. The project description fully supports this workflow, and no defects are identified."
+                  },
+                  {
+                    "branch_id": "4",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime ('External Maintenance Personnel manages assigned reports by viewing their status and updating details securely') matches the original HLG's scope and actor responsibility. The project description confirms this functionality, including secure communication channels."
+                  },
+                  {
+                    "branch_id": "5",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Provide Real-Time Visibility and Trust Through Notifications': Restrict the scope to explicitly cover report status updates via email and in-app notifications. Remove undocumented capabilities like 'trust' or unspecified visibility features."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime ('Notify citizen of report status updates via email and in-app notification') aligns with the project description's requirement for notifications. The original HLG's scope ('Provide Real-Time Visibility and Trust Through Notifications') is overly broad, including undocumented capabilities like 'trust through notifications.' The actor responsibility is correct, but the formulation must be narrowed to focus solely on status updates via email and in-app notifications."
+                  },
+                  {
+                    "branch_id": "6",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime ('Provide public access to aggregated statistics on report trends and categories') matches the original HLG's scope and actor responsibility. The project description fully supports this functionality, including public visibility for non-registered users."
+                  },
+                  {
+                    "branch_id": "7",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Support Administrative Oversight and Strategic Decision-Making': Restrict the scope to explicitly cover urban reporting management and external company access configuration. Remove undocumented capabilities like 'strategic decision-making' or unspecified oversight features."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime ('Manage urban reporting and external access configuration') aligns with the project description's requirements for municipal administrators. The original HLG's scope ('Support Administrative Oversight and Strategic Decision-Making') is overly broad, including undocumented capabilities like 'strategic decision-making.' The actor responsibility is correct, but the formulation must be narrowed to focus on system configuration and external access management."
+                  }
+                ],
+                "model": "mistralai/ministral-3-14b-reasoning",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "ibm/granite-3.2-8b",
+                      "max_output_tokens": 4096,
+                      "model": "ibm/granite-3.2-8b",
+                      "prompt_characters": 21665,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 468,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 5035,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 5503
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ],
+                    "valid_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "NOT_EQUIVALENT: The prime focuses on reporting with location and photo, while the original HLG emphasizes broader citizen participation in urban management. Despite some overlap, the original goal includes additional aspects like tracking report status to foster transparency and civic engagement. Keep the original as it covers a more comprehensive scope."
+                  },
+                  {
+                    "branch_id": "2",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: Both goals align in ensuring efficient and transparent report processing through structured workflow and clear state transitions. The prime accurately represents this process, so keep the original HLG."
+                  },
+                  {
+                    "branch_id": "4",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: The prime covers external maintenance personnel managing assigned reports with secure communication channels for internal coordination. This aligns with the original HLG's description of supporting external companies in managing their assigned reports."
+                  },
+                  {
+                    "branch_id": "5",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "NOT_EQUIVALENT: While both goals involve notifying citizens, the prime focuses solely on email and in-app notifications. The original HLG emphasizes real-time visibility and trust through updates, including platform notifications. Keep the original as it encompasses a broader range of communication methods."
+                  },
+                  {
+                    "branch_id": "6",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: Both goals aim to provide public access to urban issue statistics for awareness and data-driven planning. The prime accurately represents this objective, so keep the original HLG."
+                  },
+                  {
+                    "branch_id": "7",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "NOT_EQUIVALENT: The original HLG supports administrative oversight and strategic decision-making by providing municipal administrators with private access to detailed statistics and system configuration tools. This includes managing external company access and optimizing resource allocation, which the prime does not fully capture."
+                  }
+                ],
+                "model": "ibm/granite-3.2-8b",
+                "status": "VALID"
+              },
+              {
+                "attempts": [
+                  {
+                    "attempt": 1,
+                    "errors": {},
+                    "generation": {
+                      "accepted": true,
+                      "attempt_budget_scope": "per_model_per_iteration",
+                      "endpoint": "/v1/chat/completions",
+                      "finish_reason": "stop",
+                      "global_retry_policy": "discard_entire_invalid_response",
+                      "loaded_context_length": 16384,
+                      "loaded_instance_id": "google/gemma-4-12b-qat",
+                      "max_output_tokens": 4096,
+                      "model": "google/gemma-4-12b-qat",
+                      "prompt_characters": 21665,
+                      "recovery_requested_context_length": 16384,
+                      "requested_context_length": 16384,
+                      "structured_output": true,
+                      "temperature": 0.2,
+                      "usage": {
+                        "completion_tokens": 626,
+                        "completion_tokens_details": {
+                          "accepted_prediction_tokens": null,
+                          "audio_tokens": null,
+                          "reasoning_tokens": 0,
+                          "rejected_prediction_tokens": null,
+                          "text_tokens": null
+                        },
+                        "prompt_tokens": 4741,
+                        "prompt_tokens_details": null,
+                        "total_tokens": 5367
+                      }
+                    },
+                    "requested_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ],
+                    "valid_branch_ids": [
+                      "1",
+                      "2",
+                      "4",
+                      "5",
+                      "6",
+                      "7"
+                    ]
+                  }
+                ],
+                "decisions": [
+                  {
+                    "branch_id": "1",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Enable Citizen Participation in Urban Management': The parent goal is too broad. Rewrite it to specifically include reporting urban issues with location and photo requirements, and tracking the status of reports. Preserve the core intention of civic engagement."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime summarizes citizen reporting and tracking, which is the core requirement. The parent goal 'Enable Citizen Participation in Urban Management' is too broad and lacks the specific mandatory fields (location, photos) and the core tracking functionality."
+                  },
+                  {
+                    "branch_id": "2",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime summarizes the organization office's role in status transitions, which is correctly captured by the parent goal. The parent goal's description of a structured workflow with clear state transitions and accountability aligns with the source. No correction needed."
+                  },
+                  {
+                    "branch_id": "4",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime summarizes the management of assigned reports by external companies, which is correctly captured by the parent goal. The parent goal's description of secure communication channels and access for external companies aligns with the source. No correction needed."
+                  },
+                  {
+                    "branch_id": "5",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Provide Real-Time Visibility and Trust Through Notifications': The parent goal is too broad. Rewrite it to explicitly include platform notifications and emails as the primary communication channels for status updates and messages. Preserve the core intention of building trust."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime summarizes notifications via email and in-app, which is the core requirement. The parent goal 'Provide Real-Time Visibility and Trust Through Notifications' is too broad and does not explicitly mention the communication channel requirements (platform notifications and emails)."
+                  },
+                  {
+                    "branch_id": "6",
+                    "decision": "KEEP_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "rationale": "EQUIVALENT: the prime summarizes public access to aggregated statistics, which is correctly captured by the parent goal. The parent goal's description of promoting awareness and data-driven urban planning aligns with the source. No correction needed."
+                  },
+                  {
+                    "branch_id": "7",
+                    "decision": "REWRITE_ORIGINAL_HIGH_LEVEL_GOAL",
+                    "feedback": {
+                      "critique": "For the goal 'Support Administrative Oversight and Strategic Decision-Making': The parent goal is too broad. Rewrite it to specifically include the configuration of external company access and private statistics for strategic decision-making. Preserve the core intention of administrative oversight."
+                    },
+                    "rationale": "NOT_EQUIVALENT: the prime summarizes the management of urban reporting and external access configuration, which is the core requirement. The parent goal 'Support Administrative Oversight and Strategic Decision-Making' is too broad and does not explicitly mention the configuration of external company access."
+                  }
+                ],
+                "model": "google/gemma-4-12b-qat",
+                "status": "VALID"
+              }
+            ],
+            "high_level_goals": {
+              "goals": [
+                {
+                  "actor": {
+                    "description": "Registered user who submits reports and receives updates about their reports.",
+                    "name": "Citizen"
+                  },
+                  "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                  "name": "Enable Citizen Participation in Urban Management"
+                },
+                {
+                  "actor": {
+                    "description": "Staff responsible for reviewing and approving citizen reports.",
+                    "name": "Organization Office Staff"
+                  },
+                  "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                  "name": "Ensure Efficient and Transparent Report Processing"
+                },
+                {
+                  "actor": {
+                    "description": "Staff responsible for assigning and managing reports based on category.",
+                    "name": "Technical Office Staff"
+                  },
+                  "description": "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+                  "name": "Facilitate Cross-Functional Collaboration Between Municipal Departments"
+                },
+                {
+                  "actor": {
+                    "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                    "name": "External Maintenance Personnel"
+                  },
+                  "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                  "name": "Support External Companies in Managing Assigned Reports"
+                },
+                {
+                  "actor": {
+                    "description": "Registered user who submits reports and receives updates about their reports.",
+                    "name": "Citizen"
+                  },
+                  "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                  "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                },
+                {
+                  "actor": {
+                    "description": "Registered user who submits reports and receives updates about their reports.",
+                    "name": "Citizen"
+                  },
+                  "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                  "name": "Enable Public Access to Urban Issue Statistics"
+                },
+                {
+                  "actor": {
+                    "description": "Administrator who configures system settings and manages access for external companies.",
+                    "name": "Municipal Administrator"
+                  },
+                  "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                  "name": "Support Administrative Oversight and Strategic Decision-Making"
+                }
+              ]
+            },
+            "input_hierarchy": {
+              "high_level_goals": {
+                "goals": [
+                  {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                    "name": "Enable Citizen Participation in Urban Management"
+                  },
+                  {
+                    "actor": {
+                      "description": "Staff responsible for reviewing and approving citizen reports.",
+                      "name": "Organization Office Staff"
+                    },
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "name": "Ensure Efficient and Transparent Report Processing"
+                  },
+                  {
+                    "actor": {
+                      "description": "Staff responsible for assigning and managing reports based on category.",
+                      "name": "Technical Office Staff"
+                    },
+                    "description": "Enable seamless coordination between technical offices and external maintenance personnel to resolve urban issues efficiently.",
+                    "name": "Facilitate Cross-Functional Collaboration Between Municipal Departments"
+                  },
+                  {
+                    "actor": {
+                      "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                      "name": "External Maintenance Personnel"
+                    },
+                    "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                    "name": "Support External Companies in Managing Assigned Reports"
+                  },
+                  {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                    "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                  },
+                  {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                    "name": "Enable Public Access to Urban Issue Statistics"
+                  },
+                  {
+                    "actor": {
+                      "description": "Administrator who configures system settings and manages access for external companies.",
+                      "name": "Municipal Administrator"
+                    },
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making"
+                  }
+                ]
+              },
+              "low_level_goals": {
+                "low_level_goals": [
+                  {
+                    "description": "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Registered user who submits reports and receives updates about their reports.",
+                        "name": "Citizen"
+                      },
+                      "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                      "name": "Enable Citizen Participation in Urban Management"
+                    },
+                    "name": "Submit a new urban issue report"
+                  },
+                  {
+                    "description": "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Registered user who submits reports and receives updates about their reports.",
+                        "name": "Citizen"
+                      },
+                      "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                      "name": "Enable Citizen Participation in Urban Management"
+                    },
+                    "name": "View the status of a submitted report"
+                  },
+                  {
+                    "description": "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Registered user who submits reports and receives updates about their reports.",
+                        "name": "Citizen"
+                      },
+                      "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                      "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                    },
+                    "name": "Receive automated email notification on report status change"
+                  },
+                  {
+                    "description": "System pushes in-app notification to citizen when report status updates.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Registered user who submits reports and receives updates about their reports.",
+                        "name": "Citizen"
+                      },
+                      "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                      "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                    },
+                    "name": "Receive in-app notification on report status change"
+                  },
+                  {
+                    "description": "Organization Office Staff approves a report to move it to the 'assigned' state.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Staff responsible for reviewing and approving citizen reports.",
+                        "name": "Organization Office Staff"
+                      },
+                      "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                      "name": "Ensure Efficient and Transparent Report Processing"
+                    },
+                    "name": "Approve a citizen report for assignment"
+                  },
+                  {
+                    "description": "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Staff responsible for reviewing and approving citizen reports.",
+                        "name": "Organization Office Staff"
+                      },
+                      "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                      "name": "Ensure Efficient and Transparent Report Processing"
+                    },
+                    "name": "Reject a citizen report with written explanation"
+                  },
+                  {
+                    "description": "Technical Office Staff assigns a report to a department or external company based on category.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Staff responsible for assigning and managing reports based on category.",
+                        "name": "Technical Office Staff"
+                      },
+                      "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                      "name": "Ensure Efficient and Transparent Report Processing"
+                    },
+                    "name": "Assign a report to a technical office or external company"
+                  },
+                  {
+                    "description": "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Staff responsible for assigning and managing reports based on category.",
+                        "name": "Technical Office Staff"
+                      },
+                      "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                      "name": "Ensure Efficient and Transparent Report Processing"
+                    },
+                    "name": "Update report status to 'in progress' or 'resolved'"
+                  },
+                  {
+                    "description": "External Maintenance Personnel views reports assigned to them and their current status.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                        "name": "External Maintenance Personnel"
+                      },
+                      "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                      "name": "Support External Companies in Managing Assigned Reports"
+                    },
+                    "name": "View assigned reports and their statuses"
+                  },
+                  {
+                    "description": "External Maintenance Personnel updates report details and status via a secure login portal.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                        "name": "External Maintenance Personnel"
+                      },
+                      "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                      "name": "Support External Companies in Managing Assigned Reports"
+                    },
+                    "name": "Update report details and status via secure portal"
+                  },
+                  {
+                    "description": "Citizen views aggregated public statistics on report trends and categories without login.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Registered user who submits reports and receives updates about their reports.",
+                        "name": "Citizen"
+                      },
+                      "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                      "name": "Enable Public Access to Urban Issue Statistics"
+                    },
+                    "name": "View public urban issue statistics"
+                  },
+                  {
+                    "description": "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Administrator who configures system settings and manages access for external companies.",
+                        "name": "Municipal Administrator"
+                      },
+                      "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                      "name": "Support Administrative Oversight and Strategic Decision-Making"
+                    },
+                    "name": "Access detailed system statistics and configuration tools"
+                  },
+                  {
+                    "description": "Municipal Administrator configures which external companies can access and manage reports.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Administrator who configures system settings and manages access for external companies.",
+                        "name": "Municipal Administrator"
+                      },
+                      "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                      "name": "Support Administrative Oversight and Strategic Decision-Making"
+                    },
+                    "name": "Configure external company access permissions"
+                  },
+                  {
+                    "description": "Municipal Administrator generates and exports reports on urban issue trends and resolution times.",
+                    "high_level_associated": {
+                      "actor": {
+                        "description": "Administrator who configures system settings and manages access for external companies.",
+                        "name": "Municipal Administrator"
+                      },
+                      "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                      "name": "Support Administrative Oversight and Strategic Decision-Making"
+                    },
+                    "name": "Generate and export urban issue trend reports"
+                  }
+                ]
+              }
+            },
+            "iteration": 1,
+            "low_level_goals": {
+              "low_level_goals": [
+                {
+                  "description": "Citizen submits a report with location, description, category, and mandatory photo attachment via the web interface.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                    "name": "Enable Citizen Participation in Urban Management"
+                  },
+                  "name": "Submit a new urban issue report"
+                },
+                {
+                  "description": "Citizen views the current state of their report (e.g., pending, assigned, resolved) via the dashboard.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Allow citizens to report urban issues and track the status of their reports to foster transparency and civic engagement.",
+                    "name": "Enable Citizen Participation in Urban Management"
+                  },
+                  "name": "View the status of a submitted report"
+                },
+                {
+                  "description": "System sends email to citizen when report status updates (e.g., assigned, resolved).",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                    "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                  },
+                  "name": "Receive automated email notification on report status change"
+                },
+                {
+                  "description": "System pushes in-app notification to citizen when report status updates.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Ensure citizens receive timely updates on report status and communication via platform notifications and emails to build trust in public administration.",
+                    "name": "Provide Real-Time Visibility and Trust Through Notifications"
+                  },
+                  "name": "Receive in-app notification on report status change"
+                },
+                {
+                  "description": "Organization Office Staff approves a report to move it to the 'assigned' state.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Staff responsible for reviewing and approving citizen reports.",
+                      "name": "Organization Office Staff"
+                    },
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "name": "Ensure Efficient and Transparent Report Processing"
+                  },
+                  "name": "Approve a citizen report for assignment"
+                },
+                {
+                  "description": "Organization Office Staff rejects a report with a written explanation and moves it to 'rejected' state.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Staff responsible for reviewing and approving citizen reports.",
+                      "name": "Organization Office Staff"
+                    },
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "name": "Ensure Efficient and Transparent Report Processing"
+                  },
+                  "name": "Reject a citizen report with written explanation"
+                },
+                {
+                  "description": "Technical Office Staff assigns a report to a department or external company based on category.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Staff responsible for assigning and managing reports based on category.",
+                      "name": "Technical Office Staff"
+                    },
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "name": "Ensure Efficient and Transparent Report Processing"
+                  },
+                  "name": "Assign a report to a technical office or external company"
+                },
+                {
+                  "description": "Technical Office Staff or External Maintenance Personnel updates report status after completing work.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Staff responsible for assigning and managing reports based on category.",
+                      "name": "Technical Office Staff"
+                    },
+                    "description": "Provide a structured workflow for reports to move through approval, assignment, and resolution stages with clear state transitions and accountability.",
+                    "name": "Ensure Efficient and Transparent Report Processing"
+                  },
+                  "name": "Update report status to 'in progress' or 'resolved'"
+                },
+                {
+                  "description": "External Maintenance Personnel views reports assigned to them and their current status.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                      "name": "External Maintenance Personnel"
+                    },
+                    "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                    "name": "Support External Companies in Managing Assigned Reports"
+                  },
+                  "name": "View assigned reports and their statuses"
+                },
+                {
+                  "description": "External Maintenance Personnel updates report details and status via a secure login portal.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Maintenance workers from external companies who handle reports assigned to them.",
+                      "name": "External Maintenance Personnel"
+                    },
+                    "description": "Allow external maintenance companies to access and update reports assigned to them, with secure communication channels for internal coordination.",
+                    "name": "Support External Companies in Managing Assigned Reports"
+                  },
+                  "name": "Update report details and status via secure portal"
+                },
+                {
+                  "description": "Citizen views aggregated public statistics on report trends and categories without login.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Registered user who submits reports and receives updates about their reports.",
+                      "name": "Citizen"
+                    },
+                    "description": "Allow non-registered users to view public statistics on report trends and categories to promote awareness and data-driven urban planning.",
+                    "name": "Enable Public Access to Urban Issue Statistics"
+                  },
+                  "name": "View public urban issue statistics"
+                },
+                {
+                  "description": "Municipal Administrator accesses detailed reports, user activity, and system configuration tools.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Administrator who configures system settings and manages access for external companies.",
+                      "name": "Municipal Administrator"
+                    },
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making"
+                  },
+                  "name": "Access detailed system statistics and configuration tools"
+                },
+                {
+                  "description": "Municipal Administrator configures which external companies can access and manage reports.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Administrator who configures system settings and manages access for external companies.",
+                      "name": "Municipal Administrator"
+                    },
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making"
+                  },
+                  "name": "Configure external company access permissions"
+                },
+                {
+                  "description": "Municipal Administrator generates and exports reports on urban issue trends and resolution times.",
+                  "high_level_associated": {
+                    "actor": {
+                      "description": "Administrator who configures system settings and manages access for external companies.",
+                      "name": "Municipal Administrator"
+                    },
+                    "description": "Provide municipal administrators with private access to detailed statistics and system configuration tools to manage external company access and optimize resource allocation.",
+                    "name": "Support Administrative Oversight and Strategic Decision-Making"
+                  },
+                  "name": "Generate and export urban issue trend reports"
+                }
+              ]
+            },
+            "reconstructions": {
+              "1": {
+                "branch_id": "1",
+                "reconstructed_high_level_goal": "Citizen reports issues with location and photo, and tracks their report status.",
+                "source_low_level_goal_ids": [
+                  "Submit a new urban issue report",
+                  "View the status of a submitted report"
+                ]
+              },
+              "2": {
+                "branch_id": "2",
+                "reconstructed_high_level_goal": "Manage report status transitions through approval or rejection by organization office staff.",
+                "source_low_level_goal_ids": [
+                  "Approve a citizen report for assignment",
+                  "Reject a citizen report with written explanation"
+                ]
+              },
+              "4": {
+                "branch_id": "4",
+                "reconstructed_high_level_goal": "External Maintenance Personnel manages assigned reports by viewing their status and updating details securely.",
+                "source_low_level_goal_ids": [
+                  "View assigned reports and their statuses",
+                  "Update report details and status via secure portal"
+                ]
+              },
+              "5": {
+                "branch_id": "5",
+                "reconstructed_high_level_goal": "Notify citizen of report status updates via email and in-app notification",
+                "source_low_level_goal_ids": [
+                  "Receive automated email notification on report status change",
+                  "Receive in-app notification on report status change"
+                ]
+              },
+              "6": {
+                "branch_id": "6",
+                "reconstructed_high_level_goal": "Provide public access to aggregated statistics on report trends and categories.",
+                "source_low_level_goal_ids": [
+                  "View public urban issue statistics"
+                ]
+              },
+              "7": {
+                "branch_id": "7",
+                "reconstructed_high_level_goal": "Manage urban reporting and external access configuration",
+                "source_low_level_goal_ids": [
+                  "Access detailed system statistics and configuration tools",
+                  "Configure external company access permissions",
+                  "Generate and export urban issue trend reports"
+                ]
+              }
+            },
+            "similarity_analysis": {
+              "branches": {
+                "1": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.6299056412075852,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.38040352324612686,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.3090949888537983,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.32656207762128286,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.5503161134433807,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.4502729701576949,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.2798079894443224,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "NOT_EQUIVALENT",
+                  "score": 0.6299056412075852,
+                  "status": "VALID"
+                },
+                "2": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.393393656952796,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.7798827106071022,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.27256311430479474,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.5113237482912882,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.5245187107002911,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.3136428544351676,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.3066550923297623,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.7798827106071022,
+                  "status": "VALID"
+                },
+                "3": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": null,
+                  "error": "No reconstruction available for numerical comparison",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": null,
+                      "status": "NOT_RECONSTRUCTABLE"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": false,
+                  "reconstructable": false,
+                  "relationship": null,
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                "4": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.34966701106534603,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.5417476338284397,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.47728717172792645,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.8497160844549908,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.5266522870374613,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.3427057720580843,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.4928123120917971,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.8497160844549908,
+                  "status": "VALID"
+                },
+                "5": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.41306525303909286,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.4157387886834744,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.21770876454864296,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.3713802748271311,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.5714453491616616,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.3085602714792349,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.1598691924204307,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "NOT_EQUIVALENT",
+                  "score": 0.5714453491616616,
+                  "status": "VALID"
+                },
+                "6": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.5271550207141896,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.474256319744316,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.22742727983153876,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.5133469553647405,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.5089507973452763,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.6817702701982096,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.48214087070586936,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "EQUIVALENT",
+                  "score": 0.6817702701982096,
+                  "status": "VALID"
+                },
+                "7": {
+                  "duplicate_candidates": [],
+                  "duplicate_label": "NO_DUPLICATE_MATCH",
+                  "original_hlg_comparisons": [
+                    {
+                      "other_branch_id": "1",
+                      "score": 0.47704948929946334,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "2",
+                      "score": 0.42979463030462217,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "3",
+                      "score": 0.46277377625822436,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "4",
+                      "score": 0.5829323060803306,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "5",
+                      "score": 0.39674834396077296,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "6",
+                      "score": 0.4704457504308301,
+                      "status": "VALID"
+                    },
+                    {
+                      "other_branch_id": "7",
+                      "score": 0.5760536985109933,
+                      "status": "VALID"
+                    }
+                  ],
+                  "original_hlg_comparisons_complete": true,
+                  "reconstructable": true,
+                  "relationship": "NOT_EQUIVALENT",
+                  "score": 0.5760536985109933,
+                  "status": "VALID"
+                }
+              },
+              "configuration": {
+                "actor_filter": "casefold_and_normalize_whitespace_on_actor_name",
+                "actor_filter_scope": "duplicate_removal_candidates_only; numerical comparisons cover all actors",
+                "device": "cpu",
+                "duplicate_comparisons_method": "prime_original_cosine_then_documentary_review",
+                "duplicate_comparisons_scope": "all_current_original_hlgs",
+                "duplicate_threshold": 0.68,
+                "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+                "original_hlg_comparison_count": 42,
+                "parent_comparisons_scope": "all_current_original_hlgs",
+                "parent_hlg_comparison_count": 6,
+                "parent_text": "description",
+                "parent_threshold": 0.68,
+                "parent_threshold_calibration": {
+                  "active_threshold_matches_default": true,
+                  "annotation": "user-directed provisional value; not independently validated",
+                  "selected_default": 0.68,
+                  "status": "shared_threshold"
+                },
+                "preprocessing": "none",
+                "requested_revision": "main",
+                "resolved_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+                "similarity_technical_attempts": 3,
+                "similarity_threshold": 0.68,
+                "threshold_policy": "prime_against_all_original_hlgs",
+                "thresholds_validated": false
+              },
+              "pairs": [
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": 0.38040352324612686,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.3090949888537983,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": 0.32656207762128286,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": 0.5503161134433807,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": 0.4502729701576949,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "1",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": 0.2798079894443224,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": 0.393393656952796,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.27256311430479474,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": 0.5113237482912882,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": 0.5245187107002911,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": 0.3136428544351676,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "2",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": 0.3066550923297623,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "3",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": null,
+                  "status": "NOT_RECONSTRUCTABLE"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": 0.34966701106534603,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": 0.5417476338284397,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.47728717172792645,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": 0.5266522870374613,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": 0.3427057720580843,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "4",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": 0.4928123120917971,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": 0.41306525303909286,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": 0.4157387886834744,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.21770876454864296,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": 0.3713802748271311,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": 0.3085602714792349,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "5",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": 0.1598691924204307,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": 0.5271550207141896,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": 0.474256319744316,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.22742727983153876,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": 0.5133469553647405,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": 0.5089507973452763,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "6",
+                  "candidate": false,
+                  "other_branch_id": "7",
+                  "score": 0.48214087070586936,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "1",
+                  "score": 0.47704948929946334,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "2",
+                  "score": 0.42979463030462217,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "3",
+                  "score": 0.46277377625822436,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "4",
+                  "score": 0.5829323060803306,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "5",
+                  "score": 0.39674834396077296,
+                  "status": "VALID"
+                },
+                {
+                  "branch_id": "7",
+                  "candidate": false,
+                  "other_branch_id": "6",
+                  "score": 0.4704457504308301,
+                  "status": "VALID"
+                }
+              ],
+              "technical_attempts": [
+                {
+                  "accepted": true,
+                  "attempt": 1,
+                  "errors": {}
+                }
+              ]
+            },
+            "total_branch_count": 7
+          }
+        ],
+        "schema_version": 3
+      },
+      "repetition": 1,
+      "started_at": "2026-10-24T18:37:12.927398+00:00",
+      "status": "interrupted",
+      "stop_reason": "EXECUTION_ERROR"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:41:44.423971+00:00"
+}

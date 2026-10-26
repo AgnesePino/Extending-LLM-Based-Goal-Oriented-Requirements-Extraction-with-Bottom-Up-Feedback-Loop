@@ -1,0 +1,518 @@
+{
+  "baseline": {
+    "actors": [
+      "Applicant",
+      "Other Parent",
+      "INPS Operator"
+    ],
+    "baselineAttempts": {
+      "actors": 1,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 1
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors defined are appropriate for the described system, covering all relevant roles involved in the AUU application process (Applicant, Other Parent, INPS Operator). No contradictions or omissions are detected.",
+      "highLevelGoals": "The high-level goals are comprehensive and accurately represent the functional requirements of the system. All goals are relevant to the described software, covering key aspects such as application submission, validation, payment processing, status management, and compliance. No contradictions or omissions are detected.",
+      "lowLevelGoals": "The low-level goals are comprehensive and align well with the high-level goals and system description. They cover all functional aspects of the software, including data entry, validation, draft management, payment configuration, document uploads, automatic calculations, and self-service features. No contradictions or omissions were found."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        10.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        10.0
+      ]
+    },
+    "baselineScores": {
+      "actors": 10.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 10.0
+    },
+    "description": "The system supports the online management of applications for the Italian Assegno Unico Universale (AUU), a financial benefit provided by INPS to families with dependent children. The considered scenario focuses exclusively on applications submitted directly by interested users through the INPS website, excluding applications submitted by delegated patronage institutions, mobile applications, and call-center interactions.\n\nAn authenticated applicant can submit an AUU application as a parent, foster parent, or legal guardian of a child. During the first phase of the application, the applicant provides information about each dependent child, including the child's fiscal code, dependency status, disability status and, when applicable, disability level. Depending on the applicant type, additional information concerning family composition, exclusive custody, the other parent's fiscal code, and the requested allowance distribution between parents must also be provided.\n\nWhen a child's fiscal code is entered, the system verifies it in real time. If the child is already associated with another active application, the application flow is blocked and an explanatory warning is shown. The applicant may also specify adult dependent children who do not directly qualify for AUU but contribute to determining household composition. Duplicate fiscal codes for adult children are detected and reported.\n\nThe amount of the allowance depends on the applicant's economic situation. If INPS does not already possess a valid ISEE when the application is submitted, the minimum allowance established by regulation is used. If a valid ISEE becomes available later, INPS automatically recalculates the allowance without requiring the applicant to modify the application.\n\nIn the payment phase, the applicant specifies the payment method. If the allowance is to be divided equally between both parents, the payment information of the other parent must also be provided. Supported payment methods include credit to a SEPA IBAN account owned by the beneficiary, domiciled payment at a post office, and credit to an eligible prepaid card.\n\nBefore submitting the application, the applicant must read and accept the declarations of responsibility and the GDPR privacy notice. The system then presents a summary of the entered information so that it can be reviewed. If validation errors are detected, the application is not submitted and the applicant must correct the erroneous information. If validation succeeds, the application is submitted and a receipt can be downloaded.\n\nAn application may be interrupted without saving or saved as a draft before submission. A saved draft can later be consulted and completed. When resuming a draft, the applicant may either continue from the previously saved information or discard it and restart the application from the beginning.\n\nOnce submitted, the application is evaluated by authorized INPS staff. The application may be accepted, rejected because the applicant is not entitled to the benefit, or suspended when additional documentation is required. The applicant is notified of the outcome. An accepted application remains valid for twelve months and the corresponding allowance is paid automatically every month.\n\nWhen an application is suspended, the INPS operator specifies which additional documents are required. The applicant can consult the application, upload the requested attachments, reconfirm the application data, and again accept the responsibility declarations and privacy notice.\n\nThe system also allows an application originally submitted by one parent to be completed by the other parent. The other parent can consult the application and confirm or modify the proposed allowance distribution. If the applicant requested the entire allowance, the other parent may accept the 100 percent allocation or request a 50 percent distribution. When payment to the other parent is required, that parent provides their own payment information.\n\nApplicants can also add one or more children to an existing application. Each new child's fiscal code is checked in real time to ensure that the child is not already associated with another active application. After adding the child, existing payment and declaration data can be confirmed or modified.\n\nFinally, the system provides supporting functions that allow citizens to consult previously submitted applications, consult general information about the Assegno Unico Universale, and simulate the expected monthly allowance amount.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 4526,
+      "processedChars": 4526,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+      "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+      "Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application.",
+      "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+      "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+      "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+      "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+      "Allow applicants to add new children to existing applications, validate fiscal codes, and modify payment or declaration data without restarting the application.",
+      "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+      "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle."
+    ],
+    "lowLevelGoals": [
+      "The applicant fills out application fields step-by-step with real-time validation and tooltips to ensure completeness and accuracy.",
+      "The system validates the fiscal code entered for each child against national databases to detect duplicates or conflicts.",
+      "The applicant must explicitly check a box to accept legal declarations and privacy notices before proceeding with submission.",
+      "The applicant saves the current state of the application to return later and resume editing without losing progress.",
+      "The applicant resumes a previously saved draft and modifies any section, including payment or declaration data.",
+      "The applicant adds a new child to an existing application, triggering fiscal code validation and updating allowance calculations.",
+      "The second parent modifies or adjusts payment distribution and method for a joint application.",
+      "The system automatically calculates the monthly allowance based on the applicant’s ISEE data, applying minimum regulated amounts if no ISEE is provided.",
+      "When valid ISEE data is uploaded, the system recalculates the allowance amount and updates the application without requiring manual intervention.",
+      "The applicant selects SEPA IBAN as the payment method for the allowance and provides the required bank details.",
+      "The applicant selects post office domiciliation as the payment method and provides required postal and identification details.",
+      "The applicant selects an eligible prepaid card as the payment method and provides card details for validation.",
+      "The applicant configures how payments will be split or shared between co-parents, including setting individual payment amounts or percentages.",
+      "The applicant uploads documents (e.g., proof of residence, updated ISEE) to resolve a suspended application.",
+      "The applicant reconfirms all application data after uploading documents to ensure accuracy before resubmission.",
+      "The applicant reaccepts legal declarations and privacy notices after resubmitting a suspended application.",
+      "The system automatically triggers a monthly payment for an accepted application without requiring further action from the applicant.",
+      "The system automatically extends the validity of an accepted application for 12 months upon successful payment or approval.",
+      "The applicant accesses and views the history of previously submitted applications, including status, payment records, and modifications.",
+      "The applicant accesses informational resources such as eligibility criteria, payment schedules, and application guidelines.",
+      "The applicant inputs hypothetical data to simulate the expected monthly allowance amount based on current or projected economic status.",
+      "The applicant explicitly accepts the privacy notice before any personal or financial data is submitted to the system.",
+      "The system encrypts and securely stores all personal and financial data in compliance with GDPR standards.",
+      "The system logs all data access and modification events for audit purposes, ensuring compliance with GDPR and internal policies."
+    ],
+    "name": "Assegno Unico Universale - SIA Project 24 25",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "The system supports the online management of applications for the Italian Assegno Unico Universale (AUU), a financial benefit provided by INPS to families with dependent children. The considered scenario focuses exclusively on applications submitted directly by interested users through the INPS website, excluding applications submitted by delegated patronage institutions, mobile applications, and call-center interactions.\n\nAn authenticated applicant can submit an AUU application as a parent, foster parent, or legal guardian of a child. During the first phase of the application, the applicant provides information about each dependent child, including the child's fiscal code, dependency status, disability status and, when applicable, disability level. Depending on the applicant type, additional information concerning family composition, exclusive custody, the other parent's fiscal code, and the requested allowance distribution between parents must also be provided.\n\nWhen a child's fiscal code is entered, the system verifies it in real time. If the child is already associated with another active application, the application flow is blocked and an explanatory warning is shown. The applicant may also specify adult dependent children who do not directly qualify for AUU but contribute to determining household composition. Duplicate fiscal codes for adult children are detected and reported.\n\nThe amount of the allowance depends on the applicant's economic situation. If INPS does not already possess a valid ISEE when the application is submitted, the minimum allowance established by regulation is used. If a valid ISEE becomes available later, INPS automatically recalculates the allowance without requiring the applicant to modify the application.\n\nIn the payment phase, the applicant specifies the payment method. If the allowance is to be divided equally between both parents, the payment information of the other parent must also be provided. Supported payment methods include credit to a SEPA IBAN account owned by the beneficiary, domiciled payment at a post office, and credit to an eligible prepaid card.\n\nBefore submitting the application, the applicant must read and accept the declarations of responsibility and the GDPR privacy notice. The system then presents a summary of the entered information so that it can be reviewed. If validation errors are detected, the application is not submitted and the applicant must correct the erroneous information. If validation succeeds, the application is submitted and a receipt can be downloaded.\n\nAn application may be interrupted without saving or saved as a draft before submission. A saved draft can later be consulted and completed. When resuming a draft, the applicant may either continue from the previously saved information or discard it and restart the application from the beginning.\n\nOnce submitted, the application is evaluated by authorized INPS staff. The application may be accepted, rejected because the applicant is not entitled to the benefit, or suspended when additional documentation is required. The applicant is notified of the outcome. An accepted application remains valid for twelve months and the corresponding allowance is paid automatically every month.\n\nWhen an application is suspended, the INPS operator specifies which additional documents are required. The applicant can consult the application, upload the requested attachments, reconfirm the application data, and again accept the responsibility declarations and privacy notice.\n\nThe system also allows an application originally submitted by one parent to be completed by the other parent. The other parent can consult the application and confirm or modify the proposed allowance distribution. If the applicant requested the entire allowance, the other parent may accept the 100 percent allocation or request a 50 percent distribution. When payment to the other parent is required, that parent provides their own payment information.\n\nApplicants can also add one or more children to an existing application. Each new child's fiscal code is checked in real time to ensure that the child is not already associated with another active application. After adding the child, existing payment and declaration data can be confirmed or modified.\n\nFinally, the system provides supporting functions that allow citizens to consult previously submitted applications, consult general information about the Assegno Unico Universale, and simulate the expected monthly allowance amount.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+          "name": "Applicant"
+        },
+        {
+          "description": "Second parent completing or modifying an application initiated by the first parent.",
+          "name": "Other Parent"
+        },
+        {
+          "description": "INPS staff evaluating and managing submitted applications.",
+          "name": "INPS Operator"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+          "name": "Ensure accurate and compliant AUU application submissions"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+          "name": "Support flexible application workflows including drafts and co-parent completion"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application.",
+          "name": "Enable real-time fiscal code validation and conflict detection"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+          "name": "Automatically manage allowance calculations based on economic status"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+          "name": "Provide transparent and secure payment options"
+        },
+        {
+          "actor": {
+            "description": "INPS staff evaluating and managing submitted applications.",
+            "name": "INPS Operator"
+          },
+          "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+          "name": "Notify applicants of application status and enable document uploads for suspensions"
+        },
+        {
+          "actor": {
+            "description": "INPS staff evaluating and managing submitted applications.",
+            "name": "INPS Operator"
+          },
+          "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+          "name": "Maintain application validity and automate monthly payments"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Allow applicants to add new children to existing applications, validate fiscal codes, and modify payment or declaration data without restarting the application.",
+          "name": "Support application modifications and additions after submission"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+          "name": "Provide self-service access to application history and informational resources"
+        },
+        {
+          "actor": {
+            "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+            "name": "Applicant"
+          },
+          "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+          "name": "Ensure secure and compliant data handling in line with GDPR"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "The applicant fills out application fields step-by-step with real-time validation and tooltips to ensure completeness and accuracy.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+            "name": "Ensure accurate and compliant AUU application submissions"
+          },
+          "name": "Submit AUU application with guided data entry"
+        },
+        {
+          "description": "The system validates the fiscal code entered for each child against national databases to detect duplicates or conflicts.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Prevent duplicate or conflicting applications by validating child fiscal codes in real time and blocking submissions when a child is already associated with another active application.",
+            "name": "Enable real-time fiscal code validation and conflict detection"
+          },
+          "name": "Validate child fiscal code in real time"
+        },
+        {
+          "description": "The applicant must explicitly check a box to accept legal declarations and privacy notices before proceeding with submission.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Enable applicants to submit complete, valid, and legally compliant AUU applications by providing guided data entry, real-time fiscal code validation, and mandatory acceptance of declarations and privacy notices.",
+            "name": "Ensure accurate and compliant AUU application submissions"
+          },
+          "name": "Accept mandatory declarations and privacy notices"
+        },
+        {
+          "description": "The applicant saves the current state of the application to return later and resume editing without losing progress.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+            "name": "Support flexible application workflows including drafts and co-parent completion"
+          },
+          "name": "Save application draft"
+        },
+        {
+          "description": "The applicant resumes a previously saved draft and modifies any section, including payment or declaration data.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+            "name": "Support flexible application workflows including drafts and co-parent completion"
+          },
+          "name": "Resume and modify saved application draft"
+        },
+        {
+          "description": "The applicant adds a new child to an existing application, triggering fiscal code validation and updating allowance calculations.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to add new children to existing applications, validate fiscal codes, and modify payment or declaration data without restarting the application.",
+            "name": "Support application modifications and additions after submission"
+          },
+          "name": "Add new child to existing application"
+        },
+        {
+          "description": "The second parent modifies or adjusts payment distribution and method for a joint application.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to save drafts, resume, or modify applications, and enable the second parent to complete or adjust allowance distribution and payment details for joint applications.",
+            "name": "Support flexible application workflows including drafts and co-parent completion"
+          },
+          "name": "Modify payment details for joint applications"
+        },
+        {
+          "description": "The system automatically calculates the monthly allowance based on the applicant’s ISEE data, applying minimum regulated amounts if no ISEE is provided.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+            "name": "Automatically manage allowance calculations based on economic status"
+          },
+          "name": "Calculate allowance based on ISEE"
+        },
+        {
+          "description": "When valid ISEE data is uploaded, the system recalculates the allowance amount and updates the application without requiring manual intervention.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Ensure accurate allowance amounts by using the minimum regulated amount if no valid ISEE is available, and automatically recalculating when valid ISEE data becomes available without requiring applicant intervention.",
+            "name": "Automatically manage allowance calculations based on economic status"
+          },
+          "name": "Recalculate allowance after ISEE update"
+        },
+        {
+          "description": "The applicant selects SEPA IBAN as the payment method for the allowance and provides the required bank details.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+            "name": "Provide transparent and secure payment options"
+          },
+          "name": "Select SEPA IBAN payment method"
+        },
+        {
+          "description": "The applicant selects post office domiciliation as the payment method and provides required postal and identification details.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+            "name": "Provide transparent and secure payment options"
+          },
+          "name": "Select post office domiciliation payment method"
+        },
+        {
+          "description": "The applicant selects an eligible prepaid card as the payment method and provides card details for validation.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+            "name": "Provide transparent and secure payment options"
+          },
+          "name": "Select prepaid card payment method"
+        },
+        {
+          "description": "The applicant configures how payments will be split or shared between co-parents, including setting individual payment amounts or percentages.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Allow applicants to select from multiple secure payment methods including SEPA IBAN, post office domiciliation, and eligible prepaid cards, with support for joint payment between parents.",
+            "name": "Provide transparent and secure payment options"
+          },
+          "name": "Configure joint payment between parents"
+        },
+        {
+          "description": "The applicant uploads documents (e.g., proof of residence, updated ISEE) to resolve a suspended application.",
+          "high_level_associated": {
+            "actor": {
+              "description": "INPS staff evaluating and managing submitted applications.",
+              "name": "INPS Operator"
+            },
+            "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+            "name": "Notify applicants of application status and enable document uploads for suspensions"
+          },
+          "name": "Upload required documents for suspended application"
+        },
+        {
+          "description": "The applicant reconfirms all application data after uploading documents to ensure accuracy before resubmission.",
+          "high_level_associated": {
+            "actor": {
+              "description": "INPS staff evaluating and managing submitted applications.",
+              "name": "INPS Operator"
+            },
+            "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+            "name": "Notify applicants of application status and enable document uploads for suspensions"
+          },
+          "name": "Reconfirm application data for suspended application"
+        },
+        {
+          "description": "The applicant reaccepts legal declarations and privacy notices after resubmitting a suspended application.",
+          "high_level_associated": {
+            "actor": {
+              "description": "INPS staff evaluating and managing submitted applications.",
+              "name": "INPS Operator"
+            },
+            "description": "Inform applicants of application outcomes (accepted, rejected, suspended) and allow them to upload required documents, reconfirm data, and reaccept declarations when an application is suspended.",
+            "name": "Notify applicants of application status and enable document uploads for suspensions"
+          },
+          "name": "Reaccept declarations and privacy notices for suspended application"
+        },
+        {
+          "description": "The system automatically triggers a monthly payment for an accepted application without requiring further action from the applicant.",
+          "high_level_associated": {
+            "actor": {
+              "description": "INPS staff evaluating and managing submitted applications.",
+              "name": "INPS Operator"
+            },
+            "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+            "name": "Maintain application validity and automate monthly payments"
+          },
+          "name": "Trigger automatic monthly payment for accepted application"
+        },
+        {
+          "description": "The system automatically extends the validity of an accepted application for 12 months upon successful payment or approval.",
+          "high_level_associated": {
+            "actor": {
+              "description": "INPS staff evaluating and managing submitted applications.",
+              "name": "INPS Operator"
+            },
+            "description": "Ensure accepted applications remain valid for 12 months and trigger automatic monthly payments without requiring further action from the applicant.",
+            "name": "Maintain application validity and automate monthly payments"
+          },
+          "name": "Extend application validity for 12 months"
+        },
+        {
+          "description": "The applicant accesses and views the history of previously submitted applications, including status, payment records, and modifications.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+            "name": "Provide self-service access to application history and informational resources"
+          },
+          "name": "Consult past application history"
+        },
+        {
+          "description": "The applicant accesses informational resources such as eligibility criteria, payment schedules, and application guidelines.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+            "name": "Provide self-service access to application history and informational resources"
+          },
+          "name": "Access general AUU information"
+        },
+        {
+          "description": "The applicant inputs hypothetical data to simulate the expected monthly allowance amount based on current or projected economic status.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Enable applicants to consult past applications, access general AUU information, and simulate expected monthly allowance amounts to support informed decision-making.",
+            "name": "Provide self-service access to application history and informational resources"
+          },
+          "name": "Simulate expected monthly allowance amount"
+        },
+        {
+          "description": "The applicant explicitly accepts the privacy notice before any personal or financial data is submitted to the system.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+            "name": "Ensure secure and compliant data handling in line with GDPR"
+          },
+          "name": "Accept privacy notice before data submission"
+        },
+        {
+          "description": "The system encrypts and securely stores all personal and financial data in compliance with GDPR standards.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+            "name": "Ensure secure and compliant data handling in line with GDPR"
+          },
+          "name": "Securely store personal and financial data"
+        },
+        {
+          "description": "The system logs all data access and modification events for audit purposes, ensuring compliance with GDPR and internal policies.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Parent, foster parent, or legal guardian submitting an AUU application.",
+              "name": "Applicant"
+            },
+            "description": "Maintain data privacy and compliance with GDPR by requiring explicit acceptance of privacy notices and securely managing personal and financial data throughout the application lifecycle.",
+            "name": "Ensure secure and compliant data handling in line with GDPR"
+          },
+          "name": "Audit data access and modification logs"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "848fd4e7efbfab29cea26c914d76974968fea5c705c646a46164df43f25f7106",
+  "name": "Assegno Unico Universale - SIA Project 24 25",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 3,
+  "updated_at": "2026-10-24T18:37:12.813714+00:00"
+}

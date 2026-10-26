@@ -1,0 +1,300 @@
+\section{Orchestratore e coordinamento delle chiamate LLM}
+\label{sec:goal-orchestrator}
+% Evidence O-01/O-02: goal_orchestrator.py, global_goal_evaluator.py, llm_clients.py.
+Il coordinamento del metodo è affidato a un \emph{orchestratore software},
+implementato in \path{src/bottom_up/goal_orchestrator.py}. Non si tratta di un
+ulteriore LLM: è codice Python che stabilisce l'ordine delle operazioni,
+trasferisce dati tra le funzioni, valida gli aggiornamenti e registra lo stato.
+Le proposte degli LLM sono dati in ingresso a questo controllo; non modificano
+direttamente la gerarchia e non scelgono autonomamente quali funzioni eseguire.
+
+La funzione di ingresso adotta il nome \path{run_global_goal_orchestrator},
+per rendere esplicito il ruolo di coordinamento. Il precedente nome
+\path{run_global_goal_cycle} rimane un alias della stessa funzione.
+Il precedente modulo
+\path{goal_cycle.py} è conservato come alias: entrambi i percorsi di import
+risolvono allo stesso oggetto modulo, evitando copie dello stato o divergenze
+nelle funzioni sostituite durante i test. I notebook correnti utilizzano il
+nome \path{goal_orchestrator}; i risultati storici mantengono la propria
+provenienza e non vengono riscritti dalla rinomina.
+
+\paragraph{Utilit\`a dell'orchestratore.}
+Il vantaggio del coordinamento centrale consiste nel rendere esplicito chi
+deve essere chiamato, con quali dati e in quale momento. I notebook avviano
+una sola funzione; questa conserva lo snapshot comune, attende le risposte
+valide prima dell'aggiornamento e inoltra al generatore soltanto le modifiche
+approvate. Si evita cos\`i che il flusso sia distribuito tra celle o dipenda
+dall'ordine con cui vengono ispezionate le risposte. L'orchestratore decide
+la sequenza delle funzioni; il contenuto dei goal e i giudizi documentali
+sono invece prodotti dai modelli e sottoposti ai controlli previsti.
+
+\begin{samepage}
+\paragraph{Instradamento delle chiamate ai modelli.}
+Il percorso operativo distingue tre responsabilit\`a:
+\begin{enumerate}
+\item \textbf{Ricostruire e generare: Qwen.} La ricostruzione dei rami passa
+da \path{reconstruct_all_branches} al client
+\path{generate_response}; lo stesso client viene usato dalle funzioni
+di estrazione per generare gli HLG e gli LLG delle riparazioni.
+\item \textbf{Giudicare lo snapshot: Ministral, Granite e Gemma.}
+\path{evaluate_all_branches} riceve lo stato e interroga, uno alla
+volta, i tre modelli configurati tramite \path{generate_evaluator_response}.
+Ogni risposta globale viene validata; il voto viene aggregato per ramo
+soltanto dopo aver raccolto le risposte utilizzabili. I modelli non si
+passano messaggi e non leggono i giudizi degli altri.
+\item \textbf{Controllare la riparazione: critic top-down.}
+Quando il quorum approva una riscrittura, l'orchestratore invoca la
+reflection: Qwen genera il candidato e il critic configurato, Ministral
+per impostazione predefinita, ne restituisce punteggio e critica.
+La reflection gestisce i propri tentativi prima di restituire il controllo
+all'orchestratore, che applica o rifiuta l'aggiornamento secondo i controlli
+HLG--LLG descritti di seguito.
+\end{enumerate}
+\end{samepage}
+Le scelte dei modelli provengono dalla configurazione dei client, non
+da una selezione autonoma compiuta da un LLM. Il calcolo MPNet della
+similarit\`a \`e una fase numerica distinta da queste chiamate generative.
+Il gestore locale rilascia il modello precedente prima di passare a un
+modello diverso; la sequenza, i retry e i checkpoint sono approfonditi
+nelle sottosezioni successive.
+
+\subsection{Stato condiviso e ordine di esecuzione}
+L'orchestratore riceve descrizione, attori, collezioni HLG e LLG iniziali e
+configurazione della revisione. Ricostruisce i modelli Pydantic con le classi
+correnti e lavora su copie profonde delle collezioni, preservando la baseline.
+Riconcilia i riferimenti iniziali ai padri, unisce gli attori disponibili e
+prepara il registro di configurazione, iterazioni e avvisi.
+
+Ogni iterazione segue una sequenza esplicita:
+\begin{enumerate}
+\item \textbf{Snapshot e raggruppamento.} Indicizza gli HLG correnti e raccoglie
+gli LLG associati. Gli identificativi di ramo valgono per lo snapshot corrente.
+\item \textbf{Ricostruzione.} Invoca \path{reconstruct_all_branches} sui
+soli gruppi non vuoti. La funzione usa Qwen e produce HLG$'$ senza consultare
+il padre originale o la documentazione.
+\item \textbf{Analisi numerica.} Invoca \path{analyze_similarities}, che
+usa MPNet e cosine, senza un LLM valutatore. Costruisce i dati diagnostici;
+il modulo evaluator li trasforma nell'ingresso con etichette e coppie candidate.
+\item \textbf{Revisione globale.} Invoca \path{evaluate_all_branches} una
+volta per lo snapshot. Questa funzione interroga sequenzialmente i tre evaluator,
+valida le risposte e aggrega i voti per ramo.
+\item \textbf{Aggiornamento.} Invoca \path{apply_review_decisions}: applica
+prima le rimozioni approvate e poi, se necessario, una riparazione top-down
+dell'intera collezione superstite.
+\item \textbf{Persistenza e arresto.} Salva la traccia completa e verifica
+conferma dei rami e modifiche effettive; in alternativa avvia la nuova iterazione.
+\end{enumerate}
+La Figura~\ref{fig:orchestrator-call-flow} mostra questo flusso. Gli evaluator
+esaminano lo stesso stato precedente agli aggiornamenti; non votano su gerarchie
+modificate dalle decisioni dei modelli interrogati prima di loro.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+ node distance=0.45cm,
+ phase/.style={draw,rounded corners,align=center,text width=0.83\linewidth,
+               inner sep=5pt,font=\small},
+ connection/.style={-{Latex},thick}]
+\node[phase] (state) {\path{run_global_goal_orchestrator}: snapshot HLG--LLG e gruppi};
+\node[phase,below=of state] (prime) {\path{reconstruct_all_branches}: Qwen produce HLG$'$};
+\node[phase,below=of prime] (similarity) {\path{analyze_similarities}: MPNet, cosine, candidati};
+\node[phase,below=of similarity] (review) {\path{evaluate_all_branches}: tre evaluator in sequenza, risposte globali, validazione e maggioranza};
+\node[phase,below=of review] (update) {\path{apply_review_decisions}: rimozioni e riparazione top-down con generatore e critic};
+\node[phase,below=of update] (save) {Checkpoint completo, controllo di convergenza o nuova iterazione};
+\draw[connection] (state)--(prime);
+\draw[connection] (prime)--(similarity);
+\draw[connection] (similarity)--(review);
+\draw[connection] (review)--(update);
+\draw[connection] (update)--(save);
+\end{tikzpicture}
+\caption{Coordinamento deterministico di una iterazione. Le frecce rappresentano
+passaggi di dati e chiamate Python, non una conversazione tra agenti.}
+\label{fig:orchestrator-call-flow}
+\end{figure}
+
+\subsection{Funzioni passate come argomento e callback}
+La funzione locale \path{run_stage(name, function, *args, **kwargs)} riceve
+una funzione Python e i suoi argomenti, quindi esegue
+\texttt{function(*args, **kwargs)}. Il parametro \texttt{name} identifica la
+fase nel punto di chiamata, ma non è usato per scegliere un modello o una
+strategia. Con \texttt{verbose=True} gli output della funzione sono visibili;
+altrimenti stdout e stderr vengono catturati durante l'esecuzione. Il wrapper
+non aggiunge retry, non cambia il prompt e non applica una decisione semantica.
+
+Anche la riparazione è passata come funzione: l'argomento \texttt{repair}
+di \path{apply_review_decisions} è una funzione anonima che richiama
+\path{_repair_collections_with_top_down} attraverso
+\path{run_stage}. Questo separa l'applicazione delle decisioni dalla
+procedura di generazione e consente ai test di sostituire la riparazione
+senza contattare i modelli.
+
+Il controllo dei salvataggi usa callback esplicite. Dopo la risposta di un
+evaluator, \path{save_global_vote(record)} aggiunge il record e richiama
+\texttt{checkpoint}. Quest'ultima costruisce una traccia marcata
+\path{checkpoint_complete=False}, che descrive un'iterazione ancora in
+corso. Il callback \path{on_evaluation=checkpoint} riceve poi le decisioni
+aggregate. La funzione \texttt{publish} serializza lo stato, scrive il JSON
+se è configurata una directory e chiama l'eventuale \path{on_state}
+fornito dal notebook o dal gestore della suite. Solo dopo l'aggiornamento
+della gerarchia la traccia è completata e aggiunta alle iterazioni concluse.
+\texttt{finish} costruisce il risultato finale e lo pubblica con il motivo
+di arresto. Un checkpoint parziale non viene contato come iterazione conclusa.
+
+\subsection{Dalla funzione del compito alla richiesta al modello}
+Le funzioni del compito costruiscono gli input; il trasporto delle richieste
+è centralizzato in \path{src/llm_clients.py}.
+\begin{description}
+\item[Generatore e ricostruttore.]
+\path{reconstruct_high_level_goal},
+\path{generate_high_level_goals} e
+\path{generate_low_level_goals} chiamano \path{generate_response}.
+Questa funzione prepara messaggi di sistema e utente, richiede a Qwen un
+risultato JSON conforme al modello Pydantic, controlla troncamenti e output
+vuoti e valida la risposta. La temperatura del generatore è fissa a zero;
+le temperature sperimentali riguardano gli evaluator globali.
+Le ricostruzioni richiedono retry senza includere le risposte scartate;
+altri chiamanti possono usare la correzione JSON prevista dal client.
+\item[Evaluator bottom-up.]
+\path{evaluate_all_branches} chiama \path{_critic1_vote} per ogni
+modello configurato. Quest'ultima passa prompt, modello, temperatura e schema
+a \path{generate_evaluator_response}. Il client pubblico gestisce il
+modello locale e delega la richiesta a \path{_generate_evaluator_response},
+che usa \path{/v1/chat/completions} con \path{response_format=json_schema}.
+\item[Critic della riparazione top-down.]
+\path{generate_response_with_reflection} riceve il generatore come
+\path{call_function}, i suoi argomenti in \path{define_args} e quelli
+della valutazione in \path{eval_args}. Genera il candidato, chiama
+\path{get_evaluation} sul critic configurato, legge punteggio e critica
+e, se necessario, ripete con un oggetto \texttt{Feedback}. Questa valutazione
+testuale usa lo stesso client degli evaluator, ma non il loro schema JSON
+o il voto di maggioranza. L'adattatore bottom-up inietta la critica iniziale
+soltanto nella prima chiamata; i retry successivi appartengono alla reflection.
+\end{description}
+
+\subsection{Modelli locali, indipendenza dei giudizi e limiti dei retry}
+Il gestore \path{loaded_local_model} delimita l'uso di un modello mediante
+un context manager. Un lock rientrante e il riferimento al modello attivo
+coordinano le chiamate nel processo Python: invocazioni annidate dello stesso
+modello riusano l'istanza, mentre una richiesta per un modello diverso durante
+un uso ancora attivo genera un errore. Il gestore interno verifica l'istanza
+e il contesto disponibile, carica il modello quando necessario e lo rilascia
+all'uscita anche in caso di errore. Gli altri modelli della pipeline vengono
+scaricati prima del caricamento selezionato. Il lock è locale al processo:
+non sincronizza automaticamente notebook o programmi Python differenti.
+Durante la ricostruzione, \path{reconstruct_all_branches} mantiene aperto
+un unico uso esterno di Qwen per tutti i rami: le richieste interne riusano
+quel modello. Nella reflection, invece, generatore e critic si alternano,
+rilasciando il modello precedente prima di richiamare quello successivo.
+
+I tre evaluator sono quindi interrogati uno alla volta, senza scambio di
+messaggi o accesso ai voti altrui. La separazione riguarda le chiamate e i
+giudizi prodotti sullo stesso input, non un'esecuzione parallela né una
+garanzia statistica di errori indipendenti.
+Una risposta globale con JSON non valido, ID mancanti, ID duplicati o azioni
+non ammissibili viene scartata interamente; non si combinano pezzi di tentativi
+diversi dello stesso modello. Il quorum richiede due voti validi concordi
+sull'azione e, per la duplicazione, sul medesimo superstite. Soltanto le
+critiche dei voti concordanti vengono consolidate per il generatore.
+
+L'orchestratore distingue limiti diversi: iterazioni globali, tentativi
+tecnici della similarità, tentativi della risposta globale di ciascun evaluator
+e tentativi della reflection top-down. Per errori di contesto l'evaluator
+interessato può essere ricaricato con una richiesta di contesto raddoppiata,
+entro il suo stesso budget di tentativi. Non viene troncato lo snapshot.
+La riparazione aggiorna insieme HLG e LLG soltanto dopo l'approvazione degli
+HLG e la validazione strutturale dei figli. Se fallisce, conserva lo stato
+precedente alla riparazione, incluse le rimozioni già approvate. Le condizioni
+di aggiornamento e arresto sono dettagliate nella Sezione~\ref{sec:approach-loop}.
+
+Gli estratti reali delle funzioni sono riportati nella
+Sezione~\ref{sec:orchestrator-implementation}; il codice è distinto dai prompt
+che i modelli ricevono e non viene interpretato come istruzione di un agente.
+
+\subsection{Il coordinamento nelle funzioni Python}
+\label{sec:orchestrator-code-walkthrough}
+Il Listing~\ref{lst:approach-orchestrator-stage} mostra il wrapper effettivo
+definito nella funzione principale. Riceve una funzione e i suoi argomenti:
+la esegue direttamente se i log sono visibili, altrimenti ne cattura stdout
+e stderr. Non sceglie il modello e non modifica il prompt. Questa distinzione
+separa il controllo del flusso dall'implementazione dei singoli compiti.
+
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Funzione locale di esecuzione delle fasi, estratta dal codice corrente.},label={lst:approach-orchestrator-stage}]
+def run_stage(name, function, *args, **kwargs):
+    if verbose:
+        return function(*args, **kwargs)
+    with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+        return function(*args, **kwargs)
+\end{lstlisting}
+
+Dopo l'aggregazione dei voti, il Listing~\ref{lst:approach-orchestrator-update}
+mostra il punto di applicazione delle decisioni. L'orchestratore passa le
+collezioni correnti e una funzione di riparazione, poi riceve nuove
+collezioni, esiti, indicatore di modifica e rami confermati. La funzione
+anonima non avvia un nuovo agente: richiama la riparazione top-down con
+gli argomenti stabiliti dal codice. Le variabili dell'estratto sono
+preparate nelle fasi precedenti della stessa iterazione; il frammento
+non costituisce uno script autonomo.
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[style=llmprompt,language=Python,caption={Estratto contiguo del passaggio dalle decisioni aggregate allo stato aggiornato.},label={lst:approach-orchestrator-update}]
+update = apply_review_decisions(
+    project_description=project_description, known_actors=known_actors,
+    current_hlgs=current_hlgs, current_llgs=current_llgs,
+    branches=branches, evaluations=evaluations,
+    repair=lambda **kwargs: run_stage(
+        "top_down_repair", _repair_collections_with_top_down, **kwargs))
+current_hlgs, current_llgs = update["high_level_goals"], update["low_level_goals"]
+evaluations, outcomes = update["evaluations"], update["outcomes"]
+changed, confirmed = update["changed"], update["confirmed"]
+\end{lstlisting}
+
+\end{minipage}
+
+Le definizioni integrali di
+\path{run_global_goal_orchestrator} e \path{apply_review_decisions}
+sono riportate nei Listing~\ref{lst:orchestrator-main-full}
+e~\ref{lst:orchestrator-apply-full}. La prima funzione controlla
+configurazione, sequenza, checkpoint e arresto; la seconda applica prima
+le rimozioni, raccoglie i feedback di riscrittura e tenta un aggiornamento
+batch. Se questo fallisce, conserva lo stato precedente alla riparazione,
+incluse le rimozioni gi\`a applicate. Tale separazione rende verificabile
+il motivo per cui una proposta di un LLM non coincide necessariamente
+con una modifica della gerarchia.
+
+\subsection{Mappa delle funzioni e lettura del codice annotato}
+\label{sec:bottom-up-annotated-map}
+I commenti numerati \texttt{\# [01]}, \texttt{\# [02]} e successivi nei
+listing sono annotazioni esplicative aggiunte nella tesi. Le istruzioni
+eseguibili rimangono quelle del codice corrente; il confronto degli alberi
+sintattici Python verifica che siano cambiati soltanto i commenti.
+La numerazione riparte per ogni funzione. La tabella seguente collega
+le chiamate dell'orchestratore ai blocchi commentati dell'appendice.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Funzioni delle fasi del ciclo bottom-up e punti da leggere nel codice annotato.}
+\label{tab:bottom-up-annotated-functions}
+\begin{tabularx}{\textwidth}{@{}p{0.48\textwidth}X@{}}
+\toprule
+\textbf{Funzione} & \textbf{Responsabilit\`a e listing} \\
+\midrule
+\path{run_global_goal_orchestrator} & Coordina stato, fasi e arresto; Listing~\ref{lst:orchestrator-main-full}. \\
+\path{reconstruct_all_branches} & Invoca Qwen sui gruppi di figli; Listing~\ref{lst:annotated-reconstruction}. \\
+\path{_encode_text}, \path{_cosine} & Producono e confrontano vettori validi; Listing~\ref{lst:annotated-numerical-primitives}. \\
+\path{_analyze_similarities_once}, \path{analyze_similarities} & Costruiscono etichette e candidati, gestendo gli errori tecnici; Listing~\ref{lst:annotated-similarity-pass} e~\ref{lst:annotated-similarity-retry}. \\
+\path{build_review_payload} & Prepara l'ingresso testuale degli evaluator; Listing~\ref{lst:annotated-review-payload}. \\
+\path{_critic1_vote} & Ottiene una risposta globale valida per un modello; Listing~\ref{lst:annotated-model-vote}. \\
+\path{evaluate_all_branches} & Interroga i tre modelli e approva il quorum per ramo; Listing~\ref{lst:annotated-global-voting}. \\
+\path{_merge_agreeing_judgments} & Unisce soltanto le critiche concordi; Listing~\ref{lst:annotated-feedback-merge}. \\
+\path{apply_review_decisions} & Applica rimozioni e riparazione batch; Listing~\ref{lst:orchestrator-apply-full}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La catena va letta nell'ordine \emph{ricostruzione, analisi numerica,
+preparazione dell'ingresso, risposte dei modelli, aggregazione e
+aggiornamento}. Le chiamate ai client locali rimangono nei rispettivi
+helper. Il nome storico \path{_critic1_vote} identifica la funzione
+comune usata per ciascuno dei tre evaluator, non un voto riservato
+soltanto al primo modello.
+

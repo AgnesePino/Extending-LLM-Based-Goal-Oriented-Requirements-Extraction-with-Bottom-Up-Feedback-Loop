@@ -1,0 +1,379 @@
+{
+  "baseline": {
+    "actors": [
+      "User",
+      "Administrator",
+      "Facility Representative"
+    ],
+    "baselineAttempts": {
+      "actors": 3,
+      "highLevelGoals": 1,
+      "lowLevelGoals": 3
+    },
+    "baselineConfiguration": {
+      "actorEvaluatorEnabled": true,
+      "actorPromptingMode": "ZERO_SHOT",
+      "evaluatorFewShotExampleCount": 4,
+      "evaluatorPromptStrategy": "original_prompt",
+      "generatorModel": "qwen/qwen3-vl-8b",
+      "goalEvaluatorModel": "mistralai/ministral-3-14b-reasoning",
+      "highLevelGoalEvaluatorEnabled": true,
+      "highLevelGoalPromptingMode": "ZERO_SHOT",
+      "implementation": "original top-down prompts; Qwen generator and local Ministral critic",
+      "lowLevelGoalEvaluatorEnabled": true,
+      "lowLevelGoalPromptingMode": "ZERO_SHOT",
+      "maxReflectionAttempts": 3,
+      "qualityThreshold": 8.5
+    },
+    "baselineCritiques": {
+      "actors": "The actors are well-defined and cover all necessary roles for the described system. However, there is a potential omission: the \"System\" or an external entity like \"Recycling Facility Database\" might be needed to represent non-human actors interacting with the application (e.g., data sources or third-party services). While not strictly required, it could improve completeness if such entities are relevant.",
+      "highLevelGoals": "The high-level goals are well-defined, functional, and representative of the software's purpose. They cover all key aspects mentioned in the description, including user search functionality, operational information, event notifications, administrative management, user feedback handling, communication between facility representatives and admins, and data security. No contradictions or omissions were found.",
+      "lowLevelGoals": "The low-level goals are well-aligned with the high-level goals and actors, covering all functional aspects of the software. However, there is a minor omission regarding the \"map-based navigation\" aspect from the high-level goal \"Facilitate user engagement through event notifications and map-based navigation.\" While \"View interactive map with facility locations\" and \"Navigate to facility locations using turn-by-turn directions\" are present, they could be more explicitly tied to enhancing user participation and awareness. Additionally, the low-level goals for security (e.g., OAuth 2.0 authentication, role-based access control) are correctly included but could benefit from clearer association with all relevant actors (e.g., Facility Representative). The omission of a goal related to \"event notifications\" being triggered or managed by administrators or facility representatives is also notable."
+    },
+    "baselineScoreHistory": {
+      "actors": [
+        8.0,
+        8.0,
+        8.0
+      ],
+      "highLevelGoals": [
+        10.0
+      ],
+      "lowLevelGoals": [
+        7.0,
+        8.0,
+        7.5
+      ]
+    },
+    "baselineScores": {
+      "actors": 8.0,
+      "highLevelGoals": 10.0,
+      "lowLevelGoals": 7.5
+    },
+    "description": "The software project will develop a user-friendly web application that allows users to discover and manage recycling facilities. Key features include searching for nearby centers by zip code, viewing operational hours, accessing maps of recycling locations, and receiving notifications about events. Administrators will manage facility information and user feedback, ensuring data security while enabling communication between facility representatives and site admins to improve community recycling efforts.",
+    "documentationPreprocessing": {
+      "chunkCount": 1,
+      "chunked": false,
+      "originalChars": 507,
+      "processedChars": 507,
+      "strategy": "groundtruth_description"
+    },
+    "highLevelGoals": [
+      "Provide a seamless search experience for users to find recycling centers based on their location, supporting environmental responsibility and convenience.",
+      "Ensure users can access up-to-date operational hours and contact details to plan visits effectively and reduce unnecessary trips.",
+      "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+      "Allow administrators to manage and verify facility information to maintain data integrity and support community recycling initiatives.",
+      "Provide administrators with tools to collect, categorize, and respond to user feedback to improve service quality and user satisfaction.",
+      "Establish a secure and streamlined channel for facility representatives to report issues, request updates, or collaborate with admins to enhance recycling operations.",
+      "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations."
+    ],
+    "lowLevelGoals": [
+      "User initiates a location-based search to find nearby recycling centers.",
+      "User views detailed information about a selected recycling facility.",
+      "User checks current and upcoming operational hours for a facility.",
+      "User receives timely notifications about upcoming recycling events or promotions.",
+      "User views an interactive map displaying recycling facility locations and routes.",
+      "User initiates navigation to a selected facility using turn-by-turn directions.",
+      "Facility representative submits facility data for administrative review.",
+      "Administrator updates facility operational status (e.g., closed, temporary hours).",
+      "Administrator categorizes user feedback and assigns it for resolution or response.",
+      "Administrator creates and manages accounts for facility representatives.",
+      "Facility representative submits issues or requests for updates to administrators.",
+      "System authenticates API access for users and administrators using OAuth 2.0 tokens.",
+      "System enforces role-based permissions to restrict data access and modification based on user roles (e.g., user, admin, representative).",
+      "System encrypts user data using AES-256 at rest and TLS 1.3 for data in transit.",
+      "System logs and allows administrators to audit access and modification of user data."
+    ],
+    "name": "Recycling",
+    "pipelineConfiguration": {
+      "actors": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "highLevelGoals": {
+        "evaluator": true,
+        "promptingMode": "ZERO_SHOT"
+      },
+      "lowLevelGoals": {
+        "evaluationStrategy": "single_global_call_with_original_prompt",
+        "evaluator": true,
+        "generationStrategy": "all_hlgs_in_one_call",
+        "promptingMode": "ZERO_SHOT"
+      },
+      "profile": "ALL_ZERO_SHOT_WITH_FEW_SHOT_CRITIC"
+    },
+    "rawDescription": "The software project will develop a user-friendly web application that allows users to discover and manage recycling facilities. Key features include searching for nearby centers by zip code, viewing operational hours, accessing maps of recycling locations, and receiving notifications about events. Administrators will manage facility information and user feedback, ensuring data security while enabling communication between facility representatives and site admins to improve community recycling efforts.",
+    "structuredActors": {
+      "actors": [
+        {
+          "description": "End user searching for and managing recycling facilities.",
+          "name": "User"
+        },
+        {
+          "description": "Admin managing facility data and user feedback.",
+          "name": "Administrator"
+        },
+        {
+          "description": "Representative of a recycling facility communicating with admins.",
+          "name": "Facility Representative"
+        }
+      ]
+    },
+    "structuredHighLevelGoals": {
+      "goals": [
+        {
+          "actor": {
+            "description": "End user searching for and managing recycling facilities.",
+            "name": "User"
+          },
+          "description": "Provide a seamless search experience for users to find recycling centers based on their location, supporting environmental responsibility and convenience.",
+          "name": "Enable users to efficiently locate nearby recycling facilities"
+        },
+        {
+          "actor": {
+            "description": "End user searching for and managing recycling facilities.",
+            "name": "User"
+          },
+          "description": "Ensure users can access up-to-date operational hours and contact details to plan visits effectively and reduce unnecessary trips.",
+          "name": "Support users in planning visits with accurate operational information"
+        },
+        {
+          "actor": {
+            "description": "End user searching for and managing recycling facilities.",
+            "name": "User"
+          },
+          "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+          "name": "Facilitate user engagement through event notifications and map-based navigation"
+        },
+        {
+          "actor": {
+            "description": "Admin managing facility data and user feedback.",
+            "name": "Administrator"
+          },
+          "description": "Allow administrators to manage and verify facility information to maintain data integrity and support community recycling initiatives.",
+          "name": "Ensure accurate and up-to-date facility data through administrative oversight"
+        },
+        {
+          "actor": {
+            "description": "Admin managing facility data and user feedback.",
+            "name": "Administrator"
+          },
+          "description": "Provide administrators with tools to collect, categorize, and respond to user feedback to improve service quality and user satisfaction.",
+          "name": "Enable efficient handling of user feedback and site-specific issues"
+        },
+        {
+          "actor": {
+            "description": "Representative of a recycling facility communicating with admins.",
+            "name": "Facility Representative"
+          },
+          "description": "Establish a secure and streamlined channel for facility representatives to report issues, request updates, or collaborate with admins to enhance recycling operations.",
+          "name": "Support communication between facility representatives and administrators"
+        },
+        {
+          "actor": {
+            "description": "Admin managing facility data and user feedback.",
+            "name": "Administrator"
+          },
+          "description": "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations.",
+          "name": "Maintain data security and privacy for all users and administrators"
+        }
+      ]
+    },
+    "structuredLowLevelGoals": {
+      "low_level_goals": [
+        {
+          "description": "User initiates a location-based search to find nearby recycling centers.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Provide a seamless search experience for users to find recycling centers based on their location, supporting environmental responsibility and convenience.",
+            "name": "Enable users to efficiently locate nearby recycling facilities"
+          },
+          "name": "Search for recycling facilities by location"
+        },
+        {
+          "description": "User views detailed information about a selected recycling facility.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Provide a seamless search experience for users to find recycling centers based on their location, supporting environmental responsibility and convenience.",
+            "name": "Enable users to efficiently locate nearby recycling facilities"
+          },
+          "name": "View facility details including address and contact info"
+        },
+        {
+          "description": "User checks current and upcoming operational hours for a facility.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Ensure users can access up-to-date operational hours and contact details to plan visits effectively and reduce unnecessary trips.",
+            "name": "Support users in planning visits with accurate operational information"
+          },
+          "name": "Check operational hours and service availability"
+        },
+        {
+          "description": "User receives timely notifications about upcoming recycling events or promotions.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+            "name": "Facilitate user engagement through event notifications and map-based navigation"
+          },
+          "name": "Receive push notifications for recycling events"
+        },
+        {
+          "description": "User views an interactive map displaying recycling facility locations and routes.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+            "name": "Facilitate user engagement through event notifications and map-based navigation"
+          },
+          "name": "View interactive map with facility locations"
+        },
+        {
+          "description": "User initiates navigation to a selected facility using turn-by-turn directions.",
+          "high_level_associated": {
+            "actor": {
+              "description": "End user searching for and managing recycling facilities.",
+              "name": "User"
+            },
+            "description": "Deliver timely notifications about recycling events and provide interactive maps to enhance user participation and awareness.",
+            "name": "Facilitate user engagement through event notifications and map-based navigation"
+          },
+          "name": "Navigate to facility locations using turn-by-turn directions"
+        },
+        {
+          "description": "Facility representative submits facility data for administrative review.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Representative of a recycling facility communicating with admins.",
+              "name": "Facility Representative"
+            },
+            "description": "Allow administrators to manage and verify facility information to maintain data integrity and support community recycling initiatives.",
+            "name": "Ensure accurate and up-to-date facility data through administrative oversight"
+          },
+          "name": "Submit facility data for review by admin"
+        },
+        {
+          "description": "Administrator updates facility operational status (e.g., closed, temporary hours).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Allow administrators to manage and verify facility information to maintain data integrity and support community recycling initiatives.",
+            "name": "Ensure accurate and up-to-date facility data through administrative oversight"
+          },
+          "name": "Update facility operational status"
+        },
+        {
+          "description": "Administrator categorizes user feedback and assigns it for resolution or response.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Provide administrators with tools to collect, categorize, and respond to user feedback to improve service quality and user satisfaction.",
+            "name": "Enable efficient handling of user feedback and site-specific issues"
+          },
+          "name": "Categorize and respond to user feedback"
+        },
+        {
+          "description": "Administrator creates and manages accounts for facility representatives.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Establish a secure and streamlined channel for facility representatives to report issues, request updates, or collaborate with admins to enhance recycling operations.",
+            "name": "Support communication between facility representatives and administrators"
+          },
+          "name": "Create and manage facility representative accounts"
+        },
+        {
+          "description": "Facility representative submits issues or requests for updates to administrators.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Representative of a recycling facility communicating with admins.",
+              "name": "Facility Representative"
+            },
+            "description": "Establish a secure and streamlined channel for facility representatives to report issues, request updates, or collaborate with admins to enhance recycling operations.",
+            "name": "Support communication between facility representatives and administrators"
+          },
+          "name": "Submit facility-related issues or requests"
+        },
+        {
+          "description": "System authenticates API access for users and administrators using OAuth 2.0 tokens.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations.",
+            "name": "Maintain data security and privacy for all users and administrators"
+          },
+          "name": "Authenticate API access using OAuth 2.0"
+        },
+        {
+          "description": "System enforces role-based permissions to restrict data access and modification based on user roles (e.g., user, admin, representative).",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations.",
+            "name": "Maintain data security and privacy for all users and administrators"
+          },
+          "name": "Enforce role-based access control for data operations"
+        },
+        {
+          "description": "System encrypts user data using AES-256 at rest and TLS 1.3 for data in transit.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations.",
+            "name": "Maintain data security and privacy for all users and administrators"
+          },
+          "name": "Encrypt user data at rest and in transit"
+        },
+        {
+          "description": "System logs and allows administrators to audit access and modification of user data.",
+          "high_level_associated": {
+            "actor": {
+              "description": "Admin managing facility data and user feedback.",
+              "name": "Administrator"
+            },
+            "description": "Implement robust security measures to protect sensitive user data and administrative communications, ensuring compliance with privacy regulations.",
+            "name": "Maintain data security and privacy for all users and administrators"
+          },
+          "name": "Audit user data access and modification logs"
+        }
+      ]
+    }
+  },
+  "baseline_sha256": "e8bfc1edce47d4777995421599035d1a41afd9b2c9c06565877cc92f2d2bc86a",
+  "name": "Recycling",
+  "runs": {
+    "bottom_up": {
+      "converged": null,
+      "final_decisions": [],
+      "repetition": 1,
+      "status": "not_started"
+    }
+  },
+  "schema_version": 2,
+  "updated_at": "2026-10-23T21:19:35.384522+00:00"
+}

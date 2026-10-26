@@ -261,26 +261,18 @@ def build_cosine_payload(branches: dict[str, HighLevelGoal],
     }
 
 
+def build_duplicate_candidate_pairs(branches: list[dict]) -> list[dict]:
+    """Expand screened IDs into directional prime-to-original text comparisons."""
+    originals = {goal["branch_id"]: goal for goal in branches}
+    return [{"branch_id": goal["branch_id"], "hlg_prime": goal["hlg_prime"],
+             "candidate_branch_id": candidate_id,
+             "candidate_hlg": originals[candidate_id]["hlg"]}
+            for goal in branches for candidate_id in goal["duplicate_candidates"]]
+
+
 def build_review_payload(payload: dict) -> dict:
-    """Expose categorical similarity signals; keep numerical values in diagnostics."""
+    """Expose parent labels and explicit candidate pairs; retain matrices in diagnostics."""
     branches = payload["branches"]
-    positions = {goal["branch_id"]: i for i, goal in enumerate(branches)}
-    errors, rows = [], []
-    for i, goal in enumerate(branches):
-        labels = [None] * len(branches)
-        for comparison in goal.get("original_hlg_comparisons", []):
-            j = positions[comparison["other_branch_id"]]
-            if comparison["status"] == "VALID":
-                if i == j:
-                    labels[j] = goal["relationship"]
-                elif goal["status"] == "VALID" and branches[j]["status"] == "VALID":
-                    labels[j] = ("POTENTIAL_DUPLICATE" if comparison["other_branch_id"]
-                                 in goal["duplicate_candidates"] else "NO_DUPLICATE_MATCH")
-                else:
-                    errors.append([i, j, "NOT_ELIGIBLE_FOR_DUPLICATE_REVIEW"])
-            else:
-                errors.append([i, j, comparison["status"]])
-        rows.append(labels)
     return {
         "requested_branch_ids": [g["branch_id"] for g in branches if g["status"] == "VALID"],
         "branches": [{"branch_id": g["branch_id"], "actor": g["actor"],
@@ -289,6 +281,6 @@ def build_review_payload(payload: dict) -> dict:
             "original_hlg_comparisons_complete": g["original_hlg_comparisons_complete"],
             "duplicate_candidates": g["duplicate_candidates"], "duplicate_label": g["duplicate_label"]}
             for g in branches],
-        "original_labels": rows, "comparison_statuses": errors,
-        "duplicate_review": "prime_original_similarity_labels_same_actor_documentary_confirmation",
+        "potential_duplicates": build_duplicate_candidate_pairs(branches),
+        "duplicate_review": "explicit_prime_original_candidate_pairs_documentary_confirmation",
     }
