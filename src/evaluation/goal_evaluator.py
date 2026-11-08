@@ -145,8 +145,10 @@ class GoalEvaluator:
             row_ind, col_ind = np.array([], dtype=int), np.array([], dtype=int)
         total_similarity = sim_matrix[row_ind, col_ind].sum()
 
-        precision = total_similarity / len(preds) if preds else 0.0
-        recall = total_similarity / len(refs) if refs else 0.0
+        # Arnaudo et al., Section 4.1: X = generated, Y = ground truth.
+        # Recall = W / |X|; Precision = W / |Y|.
+        recall = total_similarity / len(preds) if preds else 0.0
+        precision = total_similarity / len(refs) if refs else 0.0
 
         f1 = 0 if precision + recall == 0 else 2 * (precision * recall) / (precision + recall)
 
@@ -154,8 +156,8 @@ class GoalEvaluator:
         optimized_similarities = sim_matrix[row_ind, col_ind]
         for tau in np.linspace(0, 1, 101):
             tp = np.sum(optimized_similarities >= tau)
-            p = tp / len(preds) if len(preds) > 0 else 0
-            r = tp / len(refs) if len(refs) > 0 else 0
+            r = tp / len(preds) if len(preds) > 0 else 0
+            p = tp / len(refs) if len(refs) > 0 else 0
             rate_table.append({"threshold": tau, "precision": p, "recall": r})
 
         return {
