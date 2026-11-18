@@ -28,7 +28,6 @@ from src.llm_clients import (
 
 MAX_EVALUATOR_ATTEMPTS = 3
 
-PIPELINE_POLICY_VERSION = "cosine_global_documentary_review_v112_minimal_candidate_pairs"
 BOTTOM_UP_EVALUATOR_MODELS = configured_bottom_up_critic_models()
 
 if len(set(BOTTOM_UP_EVALUATOR_MODELS)) != 3 or not all(BOTTOM_UP_EVALUATOR_MODELS):

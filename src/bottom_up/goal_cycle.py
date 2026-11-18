@@ -6,7 +6,7 @@ from collections import Counter
 from contextlib import redirect_stdout, redirect_stderr
 from pathlib import Path
 from src.bottom_up.global_goal_evaluator import (
-    BOTTOM_UP_EVALUATOR_MODELS, PIPELINE_POLICY_VERSION,
+    BOTTOM_UP_EVALUATOR_MODELS,
     BOTTOM_UP_EVALUATOR_TEMPERATURE, evaluate_all_branches,
     CRITIC1_FEW_SHOT_EXAMPLE_COUNT, evaluator_examples,
     BOTTOM_UP_EVALUATOR_VOTE_ATTEMPTS,
@@ -301,8 +301,7 @@ def run_global_goal_cycle(
     initial_adjustments = []
     current_llgs = _reconcile_parent_references(
         current_hlgs, current_llgs, strict=False, adjustments=initial_adjustments, warnings=warnings)
-    config = {"pipeline_policy_version": PIPELINE_POLICY_VERSION,
-              "execution_structure": "functions_over_top_down_models",
+    config = {"execution_structure": "functions_over_top_down_models",
               "reconstruction_history_policy": "fresh_messages_per_call_and_retry_no_prior_responses",
               "output_file_prefix": file_prefix,
               "evaluator_models": list(BOTTOM_UP_EVALUATOR_MODELS),
